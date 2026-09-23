@@ -24,3 +24,33 @@ Latest expansion identified:
 4. Revisit Tetracorp external RE links.
 5. Mine Pyrdacor/Amber credits and predecessor research.
 6. Search CPC communities more deeply; CPC has the thinnest baseline.
+
+
+## 2026-09-23 — reference-mining follow-up
+
+Followed links/credits already present in known project data rather than relying primarily on generic search.
+
+### Newly promoted into catalogue
+
+- **The Lords of Midnight (ZX Spectrum/DOS)** — Michael Cook's parallel disassembly. Ghidra was used for the DOS binary and SkoolKit for Spectrum; surviving partial DOS source and Icemark data research help annotate/reconstruct the rest.
+- **Head Over Heels (ZX Spectrum)** — Simon Frankau's work surfaced directly from the CPC Head Over Heels README, which credits it because the CPC port is closely related to the Spectrum version.
+- **SkoolKit maintained disassemblies** — Skool Daze, Back to Skool, Contact Sam Cruise, Manic Miner, Jet Set Willy and Hungry Horace are explicit complete disassembly lines and should be tracked as projects, not merely as examples of the tool.
+- **Piddewitt C64 cluster** — Lode Runner, Championship Lode Runner and The Castles of Dr. Creep. The first two explicitly target bit-for-bit-identical reconstructed assembler source.
+
+### Strong discovery leads retained
+
+SkoolKit's curated links substantially expands the Spectrum queue. Paul Maddern alone is linked to 180, Atic Atac, Battlezone, Batty, Booty, Jason's Gem, Jetpac, Lunar Jetman, PSSST, Rampage and Splitting Images. Michael Cook's collection additionally identifies Philip Anderson (Knight Tyme, Spellbound, Stormbringer, Through The Trap Door), BadBeard (Dynamite Dan 2), Lunysoft (Tir Na Nog, Dun Darach), tcdev (Alien8, Knight Lore), Simon Owen (Atic Atac) and multiple Chaos disassemblies.
+
+The ArcadeGeek SkoolKit archive reported 29 Spectrum disassemblies during this pass and is now a discovery node.
+
+### Method result
+
+Cross-references continue to outperform generic searches. The CPC Head Over Heels project led directly to the Spectrum Head Over Heels work; Gridrunner's write-up exposes predecessor C64 disassemblies; and SkoolKit's own link/index pages expose a much larger historical Spectrum RE graph.
+
+### Next priorities
+
+1. Resolve Paul Maddern's GitHub projects individually and record canonical URLs/status.
+2. Enumerate all 29 ArcadeGeek entries and deduplicate against known projects.
+3. Inspect Piddewitt's C64 repositories and their documentation for further adjacent authors/projects.
+4. Follow Simon Frankau beyond Speedball 2 and Head Over Heels.
+5. Continue CPC-specific graph discovery, which remains much thinner than Spectrum/C64.
