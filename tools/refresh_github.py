@@ -300,6 +300,7 @@ def main():
             update_basic_info(repo, info, repo_projects)
             if pushed_changed:
                 rs["last_change_detected"] = TODAY.isoformat()
+                rs["last_change_detected_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
                 changed_count += 1
             missing_heavy = any(not p.get("github", {}).get("languages") for p in repo_projects)
             if pushed_changed or missing_heavy:
@@ -320,7 +321,8 @@ def main():
         rs["default_branch"] = default_branch
         due = scheduled_today(repo, interval)
         already_scanned = rs.get("last_deep_scan", "")[:10] == TODAY.isoformat()
-        if (pushed_changed or due or rs.get("scan_requested")) and not already_scanned:
+        should_queue = pushed_changed or ((due or rs.get("scan_requested")) and not already_scanned)
+        if should_queue:
             if not rs.get("scan_requested"):
                 requested += 1
             rs["scan_requested"] = True
