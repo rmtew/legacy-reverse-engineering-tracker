@@ -242,3 +242,10 @@ Added four typed facets to every current project: **record class** (`subject`, `
 The Projects UI now exposes separate Class, Target kind, Work and Tool filters and renders prefixed badges such as **Target: Game**, **Work: Source reconstruction** and **Tool: Emulator**. Project details and Activity project headers show the same facets, and future material classification changes participate in catalogue-change activity.
 
 The catalogue-state baseline was migrated together with the records so this one-time taxonomy introduction does not fabricate 200 metadata-update events. Site validation now enforces the controlled classification vocabulary and requires subject/hybrid records to have a target kind and tooling/hybrid records to have a tool kind.
+
+
+## 2026-09-24 — compact classification presentation
+
+Reduced the visual weight of the new structured classification badges after seeing them in the Activity feed. Repeated `Class:`, `Target:`, `Work:` and `Tool:` text was removed from badge bodies (the semantic prefix remains in the tooltip), saturated category colours were replaced with quiet neutral pills, and padding/gap/font sizes were reduced.
+
+Activity now uses a deliberately compact classification summary. Subject records show the primary target plus at most two work kinds; tooling records show Tooling plus at most three high-value capabilities. Generic analysis/automation/toolchain capabilities are suppressed there when a more informative debugger/emulator/profiler/development-environment description is already present. The Projects table continues to expose the full classification, and the detail dialog retains the explicit labelled classification rows.

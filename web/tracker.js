@@ -44,15 +44,51 @@ const classificationValueTags = value => {
   const values = arr(value);
   return values.length ? tags(values.map(classificationLabel)) : "?";
 };
-const classificationChip = (prefix,value,kind) =>
-  '<span class="classification-chip '+kind+'-chip"><strong>'+esc(prefix)+':</strong> '+esc(classificationLabel(value))+'</span>';
-const classificationTags = record => {
+const classificationChip = (value,kind,prefix) =>
+  '<span class="classification-chip '+kind+'-chip" title="'+esc(prefix+': '+classificationLabel(value))+'">'+esc(classificationLabel(value))+'</span>';
+
+const compactToolKinds = record => {
+  const values=arr(record.tool_kinds);
+  const priority=[
+    "development-environment","ide","emulator","debugger","profiler","graphics-debugger",
+    "disassembler","reassembler","binary-analysis","compiler-toolchain","assembler-toolchain",
+    "static-analysis","language-tooling","cycle-analysis","rom-tool","disk-filesystem-tool",
+    "asset-tool","automation"
+  ];
+  const omit=new Set();
+  if(values.includes("development-environment")){
+    omit.add("compiler-toolchain");
+    omit.add("assembler-toolchain");
+  }
+  if(values.some(value=>["emulator","debugger","profiler","graphics-debugger","disassembler","reassembler"].includes(value))){
+    omit.add("binary-analysis");
+    omit.add("automation");
+  }
+  return priority.filter(value=>values.includes(value)&&!omit.has(value)).slice(0,3);
+};
+
+const classificationTags = (record,{compact=false}={}) => {
   const chips=[];
-  if(record.record_class) chips.push(classificationChip("Class",record.record_class,"class"));
-  for(const value of arr(record.target_kinds)) chips.push(classificationChip("Target",value,"target"));
-  for(const value of arr(record.work_kinds)) chips.push(classificationChip("Work",value,"work"));
-  for(const value of arr(record.tool_kinds)) chips.push(classificationChip("Tool",value,"tool"));
-  return chips.length?'<span class="classification-tags">'+chips.join("")+"</span>":"?";
+  if(compact){
+    if(record.record_class==="tooling"){
+      chips.push(classificationChip(record.record_class,"class","Class"));
+      for(const value of compactToolKinds(record)) chips.push(classificationChip(value,"tool","Tool"));
+    }else if(record.record_class==="hybrid"){
+      chips.push(classificationChip(record.record_class,"class","Class"));
+      for(const value of arr(record.target_kinds).slice(0,1)) chips.push(classificationChip(value,"target","Target"));
+      for(const value of arr(record.work_kinds).slice(0,1)) chips.push(classificationChip(value,"work","Work"));
+      for(const value of compactToolKinds(record).slice(0,1)) chips.push(classificationChip(value,"tool","Tool"));
+    }else{
+      for(const value of arr(record.target_kinds).slice(0,1)) chips.push(classificationChip(value,"target","Target"));
+      for(const value of arr(record.work_kinds).slice(0,2)) chips.push(classificationChip(value,"work","Work"));
+    }
+  }else{
+    if(record.record_class) chips.push(classificationChip(record.record_class,"class","Class"));
+    for(const value of arr(record.target_kinds)) chips.push(classificationChip(value,"target","Target"));
+    for(const value of arr(record.work_kinds)) chips.push(classificationChip(value,"work","Work"));
+    for(const value of arr(record.tool_kinds)) chips.push(classificationChip(value,"tool","Tool"));
+  }
+  return chips.length?'<span class="classification-tags'+(compact?' compact-classification':'')+'">'+chips.join("")+"</span>":"?";
 };
 const classificationSortValue = record => [
   record.record_class,...arr(record.target_kinds),...arr(record.work_kinds),...arr(record.tool_kinds)
@@ -440,7 +476,7 @@ function activityPlatformTags(project) {
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(project.title)+'</a>':esc(project.title);
-  return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project);
+  return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true});
 }
 
 const activityFieldLabels={
