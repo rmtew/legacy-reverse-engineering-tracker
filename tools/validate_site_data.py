@@ -34,25 +34,45 @@ def validate(projects_path, activity_path, rss_path=None):
         fail("duplicate project ids: " + ", ".join(duplicates), errors)
 
     project_ids = {value for value in ids if value}
+    project_event_types = {
+        "project_added",
+        "project_removed",
+        "project_restored",
+        "project_renamed",
+        "project_moved",
+        "project_updated",
+    }
     seen_commits = set()
     previous = None
     for index, event in enumerate(activity.get("events", [])):
         project_id = event.get("project_id")
-        if project_id not in project_ids:
-            fail(f"activity event {index} references unknown project {project_id!r}", errors)
-        if event.get("type") != "commit":
-            fail(f"activity event {index} has unsupported stored type {event.get('type')!r}", errors)
-        if not event.get("sha"):
-            fail(f"activity event {index} is missing sha", errors)
+        event_type = event.get("type")
+        snapshot = event.get("project") or {}
+
+        if event_type == "commit":
+            if project_id not in project_ids:
+                fail(f"activity event {index} references unknown project {project_id!r}", errors)
+            if not event.get("sha"):
+                fail(f"activity event {index} is missing sha", errors)
+            key = (project_id, event.get("repository"), event.get("sha"))
+            if key in seen_commits:
+                fail(f"duplicate activity event key {key!r}", errors)
+            seen_commits.add(key)
+        elif event_type in project_event_types:
+            if not project_id:
+                fail(f"project activity event {index} is missing project_id", errors)
+            if snapshot.get("id") != project_id:
+                fail(f"project activity event {index} snapshot id does not match project_id", errors)
+            if not event.get("title"):
+                fail(f"project activity event {index} is missing title", errors)
+        else:
+            fail(f"activity event {index} has unsupported stored type {event_type!r}", errors)
+
         try:
             when = parse_time(event.get("date"))
         except ValueError:
             fail(f"activity event {index} has invalid date {event.get('date')!r}", errors)
             when = None
-        key = (project_id, event.get("repository"), event.get("sha"))
-        if key in seen_commits:
-            fail(f"duplicate activity event key {key!r}", errors)
-        seen_commits.add(key)
         if when and previous and when > previous:
             fail(f"activity events are not newest-first around index {index}", errors)
         if when:
