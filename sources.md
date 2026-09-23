@@ -39,11 +39,13 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://www.bbcelite.com/ | Mark Moxon's documentation hub linking reconstructed source projects, deep dives and related archaeology |
 | https://github.com/ataribaby42 | Active cross-platform reconstruction/port work including Elite (ZX/ST/Amiga) and Hlípa (Atari ST/Amiga/PMD 85/ZX) |
 | https://github.com/angree | Active Amiga 68k reimplementation/port source: OpenSWOS, AmiGTA, AmiSC, AmiXcom and ReMoM-derived work |
+| https://github.com/jotd666 | Large arcade-to-Amiga reverse-engineering/transcode collection; many projects explicitly document Z80/6502/6809 reverse engineering and 68k conversion |
 
 ## Open discovery priorities
 
 ### Amiga / Atari ST
 
+- Continue auditing `jotd666` repositories not yet promoted, especially candidates with missing or template/copied READMEs; require project-specific evidence before adding them.
 - Resolve and assess AmberWorlds / Oliver Gantert, Slothsoft / Daniel Schulz and Nico Bendlin's Amber research as possible additional tracked projects.
 - Continue mining Tetracorp external references and the Pyrdacor/Amber predecessor graph.
 - Continue watching `geogeo28/atari_reverse` for newly added reverse-engineering targets.
