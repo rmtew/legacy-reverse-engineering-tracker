@@ -8,9 +8,11 @@ last successful scan, with a one-day overlap for safety.
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError
@@ -27,9 +29,14 @@ NOW = datetime.now(timezone.utc)
 NOW_ISO = NOW.isoformat(timespec="seconds").replace("+00:00", "Z")
 DAYS = 180
 CUTOFF = NOW - timedelta(days=DAYS)
-RESERVE = int(os.environ.get("GITHUB_RATE_RESERVE", "250"))
-MAX_REQUESTS = int(os.environ.get("GITHUB_ACTIVITY_REQUEST_BUDGET", "450"))
+MIN_RESERVE = int(os.environ.get("GITHUB_MIN_RATE_RESERVE", "100"))
+RESERVE_FRACTION = float(os.environ.get("GITHUB_RATE_RESERVE_FRACTION", "0.15"))
+MAX_HTTP_REQUESTS = int(os.environ.get("GITHUB_HTTP_SAFETY_CAP", "800"))
+REQUEST_DELAY = float(os.environ.get("GITHUB_REQUEST_DELAY", "0.10"))
 REQUESTS = 0
+RATE_LIMIT = None
+RATE_REMAINING = None
+RATE_RESET = None
 MAX_BRANCHES = 100
 MAX_PAGES = 5
 DETAIL_THRESHOLD = 25
@@ -43,6 +50,71 @@ AI_PATTERNS = [
 
 class RateStop(RuntimeError):
     pass
+
+class PrimaryReserve(RateStop):
+    pass
+
+def effective_reserve():
+    if RATE_LIMIT is None:
+        return MIN_RESERVE
+    return max(MIN_RESERVE, int(math.ceil(RATE_LIMIT * RESERVE_FRACTION)))
+
+def update_rate(headers):
+    global RATE_LIMIT, RATE_REMAINING, RATE_RESET
+    if not headers:
+        return
+    try:
+        if headers.get("X-RateLimit-Limit") is not None:
+            RATE_LIMIT = int(headers["X-RateLimit-Limit"])
+        if headers.get("X-RateLimit-Remaining") is not None:
+            RATE_REMAINING = int(headers["X-RateLimit-Remaining"])
+        if headers.get("X-RateLimit-Reset") is not None:
+            RATE_RESET = int(headers["X-RateLimit-Reset"])
+    except (TypeError, ValueError):
+        pass
+
+def load_rate_from_state(state):
+    global RATE_LIMIT, RATE_REMAINING, RATE_RESET
+    snap = ((state.get("rate") or {}).get("probe") or {})
+    RATE_LIMIT = snap.get("limit")
+    RATE_REMAINING = snap.get("remaining")
+    reset = snap.get("reset_at")
+    if reset:
+        try:
+            RATE_RESET = int(datetime.fromisoformat(reset.replace("Z", "+00:00")).timestamp())
+        except ValueError:
+            RATE_RESET = None
+
+def rate_snapshot():
+    reset_at = None
+    if RATE_RESET:
+        reset_at = datetime.fromtimestamp(RATE_RESET, timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    return {
+        "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "http_requests": REQUESTS,
+        "limit": RATE_LIMIT,
+        "remaining": RATE_REMAINING,
+        "reserve": effective_reserve(),
+        "reset_at": reset_at,
+    }
+
+def primary_available():
+    return RATE_REMAINING is None or RATE_REMAINING > effective_reserve()
+
+def append_summary(label):
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    snap = rate_snapshot()
+    with open(path, "a", encoding="utf-8") as handle:
+        handle.write(
+            f"### {label}\n"
+            f"- HTTP requests: **{snap['http_requests']}**\n"
+            f"- Primary REST quota: **{snap['remaining'] if snap['remaining'] is not None else '?'}"
+            f" / {snap['limit'] if snap['limit'] is not None else '?'}** remaining"
+            f"; dynamic reserve **{snap['reserve']}**\n"
+            f"- Rate reset: **{snap['reset_at'] or '?'}**\n\n"
+        )
 
 def github_repo(url):
     match = re.fullmatch(r"https?://github\.com/([^/]+)/([^/#?]+?)(?:\.git)?/?", url or "")
@@ -61,8 +133,13 @@ def save_state(state):
 
 def api(path, allow_404=False):
     global REQUESTS
-    if REQUESTS >= MAX_REQUESTS:
-        raise RateStop(f"activity request budget reached ({MAX_REQUESTS})")
+    if REQUESTS >= MAX_HTTP_REQUESTS:
+        raise RateStop(f"HTTP safety cap reached ({MAX_HTTP_REQUESTS})")
+    if not primary_available():
+        raise PrimaryReserve(
+            f"primary rate reserve reached ({RATE_REMAINING} remaining; reserve {effective_reserve()})"
+        )
+
     REQUESTS += 1
     headers = {
         "Accept": "application/vnd.github+json",
@@ -73,19 +150,21 @@ def api(path, allow_404=False):
         headers["Authorization"] = f"Bearer {TOKEN}"
     try:
         with urlopen(Request(API + path, headers=headers), timeout=30) as response:
-            remaining = response.headers.get("X-RateLimit-Remaining")
-            if remaining is not None and int(remaining) <= RESERVE:
-                raise RateStop(f"GitHub primary rate limit reserve reached ({remaining} remaining)")
-            return json.load(response)
+            update_rate(dict(response.headers))
+            body = json.load(response)
+            time.sleep(REQUEST_DELAY)
+            return body
     except HTTPError as exc:
+        response_headers = dict(exc.headers) if exc.headers else {}
+        update_rate(response_headers)
         body = exc.read().decode("utf-8", "replace")
-        remaining = exc.headers.get("X-RateLimit-Remaining") if exc.headers else None
+        time.sleep(REQUEST_DELAY)
         if allow_404 and exc.code == 404:
             return None
-        if exc.code in (403, 429) and ("rate limit" in body.lower() or "secondary" in body.lower()):
+        if exc.code in (403, 429) and (
+            "rate limit" in body.lower() or "secondary" in body.lower()
+        ):
             raise RateStop(f"GitHub rate limit response {exc.code}: {body[:180]}")
-        if remaining is not None and int(remaining) <= RESERVE:
-            raise RateStop(f"GitHub primary rate limit reserve reached ({remaining} remaining)")
         raise RuntimeError(f"GitHub API {exc.code} for {path}: {body[:300]}") from exc
 
 def parse_time(value):
@@ -265,6 +344,7 @@ def main():
     payload = load_json(ACTIVITY, {"generated_at": None, "window_days": DAYS, "events": []})
     state = load_json(STATE, {"version": 1, "repositories": {}})
     state.setdefault("repositories", {})
+    load_rate_from_state(state)
 
     by_repo = {}
     project_by_id = {p["id"]: p for p in projects}
@@ -395,14 +475,18 @@ def main():
     ACTIVITY.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     projects.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
     PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    state.setdefault("rate", {})["activity"] = rate_snapshot()
     save_state(state)
+    append_summary("GitHub incremental activity phase")
 
     pending = sum(1 for rs in state["repositories"].values() if rs.get("scan_requested"))
     print(
         f"Deep-scanned {scanned} repositories; saw {commits_seen} branch commits; "
         f"pruned {pruned_branches} stale branch-state entries; "
         f"{pending} repositories remain queued; retained {len(output)} activity events; "
-        f"used {REQUESTS}/{MAX_REQUESTS} activity requests."
+        f"made {REQUESTS} activity HTTP requests; primary remaining "
+        f"{RATE_REMAINING if RATE_REMAINING is not None else '?'}/"
+        f"{RATE_LIMIT if RATE_LIMIT is not None else '?'}; reserve {effective_reserve()}."
     )
     if stopped:
         print(f"Stopped early to preserve API quota: {stopped}")
