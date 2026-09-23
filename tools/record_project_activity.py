@@ -1,0 +1,221 @@
+#!/usr/bin/env python3
+"""Record meaningful catalogue changes as persisted activity events.
+
+The state file is a compact material snapshot of the canonical catalogue. It is
+used only to identify changes between maintenance runs; volatile GitHub refresh
+metadata is intentionally excluded so routine probes do not become activity.
+"""
+from __future__ import annotations
+
+import json
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+PROJECTS = ROOT / "data" / "projects.json"
+ACTIVITY = ROOT / "data" / "activity.json"
+STATE = ROOT / "state" / "project-catalog-state.json"
+
+DAYS = 180
+NOW = datetime.now(timezone.utc)
+NOW_ISO = NOW.isoformat(timespec="seconds").replace("+00:00", "Z")
+CUTOFF = NOW - timedelta(days=DAYS)
+
+MATERIAL_FIELDS = (
+    "title",
+    "repo",
+    "project_url",
+    "github_path",
+    "github_branch",
+    "source_platforms",
+    "target_platforms",
+    "source_cpu",
+    "source_language",
+    "reconstructed_languages",
+    "types",
+    "re_started",
+    "status",
+    "build",
+    "techniques",
+    "tags",
+    "notes",
+)
+MOVE_FIELDS = {"repo", "project_url", "github_path", "github_branch"}
+
+
+def parse_time(value):
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def compact_ai(value):
+    value = value or {}
+    return {
+        "usage": value.get("usage"),
+        "tools": value.get("tools") or [],
+    }
+
+
+def snapshot(project):
+    out = {"id": project["id"]}
+    for field in MATERIAL_FIELDS:
+        value = project.get(field)
+        out[field] = value
+    out["ai"] = compact_ai(project.get("ai"))
+    return out
+
+
+def changed_fields(before, after):
+    keys = set(before) | set(after)
+    keys.discard("id")
+    return sorted(key for key in keys if before.get(key) != after.get(key))
+
+
+def display_value(value):
+    if isinstance(value, list):
+        return ", ".join(str(item) for item in value) or "none"
+    if isinstance(value, dict):
+        return json.dumps(value, sort_keys=True, ensure_ascii=False)
+    if value is None or value == "":
+        return "unknown"
+    return str(value)
+
+
+def change_message(before, after, fields):
+    pieces = []
+    for field in fields[:4]:
+        pieces.append(
+            f"{field.replace('_', ' ')}: {display_value(before.get(field))} → {display_value(after.get(field))}"
+        )
+    if len(fields) > 4:
+        pieces.append(f"+{len(fields) - 4} more field{'s' if len(fields) - 4 != 1 else ''}")
+    return "; ".join(pieces)
+
+
+def project_url(project):
+    return project.get("project_url") or project.get("repo")
+
+
+def make_event(event_type, project_id, project, title, message="", changes=None):
+    return {
+        "type": event_type,
+        "date": NOW_ISO,
+        "project_id": project_id,
+        "project": project,
+        "title": title,
+        "message": message,
+        "url": project_url(project),
+        "changes": changes or [],
+        "branches": [],
+    }
+
+
+def main():
+    projects = json.loads(PROJECTS.read_text(encoding="utf-8"))
+    activity = json.loads(ACTIVITY.read_text(encoding="utf-8"))
+    state = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {
+        "version": 1,
+        "updated_at": None,
+        "projects": {},
+        "removed": {},
+    }
+
+    current = {project["id"]: snapshot(project) for project in projects if project.get("id")}
+    previous = state.get("projects") or {}
+    removed = state.get("removed") or {}
+
+    events = []
+    for project_id in sorted(current):
+        now = current[project_id]
+        before = previous.get(project_id)
+        if before is None:
+            if project_id in removed:
+                events.append(make_event(
+                    "project_restored", project_id, now, "Project restored",
+                    "Returned to the tracked catalogue."
+                ))
+                removed.pop(project_id, None)
+            else:
+                events.append(make_event(
+                    "project_added", project_id, now, "Project added",
+                    "Added to the tracked catalogue."
+                ))
+            continue
+
+        fields = changed_fields(before, now)
+        if not fields:
+            continue
+
+        if fields == ["title"]:
+            event_type = "project_renamed"
+            title = "Project renamed"
+        elif any(field in MOVE_FIELDS for field in fields):
+            event_type = "project_moved"
+            title = "Project location changed"
+        else:
+            event_type = "project_updated"
+            title = "Project metadata updated"
+
+        events.append(make_event(
+            event_type,
+            project_id,
+            now,
+            title,
+            change_message(before, now, fields),
+            fields,
+        ))
+
+    for project_id in sorted(set(previous) - set(current)):
+        before = previous[project_id]
+        removed[project_id] = before
+        events.append(make_event(
+            "project_removed",
+            project_id,
+            before,
+            "Project removed",
+            "Removed from the tracked catalogue.",
+        ))
+
+    retained = []
+    for event in activity.get("events", []):
+        when = parse_time(event.get("date"))
+        if when and when >= CUTOFF:
+            retained.append(event)
+
+    retained.extend(events)
+    retained.sort(
+        key=lambda event: (
+            event.get("date") or "",
+            event.get("repository") or "",
+            event.get("sha") or "",
+            event.get("type") or "",
+            event.get("project_id") or "",
+        ),
+        reverse=True,
+    )
+
+    activity["generated_at"] = NOW_ISO
+    activity["window_days"] = DAYS
+    activity["events"] = retained
+    ACTIVITY.write_text(json.dumps(activity, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    state = {
+        "version": 1,
+        "updated_at": NOW_ISO,
+        "projects": current,
+        "removed": removed,
+    }
+    STATE.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    print(
+        f"Recorded {len(events)} catalogue activity event{'s' if len(events) != 1 else ''}; "
+        f"tracking {len(current)} current projects and {len(removed)} removed-project tombstones."
+    )
+
+
+if __name__ == "__main__":
+    main()

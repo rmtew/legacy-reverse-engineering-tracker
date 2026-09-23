@@ -288,6 +288,9 @@ $("details").addEventListener("click", event => {
 
 let activityData = { generated_at: null, window_days: 180, events: [] };
 const projectById = () => new Map(projects.map(project => [project.id, project]));
+const isProjectActivity = event => String(event.type || "").startsWith("project_");
+const activityKind = event => isProjectActivity(event) ? "project" : event.type;
+const projectForEvent = (event, map=projectById()) => map.get(event.project_id) || event.project || null;
 const activityFilterIds = ["activityDays","activityType","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"];
 
 function combinedActivityEvents() {
@@ -333,26 +336,37 @@ function addOptions(selectId, values) {
 }
 
 function initActivityFilters() {
-  addOptions("activityPlatform", projects.flatMap(p=>arr(p.source_platforms)));
-  const projectSelect=$("activityProject");
-  for (const project of [...projects].sort((a,b)=>a.title.localeCompare(b.title))) {
-    const option=document.createElement("option");
-    option.value=project.id; option.textContent=project.title; projectSelect.append(option);
+  const eventProjects=activityData.events.map(event=>event.project).filter(Boolean);
+  const filterProjects=[...projects,...eventProjects];
+  addOptions("activityPlatform", filterProjects.flatMap(p=>arr(p.source_platforms)));
+
+  const byId=new Map();
+  for(const project of filterProjects){
+    if(project?.id && !byId.has(project.id)) byId.set(project.id,project);
   }
-  addOptions("activityLanguage", projects.flatMap(p=>arr(p.reconstructed_languages)));
+  const projectSelect=$("activityProject");
+  for (const project of [...byId.values()].sort((a,b)=>(a.title||a.id).localeCompare(b.title||b.id))) {
+    const option=document.createElement("option");
+    option.value=project.id; option.textContent=project.title||project.id; projectSelect.append(option);
+  }
+
+  addOptions("activityLanguage", filterProjects.flatMap(p=>arr(p.reconstructed_languages)));
   addOptions("activityBranch", combinedActivityEvents().flatMap(e=>arr(e.branches)));
 }
 
 function activityMatches(event) {
-  const map=projectById(), project=map.get(event.project_id);
+  const project=projectForEvent(event);
   if(!project) return false;
   const days=Number($("activityDays").value||30);
   const cutoff=Date.now()-days*86400000;
   if(new Date(event.date).getTime()<cutoff) return false;
   const q=$("activityQ").value.trim().toLowerCase();
-  const hay=[event.type,event.title,event.message,event.author,event.repository,event.tag,project.title,...arr(event.branches),...arr(project.tags)].join(" ").toLowerCase();
+  const hay=[
+    event.type,event.title,event.message,event.author,event.repository,event.tag,
+    project.title,...arr(event.branches),...arr(project.tags),...arr(event.changes)
+  ].join(" ").toLowerCase();
   return (!q||hay.includes(q))
-    && (!$("activityType").value||event.type===$("activityType").value)
+    && (!$("activityType").value||activityKind(event)===$("activityType").value)
     && (!$("activityPlatform").value||arr(project.source_platforms).includes($("activityPlatform").value))
     && (!$("activityProject").value||project.id===$("activityProject").value)
     && (!$("activityLanguage").value||arr(project.reconstructed_languages).includes($("activityLanguage").value))
@@ -407,7 +421,7 @@ function renderActivity() {
       const bd=Math.max(...b[1].map(e=>new Date(e.date).getTime()));
       return bd-ad;
     }).map(([projectId,commits])=>{
-      const project=map.get(projectId);
+      const project=map.get(projectId) || commits.find(event=>event.project)?.project;
       const commitHtml=commits.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(event=>{
         const time=new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
         const title=event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title);
@@ -416,6 +430,9 @@ function renderActivity() {
         if(event.type==="release"){
           detailParts.push('<span class="activity-kind">release</span>');
           if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
+        }else if(isProjectActivity(event)){
+          detailParts.push('<span class="activity-kind">'+esc(event.type.replace(/^project_/,"").replaceAll("_"," "))+'</span>');
+          if(event.message) detailParts.push('<span class="activity-change-detail">'+esc(event.message)+'</span>');
         }else{
           if(event.author) detailParts.push('<span class="activity-author">'+esc(event.author)+'</span>');
           if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
@@ -424,7 +441,7 @@ function renderActivity() {
           }
         }
         const details=detailParts.join('<span class="detail-separator">·</span>');
-        const classes=event.type==="release"?"commit release-event":"commit";
+        const classes=event.type==="release"?"commit release-event":(isProjectActivity(event)?"commit project-event":"commit");
         return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
       }).join("");
       return '<div class="activity-project"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
