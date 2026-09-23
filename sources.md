@@ -11,7 +11,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/HoraceAndTheSpider/Bloodwych-68k | Active Amiga 68K reconstruction/tooling |
 | https://github.com/geogeo28/atari_reverse | Reusable Atari ST reconstruction framework; watch for new RE targets |
 | https://github.com/sarnau | Atari ST software/protection analysis and CPC application reverse engineering |
-| https://github.com/mwenge | Llamasource cluster, especially C64/ST |
+| https://github.com/mwenge | Llamasoft Source Project and adjacent reconstructions (C64/VIC-20/C16/Atari 8-bit/Jaguar), plus Uridium and related software-archaeology work |
 | https://github.com/dpt | Spectrum Chase H.Q./Great Escape work |
 | https://github.com/nzeemin/skoolkit-game-revs | Multi-title Spectrum reverse-engineering collection |
 | https://github.com/mrcook | Spectrum disassemblies and preserved historical source material |
@@ -66,6 +66,16 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/grahambates/m68k-tools | Motorola 68000 parser/formatter/cycle-counter/linter/LSP suite used by modern retro-development and debugging workflows |
 
 | https://github.com/BartmanAbyss/vscode-amiga-debug | Self-contained Amiga GCC/GDB/WinUAE/FS-UAE VS Code toolchain with frame/DMA/graphics profiling and source debugging |
+
+| https://github.com/yeager/firestaff | Active cross-platform Dungeon Master-family clean-room engine with source/media provenance, platform-specific reverse engineering and preservation documentation |
+
+| https://github.com/s-macke/starflight-reverse | Deep DOS Starflight/Forth reverse engineering; threaded-code, dictionary, overlay and C-transpilation archaeology |
+
+| https://github.com/vs-sr-dev | Large measurement-first reverse-engineering/documentation graph across CD32, 3DO, CD-i and other legacy platforms; title repositories contain reproducible analysis tools |
+
+| https://github.com/vs-sr-dev/cd32-platformnotes-doc | Shared Amiga CD32/CDTV archaeology checklist and cross-title platform findings |
+
+| https://github.com/vs-sr-dev/cd32-gamelist-doc | Index/discovery node for the vs-sr-dev CD32 title-documentation series |
 
 ## Open discovery priorities
 

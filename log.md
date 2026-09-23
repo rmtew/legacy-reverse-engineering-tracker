@@ -249,3 +249,16 @@ The catalogue-state baseline was migrated together with the records so this one-
 Reduced the visual weight of the new structured classification badges after seeing them in the Activity feed. Repeated `Class:`, `Target:`, `Work:` and `Tool:` text was removed from badge bodies (the semantic prefix remains in the tooltip), saturated category colours were replaced with quiet neutral pills, and padding/gap/font sizes were reduced.
 
 Activity now uses a deliberately compact classification summary. Subject records show the primary target plus at most two work kinds; tooling records show Tooling plus at most three high-value capabilities. Generic analysis/automation/toolchain capabilities are suppressed there when a more informative debugger/emulator/profiler/development-environment description is already present. The Projects table continues to expose the full classification, and the detail dialog retains the explicit labelled classification rows.
+
+
+## 2026-09-24 — Firestaff, Starflight, CD32 disc archaeology and Llamasoft expansion
+
+Audited the user-supplied Firestaff, Starflight, vs-sr-dev and mwenge discovery graph.
+
+Promoted **Firestaff** as a clean-room/source-faithful Dungeon Master-family engine spanning DOS, Atari ST, Amiga, FM Towns, Macintosh, Saturn and PC Engine/TurboGrafx source families, and **Starflight Reverse** as a DOS/Forth reverse-engineering project that recovers threaded words, overlays and C representations from the original binaries.
+
+Promoted **19 title-specific vs-sr-dev Amiga CD32 archaeology repositories**: Alfred Chicken, Banshee, Dragonstone, Fire & Ice, Gloom, Guardian, Gunship 2000, HeroQuest II, James Pond 2, Legends, Liberation: Captive II, Marvin's Marvellous Adventure, Microcosm, Myth, Power Drive, Prey, Superfrog, The Speris Legacy and Universe. These are documentation-first projects, but each performs substantive executable/disc/data-format reverse engineering with reproducible tools; the shared `cd32-platformnotes-doc` and `cd32-gamelist-doc` remain discovery nodes rather than catalogue subjects.
+
+Expanded **mwenge/Llamasoft** beyond the already tracked Gridrunner, Matrix, Iridis Alpha and Ancipital records. Added Virtual Light Machine, Psychedelia/Colourspace, Hellgate, the C64/Atari 8-bit Attack of the Mutant Camels reconstructions, Voidrunner, Metagalactic Llamas, Batalyx, Sheep in Space, Revenge of the Mutant Camels, Hover Bovver, Mama Llama, Return of the Mutant Camels and an independent Uridium reconstruction. Tempest 2000 remains excluded as a catalogue subject because that repository primarily preserves/builds surviving original source; Psychedelia II is an original tribute/adaptation rather than a reconstruction.
+
+Structured project count increased from 200 to **234**. The vs-sr-dev profile and its CD32 indexes were added as recurring discovery nodes for later auditing beyond CD32.
