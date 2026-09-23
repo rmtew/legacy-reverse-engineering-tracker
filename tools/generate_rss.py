@@ -43,6 +43,16 @@ def joined(value):
     return str(value or "")
 
 
+def project_title(project, fallback=None):
+    return (
+        project.get("display_title")
+        or project.get("title")
+        or project.get("upstream_name")
+        or fallback
+        or "Unknown project"
+    )
+
+
 def project_platforms(project):
     source = joined(project.get("source_platforms"))
     target = joined(project.get("target_platforms"))
@@ -118,7 +128,7 @@ def aggregate_commit_days(activity):
 
 def daily_description(event, project):
     project_url = project.get("project_url") or project.get("repo") or SITE_URL
-    title = project.get("title") or event.get("project_id") or "?"
+    title = project_title(project, event.get("project_id") or "?")
     bits = [
         '<p><strong>Project:</strong> <a href="' +
         html.escape(project_url, quote=True) + '">' +
@@ -159,7 +169,7 @@ def daily_description(event, project):
 
 def release_description(event, project):
     project_url = project.get("project_url") or project.get("repo") or SITE_URL
-    title = project.get("title") or event.get("project_id") or "?"
+    title = project_title(project, event.get("project_id") or "?")
     bits = [
         '<p><strong>Project:</strong> <a href="' +
         html.escape(project_url, quote=True) + '">' +
@@ -203,7 +213,7 @@ def generate(activity_path, projects_path, output_path, limit):
 
     for event in events:
         project = by_id.get(event.get("project_id"), {})
-        project_title = project.get("title") or event.get("project_id") or "Unknown project"
+        project_title = project_title(project, event.get("project_id"))
         item = ET.SubElement(channel, "item")
 
         if event.get("type") == "release":
