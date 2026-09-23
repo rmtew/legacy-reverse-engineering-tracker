@@ -115,7 +115,7 @@ The feed also persists meaningful catalogue-change events:
 
 Project-change events carry a compact `project` snapshot. This lets removal events remain displayable and filterable after the canonical project record has been deleted. Removed snapshots are retained as tombstones in catalogue state so a later reappearance can be emitted as `project_restored`.
 
-The Activity UI groups events by UTC calendar day and then project, while displaying the viewer's local event time. It augments stored activity with each current project's latest known GitHub release and can filter by activity type (commit/release/project changes). Filters use either the current project record or the event's persisted project snapshot, so removed projects remain usable in the feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
+The Activity UI groups events by the viewer's local calendar day and then project, and displays each event in the viewer's local time. It augments stored activity with each current project's latest known GitHub release and can filter by activity type (commit/release/project changes). Filters use either the current project record or the event's persisted project snapshot, so removed projects remain usable in the feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
 
 
 ## Evidence enrichment

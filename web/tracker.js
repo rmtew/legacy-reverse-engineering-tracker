@@ -394,6 +394,24 @@ function activityProjectHeader(project) {
   return '<strong>'+title+'</strong>'+activityPlatformTags(project);
 }
 
+function localDayKey(value) {
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime())) return String(value||"").slice(0,10);
+  return [
+    date.getFullYear(),
+    String(date.getMonth()+1).padStart(2,"0"),
+    String(date.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function localDayLabel(day) {
+  const [year,month,date]=day.split("-").map(Number);
+  return new Date(year,month-1,date).toLocaleDateString(
+    undefined,
+    {weekday:"long",year:"numeric",month:"long",day:"numeric"}
+  );
+}
+
 function renderActivity() {
   const map=projectById();
   const events=combinedActivityEvents().filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -407,7 +425,7 @@ function renderActivity() {
 
   const days=new Map();
   for(const event of events){
-    const day=event.date.slice(0,10);
+    const day=localDayKey(event.date);
     if(!days.has(day)) days.set(day,new Map());
     const byProject=days.get(day);
     if(!byProject.has(event.project_id)) byProject.set(event.project_id,[]);
@@ -415,7 +433,7 @@ function renderActivity() {
   }
 
   $("activityFeed").innerHTML=[...days.entries()].map(([day,byProject])=>{
-    const dateLabel=new Date(day+"T12:00:00Z").toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric",timeZone:"UTC"});
+    const dateLabel=localDayLabel(day);
     const projectsHtml=[...byProject.entries()].sort((a,b)=>{
       const ad=Math.max(...a[1].map(e=>new Date(e.date).getTime()));
       const bd=Math.max(...b[1].map(e=>new Date(e.date).getTime()));
