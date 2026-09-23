@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T23:20:17Z",
+  "generated_at": "2026-09-23T23:34:14Z",
   "window_days": 180,
   "events": [
     {
@@ -102960,48 +102960,6 @@
       "title": "Document $5C00 dual-use memory: border code is expendable",
       "message": "Document $5C00 dual-use memory: border code is expendable\n\nReplace the speculative \"not yet identified\" note with a complete\ncall-chain analysis proving the $5C00-$5CFF overlap is intentional:\n\n- INIT_GAME_DISPLAY, DRAW_BORDER_CHAR, DRAW_BORDER_LABELS: called\n  once at startup (GAME_INIT -> INIT_GAME_STATE), never again. Safe\n  to overwrite.\n\n- GAME_ACTION_HANDLER (TICK_BORDER_ANIM tail, ANIM_BORDER_ICONS_A/B):\n  runs during idle input polling via DISPATCH_VEC. The first scene\n  load permanently destroys the idle border animation.\n\n- ENTER_LOCATION (called after SCENE_LOOP): does NOT use any $5C00+\n  code. Map redraw uses DRAW_MAP_COL/DRAW_MAP_ENTITIES instead.\n\nThe game deliberately reuses $5C00-$5CFF as a scene text buffer,\naccepting that border animation is a one-time startup effect.\n\nAdd cross-reference note in GAME_ACTION_HANDLER code comments.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
       "url": "https://github.com/XekriRedmane/ali_baba_reveng/commit/6890c7cf4e5453a147b8a8bb74a858ddc47dcc68",
-      "author": "XekriRedmane",
-      "branches": [
-        "main"
-      ]
-    },
-    {
-      "type": "commit",
-      "date": "2026-03-27T23:29:13Z",
-      "project_id": "hatari-atari-emulator-debugger",
-      "repository": "hatari/hatari",
-      "sha": "f4effd87649dadd0dfc4a67c4050565d18141d76",
-      "title": "debugger: fix assert added with Symbols_GetCpuMethodAddress()",
-      "message": "debugger: fix assert added with Symbols_GetCpuMethodAddress()\n\nEvaluate command gets (also) number strings like \"$22\", which do not\nmatch to special string chars, and therefore triggered empty string\nassert in the new Symbols_GetCpuMethodAddress() function.\n\nFixed by checking evaluated special strings only when name string is\nnot empty.\n\nFixes: 17c930e03e7088aacc",
-      "url": "https://github.com/hatari/hatari/commit/f4effd87649dadd0dfc4a67c4050565d18141d76",
-      "author": "Eero Tamminen",
-      "branches": [
-        "main"
-      ]
-    },
-    {
-      "type": "commit",
-      "date": "2026-03-27T23:29:04Z",
-      "project_id": "ali-baba-apple2-xekri",
-      "repository": "XekriRedmane/ali_baba_reveng",
-      "sha": "30b0e4d180d23c53f9679648c2a2fbfe16998325",
-      "title": "Replace $BE/$BF with ICON_TABLE_PTR in border animation",
-      "message": "Replace $BE/$BF with ICON_TABLE_PTR in border animation\n\nAdd ICON_TABLE_PTR EQU ($BE) as a border-context alias for the\nheavily-aliased DATA_PTR zero-page pointer. Replace all 11 raw\n$BE/$BF references in the border animation code with the symbolic\nname, following the zero-page aliasing convention.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
-      "url": "https://github.com/XekriRedmane/ali_baba_reveng/commit/30b0e4d180d23c53f9679648c2a2fbfe16998325",
-      "author": "XekriRedmane",
-      "branches": [
-        "main"
-      ]
-    },
-    {
-      "type": "commit",
-      "date": "2026-03-27T23:23:29Z",
-      "project_id": "ali-baba-apple2-xekri",
-      "repository": "XekriRedmane/ali_baba_reveng",
-      "sha": "39f35163c3dd7a71d19ff91d7a4345761ffdd0ae",
-      "title": "Replace numeric addresses in GAME_ACTION_HANDLER with labels",
-      "message": "Replace numeric addresses in GAME_ACTION_HANDLER with labels\n\nReplace raw hex addresses in the border animation code:\n- $749A -> RENDER_FONT_CHAR_DIRECT (new label at secondary entry)\n- $1317 -> RANDOM_IN_RANGE\n- $5DC2/$5DC4 -> BORDER_ICON_OFFSET/BORDER_SWAP_FLAG (new EQUs)\n- $5DC3 -> BORDER_LOOP_CTR (existing EQU)\n- $F6/$F7 -> DISPATCH_VEC/DISPATCH_VEC+1\n- $25/$24 -> TEXT_ROW/TEXT_COL\n- Handler table DC.W values -> BORDER_HANDLER_A/B/C labels\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
-      "url": "https://github.com/XekriRedmane/ali_baba_reveng/commit/39f35163c3dd7a71d19ff91d7a4345761ffdd0ae",
       "author": "XekriRedmane",
       "branches": [
         "main"
