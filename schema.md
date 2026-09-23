@@ -102,4 +102,4 @@ Rules:
 - Monorepo projects scan their configured `github_path` only, so one project's README cannot supply evidence for another.
 - Repository creation dates remain separate GitHub metadata and are not promoted to `re_started`.
 
-The automated evidence block currently contains `compilable`, `playable`, `byte_exact`, `re_started`, and `ci` arrays plus collector/check metadata.
+The automated evidence block contains only records with actual evidence/signals. It may contain `compilable`, `playable`, `byte_exact`, `re_started`, and `ci` arrays plus collector/check metadata. When automation promotes a previously unknown field it records that change in `evidence.automated.applied`; on later runs it may retract only its own prior promotion if the supporting evidence no longer qualifies. Curated non-null values are not automatically replaced.
