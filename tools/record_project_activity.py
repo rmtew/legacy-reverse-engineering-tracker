@@ -24,6 +24,9 @@ CUTOFF = NOW - timedelta(days=DAYS)
 
 MATERIAL_FIELDS = (
     "title",
+    "upstream_name",
+    "display_title",
+    "subjects",
     "repo",
     "project_url",
     "github_path",
