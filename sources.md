@@ -70,6 +70,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/yeager/firestaff | Active cross-platform Dungeon Master-family clean-room engine with source/media provenance, platform-specific reverse engineering and preservation documentation |
 
 | https://github.com/s-macke/starflight-reverse | Deep DOS Starflight/Forth reverse engineering; threaded-code, dictionary, overlay and C-transpilation archaeology |
+| https://github.com/canadacow/starflight-reverse | Remastered successor to the Starflight RE line: playable Forth/x86 emulation plus Vulkan/rotoscoped presentation; useful successor/fork discovery node |
 
 | https://github.com/vs-sr-dev | Large measurement-first reverse-engineering/documentation graph across CD32, 3DO, CD-i and other legacy platforms; title repositories contain reproducible analysis tools |
 

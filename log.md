@@ -277,3 +277,10 @@ Following a2-lode-runner's credited predecessor chain exposed **XekriRedmane** a
 AI evidence was recorded only where explicit: Seven Cities documents heavy Claude assistance; Solomon's Key carries Codex co-author trailers; Shadowrun Defragged explicitly documents GPT-5.6 Sol/Codex use; and the XekriRedmane reconstructions have explicit Claude project/commit evidence.
 
 Catalogue count increased from 234 to **247**.
+
+
+## 2026-09-24 — Starflight remastered successor
+
+Audited **canadacow/starflight-reverse** against the already tracked **s-macke/starflight-reverse**. The new repository explicitly identifies the s-macke project as its background/origin, but it is not merely another copy of the recovery tree: it has become a playable remastered runtime that fully emulates Starflight's recovered Forth and assembly execution while adding a real-time Vulkan/rotoscoped/PBR presentation layer and switchable classic EGA/CGA output.
+
+Promoted it as a separate **RE-derived reimplementation/remaster** record rather than merging the two projects. The s-macke record now notes this successor relationship, and canadacow's repository was added as a discovery node. The README explicitly describes the remaster as AI-generated, so AI usage is marked true while the tool name remains unknown rather than guessed.
