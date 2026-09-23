@@ -104,6 +104,15 @@ def bucket(repo, interval):
 def scheduled_today(repo, interval):
     return interval <= 1 or TODAY.toordinal() % interval == bucket(repo, interval)
 
+def probe_order(repositories, state):
+    """Oldest/never-probed repositories go first so budget limits are fair."""
+    repo_state = state.get("repositories", {})
+    def key(repo):
+        rs = repo_state.get(repo, {})
+        last = rs.get("last_probe_at") or rs.get("last_probe") or ""
+        return (last, repo.casefold())
+    return sorted(repositories, key=key)
+
 def api(path, *, etag=None, allow_404=False):
     global REQUESTS
     if REQUESTS >= MAX_REQUESTS:
@@ -236,7 +245,7 @@ def main():
     stopped = None
     bootstrap_state = not bool(state["repositories"])
 
-    for repo in sorted(repos):
+    for repo in probe_order(repos, state):
         repo_projects = repos[repo]
         new_repo = repo not in state["repositories"]
         rs = state["repositories"].setdefault(repo, {})
@@ -260,11 +269,13 @@ def main():
         except Exception as exc:
             rs["last_error"] = str(exc)[:400]
             rs["last_probe"] = TODAY.isoformat()
+            rs["last_probe_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
             print(f"WARNING: probe {repo}: {exc}", file=sys.stderr)
             continue
 
         probed += 1
         rs["last_probe"] = TODAY.isoformat()
+        rs["last_probe_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
         rs.pop("last_error", None)
         if headers.get("ETag"):
             rs["etag"] = headers["ETag"]
