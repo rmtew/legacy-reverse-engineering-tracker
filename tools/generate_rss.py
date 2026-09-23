@@ -80,8 +80,7 @@ def generate(activity_path, projects_path, output_path, limit):
         "Recent commits across tracked legacy software reverse-engineering projects."
     )
     ET.SubElement(channel, "language").text = "en"
-    ET.SubElement(channel, "atom:link", {
-        "xmlns:atom": ATOM_NS,
+    ET.SubElement(channel, "{" + ATOM_NS + "}link", {
         "href": FEED_URL,
         "rel": "self",
         "type": "application/rss+xml",
