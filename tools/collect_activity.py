@@ -149,6 +149,29 @@ def main():
             failures.append((repo, str(exc)))
             print(f"WARNING: {repo}: {exc}")
 
+    # Preserve previously observed commits until they age out of the rolling
+    # window. This keeps useful history if an upstream branch is later deleted
+    # or force-pushed.
+    if ACTIVITY.exists():
+        try:
+            previous = json.loads(ACTIVITY.read_text(encoding="utf-8")).get("events", [])
+        except (json.JSONDecodeError, OSError):
+            previous = []
+        valid_projects = {project["id"] for project in projects}
+        for old in previous:
+            if old.get("project_id") not in valid_projects or not old.get("date"):
+                continue
+            if datetime.fromisoformat(old["date"].replace("Z", "+00:00")) < SINCE:
+                continue
+            key = (old.get("project_id"), old.get("repository"), old.get("sha"))
+            if key in events:
+                branches = set(events[key].get("branches") or [])
+                branches.update(old.get("branches") or [])
+                events[key]["branches"] = sorted(branches)
+            else:
+                old["observed_only"] = True
+                events[key] = old
+
     output = sorted(events.values(), key=lambda e: (e["date"], e["repository"], e["sha"]), reverse=True)
     for event in output:
         event["branches"].sort()
