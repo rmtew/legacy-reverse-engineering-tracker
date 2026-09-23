@@ -73,3 +73,33 @@ The collector checks non-default branches that have commits inside the activity 
 For shared repositories, `github_path` is used to attribute commits to the relevant tracked subproject. Repository-wide/shared-tooling commits outside a project's configured path are intentionally not attributed to that project.
 
 The Activity UI groups commits by UTC calendar day and then project, while displaying the viewer's local commit time. Filters reuse project metadata, so platform/language/AI filters apply consistently between the catalogue and activity feed.
+
+
+## Evidence enrichment
+
+`tools/enrich_evidence.py` performs a conservative daily pass over GitHub-backed project documentation.
+
+It scans project-local README/status/build notes for explicit claims about:
+
+- compilability
+- playability
+- byte exactness
+- project/reverse-engineering start year
+
+The collector writes reviewable provenance under:
+
+`evidence.automated`
+
+Each evidence item records the inferred value, source file/link, a short source excerpt, check date, collector ID and strength.
+
+Rules:
+
+- Unknown fields are promoted only when all **strong** evidence found for that field agrees.
+- Existing non-null curated values are never overwritten automatically.
+- Playable=true may imply runnable=true when runnable is still unknown.
+- Statements framed as goals/targets/plans are not accepted as proof of byte exactness.
+- Generic CI success is recorded as a supporting signal only; it does not by itself prove the reconstruction compiles or plays.
+- Monorepo projects scan their configured `github_path` only, so one project's README cannot supply evidence for another.
+- Repository creation dates remain separate GitHub metadata and are not promoted to `re_started`.
+
+The automated evidence block currently contains `compilable`, `playable`, `byte_exact`, `re_started`, and `ci` arrays plus collector/check metadata.
