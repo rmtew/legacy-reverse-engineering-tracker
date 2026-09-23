@@ -9,15 +9,16 @@ Follow these as **nodes**, not merely individual repositories. Check their READM
 | https://github.com/kermitfrog | Ambermoon binary-analysis work |
 | https://github.com/slaapliedje/OpenUA | Active cross-68K reconstruction |
 | https://github.com/HoraceAndTheSpider/Bloodwych-68k | Active 68K reconstruction/tooling |
-| https://github.com/geogeo28/atari_reverse | Reusable ST reconstruction framework; watch for new games |
+| https://github.com/geogeo28/atari_reverse | Reusable ST reconstruction framework; currently tracks Buggy Boy, Joust, Wonder Boy in Monsterland, Zynaps, Bubble Ghost and Flying Shark; watch for new RE targets |
 | https://github.com/sarnau | ST software/protection analysis |
 | https://github.com/mwenge | Llamasource cluster, especially C64/ST |
 | https://github.com/dpt | Spectrum Chase H.Q./Great Escape work |
 | https://github.com/nzeemin/skoolkit-game-revs | Multi-title Spectrum collection |
 | https://github.com/mrcook | Spectrum disassemblies and historical references |
+| https://github.com/skoolkid | Maintained SkoolKit disassemblies: Skool Daze, Back to Skool, Contact Sam Cruise, Manic Miner, Jet Set Willy, Hungry Horace |
 | Paul Maddern | Historical Spectrum RE trail |
 | Ritchie Swann | Historical Spectrum RE trail |
-| Ricardo Quesada | C64 disassembly trail |
+| https://github.com/ricardoquesada | C64 disassembly trail; Commando and further game/source analysis projects |
 | C64 Mark | C64 disassembly trail |
 | Senior Dads | Atari ST reconstruction |
 | Simon Frankau | Speedball 2 plus Head Over Heels cross-version analysis |
