@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T03:36:08Z",
+  "generated_at": "2026-09-23T03:53:15Z",
   "window_days": 180,
   "events": [
     {
@@ -11066,6 +11066,34 @@
     },
     {
       "type": "commit",
+      "date": "2026-08-09T22:09:41Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "d6475c4d32005dc06695fbded8327b98c3f02bfa",
+      "title": "Trace MONA's W (write to tape) command end to end",
+      "message": "Trace MONA's W (write to tape) command end to end\n\nFour inputs, not the two the manual describes: filename, First:, Last:\nand Start:. The last supplies the entry address written into the file\nheader. The file is opened before the addresses are asked, which is why\nall four abort branches converge on CLOSE_AND_EXIT instead of returning.\n\nRunning it and capturing the firmware call shows what is actually\npassed: CAS OUT DIRECT receives HL = First, DE = Last - First, BC = the\nStart address, A = 2 for a binary file.\n\nThat length is one short. For First=&5000 Last=&500F it passes 15, so\nthe byte at Last is never saved, and First = Last writes nothing at all.\nThe sibling commands do add the one - CMD_COPY does INC BC, CMD_FILL\ndoes INC HL - and both were verified inclusive by running them. So W is\ninconsistent with I and P, and with the manual, which calls the range\ninclusive for all three.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/d6475c4d32005dc06695fbded8327b98c3f02bfa",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T22:05:42Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "6577b2abdd831e2d3609d989f11bf63325702da1",
+      "title": "Trace MONA's P (fill) command end to end",
+      "message": "Trace MONA's P (fill) command end to end\n\nTwenty-five bytes, with two details worth recording.\n\nThe abort test is out of order on purpose. CP &FC at &0F9E sets Z, then\nLD A,L, EX DE,HL and POP BC all leave the flags untouched, so the RET Z\nthree instructions later still acts on that compare - the check is made\nbefore the registers are rearranged for the loop, and acted on after.\n\nThe loop is three instructions because CPI is used purely for its side\neffects: it increments HL, decrements BC and sets P/V from BC, while the\ncomparison it performs is thrown away. RET PO leaves when the count hits\nzero. Two bytes where INC HL, DEC BC and a test would need four.\n\nVerified by running it rather than by reading: &5000..&500F fills\nexactly, both endpoints included and the following byte untouched, and a\nsingle-byte range writes one byte - confirming the INC HL that turns\nLast-First into the count.\n\nA range with Last < First never reaches this code; INPUT_FIRST_LAST\nabandons the command first, which is the abort the manual documents for\nP as well as for I, T and W.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/6577b2abdd831e2d3609d989f11bf63325702da1",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-08-09T22:00:54Z",
       "project_id": "ambermoon-net",
       "repository": "Pyrdacor/Ambermoon.net",
@@ -11076,6 +11104,20 @@
       "author": "Pyrdacor",
       "branches": [
         "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T22:00:44Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "ad2e32224367b388c7831019582e09e466454f6f",
+      "title": "Trace MONA's I (intelligent copy) command end to end",
+      "message": "Trace MONA's I (intelligent copy) command end to end\n\nThe whole command is 36 bytes and contains exactly one decision, which\nis the \"intelligent\" part the manual names: compare First against To.\nIf First >= To the destination lies below the source and a forward LDIR\nis safe; if First < To the destination overlaps above, so both pointers\nare advanced to the far end and LDDR runs backwards. BC arrives from\nINPUT_FIRST_LAST as Last-First and is incremented to the count.\n\nVerified by running it rather than by reading: copying &5000..&500F to\n&5004 reproduces the block intact instead of smearing the leading bytes\nthrough it, and the reverse overlap picks LDIR.\n\nThe abort turns out not to live in this command at all. INPUT_FIRST_LAST\nchecks Last >= First and, when it is not, resets SP to MONA's stack and\nredisplays rather than returning - so the documented \"aborted if the\nstart address is greater than the end address\" is inherited by every\ncommand that asks for a range: I, P, T and W.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/ad2e32224367b388c7831019582e09e466454f6f",
+      "author": "sarnau",
+      "branches": [
+        "main"
       ]
     },
     {
@@ -11094,6 +11136,20 @@
     },
     {
       "type": "commit",
+      "date": "2026-08-09T21:56:58Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "3917afaae5259b41c28b301c720e371dfdeffb17",
+      "title": "Name 10 more MONA routines",
+      "message": "Name 10 more MONA routines\n\nCovers the display helpers, the hex reader, the data-area prompt loop\nfor T, and the invalid-opcode entry that clears the prefix flag first.\n\nTwo were confirmed by running them rather than by reading:\nPRINT_BACKSPACE emits exactly &08 through VEC_OUT_CHAR and leaves A\nuntouched, and SET_CURSOR_AT swaps DE into HL - E to column, D to row -\nbefore calling the firmware, preserving HL.\n\nCHECK_PAUSE turns out to be the manual's \"pause the listing at the end\nof a line by hitting any key\", with [CTRL]X abandoning it. READ_HEX is\nthe unprompted entry to INPUT_HEX, where a '-' terminator negates the\nresult as the manual describes.\n\nBAD_OPCODE_PREFIX clears the DDCB flag before falling into BAD_OPCODE,\nso a prefixed form that proves invalid does not leave the index register\nactive for the instruction after it.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/3917afaae5259b41c28b301c720e371dfdeffb17",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-08-09T21:16:59Z",
       "project_id": "openua",
       "repository": "slaapliedje/OpenUA",
@@ -11102,6 +11158,20 @@
       "message": "diag: fix the paltrace encoding, log the icon-grid CLUT guards\n\nEncoding bug in the Nova paltrace (mine): r/g/b are 0..255 but were packed into\ndecimal 1e4/1e2 fields, so r>=100 spilled into the index field — the card log\nduly showed index 8 twice and indices 16/17 from a probe that only records\nbelow 16. Bit-pack instead (idx<<24 | r<<16 | g<<8 | b). The call SEQUENCE from\nthat run is still sound and useful: seven full 0..255 installs plus small ranges\nat 208/176/184, i.e. the UI range is rewritten wholesale several times.\n\nicontrace now logs the four guards of the icon-grid palette install (bind\nhandle, outer set, item-0 colour table, ph[7]&15), because a real-hardware run\nproved the install NEVER RUNS on the live path — 49 cells blit with a valid art\nhandle and no CLUTstart line is emitted.\n\nAlso kept: the l09dc clamp now DROPS palette entries below index 32 instead of\nsliding the table up to meet 32 (sliding installs every colour one index above\nthe pixels using it). Verified non-regressive on the working case, but it is\ndefensive — NOT the cause here, since the block is never reached.\n\nThree theories eliminated by evidence this round, recorded so they are not\nre-tried: (1) art failing to load — the handle is valid and no cell is refused;\n(2) HEIRS shipping its own DUNGCOM — HEIRS.DSN contains no DUNGCOM art, both\npaths bind the same root DUNGCOM.TLB; (3) sprite pixels resolving to black —\nthe histogram was sampling an EMPTY grid, not coloured sprites.\n\nWhat the hardware photo actually shows: one cell renders, as a mask-only\nSILHOUETTE, and the other 48 draw nothing. Silhouette = the mode-1 two-plane\ncomposite (l2d4e, commit 5574a36b) not running — the same failure that commit\noriginally fixed.\n\nLocal repro secured: -DFRUA_CHARGEN boots jt574, the REAL \"Create Character\"\nentry, straight to the PICK screens. The FRUA_BODY harness that has been\npassing all along calls jt573 (the review screen) directly and never walks this\npath, which is why it could not see the bug.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
       "url": "https://github.com/slaapliedje/OpenUA/commit/89f06141e172535df0cfff4ac291f1664277f184",
       "author": "slaapliedje",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T21:06:38Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "620e55d3f1b0c011d9cc12fcf2cf48f8dd264bae",
+      "title": "Run MONA's own disassembler over every opcode",
+      "message": "Run MONA's own disassembler over every opcode\n\noptable.py decodes MONA's tables statically. This does the opposite:\ntools/disasm_run.py executes the real decoder in the emulator and reads\nthe rendered text out of the line buffer, so the output is what MONA\nactually prints - including the prefix handling and operand emitters,\nnone of which are stored as data.\n\nAgainst the static decode the live run agrees on 250/252 base entries,\nthe two exceptions being JR and DJNZ, where the live decoder resolves\nthe relative displacement to an absolute address.\n\nIt also corrects two claims I had inferred from the tables rather than\nobserved:\n\n- The undocumented SLL does not print with a blank mnemonic. CB 30..37\n  are routed to the invalid-opcode path and come out as NOP flagged with\n  an asterisk.\n- DDCB does not \"print only the documented form\". When the register\n  field is not 6 the prefix is dropped altogether, so DD CB 05 00 prints\n  as RLC B rather than anything involving IX.\n\nCross-checked against tools/z80dis.py: 247/256 base, 248/256 CB, 56/56\nED, 197/256 DD agree, with the remainder being MONA's own limits - 8 SLL\nslots and 72 unused ED opcodes flagged invalid, IXh/IXl shown as H/L,\nand the DDCB copy forms.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/620e55d3f1b0c011d9cc12fcf2cf48f8dd264bae",
+      "author": "sarnau",
       "branches": [
         "main"
       ]
@@ -11122,6 +11192,62 @@
     },
     {
       "type": "commit",
+      "date": "2026-08-09T18:12:03Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "78c3daef1b905d19c4b4922c3f936e9e2a2c07e7",
+      "title": "Crack TAB_MNEMONICS by running GENA's own matcher",
+      "message": "Crack TAB_MNEMONICS by running GENA's own matcher\n\nDecoding the table by hand kept failing because it is a program, not a\ntable. So this runs it instead: tools/z80emu.py is a small Z80 emulator\nand tools/mnemonics.py drives the real matcher at &1466, exploring the\nlanguage it accepts by feeding characters and backtracking on rejection.\n\nThe result validates against the manual: all 77 reserved words in\nAppendix 2 are accepted, none missing. Of the 55 further strings\naccepted, 53 are proper prefixes of documented words - the matcher works\none character at a time - leaving exactly two complete mnemonics the\nmanual does not list: BRK and RCAL. MONA's independent mnemonic table\ncarries the same two plus SYS, so they are real, not an artefact.\n\nThe second table at &1CCB turns out to be the register and condition\nvocabulary in the same format - A B C D E H L I R, AF BC DE HL IX IY SP,\nand Z NZ C NC P M PE PO - which is what &1562 loads when parsing an\noperand. Renamed TAB_REGISTERS.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/78c3daef1b905d19c4b4922c3f936e9e2a2c07e7",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T18:01:50Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "e23b841f9eab59f7478d5752b9726c7d8bd08441",
+      "title": "Identify TAB_MNEMONICS as an interpreted match program",
+      "message": "Identify TAB_MNEMONICS as an interpreted match program\n\nIt is not a table of records, which is why looking for one kept failing.\nThe region is a program executed by the matcher at &1481, one item at a\ntime against the source line. Common prefixes are shared between\nalternatives, so names appear in fragments - \"CAL\" and \"CALL\" both\noccur because one is a prefix of a longer path.\n\nAt the dispatch point an item byte, masked to 7 bits, means:\n\n    < &20      character class: indexes TAB_GROUP_A, whose pointer picks\n               a byte list in TAB_CPIR_BYTES, searched with CPIR\n    &20..&6F   literal character, compared against the input\n    >= &70     register or condition test, folded with XOR B\n\nBit 7 marks an alternative boundary, and after a failure the scan\nresynchronises on the low 3 bits of a following byte. This also explains\nTAB_GROUP_A and TAB_CPIR_BYTES, which have sat unexplained since the\nfirst pass over the data region.\n\nEntry boundaries are still not established, so the region stays raw\nbytes. Recording the negative result too: classifying every byte does\nnot decode the table - only 77 of the 204 bytes below &20 are valid\nTAB_GROUP_A offsets, because the interpreter reads bytes only at\nspecific points and the rest are operands to earlier items.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/e23b841f9eab59f7478d5752b9726c7d8bd08441",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:52:23Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "0eee438364464775716d215f0612542e62defe87",
+      "title": "Trace GENA's A (assemble) command end to end",
+      "message": "Trace GENA's A (assemble) command end to end\n\nDocuments the whole path: frame-pointer setup, the Table size and\nOptions prompts, the absent-symbol pass, and the closing report.\n\nThree findings worth the trace:\n\n- The default symbol table size is computed, not fixed. An empty reply\n  to \"Table size:\" gives (text length / 8) + 100 bytes, then the result\n  is checked against HIMEM - 256 and refused with \"No Room!\". That is\n  the manual's \"a size that it thinks is suitable for the size of the\n  text\", made concrete.\n\n- RUN_VECTOR at &202F explains three things at once that I had found\n  separately. It is a three-byte slot in the dead relocation table.\n  Assembly initialises it to RET; an ENT directive overwrites it with\n  JP <address>; the closing report tests the byte for &C3 to decide\n  whether to print \"Executes: nnnnn\"; and CMD_RUN is literally\n  JP RUN_VECTOR. Before any assembly the slot still holds relocation\n  data, which is exactly why the manual warns against using R until an\n  Executes message has appeared.\n\n- \"Pass 1\" and \" errors: \" are separate strings, the second being the\n  tail of \"Pass 2 errors: \" entered six bytes in - the same storage\n  trick as MONA's \"No Printer?\" / \"Printer?\".\n\nThe absent-symbol pass also shows the symbol table layout: names stored\nbit-7-terminated, with bit 0 of byte +4 marking a symbol as defined.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/0eee438364464775716d215f0612542e62defe87",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:39:17Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "a2cc8d8bacd567e141e1e64c7d4b81d19547b71c",
+      "title": "Format TAB_OPERATORS as character classes",
+      "message": "Format TAB_OPERATORS as character classes\n\nThe table at &1AC1 is not a flat list. Its consumer at &17C3 reads a\nclass byte, then walks the characters belonging to it; a byte with bit 7\nset starts the next class, and &FF ends the table. A new GRPTAB\ndirective renders one group per line.\n\nThe six groups it resolves into match the syntax the manual documents:\nfield terminators, the operand separator, comment and end of statement,\nthe operators of section 2.5 (& AND, @ OR, ! XOR, ? MOD), the location\ncounter '$', and the % # \" number prefixes. '-' is absent from the\noperator group, so subtraction is recognised elsewhere.\n\nTAB_MNEMONICS is left as raw bytes. Its names are plainly visible in\nASCII, interleaved with encodings, but tracing the consumer did not\nestablish the record structure, and guessing a shape for it would be\nworse than leaving it flat.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/a2cc8d8bacd567e141e1e64c7d4b81d19547b71c",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-08-09T17:29:22Z",
       "project_id": "openua",
       "repository": "slaapliedje/OpenUA",
@@ -11130,6 +11256,104 @@
       "message": "ste: take the palette blanket-mark fix too — in-present -56% on idle presents\n\nThe ECS fix (3cb6c121) applies verbatim here, and the chain was verified before\ntouching it: st_set_palette's `count >= 32` sets s_dirty; st_present turns that\ninto st_repalette() or st_reband(), whose tail sets s_force_full and rebuilds\nBOTH pages — a branch that bypasses pass 1 entirely. A smaller write sets\nnothing at all, and pass 1 compares chunky against its shadow, which no palette\nwrite touches. So the shim's blanket row mark could only ever make pass 1\nre-read 200 unchanged rows.\n\nhw_palette stays 0 (4 planes hold a quantised 16-slot value, not the index, so a\nCLUT move really can invalidate pixels); this is the other flag,\npalette_self_invalidates. g_qd_touched is still set, which matters MORE here\nthan on ECS: pages == 1, so the ST/STe is the backend the #152 clean-present\nskip actually applies to, and suppressing it would skip frames outright.\n\nMEASURED on Mega STe (Hatari, HEIRS slot I, A/B via FRUA_STE_PALBLANKET),\nsteady-state per-window deltas, per present:\n\n  rows scanned   200 -> 62    (-69%)\n  pass1 t200    20.1 -> 8.1   (-60%)\n  in-present    20.6 -> 9.1   (-56%)\n  rows converted 976 -> 976   (the semantic invariant, every window)\n\nCorrectness: the autoload-slot-I resume frame is md5-IDENTICAL to the baseline\n(2a45561d, whole PNG), and a live AREA-map toggle renders correctly with the\nright colours — the scene-change/reband check that a broken palette path would\nfail. Shipping CPU68K=68000 build clean, 0 020-insns in code; Atari 020, Amiga\nECS and AGA all still build; 461 host tests pass.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
       "url": "https://github.com/slaapliedje/OpenUA/commit/dd5c7d36692fdee75d38ef41dfda1888a6901a96",
       "author": "slaapliedje",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:20:56Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "a44f1c9c798a89358f0271f1345c33bce0977dcd",
+      "title": "Name 14 more GENA routines",
+      "message": "Name 14 more GENA routines\n\nScreen and cursor handling (INIT_SCREEN, SET_CURSOR, CMP_CURSOR), the\ntape setup shared by the open paths, the decimal formatter, and the\neditor's remembered line numbers.\n\nTwo of these check out against the manual. CMD_CURRENT_STATE now reads\nas its documented behaviour - format N1, format N2, print the separator\n- which confirms &2013 and &2015 as N1/N2 rather than the pair I first\ntook them for. CHECK_TWO_ARGS is why Delete does nothing when given\nfewer than two arguments.\n\nFORMAT_DECIMAL gives TAB_POWERS10 a second consumer: PRINT_DECIMAL\nwrites digits to the screen, FORMAT_DECIMAL writes them to a buffer.\n\nIS_LABEL_CHAR moves to &17A2, the test proper, with NEXT_LABEL_CHAR at\n&17A1 as the entry that advances HL first.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/a44f1c9c798a89358f0271f1345c33bce0977dcd",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:15:58Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "8032dc1abbce046e003c898ebecd4734803f3a13",
+      "title": "Format the opcode tables, and correct TAB_OPCODES",
+      "message": "Format the opcode tables, and correct TAB_OPCODES\n\nTAB_OPCODES_MAIN now renders one record per opcode, labelled with the\nopcode it serves and the packed word it holds, instead of anonymous rows\nof eight bytes:\n\n    DEFB  &84,&00     ; 07A2: &00 = &8400\n    DEFB  &01,&D2     ; 07A4: &01 = &01D2\n\nRECTAB grows options for this: first= sets the index origin, hex shows\nit as an opcode, be also prints the trailing two bytes as the\nbig-endian word. The ED table uses be as well.\n\nTracing the consumer also corrected a mistake. TAB_OPCODES and what I\nhad called TAB_RST_OPCODES are not two tables: the single-stepper at\n&0FEC scans them flat with LD B,&31, one 49-byte list running from\n&1392 to exactly where MSG_BANNER begins. The layout is positional, so\nthe four-per-condition shape is preserved even for PO/PE/P/M, which\nhave no JR form and carry &00 padding. TAB_COND_OPCODES now names that\nmiddle section.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/8032dc1abbce046e003c898ebecd4734803f3a13",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:12:33Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "c740faa35ea7c548d556be389aab8a84812afdfa",
+      "title": "Document TAB_OPERAND_ALT and the operand emitters",
+      "message": "Document TAB_OPERAND_ALT and the operand emitters\n\nTAB_OPERAND_ALT has exactly one consumer, PUT_ALT_FIELD at &02BA,\nreached only when operand 1 is absent and operand 2 is not. All 13\nentries are used, covering 14 instructions - entry 1 does double duty\nfor RST 0 and IM 0. Nothing in the table is dead.\n\n    1 \"0\"      RST 0, IM 0       8 \"AF,AF'\"  EX\n    2 \"8\"      RST 8             9 \"(n),A\"   OUT\n    3 \"#10\"    RST 10           10 \"A,(n)\"   IN\n    4 \"#18\"    RST 18           11 \"#28\"     RST 28\n    5 \"#20\"    RST 20           12 \"#30\"     RST 30\n    6 \"1\"      IM 1             13 \"#38\"     RST 38\n    7 \"2\"      IM 2\n\nNames the surrounding path: UNPACK_OPERANDS splits the packed word into\nthe two 5-bit codes, then either PUT_ALT_FIELD or PUT_OPERAND_PAIR runs,\nboth converging on AFTER_OPERANDS which clears the index-register flag.\nPUT_TABLE_ENTRY is the shared emitter - PUT_OPERAND is just the wrapper\nthat preloads TAB_OPERAND_NAMES.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/c740faa35ea7c548d556be389aab8a84812afdfa",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:08:29Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "7d6d917dae06ef4812896809cb186cb567d7d24c",
+      "title": "Document the cursor-key path from TAB_CURSORKEYS",
+      "message": "Document the cursor-key path from TAB_CURSORKEYS\n\nFormats the table as the 4 two-byte records it is, and documents every\npiece of code that touches it. TAB_CURSORKEYS has exactly one consumer:\nKEY_DISPATCH. FIND_PAIR looked like it had two callers, but the second\nreference is its own loop-back.\n\nThe encoding is a bias: each record holds a firmware key code and a\ndelta plus 16, so one unsigned byte can carry a negative step. The\nconsumer cancels the bias with ADD HL,&FFF0 before ADD HL,DE.\n\n    &F3 right -> &11 = +1     &F2 left -> &0F = -1\n    &F1 down  -> &18 = +8     &F0 up   -> &08 = -8\n\nwhich is the manual's one byte horizontally, one display row of eight\nvertically.\n\nNames the rest of the path: MOVE_MEM_PTR applies the step, FOLD_CASE\nuppercases only 'g'..'z' because the commands below 'G' are control\ncodes, and STORE_MEM_PTR is the shared tail every repositioning command\nends at.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/7d6d917dae06ef4812896809cb186cb567d7d24c",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:04:31Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "72e0ceeca12414dadc4d88c2c4253b843b99806a",
+      "title": "Format the ED instruction table as 3-byte records",
+      "message": "Format the ED instruction table as 3-byte records\n\nTAB_OPCODES_ED was rendering as DEFM strings, because the bytes of a\npacked instruction word happen to be printable, which hid the record\nstructure completely.\n\nAdds a RECTAB directive - RECTAB <start> <end> <size> - that emits one\nfixed-size record per line with its index. Applied to the ED table, the\n56 records now read as (opcode, word-hi, word-lo) and end exactly where\nthe CB mnemonic list begins.\n\nThe word is big-endian, so it stays raw bytes rather than DEFW;\nextracted/MONA31-opcodes.txt carries the decoded mnemonics.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/72e0ceeca12414dadc4d88c2c4253b843b99806a",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T17:00:50Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "a9d702d865cf654781c71fd9dd146823b1503bb7",
+      "title": "Recover code from relocated operands",
+      "message": "Recover code from relocated operands\n\nVEC_READ_KEY rendered as DEFB &C3 + DEFW because nothing calls it, so\nneither flow analysis nor pointer-seeding reached it. The evidence that\nit is code was in the relocation table all along: the relocator only\npatches instruction operands, so an entry at &005B implies an\ninstruction at &005A.\n\nanalyse.py now seeds from that. For each relocation offset below the\ncode boundary it tries the two addresses that could own it - one back\nfor unprefixed forms, two for ED/DD/FD - and accepts when the length\nworks out and the usual plausibility checks pass.\n\nAn audit for the general case leaves one relocated offset in MONA not\nowned by an instruction, at &0524. That one is genuinely a standalone\npointer in a fragment nothing references or branches into; the JP that\nfollows it at &0529 is real code by the same test. Both are dead.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/a9d702d865cf654781c71fd9dd146823b1503bb7",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-09T16:54:45Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "782d22b964743d629ac1bbef843ef7247876ff00",
+      "title": "Name 21 more MONA routines",
+      "message": "Name 21 more MONA routines\n\nCovers the invalid-opcode path, the front panel's display helpers, the\nuser-context save/restore used by single-step and continue, and the\nfilename input shared by the R and W commands.\n\nThe clearest of these confirms documented behaviour: BAD_OPCODE writes\n'*' into the line buffer, blanks the rest of the line and re-enters the\ndecoder with A=0, so an unrecognised byte prints as NOP flagged with an\nasterisk, exactly as the manual says. FLAG_INVALID is its second entry\npoint, reached from the decoder without the stack pop.\n\nMARK_IF_CURRENT compares an address against the memory pointer and\nprints the character only on a match - that is how the front panel marks\nthe current location.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/782d22b964743d629ac1bbef843ef7247876ff00",
+      "author": "sarnau",
       "branches": [
         "main"
       ]
@@ -12424,6 +12648,34 @@
     },
     {
       "type": "commit",
+      "date": "2026-08-08T17:27:14Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "faa4f789980e16c61777543cb6709b89ef915777",
+      "title": "Generate the README figures from the artefacts",
+      "message": "Generate the README figures from the artefacts\n\nEvery number describing the binaries or the listings is now derived by\ntools/readme_stats.py from the images and the generated .asm files, and\nsubstituted into marked regions of the README. --check exits non-zero\nwhen any figure has gone stale, so drift is detectable rather than\ndiscovered by eye.\n\nThis replaces hand-maintained counts, one of which had already gone\nwrong: the MONA symbol total sat at 99 for two commits after naming\nwork took it to 125.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/faa4f789980e16c61777543cb6709b89ef915777",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T17:19:35Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "e373d9c53b02d28c4e0115e1d87d3ed5ae7a5b15",
+      "title": "Correct the MONA symbol count in the README",
+      "message": "Correct the MONA symbol count in the README\n\nNaming the T command pipeline and the instruction-database tables added\n26 symbols that were never folded back into the figure: 125, not 99.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/e373d9c53b02d28c4e0115e1d87d3ed5ae7a5b15",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-08-08T17:18:50Z",
       "project_id": "chase-hq-spectrum",
       "repository": "dpt/ChaseHQ",
@@ -12462,6 +12714,34 @@
       "author": "dpt",
       "branches": [
         "develop"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:54:05Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "9346cab88b2b496f037b39dc4648d637ef9f5c76",
+      "title": "Decode the CB and DD/FD instruction paths",
+      "message": "Decode the CB and DD/FD instruction paths\n\nNeither uses a table of packed words. CB derives its mnemonic\narithmetically from the opcode - op>>3 below &40, else (op>>6)+7 - into\nan 11-entry name list at &0A86, with the register operand taken as\n(op & 7) + 1 in the operand table. DD/FD set flags and re-use the base\nor CB table, substituting only the three HL-bearing operand codes.\n\nThat substitution rule explains three limits of MONA's disassembler,\nall confirmed against tools/z80dis.py:\n\n- entry 7 of the CB name list is empty, so the undocumented SLL prints\n  with no mnemonic;\n- H and L are never substituted, so IXh/IXl cannot be expressed and\n  appear as plain H/L;\n- DDCB prints only the documented form, without the register-copy\n  suffix.\n\nAlso reformats the bit-7-terminated name tables. A new STRTAB directive\nrenders one entry per line with its index, so the 31-entry operand table\nnow reads as the 5-bit field it indexes instead of a wall of hex.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/9346cab88b2b496f037b39dc4648d637ef9f5c76",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:39:20Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "162f40ebbc0201e76352570e622a82bd8a5a7cb3",
+      "title": "Decode MONA's instruction database",
+      "message": "Decode MONA's instruction database\n\nEach instruction is a 16-bit big-endian word: 6 bits mnemonic index,\n5 bits operand 1, 5 bits operand 2, with index >= 60 marking an invalid\nopcode. Operand fields index a 31-entry name table whose strings embed\ncontrol codes for the immediates and the IX/IY displacement. When\noperand 1 is absent and operand 2 is not, operand 2 instead indexes a\n13-entry table holding the whole operand field, which is how the RST\ntargets, AF,AF' and the IN/OUT forms are expressed.\n\nThe base table is 256 dense 2-byte entries indexed by opcode; ED\ninstructions are a 56-entry sparse 3-byte table searched linearly.\n\ntools/optable.py decodes the database and verifies it against the\nindependent disassembler in tools/z80dis.py: 252/252 base entries and\n56/56 ED entries agree. The decoded dump is checked in.\n\nThe base table is stored big-endian, so it stays rendered as DEFB in the\nlisting; DEFW is little-endian and would misstate the values.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/162f40ebbc0201e76352570e622a82bd8a5a7cb3",
+      "author": "sarnau",
+      "branches": [
+        "main"
       ]
     },
     {
@@ -12518,6 +12798,76 @@
       "author": "dpt",
       "branches": [
         "develop"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:28:34Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "7527142d2cbb0a94daef2f11bfe764a96e99fa3c",
+      "title": "Trace MONA's T (disassemble) command end to end",
+      "message": "Trace MONA's T (disassemble) command end to end\n\nNames the disassembler pipeline and its workspace: the prompt sequence,\nthe per-line loop, opcode lookup, operand rendering, symbol lookup and\nline output, plus the packed opcode and operand tables it drives.\n\nFindings:\n\n- T runs the whole disassembly twice when a symbol table is requested.\n  VAR_FLAGS bit 4 marks pass 1, which only collects label addresses; it\n  is then cleared and the address and data-area pointers rewound for the\n  output pass. This is the \"short delay while the symbol table is\n  constructed\" the manual mentions.\n- Each output line is built in a buffer that sits at &16D7 - the\n  relocation table itself, dead once relocation has run.\n- The documented loss of breakpoints is explicit: T resets the\n  breakpoint pointer and count before doing anything else.\n- The overwrite abort compares the text pointer against a relocated\n  reference to MONA's own code.\n- &12F8 \"Printer?\" is the tail of \"No Printer?\" stored at &12F5. Nothing\n  references &12F5, so the \"No \" prefix is dead in this build; the name\n  at &12F8 is corrected to MSG_PRINTER.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/7527142d2cbb0a94daef2f11bfe764a96e99fa3c",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:21:59Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "f822ff9bf517a9ce1b756d3e11519c4960b1cd89",
+      "title": "Name more routines; stop labelling unrelocated immediates",
+      "message": "Name more routines; stop labelling unrelocated immediates\n\nAdds 24 names to GENA and 16 to MONA: string and number output, hex\ninput, the tape open/close wrappers, and MONA's textfile emitters.\nMONA's number routines take their destination in BC (zero = screen,\nnon-zero = the generated textfile), which the names now reflect.\n\nAlso fixes a mislabelling the new names exposed. A 16-bit immediate is\nonly an address if the relocator patches it; LD BC,&0000 selects an\noutput stream and was being rendered as LD BC,ENTRY_RELOC because\n&0000 happened to be a branch target elsewhere. Branch operands are\nstill labelled unconditionally.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/f822ff9bf517a9ce1b756d3e11519c4960b1cd89",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:16:04Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "08bcc2b9500d5d1703269911b0e5c594f9579c03",
+      "title": "Render the decimal-powers tables as DEFW",
+      "message": "Render the decimal-powers tables as DEFW\n\nTAB_POWERS10 in both binaries holds five 16-bit values and is read a\nword at a time (LD E,(IY+0) / LD D,(IY+1)), so DEFW is the faithful\nrepresentation. Adds a WORDS directive to the annotation sidecars and\nshows the decimal values in the comment.\n\nChecked the other named tables: TAB_OPCODES, TAB_RST_OPCODES,\nTAB_CURSORKEYS and TAB_SEPARATORS are genuinely byte-oriented and stay\nas DEFB/DEFM.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/08bcc2b9500d5d1703269911b0e5c594f9579c03",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:12:53Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "eae8d296a97c6a516d6b2223b8ede215e7369152",
+      "title": "Name MONA31 routines; fix label definitions and data classification",
+      "message": "Name MONA31 routines; fix label definitions and data classification\n\nNames the 25 command handlers from MONA's dispatch table, its internal\nI/O vector table, and the front panel / key dispatch path, using the\nmanual's documented command set as the binding evidence.\n\nAlso fixes three defects found along the way:\n\n- Referenced labels were not always defined (77 in GENA, 55 in MONA).\n  Data regions now force a label position, and mid-instruction addresses\n  render as BASE+offset. Both are now asserted on every run.\n- MONA &06E5..&0AC8 is the disassembler's Z80 mnemonic database, not\n  code. It decoded plausibly but produced jumps into the middle of\n  instructions; it is unreachable from every entry vector and handler.\n- Short NUL-terminated strings and nibble-packed tables rendered wrongly;\n  added BYTES and DATA directives to the annotation sidecars.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/eae8d296a97c6a516d6b2223b8ede215e7369152",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-08T16:06:40Z",
+      "project_id": "hissoft-devpac-cpc",
+      "repository": "sarnau/hisoft-devpac-cpc",
+      "sha": "3b0772cbf51fe9d8cabc570df9ab325406feb141",
+      "title": "Extract and disassemble HiSoft DEVPAC for the Amstrad CPC",
+      "message": "Extract and disassemble HiSoft DEVPAC for the Amstrad CPC\n\nRecovers GENA3.1 and MONA3.1 from hidevpac.dsk and disassembles both.\n\nBoth binaries are assembled at ORG 0 and self-relocate via a table of\n16-bit offsets, so the AMSDOS load address is not where the code runs.\nThat table also serves as a correctness oracle: every genuine in-image\naddress is relocated, so an unrelocated absolute JP/CALL cannot be code.\n\nIncludes the extraction toolchain, the detokenised BASIC loaders, and\nper-binary annotation sidecars carrying symbol names and region\ndirectives. Each disassembly run asserts that the listing reproduces\nthe input byte for byte and that every referenced label is defined.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+      "url": "https://github.com/sarnau/hisoft-devpac-cpc/commit/3b0772cbf51fe9d8cabc570df9ab325406feb141",
+      "author": "sarnau",
+      "branches": [
+        "main"
       ]
     },
     {
@@ -22205,6 +22555,20 @@
     },
     {
       "type": "commit",
+      "date": "2026-06-20T02:19:49Z",
+      "project_id": "laserwarp-cpc",
+      "repository": "BrettHallen/Amstrad-CPC",
+      "sha": "581bee0a806886efea6705d616c1f5ecea451ac6",
+      "title": "Initial commit",
+      "message": "Initial commit",
+      "url": "https://github.com/BrettHallen/Amstrad-CPC/commit/581bee0a806886efea6705d616c1f5ecea451ac6",
+      "author": "BrettHallen",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-06-19T13:58:59Z",
       "project_id": "ambermoon-net",
       "repository": "Pyrdacor/Ambermoon.net",
@@ -23979,6 +24343,90 @@
     },
     {
       "type": "commit",
+      "date": "2026-05-03T10:34:04Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "f6ee853fa7fd63d41516075ad789c0410f791765",
+      "title": "Made sound encoding always produce the same CRC outputs.",
+      "message": "Made sound encoding always produce the same CRC outputs.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/f6ee853fa7fd63d41516075ad789c0410f791765",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-03T10:27:58Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "ecbe494e17d3bf7f6baed842d46af0de88d6602e",
+      "title": "Tidied up some stale annotations and corrections.",
+      "message": "Tidied up some stale annotations and corrections.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/ecbe494e17d3bf7f6baed842d46af0de88d6602e",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-03T10:13:43Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "8c2c89520e5e24e30a450055226dc305a3457650",
+      "title": "Refactor comments for clarity and accuracy in target handling and auxiliary table descriptions",
+      "message": "Refactor comments for clarity and accuracy in target handling and auxiliary table descriptions",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/8c2c89520e5e24e30a450055226dc305a3457650",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-03T09:51:09Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "f53b835ddb311522693787e1eaeeaf0d5b12f974",
+      "title": "Refactor code structure for improved readability and maintainability",
+      "message": "Refactor code structure for improved readability and maintainability",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/f53b835ddb311522693787e1eaeeaf0d5b12f974",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-03T09:40:30Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "eebde96c9920613cf9e6668d983444409d09a792",
+      "title": "Repo cleanup.",
+      "message": "Repo cleanup.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/eebde96c9920613cf9e6668d983444409d09a792",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-03T09:39:19Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "dcb23ba16c2561c1d432639539802bcdf883f16c",
+      "title": "Refactor AI scoring logic for piece prioritization and movement range validation, correcting indexing discrepancies and enhancing clarity in the dispatch flow.",
+      "message": "Refactor AI scoring logic for piece prioritization and movement range validation, correcting indexing discrepancies and enhancing clarity in the dispatch flow.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/dcb23ba16c2561c1d432639539802bcdf883f16c",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-05-02T21:50:28Z",
       "project_id": "batman-the-movie-amiga",
       "repository": "MarkyTurtle/Batman---Amiga",
@@ -23989,6 +24437,34 @@
       "author": "MarkyTurtle",
       "branches": [
         "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T18:07:13Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "0398b8800a2074f26d56ab7d5fb31fc7565ac24b",
+      "title": "Enhance Subversion spell description to clarify target requirements and effects, including ownership transfer and illusion immunity.",
+      "message": "Enhance Subversion spell description to clarify target requirements and effects, including ownership transfer and illusion immunity.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/0398b8800a2074f26d56ab7d5fb31fc7565ac24b",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T18:02:04Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2008c4fd3897e2f7688b167046d72b444f7e3056",
+      "title": "Refactor Subversion and Raise Dead spell logic for clarity and accuracy in ownership checks and validation processes",
+      "message": "Refactor Subversion and Raise Dead spell logic for clarity and accuracy in ownership checks and validation processes",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2008c4fd3897e2f7688b167046d72b444f7e3056",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
       ]
     },
     {
@@ -24007,6 +24483,398 @@
     },
     {
       "type": "commit",
+      "date": "2026-05-02T15:39:55Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "c346474072f1e55ea9c72f04aab0bc31b38f6e2d",
+      "title": "Clarified AI casting routine.",
+      "message": "Clarified AI casting routine.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/c346474072f1e55ea9c72f04aab0bc31b38f6e2d",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T14:16:30Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "c09613563772b0189e33413e4e69b60c7542dbd6",
+      "title": "Emit chaos_creatures from gen_chaos_data_c.py in real piece-code order via the $E3E0 lookup table, matching the actual game's piece-code mapping rather than chaos.py CREATURES display order.",
+      "message": "Emit chaos_creatures from gen_chaos_data_c.py in real piece-code order via the $E3E0 lookup table, matching the actual game's piece-code mapping rather than chaos.py CREATURES display order.\n\nPreviously the generator iterated chaos.py CREATURES (sorted by name_addr for the HtmlWriter's display table) and emitted entries in that order, with the implicit assumption that chaos_creatures[i] = piece code (i+1). The chaos.ctl annotation at $E3E0 (\"39 two-byte pointers ... indexed by piece code minus 1\") is the actual source of truth for the piece-code-to-creature mapping, and that ordering is completely different - e.g. Bat is real piece 22, Ghost is 29, Magic Fire is 35.\n\nNow: the generator reads the $E3E0 entries, pairs each name_addr with the chaos.py CREATURES tuple by name_addr to inherit the undead/flying/mount flags, and emits chaos_creatures with one entry per piece code 1..40. Piece 1 is the corpse placeholder at $E440 (empty name); piece 40 is Wall (special case at $EA16, not in $E3E0).\n\nAlso emit named piece-code constants in chaos_data.h: CHAOS_PIECE_GHOST=29, CHAOS_PIECE_WRAITH=31, CHAOS_PIECE_MAGIC_FIRE=35, CHAOS_PIECE_BLOB=34, plus the structure codes 36-40, so port code can refer to them by name.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/c09613563772b0189e33413e4e69b60c7542dbd6",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T14:06:02Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "b97de511c2fbba93a26855e567e907e697fee12b",
+      "title": "Resolve the BA77 scan_line_squares annotation: confirm and document that piece codes 29 (Ghost), 31 (Wraith), 35 (Magic Fire) plus corpse-flagged tiles get overpainted with the empty highlight sprite at $EB51 immediately before the Bresenham line walk in $98DB. This is the LOS transparency mechanism - empirically verified by user testing 2026-05-02. Removes the 'needs further verification' caveat that was on the original annotation.",
+      "message": "Resolve the BA77 scan_line_squares annotation: confirm and document that piece codes 29 (Ghost), 31 (Wraith), 35 (Magic Fire) plus corpse-flagged tiles get overpainted with the empty highlight sprite at $EB51 immediately before the Bresenham line walk in $98DB. This is the LOS transparency mechanism - empirically verified by user testing 2026-05-02. Removes the 'needs further verification' caveat that was on the original annotation.\n\nUpdate $BABE annotation to make explicit that the highlight sprite at $EB51 is empty (32 zero bytes) and that calling $BABE on a transparent piece's tile ERASES that piece's pixels for the duration of the LOS check.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/b97de511c2fbba93a26855e567e907e697fee12b",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T13:50:23Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "b3192015e9fd4dc82dc072a7f3f10fb76b3ebcd6",
+      "title": "Add tools/trace_los.py and tools/debug_los.py for investigating the LOS transparency mechanism.",
+      "message": "Add tools/trace_los.py and tools/debug_los.py for investigating the LOS transparency mechanism.\n\nThe harness currently fails to reproduce the live game's LOS-blocking behaviour - even Wall and Giant Rat (which empirically block in-game) come back clear under trace. A sanity check that pre-paints framebuffer pixels confirms $98DB itself works, so the bug is that the IM 2 ISR / MPRINT-driven board-render path doesn't actually paint sprites under trace.py interrupt simulation. Left in tree as a starting point for further investigation; see chaos-c docs/los.md for the empirical state.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/b3192015e9fd4dc82dc072a7f3f10fb76b3ebcd6",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T13:17:47Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "5827be55fa65b127971626e5fd8e4a3955cfc69c",
+      "title": "Extend tools/gen_chaos_data_c.py to emit the AI piece-weight table at $C6D4 as chaos_ai_piece_weights[49] for the chaos-c port.",
+      "message": "Extend tools/gen_chaos_data_c.py to emit the AI piece-weight table at $C6D4 as chaos_ai_piece_weights[49] for the chaos-c port.\n\nCorrect the $C6D4 annotation: indexing is direct piece_code (the Z80 code at $C858 does ADD HL,BC with C = piece_code, no offset), not piece_code - 2 as the previous prose claimed. Replace the imprecise example values with the verified values from the snapshot in ROM order, and note that the score loop filters at piece_code >= 38 so wizard-shaped lookups (which would otherwise overrun into bytes 47-48 holding 34 and 5) never happen.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/5827be55fa65b127971626e5fd8e4a3955cfc69c",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T13:04:30Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2914aeafc5609e5594eaefb9d7ba569bc4cc7dbd",
+      "title": "Add verified combat bonus magnitudes to the wizard buff annotations.",
+      "message": "Add verified combat bonus magnitudes to the wizard buff annotations.\n\nDocument at $AC16 that the combat-resolve routine reads Shield/Armour as a packed 2-bit number from bits 7|6 of wizard_status, so Armour intrinsically gives +3 to defender B162 (not +2 plus +1 from Shield) and the +2-alone case is unreachable in normal play.\n\nAdd explicit bonus magnitudes to $836A Magic Armour (+3 effective), $839C Magic Sword (+4 to B161), $83D0 Magic Knife (+2), $8404 Magic Shield (+1) and $84D3 Shadow Form apply (+3 to B162, additive with Shield/Armour so Armour+ShadowForm gives +6).\n\nCorrect the $AC16 cross-reference for the Shadow Form spell address (was '#R$8400+', now points to the actual apply routine at #R$84D3).",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2914aeafc5609e5594eaefb9d7ba569bc4cc7dbd",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T12:30:14Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "bc8d5b14d450f6f235e44db063df893472fd8703",
+      "title": "Add tools/gen_chaos_data_c.py emitting C data tables for the chaos-c port via skoolkit's snapshot loader.",
+      "message": "Add tools/gen_chaos_data_c.py emitting C data tables for the chaos-c port via skoolkit's snapshot loader.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/bc8d5b14d450f6f235e44db063df893472fd8703",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T12:09:38Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "c336ab3fee0d55d623286beb1bebf5c033d07c55",
+      "title": "Added wizard placement table, and moved spells, creature stats into there too.",
+      "message": "Added wizard placement table, and moved spells, creature stats into there too.\n\nReordered sections by their memory locations.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/c336ab3fee0d55d623286beb1bebf5c033d07c55",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T11:36:25Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "d5670d16d216416d2a1da10c433265da7f1f570c",
+      "title": "Refactor orphan code comments in chaos.ctl for clarity and accuracy",
+      "message": "Refactor orphan code comments in chaos.ctl for clarity and accuracy",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/d5670d16d216416d2a1da10c433265da7f1f570c",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T11:09:21Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "3339ce77d1ee59c3237b18c95078a04afefd6060",
+      "title": "Fix timestamp causing all of the asm files to be updated.",
+      "message": "Fix timestamp causing all of the asm files to be updated.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/3339ce77d1ee59c3237b18c95078a04afefd6060",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T11:04:41Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2943e8381a7b49328da8cb5c013e073c0de623fe",
+      "title": "Fixed some bad decimal conversions.",
+      "message": "Fixed some bad decimal conversions.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2943e8381a7b49328da8cb5c013e073c0de623fe",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T11:01:28Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "4e831be4bfe25c630ad12dd6805ea1d955ae0087",
+      "title": "Add sound encoding to Opus/OGG and update build scripts",
+      "message": "Add sound encoding to Opus/OGG and update build scripts",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/4e831be4bfe25c630ad12dd6805ea1d955ae0087",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T10:52:14Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "fa5bd4d1392fe1436e2c1a74f1cbe26ba035d435",
+      "title": "Alignment text (e.g. 'Chaos+') now uses nice familiar game-style formatting.",
+      "message": "Alignment text (e.g. 'Chaos+') now uses nice familiar game-style formatting.\n\nEmpty columns counted as 0 when sorting numerically.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/fa5bd4d1392fe1436e2c1a74f1cbe26ba035d435",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T10:27:48Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "3e9178688ef8280ffedef1c1c3ffbdac2ba2cb0c",
+      "title": "More coverage, and identified a new bug!",
+      "message": "More coverage, and identified a new bug!\n\nStyling tweaks - bug page technical sections are now expandable.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/3e9178688ef8280ffedef1c1c3ffbdac2ba2cb0c",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T10:08:03Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "3290586ce0bec6c238126da863333d3077a31a85",
+      "title": "Rules updates.",
+      "message": "Rules updates.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/3290586ce0bec6c238126da863333d3077a31a85",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T09:50:29Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "998cf646eb6b67f62aa1f1f266c652b34b5c882a",
+      "title": "Documentation tweaks.",
+      "message": "Documentation tweaks.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/998cf646eb6b67f62aa1f1f266c652b34b5c882a",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-02T09:48:49Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "91de95b7b9e5f81a1cdc675879f254f8aa48e791",
+      "title": "Annotated all 127 remaining untitled routines, taking the disassembly to 100% c-routine coverage (335 of 335 routines now carry titles, descriptions and labels).",
+      "message": "Annotated all 127 remaining untitled routines, taking the disassembly to 100% c-routine coverage (335 of 335 routines now carry titles, descriptions and labels).\n\nWave 3 covered 62 routines: the magic-weapon common-paths ($837D-$8486), the Subversion / RaiseDead / Turmoil sub-routines ($851B-$872B), the spell-orchestration helpers ($9324-$97BB), the board / range / cursor helpers ($BE86-$C0D8) including the chessboard-distance predicate at $BEE8 (formula: 2*max(dx,dy) + min(dx,dy)), and the AI movement and target-evaluation helpers ($C9D4-$CDB8).\n\nWave 4 covered the remaining 65 routines: the game-load preamble ($5B00-$5BB3), the working-memory stubs ($7700-$7D52), the summon / placement / line-of-sight helpers ($9856-$9DAA), the inter-turn animation block ($A0FE-$A956), the pre-movement state init cluster ($AB0A-$ABDC), the IM 2 sprite-cycling interrupt service routine and its inner helpers ($DF0C-$DFB9), the board-to-pixel converter at $E005, and the entire orphaned dead-code block at $D588-$D8C4 which is never called from live code (per the existing $D52E annotation).\n\nSpeculative entries are clearly marked with \"exact role not yet verified\" rather than over-claiming. The Wave 3 / Wave 4 dispatched read-only research agents had varying confidence on the deeper helper routines; conservative wording reflects that.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/91de95b7b9e5f81a1cdc675879f254f8aa48e791",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T21:47:37Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "4145f4b3c12c041a1c95d7e19944081f339c45b0",
+      "title": "Merge branch 'master' of https://github.com/lewster32/chaos-disassembly",
+      "message": "Merge branch 'master' of https://github.com/lewster32/chaos-disassembly",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/4145f4b3c12c041a1c95d7e19944081f339c45b0",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T21:47:18Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "f971cf8677efe3e6ecabc28a17417301e9bb0d88",
+      "title": "Documented the seven utility, attack and alignment spell handlers - Disbelieve, Subversion, Raise Dead, Turmoil, Shadow Form, Law/Chaos shifters, and the four alignment attacks - with the dice predicate, validation chain and post-success state changes verified against the Z80.",
+      "message": "Documented the seven utility, attack and alignment spell handlers - Disbelieve, Subversion, Raise Dead, Turmoil, Shadow Form, Law/Chaos shifters, and the four alignment attacks - with the dice predicate, validation chain and post-success state changes verified against the Z80.\n\nFlagged Subversion's dice direction as inverted versus the alignment attacks: same offset-19 stat, opposite comparison, so high-stat creatures are easier to subvert and harder to alignment-attack. Left in the doc as a note since it could be deliberate or a flipped-comparison bug.\n\nFixed the Decree / Justice naming swap in the alignment-attack human cast loop. The multi-shot rule is 1 shot for spell indices 45-46 (Vengeance, Decree, bias +/-1) and 3 shots for 47-48 (Dark Power, Justice, bias +/-2).\n\nConfirmed the Law / Chaos shifters are a thin wrapper around the standard dice routine - the world-balance shift happens inside spell_casting_check on success.\n\nConfirmed Raise Dead has no separate magic-resistance check despite earlier descriptions implying one.\n\nConfirmed Disbelieve consumes its slot whether or not the target was an illusion. Single BIT 4 test on the target's +481 byte decides whether to destroy.\n\nDocumented Turmoil's bit-7 marker mechanism that prevents pieces being re-shuffled within the same pass.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/f971cf8677efe3e6ecabc28a17417301e9bb0d88",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T21:38:40Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "dd4b505cc3ebbf6b02f3ad97be70e0f6d3ddd6fa",
+      "title": "Create LICENSE",
+      "message": "Create LICENSE",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/dd4b505cc3ebbf6b02f3ad97be70e0f6d3ddd6fa",
+      "author": "lewster32",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T21:36:58Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2142ef93c34503aae542addd30e058635031cdb0",
+      "title": "Add skoolkit-instructions/ to .gitignore to exclude it from version control",
+      "message": "Add skoolkit-instructions/ to .gitignore to exclude it from version control",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2142ef93c34503aae542addd30e058635031cdb0",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T21:36:46Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "9605c99f8768a43be8877d9bc165fe1149a5f388",
+      "title": "Remove skoolkit-components.md and trace.md files as part of the documentation cleanup process.",
+      "message": "Remove skoolkit-components.md and trace.md files as part of the documentation cleanup process.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/9605c99f8768a43be8877d9bc165fe1149a5f388",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T21:28:04Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "6991065c972f44c85e0efa633539276cfeac5e93",
+      "title": "Refactor spell descriptions and mechanics in chaos.skool",
+      "message": "Refactor spell descriptions and mechanics in chaos.skool\n\n- Updated comments for MagicArmour, MagicSword, MagicKnife, MagicShield, MagicWings, and MagicBow spells to clarify their effects and interactions.\n- Enhanced the RANDY function to include timing jitter for improved randomness.\n- Introduced new variables for spell casting mechanics, including adjusted casting chance and illusion flag.\n- Improved documentation for combat resolution mechanics, including attacker and defender bonuses.\n- Refined random number generation for uniformity in combat and spell casting.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/6991065c972f44c85e0efa633539276cfeac5e93",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T20:58:36Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "9edbe2515d8ae74b29f67ec4c425ad47dd2169c9",
+      "title": "Removed more unnecessary stuff",
+      "message": "Removed more unnecessary stuff",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/9edbe2515d8ae74b29f67ec4c425ad47dd2169c9",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T20:57:59Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "5ae7923ddf1c1237f7bb27df994fd7edc77ed59d",
+      "title": "Removed reference/chaos-guesser.ctl and reference/chaos-guesser.skool from git tracking - they're third-party disassemblies kept locally for cross-reference, not ours to ship. Added matching entries to .gitignore.",
+      "message": "Removed reference/chaos-guesser.ctl and reference/chaos-guesser.skool from git tracking - they're third-party disassemblies kept locally for cross-reference, not ours to ship. Added matching entries to .gitignore.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/5ae7923ddf1c1237f7bb27df994fd7edc77ed59d",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T20:54:41Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "687d177b81b1adf0c064c9eeaa0d3b4788ff860e",
+      "title": "Reorganised the repo into sources/, tools/ and reference/ folders, with the root holding only README.md, CLAUDE.md, update.sh, requirements.txt and .gitignore. Updated update.sh and the build-active scripts to resolve paths relative to the project root.",
+      "message": "Reorganised the repo into sources/, tools/ and reference/ folders, with the root holding only README.md, CLAUDE.md, update.sh, requirements.txt and .gitignore. Updated update.sh and the build-active scripts to resolve paths relative to the project root.\n\nRemoved orphaned trace outputs chaos.map and magic_wood_trace.z80. Untracked skoolkit-instructions/ from git. Added Pillow to requirements.txt.\n\nIdentified spell-record byte 4 at $7D60 as the spell-book and cast-order sort key. Added a Sort column to the rendered Spells page and corrected the earlier docs' sort direction from ascending to descending.\n\nFixed the casting-chance display for spell-placed objects (Gooey Blob, Magic Fire, Dark Citadel, Magic Castle, Wall) so it reads from the spell table rather than the unused creature stat record.\n\nDocumented the AI scoring chain at \\$C825 / \\$C858 and corrected the existing routine description's owner-mismatch error. Labelled \\$C6D4 (piece_weights), \\$CC55 (ai_scoring_modifier), \\$CC56 (ai_ranged_target_select), \\$96F3 (cast_player_spells) and \\$8D7A (fill_spell_hand).\n\nAdded three custom memory-map pages grouping the engine into thematic chunks: Computer AI, Movement and combat, and Spell selection and casting.\n\nDisabled bold rendering throughout the site since the bundled Chaos web font has no bold cut. Added font-synthesis: none on body and explicit font-weight: normal overrides for every selector skoolkit.css makes bold.\n\nAdded a \"Source on GitHub\" footer link in the rendered output and a link to the live https://www.archaos.co.uk/chaos-disassembly/ build at the top of the README. Rewrote the README and updated CLAUDE.md to match the new layout.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/687d177b81b1adf0c064c9eeaa0d3b4788ff860e",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T20:32:42Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "feaa4f513c336be5a28745aff366fc1b0f87eb65",
+      "title": "Removed example sounds",
+      "message": "Removed example sounds",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/feaa4f513c336be5a28745aff366fc1b0f87eb65",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-05-01T20:31:41Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "4f126153647429d6457a5dbccc966115a20065aa",
+      "title": "Update documentation and improve spell handling in Chaos disassembly",
+      "message": "Update documentation and improve spell handling in Chaos disassembly\n\n- Enhance .gitignore to include .wolf directory\n- Add OpenWolf context management instructions to CLAUDE.md\n- Adjust CSS to prevent synthetic bolding for specific elements\n- Refine spell data descriptions in chaos.ctl and chaos.skool\n- Implement spell name overrides in chaos.py for better display consistency\n- Expand chaos.ref with new memory map sections for AI, movement, and spell phases",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/4f126153647429d6457a5dbccc966115a20065aa",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-05-01T12:50:53Z",
       "project_id": "batman-the-movie-amiga",
       "repository": "MarkyTurtle/Batman---Amiga",
@@ -24017,6 +24885,132 @@
       "author": "MarkyTurtle",
       "branches": [
         "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T22:00:18Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "74fa543ab58057610797038da45ddcf2de798088",
+      "title": "Enhance audio player UI and improve table rendering for creature and spell stats",
+      "message": "Enhance audio player UI and improve table rendering for creature and spell stats",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/74fa543ab58057610797038da45ddcf2de798088",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T21:34:12Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "bc7495483182cf5fab828302b7dc379d65b3f1aa",
+      "title": "Add font data rendering and HTML table generation for ASCII characters",
+      "message": "Add font data rendering and HTML table generation for ASCII characters",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/bc7495483182cf5fab828302b7dc379d65b3f1aa",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T21:28:54Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "759918f78709f74ea8c3a82c0cf707c067eddab3",
+      "title": "Increase line width for #HTML macros in chaos.skool generation",
+      "message": "Increase line width for #HTML macros in chaos.skool generation\n\nUI graphic tweaks",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/759918f78709f74ea8c3a82c0cf707c067eddab3",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T21:09:13Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "ddecc4ccddb830104a61c488a43448be4c2fe201",
+      "title": "Add favicon generation script and include chaos.woff2 font file",
+      "message": "Add favicon generation script and include chaos.woff2 font file\n\n- Introduced `gen_favicon.py` to generate a favicon.ico from the Blob sprite frame 0, utilizing the on-board sprite colors.\n- Added `chaos.woff2` font file to the project, enhancing the visual assets available for the application.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/ddecc4ccddb830104a61c488a43448be4c2fe201",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T20:05:37Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "18cbe1a77da1bba787dc22cc0084ec7a74288f9e",
+      "title": "Add glossary reference file for gameplay and disassembly terms",
+      "message": "Add glossary reference file for gameplay and disassembly terms",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/18cbe1a77da1bba787dc22cc0084ec7a74288f9e",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T19:53:40Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "1ecab6746059b3a06b20c8188417e4197ab8c0f9",
+      "title": "Add bug references and page content for Chaos game",
+      "message": "Add bug references and page content for Chaos game\n\n- Introduced a new file `bugs.ref` containing detailed descriptions of various bugs in the game, including technical explanations and implications for gameplay.\n- Added a new file `pages.ref` to define custom HTML content sections, including tables for beam types and creature stats.\n- The `BeamTable` section outlines the six beam types used in the game, their animations, and associated sounds.\n- The `CreatureTable` and `SpellTable` sections are set up to include dynamic content for creature and spell statistics.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/1ecab6746059b3a06b20c8188417e4197ab8c0f9",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T19:49:03Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2fed14f8590f1fad256503977e9ae2705205603b",
+      "title": "Refactor HTML table generation for creature and spell stats",
+      "message": "Refactor HTML table generation for creature and spell stats\n\n- Removed gen_creature_table.py and gen_spell_table.py scripts.\n- Introduced chaos.py to handle HTML rendering directly from live snapshot data.\n- Updated creature and spell tables to use new methods in ChaosHtmlWriter.\n- Added detailed comments and structured code for better maintainability.\n- Orphaned code in chaos.skool documented for clarity.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2fed14f8590f1fad256503977e9ae2705205603b",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T19:28:49Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "7731585d25000dfe10850ba3fb0d438ac81ca106",
+      "title": "Added new bug: Gooey Blob turning illusions into real pieces.",
+      "message": "Added new bug: Gooey Blob turning illusions into real pieces.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/7731585d25000dfe10850ba3fb0d438ac81ca106",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-30T18:55:59Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "bbdf81e529c99f4a3aa3d921daf2f603b5d50674",
+      "title": "Add Alignment class for spell bias management and casting chance adjustments",
+      "message": "Add Alignment class for spell bias management and casting chance adjustments\n\n- Implemented the Alignment class to handle the bias applied by spells to the world's balance.\n- Added methods to shift bias and adjust casting chances based on alignment.\n- Included error handling for invalid bias values.\n- Provided two methods for chance adjustment: one for asymmetric and one for symmetric effects.\n- Removed unused magic_wood_trace.png file.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/bbdf81e529c99f4a3aa3d921daf2f603b5d50674",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
       ]
     },
     {
@@ -24105,6 +25099,20 @@
     },
     {
       "type": "commit",
+      "date": "2026-04-27T21:23:40Z",
+      "project_id": "into-eagles-nest-cpc",
+      "repository": "adstannard/into-the-eagles-nest",
+      "sha": "eae988a9e8bd4f2abeae4874289dde2bc4d09e2c",
+      "title": "Fix spelling and enhance clarity in README",
+      "message": "Fix spelling and enhance clarity in README\n\nCorrected spelling of 'respawn' and improved clarity.",
+      "url": "https://github.com/adstannard/into-the-eagles-nest/commit/eae988a9e8bd4f2abeae4874289dde2bc4d09e2c",
+      "author": "adstannard",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-04-26T20:50:51Z",
       "project_id": "ambermoon-advanced",
       "repository": "Pyrdacor/Ambermoon-Advanced",
@@ -24177,6 +25185,104 @@
     },
     {
       "type": "commit",
+      "date": "2026-04-17T20:19:48Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "e92657f19027793b3bf4cfca2362ef5791671b7b",
+      "title": "Fix various bugs related to spell mechanics and creature interactions",
+      "message": "Fix various bugs related to spell mechanics and creature interactions\n\n- Addressed issue where Turmoil never appears in starting hands, ensuring it can only be obtained through Magic Wood.\n- Resolved game freeze when Turmoil is cast on a nearly full board, preventing indefinite loops.\n- Fixed RNG behavior that skips values A-F, causing bias in spell and stat generation.\n- Identified and documented duplicate spell records leading to uneven draw probabilities for certain spells.\n- Marked Troll as unreachable content, clarifying its dormant state in the game.\n- Corrected unused corpse sprites for Vampire, Spectre, and Gooey Blob, ensuring consistency with undead behavior.\n- Implemented Ghost's intended ranged attack mechanics, which were previously untriggered.\n- Fixed an exploit allowing players to escape engagement through the info key, detailing the technical workings behind it.\n- Updated spell documentation to reflect changes and clarify mechanics for alignment-based attack spells.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/e92657f19027793b3bf4cfca2362ef5791671b7b",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-17T18:47:31Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "58d4f28064e76b048c0774745b8a6146f9c81872",
+      "title": "Enhance wizard interaction: document magic bolt effects and highlight wizard pieces.",
+      "message": "Enhance wizard interaction: document magic bolt effects and highlight wizard pieces.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/58d4f28064e76b048c0774745b8a6146f9c81872",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-16T22:06:25Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "190d59a64c28dd6f7568586419fefc3c042a2965",
+      "title": "And walls!",
+      "message": "And walls!",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/190d59a64c28dd6f7568586419fefc3c042a2965",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-16T21:55:16Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "26d096321696e84677443353408b0569c5a541f3",
+      "title": "We've learned how trees grow!",
+      "message": "We've learned how trees grow!",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/26d096321696e84677443353408b0569c5a541f3",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-15T20:26:58Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "c36e69105074a47896baa15825fbacc4d72cc02a",
+      "title": "Annotated wizard death routine,",
+      "message": "Annotated wizard death routine,",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/c36e69105074a47896baa15825fbacc4d72cc02a",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-15T19:13:04Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "86348ca88835b1d0c269523fb133de7f21879770",
+      "title": "Breakthrough: found a more accurate way to trace the sounds and generate outputs!",
+      "message": "Breakthrough: found a more accurate way to trace the sounds and generate outputs!",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/86348ca88835b1d0c269523fb133de7f21879770",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-14T22:10:45Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "856630c3d99b91881bbc2ed610e5f79759374efe",
+      "title": "Hand tweaked a lot of sounds. Not happy with the magic numbering but they sound better than Claude can get.",
+      "message": "Hand tweaked a lot of sounds. Not happy with the magic numbering but they sound better than Claude can get.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/856630c3d99b91881bbc2ed610e5f79759374efe",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
       "date": "2026-04-14T20:31:04Z",
       "project_id": "jetpac-spectrum",
       "repository": "mrcook/jetpac-disassembly",
@@ -24185,6 +25291,244 @@
       "message": "Jetman related annotation improvements",
       "url": "https://github.com/mrcook/jetpac-disassembly/commit/69dcde1a9f980b3d0948ca62bcb68d6c3a9b1c7d",
       "author": "mrcook",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-14T19:43:57Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "378a7a3f79c8523900dc553be3a3a1aa4445f169",
+      "title": "Fixed sound refs. Tweaked server behaviour. Added wizard sprites. Added more detail to player routines.",
+      "message": "Fixed sound refs. Tweaked server behaviour. Added wizard sprites. Added more detail to player routines.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/378a7a3f79c8523900dc553be3a3a1aa4445f169",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-14T07:26:24Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "5af511c0207643963e720404aa714e3ab804f75e",
+      "title": "Converted to hex addressing. Added ROM reference.",
+      "message": "Converted to hex addressing. Added ROM reference.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/5af511c0207643963e720404aa714e3ab804f75e",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-13T23:14:48Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "498ac0fb2c431500fe10a77cc83e722279e9ef03",
+      "title": "Python formatting.",
+      "message": "Python formatting.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/498ac0fb2c431500fe10a77cc83e722279e9ef03",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-13T23:11:54Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "ca8ad89cbf26b990c28900fd8a47847469abc392",
+      "title": "Updated project docs. Added new sound variants to sound effects section.",
+      "message": "Updated project docs. Added new sound variants to sound effects section.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/ca8ad89cbf26b990c28900fd8a47847469abc392",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-13T23:04:21Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2393d4c93b5eaa636a9376a932a293c35430d3ff",
+      "title": "Added beam effects.",
+      "message": "Added beam effects.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2393d4c93b5eaa636a9376a932a293c35430d3ff",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-13T18:28:48Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "03c88672dad127172ddf61520d7ec6287727a275",
+      "title": "Identified more routines.",
+      "message": "Identified more routines.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/03c88672dad127172ddf61520d7ec6287727a275",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-13T07:27:10Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "17c66c216070a839638825c82aba206b69c8305a",
+      "title": "Cleanup and converted to UTF8.",
+      "message": "Cleanup and converted to UTF8.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/17c66c216070a839638825c82aba206b69c8305a",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T22:11:07Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "e914bf24e4005897a969dff6db5069b0082ce3ab",
+      "title": "Added dev server.",
+      "message": "Added dev server.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/e914bf24e4005897a969dff6db5069b0082ce3ab",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T22:04:32Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "b4347fb815e50e16ca3b8c6ae13553206557584f",
+      "title": "Boilerplate.",
+      "message": "Boilerplate.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/b4347fb815e50e16ca3b8c6ae13553206557584f",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T21:58:00Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "88a1b9e4c33021593db0e73e281e9a8036d5bda4",
+      "title": "More clarity on 'check attack undead' routine",
+      "message": "More clarity on 'check attack undead' routine",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/88a1b9e4c33021593db0e73e281e9a8036d5bda4",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T21:37:52Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "3ea811467a8068a726089a523e20513c81fa003b",
+      "title": "Updated animation delays for creatures.",
+      "message": "Updated animation delays for creatures.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/3ea811467a8068a726089a523e20513c81fa003b",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T21:26:59Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "dea66d88a00da1342561dc8dc449d477b0107b38",
+      "title": "Made some progress on beam sounds, which are pitch shifted by virtue of running during the beam drawing routine.",
+      "message": "Made some progress on beam sounds, which are pitch shifted by virtue of running during the beam drawing routine.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/dea66d88a00da1342561dc8dc449d477b0107b38",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T20:31:04Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "2bf2ee3a26dff8f05307e0def9e70909ee0d626f",
+      "title": "Moved effects and UI into their own section.",
+      "message": "Moved effects and UI into their own section.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/2bf2ee3a26dff8f05307e0def9e70909ee0d626f",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T20:20:43Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "620b553e8c71dee7407b9b931d89ace61adaf92b",
+      "title": "More spell detail, including multi-cast spells.",
+      "message": "More spell detail, including multi-cast spells.",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/620b553e8c71dee7407b9b931d89ace61adaf92b",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T19:56:42Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "8bcec6ecf830dcb4025e79850b935a54d1de94e1",
+      "title": "Added creature stats",
+      "message": "Added creature stats",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/8bcec6ecf830dcb4025e79850b935a54d1de94e1",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T19:08:14Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "00a5b7e9e8a92d460c928d4cb608229189dac2ff",
+      "title": "Creature sprites",
+      "message": "Creature sprites",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/00a5b7e9e8a92d460c928d4cb608229189dac2ff",
+      "author": "Lewis Lane",
+      "branches": [
+        "master"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-04-12T18:46:43Z",
+      "project_id": "chaos-lewis-lane-spectrum",
+      "repository": "lewster32/chaos-disassembly",
+      "sha": "40b69eeff87d6cc70f00f6f8803407d3592230f7",
+      "title": "Initial commit",
+      "message": "Initial commit",
+      "url": "https://github.com/lewster32/chaos-disassembly/commit/40b69eeff87d6cc70f00f6f8803407d3592230f7",
+      "author": "Lewis Lane",
       "branches": [
         "master"
       ]
@@ -24751,6 +26095,20 @@
         "game-refactoring",
         "master",
         "pr-416-autobattle"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-03-31T09:26:20Z",
+      "project_id": "into-eagles-nest-cpc",
+      "repository": "adstannard/into-the-eagles-nest",
+      "sha": "5bb5214edaf76172e878d5910efedc76145557d7",
+      "title": "Correct typos in README.md links and text",
+      "message": "Correct typos in README.md links and text",
+      "url": "https://github.com/adstannard/into-the-eagles-nest/commit/5bb5214edaf76172e878d5910efedc76145557d7",
+      "author": "adstannard",
+      "branches": [
+        "main"
       ]
     },
     {
