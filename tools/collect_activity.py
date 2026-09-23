@@ -409,6 +409,13 @@ def main():
                         or baseline
                     )
                     since = max(CUTOFF, last_scan - timedelta(days=1))
+                # A newly tracked repository may be scanned long after its recent
+                # history happened. Bootstrap its first branch scan from the retained
+                # activity window rather than from first_seen_at, otherwise pre-existing
+                # commits (e.g. a commit a few days before the project was added) never
+                # enter data/activity.json.
+                if not bs.get("last_scan_at") and not rs.get("last_deep_scan"):
+                    since = CUTOFF
                 items = fetch_commits(repo, branch, since)
                 commits_seen += len(items)
 
