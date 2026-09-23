@@ -360,10 +360,24 @@ function activityMatches(event) {
     && (!$("activityAi").value||tri(project.ai?.usage)===$("activityAi").value);
 }
 
+function activityPlatformTags(project) {
+  const sources=arr(project.source_platforms);
+  const targets=arr(project.target_platforms);
+  const same=sources.length===targets.length && sources.every(value=>targets.includes(value));
+  const tag=(value,kind,label)=>'<span class="platform-tag '+kind+'" title="'+label+'">'+esc(value)+'</span>';
+  if(same){
+    return '<div class="activity-platforms">'+sources.map(value=>tag(value,"same-platform","Source and target platform")).join("")+'</div>';
+  }
+  const source=sources.map(value=>tag(value,"source-platform","Source platform")).join("");
+  const target=targets.map(value=>tag(value,"target-platform","Target platform")).join("");
+  if(!source&&!target) return "";
+  return '<div class="activity-platforms">'+source+(source&&target?'<span class="platform-arrow" aria-hidden="true">→</span>':"")+target+'</div>';
+}
+
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(project.title)+'</a>':esc(project.title);
-  return '<strong>'+title+'</strong><div class="activity-project-meta">'+esc(text(project.source_platforms))+'</div>';
+  return '<strong>'+title+'</strong>'+activityPlatformTags(project);
 }
 
 function renderActivity() {
@@ -398,9 +412,20 @@ function renderActivity() {
         const time=new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
         const title=event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title);
         const identity=event.type==="release"?(event.tag?esc(event.tag):"release"):(event.sha?esc(event.sha.slice(0,8)):"");
-        const details=[event.type==="release"?"release":"commit",event.author?esc(event.author):"",identity].filter(Boolean).join(" · ");
+        const detailParts=[];
+        if(event.type==="release"){
+          detailParts.push('<span class="activity-kind">release</span>');
+          if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
+        }else{
+          if(event.author) detailParts.push('<span class="activity-author">'+esc(event.author)+'</span>');
+          if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
+          for(const branch of arr(event.branches)){
+            detailParts.push('<span class="branch">'+esc(branch)+'</span>');
+          }
+        }
+        const details=detailParts.join('<span class="detail-separator">·</span>');
         const classes=event.type==="release"?"commit release-event":"commit";
-        return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div><div class="commit-branches">'+arr(event.branches).map(b=>'<span class="branch">'+esc(b)+'</span>').join("")+'</div></div>';
+        return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
       }).join("");
       return '<div class="activity-project"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
     }).join("");
