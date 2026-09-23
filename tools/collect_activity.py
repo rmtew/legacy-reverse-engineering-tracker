@@ -30,6 +30,7 @@ NOW_ISO = NOW.isoformat(timespec="seconds").replace("+00:00", "Z")
 DAYS = 180
 CUTOFF = NOW - timedelta(days=DAYS)
 MIN_RESERVE = int(os.environ.get("GITHUB_MIN_RATE_RESERVE", "100"))
+MAX_RESERVE = int(os.environ.get("GITHUB_MAX_RATE_RESERVE", "250"))
 RESERVE_FRACTION = float(os.environ.get("GITHUB_RATE_RESERVE_FRACTION", "0.15"))
 MAX_HTTP_REQUESTS = int(os.environ.get("GITHUB_HTTP_SAFETY_CAP", "800"))
 REQUEST_DELAY = float(os.environ.get("GITHUB_REQUEST_DELAY", "0.10"))
@@ -57,7 +58,9 @@ class PrimaryReserve(RateStop):
 def effective_reserve():
     if RATE_LIMIT is None:
         return MIN_RESERVE
-    return max(MIN_RESERVE, int(math.ceil(RATE_LIMIT * RESERVE_FRACTION)))
+    proportional = int(math.ceil(RATE_LIMIT * RESERVE_FRACTION))
+    floor = min(MIN_RESERVE, max(1, RATE_LIMIT // 4))
+    return min(MAX_RESERVE, max(floor, proportional))
 
 def update_rate(headers):
     global RATE_LIMIT, RATE_REMAINING, RATE_RESET
