@@ -138,7 +138,7 @@ def refresh(record):
         "pushed_at": iso_date(info.get("pushed_at")),
         "updated_at": iso_date(info.get("updated_at")),
         "checked_at": TODAY.isoformat(),
-        "default_branch": branch,
+        "default_branch": info.get("default_branch"),\n        "tracking_branch": branch,\n        "tracking_path": project_path,
         "archived": bool(info.get("archived")),
         "fork": bool(info.get("fork")),
         "primary_language": info.get("language"),
