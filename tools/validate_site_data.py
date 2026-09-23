@@ -34,6 +34,46 @@ def validate(projects_path, activity_path, rss_path=None):
         fail("duplicate project ids: " + ", ".join(duplicates), errors)
 
     project_ids = {value for value in ids if value}
+
+    allowed_record_classes = {"subject", "tooling", "hybrid"}
+    allowed_target_kinds = {
+        "game", "application", "demo", "operating-system", "firmware-rom",
+        "system-software", "game-engine", "game-subsystem", "development-tool",
+    }
+    allowed_work_kinds = {
+        "disassembly", "decompilation", "source-reconstruction", "source-restoration",
+        "binary-analysis", "data-format-analysis", "copy-protection-analysis",
+        "reimplementation", "reverse-engineering-derived-port", "patching",
+        "translation", "subsystem-reconstruction",
+    }
+    allowed_tool_kinds = {
+        "emulator", "debugger", "profiler", "graphics-debugger", "binary-analysis",
+        "disassembler", "reassembler", "ide", "compiler-toolchain",
+        "assembler-toolchain", "static-analysis", "language-tooling", "cycle-analysis",
+        "rom-tool", "disk-filesystem-tool", "asset-tool", "automation",
+        "development-environment",
+    }
+    for index, project in enumerate(projects):
+        record_class = project.get("record_class")
+        if record_class not in allowed_record_classes:
+            fail(f"project {index} has invalid record_class {record_class!r}", errors)
+        for field, allowed in (
+            ("target_kinds", allowed_target_kinds),
+            ("work_kinds", allowed_work_kinds),
+            ("tool_kinds", allowed_tool_kinds),
+        ):
+            values = project.get(field)
+            if not isinstance(values, list):
+                fail(f"project {index} field {field} must be an array", errors)
+                continue
+            invalid = sorted(set(values) - allowed)
+            if invalid:
+                fail(f"project {index} field {field} has invalid values: {', '.join(invalid)}", errors)
+        if record_class in {"subject", "hybrid"} and not project.get("target_kinds"):
+            fail(f"project {index} subject/hybrid record has no target_kinds", errors)
+        if record_class in {"tooling", "hybrid"} and not project.get("tool_kinds"):
+            fail(f"project {index} tooling/hybrid record has no tool_kinds", errors)
+
     project_event_types = {
         "project_added",
         "project_removed",
