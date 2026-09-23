@@ -23,3 +23,22 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 `build` contains `compilable`, `runnable`, `playable`, and `byte_exact`, each represented by `true`, `false`, or `null`.
 
 `ai` contains `usage` (`true`, `false`, or `null`) and a `tools` array containing only explicitly evidenced tools.
+
+
+## Automated GitHub metadata
+
+For records whose `repo` is a GitHub repository, the daily workflow refreshes a `github` object containing objective repository data:
+
+- `repository`
+- `created_at`, `pushed_at`, `updated_at`, `checked_at`
+- `default_branch`, `archived`, `fork`
+- `primary_language` and the ordered `languages` list
+- `activity_state` derived from latest commit age
+- `latest_commit`
+- `latest_release` when present
+
+The workflow also refreshes top-level `last_activity` from the latest default-branch commit.
+
+Repository creation is **not** treated as the true reverse-engineering start date. The UI may show it with an asterisk as a fallback while `re_started` is unknown.
+
+AI automation is evidence-only: explicit AI instruction files or AI co-author commit trailers can set `ai.usage=true` and record evidence. Absence of those signals never sets AI usage to false.
