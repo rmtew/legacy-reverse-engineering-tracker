@@ -6,9 +6,11 @@ on:
     paths:
       - "index.html"
       - "web/**"
-      - "data/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Refresh GitHub metadata", "Enrich project evidence"]
+    types: [completed]
 
 permissions:
   contents: read
@@ -21,6 +23,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -29,6 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Debounce superseded pushes
