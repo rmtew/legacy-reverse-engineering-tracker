@@ -196,3 +196,10 @@ Cybernoid provides a lossless byte-identical GAME→project→GAME extraction/re
 **From-Lights-to-Flag** was reviewed but not promoted: its own documentation describes an original Amiga racer that uses findings from the separate Indy Heat reverse-engineering project as design reference and explicitly avoids transplanting original code/assets. It remains useful as a discovery node around the Indy Heat work.
 
 HoraceAndTheSpider was added to recurring discovery sources for future profile/adjacent-repository passes.
+
+
+## 2026-09-24 — PiST Atari ST development tooling
+
+Promoted **PiST** as qualifying adjacent retro-development/software-archaeology tooling. PiST is a cross-platform Atari ST/STE 68000 IDE that integrates vasm/vlink with Hatari and provides source-line debugging, labelled disassembly, register/memory/hardware inspection, profiling, floppy-image and sprite/bitplane tooling, plus remote/MCP automation. The current README describes the write→assemble→run→debug loop as usable, and release v0.8.3 was published on 23 September 2026.
+
+PiST was also added as a discovery node because its documentation links directly into the modern Atari development stack, including Hatari/hrdb, vasm/vlink, EmuTOS and legacy disk/graphics formats.
