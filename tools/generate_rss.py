@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""Generate an RSS 2.0 feed from the tracker activity database."""
+"""Generate a low-noise RSS 2.0 feed from tracker activity.
+
+Commit activity is aggregated into one RSS item per project per UTC calendar day.
+Releases remain separate RSS items.
+"""
 from __future__ import annotations
 
 import argparse
 import html
 import json
+from collections import defaultdict
 from datetime import datetime, timezone
 from email.utils import format_datetime
 from pathlib import Path
@@ -21,7 +26,7 @@ def parse_time(value):
     if not value:
         return None
     try:
-        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
     except ValueError:
         return None
     return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
@@ -36,6 +41,25 @@ def joined(value):
     if isinstance(value, list):
         return ", ".join(str(item) for item in value if item)
     return str(value or "")
+
+
+def project_platforms(project):
+    source = joined(project.get("source_platforms"))
+    target = joined(project.get("target_platforms"))
+    if source and target and source != target:
+        return source + " → " + target
+    return source or target
+
+
+def format_day(day):
+    try:
+        return datetime.strptime(day, "%Y-%m-%d").strftime("%-d %B %Y")
+    except (ValueError, OSError):
+        # %-d is not portable to Windows; Pages builds on Linux, but keep a fallback.
+        try:
+            return datetime.strptime(day, "%Y-%m-%d").strftime("%d %B %Y").lstrip("0")
+        except ValueError:
+            return day
 
 
 def release_events(projects):
@@ -55,13 +79,44 @@ def release_events(projects):
             "title": "Release " + tag,
             "message": release.get("name") if release.get("name") != tag else "",
             "url": release.get("url") or project.get("project_url") or project.get("repo"),
-            "author": "",
-            "branches": [],
         })
     return events
 
 
-def description(event, project):
+def aggregate_commit_days(activity):
+    """Return one event per project per UTC day."""
+    grouped = defaultdict(list)
+    for event in activity.get("events", []):
+        if event.get("type") != "commit" or not event.get("sha") or not event.get("date"):
+            continue
+        grouped[(event.get("project_id"), str(event["date"])[:10])].append(event)
+
+    summaries = []
+    for (project_id, day), commits in grouped.items():
+        commits.sort(key=lambda event: event.get("date") or "", reverse=True)
+        latest = commits[0]
+        authors = sorted({str(event.get("author")) for event in commits if event.get("author")})
+        branches = sorted({
+            str(branch)
+            for event in commits
+            for branch in (event.get("branches") or [])
+            if branch
+        })
+        summaries.append({
+            "type": "daily_commits",
+            "date": latest.get("date"),
+            "day": day,
+            "project_id": project_id,
+            "repository": latest.get("repository"),
+            "commits": commits,
+            "authors": authors,
+            "branches": branches,
+            "count": len(commits),
+        })
+    return summaries
+
+
+def daily_description(event, project):
     project_url = project.get("project_url") or project.get("repo") or SITE_URL
     title = project.get("title") or event.get("project_id") or "?"
     bits = [
@@ -69,17 +124,52 @@ def description(event, project):
         html.escape(project_url, quote=True) + '">' +
         html.escape(title) + '</a></p>'
     ]
-    platforms = joined(project.get("source_platforms"))
+
+    platforms = project_platforms(project)
     if platforms:
-        bits.append("<p><strong>Platform:</strong> " + html.escape(platforms) + "</p>")
-    branches = joined(event.get("branches"))
-    if branches:
-        bits.append("<p><strong>Branch:</strong> " + html.escape(branches) + "</p>")
-    if event.get("author"):
-        bits.append("<p><strong>Author:</strong> " + html.escape(str(event["author"])) + "</p>")
-    message = (event.get("message") or event.get("title") or "").strip()
-    if message:
-        bits.append("<pre>" + html.escape(message[:5000]) + "</pre>")
+        bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
+
+    if event.get("authors"):
+        bits.append("<p><strong>Authors:</strong> " + html.escape(", ".join(event["authors"])) + "</p>")
+    if event.get("branches"):
+        bits.append("<p><strong>Branches:</strong> " + html.escape(", ".join(event["branches"])) + "</p>")
+
+    bits.append("<ul>")
+    for commit in event.get("commits", []):
+        commit_url = commit.get("url")
+        title_text = commit.get("title") or (commit.get("sha") or "")[:12]
+        label = html.escape(title_text)
+        if commit_url:
+            label = '<a href="' + html.escape(commit_url, quote=True) + '">' + label + '</a>'
+
+        meta = []
+        if commit.get("author"):
+            meta.append(html.escape(str(commit["author"])))
+        if commit.get("sha"):
+            meta.append(html.escape(str(commit["sha"])[:8]))
+        branches = commit.get("branches") or []
+        if branches:
+            meta.append(html.escape(", ".join(branches)))
+
+        suffix = " — " + " · ".join(meta) if meta else ""
+        bits.append("<li>" + label + suffix + "</li>")
+    bits.append("</ul>")
+    return "".join(bits)
+
+
+def release_description(event, project):
+    project_url = project.get("project_url") or project.get("repo") or SITE_URL
+    title = project.get("title") or event.get("project_id") or "?"
+    bits = [
+        '<p><strong>Project:</strong> <a href="' +
+        html.escape(project_url, quote=True) + '">' +
+        html.escape(title) + '</a></p>'
+    ]
+    platforms = project_platforms(project)
+    if platforms:
+        bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
+    if event.get("message"):
+        bits.append("<p>" + html.escape(str(event["message"])) + "</p>")
     return "".join(bits)
 
 
@@ -88,10 +178,7 @@ def generate(activity_path, projects_path, output_path, limit):
     projects = json.loads(projects_path.read_text(encoding="utf-8"))
     by_id = {project["id"]: project for project in projects if project.get("id")}
 
-    events = [
-        event for event in activity.get("events", [])
-        if event.get("type") == "commit" and event.get("sha") and event.get("date")
-    ]
+    events = aggregate_commit_days(activity)
     events.extend(release_events(projects))
     events.sort(key=lambda event: event.get("date") or "", reverse=True)
     events = events[:limit]
@@ -101,7 +188,8 @@ def generate(activity_path, projects_path, output_path, limit):
     ET.SubElement(channel, "title").text = "Legacy Reverse Engineering Tracker — Activity"
     ET.SubElement(channel, "link").text = SITE_URL
     ET.SubElement(channel, "description").text = (
-        "Recent commits and releases across tracked legacy software reverse-engineering projects."
+        "Daily project activity summaries and releases across tracked legacy software "
+        "reverse-engineering projects."
     )
     ET.SubElement(channel, "language").text = "en"
     ET.SubElement(channel, "{" + ATOM_NS + "}link", {
@@ -116,20 +204,32 @@ def generate(activity_path, projects_path, output_path, limit):
     for event in events:
         project = by_id.get(event.get("project_id"), {})
         project_title = project.get("title") or event.get("project_id") or "Unknown project"
-        event_title = event.get("title") or (event.get("sha") or event.get("tag") or "")[:12]
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text = project_title + " — " + event_title
-        link = event.get("url") or project.get("project_url") or project.get("repo") or SITE_URL
-        ET.SubElement(item, "link").text = link
-        guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
+
         if event.get("type") == "release":
-            guid.text = "legacy-re:" + str(event.get("project_id")) + ":release:" + str(event.get("tag"))
+            tag = event.get("tag") or "release"
+            ET.SubElement(item, "title").text = project_title + " — released " + tag
+            link = event.get("url") or project.get("project_url") or project.get("repo") or SITE_URL
+            ET.SubElement(item, "link").text = link
+            guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
+            guid.text = "legacy-re:" + str(event.get("project_id")) + ":release:" + str(tag)
+            ET.SubElement(item, "description").text = release_description(event, project)
         else:
-            guid.text = "legacy-re:" + str(event.get("project_id")) + ":" + str(event.get("sha"))
+            count = int(event.get("count") or 0)
+            noun = "commit" if count == 1 else "commits"
+            day = event.get("day") or str(event.get("date") or "")[:10]
+            ET.SubElement(item, "title").text = (
+                project_title + " — " + str(count) + " " + noun + " on " + format_day(day)
+            )
+            link = project.get("project_url") or project.get("repo") or SITE_URL
+            ET.SubElement(item, "link").text = link
+            guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
+            guid.text = "legacy-re:" + str(event.get("project_id")) + ":day:" + str(day)
+            ET.SubElement(item, "description").text = daily_description(event, project)
+
         pub_date = rfc822(event.get("date"))
         if pub_date:
             ET.SubElement(item, "pubDate").text = pub_date
-        ET.SubElement(item, "description").text = description(event, project)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     tree = ET.ElementTree(rss)
