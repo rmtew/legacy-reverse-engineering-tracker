@@ -1,3 +1,7 @@
+# Legacy discovery backlog
+
+> **Not canonical data.** Structured project records under `projects/` feed the interactive tracker. This file is retained temporarily because it still contains unmigrated projects and research leads. Remove entries from here as they are migrated and verified.
+
 # Project Catalogue
 
 ## Amiga / Atari ST / 68K
