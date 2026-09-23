@@ -1,177 +1,265 @@
-let projects=[];
-let sort={key:"title",dir:1};
+let projects = [];
+let sort = { key: "title", dir: 1 };
 
-const $=id=>document.getElementById(id);
-const arr=v=>Array.isArray(v)?v:(v===null||v===undefined||v===""?[]:[v]);
-const text=v=>arr(v).join(", ");
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const tri=v=>v===true?"Yes":v===false?"No":"Unknown";
-const flag=v=>{const t=tri(v);return '<span class="flag '+t.toLowerCase()+'" title="'+t+'">'+(t==="Unknown"?"?":t)+'</span>'};
-const tags=v=>{const xs=arr(v);return xs.length?'<span class="tags">'+xs.map(x=>'<span class="tag">'+esc(x)+'</span>').join("")+'</span>':'?'};
+const $ = id => document.getElementById(id);
+const arr = value => Array.isArray(value) ? value : (value === null || value === undefined || value === "" ? [] : [value]);
+const text = value => arr(value).join(", ");
+const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;"
+}[char]));
+const tri = value => value === true ? "Yes" : value === false ? "No" : "Unknown";
+const flag = value => {
+  const label = tri(value);
+  return '<span class="flag ' + label.toLowerCase() + '" title="' + label + '">' +
+    (label === "Unknown" ? "?" : label) + "</span>";
+};
+const tags = value => {
+  const values = arr(value);
+  return values.length
+    ? '<span class="tags">' + values.map(item => '<span class="tag">' + esc(item) + "</span>").join("") + "</span>"
+    : "?";
+};
 
-const filterIds=["sourcePlatform","targetPlatform","cpu","language","type","tag","status","activity","compilable","playable","exact","ai"];
+const filterIds = [
+  "sourcePlatform", "targetPlatform", "cpu", "language", "type", "tag",
+  "status", "activity", "compilable", "playable", "exact", "ai"
+];
 
-function unique(field){
-  return [...new Set(projects.flatMap(r=>arr(r[field])).filter(Boolean))]
-    .sort((a,b)=>String(a).localeCompare(String(b),undefined,{numeric:true,sensitivity:"base"}));
+function unique(field) {
+  return [...new Set(projects.flatMap(record => arr(record[field])).filter(Boolean))]
+    .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" }));
 }
-function fillSelect(id,field){
-  const select=$(id);
-  for(const value of unique(field)){
-    const option=document.createElement("option");
-    option.value=option.textContent=value;
+
+function fillSelect(id, field) {
+  const select = $(id);
+  for (const value of unique(field)) {
+    const option = document.createElement("option");
+    option.value = option.textContent = value;
     select.append(option);
   }
 }
 
-function sortValue(r,key){
-  const b=r.build||{},a=r.ai||{};
+function fillActivitySelect() {
+  const values = [...new Set(projects.map(record => record.github?.activity_state).filter(Boolean))].sort();
+  for (const value of values) {
+    const option = document.createElement("option");
+    option.value = option.textContent = value;
+    $("activity").append(option);
+  }
+}
+
+function sortValue(record, key) {
+  const build = record.build || {};
+  const ai = record.ai || {};
   return {
-    title:r.title, source:text(r.source_platforms), target:text(r.target_platforms),
-    language:text(r.reconstructed_languages), type:text(r.types),
-    started:r.re_started??r.github?.created_at, updated:r.last_activity,
-    compilable:tri(b.compilable), playable:tri(b.playable),
-    exact:tri(b.byte_exact), ai:tri(a.usage)
+    title: record.title,
+    source: text(record.source_platforms),
+    target: text(record.target_platforms),
+    language: text(record.reconstructed_languages),
+    type: text(record.types),
+    started: record.re_started ?? record.github?.created_at,
+    updated: record.last_activity,
+    compilable: tri(build.compilable),
+    playable: tri(build.playable),
+    exact: tri(build.byte_exact),
+    ai: tri(ai.usage)
   }[key];
 }
-function compare(a,b){
-  const av=sortValue(a,sort.key),bv=sortValue(b,sort.key);
-  const aMissing=av===null||av===undefined||av===""||av==="Unknown";
-  const bMissing=bv===null||bv===undefined||bv===""||bv==="Unknown";
-  if(aMissing!==bMissing)return aMissing?1:-1;
-  return String(av??"").localeCompare(String(bv??""),undefined,{numeric:true,sensitivity:"base"})*sort.dir;
+
+function compare(a, b) {
+  const av = sortValue(a, sort.key);
+  const bv = sortValue(b, sort.key);
+  const aMissing = av === null || av === undefined || av === "" || av === "Unknown";
+  const bMissing = bv === null || bv === undefined || bv === "" || bv === "Unknown";
+  if (aMissing !== bMissing) return aMissing ? 1 : -1;
+  return String(av ?? "").localeCompare(
+    String(bv ?? ""),
+    undefined,
+    { numeric: true, sensitivity: "base" }
+  ) * sort.dir;
 }
 
-function matches(r){
-  const q=$("q").value.trim().toLowerCase();
-  const b=r.build||{},a=r.ai||{};
-  const hay=[
-    r.title,r.notes,r.repo,r.status,
-    ...arr(r.tags),...arr(r.techniques),...arr(r.types),
-    ...arr(r.source_platforms),...arr(r.target_platforms),
-    ...arr(r.source_cpu),...arr(r.reconstructed_languages)
+function matches(record) {
+  const query = $("q").value.trim().toLowerCase();
+  const build = record.build || {};
+  const ai = record.ai || {};
+  const haystack = [
+    record.title, record.notes, record.repo, record.project_url, record.status,
+    ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
+    ...arr(record.source_platforms), ...arr(record.target_platforms),
+    ...arr(record.source_cpu), ...arr(record.reconstructed_languages)
   ].join(" ").toLowerCase();
 
-  return (!q||hay.includes(q))
-    && (!$("sourcePlatform").value||arr(r.source_platforms).includes($("sourcePlatform").value))
-    && (!$("targetPlatform").value||arr(r.target_platforms).includes($("targetPlatform").value))
-    && (!$("cpu").value||arr(r.source_cpu).includes($("cpu").value))
-    && (!$("language").value||arr(r.reconstructed_languages).includes($("language").value))
-    && (!$("type").value||arr(r.types).includes($("type").value))
-    && (!$("tag").value||arr(r.tags).includes($("tag").value))
-    && (!$("status").value||r.status===$("status").value)\n    && (!$("activity").value||r.github?.activity_state===$("activity").value)
-    && (!$("compilable").value||tri(b.compilable)===$("compilable").value)
-    && (!$("playable").value||tri(b.playable)===$("playable").value)
-    && (!$("exact").value||tri(b.byte_exact)===$("exact").value)
-    && (!$("ai").value||tri(a.usage)===$("ai").value);
+  return (!query || haystack.includes(query))
+    && (!$("sourcePlatform").value || arr(record.source_platforms).includes($("sourcePlatform").value))
+    && (!$("targetPlatform").value || arr(record.target_platforms).includes($("targetPlatform").value))
+    && (!$("cpu").value || arr(record.source_cpu).includes($("cpu").value))
+    && (!$("language").value || arr(record.reconstructed_languages).includes($("language").value))
+    && (!$("type").value || arr(record.types).includes($("type").value))
+    && (!$("tag").value || arr(record.tags).includes($("tag").value))
+    && (!$("status").value || record.status === $("status").value)
+    && (!$("activity").value || record.github?.activity_state === $("activity").value)
+    && (!$("compilable").value || tri(build.compilable) === $("compilable").value)
+    && (!$("playable").value || tri(build.playable) === $("playable").value)
+    && (!$("exact").value || tri(build.byte_exact) === $("exact").value)
+    && (!$("ai").value || tri(ai.usage) === $("ai").value);
 }
 
-function projectCell(r){
-  const title=esc(r.title||r.id||"?");
-  const url=r.project_url||r.repo;
-  if(!url)return '<strong>'+title+'</strong>';
-  return '<a class="project-link" href="'+esc(url)+'" target="_blank" rel="noopener">'+title+'</a>';
+function projectCell(record) {
+  const title = esc(record.title || record.id || "?");
+  const url = record.project_url || record.repo;
+  if (!url) return "<strong>" + title + "</strong>";
+  return '<a class="project-link" href="' + esc(url) + '" target="_blank" rel="noopener">' + title + "</a>";
 }
 
-function render(){
-  const rows=projects.filter(matches).sort(compare);
-  $("count").textContent=rows.length;
-  $("total").textContent=projects.length;
-  $("sortnote").textContent="Sorted by "+sort.key+(sort.dir<0?" ↓":" ↑");
-  document.querySelectorAll("th[data-key]").forEach(th=>{
+function render() {
+  const rows = projects.filter(matches).sort(compare);
+  $("count").textContent = rows.length;
+  $("total").textContent = projects.length;
+  $("sortnote").textContent = "Sorted by " + sort.key + (sort.dir < 0 ? " ↓" : " ↑");
+
+  document.querySelectorAll("th[data-key]").forEach(th => {
     th.removeAttribute("data-sort");
-    if(th.dataset.key===sort.key)th.dataset.sort=sort.dir>0?"asc":"desc";
+    if (th.dataset.key === sort.key) th.dataset.sort = sort.dir > 0 ? "asc" : "desc";
   });
 
-  if(!rows.length){
-    $("rows").innerHTML='<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
+  if (!rows.length) {
+    $("rows").innerHTML = '<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
     return;
   }
 
-  $("rows").innerHTML=rows.map(r=>{
-    const b=r.build||{},a=r.ai||{};
-    return '<tr class="project-row" data-id="'+esc(r.id)+'">'
-      +'<td>'+projectCell(r)+'</td>'
-      +'<td>'+tags(r.source_platforms)+'</td>'
-      +'<td>'+tags(r.target_platforms)+'</td>'
-      +'<td>'+tags(r.reconstructed_languages)+'</td>'
-      +'<td>'+tags(r.types)+'</td>'
-      +'<td>'+esc(r.re_started??(r.github?.created_at?r.github.created_at.slice(0,4)+"*":"?"))+'</td>'
-      +'<td>'+esc(r.last_activity??"?")+'</td>'
-      +'<td>'+flag(b.compilable)+'</td>'
-      +'<td>'+flag(b.playable)+'</td>'
-      +'<td>'+flag(b.byte_exact)+'</td>'
-      +'<td>'+flag(a.usage)+'</td></tr>';
+  $("rows").innerHTML = rows.map(record => {
+    const build = record.build || {};
+    const ai = record.ai || {};
+    const started = record.re_started ?? (record.github?.created_at ? record.github.created_at.slice(0, 4) + "*" : "?");
+
+    return '<tr class="project-row" data-id="' + esc(record.id) + '">'
+      + "<td>" + projectCell(record) + "</td>"
+      + "<td>" + tags(record.source_platforms) + "</td>"
+      + "<td>" + tags(record.target_platforms) + "</td>"
+      + "<td>" + tags(record.reconstructed_languages) + "</td>"
+      + "<td>" + tags(record.types) + "</td>"
+      + "<td>" + esc(started) + "</td>"
+      + "<td>" + esc(record.last_activity ?? "?") + "</td>"
+      + "<td>" + flag(build.compilable) + "</td>"
+      + "<td>" + flag(build.playable) + "</td>"
+      + "<td>" + flag(build.byte_exact) + "</td>"
+      + "<td>" + flag(ai.usage) + "</td>"
+      + "</tr>";
   }).join("");
 
-  document.querySelectorAll("#rows tr.project-row").forEach(tr=>{
-    tr.addEventListener("click",e=>{
-      if(e.target.closest("a"))return;
-      showDetails(projects.find(r=>r.id===tr.dataset.id));
+  document.querySelectorAll("#rows tr.project-row").forEach(row => {
+    row.addEventListener("click", event => {
+      if (event.target.closest("a")) return;
+      showDetails(projects.find(record => record.id === row.dataset.id));
     });
   });
 }
 
-function showDetails(r){
-  const b=r.build||{},a=r.ai||{};
-  const line=(label,value)=>'<dt>'+label+'</dt><dd>'+value+'</dd>';
-  const repo=r.repo?'<a href="'+esc(r.repo)+'" target="_blank" rel="noopener">'+esc(r.repo)+'</a>':'?';
-  const project=r.project_url?'<a href="'+esc(r.project_url)+'" target="_blank" rel="noopener">'+esc(r.project_url)+'</a>':null;
-  $("detailbody").innerHTML='<h2>'+esc(r.title)+'</h2><dl class="details-grid">'
-    +(project?line("Project page",project):"")
-    +line("Repository",repo)
-    +line("Source platform",tags(r.source_platforms))
-    +line("Target platform",tags(r.target_platforms))
-    +line("CPU",tags(r.source_cpu))
-    +line("Original/source language",tags(r.source_language))
-    +line("Reconstructed language",tags(r.reconstructed_languages))
-    +line("RE type",tags(r.types))
-    +line("Started",esc(r.re_started??"?"))
-    +line("Last activity",esc(r.last_activity??"?"))
-    +line("Last checked",esc(r.last_checked??"?"))\n    +line("Repository created",esc(r.github?.created_at??"?"))\n    +line("GitHub activity",esc(r.github?.activity_state??"?"))\n    +line("Default branch",esc(r.github?.default_branch??"?"))\n    +line("GitHub languages",tags(r.github?.languages))\n    +line("Latest commit",r.github?.latest_commit?.url?'<a href="'+esc(r.github.latest_commit.url)+'" target="_blank" rel="noopener">'+esc(r.github.latest_commit.date+" — "+r.github.latest_commit.message)+'</a>':"?")
-    +line("Status",esc(r.status??"?"))
-    +line("Compilable",tri(b.compilable))
-    +line("Runnable",tri(b.runnable))
-    +line("Playable",tri(b.playable))
-    +line("Byte exact",tri(b.byte_exact))
-    +line("AI usage",tri(a.usage))
-    +line("AI tools",tags(a.tools))
-    +line("Techniques",tags(r.techniques))
-    +line("Tags",tags(r.tags))
-    +line("Notes",esc(r.notes||""))
-    +'</dl>';
+function showDetails(record) {
+  const build = record.build || {};
+  const ai = record.ai || {};
+  const line = (label, value) => "<dt>" + label + "</dt><dd>" + value + "</dd>";
+  const repo = record.repo
+    ? '<a href="' + esc(record.repo) + '" target="_blank" rel="noopener">' + esc(record.repo) + "</a>"
+    : "?";
+  const project = record.project_url
+    ? '<a href="' + esc(record.project_url) + '" target="_blank" rel="noopener">' + esc(record.project_url) + "</a>"
+    : null;
+  const latestCommit = record.github?.latest_commit?.url
+    ? '<a href="' + esc(record.github.latest_commit.url) + '" target="_blank" rel="noopener">'
+      + esc((record.github.latest_commit.date || "?") + " — " + (record.github.latest_commit.message || ""))
+      + "</a>"
+    : "?";
+  const latestRelease = record.github?.latest_release?.url
+    ? '<a href="' + esc(record.github.latest_release.url) + '" target="_blank" rel="noopener">'
+      + esc((record.github.latest_release.tag || record.github.latest_release.name || "release")
+        + (record.github.latest_release.published_at ? " — " + record.github.latest_release.published_at : ""))
+      + "</a>"
+    : "?";
+
+  $("detailbody").innerHTML = "<h2>" + esc(record.title) + '</h2><dl class="details-grid">'
+    + (project ? line("Project page", project) : "")
+    + line("Repository", repo)
+    + line("Source platform", tags(record.source_platforms))
+    + line("Target platform", tags(record.target_platforms))
+    + line("CPU", tags(record.source_cpu))
+    + line("Original/source language", tags(record.source_language))
+    + line("Reconstructed language", tags(record.reconstructed_languages))
+    + line("RE type", tags(record.types))
+    + line("Started", esc(record.re_started ?? "?"))
+    + line("Last activity", esc(record.last_activity ?? "?"))
+    + line("Last checked", esc(record.last_checked ?? "?"))
+    + line("Repository created", esc(record.github?.created_at ?? "?"))
+    + line("GitHub activity", esc(record.github?.activity_state ?? "?"))
+    + line("Default branch", esc(record.github?.default_branch ?? "?"))
+    + line("Tracked branch", esc(record.github?.tracking_branch ?? "?"))
+    + line("Tracked path", esc(record.github?.tracking_path ?? "?"))
+    + line("GitHub languages", tags(record.github?.languages))
+    + line("Latest commit", latestCommit)
+    + line("Latest release", latestRelease)
+    + line("Status", esc(record.status ?? "?"))
+    + line("Compilable", tri(build.compilable))
+    + line("Runnable", tri(build.runnable))
+    + line("Playable", tri(build.playable))
+    + line("Byte exact", tri(build.byte_exact))
+    + line("AI usage", tri(ai.usage))
+    + line("AI tools", tags(ai.tools))
+    + line("AI evidence", tags(ai.evidence))
+    + line("Techniques", tags(record.techniques))
+    + line("Tags", tags(record.tags))
+    + line("Notes", esc(record.notes || ""))
+    + "</dl>";
+
   $("details").showModal();
 }
 
-function init(){
-  fillSelect("sourcePlatform","source_platforms");
-  fillSelect("targetPlatform","target_platforms");
-  fillSelect("cpu","source_cpu");
-  fillSelect("language","reconstructed_languages");
-  fillSelect("type","types");
-  fillSelect("tag","tags");
-  fillSelect("status","status");\n  const activities=[...new Set(projects.map(r=>r.github?.activity_state).filter(Boolean))].sort(); for(const value of activities){const o=document.createElement("option");o.value=o.textContent=value;$("activity").append(o);}
-  $("total").textContent=projects.length;
+function init() {
+  fillSelect("sourcePlatform", "source_platforms");
+  fillSelect("targetPlatform", "target_platforms");
+  fillSelect("cpu", "source_cpu");
+  fillSelect("language", "reconstructed_languages");
+  fillSelect("type", "types");
+  fillSelect("tag", "tags");
+  fillSelect("status", "status");
+  fillActivitySelect();
+  $("total").textContent = projects.length;
   render();
 }
 
-fetch("data/projects.json",{cache:"no-cache"})
-  .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})
-  .then(data=>{projects=data;init()})
-  .catch(error=>{
-    $("rows").innerHTML='<tr><td colspan="11" class="empty">Could not load project data: '+esc(error.message)+'</td></tr>';
+fetch("data/projects.json", { cache: "no-cache" })
+  .then(response => {
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return response.json();
+  })
+  .then(data => {
+    projects = data;
+    init();
+  })
+  .catch(error => {
+    $("rows").innerHTML = '<tr><td colspan="11" class="empty">Could not load project data: ' + esc(error.message) + "</td></tr>";
   });
 
-$("q").addEventListener("input",render);
-filterIds.forEach(id=>$(id).addEventListener("change",render));
-$("clear").addEventListener("click",()=>{
-  $("q").value="";
-  filterIds.forEach(id=>$(id).value="");
+$("q").addEventListener("input", render);
+filterIds.forEach(id => $(id).addEventListener("change", render));
+$("clear").addEventListener("click", () => {
+  $("q").value = "";
+  filterIds.forEach(id => { $(id).value = ""; });
   render();
 });
-document.querySelectorAll("th[data-key]").forEach(th=>th.addEventListener("click",()=>{
-  sort=sort.key===th.dataset.key?{key:sort.key,dir:-sort.dir}:{key:th.dataset.key,dir:1};
+
+document.querySelectorAll("th[data-key]").forEach(th => th.addEventListener("click", () => {
+  sort = sort.key === th.dataset.key
+    ? { key: sort.key, dir: -sort.dir }
+    : { key: th.dataset.key, dir: 1 };
   render();
 }));
-document.querySelector("#details .close").addEventListener("click",()=>$("details").close());
-$("details").addEventListener("click",e=>{if(e.target===$("details"))$("details").close()});
+
+document.querySelector("#details .close").addEventListener("click", () => $("details").close());
+$("details").addEventListener("click", event => {
+  if (event.target === $("details")) $("details").close();
+});
