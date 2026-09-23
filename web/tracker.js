@@ -361,7 +361,8 @@ Promise.all([
   fetch("data/activity.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("activity HTTP "+r.status);return r.json()})
 ]).then(([projectData,activity])=>{
   activityData=activity;
-  projects=projectData;\n  init();
+  projects=projectData;
+  init();
   initActivityFilters();
   renderActivity();
 }).catch(error=>{
