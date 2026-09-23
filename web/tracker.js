@@ -231,18 +231,7 @@ function init() {
   render();
 }
 
-fetch("data/projects.json", { cache: "no-cache" })
-  .then(response => {
-    if (!response.ok) throw new Error("HTTP " + response.status);
-    return response.json();
-  })
-  .then(data => {
-    projects = data;
-    init();
-  })
-  .catch(error => {
-    $("rows").innerHTML = '<tr><td colspan="11" class="empty">Could not load project data: ' + esc(error.message) + "</td></tr>";
-  });
+// Project and activity data are loaded together below.
 
 $("q").addEventListener("input", render);
 filterIds.forEach(id => $(id).addEventListener("change", render));
@@ -372,7 +361,7 @@ Promise.all([
   fetch("data/activity.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("activity HTTP "+r.status);return r.json()})
 ]).then(([projectData,activity])=>{
   activityData=activity;
-  if(projects.length===0){projects=projectData;init();}
+  projects=projectData;\n  init();
   initActivityFilters();
   renderActivity();
 }).catch(error=>{
