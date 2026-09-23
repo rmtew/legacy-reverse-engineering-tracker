@@ -36,7 +36,7 @@ DOC_NAMES = {
 }
 
 COMPILE_POSITIVE = [
-    re.compile(r"\b(?:the\s+)?(?:game|project|source|code|disassembly|listing|rom|firmware)\s+(?:now\s+)?(?:compiles|builds|assembles|reassembles)\b", re.I),
+    re.compile(r"\b(?:the\s+)?(?:game|source|code|disassembly|listing|rom|firmware)\s+(?:now\s+)?(?:compiles|assembles|reassembles)\b", re.I),
     re.compile(r"\b(?:can|may)\s+(?:be\s+)?(?:compiled|built|assembled|reassembled)\b", re.I),
     re.compile(r"\byou can (?:compile|build|assemble|reassemble)(?:\s+and\s+run)?\b", re.I),
     re.compile(r"\b(?:compile|build|assemble|reassemble) and run\b", re.I),
@@ -62,12 +62,13 @@ PLAYABLE_NEGATIVE = [
 ]
 
 BYTE_POSITIVE = [
-    re.compile(r"\bbyte[- ](?:exact|identical)\b", re.I),
-    re.compile(r"\bbyte[- ]for[- ]byte (?:identical|match(?:es|ed)?|reproduction|reconstruction)\b", re.I),
-    re.compile(r"\bbit[- ]for[- ]bit identical\b", re.I),
-    re.compile(r"\bidentical to (?:the )?original (?:rom|binary|image|snapshot|executable)\b", re.I),
-    re.compile(r"\breproduces? (?:the |its )?(?:original )?(?:rom|binary|image|snapshot|executable)[^.\n]{0,80}\bexactly\b", re.I),
-    re.compile(r"\breproduce(?:s|d)? every byte\b", re.I),
+    re.compile(r"\b(?:source|disassembly|listing|file)\b[^.\n]{0,100}\breassembl(?:e|es|ed|ing)\b[^.\n]{0,100}\b(?:byte[- ]for[- ]byte identical|byte[- ]identical|byte[- ]exact)\b", re.I),
+    re.compile(r"\breassembl(?:e|es|ed|ing)\b[^.\n]{0,100}\b(?:byte[- ]for[- ]byte identical|byte[- ]identical|byte[- ]exact)\b[^.\n]{0,100}\b(?:original|cartridge|rom|binary|executable)\b", re.I),
+    re.compile(r"\b(?:rebuilt|reassembled|compiled|generated)\s+(?:binary|rom|snapshot|executable|cartridge)\b[^.\n]{0,100}\b(?:byte[- ]identical|byte[- ]exact|bit[- ]for[- ]bit identical|exactly the same)\b", re.I),
+    re.compile(r"\b(?:binary|rom|snapshot|executable|cartridge)\b[^.\n]{0,100}\b(?:byte[- ]identical|byte[- ]exact|bit[- ]for[- ]bit identical)\b[^.\n]{0,100}\boriginal\b", re.I),
+    re.compile(r"\bgenerates? (?:the )?exactly same binary as (?:the )?original\b", re.I),
+    re.compile(r"\bcmp\b[^.\n]{0,120}\b(?:no output|byte[- ]identical|identical)\b", re.I),
+    re.compile(r"\ba byte[- ]exact[^.\n]{0,80}\b(?:reconstruction|reverse engineer|disassembly)\b", re.I),
 ]
 BYTE_NEGATIVE = [
     re.compile(r"\bnot byte[- ](?:exact|identical)\b", re.I),
@@ -85,6 +86,7 @@ START_PATTERNS = [
 ]
 
 CI_NAME = re.compile(r"\b(?:build|test|tests|ci|compile|assemble|verify|verification)\b", re.I)
+CI_EXCLUDE = re.compile(r"\b(?:pages?|deploy|deployment|docs?|documentation|website|site|lint|format)\b", re.I)
 
 def api(path, allow_404=False):
     key = (path, allow_404)
@@ -239,7 +241,7 @@ def ci_signals(repo, branch):
     latest_by_name = {}
     for run in payload.get("workflow_runs", []):
         name = run.get("name") or ""
-        if not CI_NAME.search(name):
+        if not CI_NAME.search(name) or CI_EXCLUDE.search(name):
             continue
         if name in latest_by_name:
             continue
@@ -287,15 +289,35 @@ def enrich(record):
         auto[key] = dedupe(auto[key])
 
     promoted = False
-    promoted |= resolve_boolean(record, "compilable", auto["compilable"])
-    promoted |= resolve_boolean(record, "playable", auto["playable"])
+    applied = {}
+    if resolve_boolean(record, "compilable", auto["compilable"]):
+        promoted = True
+        applied["compilable"] = record["build"]["compilable"]
+    if resolve_boolean(record, "playable", auto["playable"]):
+        promoted = True
+        applied["playable"] = record["build"]["playable"]
     if record.setdefault("build", {}).get("playable") is True and record["build"].get("runnable") is None:
         record["build"]["runnable"] = True
         promoted = True
-    promoted |= resolve_boolean(record, "byte_exact", auto["byte_exact"])
-    promoted |= resolve_start(record, auto["re_started"])
+        applied["runnable"] = True
+    if resolve_boolean(record, "byte_exact", auto["byte_exact"]):
+        promoted = True
+        applied["byte_exact"] = record["build"]["byte_exact"]
+    if resolve_start(record, auto["re_started"]):
+        promoted = True
+        applied["re_started"] = record["re_started"]
 
-    record.setdefault("evidence", {})["automated"] = auto
+    if applied:
+        auto["applied"] = applied
+
+    has_evidence = any(auto[key] for key in ("compilable", "playable", "byte_exact", "re_started", "ci"))
+    evidence = record.setdefault("evidence", {})
+    if has_evidence:
+        evidence["automated"] = auto
+    else:
+        evidence.pop("automated", None)
+        if not evidence:
+            record.pop("evidence", None)
     return promoted
 
 def main():
