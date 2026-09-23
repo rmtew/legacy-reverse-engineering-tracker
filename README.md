@@ -15,6 +15,7 @@ The tracker has two views:
 - `data/activity.json` — rolling 180-day attributed commit feed
 - `index.html`, `web/tracker.js`, `web/tracker.css` — framework-free interactive UI
 - `tools/refresh_github.py` — objective GitHub metadata and AI-evidence refresh
+- `tools/enrich_evidence.py` — conservative README/status evidence enrichment for build/playability/byte-exact/start fields
 - `tools/collect_activity.py` — recent multi-branch commit collection and project attribution
 - `.github/workflows/refresh-github.yml` — scheduled metadata/activity refresh
 - `.github/workflows/pages.yml` — GitHub Pages deployment
@@ -22,6 +23,6 @@ The tracker has two views:
 - `sources.md` — discovery nodes, search strategy and open discovery priorities
 - `log.md` — historical search/discovery notes
 
-There is no rendering framework or build step. The browser reads the JSON data directly. A daily GitHub Action enriches GitHub-backed records with repository metadata and explicit AI-use signals, then rebuilds the rolling activity feed from recent commits on active branches.
+There is no rendering framework or build step. The browser reads the JSON data directly. A daily GitHub Action refreshes repository metadata, scans project documentation for explicit evidence about build/playability/byte-exact/start fields, records CI signals, and rebuilds the rolling activity feed from recent commits on active branches.
 
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
