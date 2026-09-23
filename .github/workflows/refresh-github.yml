@@ -46,29 +46,33 @@ jobs:
             echo "A newer main-branch commit exists; skipping this superseded run."
           fi
 
-      - name: Refresh project metadata
+      - name: Probe repositories and schedule scans
         if: steps.latest.outputs.run == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_RATE_RESERVE: "250"
+          GITHUB_PROBE_REQUEST_BUDGET: "250"
         run: python tools/refresh_github.py
 
-      - name: Collect recent activity
+      - name: Collect due activity incrementally
         if: steps.latest.outputs.run == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_RATE_RESERVE: "250"
+          GITHUB_ACTIVITY_REQUEST_BUDGET: "450"
         run: python tools/collect_activity.py
 
       - name: Commit changes
         if: steps.latest.outputs.run == 'true'
         run: |
-          if git diff --quiet -- data/projects.json data/activity.json; then
-            echo "No metadata or activity changes"
+          if git diff --quiet -- data/projects.json data/activity.json state/github-poll-state.json; then
+            echo "No metadata, activity or poll-state changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/projects.json data/activity.json
-          git commit -m "Refresh GitHub metadata and activity"
+          git add data/projects.json data/activity.json state/github-poll-state.json
+          git commit -m "Refresh adaptive GitHub metadata and activity"
           for attempt in 1 2 3; do
             git fetch origin main
             if ! git rebase origin/main; then
