@@ -27,31 +27,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Debounce superseded pushes
-        id: latest
-        shell: bash
-        run: |
-          if [ "$GITHUB_EVENT_NAME" != "push" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          sleep 10
-          git fetch origin main --depth=1
-          if [ "$(git rev-parse origin/main)" = "$GITHUB_SHA" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-            echo "A newer main-branch commit exists; skipping this superseded run."
-          fi
-
       - name: Enrich evidence-backed fields
-        if: steps.latest.outputs.run == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python tools/enrich_evidence.py
 
       - name: Commit changes
-        if: steps.latest.outputs.run == 'true'
         run: |
           if git diff --quiet -- data/projects.json; then
             echo "No evidence changes"
