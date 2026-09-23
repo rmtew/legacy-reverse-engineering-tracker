@@ -148,3 +148,16 @@ Common technique pattern: reverse engineer original arcade machine code (often Z
 Not yet promoted from this profile: repositories whose README was missing, minimal, or apparently copied from another project (including several names such as Xevious, Galaxian500, Jungle King, Jr. Pac-Man, Bosconian, Super Pac-Man, Dig Dug, Rolling Thunder, Tiger-Heli, Mr. Do, Berzerk and Marble Madness II). These remain discovery candidates for a project-specific evidence pass rather than being guessed into the database.
 
 Structured project count increased from 139 to 172.
+
+
+## 2026-09-23 — adjacent tooling and ROM/toolchain reconstruction pass
+
+Reviewed seven user-supplied retro-development/tooling leads and broadened the catalogue carefully to include directly relevant reverse-engineering infrastructure.
+
+Promoted six records: WinUAE as adjacent Amiga emulation/debugging tooling; th-otto/tos3x as Atari TOS ROM/source reconstruction; jonathanschilling/mac_rom as a five-ROM bit-identical Macintosh reconstruction; Level 9 l9dev as a C recoding of Atari ST 68000 authoring tools; wepl/ReSource as an Amiga reassembler/disassembler maintained from a self-resourced reconstruction; and Copperline as an active cycle-driven Amiga emulator/debugger with explicit AI-agent development guidance.
+
+BlitterStudio/dopus5 was reviewed but not promoted as a catalogue record because its documentation identifies it as an active continuation of the 2012 released Directory Opus 5 source, not a reverse-engineering/source-reconstruction project. It remains a discovery node because it is strongly topical to the Amiga development ecosystem.
+
+The broader promotion rule now explicitly admits core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling when directly relevant to software archaeology, while ordinary source releases/maintenance remain excluded by default.
+
+Structured project count increased from 172 to 178.

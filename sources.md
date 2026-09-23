@@ -41,6 +41,20 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/angree | Active Amiga 68k reimplementation/port source: OpenSWOS, AmiGTA, AmiSC, AmiXcom and ReMoM-derived work |
 | https://github.com/jotd666 | Large arcade-to-Amiga reverse-engineering/transcode collection; many projects explicitly document Z80/6502/6809 reverse engineering and 68k conversion |
 
+| https://github.com/tonioni/WinUAE | Core Amiga emulator/debugging ecosystem; adjacent tooling for compatibility research and reverse engineering |
+
+| https://github.com/th-otto/tos3x | Atari TOS ROM/source reconstruction plus historical Alcyon toolchain and disassembly references |
+
+| https://github.com/jonathanschilling/mac_rom | Bit-identical classic Macintosh ROM source reconstruction and documentation graph |
+
+| https://github.com/BlitterStudio/dopus5 | Active continuation of the released Directory Opus 5 source; adjacent Amiga development ecosystem, not itself an RE reconstruction |
+
+| https://github.com/MikeTheTechie/Level9-Public | Level 9 source archive plus l9dev recoding of Atari ST 68000 authoring tools into C |
+
+| https://github.com/wepl/ReSource | Amiga reassembler/disassembler reconstructed and maintained from its own resourced output |
+
+| https://github.com/CopperlineHQ/Copperline | Active cycle-driven Amiga emulator with reverse stepping, source debugging and automation tooling |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
@@ -73,6 +87,12 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 - Follow credited predecessors and related disassemblies around BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes and NES projects.
 - Treat newly represented platforms as first-class discovery targets rather than restricting future searches to the original five platform families.
 
+### Tooling / emulation / adjacent infrastructure
+
+- Track core emulators, debuggers, reassemblers, reconstructed toolchains and archival development systems when they are directly useful to software archaeology or reproducible legacy development.
+- Keep ordinary open-source continuation/maintenance projects distinct from reverse-engineering records; they may remain discovery nodes without becoming catalogue records.
+- Mine WinUAE, Copperline, ReSource, TOS toolchains and the Level 9 archive for referenced formats, tools, historical source drops and adjacent reconstruction projects.
+
 ## Search strategy
 
 In addition to direct searches, mine:
@@ -90,4 +110,4 @@ Graph-style discovery is intentional: many of the strongest finds were adjacent 
 
 ## Promotion rule
 
-A lead becomes a record in `data/projects.json` once there is a concrete source and enough evidence to say what is being reverse engineered. Unknown metadata is acceptable; invented metadata is not.
+A lead becomes a record in `data/projects.json` once there is a concrete source and enough evidence to say what is being reverse engineered or reconstructed. Core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling may also qualify when directly useful to software archaeology or reproducible legacy development. Ordinary source releases or open-source maintenance alone normally remain discovery nodes rather than catalogue records. Unknown metadata is acceptable; invented metadata is not.
