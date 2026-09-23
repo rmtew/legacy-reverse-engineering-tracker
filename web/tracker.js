@@ -12,6 +12,8 @@ const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({
   "'": "&#39;"
 }[char]));
 const tri = value => value === true ? "Yes" : value === false ? "No" : "Unknown";
+const projectTitle = record => record?.display_title || record?.title || record?.upstream_name || record?.id || "?";
+const upstreamName = record => record?.upstream_name || record?.title || projectTitle(record);
 const flag = value => {
   const label = tri(value);
   return '<span class="flag ' + label.toLowerCase() + '" title="' + label + '">' +
@@ -128,7 +130,7 @@ function sortValue(record, key) {
   const build = record.build || {};
   const ai = record.ai || {};
   return {
-    title: record.title,
+    title: projectTitle(record),
     source: text(record.source_platforms),
     target: text(record.target_platforms),
     language: text(record.reconstructed_languages),
@@ -160,7 +162,8 @@ function matches(record) {
   const build = record.build || {};
   const ai = record.ai || {};
   const haystack = [
-    record.title, record.notes, record.repo, record.project_url, record.status,
+    projectTitle(record), record.title, record.upstream_name, ...arr(record.subjects),
+    record.notes, record.repo, record.project_url, record.status,
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
     record.record_class, ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
     ...arr(record.source_platforms), ...arr(record.target_platforms),
@@ -186,10 +189,12 @@ function matches(record) {
 }
 
 function projectCell(record) {
-  const title = esc(record.title || record.id || "?");
+  const title = esc(projectTitle(record));
+  const upstream = upstreamName(record);
+  const tooltip = upstream && upstream !== projectTitle(record) ? ' title="Upstream: '+esc(upstream)+'"' : "";
   const url = record.project_url || record.repo;
-  if (!url) return "<strong>" + title + "</strong>";
-  return '<a class="project-link" href="' + esc(url) + '" target="_blank" rel="noopener">' + title + "</a>";
+  if (!url) return "<strong" + tooltip + ">" + title + "</strong>";
+  return '<a class="project-link" href="' + esc(url) + '" target="_blank" rel="noopener"' + tooltip + ">" + title + "</a>";
 }
 
 function render() {
@@ -285,7 +290,11 @@ function showDetails(record) {
       + "</a>"
     : "?";
 
-  $("detailbody").innerHTML = "<h2>" + esc(record.title) + '</h2><dl class="details-grid">'
+  const shownTitle=projectTitle(record);
+  const upstream=upstreamName(record);
+  $("detailbody").innerHTML = "<h2>" + esc(shownTitle) + '</h2><dl class="details-grid">'
+    + (upstream && upstream !== shownTitle ? line("Upstream name", esc(upstream)) : "")
+    + line("Subjects", tags(record.subjects))
     + (project ? line("Project page", project) : "")
     + line("Repository", repo)
     + line("Source platform", tags(record.source_platforms))
@@ -428,9 +437,9 @@ function initActivityFilters() {
     if(project?.id && !byId.has(project.id)) byId.set(project.id,project);
   }
   const projectSelect=$("activityProject");
-  for (const project of [...byId.values()].sort((a,b)=>(a.title||a.id).localeCompare(b.title||b.id))) {
+  for (const project of [...byId.values()].sort((a,b)=>projectTitle(a).localeCompare(projectTitle(b)))) {
     const option=document.createElement("option");
-    option.value=project.id; option.textContent=project.title||project.id; projectSelect.append(option);
+    option.value=project.id; option.textContent=projectTitle(project); projectSelect.append(option);
   }
 
   addOptions("activityLanguage", filterProjects.flatMap(p=>arr(p.reconstructed_languages)));
@@ -446,7 +455,8 @@ function activityMatches(event) {
   const q=$("activityQ").value.trim().toLowerCase();
   const hay=[
     event.type,event.title,event.message,event.author,event.repository,event.tag,
-    project.title,project.record_class,...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
+    projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
+    project.record_class,...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
     ...arr(event.branches),...arr(project.tags),...arr(project.ai?.tools),
     ...arr(event.changes),JSON.stringify(event.change_details||[])
   ].join(" ").toLowerCase();
@@ -475,12 +485,15 @@ function activityPlatformTags(project) {
 
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
-  const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(project.title)+'</a>':esc(project.title);
+  const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(projectTitle(project))+'</a>':esc(projectTitle(project));
   return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true});
 }
 
 const activityFieldLabels={
-  title:"Project name",
+  title:"Legacy title",
+  upstream_name:"Upstream name",
+  display_title:"Display title",
+  subjects:"Subject",
   repo:"Repository",
   project_url:"Project page",
   github_path:"Tracked path",
@@ -592,7 +605,7 @@ function humanizeProjectChange(detail) {
   }
 
   const listFields=new Set([
-    "source_platforms","target_platforms","source_cpu","source_language",
+    "subjects","source_platforms","target_platforms","source_cpu","source_language",
     "reconstructed_languages","target_kinds","work_kinds","tool_kinds",
     "types","techniques","tags"
   ]);
