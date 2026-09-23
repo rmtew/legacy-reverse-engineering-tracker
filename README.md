@@ -2,7 +2,8 @@
 
 A structured catalogue of reverse-engineering and source-reconstruction projects for **Amiga, Atari ST, ZX Spectrum, Commodore 64 and Amstrad CPC** software.
 
-**Live tracker:** https://rmtew.github.io/legacy-reverse-engineering-tracker/
+**Live tracker:** https://rmtew.github.io/legacy-reverse-engineering-tracker/  
+**Activity RSS:** https://rmtew.github.io/legacy-reverse-engineering-tracker/activity.xml
 
 The tracker has two views:
 
@@ -18,6 +19,7 @@ The tracker has two views:
 - `tools/refresh_github.py` — adaptive conditional repository probes, metadata refresh and scan scheduling
 - `tools/enrich_evidence.py` — conservative README/status evidence enrichment for build/playability/byte-exact/start fields
 - `tools/collect_activity.py` — incremental multi-branch commit collection and project attribution
+- `tools/generate_rss.py` — generates the public RSS feed from the activity/project JSON
 - `.github/workflows/refresh-github.yml` — daily metadata/activity refresh
 - `.github/workflows/enrich-evidence.yml` — weekly evidence enrichment
 - `.github/workflows/pages.yml` — GitHub Pages deployment
