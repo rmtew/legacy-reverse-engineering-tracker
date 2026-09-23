@@ -371,7 +371,6 @@ function renderActivity() {
   const events=combinedActivityEvents().filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
   $("activityCount").textContent=events.length;
   $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
-  $("activityGenerated").textContent=formatFreshness(activityData.generated_at);
 
   if(!events.length){
     $("activityFeed").innerHTML='<div class="activity-empty">No activity matches the current filters.</div>';
