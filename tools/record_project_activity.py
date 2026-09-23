@@ -8,6 +8,7 @@ metadata is intentionally excluded so routine probes do not become activity.
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -42,6 +43,58 @@ MATERIAL_FIELDS = (
 )
 MOVE_FIELDS = {"repo", "project_url", "github_path", "github_branch"}
 
+# Co-author trailers/config files are handled by the GitHub collectors. These
+# patterns cover unusually explicit human commit subjects such as
+# "Claude fixed vector display!" without treating a bare tool-name mention as
+# evidence of use.
+EXPLICIT_AI_PATTERNS = (
+    (
+        "Claude",
+        re.compile(
+            r"^(?:claude)\b.*\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?|port(?:ed)?|convert(?:ed)?)\b"
+            r"|\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?|port(?:ed)?|convert(?:ed)?)\b.*\bby\s+claude\b"
+            r"|\b(?:with|using|via)\s+claude\b",
+            re.I,
+        ),
+    ),
+    (
+        "ChatGPT",
+        re.compile(
+            r"^(?:chatgpt)\b.*\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b"
+            r"|\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b.*\bby\s+chatgpt\b"
+            r"|\b(?:with|using|via)\s+chatgpt\b",
+            re.I,
+        ),
+    ),
+    (
+        "OpenAI Codex",
+        re.compile(
+            r"^(?:codex|openai codex)\b.*\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b"
+            r"|\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b.*\bby\s+(?:codex|openai codex)\b"
+            r"|\b(?:with|using|via)\s+(?:codex|openai codex)\b",
+            re.I,
+        ),
+    ),
+    (
+        "GitHub Copilot",
+        re.compile(
+            r"^(?:github copilot|copilot)\b.*\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b"
+            r"|\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b.*\bby\s+(?:github copilot|copilot)\b"
+            r"|\b(?:with|using|via)\s+(?:github copilot|copilot)\b",
+            re.I,
+        ),
+    ),
+    (
+        "Gemini",
+        re.compile(
+            r"^(?:gemini)\b.*\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b"
+            r"|\b(?:fix(?:ed)?|implement(?:ed)?|generat(?:ed|e)|wrote|write|add(?:ed)?|creat(?:ed|e)|refactor(?:ed)?|help(?:ed)?|assist(?:ed)?)\b.*\bby\s+gemini\b"
+            r"|\b(?:with|using|via)\s+gemini\b",
+            re.I,
+        ),
+    ),
+)
+
 
 def parse_time(value):
     if not value:
@@ -58,6 +111,43 @@ def compact_ai(value):
         "usage": value.get("usage"),
         "tools": value.get("tools") or [],
     }
+
+
+def enrich_explicit_ai(projects, activity):
+    by_id = {project.get("id"): project for project in projects if project.get("id")}
+    enriched = 0
+    for event in activity.get("events", []):
+        if event.get("type") != "commit":
+            continue
+        when = parse_time(event.get("date"))
+        if when and when < CUTOFF:
+            continue
+        project = by_id.get(event.get("project_id"))
+        if not project:
+            continue
+        subject = (event.get("title") or (event.get("message") or "").splitlines()[0]).strip()
+        if not subject:
+            continue
+        for tool, pattern in EXPLICIT_AI_PATTERNS:
+            if not pattern.search(subject):
+                continue
+            ai = project.setdefault("ai", {"usage": None, "tools": []})
+            tools = set(ai.get("tools") or [])
+            evidence = list(ai.get("evidence") or [])
+            sha = (event.get("sha") or "")[:12]
+            marker = f"Explicit {tool} involvement in tracked commit {sha}"
+            if not any(str(item).startswith(marker) for item in evidence):
+                evidence.append(f'{marker}: "{subject[:180]}"')
+            before = (ai.get("usage"), tuple(ai.get("tools") or []))
+            tools.add(tool)
+            ai["usage"] = True
+            ai["tools"] = sorted(tools)
+            ai["evidence"] = evidence
+            after = (ai.get("usage"), tuple(ai.get("tools") or []))
+            if after != before:
+                enriched += 1
+            break
+    return enriched
 
 
 def snapshot(project):
@@ -117,6 +207,7 @@ def make_event(event_type, project_id, project, title, message="", changes=None)
 def main():
     projects = json.loads(PROJECTS.read_text(encoding="utf-8"))
     activity = json.loads(ACTIVITY.read_text(encoding="utf-8"))
+    explicit_ai = enrich_explicit_ai(projects, activity)
     state = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {
         "version": 1,
         "updated_at": None,
@@ -201,6 +292,7 @@ def main():
     activity["generated_at"] = NOW_ISO
     activity["window_days"] = DAYS
     activity["events"] = retained
+    PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     ACTIVITY.write_text(json.dumps(activity, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     state = {
@@ -213,7 +305,8 @@ def main():
 
     print(
         f"Recorded {len(events)} catalogue activity event{'s' if len(events) != 1 else ''}; "
-        f"tracking {len(current)} current projects and {len(removed)} removed-project tombstones."
+        f"tracking {len(current)} current projects and {len(removed)} removed-project tombstones; "
+        f"enriched {explicit_ai} project{'s' if explicit_ai != 1 else ''} from explicit AI commit subjects."
     )
 
 
