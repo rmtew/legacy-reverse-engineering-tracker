@@ -190,7 +190,26 @@ def project_url(project):
     return project.get("project_url") or project.get("repo")
 
 
-def make_event(event_type, project_id, project, title, message="", changes=None):
+def change_details(before, after, fields):
+    return [
+        {
+            "field": field,
+            "before": before.get(field),
+            "after": after.get(field),
+        }
+        for field in fields
+    ]
+
+
+def make_event(
+    event_type,
+    project_id,
+    project,
+    title,
+    message="",
+    changes=None,
+    details=None,
+):
     return {
         "type": event_type,
         "date": NOW_ISO,
@@ -200,6 +219,7 @@ def make_event(event_type, project_id, project, title, message="", changes=None)
         "message": message,
         "url": project_url(project),
         "changes": changes or [],
+        "change_details": details or [],
         "branches": [],
     }
 
@@ -258,6 +278,7 @@ def main():
             title,
             change_message(before, now, fields),
             fields,
+            change_details(before, now, fields),
         ))
 
     for project_id in sorted(set(previous) - set(current)):
