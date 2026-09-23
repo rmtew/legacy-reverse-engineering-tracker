@@ -1,0 +1,52 @@
+name: Enrich project evidence
+
+on:
+  schedule:
+    - cron: "43 3 * * 0"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/enrich_evidence.py"
+      - ".github/workflows/enrich-evidence.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: enrich-project-evidence
+  cancel-in-progress: true
+
+jobs:
+  enrich:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Enrich evidence-backed fields
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/enrich_evidence.py
+      - name: Commit changes
+        run: |
+          if git diff --quiet -- data/projects.json; then
+            echo "No evidence changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json
+          git commit -m "Enrich project evidence"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              exit 1
+            fi
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
