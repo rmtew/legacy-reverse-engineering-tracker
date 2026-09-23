@@ -316,7 +316,7 @@ def activity_state(value):
 def scan_order(repositories, state):
     """Prioritize detected changes, then repositories least recently deep-scanned."""
     repo_state = state.get("repositories", {})
-    reason_rank = {"changed": 0, "new": 1, "scheduled": 2}
+    reason_rank = {"changed": 0, "new": 1, "new-project": 1, "backfill": 1, "scheduled": 2}
     def key(repo):
         rs = repo_state.get(repo, {})
         reason = rs.get("scan_reason") or "scheduled"
@@ -384,6 +384,7 @@ def main():
         explicit.add(default)
         branch_state = rs.setdefault("branches", {})
         full_success = True
+        backfill = rs.get("scan_reason") in {"new", "new-project", "backfill"}
 
         try:
             branches = list_branches(repo, explicit)
@@ -395,16 +396,19 @@ def main():
             for branch, branch_info in branches.items():
                 bs = branch_state.setdefault(branch, {})
                 tip = ((branch_info.get("commit") or {}).get("sha"))
-                if tip and tip == bs.get("tip_sha"):
+                if tip and tip == bs.get("tip_sha") and not backfill:
                     continue
 
-                last_scan = (
-                    parse_time(bs.get("last_scan_at"))
-                    or parse_time(rs.get("last_deep_scan"))
-                    or parse_time(rs.get("first_seen_at"))
-                    or baseline
-                )
-                since = max(CUTOFF, last_scan - timedelta(days=1))
+                if backfill:
+                    since = CUTOFF
+                else:
+                    last_scan = (
+                        parse_time(bs.get("last_scan_at"))
+                        or parse_time(rs.get("last_deep_scan"))
+                        or parse_time(rs.get("first_seen_at"))
+                        or baseline
+                    )
+                    since = max(CUTOFF, last_scan - timedelta(days=1))
                 items = fetch_commits(repo, branch, since)
                 commits_seen += len(items)
 

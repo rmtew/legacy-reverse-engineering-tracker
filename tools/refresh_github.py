@@ -322,12 +322,22 @@ def main():
 
     for repo in probe_order(repos, state):
         repo_projects = repos[repo]
+        project_ids = sorted(p["id"] for p in repo_projects if p.get("id"))
         new_repo = repo not in state["repositories"]
         rs = state["repositories"].setdefault(repo, {})
         rs.setdefault("first_seen_at", RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z"))
         if new_repo and not bootstrap_state:
             rs["scan_requested"] = True
             rs["scan_reason"] = "new"
+
+        previous_project_ids = rs.get("project_ids")
+        rs["project_ids"] = project_ids
+        if previous_project_ids is not None:
+            added_projects = sorted(set(project_ids) - set(previous_project_ids))
+            if added_projects:
+                rs["scan_requested"] = True
+                if rs.get("scan_reason") != "changed":
+                    rs["scan_reason"] = "new-project"
         prior_pushed = rs.get("last_seen_pushed_at")
         if not prior_pushed:
             prior_pushed = next(
