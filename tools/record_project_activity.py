@@ -56,7 +56,7 @@ def compact_ai(value):
     value = value or {}
     return {
         "usage": value.get("usage"),
-        "tools": sorted(value.get("tools") or []),
+        "tools": value.get("tools") or [],
     }
 
 
@@ -64,8 +64,6 @@ def snapshot(project):
     out = {"id": project["id"]}
     for field in MATERIAL_FIELDS:
         value = project.get(field)
-        if isinstance(value, list):
-            value = sorted(value, key=lambda item: str(item).casefold())
         out[field] = value
     out["ai"] = compact_ai(project.get("ai"))
     return out
