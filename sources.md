@@ -42,6 +42,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/jotd666 | Large arcade-to-Amiga reverse-engineering/transcode collection; many projects explicitly document Z80/6502/6809 reverse engineering and 68k conversion |
 | https://github.com/hitchhikr | Buildable Amiga 68k disassembly cluster with scripted extraction/reassembly and emulator validation |
 | https://github.com/tonioni/WinUAE | Core Amiga emulator/debugging ecosystem; adjacent tooling for compatibility research and reverse engineering |
+| https://github.com/cnvogelg/amitools | Long-running Amiga binary/ROM/disk analysis toolkit: Hunk parsing/relocation, Kickstart ROM tooling, ADF/HDF/RDB/OFS/FFS manipulation and vamos API-level execution/tracing |
 | https://github.com/th-otto/tos3x | Atari TOS ROM/source reconstruction plus historical Alcyon toolchain and disassembly references |
 | https://github.com/jonathanschilling/mac_rom | Bit-identical classic Macintosh ROM source reconstruction and documentation graph |
 | https://github.com/BlitterStudio/dopus5 | Active continuation of the released Directory Opus 5 source; adjacent Amiga development ecosystem, not itself an RE reconstruction |
