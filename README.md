@@ -33,7 +33,7 @@ There is no rendering framework or build step. The browser reads the JSON data d
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
 
 
-The site header shows the activity-data refresh time. The Activity view can filter commits versus releases, and the RSS feed contains both kinds of activity. Pages deployment validates the JSON relationships and generated RSS before publishing.
+The site header shows the activity-data refresh time. The Activity view can filter commits versus releases. The RSS feed is deliberately lower-noise: commits are grouped into one item per project per UTC day, while releases remain separate items. Pages deployment validates the JSON relationships and generated RSS before publishing.
 
 
 The maintenance workflow writes rate-limit diagnostics to its GitHub Actions step summary, including actual limit, remaining quota, reset time, HTTP request counts and conditional 304 counts.
