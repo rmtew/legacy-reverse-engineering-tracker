@@ -74,7 +74,7 @@ def activity_state(date_string):
 def add_ai_evidence(record, commits, root_entries, github_entries):
     ai = record.setdefault("ai", {"usage": None, "tools": []})
     tools = set(ai.get("tools") or [])
-    evidence = list(ai.get("evidence") or [])
+    evidence = []
 
     filenames = {entry.get("name", "").lower() for entry in root_entries if isinstance(entry, dict)}
     gh_filenames = {entry.get("name", "").lower() for entry in github_entries if isinstance(entry, dict)}
@@ -86,17 +86,28 @@ def add_ai_evidence(record, commits, root_entries, github_entries):
         tools.add("GitHub Copilot")
         evidence.append(".github/copilot-instructions.md present")
 
+    coauthor_hits = {}
+    examples = {}
     for commit in commits:
         message = ((commit.get("commit") or {}).get("message") or "")
         for pattern, tool in AI_PATTERNS:
             if pattern.search(message):
                 tools.add(tool)
-                evidence.append(f"AI co-author trailer in commit {commit.get('sha','')[:12]}")
+                coauthor_hits[tool] = coauthor_hits.get(tool, 0) + 1
+                examples.setdefault(tool, commit.get("sha", "")[:12])
+
+    for tool, count in sorted(coauthor_hits.items()):
+        evidence.append(
+            f"{tool} co-author trailer in {count} of the latest {len(commits)} commits"
+            f" (example {examples[tool]})"
+        )
 
     if tools:
         ai["usage"] = True
         ai["tools"] = sorted(tools)
-        ai["evidence"] = sorted(set(evidence))
+        ai["evidence"] = evidence
+    elif ai.get("usage") is not True:
+        ai.pop("evidence", None)
 
 def refresh(record):
     full_name = github_repo(record.get("repo"))
