@@ -52,3 +52,24 @@ Some repositories contain several independently tracked reverse-engineering proj
 - `project_url` may point to a project-specific directory/page and is preferred by the UI for the project-title link.
 - `github_path` limits automated commit activity to a subdirectory, so one game's commits do not make every game in a monorepo appear active.
 - `github_branch` overrides the default branch when the relevant reconstruction lives on another branch (for example, an original-game disassembly branch beside a modified version).
+
+
+## Activity data
+
+`data/activity.json` is a generated rolling commit feed, currently covering 180 days. It is not hand-edited.
+
+Each event contains:
+
+- `type` (currently `commit`)
+- timestamp and commit SHA
+- `project_id` linking back to `data/projects.json`
+- repository
+- commit title/full message and URL
+- author
+- every active branch on which the collector observed that commit
+
+The collector checks non-default branches that have commits inside the activity window. Commits reachable from several branches are deduplicated per project/SHA and retain all matching branch names.
+
+For shared repositories, `github_path` is used to attribute commits to the relevant tracked subproject. Repository-wide/shared-tooling commits outside a project's configured path are intentionally not attributed to that project.
+
+The Activity UI groups commits by UTC calendar day and then project, while displaying the viewer's local commit time. Filters reuse project metadata, so platform/language/AI filters apply consistently between the catalogue and activity feed.
