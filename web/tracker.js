@@ -363,7 +363,8 @@ function activityMatches(event) {
   const q=$("activityQ").value.trim().toLowerCase();
   const hay=[
     event.type,event.title,event.message,event.author,event.repository,event.tag,
-    project.title,...arr(event.branches),...arr(project.tags),...arr(event.changes)
+    project.title,...arr(event.branches),...arr(project.tags),...arr(project.ai?.tools),
+    ...arr(event.changes),JSON.stringify(event.change_details||[])
   ].join(" ").toLowerCase();
   return (!q||hay.includes(q))
     && (!$("activityType").value||activityKind(event)===$("activityType").value)
@@ -392,6 +393,153 @@ function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(project.title)+'</a>':esc(project.title);
   return '<strong>'+title+'</strong>'+activityPlatformTags(project);
+}
+
+const activityFieldLabels={
+  title:"Project name",
+  repo:"Repository",
+  project_url:"Project page",
+  github_path:"Tracked path",
+  github_branch:"Tracked branch",
+  source_platforms:"Source platform",
+  target_platforms:"Target platform",
+  source_cpu:"Source CPU",
+  source_language:"Source language",
+  reconstructed_languages:"Output language",
+  types:"RE type",
+  re_started:"RE start date",
+  status:"Status",
+  techniques:"Technique",
+  tags:"Tag",
+  notes:"Project notes"
+};
+
+function legacyChangeValue(value) {
+  const textValue=String(value??"").trim();
+  if(textValue==="unknown") return null;
+  if(textValue==="none") return [];
+  if(textValue==="True") return true;
+  if(textValue==="False") return false;
+  try { return JSON.parse(textValue); } catch { return textValue; }
+}
+
+function projectChangeDetails(event) {
+  if(Array.isArray(event.change_details) && event.change_details.length) return event.change_details;
+  if(!event.message || !Array.isArray(event.changes)) return [];
+
+  const pieces=event.message.split("; ");
+  return event.changes.flatMap(field=>{
+    const prefix=field.replaceAll("_"," ")+": ";
+    const piece=pieces.find(item=>item.startsWith(prefix));
+    if(!piece) return [];
+    const transition=piece.slice(prefix.length);
+    const splitAt=transition.indexOf(" → ");
+    if(splitAt<0) return [];
+    return [{
+      field,
+      before:legacyChangeValue(transition.slice(0,splitAt)),
+      after:legacyChangeValue(transition.slice(splitAt+3))
+    }];
+  });
+}
+
+function activityValue(value) {
+  if(value===null || value===undefined || value==="") return "Unknown";
+  if(value===true) return "Yes";
+  if(value===false) return "No";
+  if(Array.isArray(value)) return value.length?value.join(", "):"None";
+  return String(value);
+}
+
+function listDelta(before,after) {
+  const oldValues=arr(before).map(String);
+  const newValues=arr(after).map(String);
+  return {
+    added:newValues.filter(value=>!oldValues.includes(value)),
+    removed:oldValues.filter(value=>!newValues.includes(value))
+  };
+}
+
+function humanizeProjectChange(detail) {
+  const field=detail.field;
+  const before=detail.before;
+  const after=detail.after;
+
+  if(field==="ai"){
+    const oldAi=before||{}, newAi=after||{};
+    const tools=listDelta(oldAi.tools||[],newAi.tools||[]);
+    if(oldAi.usage!==true && newAi.usage===true){
+      return [{
+        label:"AI usage detected",
+        value:tools.added.join(", ") || arr(newAi.tools).join(", ")
+      }];
+    }
+    const lines=[];
+    if(oldAi.usage!==newAi.usage){
+      lines.push({label:"AI usage changed",value:activityValue(oldAi.usage)+" → "+activityValue(newAi.usage)});
+    }
+    if(tools.added.length) lines.push({label:tools.added.length===1?"AI tool added":"AI tools added",value:tools.added.join(", ")});
+    if(tools.removed.length) lines.push({label:tools.removed.length===1?"AI tool removed":"AI tools removed",value:tools.removed.join(", ")});
+    return lines;
+  }
+
+  if(field==="build"){
+    const oldBuild=before||{}, newBuild=after||{};
+    const labels={
+      compilable:"Compilable status",
+      runnable:"Runnable status",
+      playable:"Playable status",
+      byte_exact:"Byte-exact build"
+    };
+    const lines=[];
+    for(const key of Object.keys(labels)){
+      if(oldBuild[key]===newBuild[key]) continue;
+      if(newBuild[key]===true && oldBuild[key]!==true){
+        lines.push({label:labels[key]+" confirmed",value:""});
+      }else{
+        lines.push({label:labels[key]+" changed",value:activityValue(oldBuild[key])+" → "+activityValue(newBuild[key])});
+      }
+    }
+    return lines;
+  }
+
+  const listFields=new Set([
+    "source_platforms","target_platforms","source_cpu","source_language",
+    "reconstructed_languages","types","techniques","tags"
+  ]);
+  if(listFields.has(field)){
+    const delta=listDelta(before,after);
+    const label=activityFieldLabels[field]||field.replaceAll("_"," ");
+    const lines=[];
+    if(delta.added.length) lines.push({label:label+(delta.added.length===1?" added":"s added"),value:delta.added.join(", ")});
+    if(delta.removed.length) lines.push({label:label+(delta.removed.length===1?" removed":"s removed"),value:delta.removed.join(", ")});
+    return lines.length?lines:[{label:label+" changed",value:activityValue(before)+" → "+activityValue(after)}];
+  }
+
+  if(field==="title"){
+    return [{label:"Project renamed",value:activityValue(before)+" → "+activityValue(after)}];
+  }
+  if(field==="re_started" && (before===null || before===undefined || before==="")){
+    return [{label:"RE start date identified",value:activityValue(after)}];
+  }
+  if(field==="notes"){
+    return [{label:"Project notes updated",value:""}];
+  }
+
+  const label=activityFieldLabels[field]||field.replaceAll("_"," ");
+  return [{label:label+" changed",value:activityValue(before)+" → "+activityValue(after)}];
+}
+
+function projectChangeHtml(event) {
+  const lines=projectChangeDetails(event).flatMap(humanizeProjectChange);
+  if(!lines.length){
+    return event.message?'<div class="activity-change-line">'+esc(event.message)+'</div>':"";
+  }
+  return lines.map(line=>
+    '<div class="activity-change-line"><span class="activity-change-label">'+esc(line.label)+'</span>'
+    +(line.value?'<span class="detail-separator">·</span><span>'+esc(line.value)+'</span>':"")
+    +'</div>'
+  ).join("");
 }
 
 function localDayKey(value) {
@@ -445,20 +593,23 @@ function renderActivity() {
         const title=event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title);
         const identity=event.type==="release"?(event.tag?esc(event.tag):"release"):(event.sha?esc(event.sha.slice(0,8)):"");
         const detailParts=[];
+        let details="";
         if(event.type==="release"){
           detailParts.push('<span class="activity-kind">release</span>');
           if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
+          details=detailParts.join('<span class="detail-separator">·</span>');
         }else if(isProjectActivity(event)){
-          detailParts.push('<span class="activity-kind">'+esc(event.type.replace(/^project_/,"").replaceAll("_"," "))+'</span>');
-          if(event.message) detailParts.push('<span class="activity-change-detail">'+esc(event.message)+'</span>');
+          const kind=esc(event.type.replace(/^project_/,"").replaceAll("_"," "));
+          details='<span class="activity-kind">'+kind+'</span>'
+            +'<div class="activity-change-lines">'+projectChangeHtml(event)+'</div>';
         }else{
           if(event.author) detailParts.push('<span class="activity-author">'+esc(event.author)+'</span>');
           if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
           for(const branch of arr(event.branches)){
             detailParts.push('<span class="branch">'+esc(branch)+'</span>');
           }
+          details=detailParts.join('<span class="detail-separator">·</span>');
         }
-        const details=detailParts.join('<span class="detail-separator">·</span>');
         const classes=event.type==="release"?"commit release-event":(isProjectActivity(event)?"commit project-event":"commit");
         return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
       }).join("");
