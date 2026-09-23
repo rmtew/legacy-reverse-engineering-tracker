@@ -68,8 +68,9 @@ function matches(r){
 
 function projectCell(r){
   const title=esc(r.title||r.id||"?");
-  if(!r.repo)return '<strong>'+title+'</strong>';
-  return '<a class="project-link" href="'+esc(r.repo)+'" target="_blank" rel="noopener">'+title+'</a>';
+  const url=r.project_url||r.repo;
+  if(!url)return '<strong>'+title+'</strong>';
+  return '<a class="project-link" href="'+esc(url)+'" target="_blank" rel="noopener">'+title+'</a>';
 }
 
 function render(){
@@ -115,7 +116,9 @@ function showDetails(r){
   const b=r.build||{},a=r.ai||{};
   const line=(label,value)=>'<dt>'+label+'</dt><dd>'+value+'</dd>';
   const repo=r.repo?'<a href="'+esc(r.repo)+'" target="_blank" rel="noopener">'+esc(r.repo)+'</a>':'?';
+  const project=r.project_url?'<a href="'+esc(r.project_url)+'" target="_blank" rel="noopener">'+esc(r.project_url)+'</a>':null;
   $("detailbody").innerHTML='<h2>'+esc(r.title)+'</h2><dl class="details-grid">'
+    +(project?line("Project page",project):"")
     +line("Repository",repo)
     +line("Source platform",tags(r.source_platforms))
     +line("Target platform",tags(r.target_platforms))
