@@ -152,7 +152,7 @@ function init(){
   render();
 }
 
-fetch("web/projects.json",{cache:"no-cache"})
+fetch("data/projects.json",{cache:"no-cache"})
   .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})
   .then(data=>{projects=data;init()})
   .catch(error=>{
