@@ -135,3 +135,16 @@ OpenSWOS was already tracked. Other angree repositories that are ordinary ports 
 ### Result
 
 Structured project count increased from 121 to 139. Newly represented source/target families now include BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes, NES and PMD 85. The public site description should remain platform-neutral so further additions do not require maintaining a hard-coded platform list.
+
+
+## 2026-09-23 — jotd666 arcade-to-Amiga cluster
+
+Audited the large `jotd666` GitHub profile and promoted 33 qualifying arcade-to-Amiga reverse-engineering/transcode projects with project-specific README evidence.
+
+The promoted set includes Bagman, Ms. Pac-Man, Elevator Action, Galaga, Moon Patrol, Scramble, Atari Tetris, Pac-Man, Donkey Kong, Bad Dudes vs. DragonNinja, Phoenix, BurgerTime, Hyper Sports, Rally-X, Commando, Lock 'n' Chase, Karate Champ, Track & Field, Jail Break, Gyruss, Pengo, Dig Dug II, Ghosts 'n Goblins, Mappy, Pooyan, Super Bagman, Gravitar, U.S. Championship V'Ball, Roc'n Rope, Amidar, Double Dragon, Nibbler and Vulgus.
+
+Common technique pattern: reverse engineer original arcade machine code (often Z80/6502/6809), transcode or adapt it to 68000 assembly, then replace arcade graphics/sound hardware access with native Amiga implementations. Some projects instead patch original 68000 arcade code directly (for example Bad Dudes).
+
+Not yet promoted from this profile: repositories whose README was missing, minimal, or apparently copied from another project (including several names such as Xevious, Galaxian500, Jungle King, Jr. Pac-Man, Bosconian, Super Pac-Man, Dig Dug, Rolling Thunder, Tiger-Heli, Mr. Do, Berzerk and Marble Madness II). These remain discovery candidates for a project-specific evidence pass rather than being guessed into the database.
+
+Structured project count increased from 139 to 172.
