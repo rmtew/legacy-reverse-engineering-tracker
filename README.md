@@ -13,6 +13,6 @@ The primary interface is the static [interactive tracker](index.html): one table
 - `log.md` — dated discovery/search notes
 - `projects.md` — legacy discovery backlog retained until all leads are migrated
 
-There is deliberately **no build step and no rendering framework**. The browser reads the canonical JSON directly.
+There is no rendering framework or build step. The browser reads the canonical JSON directly. A daily GitHub Action enriches GitHub-backed records with repository creation/activity dates, latest commit/release information, language metadata, archive state and explicit AI-use signals.
 
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
