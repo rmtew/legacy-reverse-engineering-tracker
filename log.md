@@ -284,3 +284,12 @@ Catalogue count increased from 234 to **247**.
 Audited **canadacow/starflight-reverse** against the already tracked **s-macke/starflight-reverse**. The new repository explicitly identifies the s-macke project as its background/origin, but it is not merely another copy of the recovery tree: it has become a playable remastered runtime that fully emulates Starflight's recovered Forth and assembly execution while adding a real-time Vulkan/rotoscoped/PBR presentation layer and switchable classic EGA/CGA output.
 
 Promoted it as a separate **RE-derived reimplementation/remaster** record rather than merging the two projects. The s-macke record now notes this successor relationship, and canadacow's repository was added as a discovery node. The README explicitly describes the remaster as AI-generated, so AI usage is marked true while the tool name remains unknown rather than guessed.
+
+
+## 2026-09-24 — curated display titles and subject names
+
+Separated upstream project identity from catalogue presentation. Every current record now carries **upstream_name**, **display_title**, and **subjects**. The existing `title` field remains for compatibility/history, while Projects, Activity and RSS prefer `display_title`.
+
+Opaque or awkward names now receive concise tracker labels that answer what the project actually is without relying on tags. Examples include **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction**, **VS Code Amiga C/C++ debugger & profiler**, **amitools — Amiga binary, ROM & filesystem toolkit**, **PiST — Atari ST assembly IDE & debugger**, and **papple2 — Apple II reverse-engineering emulator/debugger**. Multi-subject projects such as Firestaff also carry explicit subject arrays for search.
+
+The one-time migration updated the catalogue-state baseline in lockstep so it does not fabricate hundreds of project metadata events. Future changes to upstream/display names or subjects are material catalogue changes and will appear normally in Activity. Validation now requires non-empty upstream/display names and subjects for subject/hybrid records.
