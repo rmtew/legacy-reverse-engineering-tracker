@@ -54,3 +54,36 @@ Cross-references continue to outperform generic searches. The CPC Head Over Heel
 3. Inspect Piddewitt's C64 repositories and their documentation for further adjacent authors/projects.
 4. Follow Simon Frankau beyond Speedball 2 and Head Over Heels.
 5. Continue CPC-specific graph discovery, which remains much thinner than Spectrum/C64.
+
+
+## 2026-09-23 — historical Spectrum + CPC resolution pass
+
+Resolved the named Spectrum backlog into canonical/current sources and expanded CPC substantially.
+
+### ZX Spectrum
+
+- Enumerated the current Pobtastic/ArcadeGeek index and mapped its disassemblies to current GitHub repositories/subdirectories.
+- Promoted all previously listed Paul Maddern/Pobtastic leads and additional current catalogue entries, while keeping genuinely independent disassemblies separate (for example Michael Cook's JETPAC vs Pobtastic's JETPAC).
+- Resolved Ritchie Swann's Deathchase, Everyone's A Wally and Starquake repositories.
+- Promoted Philip M. Anderson's four complete SkoolKit disassemblies from the preserved source in `mrcook/zx-spectrum-games`, with links to the rendered Wolfe-Lyon versions.
+- Promoted BadBeard's Dynamite Dan II, Lunysoft's Tir Na Nog/Dun Darach, tcdev's Alien 8/Knight Lore/Pentagram and both the historical Guesser/szeliga and modern Lewis Lane Chaos projects.
+
+### Amstrad CPC
+
+Added new qualifying projects/sources:
+
+- Bread80 CPC6128 firmware reconstruction
+- Richard Lloyd CPC464 ROM disassembly
+- Sarnau HiSoft DEVPAC reverse engineering
+- La Abadía del Crimen preservation/disassembly/remake work
+- The Abbey of Crime English patching project
+- Into the Eagle's Nest CPC analysis
+- Laserwarp full cassette-derived disassembly with byte-exact round trip and explicit Claude assistance
+- Oh Mummy Resurrected
+- Harrier Attack Reloaded
+
+CPC discovery sources now include CPC Analyser, CPCWiki, Bread80, BrettHallen, moqucu and Sarnau's CPC work.
+
+### Result
+
+Structured project count increased from 69 to 121. `projects.md` now contains only open-ended discovery directions rather than the previously named Spectrum/CPC source-resolution queue.
