@@ -49,7 +49,7 @@ jobs:
       - name: Probe repositories and schedule scans
         if: steps.latest.outputs.run == 'true'
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_RATE_RESERVE: "250"
           GITHUB_PROBE_REQUEST_BUDGET: "250"
         run: python tools/refresh_github.py
@@ -57,7 +57,7 @@ jobs:
       - name: Collect due activity incrementally
         if: steps.latest.outputs.run == 'true'
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_RATE_RESERVE: "250"
           GITHUB_ACTIVITY_REQUEST_BUDGET: "450"
         run: python tools/collect_activity.py
