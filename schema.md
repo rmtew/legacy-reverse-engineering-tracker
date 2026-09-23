@@ -77,7 +77,7 @@ The Activity UI groups commits by UTC calendar day and then project, while displ
 
 ## Evidence enrichment
 
-`tools/enrich_evidence.py` performs a conservative daily pass over GitHub-backed project documentation.
+`tools/enrich_evidence.py` performs a conservative weekly pass over GitHub-backed project documentation.
 
 It scans project-local README/status/build notes for explicit claims about:
 
@@ -99,6 +99,7 @@ Rules:
 - Playable=true may imply runnable=true when runnable is still unknown.
 - Statements framed as goals/targets/plans are not accepted as proof of byte exactness.
 - Generic CI success is recorded as a supporting signal only; it does not by itself prove the reconstruction compiles or plays.
+- Documentation is fetched from raw GitHub content so evidence collection does not compete heavily with metadata/activity collection for the GitHub API quota. CI signals are best-effort and may be absent when the API quota is exhausted.
 - Monorepo projects scan their configured `github_path` only, so one project's README cannot supply evidence for another.
 - Repository creation dates remain separate GitHub metadata and are not promoted to `re_started`.
 
