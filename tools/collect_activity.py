@@ -231,6 +231,17 @@ def activity_state(value):
         return "quiet"
     return "dormant"
 
+def scan_order(repositories, state):
+    """Prioritize detected changes, then repositories least recently deep-scanned."""
+    repo_state = state.get("repositories", {})
+    reason_rank = {"changed": 0, "new": 1, "scheduled": 2}
+    def key(repo):
+        rs = repo_state.get(repo, {})
+        reason = rs.get("scan_reason") or "scheduled"
+        last = rs.get("last_deep_scan") or rs.get("first_seen_at") or ""
+        return (reason_rank.get(reason, 3), last, repo.casefold())
+    return sorted(repositories, key=key)
+
 def update_project_latest(project, item):
     when = commit_date(item)
     if not when:
@@ -273,10 +284,10 @@ def main():
 
     baseline = parse_time(payload.get("generated_at")) or (NOW - timedelta(days=2))
     newest = {}
-    scanned = commits_seen = 0
+    scanned = commits_seen = pruned_branches = 0
     stopped = None
 
-    for repo in sorted(by_repo):
+    for repo in scan_order(by_repo, state):
         rs = state["repositories"].setdefault(repo, {})
         if not rs.get("scan_requested"):
             continue
@@ -293,6 +304,11 @@ def main():
 
         try:
             branches = list_branches(repo, explicit)
+            present_branches = set(branches)
+            for stale in list(branch_state):
+                if stale not in present_branches:
+                    branch_state.pop(stale, None)
+                    pruned_branches += 1
             for branch, branch_info in branches.items():
                 bs = branch_state.setdefault(branch, {})
                 tip = ((branch_info.get("commit") or {}).get("sha"))
@@ -384,6 +400,7 @@ def main():
     pending = sum(1 for rs in state["repositories"].values() if rs.get("scan_requested"))
     print(
         f"Deep-scanned {scanned} repositories; saw {commits_seen} branch commits; "
+        f"pruned {pruned_branches} stale branch-state entries; "
         f"{pending} repositories remain queued; retained {len(output)} activity events; "
         f"used {REQUESTS}/{MAX_REQUESTS} activity requests."
     )
