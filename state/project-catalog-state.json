@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-23T23:34:14Z",
+  "updated_at": "2026-09-23T23:53:03Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -3254,6 +3254,75 @@
         ]
       }
     },
+    "choplifter-apple2-reconstruction": {
+      "id": "choplifter-apple2-reconstruction",
+      "title": "ChoplifterReverse",
+      "upstream_name": "ChoplifterReverse",
+      "display_title": "Choplifter — Apple II clean-room source reconstruction",
+      "subjects": [
+        "Choplifter"
+      ],
+      "repo": "https://github.com/blondie7575/ChoplifterReverse",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Apple II"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "6502 machine code",
+        "Apple II disk image"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "source reconstruction",
+        "clean-room reimplementation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "clean-room reverse engineering",
+        "manual annotation",
+        "binary comparison",
+        "ProDOS loader replacement"
+      ],
+      "tags": [
+        "game",
+        "Apple II",
+        "6502",
+        "Choplifter",
+        "clean room"
+      ],
+      "notes": "Full clean-room reverse engineering of the 1982 Apple II Choplifter from the disk binary alone. The reconstructed game code is documented and builds/runs; the game portion is described as binary-identical, while the original custom floppy loader was intentionally replaced with a new ProDOS loader, so the complete produced disk is not treated as byte-exact.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "classic-mac-rom-source-reconstruction": {
       "id": "classic-mac-rom-source-reconstruction",
       "title": "Classic Macintosh ROM source reconstruction",
@@ -3703,6 +3772,73 @@
           "Claude",
           "GitHub Copilot"
         ]
+      }
+    },
+    "way-exploding-fist-electron-loader": {
+      "id": "way-exploding-fist-electron-loader",
+      "title": "custom-tape-loader-WotEF",
+      "upstream_name": "custom-tape-loader-WotEF",
+      "display_title": "The Way of the Exploding Fist — Acorn Electron tape-loader disassembly",
+      "subjects": [
+        "The Way of the Exploding Fist"
+      ],
+      "repo": "https://github.com/0xC0DE6502/custom-tape-loader-WotEF",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Acorn Electron"
+      ],
+      "target_platforms": [
+        "Acorn Electron"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "binary analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SourceGen",
+        "custom tape-loader analysis",
+        "stream decryption analysis",
+        "6502 annotation"
+      ],
+      "tags": [
+        "game",
+        "Acorn Electron",
+        "6502",
+        "The Way of the Exploding Fist",
+        "tape loader"
+      ],
+      "notes": "Focused disassembly of the Acorn Electron custom tape loader for The Way of the Exploding Fist. The annotated source reconstructs its PRNG-driven decryption, tape block loading, event/vector setup, screen loading and handoff to the main game.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "cybernoid-amiga-horace": {
@@ -4442,6 +4578,133 @@
         "SkoolKit"
       ],
       "notes": "BadBeard's historical Dynamite Dan II disassembly, preserved in Michael Cook's source collection.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "electroniq-acorn-electron-emulator": {
+      "id": "electroniq-acorn-electron-emulator",
+      "title": "Electroniq",
+      "upstream_name": "Electroniq",
+      "display_title": "Electroniq — Acorn Electron browser emulator",
+      "subjects": [],
+      "repo": "https://github.com/0xC0DE6502/electroniq",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Acorn Electron"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "Acorn Electron hardware/software behavior"
+      ],
+      "reconstructed_languages": [
+        "HTML"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator"
+      ],
+      "types": [
+        "emulator",
+        "adjacent tooling"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "hardware emulation",
+        "UEF tape support",
+        "SSD/DSD disk support",
+        "MMB storage support",
+        "RAM/media inspection"
+      ],
+      "tags": [
+        "Acorn Electron",
+        "6502",
+        "emulator",
+        "retro development"
+      ],
+      "notes": "Browser-based Acorn Electron emulator supporting tape, disk and MMB media plus configurable ROM/RAM banks. It is directly paired with the Electroniq VS Code debugger extension, making it useful as reproducible Electron development and software-archaeology infrastructure.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "electroniq-vscode-debugger": {
+      "id": "electroniq-vscode-debugger",
+      "title": "Electroniq Debugger Extension",
+      "upstream_name": "Electroniq Debugger Extension",
+      "display_title": "Electroniq — VS Code source-level Acorn Electron debugger",
+      "subjects": [],
+      "repo": "https://github.com/0xC0DE6502/electroniq-debugger-extension",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Acorn Electron"
+      ],
+      "target_platforms": [
+        "VS Code",
+        "Web"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "6502 assembly"
+      ],
+      "reconstructed_languages": [],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "debugger",
+        "development-environment"
+      ],
+      "types": [
+        "debugger",
+        "development tool",
+        "adjacent tooling"
+      ],
+      "re_started": null,
+      "status": "work in progress",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "source-level debugging",
+        "breakpoints",
+        "single stepping",
+        "symbol watches",
+        "register inspection",
+        "source maps"
+      ],
+      "tags": [
+        "Acorn Electron",
+        "6502",
+        "VS Code",
+        "debugger",
+        "retro development"
+      ],
+      "notes": "VS Code debugger extension for Electroniq. It consumes max65 source maps and provides source-level 6502 breakpoints, stepping, watches, label hover information and register inspection against the browser-based Acorn Electron emulator.",
       "ai": {
         "usage": null,
         "tools": []
@@ -5238,6 +5501,70 @@
         "SkoolKit"
       ],
       "notes": "Complete RAM disassembly by Ritchie Swann; later/current mirrors also exist in the Pobtastic SkoolKit collection.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "exile-bbc-micro-chriskillpack": {
+      "id": "exile-bbc-micro-chriskillpack",
+      "title": "exile-beebasm",
+      "upstream_name": "exile-beebasm",
+      "display_title": "Exile — BBC Micro disassembly",
+      "subjects": [
+        "Exile"
+      ],
+      "repo": "https://github.com/chriskillpack/exile-beebasm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly"
+      ],
+      "re_started": null,
+      "status": "work in progress",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "BBC Micro disk extraction",
+        "6502 disassembly",
+        "BeebAsm reconstruction",
+        "manual annotation"
+      ],
+      "tags": [
+        "game",
+        "BBC Micro",
+        "6502",
+        "Exile"
+      ],
+      "notes": "Work-in-progress disassembly of the BBC Micro game Exile, using BBC disk/disassembly tooling and BeebAsm. It is an independent title-specific reconstruction effort distinct from other Exile disassemblies.",
       "ai": {
         "usage": null,
         "tools": []
@@ -9513,6 +9840,69 @@
         "software archaeology"
       ],
       "notes": "Research layer built on XekriRedmane's byte-perfect Apple II Lode Runner reconstruction. It analyses implementation, data layout, timing and subsystem interactions and turns that understanding into a platform-neutral Core Game Spec, while preserving links back to the literate 6502 evidence.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lode-runner-bbc-0xc0de6502": {
+      "id": "lode-runner-bbc-0xc0de6502",
+      "title": "lode-runner-disassembled",
+      "upstream_name": "lode-runner-disassembled",
+      "display_title": "Lode Runner — BBC Micro disassembly",
+      "subjects": [
+        "Lode Runner"
+      ],
+      "repo": "https://github.com/0xC0DE6502/lode-runner-disassembled",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "manual disassembly",
+        "BeebAsm-compatible reconstruction",
+        "routine and variable annotation"
+      ],
+      "tags": [
+        "game",
+        "BBC Micro",
+        "6502",
+        "Lode Runner"
+      ],
+      "notes": "Disassembly of the BBC Micro main Lode Runner binary (LODE1), published as labelled/commented BeebAsm-compatible 6502 source. The repository explicitly identifies the scope as the main binary rather than a complete disk reconstruction.",
       "ai": {
         "usage": null,
         "tools": []
@@ -14284,6 +14674,73 @@
         "documentation"
       ],
       "notes": "Measurement-first reverse-engineering documentation of the Amiga CD32 release of Superfrog. The repository redistributes no game assets; reproducible tools derive structural, executable, compression, graphics/audio and archaeological findings from user-supplied media.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "repton-electron-tape-protection": {
+      "id": "repton-electron-tape-protection",
+      "title": "tape-protection-Repton",
+      "upstream_name": "tape-protection-Repton",
+      "display_title": "Repton — Acorn Electron tape-protection disassembly",
+      "subjects": [
+        "Repton"
+      ],
+      "repo": "https://github.com/0xC0DE6502/tape-protection-Repton",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Acorn Electron"
+      ],
+      "target_platforms": [
+        "Acorn Electron"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "copy-protection-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "copy-protection analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SourceGen",
+        "decryption analysis",
+        "undocumented 6502 opcode analysis",
+        "tape-protection analysis"
+      ],
+      "tags": [
+        "game",
+        "Acorn Electron",
+        "6502",
+        "Repton",
+        "copy protection"
+      ],
+      "notes": "Focused disassembly and commentary of the Acorn Electron tape protection used by Repton. It documents the deliberately obfuscated instruction stream, self-modifying/decryption logic, vector interception and handoff into decrypted code.",
       "ai": {
         "usage": null,
         "tools": []
