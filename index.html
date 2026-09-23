@@ -15,6 +15,7 @@
     <p>Amiga · Atari ST · ZX Spectrum · Commodore 64 · Amstrad CPC</p>
   </div>
   <div class="header-links">
+    <span id="dataFreshness" class="data-freshness">Data refresh pending</span>
     <a class="repo-link" href="https://github.com/rmtew/legacy-reverse-engineering-tracker">GitHub repository</a>
     <a class="rss-link" href="activity.xml" aria-label="Activity RSS feed" title="Activity RSS feed">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
@@ -119,6 +120,13 @@
           <option value="180">180 days</option>
         </select>
       </label>
+      <label>Activity type
+        <select id="activityType">
+          <option value="">All</option>
+          <option value="commit">Commits</option>
+          <option value="release">Releases</option>
+        </select>
+      </label>
       <label>Source platform
         <select id="activityPlatform"><option value="">All</option></select>
       </label>
@@ -137,13 +145,13 @@
       <button id="activityClear" type="button">Clear</button>
     </section>
     <div class="result-bar">
-      <span><strong id="activityCount">0</strong> commits across <strong id="activityProjectCount">0</strong> projects</span>
+      <span><strong id="activityCount">0</strong> events across <strong id="activityProjectCount">0</strong> projects</span>
       <span id="activityGenerated"></span>
     </div>
     <div id="activityFeed" class="activity-feed">
       <div class="loading">Loading activity…</div>
     </div>
-    <p class="hint">Commits are grouped by day and project. Activity includes recent non-default branches; duplicate commits reachable from several branches are shown once with all matching branches.</p>
+    <p class="hint">Activity is grouped by day and project. Commit activity includes recent non-default branches; duplicate commits reachable from several branches are shown once with all matching branches. Latest releases are shown as release events.</p>
   </section>
 </main>
 
