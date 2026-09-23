@@ -33,6 +33,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Check JavaScript syntax
+        run: node --check web/tracker.js
+
       - name: Prepare static site
         run: |
           mkdir -p _site
