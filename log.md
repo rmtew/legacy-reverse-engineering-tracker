@@ -87,3 +87,51 @@ CPC discovery sources now include CPC Analyser, CPCWiki, Bread80, BrettHallen, m
 ### Result
 
 Structured project count increased from 69 to 121. `projects.md` now contains only open-ended discovery directions rather than the previously named Spectrum/CPC source-resolution queue.
+
+
+## 2026-09-23 — BBC/Acorn expansion and new Amiga/Atari leads
+
+User-supplied leads expanded the tracker beyond its original five platform families.
+
+### Mark Moxon / bbcelite.com
+
+Promoted binary-derived reconstructions for:
+
+- Elite (BBC Micro disc)
+- Elite Demonstration Disc (BBC Micro)
+- Elite (Acorn Electron)
+- Elite (BBC Master)
+- Elite (NES)
+- Aviator (BBC Micro)
+- Revs (BBC Micro)
+- The Sentinel (BBC Micro)
+- Lander (Acorn Archimedes)
+
+These repositories explicitly describe hand reconstruction from disassembly and provide build/reference verification. Mark Moxon's BBC Micro cassette Elite, 6502 Second Processor Elite, Commodore 64 Elite and Apple II Elite repositories are intentionally not promoted in this pass because their READMEs describe them as documented/preserved original source rather than source reconstructed from binaries. Elite-A is also left for later assessment because the surviving source is original source from a historically reverse-engineered derivative rather than a fresh binary reconstruction by the current repository.
+
+### ataribaby42
+
+Promoted:
+
+- independent byte-exact ZX Spectrum Elite 128K-compatible reconstruction
+- independently buildable Atari ST Elite source reconstruction from historical source material
+- native Amiga Elite port derived from the corrected Atari source tree
+- Hlípa Atari ST → Amiga reconstruction/port
+- Hlípa PMD 85 → ZX Spectrum reconstruction/port
+
+The Hlípa work adds PMD 85 as a source platform as well as another independent cross-platform reconstruction path.
+
+### angree
+
+Promoted:
+
+- AmiGTA — clean-room/native Amiga reimplementation of Grand Theft Auto
+- AmiSC — playable native Amiga StarCraft port using original game data; source is currently unpublished, so implementation provenance is noted as non-auditable
+- AmiXcom — native classic-Amiga port of the OpenXcom reimplementation, explicitly developed with Claude Code
+- Master of Magic ReMoM Amiga port — native port of a reconstructed C codebase
+
+OpenSWOS was already tracked. Other angree repositories that are ordinary ports of open-source software or unrelated original projects were not promoted.
+
+### Result
+
+Structured project count increased from 121 to 139. Newly represented source/target families now include BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes, NES and PMD 85. The public site description should remain platform-neutral so further additions do not require maintaining a hard-coded platform list.
