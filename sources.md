@@ -40,28 +40,24 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/ataribaby42 | Active cross-platform reconstruction/port work including Elite (ZX/ST/Amiga) and Hlípa (Atari ST/Amiga/PMD 85/ZX) |
 | https://github.com/angree | Active Amiga 68k reimplementation/port source: OpenSWOS, AmiGTA, AmiSC, AmiXcom and ReMoM-derived work |
 | https://github.com/jotd666 | Large arcade-to-Amiga reverse-engineering/transcode collection; many projects explicitly document Z80/6502/6809 reverse engineering and 68k conversion |
-
+| https://github.com/hitchhikr | Buildable Amiga 68k disassembly cluster with scripted extraction/reassembly and emulator validation |
 | https://github.com/tonioni/WinUAE | Core Amiga emulator/debugging ecosystem; adjacent tooling for compatibility research and reverse engineering |
-
 | https://github.com/th-otto/tos3x | Atari TOS ROM/source reconstruction plus historical Alcyon toolchain and disassembly references |
-
 | https://github.com/jonathanschilling/mac_rom | Bit-identical classic Macintosh ROM source reconstruction and documentation graph |
-
 | https://github.com/BlitterStudio/dopus5 | Active continuation of the released Directory Opus 5 source; adjacent Amiga development ecosystem, not itself an RE reconstruction |
-
 | https://github.com/MikeTheTechie/Level9-Public | Level 9 source archive plus l9dev recoding of Atari ST 68000 authoring tools into C |
-
 | https://github.com/wepl/ReSource | Amiga reassembler/disassembler reconstructed and maintained from its own resourced output |
-
 | https://github.com/CopperlineHQ/Copperline | Active cycle-driven Amiga emulator with reverse stepping, source debugging and automation tooling |
-
 | https://github.com/TheGoodDoktor/8BitAnalysers | Multi-platform 8-bit analysis/annotation toolkit for Spectrum, C64 and CPC; assembler export and MCP-assisted analysis |
+| https://github.com/TheGoodDoktor/SpectrumAnalyserProjects | Large title-by-title ZX Spectrum analysis-state collection created for 8-Bit Analysers |
+| https://github.com/TheGoodDoktor/C64AnalyserProjects | C64 title analysis-state collection including Armalyte, Bubble Bobble, Exile, Paradroid, Uridium and Wizball |
 
 ## Open discovery priorities
 
 ### Amiga / Atari ST
 
 - Continue auditing `jotd666` repositories not yet promoted, especially candidates with missing or template/copied READMEs; require project-specific evidence before adding them.
+- Continue mining `hitchhikr` beyond the eight promoted Amiga/ST disassemblies and follow its credited tool/predecessor links.
 - Resolve and assess AmberWorlds / Oliver Gantert, Slothsoft / Daniel Schulz and Nico Bendlin's Amber research as possible additional tracked projects.
 - Continue mining Tetracorp external references and the Pyrdacor/Amber predecessor graph.
 - Continue watching `geogeo28/atari_reverse` for newly added reverse-engineering targets.
@@ -69,6 +65,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 ### Commodore 64
 
+- Audit `TheGoodDoktor/C64AnalyserProjects` title directories for sufficiently substantive independent binary-analysis records; preserve analysis-state projects distinctly from full source reconstructions.
 - Continue mining Ricardo Quesada's C64 work beyond Commando.
 - Continue mining C64 Mark and the wider Llamasource graph.
 - Enumerate additional Piddewitt reverse-engineered game-source repositories.
@@ -76,6 +73,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 ### ZX Spectrum
 
+- Audit `TheGoodDoktor/SpectrumAnalyserProjects` systematically; it contains many large title-specific analysis datasets that are not yet represented individually.
 - Continue graph-style discovery through SkoolKit links, author profiles and references from already tracked disassemblies.
 - Prefer canonical/current project sources over archive mirrors, while keeping genuinely independent disassemblies as separate records.
 
@@ -93,7 +91,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 - Track core emulators, debuggers, reassemblers, reconstructed toolchains and archival development systems when they are directly useful to software archaeology or reproducible legacy development.
 - Keep ordinary open-source continuation/maintenance projects distinct from reverse-engineering records; they may remain discovery nodes without becoming catalogue records.
-- Mine WinUAE, Copperline, ReSource, TOS toolchains and the Level 9 archive for referenced formats, tools, historical source drops and adjacent reconstruction projects.
+- Mine WinUAE, Copperline, ReSource, TOS toolchains, the Level 9 archive and TheGoodDoktor's analyser ecosystem for referenced formats, tools, historical source drops and adjacent reconstruction projects.
 
 ## Search strategy
 
