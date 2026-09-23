@@ -213,12 +213,12 @@ def generate(activity_path, projects_path, output_path, limit):
 
     for event in events:
         project = by_id.get(event.get("project_id"), {})
-        project_title = project_title(project, event.get("project_id"))
+        display_name = project_title(project, event.get("project_id"))
         item = ET.SubElement(channel, "item")
 
         if event.get("type") == "release":
             tag = event.get("tag") or "release"
-            ET.SubElement(item, "title").text = project_title + " — released " + tag
+            ET.SubElement(item, "title").text = display_name + " — released " + tag
             link = event.get("url") or project.get("project_url") or project.get("repo") or SITE_URL
             ET.SubElement(item, "link").text = link
             guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
@@ -229,7 +229,7 @@ def generate(activity_path, projects_path, output_path, limit):
             noun = "commit" if count == 1 else "commits"
             day = event.get("day") or str(event.get("date") or "")[:10]
             ET.SubElement(item, "title").text = (
-                project_title + " — " + str(count) + " " + noun + " on " + format_day(day)
+                display_name + " — " + str(count) + " " + noun + " on " + format_day(day)
             )
             link = project.get("project_url") or project.get("repo") or SITE_URL
             ET.SubElement(item, "link").text = link
