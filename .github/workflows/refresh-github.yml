@@ -9,6 +9,7 @@ on:
     paths:
       - "data/projects.json"
       - "tools/refresh_github.py"
+      - "tools/collect_activity.py"
       - ".github/workflows/refresh-github.yml"
 
 permissions:
@@ -22,35 +23,38 @@ jobs:
   refresh:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Refresh metadata
+      - name: Refresh project metadata
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python tools/refresh_github.py
 
+      - name: Collect recent activity
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/collect_activity.py
+
       - name: Commit changes
         run: |
-          if git diff --quiet -- data/projects.json; then
-            echo "No metadata changes"
+          if git diff --quiet -- data/projects.json data/activity.json; then
+            echo "No metadata or activity changes"
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/projects.json
-          git commit -m "Refresh GitHub project metadata"
+          git add data/projects.json data/activity.json
+          git commit -m "Refresh GitHub project metadata and activity"
 
-          # A human or connector may have pushed while this job was running.
-          # Rebase before pushing rather than failing with a non-fast-forward.
           for attempt in 1 2 3; do
             git fetch origin main
             if ! git rebase origin/main; then
-              echo "Concurrent edit conflicts with metadata refresh; refusing to overwrite it."
+              echo "Concurrent edit conflicts with refresh; refusing to overwrite it."
               git rebase --abort || true
               exit 1
             fi
