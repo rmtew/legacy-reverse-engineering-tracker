@@ -8,7 +8,7 @@ A structured catalogue of reverse-engineering and source-reconstruction projects
 The tracker has two views:
 
 - **Projects** — filterable catalogue of tracked reverse-engineering projects.
-- **Activity** — day-by-day recent commit history across tracked projects, including active non-default branches.
+- **Activity** — the default view: day-by-day recent commits and latest releases across tracked projects, including active non-default branches.
 
 ## Repository structure
 
@@ -20,6 +20,7 @@ The tracker has two views:
 - `tools/enrich_evidence.py` — conservative README/status evidence enrichment for build/playability/byte-exact/start fields
 - `tools/collect_activity.py` — incremental multi-branch commit collection and project attribution
 - `tools/generate_rss.py` — generates the public RSS feed from the activity/project JSON
+- `tools/validate_site_data.py` — validates project/activity relationships and generated RSS
 - `.github/workflows/refresh-github.yml` — daily metadata/activity refresh
 - `.github/workflows/enrich-evidence.yml` — weekly evidence enrichment
 - `.github/workflows/pages.yml` — GitHub Pages deployment
@@ -27,6 +28,9 @@ The tracker has two views:
 - `sources.md` — discovery nodes, search strategy and open discovery priorities
 - `log.md` — historical search/discovery notes
 
-There is no rendering framework or build step. The browser reads the JSON data directly. A daily GitHub Action uses conditional repository probes and adaptive, staggered deep scans: recently active repositories are checked frequently, dormant ones less often, while any detected push queues an immediate scan. Activity collection is incremental, retaining 180 days locally instead of re-downloading that history. Hard request budgets and a rate-limit reserve stop a run early and leave unfinished repositories queued. A separate weekly enrichment pass scans project documentation for explicit evidence about build/playability/byte-exact/start fields and records CI signals when GitHub's API quota permits.
+There is no rendering framework or build step. The browser reads the JSON data directly. A daily GitHub Action uses conditional repository probes and adaptive, staggered deep scans: recently active repositories are checked frequently, dormant ones less often, while any detected push queues an immediate scan. Activity collection is incremental, retaining 180 days locally instead of re-downloading that history. Hard request budgets and a rate-limit reserve stop a run early and leave unfinished repositories queued. Repository probes are ordered oldest-first, and queued deep scans prioritize detected changes then least-recently scanned repositories, so budget limits cannot permanently starve later repositories. A separate weekly enrichment pass scans project documentation for explicit evidence about build/playability/byte-exact/start fields and records CI signals when GitHub's API quota permits.
 
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
+
+
+The site header shows the activity-data refresh time. The Activity view can filter commits versus releases, and the RSS feed contains both kinds of activity. Pages deployment validates the JSON relationships and generated RSS before publishing.
