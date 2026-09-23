@@ -61,7 +61,11 @@ Deep-scan cadence is based on the most recent tracked activity in the repository
 
 Longer cadences are deterministically staggered by repository name so weekly/monthly work is spread across days. A changed `pushed_at` value overrides the cadence and queues an immediate deep scan. Newly tracked repositories are queued immediately after the initial state bootstrap. Probe execution itself is oldest-first using `last_probe_at`, so if the request budget cuts a run short, skipped repositories automatically move to the front on the next run. Deep-scan execution similarly prioritizes detected changes/new repositories, then the least-recently deep-scanned queued repositories.
 
-The probe phase has a 250-request hard budget and activity collection a 450-request hard budget. Both stop before GitHub's reported primary quota falls below a 250-request reserve. Anything left unfinished remains queued rather than being recorded as successfully checked.
+Primary-rate throttling is based on GitHub's response headers (`X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset`) rather than fixed probe/activity quotas. Conditional ETag probes are allowed to continue even when the remaining primary quota is near the reserve because a valid authenticated `304 Not Modified` response does not consume primary quota.
+
+For requests that do consume primary quota, the reserve is calculated from the reported limit: 15% of the limit, with a normal floor of 100 and a cap of 250 requests. Thus a 1,000-request allowance reserves 150, while the currently observed 5,000-request allowance reserves 250 rather than 750. Low-limit/unauthenticated cases scale the floor down instead of reserving more than a practical fraction of the limit.
+
+Both phases have a separate 800-HTTP-request safety cap and a short request delay. Those safeguards are for runaway/secondary-limit protection, not primary-quota accounting. Anything left unfinished remains queued rather than being recorded as successfully checked. The workflow records the observed limit, remaining quota, reset timestamp, HTTP request count and conditional-304 count in generated poll state and the Actions step summary.
 
 Activity collection is incremental. Poll state stores each observed branch tip SHA and last successful branch scan. Unchanged branch tips require no commit-history request. Changed tips fetch only commits since the previous scan, with a one-day overlap for safety; those commits are merged into the locally retained 180-day `data/activity.json` history.
 
