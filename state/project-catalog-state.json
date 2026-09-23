@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-23T23:16:58Z",
+  "updated_at": "2026-09-23T23:20:17Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -12908,9 +12908,81 @@
         "Forth",
         "software archaeology"
       ],
-      "notes": "Reverse engineering of the 1986 DOS game Starflight. The project exploits retained/encrypted Forth word names and the game's indirect-threaded representation to recover thousands of words, decode overlays and emit C representations of the recovered routines.",
+      "notes": "Reverse engineering of the 1986 DOS game Starflight. The project exploits retained/encrypted Forth word names and the game's indirect-threaded representation to recover thousands of words, decode overlays and emit C representations of the recovered routines. A separate remastered successor, canadacow/starflight-reverse, builds on this recovered codebase with full Forth/assembly emulation and a new Vulkan presentation layer; it is tracked independently.",
       "ai": {
         "usage": null,
+        "tools": []
+      }
+    },
+    "starflight-reverse-remastered": {
+      "id": "starflight-reverse-remastered",
+      "title": "Starflight Reverse — Remastered",
+      "repo": "https://github.com/canadacow/starflight-reverse",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "source_language": [
+        "Forth threaded code",
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "GLSL"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reimplementation",
+        "reverse-engineering-derived",
+        "native port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Forth runtime emulation",
+        "x86 assembly emulation",
+        "reverse-engineering-derived reimplementation",
+        "Vulkan rendering",
+        "compute-shader rotoscoping",
+        "PBR/GLTF rendering"
+      ],
+      "tags": [
+        "game",
+        "DOS",
+        "Starflight",
+        "Forth",
+        "Vulkan",
+        "AI-assisted",
+        "remaster",
+        "software archaeology"
+      ],
+      "notes": "Independent remastered successor to the s-macke Starflight reverse-engineering line. It retains/emulates the recovered Forth and assembly execution so the whole game is playable, while adding a new real-time Vulkan/rotoscoped presentation layer with switchable classic EGA/CGA output. Tracked separately from s-macke/starflight-reverse because this project is an RE-derived playable reimplementation/remaster rather than only the underlying disassembly/recovery work.",
+      "ai": {
+        "usage": true,
         "tools": []
       }
     },
