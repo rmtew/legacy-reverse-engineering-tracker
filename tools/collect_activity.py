@@ -357,9 +357,17 @@ def main():
             by_repo.setdefault(repo, []).append(project)
 
     events = {}
+    project_events = []
     for old in payload.get("events", []):
         when = parse_time(old.get("date"))
-        if not when or when < CUTOFF or old.get("project_id") not in project_by_id:
+        if not when or when < CUTOFF:
+            continue
+        if old.get("type") != "commit":
+            # Catalogue-change events are persisted independently of the current
+            # project set so a removal remains visible after its record is gone.
+            project_events.append(old)
+            continue
+        if old.get("project_id") not in project_by_id:
             continue
         key = (old.get("project_id"), old.get("repository"), old.get("sha"))
         old["branches"] = sorted(set(old.get("branches") or []))
@@ -474,8 +482,14 @@ def main():
             detect_ai(project, items)
 
     output = sorted(
-        events.values(),
-        key=lambda e: (e.get("date") or "", e.get("repository") or "", e.get("sha") or ""),
+        list(events.values()) + project_events,
+        key=lambda e: (
+            e.get("date") or "",
+            e.get("repository") or "",
+            e.get("sha") or "",
+            e.get("type") or "",
+            e.get("project_id") or "",
+        ),
         reverse=True,
     )
     for event in output:
