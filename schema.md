@@ -86,11 +86,11 @@ Some repositories contain several independently tracked reverse-engineering proj
 
 ## Activity data
 
-`data/activity.json` is a generated rolling commit feed, currently covering 180 days. It is not hand-edited.
+`data/activity.json` is a generated rolling activity feed covering 180 days. It is not hand-edited.
 
-Each event contains:
+Stored commit events contain:
 
-- `type` (currently `commit`)
+- `type: "commit"`
 - timestamp and commit SHA
 - `project_id` linking back to `data/projects.json`
 - repository
@@ -102,7 +102,20 @@ The collector checks non-default branches when a repository's deep scan is due. 
 
 For shared repositories, `github_path` is used to attribute commits to the relevant tracked subproject. Repository-wide/shared-tooling commits outside a project's configured path are intentionally not attributed to that project.
 
-The Activity UI groups events by UTC calendar day and then project, while displaying the viewer's local event time. It augments stored commit activity with each project's latest known GitHub release and can filter by activity type (commit/release). Filters reuse project metadata, so platform/language/AI filters apply consistently between the catalogue and activity feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
+The feed also persists meaningful catalogue-change events:
+
+- `project_added`
+- `project_removed`
+- `project_restored`
+- `project_renamed`
+- `project_moved`
+- `project_updated`
+
+`state/project-catalog-state.json` stores the previous material catalogue snapshot used to detect those changes. The initial state is a baseline only, so existing projects do not receive fabricated historical addition events. Volatile fields such as `last_checked`, `last_activity`, generated GitHub metadata and automated evidence excerpts are excluded from the comparison. Material facts such as platforms, languages, type, status, build flags, AI usage/tools, tags, techniques, notes and project location are compared.
+
+Project-change events carry a compact `project` snapshot. This lets removal events remain displayable and filterable after the canonical project record has been deleted. Removed snapshots are retained as tombstones in catalogue state so a later reappearance can be emitted as `project_restored`.
+
+The Activity UI groups events by UTC calendar day and then project, while displaying the viewer's local event time. It augments stored activity with each current project's latest known GitHub release and can filter by activity type (commit/release/project changes). Filters use either the current project record or the event's persisted project snapshot, so removed projects remain usable in the feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
 
 
 ## Evidence enrichment
