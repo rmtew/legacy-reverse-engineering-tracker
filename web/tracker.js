@@ -9,7 +9,7 @@ const tri=v=>v===true?"Yes":v===false?"No":"Unknown";
 const flag=v=>{const t=tri(v);return '<span class="flag '+t.toLowerCase()+'" title="'+t+'">'+(t==="Unknown"?"?":t)+'</span>'};
 const tags=v=>{const xs=arr(v);return xs.length?'<span class="tags">'+xs.map(x=>'<span class="tag">'+esc(x)+'</span>').join("")+'</span>':'?'};
 
-const filterIds=["sourcePlatform","targetPlatform","cpu","language","type","tag","status","compilable","playable","exact","ai"];
+const filterIds=["sourcePlatform","targetPlatform","cpu","language","type","tag","status","activity","compilable","playable","exact","ai"];
 
 function unique(field){
   return [...new Set(projects.flatMap(r=>arr(r[field])).filter(Boolean))]
@@ -29,7 +29,7 @@ function sortValue(r,key){
   return {
     title:r.title, source:text(r.source_platforms), target:text(r.target_platforms),
     language:text(r.reconstructed_languages), type:text(r.types),
-    started:r.re_started, updated:r.last_activity,
+    started:r.re_started??r.github?.created_at, updated:r.last_activity,
     compilable:tri(b.compilable), playable:tri(b.playable),
     exact:tri(b.byte_exact), ai:tri(a.usage)
   }[key];
@@ -59,7 +59,7 @@ function matches(r){
     && (!$("language").value||arr(r.reconstructed_languages).includes($("language").value))
     && (!$("type").value||arr(r.types).includes($("type").value))
     && (!$("tag").value||arr(r.tags).includes($("tag").value))
-    && (!$("status").value||r.status===$("status").value)
+    && (!$("status").value||r.status===$("status").value)\n    && (!$("activity").value||r.github?.activity_state===$("activity").value)
     && (!$("compilable").value||tri(b.compilable)===$("compilable").value)
     && (!$("playable").value||tri(b.playable)===$("playable").value)
     && (!$("exact").value||tri(b.byte_exact)===$("exact").value)
@@ -95,7 +95,7 @@ function render(){
       +'<td>'+tags(r.target_platforms)+'</td>'
       +'<td>'+tags(r.reconstructed_languages)+'</td>'
       +'<td>'+tags(r.types)+'</td>'
-      +'<td>'+esc(r.re_started??"?")+'</td>'
+      +'<td>'+esc(r.re_started??(r.github?.created_at?r.github.created_at.slice(0,4)+"*":"?"))+'</td>'
       +'<td>'+esc(r.last_activity??"?")+'</td>'
       +'<td>'+flag(b.compilable)+'</td>'
       +'<td>'+flag(b.playable)+'</td>'
@@ -125,7 +125,7 @@ function showDetails(r){
     +line("RE type",tags(r.types))
     +line("Started",esc(r.re_started??"?"))
     +line("Last activity",esc(r.last_activity??"?"))
-    +line("Last checked",esc(r.last_checked??"?"))
+    +line("Last checked",esc(r.last_checked??"?"))\n    +line("Repository created",esc(r.github?.created_at??"?"))\n    +line("GitHub activity",esc(r.github?.activity_state??"?"))\n    +line("Default branch",esc(r.github?.default_branch??"?"))\n    +line("GitHub languages",tags(r.github?.languages))\n    +line("Latest commit",r.github?.latest_commit?.url?'<a href="'+esc(r.github.latest_commit.url)+'" target="_blank" rel="noopener">'+esc(r.github.latest_commit.date+" — "+r.github.latest_commit.message)+'</a>':"?")
     +line("Status",esc(r.status??"?"))
     +line("Compilable",tri(b.compilable))
     +line("Runnable",tri(b.runnable))
@@ -147,7 +147,7 @@ function init(){
   fillSelect("language","reconstructed_languages");
   fillSelect("type","types");
   fillSelect("tag","tags");
-  fillSelect("status","status");
+  fillSelect("status","status");\n  const activities=[...new Set(projects.map(r=>r.github?.activity_state).filter(Boolean))].sort(); for(const value of activities){const o=document.createElement("option");o.value=o.textContent=value;$("activity").append(o);}
   $("total").textContent=projects.length;
   render();
 }
