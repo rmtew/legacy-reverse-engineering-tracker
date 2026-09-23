@@ -38,6 +38,29 @@ def joined(value):
     return str(value or "")
 
 
+def release_events(projects):
+    events = []
+    for project in projects:
+        release = (project.get("github") or {}).get("latest_release") or {}
+        published = release.get("published_at")
+        if not published:
+            continue
+        tag = release.get("tag") or release.get("name") or "release"
+        events.append({
+            "type": "release",
+            "date": published + "T12:00:00Z",
+            "project_id": project.get("id"),
+            "repository": (project.get("github") or {}).get("repository"),
+            "tag": tag,
+            "title": "Release " + tag,
+            "message": release.get("name") if release.get("name") != tag else "",
+            "url": release.get("url") or project.get("project_url") or project.get("repo"),
+            "author": "",
+            "branches": [],
+        })
+    return events
+
+
 def description(event, project):
     project_url = project.get("project_url") or project.get("repo") or SITE_URL
     title = project.get("title") or event.get("project_id") or "?"
@@ -69,6 +92,7 @@ def generate(activity_path, projects_path, output_path, limit):
         event for event in activity.get("events", [])
         if event.get("type") == "commit" and event.get("sha") and event.get("date")
     ]
+    events.extend(release_events(projects))
     events.sort(key=lambda event: event.get("date") or "", reverse=True)
     events = events[:limit]
 
@@ -77,7 +101,7 @@ def generate(activity_path, projects_path, output_path, limit):
     ET.SubElement(channel, "title").text = "Legacy Reverse Engineering Tracker — Activity"
     ET.SubElement(channel, "link").text = SITE_URL
     ET.SubElement(channel, "description").text = (
-        "Recent commits across tracked legacy software reverse-engineering projects."
+        "Recent commits and releases across tracked legacy software reverse-engineering projects."
     )
     ET.SubElement(channel, "language").text = "en"
     ET.SubElement(channel, "{" + ATOM_NS + "}link", {
@@ -92,13 +116,16 @@ def generate(activity_path, projects_path, output_path, limit):
     for event in events:
         project = by_id.get(event.get("project_id"), {})
         project_title = project.get("title") or event.get("project_id") or "Unknown project"
-        commit_title = event.get("title") or (event.get("sha") or "")[:12]
+        event_title = event.get("title") or (event.get("sha") or event.get("tag") or "")[:12]
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text = project_title + " — " + commit_title
+        ET.SubElement(item, "title").text = project_title + " — " + event_title
         link = event.get("url") or project.get("project_url") or project.get("repo") or SITE_URL
         ET.SubElement(item, "link").text = link
         guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
-        guid.text = "legacy-re:" + str(event.get("project_id")) + ":" + str(event.get("sha"))
+        if event.get("type") == "release":
+            guid.text = "legacy-re:" + str(event.get("project_id")) + ":release:" + str(event.get("tag"))
+        else:
+            guid.text = "legacy-re:" + str(event.get("project_id")) + ":" + str(event.get("sha"))
         pub_date = rfc822(event.get("date"))
         if pub_date:
             ET.SubElement(item, "pubDate").text = pub_date
