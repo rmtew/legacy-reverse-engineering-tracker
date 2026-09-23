@@ -24,9 +24,44 @@ const tags = value => {
     : "?";
 };
 
+const classificationLabels = {
+  subject:"Subject", tooling:"Tooling", hybrid:"Hybrid", game:"Game", application:"Application", demo:"Demo",
+  "operating-system":"Operating system", "firmware-rom":"Firmware / ROM", "system-software":"System software",
+  "game-engine":"Game engine", "game-subsystem":"Game subsystem", "development-tool":"Development tool",
+  disassembly:"Disassembly", decompilation:"Decompilation", "source-reconstruction":"Source reconstruction",
+  "source-restoration":"Source restoration", "binary-analysis":"Binary analysis", "data-format-analysis":"Data-format analysis",
+  "copy-protection-analysis":"Copy-protection analysis", reimplementation:"Reimplementation",
+  "reverse-engineering-derived-port":"RE-derived port", patching:"Patching", translation:"Translation",
+  "subsystem-reconstruction":"Subsystem reconstruction", emulator:"Emulator", debugger:"Debugger", profiler:"Profiler",
+  "graphics-debugger":"Graphics debugger", disassembler:"Disassembler", reassembler:"Reassembler", ide:"IDE",
+  "compiler-toolchain":"Compiler/toolchain", "assembler-toolchain":"Assembler/toolchain", "static-analysis":"Static analysis",
+  "language-tooling":"Language tooling", "cycle-analysis":"Cycle analysis", "rom-tool":"ROM tool",
+  "disk-filesystem-tool":"Disk/filesystem tool", "asset-tool":"Asset tool", automation:"Automation",
+  "development-environment":"Development environment"
+};
+const classificationLabel = value => classificationLabels[value] || String(value ?? "");
+const classificationValueTags = value => {
+  const values = arr(value);
+  return values.length ? tags(values.map(classificationLabel)) : "?";
+};
+const classificationChip = (prefix,value,kind) =>
+  '<span class="classification-chip '+kind+'-chip"><strong>'+esc(prefix)+':</strong> '+esc(classificationLabel(value))+'</span>';
+const classificationTags = record => {
+  const chips=[];
+  if(record.record_class) chips.push(classificationChip("Class",record.record_class,"class"));
+  for(const value of arr(record.target_kinds)) chips.push(classificationChip("Target",value,"target"));
+  for(const value of arr(record.work_kinds)) chips.push(classificationChip("Work",value,"work"));
+  for(const value of arr(record.tool_kinds)) chips.push(classificationChip("Tool",value,"tool"));
+  return chips.length?'<span class="classification-tags">'+chips.join("")+"</span>":"?";
+};
+const classificationSortValue = record => [
+  record.record_class,...arr(record.target_kinds),...arr(record.work_kinds),...arr(record.tool_kinds)
+].filter(Boolean).join(" ");
+
 const filterIds = [
-  "sourcePlatform", "targetPlatform", "cpu", "language", "type", "tag",
-  "status", "activity", "compilable", "playable", "exact", "ai"
+  "recordClass","targetKind","workKind","toolKind",
+  "sourcePlatform","targetPlatform","cpu","language","tag",
+  "status","activity","compilable","playable","exact","ai"
 ];
 
 function unique(field) {
@@ -34,11 +69,12 @@ function unique(field) {
     .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" }));
 }
 
-function fillSelect(id, field) {
+function fillSelect(id, field, labeler = value => value) {
   const select = $(id);
   for (const value of unique(field)) {
     const option = document.createElement("option");
-    option.value = option.textContent = value;
+    option.value = value;
+    option.textContent = labeler(value);
     select.append(option);
   }
 }
@@ -60,7 +96,7 @@ function sortValue(record, key) {
     source: text(record.source_platforms),
     target: text(record.target_platforms),
     language: text(record.reconstructed_languages),
-    type: text(record.types),
+    classification: classificationSortValue(record),
     started: record.re_started ?? record.github?.created_at,
     updated: record.last_activity,
     compilable: tri(build.compilable),
@@ -90,16 +126,20 @@ function matches(record) {
   const haystack = [
     record.title, record.notes, record.repo, record.project_url, record.status,
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
+    record.record_class, ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
     ...arr(record.source_platforms), ...arr(record.target_platforms),
     ...arr(record.source_cpu), ...arr(record.reconstructed_languages)
   ].join(" ").toLowerCase();
 
   return (!query || haystack.includes(query))
+    && (!$("recordClass").value || record.record_class === $("recordClass").value)
+    && (!$("targetKind").value || arr(record.target_kinds).includes($("targetKind").value))
+    && (!$("workKind").value || arr(record.work_kinds).includes($("workKind").value))
+    && (!$("toolKind").value || arr(record.tool_kinds).includes($("toolKind").value))
     && (!$("sourcePlatform").value || arr(record.source_platforms).includes($("sourcePlatform").value))
     && (!$("targetPlatform").value || arr(record.target_platforms).includes($("targetPlatform").value))
     && (!$("cpu").value || arr(record.source_cpu).includes($("cpu").value))
     && (!$("language").value || arr(record.reconstructed_languages).includes($("language").value))
-    && (!$("type").value || arr(record.types).includes($("type").value))
     && (!$("tag").value || arr(record.tags).includes($("tag").value))
     && (!$("status").value || record.status === $("status").value)
     && (!$("activity").value || record.github?.activity_state === $("activity").value)
@@ -142,7 +182,7 @@ function render() {
       + "<td>" + tags(record.source_platforms) + "</td>"
       + "<td>" + tags(record.target_platforms) + "</td>"
       + "<td>" + tags(record.reconstructed_languages) + "</td>"
-      + "<td>" + tags(record.types) + "</td>"
+      + "<td>" + classificationTags(record) + "</td>"
       + "<td>" + esc(started) + "</td>"
       + "<td>" + esc(record.last_activity ?? "?") + "</td>"
       + "<td>" + flag(build.compilable) + "</td>"
@@ -217,7 +257,11 @@ function showDetails(record) {
     + line("CPU", tags(record.source_cpu))
     + line("Original/source language", tags(record.source_language))
     + line("Reconstructed language", tags(record.reconstructed_languages))
-    + line("RE type", tags(record.types))
+    + line("Record class", classificationValueTags(record.record_class))
+    + line("Target kind", classificationValueTags(record.target_kinds))
+    + line("Work kind", classificationValueTags(record.work_kinds))
+    + line("Tool kind", classificationValueTags(record.tool_kinds))
+    + line("Legacy type descriptors", tags(record.types))
     + line("Started", esc(record.re_started ?? "?"))
     + line("Last activity", esc(record.last_activity ?? "?"))
     + line("Last checked", esc(record.last_checked ?? "?"))
@@ -251,11 +295,14 @@ function showDetails(record) {
 }
 
 function init() {
+  fillSelect("recordClass", "record_class", classificationLabel);
+  fillSelect("targetKind", "target_kinds", classificationLabel);
+  fillSelect("workKind", "work_kinds", classificationLabel);
+  fillSelect("toolKind", "tool_kinds", classificationLabel);
   fillSelect("sourcePlatform", "source_platforms");
   fillSelect("targetPlatform", "target_platforms");
   fillSelect("cpu", "source_cpu");
   fillSelect("language", "reconstructed_languages");
-  fillSelect("type", "types");
   fillSelect("tag", "tags");
   fillSelect("status", "status");
   fillActivitySelect();
@@ -363,7 +410,8 @@ function activityMatches(event) {
   const q=$("activityQ").value.trim().toLowerCase();
   const hay=[
     event.type,event.title,event.message,event.author,event.repository,event.tag,
-    project.title,...arr(event.branches),...arr(project.tags),...arr(project.ai?.tools),
+    project.title,project.record_class,...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
+    ...arr(event.branches),...arr(project.tags),...arr(project.ai?.tools),
     ...arr(event.changes),JSON.stringify(event.change_details||[])
   ].join(" ").toLowerCase();
   return (!q||hay.includes(q))
@@ -392,7 +440,7 @@ function activityPlatformTags(project) {
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(project.title)+'</a>':esc(project.title);
-  return '<strong>'+title+'</strong>'+activityPlatformTags(project);
+  return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project);
 }
 
 const activityFieldLabels={
@@ -406,7 +454,11 @@ const activityFieldLabels={
   source_cpu:"Source CPU",
   source_language:"Source language",
   reconstructed_languages:"Output language",
-  types:"RE type",
+  record_class:"Record class",
+  target_kinds:"Target kind",
+  work_kinds:"Work kind",
+  tool_kinds:"Tool kind",
+  types:"Legacy type",
   re_started:"RE start date",
   status:"Status",
   techniques:"Technique",
@@ -505,7 +557,8 @@ function humanizeProjectChange(detail) {
 
   const listFields=new Set([
     "source_platforms","target_platforms","source_cpu","source_language",
-    "reconstructed_languages","types","techniques","tags"
+    "reconstructed_languages","target_kinds","work_kinds","tool_kinds",
+    "types","techniques","tags"
   ]);
   if(listFields.has(field)){
     const delta=listDelta(before,after);
