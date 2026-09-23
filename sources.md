@@ -55,6 +55,8 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 | https://github.com/CopperlineHQ/Copperline | Active cycle-driven Amiga emulator with reverse stepping, source debugging and automation tooling |
 
+| https://github.com/TheGoodDoktor/8BitAnalysers | Multi-platform 8-bit analysis/annotation toolkit for Spectrum, C64 and CPC; assembler export and MCP-assisted analysis |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
