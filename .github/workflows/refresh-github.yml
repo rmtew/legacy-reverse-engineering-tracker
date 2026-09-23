@@ -14,6 +14,8 @@ on:
     branches: [main]
     paths:
       - "data/projects.json"
+      - "data/pending-projects.json"
+      - "tools/merge_pending_projects.py"
       - "tools/refresh_github.py"
       - "tools/collect_activity.py"
       - ".github/workflows/refresh-github.yml"
@@ -57,6 +59,10 @@ jobs:
               ;;
           esac
 
+      - name: Merge pending discoveries
+        if: steps.window.outputs.run == 'true'
+        run: python tools/merge_pending_projects.py
+
       - name: Probe repositories and schedule scans
         if: steps.window.outputs.run == 'true'
         env:
@@ -86,13 +92,13 @@ jobs:
       - name: Commit changes
         if: steps.window.outputs.run == 'true'
         run: |
-          if git diff --quiet -- data/projects.json data/activity.json state/github-poll-state.json; then
-            echo "No metadata, activity or poll-state changes"
+          if git diff --quiet -- data/projects.json data/pending-projects.json data/activity.json state/github-poll-state.json; then
+            echo "No metadata, activity, pending-discovery or poll-state changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/projects.json data/activity.json state/github-poll-state.json
+          git add data/projects.json data/pending-projects.json data/activity.json state/github-poll-state.json
           git commit -m "Refresh adaptive GitHub metadata and activity"
           for attempt in 1 2 3; do
             git fetch origin main
@@ -101,14 +107,15 @@ jobs:
             else
               echo "main advanced during refresh; rerunning generators on latest main"
               git reset --hard origin/main
+              python tools/merge_pending_projects.py
               python tools/refresh_github.py
               python tools/collect_activity.py
               python tools/validate_site_data.py data/projects.json data/activity.json
-              if git diff --quiet -- data/projects.json data/activity.json state/github-poll-state.json; then
+              if git diff --quiet -- data/projects.json data/pending-projects.json data/activity.json state/github-poll-state.json; then
                 echo "Latest main already contains equivalent generated state"
                 exit 0
               fi
-              git add data/projects.json data/activity.json state/github-poll-state.json
+              git add data/projects.json data/pending-projects.json data/activity.json state/github-poll-state.json
               git commit -m "Refresh adaptive GitHub metadata and activity"
               if git push origin HEAD:main; then exit 0; fi
             fi
