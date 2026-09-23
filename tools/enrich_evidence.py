@@ -54,7 +54,7 @@ PLAYABLE_POSITIVE = [
     re.compile(r"\b(?:build|reconstruction|reconstructed version|prg|binary)\s+(?:is\s+)?playable\b", re.I),
     re.compile(r"\b(?:build|reconstruction|reconstructed version|prg|binary)\s+(?:now\s+)?plays(?:\s+well)?\b", re.I),
     re.compile(r"\b(?:game|source|code)\s+compiles and plays\b", re.I),
-    re.compile(r"\bplayable\s+(?:prg|binary|build|reconstruction)\b", re.I),
+    re.compile(r"\bplayable\s+(?:prg|binary|build)\b", re.I),
     re.compile(r"\b(?:reconstructed|rebuilt)\s+(?:game|version|prg|binary)\b[^.\n]{0,80}\bplays\b", re.I),
 ]
 PLAYABLE_NEGATIVE = [
