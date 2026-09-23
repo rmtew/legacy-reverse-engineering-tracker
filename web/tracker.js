@@ -263,3 +263,118 @@ document.querySelector("#details .close").addEventListener("click", () => $("det
 $("details").addEventListener("click", event => {
   if (event.target === $("details")) $("details").close();
 });
+
+
+let activityData = { generated_at: null, window_days: 180, events: [] };
+const projectById = () => new Map(projects.map(project => [project.id, project]));
+const activityFilterIds = ["activityDays","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"];
+
+function addOptions(selectId, values) {
+  const select = $(selectId);
+  for (const value of [...new Set(values.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),undefined,{numeric:true,sensitivity:"base"}))) {
+    const option=document.createElement("option");
+    option.value=option.textContent=value;
+    select.append(option);
+  }
+}
+
+function initActivityFilters() {
+  addOptions("activityPlatform", projects.flatMap(p=>arr(p.source_platforms)));
+  const projectSelect=$("activityProject");
+  for (const project of [...projects].sort((a,b)=>a.title.localeCompare(b.title))) {
+    const option=document.createElement("option");
+    option.value=project.id; option.textContent=project.title; projectSelect.append(option);
+  }
+  addOptions("activityLanguage", projects.flatMap(p=>arr(p.reconstructed_languages)));
+  addOptions("activityBranch", activityData.events.flatMap(e=>arr(e.branches)));
+}
+
+function activityMatches(event) {
+  const map=projectById(), project=map.get(event.project_id);
+  if(!project) return false;
+  const days=Number($("activityDays").value||30);
+  const cutoff=Date.now()-days*86400000;
+  if(new Date(event.date).getTime()<cutoff) return false;
+  const q=$("activityQ").value.trim().toLowerCase();
+  const hay=[event.title,event.message,event.author,event.repository,project.title,...arr(event.branches),...arr(project.tags)].join(" ").toLowerCase();
+  return (!q||hay.includes(q))
+    && (!$("activityPlatform").value||arr(project.source_platforms).includes($("activityPlatform").value))
+    && (!$("activityProject").value||project.id===$("activityProject").value)
+    && (!$("activityLanguage").value||arr(project.reconstructed_languages).includes($("activityLanguage").value))
+    && (!$("activityBranch").value||arr(event.branches).includes($("activityBranch").value))
+    && (!$("activityAi").value||tri(project.ai?.usage)===$("activityAi").value);
+}
+
+function activityProjectHeader(project) {
+  const url=project.project_url||project.repo;
+  const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(project.title)+'</a>':esc(project.title);
+  return '<strong>'+title+'</strong><div class="activity-project-meta">'+esc(text(project.source_platforms))+'</div>';
+}
+
+function renderActivity() {
+  const map=projectById();
+  const events=activityData.events.filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  $("activityCount").textContent=events.length;
+  $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
+  $("activityGenerated").textContent=activityData.generated_at?"Collected "+activityData.generated_at.slice(0,10):"";
+
+  if(!events.length){
+    $("activityFeed").innerHTML='<div class="activity-empty">No commits match the current filters.</div>';
+    return;
+  }
+
+  const days=new Map();
+  for(const event of events){
+    const day=event.date.slice(0,10);
+    if(!days.has(day)) days.set(day,new Map());
+    const byProject=days.get(day);
+    if(!byProject.has(event.project_id)) byProject.set(event.project_id,[]);
+    byProject.get(event.project_id).push(event);
+  }
+
+  $("activityFeed").innerHTML=[...days.entries()].map(([day,byProject])=>{
+    const dateLabel=new Date(day+"T12:00:00Z").toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric",timeZone:"UTC"});
+    const projectsHtml=[...byProject.entries()].sort((a,b)=>{
+      const ad=Math.max(...a[1].map(e=>new Date(e.date).getTime()));
+      const bd=Math.max(...b[1].map(e=>new Date(e.date).getTime()));
+      return bd-ad;
+    }).map(([projectId,commits])=>{
+      const project=map.get(projectId);
+      const commitHtml=commits.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(event=>{
+        const time=new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
+        const title=event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title);
+        const details=[event.author?esc(event.author):"",esc(event.sha.slice(0,8))].filter(Boolean).join(" · ");
+        return '<div class="commit"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div><div class="commit-branches">'+arr(event.branches).map(b=>'<span class="branch">'+esc(b)+'</span>').join("")+'</div></div>';
+      }).join("");
+      return '<div class="activity-project"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
+    }).join("");
+    return '<section class="activity-day"><h2>'+esc(dateLabel)+'</h2>'+projectsHtml+'</section>';
+  }).join("");
+}
+
+document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("click",()=>{
+  document.querySelectorAll(".view-tab").forEach(x=>x.classList.toggle("active",x===button));
+  document.querySelectorAll(".view-panel").forEach(panel=>panel.classList.toggle("active",panel.id===button.dataset.view));
+  if(button.dataset.view==="activityView") renderActivity();
+}));
+
+$("activityQ").addEventListener("input",renderActivity);
+activityFilterIds.forEach(id=>$(id).addEventListener("change",renderActivity));
+$("activityClear").addEventListener("click",()=>{
+  $("activityQ").value="";
+  $("activityDays").value="30";
+  ["activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"].forEach(id=>$(id).value="");
+  renderActivity();
+});
+
+Promise.all([
+  fetch("data/projects.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("projects HTTP "+r.status);return r.json()}),
+  fetch("data/activity.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("activity HTTP "+r.status);return r.json()})
+]).then(([projectData,activity])=>{
+  activityData=activity;
+  if(projects.length===0){projects=projectData;init();}
+  initActivityFilters();
+  renderActivity();
+}).catch(error=>{
+  $("activityFeed").innerHTML='<div class="activity-empty">Could not load activity: '+esc(error.message)+'</div>';
+});
