@@ -170,3 +170,18 @@ Investigated why Copperline showed its release but not its recent commit activit
 Fixed the collector so a repository's first branch scan backfills from the full retained 180-day activity window. Existing repositories remain incremental after their first successful scan.
 
 Added TheGoodDoktor/8BitAnalysers as adjacent reverse-engineering tooling. Its README describes Spectrum, C64 and CPC analysis/annotation tools; recent history includes assembler export, MCP analysis tools, Copilot branches/commits and explicit Claude-related repository work.
+
+
+## 2026-09-24 — hitchhikr Amiga disassemblies, analyser projects and activity fallback
+
+Followed the Amiga/tooling graph and promoted eight buildable `hitchhikr` disassembly/reconstruction projects: **Alien Breed**, **Driller**, **Feud**, **Into The Eagle's Nest** (Amiga/Atari ST), **Spy vs Spy II**, **Spy vs Spy III**, **Thexder** and **Zool 2 AGA**.
+
+Their common pattern is original disk/executable extraction, IRA/ReSource/Capstone-assisted disassembly where appropriate, vasm reconstruction and emulator validation. Byte exactness remains Unknown unless project-specific evidence supports it: Into The Eagle's Nest is explicitly non-identical because Atari ST-specific code was reconstructed, while Feud reports exact output for some versions but not others.
+
+Audited `TheGoodDoktor/8BitAnalysers` and confirmed its tracker record is current through 23 September, including the current commit, weekly release, assembler export/MCP tooling and explicit Claude/Copilot evidence. Its neighboring `SpectrumAnalyserProjects` and `C64AnalyserProjects` repositories contain large title-specific analysis datasets, so both were added as discovery nodes for per-title review rather than promoting every directory without sufficient project-specific evidence.
+
+Rechecked the Copperline discrepancy. The canonical project record already contains the 20 September main-branch commit `c79d6f46…`, which is newer than the 19 September `v0.21.0` release. The Activity view could nevertheless show the release while omitting that commit because it synthesized missing release events from project metadata but had no equivalent latest-commit fallback. Added a commit fallback so a known latest commit is shown even before the detailed activity collector has reached that repository.
+
+Added a small pending-discovery merge queue used by the refresh workflow, allowing verified scheduled-discovery records to be merged into the canonical catalogue before GitHub metadata enrichment and validation.
+
+Structured project count increased from 178 to 186.
