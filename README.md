@@ -1,18 +1,20 @@
 # Legacy Reverse Engineering Tracker
 
-Structured tracking for reverse-engineering/source-reconstruction projects targeting **Amiga, Atari ST, ZX Spectrum, Commodore 64 and Amstrad CPC**.
+A structured catalogue of reverse-engineering and source-reconstruction projects for **Amiga, Atari ST, ZX Spectrum, Commodore 64 and Amstrad CPC** software.
 
-## Interactive tracker
+The primary interface is the static [interactive tracker](index.html): one table, all projects by default, sortable columns, full-text search, and combinable filters for platforms, CPU, output language, reverse-engineering type, tags, status, compilability, playability, byte exactness and AI usage.
 
-The repository now includes a framework-free static browser at [index.html](index.html). When served through GitHub Pages it provides:
+## Repository structure
 
-- all projects in one table by default
-- combined filtering by source platform, reconstructed language, type, status, compilability, playability, byte exactness and AI usage
-- free-text search over titles, notes, tags, techniques and platforms
-- sortable columns
-- expandable project details
-- explicit **Unknown** state rather than treating missing evidence as “No”
+- `projects/**/*.yml` — canonical project records
+- `web/projects.json` — generated browser data
+- `index.html`, `web/tracker.js`, `web/tracker.css` — framework-free UI
+- `tools/build_data.py` — dependency-free YAML-subset → JSON builder
+- `schema.md` — field definitions and evidence rules
+- `sources.md` — people, collections and repositories used for graph-style discovery
+- `log.md` — dated discovery/search notes
+- `projects.md` — legacy discovery backlog retained until migration is complete
 
-Canonical records remain YAML under `projects/`. `tools/generate_views.py` converts those records into `web/projects.json`; the browser is plain HTML/CSS/JavaScript with no rendering framework or runtime dependencies.
+A GitHub Action rebuilds `web/projects.json` whenever canonical YAML records change.
 
-See [schema.md](schema.md), [sources.md](sources.md), [log.md](log.md), and the legacy [projects.md](projects.md) migration/backlog view.
+Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
