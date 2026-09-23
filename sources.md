@@ -20,7 +20,11 @@ Follow these as **nodes**, not merely individual repositories. Check their READM
 | Ricardo Quesada | C64 disassembly trail |
 | C64 Mark | C64 disassembly trail |
 | Senior Dads | Atari ST reconstruction |
-| Simon Frankau | Speedball 2 / cross-version 68K analysis |
+| Simon Frankau | Speedball 2 plus Head Over Heels cross-version analysis |
+| https://skoolkit.ca/links/ | Curated Spectrum disassembly index; exposes many historical authors/projects |
+| https://skoolkit.ca/disassemblies/ | Maintained complete Spectrum disassemblies and update dates |
+| https://skoolkit.arcadegeek.co.uk/ | Large Spectrum disassembly archive (29 titles observed in baseline search) |
+| https://github.com/Piddewitt/C64-Game-Source-Code | C64 reverse-engineered game-source collection; Lode Runner, Championship Lode Runner, Castles of Dr. Creep and derivatives |
 
 ## Search strategy
 
