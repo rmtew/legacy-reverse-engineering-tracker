@@ -293,3 +293,18 @@ Separated upstream project identity from catalogue presentation. Every current r
 Opaque or awkward names now receive concise tracker labels that answer what the project actually is without relying on tags. Examples include **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction**, **VS Code Amiga C/C++ debugger & profiler**, **amitools — Amiga binary, ROM & filesystem toolkit**, **PiST — Atari ST assembly IDE & debugger**, and **papple2 — Apple II reverse-engineering emulator/debugger**. Multi-subject projects such as Firestaff also carry explicit subject arrays for search.
 
 The one-time migration updated the catalogue-state baseline in lockstep so it does not fabricate hundreds of project metadata events. Future changes to upstream/display names or subjects are material catalogue changes and will appear normally in Activity. Validation now requires non-empty upstream/display names and subjects for subject/hybrid records.
+
+
+## 2026-09-24 — 0xC0DE6502, RetroRE and BBC Exile audit
+
+Audited the 0xC0DE6502 profile, realdmx/retrore and chriskillpack/exile-beebasm.
+
+Promoted five projects from **0xC0DE6502**: **Lode Runner — BBC Micro disassembly**, **Repton — Acorn Electron tape-protection disassembly**, **The Way of the Exploding Fist — Acorn Electron tape-loader disassembly**, **Electroniq — Acorn Electron browser emulator**, and **Electroniq — VS Code source-level Acorn Electron debugger**. The profile's Electron Elite repository was not duplicated because it is a fork of the already represented Mark Moxon Electron Elite reconstruction.
+
+Promoted **Exile — BBC Micro disassembly** from chriskillpack. **RetroRE 6502** itself remains a discovery node rather than a project record because it is a curated index mixing original source and reverse-engineered projects. Its explicit Original/RE columns make it particularly useful for triage.
+
+Following RetroRE immediately yielded **Choplifter — Apple II clean-room source reconstruction** by blondie7575. It is a full binary-led reconstruction whose game code is described as binary-identical, but the original custom floppy loader was intentionally replaced by a ProDOS loader, so the tracker does not mark the complete build byte-exact.
+
+The RetroRE index exposes a much larger backlog of untracked full/partial 6502 reconstructions across Apple II, Atari 2600/8-bit, BBC Micro, C64 and NES; this has been added as an explicit discovery priority rather than bulk-promoting entries without primary-source verification.
+
+Catalogue count increased from 248 to **255**.

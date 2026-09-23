@@ -92,6 +92,10 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 | https://github.com/Junior-Jones/BattleTech-C64-Static-Recomp | Game-specific C64 static recompilation with exact-block catalogue and native hardware/runtime reconstruction |
 
+| https://github.com/0xC0DE6502 | Acorn Electron/BBC Micro reverse-engineering cluster: game disassemblies, tape loader/protection analysis, Electroniq emulator and source-level debugger |
+
+| https://github.com/realdmx/retrore | Curated 6502 reverse-engineering/original-source index across Apple II, Atari 2600/8-bit, BBC/Acorn, C64, NES and others; its RE/Original distinction is useful for discovery triage |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
@@ -122,6 +126,8 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 - Continue discovery through CPC Analyser users, CPCWiki/CPCRulez references, firmware/protection research and GitHub project graphs.
 
 ### BBC / Acorn / consoles / newly represented platforms
+
+- Audit RetroRE's untracked **Full/Partial** 6502 reverse-engineering links systematically. High-value leads include Apple II Choplifter/6502disassembly projects, BBC Micro Exile/Imogen/Thrust, Atari 2600 multi-title disassembly collections, C64 title reconstructions and NES full disassemblies; continue distinguishing original-source preservation from RE.
 
 - Mine Mark Moxon's linked archaeology graph beyond the projects already promoted, but keep original-source-only preservation distinct from binary/source reconstruction.
 - Follow credited predecessors and related disassemblies around BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes and NES projects.
