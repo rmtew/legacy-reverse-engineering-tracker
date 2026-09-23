@@ -30,25 +30,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Debounce superseded pushes
-        id: latest
-        shell: bash
-        run: |
-          if [ "$GITHUB_EVENT_NAME" != "push" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          sleep 10
-          git fetch origin main --depth=1
-          if [ "$(git rev-parse origin/main)" = "$GITHUB_SHA" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-            echo "A newer main-branch commit exists; skipping this superseded run."
-          fi
-
       - name: Probe repositories and schedule scans
-        if: steps.latest.outputs.run == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_RATE_RESERVE: "250"
@@ -56,7 +38,6 @@ jobs:
         run: python tools/refresh_github.py
 
       - name: Collect due activity incrementally
-        if: steps.latest.outputs.run == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_RATE_RESERVE: "250"
@@ -64,11 +45,9 @@ jobs:
         run: python tools/collect_activity.py
 
       - name: Validate tracker data
-        if: steps.latest.outputs.run == 'true'
         run: python tools/validate_site_data.py data/projects.json data/activity.json
 
       - name: Commit changes
-        if: steps.latest.outputs.run == 'true'
         run: |
           if git diff --quiet -- data/projects.json data/activity.json state/github-poll-state.json; then
             echo "No metadata, activity or poll-state changes"
