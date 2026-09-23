@@ -44,6 +44,30 @@ Repository creation is **not** treated as the true reverse-engineering start dat
 AI automation is evidence-only: explicit AI instruction files or AI co-author commit trailers can set `ai.usage=true` and record evidence. Absence of those signals never sets AI usage to false.
 
 
+## Adaptive repository polling
+
+Persistent generated state lives in `state/github-poll-state.json`. Every daily run conditionally probes each unique GitHub repository using its stored ETag. Unchanged repositories can return `304 Not Modified`; expensive branch/commit work is performed only when scheduled or when a push is detected.
+
+Deep-scan cadence is based on the most recent tracked activity in the repository:
+
+| Activity age | Deep-scan cadence |
+|---|---:|
+| 0–14 days | daily |
+| 15–60 days | every 3 days |
+| 61–180 days | every 7 days |
+| 181–730 days | every 14 days |
+| over 730 days | every 30 days |
+| archived repository | every 56 days |
+
+Longer cadences are deterministically staggered by repository name so weekly/monthly work is spread across days. A changed `pushed_at` value overrides the cadence and queues an immediate deep scan. Newly tracked repositories are queued immediately after the initial state bootstrap.
+
+The probe phase has a 250-request hard budget and activity collection a 450-request hard budget. Both stop before GitHub's reported primary quota falls below a 250-request reserve. Anything left unfinished remains queued rather than being recorded as successfully checked.
+
+Activity collection is incremental. Poll state stores each observed branch tip SHA and last successful branch scan. Unchanged branch tips require no commit-history request. Changed tips fetch only commits since the previous scan, with a one-day overlap for safety; those commits are merged into the locally retained 180-day `data/activity.json` history.
+
+For multi-project repositories the collector normally fetches new commits once and attributes them using the files touched by each commit. For larger bursts it switches to incremental path-filtered queries when that requires fewer API calls.
+
+
 ## Shared GitHub repositories
 
 Some repositories contain several independently tracked reverse-engineering projects.
@@ -68,7 +92,7 @@ Each event contains:
 - author
 - every active branch on which the collector observed that commit
 
-The collector checks non-default branches that have commits inside the activity window. Commits reachable from several branches are deduplicated per project/SHA and retain all matching branch names.
+The collector checks non-default branches when a repository's deep scan is due. Stored branch-tip SHAs avoid re-querying unchanged branches. Commits reachable from several branches are deduplicated per project/SHA and retain all matching branch names.
 
 For shared repositories, `github_path` is used to attribute commits to the relevant tracked subproject. Repository-wide/shared-tooling commits outside a project's configured path are intentionally not attributed to that project.
 
