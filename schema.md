@@ -18,7 +18,7 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 
 ## Record fields
 
-`id`, `title`, `repo`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
+`id`, `title`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
 
 `build` contains `compilable`, `runnable`, `playable`, and `byte_exact`, each represented by `true`, `false`, or `null`.
 
@@ -42,3 +42,13 @@ The workflow also refreshes top-level `last_activity` from the latest default-br
 Repository creation is **not** treated as the true reverse-engineering start date. The UI may show it with an asterisk as a fallback while `re_started` is unknown.
 
 AI automation is evidence-only: explicit AI instruction files or AI co-author commit trailers can set `ai.usage=true` and record evidence. Absence of those signals never sets AI usage to false.
+
+
+## Shared GitHub repositories
+
+Some repositories contain several independently tracked reverse-engineering projects.
+
+- `repo` always points to the GitHub repository root when GitHub automation is desired.
+- `project_url` may point to a project-specific directory/page and is preferred by the UI for the project-title link.
+- `github_path` limits automated commit activity to a subdirectory, so one game's commits do not make every game in a monorepo appear active.
+- `github_branch` overrides the default branch when the relevant reconstruction lives on another branch (for example, an original-game disassembly branch beside a modified version).
