@@ -55,6 +55,18 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/TheGoodDoktor/SpectrumAnalyserProjects | Large title-by-title ZX Spectrum analysis-state collection created for 8-Bit Analysers |
 | https://github.com/TheGoodDoktor/C64AnalyserProjects | C64 title analysis-state collection including Armalyte, Bubble Bobble, Exile, Paradroid, Uridium and Wizball |
 
+| https://github.com/hatari/hatari | Core Atari ST/STE/TT/Falcon emulator with debugger, symbols, breakpoints, profiling and remote-control tooling |
+
+| https://github.com/emutos/emutos | Free TOS-compatible Atari OS/ROM reimplementation; reproducible emulator/development environment and compatibility-research node |
+
+| https://github.com/grahambates/vscode-puae-debugger | WinUAE-derived PUAE Amiga debugger/profiler with reverse execution, DMA/Copper/blitter analysis and MCP/DAP automation |
+
+| https://github.com/grahambates/vscode-vamiga-debugger | Integrated vAmiga source debugger with memory/state visualization, CPU/Copper disassembly, reverse stepping and profiler work |
+
+| https://github.com/grahambates/m68k-tools | Motorola 68000 parser/formatter/cycle-counter/linter/LSP suite used by modern retro-development and debugging workflows |
+
+| https://github.com/BartmanAbyss/vscode-amiga-debug | Self-contained Amiga GCC/GDB/WinUAE/FS-UAE VS Code toolchain with frame/DMA/graphics profiling and source debugging |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
