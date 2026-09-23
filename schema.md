@@ -5,6 +5,9 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 ## Evidence rules
 
 - Use `null` when a fact has not been verified. Missing evidence is not the same as `false`.
+- `upstream_name` is the project's own or best-known upstream name. It preserves identity even when that name is opaque in a catalogue.
+- `display_title` is a tracker-curated explanatory label used prominently by the UI. When the upstream name is opaque, identify the legacy subject/platform plus the project's primary purpose (for example, `Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction`). Do not turn it into a list of every capability.
+- `subjects` names the actual legacy software subjects being studied or reconstructed. It is searchable and may contain several titles for a multi-game engine/project. Pure generic tooling can leave it empty; subject/hybrid records must name at least one subject.
 - `source_platforms` are the original platforms/binaries being analysed.
 - `target_platforms` are platforms produced or supported by the reconstruction/reimplementation.
 - `source_cpu` describes the original CPU architecture(s).
@@ -23,7 +26,7 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 
 ## Record fields
 
-`id`, `title`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
+`id`, legacy `title`, `upstream_name`, `display_title`, `subjects`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
 
 ### Structured classification vocabulary
 
@@ -39,7 +42,7 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 
 `tool_kinds` uses: `emulator`, `debugger`, `profiler`, `graphics-debugger`, `binary-analysis`, `disassembler`, `reassembler`, `ide`, `compiler-toolchain`, `assembler-toolchain`, `static-analysis`, `language-tooling`, `cycle-analysis`, `rom-tool`, `disk-filesystem-tool`, `asset-tool`, `automation`, `development-environment`.
 
-The UI renders these as prefixed badges such as **Target: Game**, **Work: Source reconstruction**, and **Tool: Emulator** so they do not compete semantically with free-form tags.
+The UI renders structured classification independently of the display title. `display_title` answers “what is this project?” at a glance; classification answers “what kind of record/work/tool is it?”; `subjects` makes opaque project names searchable by the actual software being studied.
 
 `build` contains `compilable`, `runnable`, `playable`, and `byte_exact`, each represented by `true`, `false`, or `null`.
 
@@ -132,7 +135,7 @@ The feed also persists meaningful catalogue-change events:
 - `project_moved`
 - `project_updated`
 
-`state/project-catalog-state.json` stores the previous material catalogue snapshot used to detect those changes. The initial state is a baseline only, so existing projects do not receive fabricated historical addition events. Volatile fields such as `last_checked`, `last_activity`, generated GitHub metadata and automated evidence excerpts are excluded from the comparison. Material facts such as platforms, languages, structured classification, legacy type descriptors, status, build flags, AI usage/tools, tags, techniques, notes and project location are compared.
+`state/project-catalog-state.json` stores the previous material catalogue snapshot used to detect those changes. The initial state is a baseline only, so existing projects do not receive fabricated historical addition events. Volatile fields such as `last_checked`, `last_activity`, generated GitHub metadata and automated evidence excerpts are excluded from the comparison. Material facts such as upstream/display names, subjects, platforms, languages, structured classification, legacy type descriptors, status, build flags, AI usage/tools, tags, techniques, notes and project location are compared.
 
 Project-change events carry a compact `project` snapshot. Metadata-change events also carry structured `change_details` entries containing the field plus its before/after values; the Activity UI turns these into field-aware descriptions such as `AI usage detected · Claude`, `Target platform added · Windows`, or `Byte-exact build confirmed` rather than exposing JSON diffs. Older events that predate `change_details` are humanised from their retained legacy transition text when possible. The project snapshot lets removal events remain displayable and filterable after the canonical project record has been deleted. Removed snapshots are retained as tombstones in catalogue state so a later reappearance can be emitted as `project_restored`.
 
