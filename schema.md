@@ -138,7 +138,7 @@ The automated evidence block contains only records with actual evidence/signals.
 
 GitHub Pages generates `activity.xml` from `data/activity.json` and `data/projects.json` at deployment time using `tools/generate_rss.py`.
 
-The RSS 2.0 feed contains up to the 200 most recent commit/release events. Commit items use a stable GUID composed from project ID and commit SHA; release items use project ID plus release tag. Items link directly to the upstream commit or release when available and include project/platform context plus branch, author and commit-message context where relevant.
+The RSS 2.0 feed contains up to 200 items. Commit activity is aggregated into one RSS item per project per UTC calendar day, with the item's description listing all commits for that project/day together with commit links, authors, hashes and branches. Daily-summary GUIDs use project ID plus date, so further commits on the same day update the same logical feed item rather than creating more notifications. Releases remain separate RSS items with GUIDs based on project ID plus release tag. Release items link directly to the upstream release when available.
 
 The feed is derived entirely from already-collected tracker data, so generating it makes no additional GitHub API requests. The website advertises it through a standard RSS autodiscovery `<link>` element and a visible RSS icon in the site header.
 
