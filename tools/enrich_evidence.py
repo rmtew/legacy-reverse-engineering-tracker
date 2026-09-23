@@ -37,7 +37,8 @@ DOC_NAMES = {
 
 COMPILE_POSITIVE = [
     re.compile(r"\b(?:the\s+)?(?:game|source|code|disassembly|listing|rom|firmware)\s+(?:now\s+)?(?:compiles|assembles|reassembles)\b", re.I),
-    re.compile(r"\b(?:can|may)\s+(?:be\s+)?(?:compiled|built|assembled|reassembled)\b", re.I),
+    re.compile(r"\b(?:game|project|program|source|code|disassembly|listing|rom|firmware|levels?)\s+(?:can|may)\s+(?:be\s+)?(?:compiled|built|assembled|reassembled)\b", re.I),
+    re.compile(r"\b(?:game|program|source|code)\s+to compile and run\b", re.I),
     re.compile(r"\byou can (?:compile|build|assemble|reassemble)(?:\s+and\s+run)?\b", re.I),
     re.compile(r"\b(?:compile|build|assemble|reassemble) and run\b", re.I),
     re.compile(r"\bbuild(?:ing)? the disassembly\b", re.I),
@@ -50,11 +51,11 @@ COMPILE_NEGATIVE = [
 ]
 
 PLAYABLE_POSITIVE = [
-    re.compile(r"\b(?:game|build|reconstruction|version|prg|binary)\s+(?:is\s+)?playable\b", re.I),
-    re.compile(r"\b(?:boots?|compiles) and plays\b", re.I),
-    re.compile(r"\b(?:game|reconstruction|build|version)\s+(?:now\s+)?plays(?:\s+well)?\b", re.I),
-    re.compile(r"\bplay[- ]tested\b", re.I),
-    re.compile(r"\byou can play (?:the\s+)?(?:game|reconstruction|build|version)\b", re.I),
+    re.compile(r"\b(?:build|reconstruction|reconstructed version|prg|binary)\s+(?:is\s+)?playable\b", re.I),
+    re.compile(r"\b(?:build|reconstruction|reconstructed version|prg|binary)\s+(?:now\s+)?plays(?:\s+well)?\b", re.I),
+    re.compile(r"\b(?:game|source|code)\s+compiles and plays\b", re.I),
+    re.compile(r"\bplayable\s+(?:prg|binary|build|reconstruction)\b", re.I),
+    re.compile(r"\b(?:reconstructed|rebuilt)\s+(?:game|version|prg|binary)\b[^.\n]{0,80}\bplays\b", re.I),
 ]
 PLAYABLE_NEGATIVE = [
     re.compile(r"\bnot playable\b", re.I),
@@ -138,6 +139,13 @@ def clean_excerpt(line):
     line = re.sub(r"\s+", " ", line).strip()
     return line[:260]
 
+def matched_excerpt(line, match):
+    start = max(0, match.start() - 110)
+    end = min(len(line), match.end() + 130)
+    prefix = "…" if start else ""
+    suffix = "…" if end < len(line) else ""
+    return prefix + line[start:end] + suffix
+
 def evidence_entry(value, entry, excerpt, strength="strong"):
     return {
         "value": value,
@@ -157,14 +165,14 @@ def scan_boolean(text, entry, positive, negative, reject_positive=None):
             continue
         for pattern in negative:
             if pattern.search(line):
-                found.append(evidence_entry(False, entry, line))
+                found.append(evidence_entry(False, entry, matched_excerpt(line, pattern.search(line))))
                 break
         else:
             for pattern in positive:
                 if pattern.search(line):
                     if reject_positive and reject_positive.search(line):
                         continue
-                    found.append(evidence_entry(True, entry, line))
+                    found.append(evidence_entry(True, entry, matched_excerpt(line, pattern.search(line))))
                     break
     return dedupe(found)
 
@@ -179,7 +187,7 @@ def scan_start(text, entry):
             if match:
                 year = int(match.group(1))
                 if 1980 <= year <= datetime.now(timezone.utc).year:
-                    found.append(evidence_entry(year, entry, line))
+                    found.append(evidence_entry(year, entry, matched_excerpt(line, match)))
                 break
     return dedupe(found)
 
@@ -263,6 +271,16 @@ def enrich(record):
     repo = github_repo(record.get("repo"))
     if not repo:
         return False
+
+    previous_auto = (record.get("evidence") or {}).get("automated") or {}
+    previous_applied = previous_auto.get("applied") or {}
+    build = record.setdefault("build", {})
+    for field, value in previous_applied.items():
+        if field == "re_started":
+            if record.get("re_started") == value:
+                record["re_started"] = None
+        elif field in build and build.get(field) == value:
+            build[field] = None
 
     info = api(f"/repos/{repo}")
     default_branch = info.get("default_branch") or "main"
