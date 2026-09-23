@@ -62,6 +62,10 @@ jobs:
           GITHUB_ACTIVITY_REQUEST_BUDGET: "450"
         run: python tools/collect_activity.py
 
+      - name: Validate tracker data
+        if: steps.latest.outputs.run == 'true'
+        run: python tools/validate_site_data.py data/projects.json data/activity.json
+
       - name: Commit changes
         if: steps.latest.outputs.run == 'true'
         run: |
