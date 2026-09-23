@@ -35,6 +35,17 @@ def validate(projects_path, activity_path, rss_path=None):
 
     project_ids = {value for value in ids if value}
 
+    for index, project in enumerate(projects):
+        for field in ("upstream_name", "display_title"):
+            value = project.get(field)
+            if not isinstance(value, str) or not value.strip():
+                fail(f"project {index} field {field} must be a non-empty string", errors)
+        subjects = project.get("subjects")
+        if not isinstance(subjects, list):
+            fail(f"project {index} field subjects must be an array", errors)
+        elif any(not isinstance(value, str) or not value.strip() for value in subjects):
+            fail(f"project {index} subjects must contain only non-empty strings", errors)
+
     allowed_record_classes = {"subject", "tooling", "hybrid"}
     allowed_target_kinds = {
         "game", "application", "demo", "operating-system", "firmware-rom",
@@ -71,6 +82,8 @@ def validate(projects_path, activity_path, rss_path=None):
                 fail(f"project {index} field {field} has invalid values: {', '.join(invalid)}", errors)
         if record_class in {"subject", "hybrid"} and not project.get("target_kinds"):
             fail(f"project {index} subject/hybrid record has no target_kinds", errors)
+        if record_class in {"subject", "hybrid"} and not project.get("subjects"):
+            fail(f"project {index} subject/hybrid record has no subjects", errors)
         if record_class in {"tooling", "hybrid"} and not project.get("tool_kinds"):
             fail(f"project {index} tooling/hybrid record has no tool_kinds", errors)
 
