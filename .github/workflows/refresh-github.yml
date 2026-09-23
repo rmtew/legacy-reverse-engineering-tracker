@@ -33,15 +33,19 @@ jobs:
       - name: Probe repositories and schedule scans
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_RATE_RESERVE: "250"
-          GITHUB_PROBE_REQUEST_BUDGET: "250"
+          GITHUB_MIN_RATE_RESERVE: "100"
+          GITHUB_RATE_RESERVE_FRACTION: "0.15"
+          GITHUB_HTTP_SAFETY_CAP: "800"
+          GITHUB_REQUEST_DELAY: "0.10"
         run: python tools/refresh_github.py
 
       - name: Collect due activity incrementally
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_RATE_RESERVE: "250"
-          GITHUB_ACTIVITY_REQUEST_BUDGET: "450"
+          GITHUB_MIN_RATE_RESERVE: "100"
+          GITHUB_RATE_RESERVE_FRACTION: "0.15"
+          GITHUB_HTTP_SAFETY_CAP: "800"
+          GITHUB_REQUEST_DELAY: "0.10"
         run: python tools/collect_activity.py
 
       - name: Validate tracker data
