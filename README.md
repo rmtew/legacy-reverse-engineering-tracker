@@ -7,7 +7,7 @@ A structured catalogue of reverse-engineering, source-reconstruction and closely
 
 The tracker has two views:
 
-- **Projects** — filterable catalogue of tracked reverse-engineering projects.
+- **Projects** — filterable catalogue with structured **Class / Target kind / Work / Tool** facets separating reconstructed subjects (games, applications, OS/ROMs, etc.) from modern archaeology/development tooling.
 - **Activity** — the default view: day-by-day recent commits and latest releases across tracked projects, including active non-default branches.
 
 ## Repository structure
@@ -29,6 +29,8 @@ The tracker has two views:
 - `log.md` — historical search/discovery notes
 
 There is no rendering framework or build step. The browser reads the JSON data directly. A twice-daily GitHub Action runs at about 6:30 AM and 6:30 PM `Pacific/Auckland`, ahead of the 7 AM/7 PM maintenance passes, and uses conditional repository probes and adaptive, staggered deep scans: recently active repositories are checked frequently, dormant ones less often, while any detected push queues an immediate scan. Activity collection is incremental, retaining 180 days locally instead of re-downloading that history. Conditional repository probes are allowed across the whole catalogue and primary throttling follows GitHub's actual `X-RateLimit-*` response headers rather than a fixed per-phase request budget. A small capped reserve is kept for deployment/other work, while a 4,000-request HTTP safety cap plus 0.10 s request pacing protects against runaway/secondary-limit behaviour without becoming the normal limiting factor. Unfinished deep scans remain queued. Repository probes are ordered oldest-first, and queued deep scans prioritize detected changes then least-recently scanned repositories, so budget limits cannot permanently starve later repositories. A separate weekly enrichment pass scans project documentation for explicit evidence about build/playability/byte-exact/start fields and records CI signals when GitHub's API quota permits.
+
+Project classification is deliberately multi-axis rather than a flat tag pile: `record_class` distinguishes subject/tooling/hybrid records, `target_kinds` says what legacy software is being studied, `work_kinds` says what kind of reconstruction/analysis is being done, and `tool_kinds` says what a modern aid actually does. Existing `types` and free-form `tags` remain available for nuance and search.
 
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
 

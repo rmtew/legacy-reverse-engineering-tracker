@@ -231,3 +231,14 @@ Audited six user-supplied Atari/Amiga infrastructure repositories and promoted a
 - **BartmanAbyss vscode-amiga-debug** — self-contained GCC/GDB + WinUAE/FS-UAE Amiga development environment with source debugging, frame/DMA profiling, graphics debugging and source-correlated disassembly.
 
 All six were also added as recurring discovery nodes because their dependency and attribution graphs connect to emulator cores, cross-compilers, debug formats, ROM replacements and other directly relevant software-archaeology tooling.
+
+
+## 2026-09-24 — structured subject/tool classification
+
+Reworked catalogue classification now that the tracker spans both reconstructed legacy software and substantial modern archaeology/development infrastructure.
+
+Added four typed facets to every current project: **record class** (`subject`, `tooling`, `hybrid`), **target kinds**, **work kinds**, and **tool kinds**. The initial migration classifies 186 records as subjects, 12 as modern tooling and 2 as hybrids. Existing `types` and free-form tags remain intact for project-specific nuance rather than carrying the primary classification burden.
+
+The Projects UI now exposes separate Class, Target kind, Work and Tool filters and renders prefixed badges such as **Target: Game**, **Work: Source reconstruction** and **Tool: Emulator**. Project details and Activity project headers show the same facets, and future material classification changes participate in catalogue-change activity.
+
+The catalogue-state baseline was migrated together with the records so this one-time taxonomy introduction does not fabricate 200 metadata-update events. Site validation now enforces the controlled classification vocabulary and requires subject/hybrid records to have a target kind and tooling/hybrid records to have a tool kind.

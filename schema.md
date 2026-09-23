@@ -10,6 +10,11 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 - `source_cpu` describes the original CPU architecture(s).
 - `source_language` describes the material being reverse engineered, usually machine code.
 - `reconstructed_languages` describes the human-maintained source/output produced by the project.
+- `record_class` separates reverse-engineered/reimplemented **subjects** from modern supporting **tooling**; `hybrid` is reserved for projects that are materially both (for example a reconstructed historical tool that is also actively useful for archaeology).
+- `target_kinds` describes what kind of legacy subject is being reconstructed or analysed, independently of platform: game, application, demo, operating system/ROM, development tool, engine/subsystem, etc. Pure tooling records normally leave this empty.
+- `work_kinds` describes the reverse-engineering/reconstruction method: disassembly, decompilation, source reconstruction, binary/data analysis, reimplementation, RE-derived port, and so on.
+- `tool_kinds` describes concrete capabilities of tooling/hybrid records: emulator, debugger, profiler, disassembler, IDE, toolchain, static analysis, ROM/filesystem tooling, etc.
+- `types` is retained as a legacy/free-form descriptor field for project-specific nuance; the UI's primary classification and filters use the structured fields above.
 - `re_started` is when the reverse-engineering effort began; a year is acceptable when the exact date is unknown.
 - `last_activity` is upstream activity; `last_checked` is when this tracker last verified the record.
 - `build.byte_exact` means a produced original-platform binary is verified to match the original. A stated goal of byte matching is not enough.
@@ -18,7 +23,23 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 
 ## Record fields
 
-`id`, `title`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
+`id`, `title`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
+
+### Structured classification vocabulary
+
+`record_class` is one of:
+
+- `subject` — the record primarily represents legacy software being reverse engineered, reconstructed, restored or reimplemented.
+- `tooling` — the record primarily represents modern infrastructure useful to software archaeology or reproducible retro development.
+- `hybrid` — materially both a reverse-engineered subject and a useful tool.
+
+`target_kinds` uses: `game`, `application`, `demo`, `operating-system`, `firmware-rom`, `system-software`, `game-engine`, `game-subsystem`, `development-tool`.
+
+`work_kinds` uses: `disassembly`, `decompilation`, `source-reconstruction`, `source-restoration`, `binary-analysis`, `data-format-analysis`, `copy-protection-analysis`, `reimplementation`, `reverse-engineering-derived-port`, `patching`, `translation`, `subsystem-reconstruction`.
+
+`tool_kinds` uses: `emulator`, `debugger`, `profiler`, `graphics-debugger`, `binary-analysis`, `disassembler`, `reassembler`, `ide`, `compiler-toolchain`, `assembler-toolchain`, `static-analysis`, `language-tooling`, `cycle-analysis`, `rom-tool`, `disk-filesystem-tool`, `asset-tool`, `automation`, `development-environment`.
+
+The UI renders these as prefixed badges such as **Target: Game**, **Work: Source reconstruction**, and **Tool: Emulator** so they do not compete semantically with free-form tags.
 
 `build` contains `compilable`, `runnable`, `playable`, and `byte_exact`, each represented by `true`, `false`, or `null`.
 
@@ -111,7 +132,7 @@ The feed also persists meaningful catalogue-change events:
 - `project_moved`
 - `project_updated`
 
-`state/project-catalog-state.json` stores the previous material catalogue snapshot used to detect those changes. The initial state is a baseline only, so existing projects do not receive fabricated historical addition events. Volatile fields such as `last_checked`, `last_activity`, generated GitHub metadata and automated evidence excerpts are excluded from the comparison. Material facts such as platforms, languages, type, status, build flags, AI usage/tools, tags, techniques, notes and project location are compared.
+`state/project-catalog-state.json` stores the previous material catalogue snapshot used to detect those changes. The initial state is a baseline only, so existing projects do not receive fabricated historical addition events. Volatile fields such as `last_checked`, `last_activity`, generated GitHub metadata and automated evidence excerpts are excluded from the comparison. Material facts such as platforms, languages, structured classification, legacy type descriptors, status, build flags, AI usage/tools, tags, techniques, notes and project location are compared.
 
 Project-change events carry a compact `project` snapshot. Metadata-change events also carry structured `change_details` entries containing the field plus its before/after values; the Activity UI turns these into field-aware descriptions such as `AI usage detected · Claude`, `Target platform added · Windows`, or `Byte-exact build confirmed` rather than exposing JSON diffs. Older events that predate `change_details` are humanised from their retained legacy transition text when possible. The project snapshot lets removal events remain displayable and filterable after the canonical project record has been deleted. Removed snapshots are retained as tombstones in catalogue state so a later reappearance can be emitted as `project_restored`.
 
