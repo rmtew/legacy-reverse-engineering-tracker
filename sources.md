@@ -27,6 +27,18 @@ Follow these as **nodes**, not merely individual repositories. Check their READM
 | https://skoolkit.arcadegeek.co.uk/ | Large Spectrum disassembly archive (29 titles observed in baseline search) |
 | https://github.com/Piddewitt/C64-Game-Source-Code | C64 reverse-engineered game-source collection; Lode Runner, Championship Lode Runner, Castles of Dr. Creep and derivatives |
 
+| https://github.com/pobtastic | Large current SkoolKit/ArcadeGeek Spectrum disassembly collection; several monorepos plus individual game repositories |
+| https://www.pobtastic.co.uk/ | Human-maintained index mapping Pobtastic disassemblies to current repositories/rendered sites |
+| https://github.com/Ritchie333 | Historical Spectrum disassemblies including Deathchase, Everyone's A Wally and Starquake |
+| https://github.com/tcdev42/re | Reassemblable reverse-engineering collection; Spectrum Alien 8, Knight Lore and Pentagram |
+| https://github.com/lewster32/chaos-disassembly | Modern Chaos disassembly with explicit Claude Code assistance and historical references |
+| https://github.com/Bread80 | CPC BASIC and firmware unassembly/reconstruction work |
+| https://github.com/BrettHallen/Amstrad-CPC | CPC project collection; Laserwarp includes a byte-exact AI-assisted disassembly |
+| https://github.com/moqucu/abadia-del-crimen-amstrad-cpc-disassembly | CPC La Abadía del Crimen disassembly, assets, bytecode research and reimplementations |
+| https://github.com/sarnau/hisoft-devpac-cpc | Byte-verified reverse engineering of HiSoft DEVPAC for CPC |
+| https://colourclash.co.uk/cpc-analyser/ | CPC reverse-engineering tool/community node; useful for finding game-analysis projects |
+| https://www.cpcwiki.eu/ | CPC project/documentation graph, including reverse-engineered adaptations such as Oh Mummy and Harrier Attack |
+
 ## Search strategy
 
 In addition to direct searches, mine:
