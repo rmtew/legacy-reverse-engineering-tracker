@@ -1,35 +1,97 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Legacy Reverse Engineering Tracker</title>
-<link rel="stylesheet" href="web/tracker.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Legacy Reverse Engineering Tracker</title>
+  <link rel="stylesheet" href="web/tracker.css">
 </head>
 <body>
-<header><h1>Legacy Reverse Engineering Tracker</h1><p>Amiga · Atari ST · ZX Spectrum · Commodore 64 · Amstrad CPC</p></header>
+<header class="site-header">
+  <div>
+    <h1>Legacy Reverse Engineering Tracker</h1>
+    <p>Amiga · Atari ST · ZX Spectrum · Commodore 64 · Amstrad CPC</p>
+  </div>
+  <a class="repo-link" href="https://github.com/rmtew/legacy-reverse-engineering-tracker">GitHub repository</a>
+</header>
+
 <main>
-<section class="filters">
-<label>Search <input id="q" type="search" placeholder="title, tag, notes…"></label>
-<label>Source platform <select id="platform"><option value="">All</option></select></label>
-<label>Language <select id="language"><option value="">All</option></select></label>
-<label>Type <select id="type"><option value="">All</option></select></label>
-<label>Status <select id="status"><option value="">All</option></select></label>
-<label>Compilable <select id="compilable"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select></label>
-<label>Playable <select id="playable"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select></label>
-<label>Byte exact <select id="exact"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select></label>
-<label>AI usage <select id="ai"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select></label>
-<button id="clear">Clear filters</button>
-</section>
-<div class="summary"><strong id="count">0</strong> projects <span id="sortnote"></span></div>
-<div class="tablewrap"><table>
-<thead><tr>
-<th data-key="title">Project</th><th data-key="source">Source</th><th data-key="target">Target</th>
-<th data-key="language">Language</th><th data-key="type">Type</th><th data-key="started">Started</th>
-<th data-key="updated">Updated</th><th data-key="compilable">Build</th><th data-key="playable">Playable</th>
-<th data-key="exact">Exact</th><th data-key="ai">AI</th>
-</tr></thead><tbody id="rows"></tbody></table></div>
-<p class="hint">Click a column heading to sort. Click a project row for details. “?” means not yet verified, not “No”.</p>
+  <section class="filters" aria-label="Project filters">
+    <label class="search">Search
+      <input id="q" type="search" placeholder="project, technique, notes…" autocomplete="off">
+    </label>
+    <label>Source
+      <select id="sourcePlatform"><option value="">All</option></select>
+    </label>
+    <label>Target
+      <select id="targetPlatform"><option value="">All</option></select>
+    </label>
+    <label>CPU
+      <select id="cpu"><option value="">All</option></select>
+    </label>
+    <label>Output language
+      <select id="language"><option value="">All</option></select>
+    </label>
+    <label>RE type
+      <select id="type"><option value="">All</option></select>
+    </label>
+    <label>Tag
+      <select id="tag"><option value="">All</option></select>
+    </label>
+    <label>Status
+      <select id="status"><option value="">All</option></select>
+    </label>
+    <label>Compilable
+      <select id="compilable"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
+    </label>
+    <label>Playable
+      <select id="playable"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
+    </label>
+    <label>Byte exact
+      <select id="exact"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
+    </label>
+    <label>AI usage
+      <select id="ai"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
+    </label>
+    <button id="clear" type="button">Clear</button>
+  </section>
+
+  <div class="result-bar">
+    <span><strong id="count">0</strong> of <span id="total">0</span> projects</span>
+    <span id="sortnote"></span>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-key="title">Project</th>
+          <th data-key="source">Source</th>
+          <th data-key="target">Target</th>
+          <th data-key="language">Output</th>
+          <th data-key="type">Type</th>
+          <th data-key="started">Started</th>
+          <th data-key="updated">Updated</th>
+          <th data-key="compilable">Compiles</th>
+          <th data-key="playable">Playable</th>
+          <th data-key="exact">Exact</th>
+          <th data-key="ai">AI</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="11" class="loading">Loading project data…</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">Click a heading to sort. Click a row for details. <strong>?</strong> means not yet verified, not “No”.</p>
 </main>
-<dialog id="details"><button class="close" aria-label="Close">×</button><div id="detailbody"></div></dialog>
+
+<dialog id="details">
+  <button class="close" type="button" aria-label="Close details">×</button>
+  <div id="detailbody"></div>
+</dialog>
+
 <script src="web/tracker.js"></script>
-</body></html>
+</body>
+</html>
