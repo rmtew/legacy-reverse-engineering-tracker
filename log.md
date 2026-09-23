@@ -185,3 +185,14 @@ Rechecked the Copperline discrepancy. The canonical project record already conta
 Added a small pending-discovery merge queue used by the refresh workflow, allowing verified scheduled-discovery records to be merged into the canonical catalogue before GitHub metadata enrichment and validation.
 
 Structured project count increased from 178 to 186.
+
+
+## 2026-09-24 — HoraceAndTheSpider Amiga project audit
+
+Audited the user-supplied HoraceAndTheSpider repository cluster and promoted four qualifying projects: **Cybernoid-68k**, **Legend-68k**, **Indy-Heat-WHD** and **Dalek-Attack-WHD**.
+
+Cybernoid provides a lossless byte-identical GAME→project→GAME extraction/repack path plus decoded maps, graphics and tables; Legend reconstructs the PAC compression/resource format from Amiga resources and traced 68000 loader behaviour; Indy Heat contains active runtime-tested race/track/AI reverse engineering and editor tooling; Dalek Attack documents and patches character/resource structures through WHDLoad while decoding Pack-Ice assets.
+
+**From-Lights-to-Flag** was reviewed but not promoted: its own documentation describes an original Amiga racer that uses findings from the separate Indy Heat reverse-engineering project as design reference and explicitly avoids transplanting original code/assets. It remains useful as a discovery node around the Indy Heat work.
+
+HoraceAndTheSpider was added to recurring discovery sources for future profile/adjacent-repository passes.
