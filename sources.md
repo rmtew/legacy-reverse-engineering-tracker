@@ -35,6 +35,10 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/sarnau/hisoft-devpac-cpc | Byte-verified reverse engineering of HiSoft DEVPAC for CPC |
 | https://colourclash.co.uk/cpc-analyser/ | CPC reverse-engineering tool/community node |
 | https://www.cpcwiki.eu/ | CPC project/documentation graph and reverse-engineered adaptations |
+| https://github.com/markmoxon | Major software-archaeology source: reconstructed Elite variants, Aviator, Revs, The Sentinel and Lander across BBC/Acorn/NES platforms |
+| https://www.bbcelite.com/ | Mark Moxon's documentation hub linking reconstructed source projects, deep dives and related archaeology |
+| https://github.com/ataribaby42 | Active cross-platform reconstruction/port work including Elite (ZX/ST/Amiga) and Hlípa (Atari ST/Amiga/PMD 85/ZX) |
+| https://github.com/angree | Active Amiga 68k reimplementation/port source: OpenSWOS, AmiGTA, AmiSC, AmiXcom and ReMoM-derived work |
 
 ## Open discovery priorities
 
@@ -60,6 +64,12 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 ### Amstrad CPC
 
 - Continue discovery through CPC Analyser users, CPCWiki/CPCRulez references, firmware/protection research and GitHub project graphs.
+
+### BBC / Acorn / consoles / newly represented platforms
+
+- Mine Mark Moxon's linked archaeology graph beyond the projects already promoted, but keep original-source-only preservation distinct from binary/source reconstruction.
+- Follow credited predecessors and related disassemblies around BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes and NES projects.
+- Treat newly represented platforms as first-class discovery targets rather than restricting future searches to the original five platform families.
 
 ## Search strategy
 
