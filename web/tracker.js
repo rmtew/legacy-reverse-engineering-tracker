@@ -288,7 +288,40 @@ $("details").addEventListener("click", event => {
 
 let activityData = { generated_at: null, window_days: 180, events: [] };
 const projectById = () => new Map(projects.map(project => [project.id, project]));
-const activityFilterIds = ["activityDays","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"];
+const activityFilterIds = ["activityDays","activityType","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"];
+
+function combinedActivityEvents() {
+  const events=[...activityData.events];
+  const seen=new Set(events.map(event=>event.type+":"+event.project_id+":"+(event.sha||event.tag||event.url||event.date)));
+  for(const project of projects){
+    const release=project.github?.latest_release;
+    if(!release?.published_at) continue;
+    const tag=release.tag||release.name||"release";
+    const key="release:"+project.id+":"+tag;
+    if(seen.has(key)) continue;
+    seen.add(key);
+    events.push({
+      type:"release",
+      date:release.published_at+"T12:00:00Z",
+      project_id:project.id,
+      repository:project.github?.repository||"",
+      tag,
+      title:"Release "+tag,
+      message:release.name&&release.name!==tag?release.name:"",
+      url:release.url||project.project_url||project.repo,
+      author:"",
+      branches:[]
+    });
+  }
+  return events;
+}
+
+function formatFreshness(value) {
+  if(!value) return "Data refresh pending";
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime())) return "Data refreshed "+value;
+  return "Data refreshed "+date.toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"});
+}
 
 function addOptions(selectId, values) {
   const select = $(selectId);
@@ -307,7 +340,7 @@ function initActivityFilters() {
     option.value=project.id; option.textContent=project.title; projectSelect.append(option);
   }
   addOptions("activityLanguage", projects.flatMap(p=>arr(p.reconstructed_languages)));
-  addOptions("activityBranch", activityData.events.flatMap(e=>arr(e.branches)));
+  addOptions("activityBranch", combinedActivityEvents().flatMap(e=>arr(e.branches)));
 }
 
 function activityMatches(event) {
@@ -317,8 +350,9 @@ function activityMatches(event) {
   const cutoff=Date.now()-days*86400000;
   if(new Date(event.date).getTime()<cutoff) return false;
   const q=$("activityQ").value.trim().toLowerCase();
-  const hay=[event.title,event.message,event.author,event.repository,project.title,...arr(event.branches),...arr(project.tags)].join(" ").toLowerCase();
+  const hay=[event.type,event.title,event.message,event.author,event.repository,event.tag,project.title,...arr(event.branches),...arr(project.tags)].join(" ").toLowerCase();
   return (!q||hay.includes(q))
+    && (!$("activityType").value||event.type===$("activityType").value)
     && (!$("activityPlatform").value||arr(project.source_platforms).includes($("activityPlatform").value))
     && (!$("activityProject").value||project.id===$("activityProject").value)
     && (!$("activityLanguage").value||arr(project.reconstructed_languages).includes($("activityLanguage").value))
@@ -334,13 +368,13 @@ function activityProjectHeader(project) {
 
 function renderActivity() {
   const map=projectById();
-  const events=activityData.events.filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const events=combinedActivityEvents().filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
   $("activityCount").textContent=events.length;
   $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
-  $("activityGenerated").textContent=activityData.generated_at?"Collected "+activityData.generated_at.slice(0,10):"";
+  $("activityGenerated").textContent=formatFreshness(activityData.generated_at);
 
   if(!events.length){
-    $("activityFeed").innerHTML='<div class="activity-empty">No commits match the current filters.</div>';
+    $("activityFeed").innerHTML='<div class="activity-empty">No activity matches the current filters.</div>';
     return;
   }
 
@@ -364,8 +398,10 @@ function renderActivity() {
       const commitHtml=commits.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(event=>{
         const time=new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
         const title=event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title);
-        const details=[event.author?esc(event.author):"",esc(event.sha.slice(0,8))].filter(Boolean).join(" · ");
-        return '<div class="commit"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div><div class="commit-branches">'+arr(event.branches).map(b=>'<span class="branch">'+esc(b)+'</span>').join("")+'</div></div>';
+        const identity=event.type==="release"?(event.tag?esc(event.tag):"release"):(event.sha?esc(event.sha.slice(0,8)):"");
+        const details=[event.type==="release"?"release":"commit",event.author?esc(event.author):"",identity].filter(Boolean).join(" · ");
+        const classes=event.type==="release"?"commit release-event":"commit";
+        return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div><div class="commit-branches">'+arr(event.branches).map(b=>'<span class="branch">'+esc(b)+'</span>').join("")+'</div></div>';
       }).join("");
       return '<div class="activity-project"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
     }).join("");
@@ -384,7 +420,7 @@ activityFilterIds.forEach(id=>$(id).addEventListener("change",renderActivity));
 $("activityClear").addEventListener("click",()=>{
   $("activityQ").value="";
   $("activityDays").value="30";
-  ["activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"].forEach(id=>$(id).value="");
+  ["activityType","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"].forEach(id=>$(id).value="");
   renderActivity();
 });
 
@@ -394,6 +430,7 @@ Promise.all([
 ]).then(([projectData,activity])=>{
   activityData=activity;
   projects=projectData;
+  $("dataFreshness").textContent=formatFreshness(activityData.generated_at);
   init();
   initActivityFilters();
   renderActivity();
