@@ -409,7 +409,8 @@ def main():
         rs["interval_days"] = interval
         rs["default_branch"] = default_branch
         due = scheduled_today(repo, interval)
-        already_scanned = rs.get("last_deep_scan", "")[:10] == TODAY.isoformat()
+        last_deep_scan = rs.get("last_deep_scan") or ""
+        already_scanned = last_deep_scan[:10] == TODAY.isoformat()
         should_queue = pushed_changed or ((due or rs.get("scan_requested")) and not already_scanned)
         if should_queue:
             if not rs.get("scan_requested"):
