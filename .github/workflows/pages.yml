@@ -57,6 +57,10 @@ jobs:
         if: steps.latest.outputs.run == 'true'
         run: node --check web/tracker.js
 
+      - name: Check RSS generator syntax
+        if: steps.latest.outputs.run == 'true'
+        run: python -m py_compile tools/generate_rss.py
+
       - name: Prepare static site
         if: steps.latest.outputs.run == 'true'
         run: |
