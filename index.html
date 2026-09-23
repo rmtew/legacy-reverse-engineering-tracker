@@ -17,6 +17,12 @@
 </header>
 
 <main>
+  <nav class="view-tabs" aria-label="Tracker views">
+    <button class="view-tab active" data-view="projects" type="button">Projects</button>
+    <button class="view-tab" data-view="activityView" type="button">Activity</button>
+  </nav>
+
+  <section id="projects" class="view-panel active">
   <section class="filters" aria-label="Project filters">
     <label class="search">Search
       <input id="q" type="search" placeholder="project, technique, notes…" autocomplete="off">
@@ -88,6 +94,47 @@
     </table>
   </div>
   <p class="hint">Click a heading to sort. Click a row for details. <strong>?</strong> means not yet verified, not “No”. <strong>*</strong> start year is repository creation when the true RE start is unknown.</p>
+  </section>
+
+  <section id="activityView" class="view-panel">
+    <section class="filters activity-filters" aria-label="Activity filters">
+      <label class="search">Search
+        <input id="activityQ" type="search" placeholder="commit, author, project…" autocomplete="off">
+      </label>
+      <label>Period
+        <select id="activityDays">
+          <option value="7">7 days</option>
+          <option value="30" selected>30 days</option>
+          <option value="90">90 days</option>
+          <option value="180">180 days</option>
+        </select>
+      </label>
+      <label>Source platform
+        <select id="activityPlatform"><option value="">All</option></select>
+      </label>
+      <label>Project
+        <select id="activityProject"><option value="">All</option></select>
+      </label>
+      <label>Output language
+        <select id="activityLanguage"><option value="">All</option></select>
+      </label>
+      <label>Branch
+        <select id="activityBranch"><option value="">All</option></select>
+      </label>
+      <label>AI usage
+        <select id="activityAi"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
+      </label>
+      <button id="activityClear" type="button">Clear</button>
+    </section>
+    <div class="result-bar">
+      <span><strong id="activityCount">0</strong> commits across <strong id="activityProjectCount">0</strong> projects</span>
+      <span id="activityGenerated"></span>
+    </div>
+    <div id="activityFeed" class="activity-feed">
+      <div class="loading">Loading activity…</div>
+    </div>
+    <p class="hint">Commits are grouped by day and project. Activity includes recent non-default branches; duplicate commits reachable from several branches are shown once with all matching branches.</p>
+  </section>
 </main>
 
 <dialog id="details">
