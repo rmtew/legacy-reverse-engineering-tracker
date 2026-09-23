@@ -160,9 +160,36 @@ function render() {
   });
 }
 
+function evidenceHtml(entries) {
+  const items = arr(entries);
+  if (!items.length) return "?";
+  return '<ul class="evidence-list">' + items.map(item => {
+    const value = item.value === true ? "Yes" : item.value === false ? "No" : item.value;
+    const label = '<strong>' + esc(value ?? "?") + '</strong>';
+    const excerpt = item.excerpt ? '<span class="evidence-excerpt">“' + esc(item.excerpt) + '”</span>' : "";
+    const source = item.url
+      ? '<a href="' + esc(item.url) + '" target="_blank" rel="noopener">' + esc(item.source || "source") + '</a>'
+      : esc(item.source || "source");
+    return '<li>' + label + ' · ' + source + (excerpt ? '<br>' + excerpt : '') + '</li>';
+  }).join("") + '</ul>';
+}
+
+function ciEvidenceHtml(entries) {
+  const items = arr(entries);
+  if (!items.length) return "?";
+  return '<ul class="evidence-list">' + items.map(item => {
+    const title = item.url
+      ? '<a href="' + esc(item.url) + '" target="_blank" rel="noopener">' + esc(item.workflow || "workflow") + '</a>'
+      : esc(item.workflow || "workflow");
+    return '<li>' + title + ' · ' + esc(item.conclusion || "?")
+      + (item.completed_at ? ' · ' + esc(item.completed_at) : '') + '</li>';
+  }).join("") + '</ul>';
+}
+
 function showDetails(record) {
   const build = record.build || {};
   const ai = record.ai || {};
+  const autoEvidence = record.evidence?.automated || {};
   const line = (label, value) => "<dt>" + label + "</dt><dd>" + value + "</dd>";
   const repo = record.repo
     ? '<a href="' + esc(record.repo) + '" target="_blank" rel="noopener">' + esc(record.repo) + "</a>"
@@ -207,6 +234,11 @@ function showDetails(record) {
     + line("Runnable", tri(build.runnable))
     + line("Playable", tri(build.playable))
     + line("Byte exact", tri(build.byte_exact))
+    + line("Compile evidence", evidenceHtml(autoEvidence.compilable))
+    + line("Playable evidence", evidenceHtml(autoEvidence.playable))
+    + line("Byte-exact evidence", evidenceHtml(autoEvidence.byte_exact))
+    + line("Start-date evidence", evidenceHtml(autoEvidence.re_started))
+    + line("CI signals", ciEvidenceHtml(autoEvidence.ci))
     + line("AI usage", tri(ai.usage))
     + line("AI tools", tags(ai.tools))
     + line("AI evidence", tags(ai.evidence))
