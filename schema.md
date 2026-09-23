@@ -128,3 +128,12 @@ Rules:
 - Repository creation dates remain separate GitHub metadata and are not promoted to `re_started`.
 
 The automated evidence block contains only records with actual evidence/signals. It may contain `compilable`, `playable`, `byte_exact`, `re_started`, and `ci` arrays plus collector/check metadata. When automation promotes a previously unknown field it records that change in `evidence.automated.applied`; on later runs it may retract only its own prior promotion if the supporting evidence no longer qualifies. Curated non-null values are not automatically replaced.
+
+
+## RSS feed
+
+GitHub Pages generates `activity.xml` from `data/activity.json` and `data/projects.json` at deployment time using `tools/generate_rss.py`.
+
+The RSS 2.0 feed contains up to the 200 most recent commit events. Each item is project-specific, links directly to the upstream commit when available, and uses a stable GUID composed from the project ID and commit SHA. Descriptions include project, source platform, branch, author and commit-message context.
+
+The feed is derived entirely from already-collected tracker data, so generating it makes no additional GitHub API requests. The website advertises it through a standard RSS autodiscovery `<link>` element and a visible RSS icon in the site header.
