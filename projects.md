@@ -43,8 +43,16 @@
 | River Raid | Annotated/recompilation-checked disassembly | https://github.com/river-raid/river-raid-disasm |
 | Nether Earth | Annotated/reassemblable source | Canonical source to verify |
 | Alien | Newer engine/game RE with browser reconstruction | https://github.com/Arwalk/alien-zx-spectrum-disassembly |
+| The Lords of Midnight | Spectrum + DOS parallel disassembly; Spectrum via SkoolKit, DOS via Ghidra; uses surviving partial DOS source/data research to annotate missing code | https://github.com/mrcook/lords-of-midnight-disassembly |
+| Head Over Heels | Spectrum disassembly/reconstruction; directly referenced by the CPC RE as the closely related source-port analysis | https://github.com/simon-frankau/head-over-heels |
+| Skool Daze | Complete SkoolKit disassembly; active published disassembly line | https://skoolkit.ca/disassemblies/ |
+| Back to Skool | Complete SkoolKit disassembly; active published disassembly line | https://skoolkit.ca/disassemblies/ |
+| Contact Sam Cruise | Complete SkoolKit disassembly | https://skoolkit.ca/disassemblies/ |
+| Manic Miner | Complete SkoolKit disassembly | https://skoolkit.ca/disassemblies/ |
+| Jet Set Willy | Complete SkoolKit disassembly | https://skoolkit.ca/disassemblies/ |
+| Hungry Horace | Complete SkoolKit disassembly | https://skoolkit.ca/disassemblies/ |
 
-Historical leads to resolve: Paul Maddern's **The Hobbit, Trashman, Wheelie, PSSST, Way of the Exploding Fist**; Ritchie Swann's **3D Deathchase, Everyone's A Wally, Starquake**.
+Historical leads to resolve: Paul Maddern's **The Hobbit, Trashman, Wheelie, PSSST, Way of the Exploding Fist**, plus SkoolKit-linked **180, Atic Atac, Battlezone, Batty, Booty, Jason's Gem, Jetpac, Lunar Jetman, Rampage, Splitting Images**; Ritchie Swann's **3D Deathchase, Everyone's A Wally, Starquake**. Additional archive leads include **Knight Tyme, Spellbound, Stormbringer, Through The Trap Door, Dynamite Dan 2, Tir Na Nog, Dun Darach, Alien8, Knight Lore, Chaos** and the wider ArcadeGeek disassembly archive.
 
 ## Commodore 64
 
@@ -58,6 +66,9 @@ Historical leads to resolve: Paul Maddern's **The Hobbit, Trashman, Wheelie, PSS
 | Commando | Ricardo Quesada historical disassembly lead | Canonical source to verify |
 | Attack of the Mutant Camels | C64 Mark historical disassembly lead | Canonical source to verify |
 | Pitfall II | Historical RE/analysis | https://www.c64brain.com/site/pitfall-ii-game-reverse-engineered.html |
+| Lode Runner | Reverse-engineered assembler source intended to recreate the original bit-for-bit | https://github.com/Piddewitt/Loderunner |
+| Championship Lode Runner | Reverse-engineered assembler source intended to recreate original bit-for-bit | https://github.com/Piddewitt/Championship_Loderunner |
+| The Castles of Dr. Creep | Reverse-engineered C64 source; part of Piddewitt's game-source cluster | https://github.com/Piddewitt/The-Castles-of-Dr-Creep |
 
 ## Amstrad CPC
 
