@@ -262,3 +262,18 @@ Promoted **19 title-specific vs-sr-dev Amiga CD32 archaeology repositories**: Al
 Expanded **mwenge/Llamasoft** beyond the already tracked Gridrunner, Matrix, Iridis Alpha and Ancipital records. Added Virtual Light Machine, Psychedelia/Colourspace, Hellgate, the C64/Atari 8-bit Attack of the Mutant Camels reconstructions, Voidrunner, Metagalactic Llamas, Batalyx, Sheep in Space, Revenge of the Mutant Camels, Hover Bovver, Mama Llama, Return of the Mutant Camels and an independent Uridium reconstruction. Tempest 2000 remains excluded as a catalogue subject because that repository primarily preserves/builds surviving original source; Psychedelia II is an original tribute/adaptation rather than a reconstruction.
 
 Structured project count increased from 200 to **234**. The vs-sr-dev profile and its CD32 indexes were added as recurring discovery nodes for later auditing beyond CD32.
+
+
+## 2026-09-24 — Apple II reconstruction graph and new C64/NES/Genesis static-recomp projects
+
+Audited the user-supplied fschuhi profile plus Alien, Seven Cities of Gold, Solomon's Key, Shadowrun Defragged, Archon and BattleTech repositories.
+
+Promoted all six named repositories: **Alien** (complete C64 disassembly plus faithful Python reimplementation and disk-analysis toolkit), **Seven Cities of Gold** (C64-to-Swift reconstruction with emulator-verified routines), **Solomon's Key** (byte-identical USA/Europe NES reconstruction), **Shadowrun Defragged** (Genesis bug-fix project backed by substantial ROM disassembly/analysis), **Archon** (relocatable C64 source-logic reconstruction), and **BattleTech: The Crescent Hawk's Inception** (native Windows static recompilation driven by a fixed 21,637-block analysis catalogue).
+
+The fschuhi profile yielded three independent records: **a2-lode-runner** as a title-specific research/specification layer, **Robotron 2084** as an Apple II disassembly/research workbench, and **papple2** as purpose-built Apple II reverse-engineering/debugger infrastructure. The narrower **a2-hires-lab** remains a discovery aid under the profile rather than a separate catalogue record; generic/forked assembler/emulator repositories were not promoted merely for being useful dependencies.
+
+Following a2-lode-runner's credited predecessor chain exposed **XekriRedmane** as a major Apple II reconstruction node. Promoted its byte-perfect **Lode Runner**, **Ultima I**, **Ali Baba and the Forty Thieves**, and **Drol** literate reconstructions. The profile is now a recurring discovery source for future Apple II audits.
+
+AI evidence was recorded only where explicit: Seven Cities documents heavy Claude assistance; Solomon's Key carries Codex co-author trailers; Shadowrun Defragged explicitly documents GPT-5.6 Sol/Codex use; and the XekriRedmane reconstructions have explicit Claude project/commit evidence.
+
+Catalogue count increased from 234 to **247**.

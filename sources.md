@@ -77,6 +77,20 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 | https://github.com/vs-sr-dev/cd32-gamelist-doc | Index/discovery node for the vs-sr-dev CD32 title-documentation series |
 
+| https://github.com/fschuhi | Apple II software-archaeology cluster: Lode Runner research/specification, Robotron disassembly and papple2 debugging infrastructure; follow credited predecessor projects |
+
+| https://github.com/XekriRedmane | Byte-perfect literate Apple II source reconstructions including Lode Runner, Ultima I, Ali Baba and Drol; strong predecessor/discovery graph |
+
+| https://github.com/OuijaGhost/alien-remake | C64 Alien full-disassembly/remake project with reusable disk/GCR/filesystem/asset analysis tooling |
+
+| https://github.com/duanefields/7cities | AI-assisted Seven Cities of Gold C64-to-Swift reconstruction with emulator differential verification and format research |
+
+| https://github.com/oranguthang/solomon_no_kagi_src | Byte-identical dual-region NES reconstruction with runtime evidence and profile-aware authoring tools |
+
+| https://github.com/benfoxworthy/shadowrun-defragged | Genesis Shadowrun reverse-engineering, diagnostics and patch framework with detailed per-fix research |
+
+| https://github.com/Junior-Jones/BattleTech-C64-Static-Recomp | Game-specific C64 static recompilation with exact-block catalogue and native hardware/runtime reconstruction |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
