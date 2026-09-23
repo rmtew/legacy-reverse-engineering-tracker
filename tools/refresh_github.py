@@ -9,9 +9,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError
@@ -25,9 +27,15 @@ API = "https://api.github.com"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 RUN_AT = datetime.now(timezone.utc)
 TODAY = RUN_AT.date()
-RESERVE = int(os.environ.get("GITHUB_RATE_RESERVE", "250"))
-MAX_REQUESTS = int(os.environ.get("GITHUB_PROBE_REQUEST_BUDGET", "250"))
+MIN_RESERVE = int(os.environ.get("GITHUB_MIN_RATE_RESERVE", "100"))
+RESERVE_FRACTION = float(os.environ.get("GITHUB_RATE_RESERVE_FRACTION", "0.15"))
+MAX_HTTP_REQUESTS = int(os.environ.get("GITHUB_HTTP_SAFETY_CAP", "800"))
+REQUEST_DELAY = float(os.environ.get("GITHUB_REQUEST_DELAY", "0.10"))
 REQUESTS = 0
+NOT_MODIFIED = 0
+RATE_LIMIT = None
+RATE_REMAINING = None
+RATE_RESET = None
 
 AI_CONFIG = {
     "claude.md": "Claude",
@@ -37,6 +45,61 @@ AI_CONFIG = {
 
 class RateStop(RuntimeError):
     pass
+
+class PrimaryReserve(RateStop):
+    pass
+
+def effective_reserve():
+    if RATE_LIMIT is None:
+        return MIN_RESERVE
+    return max(MIN_RESERVE, int(math.ceil(RATE_LIMIT * RESERVE_FRACTION)))
+
+def update_rate(headers):
+    global RATE_LIMIT, RATE_REMAINING, RATE_RESET
+    if not headers:
+        return
+    try:
+        if headers.get("X-RateLimit-Limit") is not None:
+            RATE_LIMIT = int(headers["X-RateLimit-Limit"])
+        if headers.get("X-RateLimit-Remaining") is not None:
+            RATE_REMAINING = int(headers["X-RateLimit-Remaining"])
+        if headers.get("X-RateLimit-Reset") is not None:
+            RATE_RESET = int(headers["X-RateLimit-Reset"])
+    except (TypeError, ValueError):
+        pass
+
+def rate_snapshot():
+    reset_at = None
+    if RATE_RESET:
+        reset_at = datetime.fromtimestamp(RATE_RESET, timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    return {
+        "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "http_requests": REQUESTS,
+        "not_modified": NOT_MODIFIED,
+        "limit": RATE_LIMIT,
+        "remaining": RATE_REMAINING,
+        "reserve": effective_reserve(),
+        "reset_at": reset_at,
+    }
+
+def primary_available():
+    return RATE_REMAINING is None or RATE_REMAINING > effective_reserve()
+
+def append_summary(label):
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    snap = rate_snapshot()
+    with open(path, "a", encoding="utf-8") as handle:
+        handle.write(
+            f"### {label}\n"
+            f"- HTTP requests: **{snap['http_requests']}**"
+            f" ({snap['not_modified']} conditional 304 responses)\n"
+            f"- Primary REST quota: **{snap['remaining'] if snap['remaining'] is not None else '?'}"
+            f" / {snap['limit'] if snap['limit'] is not None else '?'}** remaining"
+            f"; dynamic reserve **{snap['reserve']}**\n"
+            f"- Rate reset: **{snap['reset_at'] or '?'}**\n\n"
+        )
 
 def load_state():
     if not STATE.exists():
@@ -113,10 +176,15 @@ def probe_order(repositories, state):
         return (last, repo.casefold())
     return sorted(repositories, key=key)
 
-def api(path, *, etag=None, allow_404=False):
-    global REQUESTS
-    if REQUESTS >= MAX_REQUESTS:
-        raise RateStop(f"probe request budget reached ({MAX_REQUESTS})")
+def api(path, *, etag=None, allow_404=False, conditional_probe=False):
+    global REQUESTS, NOT_MODIFIED
+    if REQUESTS >= MAX_HTTP_REQUESTS:
+        raise RateStop(f"HTTP safety cap reached ({MAX_HTTP_REQUESTS})")
+    if not conditional_probe and not primary_available():
+        raise PrimaryReserve(
+            f"primary rate reserve reached ({RATE_REMAINING} remaining; reserve {effective_reserve()})"
+        )
+
     REQUESTS += 1
     headers = {
         "Accept": "application/vnd.github+json",
@@ -127,26 +195,30 @@ def api(path, *, etag=None, allow_404=False):
         headers["Authorization"] = f"Bearer {TOKEN}"
     if etag:
         headers["If-None-Match"] = etag
+
     try:
         with urlopen(Request(API + path, headers=headers), timeout=30) as response:
-            remaining = response.headers.get("X-RateLimit-Remaining")
-            if remaining is not None and int(remaining) <= RESERVE:
-                raise RateStop(f"GitHub primary rate limit reserve reached ({remaining} remaining)")
+            response_headers = dict(response.headers)
+            update_rate(response_headers)
             body = json.load(response)
-            return response.status, body, dict(response.headers)
+            time.sleep(REQUEST_DELAY)
+            return response.status, body, response_headers
     except HTTPError as exc:
-        remaining = exc.headers.get("X-RateLimit-Remaining") if exc.headers else None
+        response_headers = dict(exc.headers) if exc.headers else {}
+        update_rate(response_headers)
         if exc.code == 304:
-            if remaining is not None and int(remaining) <= RESERVE:
-                raise RateStop(f"GitHub primary rate limit reserve reached ({remaining} remaining)")
-            return 304, None, dict(exc.headers)
-        if allow_404 and exc.code == 404:
-            return 404, None, dict(exc.headers)
+            NOT_MODIFIED += 1
+            time.sleep(REQUEST_DELAY)
+            return 304, None, response_headers
+
         body = exc.read().decode("utf-8", "replace")
-        if exc.code in (403, 429) and ("rate limit" in body.lower() or "secondary" in body.lower()):
+        time.sleep(REQUEST_DELAY)
+        if allow_404 and exc.code == 404:
+            return 404, None, response_headers
+        if exc.code in (403, 429) and (
+            "rate limit" in body.lower() or "secondary" in body.lower()
+        ):
             raise RateStop(f"GitHub rate limit response {exc.code}: {body[:180]}")
-        if remaining is not None and int(remaining) <= RESERVE:
-            raise RateStop(f"GitHub primary rate limit reserve reached ({remaining} remaining)")
         raise RuntimeError(f"GitHub API {exc.code} for {path}: {body[:300]}") from exc
 
 def get_json(path, **kwargs):
@@ -261,7 +333,9 @@ def main():
             )
 
         try:
-            info, headers, status = get_json(f"/repos/{repo}", etag=rs.get("etag"))
+            info, headers, status = get_json(
+                f"/repos/{repo}", etag=rs.get("etag"), conditional_probe=True
+            )
         except RateStop as exc:
             stopped = str(exc)
             print(f"RATE STOP before {repo}: {exc}", file=sys.stderr)
@@ -306,6 +380,8 @@ def main():
             if pushed_changed or missing_heavy:
                 try:
                     enrich_changed_repo(repo, info, repo_projects)
+                except PrimaryReserve as exc:
+                    print(f"RATE RESERVE: skipping optional metadata for {repo}: {exc}", file=sys.stderr)
                 except RateStop as exc:
                     stopped = str(exc)
                     print(f"RATE STOP while enriching {repo}: {exc}", file=sys.stderr)
@@ -331,12 +407,17 @@ def main():
         if stopped:
             break
 
+    state.setdefault("rate", {})["probe"] = rate_snapshot()
     save_state(state)
+    append_summary("GitHub repository probe phase")
     records.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
     PROJECTS.write_text(json.dumps(records, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(
         f"Probed {probed}/{len(repos)} repositories; detected {changed_count} pushed changes; "
-        f"requested {requested} deep scans; used {REQUESTS}/{MAX_REQUESTS} probe requests."
+        f"requested {requested} deep scans; made {REQUESTS} HTTP requests "
+        f"({NOT_MODIFIED} returned 304); primary remaining "
+        f"{RATE_REMAINING if RATE_REMAINING is not None else '?'}/"
+        f"{RATE_LIMIT if RATE_LIMIT is not None else '?'}; reserve {effective_reserve()}."
     )
     if stopped:
         print(f"Stopped early to preserve API quota: {stopped}")
