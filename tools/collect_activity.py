@@ -32,7 +32,7 @@ CUTOFF = NOW - timedelta(days=DAYS)
 MIN_RESERVE = int(os.environ.get("GITHUB_MIN_RATE_RESERVE", "100"))
 MAX_RESERVE = int(os.environ.get("GITHUB_MAX_RATE_RESERVE", "250"))
 RESERVE_FRACTION = float(os.environ.get("GITHUB_RATE_RESERVE_FRACTION", "0.15"))
-MAX_HTTP_REQUESTS = int(os.environ.get("GITHUB_HTTP_SAFETY_CAP", "800"))
+MAX_HTTP_REQUESTS = int(os.environ.get("GITHUB_HTTP_SAFETY_CAP", "4000"))
 REQUEST_DELAY = float(os.environ.get("GITHUB_REQUEST_DELAY", "0.10"))
 REQUESTS = 0
 RATE_LIMIT = None
