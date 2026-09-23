@@ -161,3 +161,12 @@ BlitterStudio/dopus5 was reviewed but not promoted as a catalogue record because
 The broader promotion rule now explicitly admits core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling when directly relevant to software archaeology, while ordinary source releases/maintenance remain excluded by default.
 
 Structured project count increased from 172 to 178.
+
+
+## 2026-09-23 — Copperline history backfill and 8-Bit Analysers
+
+Investigated why Copperline showed its release but not its recent commit activity. The project was added on 23 September and the collector's first deep scan used the repository's first_seen timestamp as the lower bound, so commits from 19–20 September were outside the initial incremental fetch. Releases were populated separately from repository metadata, which is why v0.21.0 still appeared.
+
+Fixed the collector so a repository's first branch scan backfills from the full retained 180-day activity window. Existing repositories remain incremental after their first successful scan.
+
+Added TheGoodDoktor/8BitAnalysers as adjacent reverse-engineering tooling. Its README describes Spectrum, C64 and CPC analysis/annotation tools; recent history includes assembler export, MCP analysis tools, Copilot branches/commits and explicit Claude-related repository work.
