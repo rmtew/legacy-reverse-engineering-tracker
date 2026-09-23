@@ -59,13 +59,13 @@ Deep-scan cadence is based on the most recent tracked activity in the repository
 | over 730 days | every 30 days |
 | archived repository | every 56 days |
 
-Longer cadences are deterministically staggered by repository name so weekly/monthly work is spread across days. A changed `pushed_at` value overrides the cadence and queues an immediate deep scan. Newly tracked repositories are queued immediately after the initial state bootstrap.
+Longer cadences are deterministically staggered by repository name so weekly/monthly work is spread across days. A changed `pushed_at` value overrides the cadence and queues an immediate deep scan. Newly tracked repositories are queued immediately after the initial state bootstrap. Probe execution itself is oldest-first using `last_probe_at`, so if the request budget cuts a run short, skipped repositories automatically move to the front on the next run. Deep-scan execution similarly prioritizes detected changes/new repositories, then the least-recently deep-scanned queued repositories.
 
 The probe phase has a 250-request hard budget and activity collection a 450-request hard budget. Both stop before GitHub's reported primary quota falls below a 250-request reserve. Anything left unfinished remains queued rather than being recorded as successfully checked.
 
 Activity collection is incremental. Poll state stores each observed branch tip SHA and last successful branch scan. Unchanged branch tips require no commit-history request. Changed tips fetch only commits since the previous scan, with a one-day overlap for safety; those commits are merged into the locally retained 180-day `data/activity.json` history.
 
-For multi-project repositories the collector normally fetches new commits once and attributes them using the files touched by each commit. For larger bursts it switches to incremental path-filtered queries when that requires fewer API calls.
+For multi-project repositories the collector normally fetches new commits once and attributes them using the files touched by each commit. For larger bursts it switches to incremental path-filtered queries when that requires fewer API calls. Deleted upstream branches are pruned from poll-state branch metadata on the next deep scan; historical activity already collected from them remains in the rolling feed until it ages out.
 
 
 ## Shared GitHub repositories
@@ -96,7 +96,7 @@ The collector checks non-default branches when a repository's deep scan is due. 
 
 For shared repositories, `github_path` is used to attribute commits to the relevant tracked subproject. Repository-wide/shared-tooling commits outside a project's configured path are intentionally not attributed to that project.
 
-The Activity UI groups commits by UTC calendar day and then project, while displaying the viewer's local commit time. Filters reuse project metadata, so platform/language/AI filters apply consistently between the catalogue and activity feed.
+The Activity UI groups events by UTC calendar day and then project, while displaying the viewer's local event time. It augments stored commit activity with each project's latest known GitHub release and can filter by activity type (commit/release). Filters reuse project metadata, so platform/language/AI filters apply consistently between the catalogue and activity feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
 
 
 ## Evidence enrichment
@@ -134,6 +134,11 @@ The automated evidence block contains only records with actual evidence/signals.
 
 GitHub Pages generates `activity.xml` from `data/activity.json` and `data/projects.json` at deployment time using `tools/generate_rss.py`.
 
-The RSS 2.0 feed contains up to the 200 most recent commit events. Each item is project-specific, links directly to the upstream commit when available, and uses a stable GUID composed from the project ID and commit SHA. Descriptions include project, source platform, branch, author and commit-message context.
+The RSS 2.0 feed contains up to the 200 most recent commit/release events. Commit items use a stable GUID composed from project ID and commit SHA; release items use project ID plus release tag. Items link directly to the upstream commit or release when available and include project/platform context plus branch, author and commit-message context where relevant.
 
 The feed is derived entirely from already-collected tracker data, so generating it makes no additional GitHub API requests. The website advertises it through a standard RSS autodiscovery `<link>` element and a visible RSS icon in the site header.
+
+
+## Site integrity validation
+
+`tools/validate_site_data.py` checks that project IDs are unique, every stored activity event references a known project, commit activity keys are unique and newest-first, timestamps are parseable, and generated RSS is valid RSS 2.0 with unique GUIDs and required item fields. The metadata workflow validates JSON before committing generated refresh data, and the Pages workflow validates both JSON and RSS before deployment.
