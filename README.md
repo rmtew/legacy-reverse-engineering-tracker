@@ -13,10 +13,11 @@ The tracker has two views:
 
 - `data/projects.json` — canonical structured project data
 - `data/activity.json` — rolling 180-day attributed commit feed
+- `state/github-poll-state.json` — persistent per-repository polling and branch state
 - `index.html`, `web/tracker.js`, `web/tracker.css` — framework-free interactive UI
-- `tools/refresh_github.py` — objective GitHub metadata and AI-evidence refresh
+- `tools/refresh_github.py` — adaptive conditional repository probes, metadata refresh and scan scheduling
 - `tools/enrich_evidence.py` — conservative README/status evidence enrichment for build/playability/byte-exact/start fields
-- `tools/collect_activity.py` — recent multi-branch commit collection and project attribution
+- `tools/collect_activity.py` — incremental multi-branch commit collection and project attribution
 - `.github/workflows/refresh-github.yml` — daily metadata/activity refresh
 - `.github/workflows/enrich-evidence.yml` — weekly evidence enrichment
 - `.github/workflows/pages.yml` — GitHub Pages deployment
@@ -24,6 +25,6 @@ The tracker has two views:
 - `sources.md` — discovery nodes, search strategy and open discovery priorities
 - `log.md` — historical search/discovery notes
 
-There is no rendering framework or build step. The browser reads the JSON data directly. A daily GitHub Action refreshes repository metadata and the rolling activity feed. A separate weekly enrichment pass scans project documentation for explicit evidence about build/playability/byte-exact/start fields and records CI signals when GitHub's API quota permits.
+There is no rendering framework or build step. The browser reads the JSON data directly. A daily GitHub Action uses conditional repository probes and adaptive, staggered deep scans: recently active repositories are checked frequently, dormant ones less often, while any detected push queues an immediate scan. Activity collection is incremental, retaining 180 days locally instead of re-downloading that history. Hard request budgets and a rate-limit reserve stop a run early and leave unfinished repositories queued. A separate weekly enrichment pass scans project documentation for explicit evidence about build/playability/byte-exact/start fields and records CI signals when GitHub's API quota permits.
 
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
