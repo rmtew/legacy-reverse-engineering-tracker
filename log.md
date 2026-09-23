@@ -217,3 +217,17 @@ The project remains maintained enough to support current tooling: its latest com
 Promoted **cnvogelg/amitools** as qualifying Amiga software-archaeology and retro-development infrastructure. Its host-side toolset works directly with classic 68k AmigaOS binaries and storage formats: the Hunk library/hunktool loads executable, library and object-file hunks and relocations; romtool inspects, dissects and builds Kickstart ROM images; filesystem tooling handles ADF/HDF, RDB, OFS and FFS structures; and vamos executes Amiga CLI binaries through an API-level AmigaOS environment with detailed library-call, structure, code-fetch and memory tracing.
 
 The current latest release is **v0.8.1** from 30 December 2025, with repository commits continuing through the same date. Added amitools as a recurring Amiga tooling/discovery node; its links to machine68k and historical Amiga development-tool execution are useful outward discovery paths.
+
+
+## 2026-09-24 — Hatari, EmuTOS and modern Amiga debugger/toolchain cluster
+
+Audited six user-supplied Atari/Amiga infrastructure repositories and promoted all six under the tracker’s tooling/reimplementation rules.
+
+- **Hatari** — foundational ST/STE/TT/Falcon emulator with debugger, conditional breakpoints, symbol/disassembly support, CPU/DSP profiling and remote control.
+- **EmuTOS** — free TOS-compatible OS/ROM implementation. Catalogued as reproducible Atari development/emulation infrastructure and a behavioral compatibility project, not as a reconstruction of proprietary Atari ROM binaries.
+- **PUAE Debugger** — WinUAE-derived in-editor Amiga debugger/profiler with Hunk/ELF symbols, reverse execution, watchpoints, DMA/Copper/blitter analysis, memory reconstruction and MCP/DAP automation.
+- **vAmiga Debugger** — integrated source debugger with fast-load, symbol-aware state/memory visualization, CPU/Copper disassembly and reverse stepping; recent profiler work includes explicit Claude-assisted commits.
+- **m68k-tools** — reusable 68000 parser, formatter, cycle counter, linter/static-analysis and language-server suite.
+- **BartmanAbyss vscode-amiga-debug** — self-contained GCC/GDB + WinUAE/FS-UAE Amiga development environment with source debugging, frame/DMA profiling, graphics debugging and source-correlated disassembly.
+
+All six were also added as recurring discovery nodes because their dependency and attribution graphs connect to emulator cores, cross-compilers, debug formats, ROM replacements and other directly relevant software-archaeology tooling.
