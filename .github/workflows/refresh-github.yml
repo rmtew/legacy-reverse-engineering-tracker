@@ -7,8 +7,9 @@ on:
   push:
     branches: [main]
     paths:
+      - "data/projects.json"
       - "tools/refresh_github.py"
-      - ".github/workflows/refresh-github.yml"\n      - "data/projects.json"
+      - ".github/workflows/refresh-github.yml"
 
 permissions:
   contents: write
@@ -19,6 +20,7 @@ concurrency:
 
 jobs:
   refresh:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
