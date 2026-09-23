@@ -6,6 +6,7 @@ on:
     paths:
       - "index.html"
       - "web/**"
+      - "tools/generate_rss.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
   workflow_run:
@@ -64,6 +65,10 @@ jobs:
           cp -R web _site/
           cp -R data _site/
           touch _site/.nojekyll
+
+      - name: Generate activity RSS
+        if: steps.latest.outputs.run == 'true'
+        run: python tools/generate_rss.py data/activity.json data/projects.json _site/activity.xml
 
       - name: Configure Pages
         if: steps.latest.outputs.run == 'true'
