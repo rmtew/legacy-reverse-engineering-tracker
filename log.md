@@ -203,3 +203,10 @@ HoraceAndTheSpider was added to recurring discovery sources for future profile/a
 Promoted **PiST** as qualifying adjacent retro-development/software-archaeology tooling. PiST is a cross-platform Atari ST/STE 68000 IDE that integrates vasm/vlink with Hatari and provides source-line debugging, labelled disassembly, register/memory/hardware inspection, profiling, floppy-image and sprite/bitplane tooling, plus remote/MCP automation. The current README describes the write→assemble→run→debug loop as usable, and release v0.8.3 was published on 23 September 2026.
 
 PiST was also added as a discovery node because its documentation links directly into the modern Atari development stack, including Hatari/hrdb, vasm/vlink, EmuTOS and legacy disk/graphics formats.
+
+
+## 2026-09-24 — Atari Ghidra reverse-engineering tooling
+
+Promoted **czietz/ghidraScripts_for_Atari** as qualifying Atari reverse-engineering tooling. The repository is explicitly intended to simplify analysis of Atari TOS code in Ghidra: it imports Atari executables with TEXT/DATA/BSS layout and relocations, imports TOS ROMs at their header-derived addresses, imports Atari a.out objects and symbols, and provides MiNTLib Function ID data plus TOS system-variable symbols for identifying otherwise unknown code.
+
+The project remains maintained enough to support current tooling: its latest commit on 18 January 2026 adapts the scripts for Ghidra 12's runtime changes. The repository was also added as an Atari tooling discovery node.
