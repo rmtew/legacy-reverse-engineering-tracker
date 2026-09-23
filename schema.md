@@ -46,7 +46,9 @@ AI automation is evidence-only: explicit AI instruction files or AI co-author co
 
 ## Adaptive repository polling
 
-Persistent generated state lives in `state/github-poll-state.json`. Every daily run conditionally probes each unique GitHub repository using its stored ETag. Unchanged repositories can return `304 Not Modified`; expensive branch/commit work is performed only when scheduled or when a push is detected.
+Persistent generated state lives in `state/github-poll-state.json`. Scheduled refreshes run at about 06:30 and 18:30 `Pacific/Auckland`, immediately before the 07:00 and 19:00 maintenance passes. Each refresh conditionally probes every unique GitHub repository using its stored ETag. Unchanged repositories can return `304 Not Modified`; expensive branch/commit work is performed only when scheduled or when a push is detected.
+
+The workflow keeps those local refresh times DST-stable by scheduling both NZST and NZDT UTC equivalents and allowing only the pair matching the current Auckland UTC offset to proceed.
 
 Deep-scan cadence is based on the most recent tracked activity in the repository:
 

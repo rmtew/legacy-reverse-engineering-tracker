@@ -3,7 +3,12 @@ name: Refresh GitHub metadata
 
 on:
   schedule:
-    - cron: "17 2 * * *"
+    # Two NZ-local refresh windows. Both NZST/NZDT UTC variants are scheduled;
+    # the first step selects the correct pair for the current Auckland offset.
+    - cron: "30 5 * * *"
+    - cron: "30 6 * * *"
+    - cron: "30 17 * * *"
+    - cron: "30 18 * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -30,7 +35,30 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Select Auckland refresh window
+        id: window
+        shell: bash
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          offset="$(TZ=Pacific/Auckland date +%z)"
+          schedule='${{ github.event.schedule }}'
+          case "$offset:$schedule" in
+            "+1300:30 5 * * *"|"+1300:30 17 * * *"|"+1200:30 6 * * *"|"+1200:30 18 * * *")
+              echo "run=true" >> "$GITHUB_OUTPUT"
+              echo "Selected $schedule for Auckland offset $offset."
+              ;;
+            *)
+              echo "run=false" >> "$GITHUB_OUTPUT"
+              echo "Skipping DST-alternate schedule $schedule for Auckland offset $offset."
+              ;;
+          esac
+
       - name: Probe repositories and schedule scans
+        if: steps.window.outputs.run == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_MIN_RATE_RESERVE: "100"
@@ -41,6 +69,7 @@ jobs:
         run: python tools/refresh_github.py
 
       - name: Collect due activity incrementally
+        if: steps.window.outputs.run == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_MIN_RATE_RESERVE: "100"
@@ -51,9 +80,11 @@ jobs:
         run: python tools/collect_activity.py
 
       - name: Validate tracker data
+        if: steps.window.outputs.run == 'true'
         run: python tools/validate_site_data.py data/projects.json data/activity.json
 
       - name: Commit changes
+        if: steps.window.outputs.run == 'true'
         run: |
           if git diff --quiet -- data/projects.json data/activity.json state/github-poll-state.json; then
             echo "No metadata, activity or poll-state changes"
