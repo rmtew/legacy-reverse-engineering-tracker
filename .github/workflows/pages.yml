@@ -37,33 +37,13 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Debounce superseded pushes
-        id: latest
-        shell: bash
-        run: |
-          if [ "$GITHUB_EVENT_NAME" != "push" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          sleep 10
-          git fetch origin main --depth=1
-          if [ "$(git rev-parse origin/main)" = "$GITHUB_SHA" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-            echo "A newer main-branch commit exists; skipping this superseded run."
-          fi
-
       - name: Check JavaScript syntax
-        if: steps.latest.outputs.run == 'true'
         run: node --check web/tracker.js
 
       - name: Check RSS generator syntax
-        if: steps.latest.outputs.run == 'true'
         run: python -m py_compile tools/generate_rss.py tools/validate_site_data.py
 
       - name: Prepare static site
-        if: steps.latest.outputs.run == 'true'
         run: |
           mkdir -p _site
           cp index.html _site/
@@ -72,24 +52,19 @@ jobs:
           touch _site/.nojekyll
 
       - name: Generate activity RSS
-        if: steps.latest.outputs.run == 'true'
         run: python tools/generate_rss.py data/activity.json data/projects.json _site/activity.xml
 
       - name: Validate generated site data
-        if: steps.latest.outputs.run == 'true'
         run: python tools/validate_site_data.py data/projects.json data/activity.json _site/activity.xml
 
       - name: Configure Pages
-        if: steps.latest.outputs.run == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: steps.latest.outputs.run == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 
       - name: Deploy to GitHub Pages
-        if: steps.latest.outputs.run == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
