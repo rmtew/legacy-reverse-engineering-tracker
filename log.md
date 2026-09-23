@@ -210,3 +210,10 @@ PiST was also added as a discovery node because its documentation links directly
 Promoted **czietz/ghidraScripts_for_Atari** as qualifying Atari reverse-engineering tooling. The repository is explicitly intended to simplify analysis of Atari TOS code in Ghidra: it imports Atari executables with TEXT/DATA/BSS layout and relocations, imports TOS ROMs at their header-derived addresses, imports Atari a.out objects and symbols, and provides MiNTLib Function ID data plus TOS system-variable symbols for identifying otherwise unknown code.
 
 The project remains maintained enough to support current tooling: its latest commit on 18 January 2026 adapts the scripts for Ghidra 12's runtime changes. The repository was also added as an Atari tooling discovery node.
+
+
+## 2026-09-24 — amitools Amiga archaeology tooling
+
+Promoted **cnvogelg/amitools** as qualifying Amiga software-archaeology and retro-development infrastructure. Its host-side toolset works directly with classic 68k AmigaOS binaries and storage formats: the Hunk library/hunktool loads executable, library and object-file hunks and relocations; romtool inspects, dissects and builds Kickstart ROM images; filesystem tooling handles ADF/HDF, RDB, OFS and FFS structures; and vamos executes Amiga CLI binaries through an API-level AmigaOS environment with detailed library-call, structure, code-fetch and memory tracing.
+
+The current latest release is **v0.8.1** from 30 December 2025, with repository commits continuing through the same date. Added amitools as a recurring Amiga tooling/discovery node; its links to machine68k and historical Amiga development-tool execution are useful outward discovery paths.
