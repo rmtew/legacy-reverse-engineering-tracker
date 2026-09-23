@@ -51,3 +51,27 @@ dialog::backdrop{background:#0005}
   th,td{border-bottom-color:#21262d}
   dialog{background:#161b22;color:#f0f3f6}
 }
+
+
+.view-tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin:0 0 16px}
+.view-tab{border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);font:inherit;font-weight:650;padding:9px 14px;cursor:pointer}
+.view-tab.active{color:inherit;border-bottom-color:var(--link)}
+.view-panel{display:none}.view-panel.active{display:block}
+.activity-feed{border-top:1px solid var(--border)}
+.activity-day{padding:18px 0 6px;border-bottom:1px solid var(--border)}
+.activity-day>h2{font-size:16px;margin:0 0 12px}
+.activity-project{display:grid;grid-template-columns:minmax(190px,260px) 1fr;gap:18px;margin:0 0 16px}
+.activity-project-head{font-size:13px}
+.activity-project-head strong{display:block;font-size:14px;margin-bottom:4px}
+.activity-project-meta{color:var(--muted);font-size:12px}
+.commit-list{min-width:0}
+.commit{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:10px;padding:6px 0;border-bottom:1px solid color-mix(in srgb,var(--border) 55%,transparent)}
+.commit:last-child{border-bottom:0}
+.commit-time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px;padding-top:2px}
+.commit-main{min-width:0}
+.commit-title{font-size:13px;overflow-wrap:anywhere}
+.commit-detail{margin-top:3px;color:var(--muted);font-size:11px;display:flex;gap:8px;flex-wrap:wrap}
+.commit-branches{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.branch{font-size:10px;border:1px solid var(--border);border-radius:999px;padding:1px 5px;color:var(--muted)}
+.activity-empty{padding:32px;text-align:center;color:var(--muted)}
+@media(max-width:900px){.activity-project{grid-template-columns:1fr}.commit{grid-template-columns:48px minmax(0,1fr)}.commit-branches{grid-column:2;justify-content:flex-start}}
