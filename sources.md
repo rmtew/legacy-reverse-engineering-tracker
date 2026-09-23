@@ -48,6 +48,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/MikeTheTechie/Level9-Public | Level 9 source archive plus l9dev recoding of Atari ST 68000 authoring tools into C |
 | https://github.com/wepl/ReSource | Amiga reassembler/disassembler reconstructed and maintained from its own resourced output |
 | https://github.com/CopperlineHQ/Copperline | Active cycle-driven Amiga emulator with reverse stepping, source debugging and automation tooling |
+| https://github.com/idontwantyourspamthanks/PiST | Atari ST/STE 68000 IDE integrating vasm/vlink, Hatari source debugging, hardware inspection, profiling, disk/sprite tooling and MCP automation; useful Atari development/tooling discovery node |
 | https://github.com/TheGoodDoktor/8BitAnalysers | Multi-platform 8-bit analysis/annotation toolkit for Spectrum, C64 and CPC; assembler export and MCP-assisted analysis |
 | https://github.com/TheGoodDoktor/SpectrumAnalyserProjects | Large title-by-title ZX Spectrum analysis-state collection created for 8-Bit Analysers |
 | https://github.com/TheGoodDoktor/C64AnalyserProjects | C64 title analysis-state collection including Armalyte, Bubble Bobble, Exile, Paradroid, Uridium and Wizball |
