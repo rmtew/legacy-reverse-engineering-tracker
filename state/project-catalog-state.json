@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T22:04:27Z",
+  "updated_at": "2026-09-24T22:36:45Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -267,6 +267,72 @@
         "software archaeology"
       ],
       "notes": "Slowly progressing reverse-engineering/decompilation of the C64 game. The repository keeps 6502bench analysis projects and assembly exported for 64tass, with game/map observations intended to support bug understanding and eventual fixes.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "a2scsi-rom-gorlik": {
+      "id": "a2scsi-rom-gorlik",
+      "title": "a2scsi-rom",
+      "upstream_name": "a2scsi-rom",
+      "display_title": "Apple II SCSI Card ROM — annotated disassembly",
+      "subjects": [
+        "a2scsi-rom"
+      ],
+      "repo": "https://github.com/gorlik/a2scsi-rom",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Apple II"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "binary analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6502bench SourceGen",
+        "banked ROM analysis",
+        "reassembly with ca65"
+      ],
+      "tags": [
+        "Apple II",
+        "6502",
+        "software archaeology"
+      ],
+      "notes": "Commented disassembly of Apple II SCSI Card ROM revision 341-0437-A (rev. c), with sixteen 1 KiB banks and SourceGen project files. Its Makefile reassembles the complete ROM for EPROM programming or MAME; the README also documents driver interactions and firmware behavior. Byte-exact output is not asserted.",
       "ai": {
         "usage": null,
         "tools": []
@@ -2118,6 +2184,155 @@
         "Llamasource"
       ],
       "notes": "Reverse-engineered commented source; README explicitly states the game compiles and plays.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "apple-ii-system-software-cmosher": {
+      "id": "apple-ii-system-software-cmosher",
+      "title": "Apple ][ System Software Source Code",
+      "upstream_name": "Apple ][ System Software Source Code",
+      "display_title": "Apple II system software and DOS — reverse-engineered source",
+      "subjects": [
+        "Apple ][ System Software Source Code"
+      ],
+      "repo": "https://github.com/cmosher01/Apple-II-Source",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Apple II"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "operating-system"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ROM and DOS source reconstruction"
+      ],
+      "tags": [
+        "Apple II",
+        "6502",
+        "software archaeology"
+      ],
+      "notes": "Christopher Mosher describes this package as reverse-engineered source code for Apple II series system ROMs and DOS. Exact build equivalence, supported ROM variants, and runnable hardware minimums still need review.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "apple-ii-desktop-a2stuff": {
+      "id": "apple-ii-desktop-a2stuff",
+      "title": "Apple II DeskTop",
+      "upstream_name": "Apple II DeskTop",
+      "display_title": "Apple II DeskTop — disassembly and enhanced ProDOS GUI",
+      "subjects": [
+        "Apple II DeskTop",
+        "Mouse Desk"
+      ],
+      "repo": "https://github.com/a2stuff/a2d",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Apple II"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Apple II DeskTop on 8-bit Apples",
+          "platform": "Apple II",
+          "cpu_family": "6502 family",
+          "min_ram_kib": 128,
+          "os": "ProDOS 8",
+          "notes": "README lists 8-bit Apple II models and clones with 128 KiB; mouse is optional.",
+          "evidence": [
+            {
+              "source": "project README",
+              "url": "https://github.com/a2stuff/a2d",
+              "excerpt": "8-bit Apples and clones with 128k of memory"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "reverse engineering",
+        "enhancement"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ca65 assembly",
+        "GUI behavior analysis",
+        "bug fixes"
+      ],
+      "tags": [
+        "Apple II",
+        "6502",
+        "software archaeology"
+      ],
+      "notes": "The project disassembles and extends Mouse Desk / Apple II DeskTop, a ProDOS 8 GUI. Its README identifies 128 KiB 8-bit Apple systems and clones and links build/running instructions and disk images. No narrower CPU or chipset minimum is asserted.",
       "ai": {
         "usage": null,
         "tools": []
