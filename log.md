@@ -336,3 +336,8 @@ The schema now supports optional `target_cpu` and `runtime_profiles`, validation
 ## 2026-09-24 — instant view switching
 
 Removed unconditional Activity-feed reconstruction from Activity/Projects tab switching. The rendered Activity DOM is now retained and only marked dirty when Activity data/filter state changes; switching back to an unchanged Activity view is therefore a visibility toggle rather than a full regroup/sort/HTML rebuild. Off-screen activity-day layout is also deferred with CSS `content-visibility` to reduce the cost of showing long feeds.
+
+
+## 2026-09-24 — persistent light/dark theme toggle
+
+Added an explicit **Light/Dark** theme toggle in the site header. Light mode is now the default regardless of operating-system preference. The selected theme is restored before the stylesheet loads to avoid a theme flash and is persisted locally in the browser with `localStorage` key `retro-development-tracker.theme`. No other settings are persisted yet.
