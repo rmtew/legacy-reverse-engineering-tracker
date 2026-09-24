@@ -16,6 +16,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
 PENDING = ROOT / "data" / "pending-projects.json"
+AUDITS = ROOT / "data" / "project-audits.json"
+
+AUDIT_AREAS = ("identity", "classification", "source_cpu", "target_cpu", "build", "runtime_profiles", "ai", "relationships")
+
+
+def new_audit(project_id: str) -> dict:
+    return {
+        "project_id": project_id,
+        "last_reviewed": None,
+        "overall_state": "unreviewed",
+        "areas": {name: {"state": "unreviewed", "checked_at": None} for name in AUDIT_AREAS},
+        "next_actions": ["Perform initial project audit against primary sources"],
+    }
 
 
 def apply_update(record: dict, update: dict, project_id: str) -> None:
@@ -45,6 +58,8 @@ def main() -> None:
         return
 
     by_id = {record.get("id"): record for record in projects if record.get("id")}
+    audits = json.loads(AUDITS.read_text(encoding="utf-8"))
+    audit_by_id = {record.get("project_id"): record for record in audits.get("projects", []) if record.get("project_id")}
     added = []
     updated = []
     skipped = []
@@ -67,10 +82,16 @@ def main() -> None:
             continue
         projects.append(record)
         by_id[project_id] = record
+        if project_id not in audit_by_id:
+            audit = new_audit(project_id)
+            audits.setdefault("projects", []).append(audit)
+            audit_by_id[project_id] = audit
         added.append(project_id)
 
     projects.sort(key=lambda record: ((record.get("title") or "").casefold(), record.get("id") or ""))
+    audits.setdefault("projects", []).sort(key=lambda record: record.get("project_id") or "")
     PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    AUDITS.write_text(json.dumps(audits, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     PENDING.write_text("[]\n", encoding="utf-8")
 
     print(

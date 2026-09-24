@@ -20,6 +20,161 @@ def fail(message, errors):
     errors.append(message)
 
 
+
+RESEARCH_AREAS = {"identity", "classification", "source_cpu", "target_cpu", "build", "runtime_profiles", "ai", "relationships"}
+RESEARCH_AREA_STATES = {"unreviewed", "needs-research", "reviewed", "not-applicable", "no-evidence-found"}
+RESEARCH_OVERALL_STATES = {"unreviewed", "partial", "reviewed"}
+DISCOVERY_REVIEW_STATES = {"unreviewed", "partial", "substantially-reviewed", "exhausted"}
+DISCOVERY_TASK_STATES = {"open", "in-progress", "done", "deferred"}
+
+
+def validate_date(value, label, errors, allow_none=True):
+    if value is None and allow_none:
+        return
+    if not isinstance(value, str):
+        fail(f"{label} must be a date string" + (" or null" if allow_none else ""), errors)
+        return
+    try:
+        datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        fail(f"{label} has invalid date {value!r}", errors)
+
+
+def validate_research_state(projects_path, project_ids, errors):
+    data_dir = projects_path.parent
+    discovery_path = data_dir / "discovery-sources.json"
+    audits_path = data_dir / "project-audits.json"
+    research_path = data_dir / "research-activity.json"
+
+    missing_files = [str(path) for path in (discovery_path, audits_path, research_path) if not path.exists()]
+    if missing_files:
+        fail("research state files missing: " + ", ".join(missing_files), errors)
+        return 0, 0, 0
+
+    discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
+    audits = json.loads(audits_path.read_text(encoding="utf-8"))
+    research = json.loads(research_path.read_text(encoding="utf-8"))
+
+    source_ids = []
+    for index, source in enumerate(discovery.get("sources", [])):
+        source_id = source.get("id")
+        if not isinstance(source_id, str) or not source_id:
+            fail(f"discovery source {index} is missing id", errors)
+            continue
+        source_ids.append(source_id)
+        if not isinstance(source.get("source"), str) or not source.get("source", "").strip():
+            fail(f"discovery source {source_id} is missing source", errors)
+        if source.get("review_state") not in DISCOVERY_REVIEW_STATES:
+            fail(f"discovery source {source_id} has invalid review_state {source.get('review_state')!r}", errors)
+        validate_date(source.get("first_indexed"), f"discovery source {source_id} first_indexed", errors, allow_none=False)
+        validate_date(source.get("last_reviewed"), f"discovery source {source_id} last_reviewed", errors)
+
+    duplicate_sources = sorted({value for value in source_ids if source_ids.count(value) > 1})
+    if duplicate_sources:
+        fail("duplicate discovery source ids: " + ", ".join(duplicate_sources), errors)
+    source_id_set = set(source_ids)
+
+    task_ids = []
+    for index, task in enumerate(discovery.get("backlog", [])):
+        task_id = task.get("id")
+        if not isinstance(task_id, str) or not task_id:
+            fail(f"discovery backlog task {index} is missing id", errors)
+            continue
+        task_ids.append(task_id)
+        if task.get("state") not in DISCOVERY_TASK_STATES:
+            fail(f"discovery task {task_id} has invalid state {task.get('state')!r}", errors)
+        refs = task.get("source_ids")
+        if not isinstance(refs, list):
+            fail(f"discovery task {task_id} source_ids must be an array", errors)
+        else:
+            unknown = sorted(set(refs) - source_id_set)
+            if unknown:
+                fail(f"discovery task {task_id} references unknown source ids: {', '.join(unknown)}", errors)
+        validate_date(task.get("created_at"), f"discovery task {task_id} created_at", errors, allow_none=False)
+        validate_date(task.get("last_reviewed"), f"discovery task {task_id} last_reviewed", errors)
+
+    duplicate_tasks = sorted({value for value in task_ids if task_ids.count(value) > 1})
+    if duplicate_tasks:
+        fail("duplicate discovery task ids: " + ", ".join(duplicate_tasks), errors)
+    task_id_set = set(task_ids)
+    for source in discovery.get("sources", []):
+        unknown = sorted(set(source.get("open_task_ids") or []) - task_id_set)
+        if unknown:
+            fail(f"discovery source {source.get('id')} references unknown open tasks: {', '.join(unknown)}", errors)
+
+    audit_ids = []
+    for index, audit in enumerate(audits.get("projects", [])):
+        project_id = audit.get("project_id")
+        if not isinstance(project_id, str) or not project_id:
+            fail(f"project audit {index} is missing project_id", errors)
+            continue
+        audit_ids.append(project_id)
+        if audit.get("overall_state") not in RESEARCH_OVERALL_STATES:
+            fail(f"project audit {project_id} has invalid overall_state {audit.get('overall_state')!r}", errors)
+        validate_date(audit.get("last_reviewed"), f"project audit {project_id} last_reviewed", errors)
+        areas = audit.get("areas")
+        if not isinstance(areas, dict):
+            fail(f"project audit {project_id} areas must be an object", errors)
+            continue
+        missing = RESEARCH_AREAS - set(areas)
+        extra = set(areas) - RESEARCH_AREAS
+        if missing:
+            fail(f"project audit {project_id} missing areas: {', '.join(sorted(missing))}", errors)
+        if extra:
+            fail(f"project audit {project_id} has unknown areas: {', '.join(sorted(extra))}", errors)
+        for area_name, area in areas.items():
+            if not isinstance(area, dict):
+                fail(f"project audit {project_id} area {area_name} must be an object", errors)
+                continue
+            if area.get("state") not in RESEARCH_AREA_STATES:
+                fail(f"project audit {project_id} area {area_name} has invalid state {area.get('state')!r}", errors)
+            validate_date(area.get("checked_at"), f"project audit {project_id} area {area_name} checked_at", errors)
+        if not isinstance(audit.get("next_actions"), list):
+            fail(f"project audit {project_id} next_actions must be an array", errors)
+
+    duplicate_audits = sorted({value for value in audit_ids if audit_ids.count(value) > 1})
+    if duplicate_audits:
+        fail("duplicate project audit ids: " + ", ".join(duplicate_audits), errors)
+    audit_id_set = set(audit_ids)
+    missing_audits = sorted(project_ids - audit_id_set)
+    stale_audits = sorted(audit_id_set - project_ids)
+    if missing_audits:
+        fail("projects missing audit records: " + ", ".join(missing_audits[:20]), errors)
+    if stale_audits:
+        fail("project audits reference missing projects: " + ", ".join(stale_audits[:20]), errors)
+
+    event_ids = []
+    previous_date = None
+    for index, event in enumerate(research.get("events", [])):
+        event_id = event.get("id")
+        if not isinstance(event_id, str) or not event_id:
+            fail(f"research event {index} is missing id", errors)
+            continue
+        event_ids.append(event_id)
+        validate_date(event.get("date"), f"research event {event_id} date", errors, allow_none=False)
+        if not isinstance(event.get("kind"), str) or not event.get("kind", "").strip():
+            fail(f"research event {event_id} is missing kind", errors)
+        if not isinstance(event.get("summary"), str) or not event.get("summary", "").strip():
+            fail(f"research event {event_id} is missing summary", errors)
+        unknown_projects = sorted(set(event.get("project_ids") or []) - project_ids)
+        if unknown_projects:
+            fail(f"research event {event_id} references unknown projects: {', '.join(unknown_projects)}", errors)
+        unknown_sources = sorted(set(event.get("source_ids") or []) - source_id_set)
+        if unknown_sources:
+            fail(f"research event {event_id} references unknown sources: {', '.join(unknown_sources)}", errors)
+        date = event.get("date")
+        if isinstance(date, str) and previous_date and date > previous_date:
+            fail(f"research events are not newest-first around index {index}", errors)
+        if isinstance(date, str):
+            previous_date = date
+
+    duplicate_events = sorted({value for value in event_ids if event_ids.count(value) > 1})
+    if duplicate_events:
+        fail("duplicate research event ids: " + ", ".join(duplicate_events), errors)
+
+    return len(source_ids), len(audit_ids), len(event_ids)
+
+
 def validate(projects_path, activity_path, rss_path=None):
     errors = []
     projects = json.loads(projects_path.read_text(encoding="utf-8"))
@@ -34,6 +189,8 @@ def validate(projects_path, activity_path, rss_path=None):
         fail("duplicate project ids: " + ", ".join(duplicates), errors)
 
     project_ids = {value for value in ids if value}
+
+    source_count, audit_count, research_event_count = validate_research_state(projects_path, project_ids, errors)
 
     for index, project in enumerate(projects):
         for field in ("upstream_name", "display_title"):
@@ -200,6 +357,7 @@ def validate(projects_path, activity_path, rss_path=None):
 
     print(
         f"Validated {len(projects)} projects, {len(activity.get('events', []))} stored activity events"
+        + f", {source_count} discovery sources, {audit_count} project audits, {research_event_count} research events"
         + (f" and RSS {rss_path}" if rss_path else "")
         + "."
     )
