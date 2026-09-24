@@ -195,11 +195,11 @@ def generate(activity_path, projects_path, output_path, limit):
 
     rss = ET.Element("rss", {"version": "2.0"})
     channel = ET.SubElement(rss, "channel")
-    ET.SubElement(channel, "title").text = "Legacy Reverse Engineering Tracker — Activity"
+    ET.SubElement(channel, "title").text = "Retro Development Project Tracker — Activity"
     ET.SubElement(channel, "link").text = SITE_URL
     ET.SubElement(channel, "description").text = (
-        "Daily project activity summaries and releases across tracked legacy software "
-        "reverse-engineering projects."
+        "Daily project activity summaries and releases across tracked reverse engineering, "
+        "reconstruction, preservation, homebrew and retro-development tooling projects."
     )
     ET.SubElement(channel, "language").text = "en"
     ET.SubElement(channel, "{" + ATOM_NS + "}link", {
