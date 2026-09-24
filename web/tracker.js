@@ -47,6 +47,41 @@ const projectTypeLabel = value => projectTypeLabels[value] || value;
 const projectTypeValues = record => record?.record_class === "hybrid"
   ? ["software","tools"]
   : record?.record_class === "tooling" ? ["tools"] : ["software"];
+
+const cpuFamily = value => {
+  const raw=String(value??"").trim();
+  const cpu=raw.toLowerCase().replaceAll(" ","");
+  if(!cpu) return "";
+  if(cpu.includes("6502")||cpu.includes("6510")||cpu.includes("7501")||cpu.includes("8501")||cpu.includes("2a03")||cpu.includes("huc6280")) return "6502 family";
+  if(cpu.includes("m68k")||cpu.includes("68000")||cpu.includes("68010")||cpu.includes("68020")||cpu.includes("68030")||cpu.includes("68040")||cpu.includes("68060")) return "68000 family";
+  if(cpu==="8086"||cpu.includes("x86")) return "x86";
+  if(cpu.includes("z80")) return "Z80";
+  if(cpu.includes("8080")) return "8080";
+  if(cpu.includes("6809")) return "6809";
+  if(cpu.includes("arm")) return "ARM";
+  if(cpu.includes("sh-2")||cpu.includes("sh2")) return "SH-2";
+  if(cpu.includes("jaguar")) return "Jaguar GPU/DSP";
+  return raw;
+};
+const platformValues = record => [...new Set([...arr(record?.source_platforms),...arr(record?.target_platforms)].filter(Boolean))];
+const runtimeProfiles = record => arr(record?.runtime_profiles).filter(profile=>profile&&profile.platform);
+const cpuFamilyValues = record => [...new Set([
+  ...arr(record?.source_cpu),...arr(record?.target_cpu),
+  ...runtimeProfiles(record).flatMap(profile=>[profile.cpu_family,profile.min_cpu])
+].map(cpuFamily).filter(Boolean))];
+
+const cpuRanks = {
+  "68000":0,"68010":1,"68020":2,"68030":3,"68040":4,"68060":5,
+  "6502":0,"65C02":1,"65816":2,
+  "8086":0,"80186":1,"80286":2,"80386":3,"80486":4
+};
+const cpuCompatible = (minimum,available) => {
+  if(!minimum||!available) return true;
+  if(cpuFamily(minimum)!==cpuFamily(available)) return false;
+  if(Object.hasOwn(cpuRanks,minimum)&&Object.hasOwn(cpuRanks,available)) return cpuRanks[minimum]<=cpuRanks[available];
+  return String(minimum).toLowerCase()===String(available).toLowerCase();
+};
+const formatRam = kib => kib<1024 ? kib+"K" : (kib%1024===0 ? (kib/1024)+"M" : (kib/1024).toFixed(1)+"M");
 const classificationValueTags = value => {
   const values = arr(value);
   return values.length ? tags(values.map(classificationLabel)) : "?";
@@ -101,10 +136,11 @@ const classificationSortValue = record => [
 const projectFilterState = {
   projectType:new Set(), platform:new Set(), targetKind:new Set(), workKind:new Set(),
   toolKind:new Set(), cpu:new Set(), language:new Set(),
+  runsOnCpu:"", runsOnRam:"", runsOnChipset:"",
   ai:"", compilable:"", playable:"", exact:""
 };
 const activityFilterState = {
-  type:new Set(), projectType:new Set(), platform:new Set(), targetKind:new Set(),
+  type:new Set(), projectType:new Set(), platform:new Set(), cpu:new Set(), targetKind:new Set(),
   workKind:new Set(), toolKind:new Set(), ai:"", days:"30"
 };
 
@@ -124,6 +160,21 @@ function bindFacet(containerId,values,selected,labeler,onChange){
     if(selected.has(value)) selected.delete(value); else selected.add(value);
     button.classList.toggle("selected",selected.has(value));
     button.setAttribute("aria-pressed",selected.has(value)?"true":"false");
+    onChange();
+  }));
+}
+
+function bindChoiceFacet(containerId,values,state,key,labeler,onChange){
+  const container=$(containerId);
+  const options=sortedUnique(values,labeler);
+  container.innerHTML='<button type="button" class="facet-chip choice-chip selected" data-value="" aria-pressed="true">Any</button>'
+    +options.map(value=>'<button type="button" class="facet-chip choice-chip" data-value="'+esc(value)+'" aria-pressed="false">'+esc(labeler(value))+'</button>').join("");
+  container.querySelectorAll(".choice-chip").forEach(button=>button.addEventListener("click",()=>{
+    state[key]=button.dataset.value;
+    container.querySelectorAll(".choice-chip").forEach(item=>{
+      item.classList.toggle("selected",item===button);
+      item.setAttribute("aria-pressed",item===button?"true":"false");
+    });
     onChange();
   }));
 }
@@ -150,11 +201,11 @@ function resetSegment(containerId,value=""){
 }
 function projectFiltersActive(){
   return $("q").value.trim() || ["projectType","platform","targetKind","workKind","toolKind","cpu","language"].some(key=>projectFilterState[key].size)
-    || ["ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
+    || ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
 }
 function activityFiltersActive(){
   return $("activityQ").value.trim() || activityFilterState.days!=="30"
-    || ["type","projectType","platform","targetKind","workKind","toolKind"].some(key=>activityFilterState[key].size)
+    || ["type","projectType","platform","cpu","targetKind","workKind","toolKind"].some(key=>activityFilterState[key].size)
     || activityFilterState.ai;
 }
 function updateClearButtons(){
