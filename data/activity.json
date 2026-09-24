@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-23T23:53:03Z",
+  "generated_at": "2026-09-24T01:37:30Z",
   "window_days": 180,
   "events": [
     {
@@ -103466,34 +103466,6 @@
       "title": "Fix render_track_font.py: correct sector mapping and add offset",
       "message": "Fix render_track_font.py: correct sector mapping and add offset\n\nThe game loader sector-to-page mapping is phys N -> page (15-N),\nnot the previously assumed interleave table. Determined empirically\nby matching raw disk sectors against the reference binary.\n\nAdd byte offset parameter so the font can be rendered from the\ncorrect starting position within a track (e.g., $3A5 for the\ncustom font on track $0B).\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
       "url": "https://github.com/XekriRedmane/ali_baba_reveng/commit/da147be3b65f83986324c75b67302e707946ecfe",
-      "author": "XekriRedmane",
-      "branches": [
-        "main"
-      ]
-    },
-    {
-      "type": "commit",
-      "date": "2026-03-28T00:49:52Z",
-      "project_id": "ali-baba-apple2-xekri",
-      "repository": "XekriRedmane/ali_baba_reveng",
-      "sha": "d32134e2bf8b5ceaabc21d8d90c883d49b325271",
-      "title": "Document charset overlap and scene text font, add scene renderer",
-      "message": "Document charset overlap and scene text font, add scene renderer\n\nUpdate HRCG_CTRL_A documentation with charset overlap model: each\ncharset page starts 24 characters (768 bytes) after the previous.\nThe 120-char custom font spans charsets 1-5, with scene text at\ncharsets 3-5 (characters 48-119) using an ornate medieval/Arabian\ntypeface with colored pixels (violet divider rows, white strokes).\n\nAdd charset-to-character mapping table in code comments and explain\nthat font_data.tex characters 48-119 correspond to the scene text\nglyphs.\n\nSave reusable scene renderer at .claude/scripts/render_scene.py\nusing the Apple II hi-res color artifact algorithm from font_data.py.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
-      "url": "https://github.com/XekriRedmane/ali_baba_reveng/commit/d32134e2bf8b5ceaabc21d8d90c883d49b325271",
-      "author": "XekriRedmane",
-      "branches": [
-        "main"
-      ]
-    },
-    {
-      "type": "commit",
-      "date": "2026-03-28T00:31:26Z",
-      "project_id": "ali-baba-apple2-xekri",
-      "repository": "XekriRedmane/ali_baba_reveng",
-      "sha": "8c39427179c67c9d6f2519b3d5f6a26f339359b3",
-      "title": "Annotate HRCG_CTRL_A and HRCG_CHARSET_SELECT",
-      "message": "Annotate HRCG_CTRL_A and HRCG_CHARSET_SELECT\n\nDocument the charset selection mechanism:\n- Ctrl-A normal mode: arms HRCG_MODE_FLAGS bit 7 so next byte\n  selects a charset ('1'-'9')\n- HRCG_CHARSET_SELECT: computes font address as\n  HRCG_FONT_BASE + (selector-1) * $300 (3 pages per charset)\n- Add charset memory map table: charsets 1-2 = game icons/border,\n  charsets 3-5 = scene text/UI, 0 or invalid = standard font\n\nAnnotate the index*3 computation (ASL + ADC), the standard font\nfallback path, and the font pointer update.\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>",
-      "url": "https://github.com/XekriRedmane/ali_baba_reveng/commit/8c39427179c67c9d6f2519b3d5f6a26f339359b3",
       "author": "XekriRedmane",
       "branches": [
         "main"
