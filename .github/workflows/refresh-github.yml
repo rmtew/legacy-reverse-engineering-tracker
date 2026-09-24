@@ -90,6 +90,8 @@ jobs:
 
       - name: Normalize branch attribution
         if: steps.window.outputs.run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python tools/normalize_branch_activity.py
 
       - name: Record project catalogue changes
@@ -102,6 +104,8 @@ jobs:
 
       - name: Commit changes
         if: steps.window.outputs.run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if git diff --quiet -- data/projects.json data/pending-projects.json data/activity.json state/github-poll-state.json state/project-catalog-state.json; then
             echo "No metadata, activity, pending-discovery or poll-state changes"

@@ -9,12 +9,26 @@ final activity/project metadata aligned with each record's tracking branch.
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote, urlencode
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
 ACTIVITY = ROOT / "data" / "activity.json"
+API = "https://api.github.com"
+TOKEN = os.environ.get("GITHUB_TOKEN", "")
+
+# These three records were cleared by the first normalizer run before remote
+# branch-tip fallback existed. They repair themselves once, then drop out of
+# this set because latest_commit is present again.
+LEGACY_REPAIRS = {
+    "elite-bbc-master-moxon",
+    "elite-bbc-micro-disc-moxon",
+    "jsbeeb-mcp-kieranhj",
+}
 
 
 def parse_time(value):
@@ -47,6 +61,57 @@ def activity_state(value):
     if age <= 730:
         return "quiet"
     return "dormant"
+
+
+def remote_latest(project):
+    gh = project.get("github") or {}
+    repo = gh.get("repository")
+    branch = tracking_branch(project)
+    if not repo or not branch:
+        return None
+
+    params = {"sha": branch, "per_page": 1}
+    if project.get("github_path"):
+        params["path"] = project["github_path"]
+    url = f"{API}/repos/{repo}/commits?{urlencode(params)}"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "legacy-reverse-engineering-tracker",
+        "X-GitHub-Api-Version": "2026-03-10",
+    }
+    if TOKEN:
+        headers["Authorization"] = f"Bearer {TOKEN}"
+    with urlopen(Request(url, headers=headers), timeout=30) as response:
+        items = json.load(response)
+    if not items:
+        return None
+
+    item = items[0]
+    commit = item.get("commit") or {}
+    when = (commit.get("committer") or {}).get("date") or (commit.get("author") or {}).get("date")
+    if not when:
+        return None
+    message = commit.get("message") or ""
+    return {
+        "date": when,
+        "sha": item.get("sha"),
+        "message": message,
+        "title": message.splitlines()[0] if message else "",
+        "url": item.get("html_url"),
+    }
+
+
+def apply_latest(project, event):
+    day = event["date"][:10]
+    project["last_activity"] = day
+    gh = project.setdefault("github", {})
+    gh["latest_commit"] = {
+        "sha": event.get("sha"),
+        "date": day,
+        "message": (event.get("message") or event.get("title") or "").splitlines()[0],
+        "url": event.get("url"),
+    }
+    gh["activity_state"] = activity_state(day)
 
 
 def main():
@@ -84,12 +149,19 @@ def main():
             narrowed += 1
         kept.append(event)
 
+    forced = {
+        project_id
+        for project_id in LEGACY_REPAIRS
+        if project_id in by_id and not ((by_id[project_id].get("github") or {}).get("latest_commit"))
+    }
+    repair_ids = stale_latest | forced
+
     newest = {}
     for event in kept:
         if event.get("type") != "commit":
             continue
         project_id = event.get("project_id")
-        if project_id not in stale_latest:
+        if project_id not in repair_ids:
             continue
         when = parse_time(event.get("date"))
         if not when:
@@ -100,26 +172,28 @@ def main():
 
     repaired = 0
     cleared = 0
-    for project_id in stale_latest:
+    remote_repairs = 0
+    for project_id in repair_ids:
         project = by_id[project_id]
-        gh = project.setdefault("github", {})
-        event = newest.get(project_id)
+        event = None
+        try:
+            event = remote_latest(project)
+            if event:
+                remote_repairs += 1
+        except Exception as exc:
+            print(f"WARNING: branch-tip repair {project_id}: {exc}")
+        if event is None:
+            event = newest.get(project_id)
+
         if event:
-            day = event["date"][:10]
-            project["last_activity"] = day
-            gh["latest_commit"] = {
-                "sha": event.get("sha"),
-                "date": day,
-                "message": (event.get("message") or event.get("title") or "").splitlines()[0],
-                "url": event.get("url"),
-            }
-            gh["activity_state"] = activity_state(day)
+            apply_latest(project, event)
             repaired += 1
         else:
             # The retained activity window contains no commit on the branch this
-            # record actually tracks. Unknown is preferable to retaining a
-            # demonstrably wrong commit from another branch.
+            # record actually tracks, and the remote tip could not be resolved.
+            # Unknown is preferable to retaining a demonstrably wrong commit.
             project["last_activity"] = None
+            gh = project.setdefault("github", {})
             gh.pop("latest_commit", None)
             gh["activity_state"] = None
             cleared += 1
@@ -132,7 +206,8 @@ def main():
 
     print(
         f"Branch attribution normalization: removed {removed} events, narrowed {narrowed}, "
-        f"repaired {repaired} latest commits, cleared {cleared} unresolved latest commits."
+        f"repaired {repaired} latest commits ({remote_repairs} from branch tips), "
+        f"cleared {cleared} unresolved latest commits."
     )
 
 
