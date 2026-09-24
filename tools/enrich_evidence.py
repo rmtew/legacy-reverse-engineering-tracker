@@ -44,6 +44,10 @@ POS_BYTE=[
 ]
 NEG_BYTE=[re.compile(r"\bnot byte[- ](?:exact|identical)\b",re.I),re.compile(r"\bnot bit[- ]for[- ]bit\b",re.I)]
 GOAL=re.compile(r"\b(?:goal|aim|target|intended|intention|trying|attempt|want|planned|plans?|eventually|hope)\b",re.I)
+# build.byte_exact is specifically about a rebuilt original-program binary.  Do
+# not promote asset/data conversions merely because they reproduce their source
+# bytes exactly; those are useful verification signals but a different claim.
+BYTE_REJECT=re.compile(r"\b(?:goal|aim|target|intended|intention|trying|attempt|want|planned|plans?|eventually|hope|asset|assets|art|artwork|resource|resources|data file|data files|converter|conversion|texture|textures|sprite|sprites|sound|music)\b",re.I)
 START=[
  re.compile(r"\b(?:project|work|reverse[- ]engineering|disassembly)\s+(?:was\s+)?(?:started|began|commenced)\s+(?:in\s+)?((?:19|20)\d{2})\b",re.I),
  re.compile(r"\bi started (?:this|the) (?:project|work|reverse[- ]engineering|disassembly)[^0-9\n]{0,50}((?:19|20)\d{2})\b",re.I),
@@ -152,7 +156,7 @@ def enrich(record):
  for path,text in docs(record,repo,branch):
   auto["compilable"]+=scan_bool(text,repo,branch,path,POS_COMPILE,NEG_COMPILE)
   auto["playable"]+=scan_bool(text,repo,branch,path,POS_PLAY,NEG_PLAY)
-  auto["byte_exact"]+=scan_bool(text,repo,branch,path,POS_BYTE,NEG_BYTE,GOAL)
+  auto["byte_exact"]+=scan_bool(text,repo,branch,path,POS_BYTE,NEG_BYTE,BYTE_REJECT)
   auto["re_started"]+=scan_start(text,repo,branch,path)
  for k in ("compilable","playable","byte_exact","re_started"):auto[k]=uniq(auto[k])
  return auto
