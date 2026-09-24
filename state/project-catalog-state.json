@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T21:12:13Z",
+  "updated_at": "2026-09-24T21:19:01Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -5555,6 +5555,78 @@
         "byte exact"
       ],
       "notes": "Reverse engineering of Steve Harter's C64 Crossroads 2. The pristine build reproduces the original PRG exactly, while optional build switches expose patches and dead-code experiments. Documentation covers tricky instruction sequences, interrupt code, self-modifying routines, hidden credits and the game's adaptive timing.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "crudnes-hitchhikr": {
+      "id": "crudnes-hitchhikr",
+      "title": "crudNES",
+      "upstream_name": "crudNES",
+      "display_title": "crudNES — NES tracing emulator & automatic disassembly workbench",
+      "subjects": [],
+      "repo": "https://github.com/hitchhikr/crudNES",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code",
+        "NES ROM images"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "disassembly"
+      ],
+      "tool_kinds": [
+        "emulator",
+        "disassembler",
+        "binary-analysis",
+        "automation"
+      ],
+      "types": [
+        "emulator",
+        "tracer",
+        "automatic disassembler"
+      ],
+      "re_started": null,
+      "status": "work in progress",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "runtime code/data access tracing",
+        "automatic disassembly",
+        "ROM reconstruction file generation",
+        "mapper-aware analysis"
+      ],
+      "tags": [
+        "tooling",
+        "NES",
+        "6502",
+        "emulator",
+        "reverse engineering"
+      ],
+      "notes": "NES emulator modified specifically for reverse engineering. Its tracer records code and data accesses while a game runs and generates disassembly plus the supporting files needed to recreate the ROM image; mapper-aware disassembly coverage expands as execution is observed.",
       "ai": {
         "usage": null,
         "tools": []
@@ -15901,6 +15973,77 @@
         "tools": []
       }
     },
+    "punchout-nes-nmikstas": {
+      "id": "punchout-nes-nmikstas",
+      "title": "Mike Tyson's Punch-Out!!",
+      "upstream_name": "mike-tysons-punch-out-disassembly",
+      "display_title": "Mike Tyson's Punch-Out!! — NES reverse-engineering disassembly",
+      "subjects": [
+        "Mike Tyson's Punch-Out!!"
+      ],
+      "repo": "https://github.com/nmikstas/mike-tysons-punch-out-disassembly",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": "master",
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "NES"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "reverse engineering",
+        "source reconstruction"
+      ],
+      "re_started": null,
+      "status": "in progress",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ophis assembler",
+        "bank-by-bank reconstruction",
+        "checksum comparison",
+        "helper scripts",
+        "completion mapping"
+      ],
+      "tags": [
+        "game",
+        "NES",
+        "6502",
+        "software archaeology"
+      ],
+      "notes": "Ongoing NES reverse-engineering disassembly. The repository includes original bank images, disassembled source, helper programs and a build script that assembles reconstructed banks and checksum-compares them against the originals; the README says outputs should be identical to the original bank files.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "mono-mental": {
       "id": "mono-mental",
       "title": "Mono Mental",
@@ -16022,6 +16165,79 @@
         "binary analysis"
       ],
       "notes": "Title-specific ZX Spectrum binary-analysis state for 8-Bit Analysers. The MontyIsInnocent directory contains an approximately 187 KiB Analysis.json annotation database; tracked as analysis-state work rather than a reconstructed-source claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "monty-run-c64-dave-agent": {
+      "id": "monty-run-c64-dave-agent",
+      "title": "Monty on the Run",
+      "upstream_name": "monty-on-the-run",
+      "display_title": "Monty on the Run — C64 byte-perfect reconstruction & refactor",
+      "subjects": [
+        "Monty on the Run"
+      ],
+      "repo": "https://github.com/Dave-Agent/monty-on-the-run",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502/6510 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "source reconstruction",
+        "refactor"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [
+        "Ghidra disassembly",
+        "KickAssembler export",
+        "byte-perfect verification",
+        "namespace refactor",
+        "self-modifying-code removal",
+        "instruction-shape comparison"
+      ],
+      "tags": [
+        "game",
+        "Commodore 64",
+        "6502",
+        "byte-exact",
+        "software archaeology"
+      ],
+      "notes": "Fully annotated C64 reconstruction with two synchronized forms: a byte-perfect single-file source whose assembled PRG is documented as identical to the tape release, and a refactored subsystem-oriented version that removes self-modifying code and dead data while preserving behavior.",
       "ai": {
         "usage": null,
         "tools": []
@@ -16725,6 +16941,79 @@
       "notes": "CP Soft disassembled the original Oh Mummy and developed an enhanced Plus/GX4000 adaptation. The project's itch.io page explicitly states that no generative AI was used.",
       "ai": {
         "usage": false,
+        "tools": []
+      }
+    },
+    "oktalyzer-amiga-hitchhikr": {
+      "id": "oktalyzer-amiga-hitchhikr",
+      "title": "Oktalyzer",
+      "upstream_name": "oktalyzer",
+      "display_title": "Oktalyzer — Amiga complete disassembly & modernization",
+      "subjects": [
+        "Oktalyzer"
+      ],
+      "repo": "https://github.com/hitchhikr/oktalyzer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "source reconstruction",
+        "modernization"
+      ],
+      "re_started": null,
+      "status": "in progress",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "complete disassembly",
+        "AGA/RTG fixes",
+        "software mixer reconstruction",
+        "Vampire hardware-channel replay",
+        "module-format analysis"
+      ],
+      "tags": [
+        "Amiga",
+        "68000",
+        "music software",
+        "software archaeology"
+      ],
+      "notes": "Complete disassembly of the Amiga music tool Oktalyzer, with ongoing reconstruction and modernization. The project documents fixes for AGA/RTG, a new software-mixer replay, Vampire hardware-channel support, module compatibility work and a planned standalone replay routine.",
+      "ai": {
+        "usage": null,
         "tools": []
       }
     },
@@ -25775,6 +26064,80 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "x68k2amiga-hitchhikr": {
+      "id": "x68k2amiga-hitchhikr",
+      "title": "x68k2amiga",
+      "upstream_name": "x68k2amiga",
+      "display_title": "x68k2amiga — X68000-to-Amiga executable conversion & depacking tool",
+      "subjects": [],
+      "repo": "https://github.com/hitchhikr/x68k2amiga",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp X68000"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "X68000 executable/data formats"
+      ],
+      "reconstructed_languages": [
+        "Amiga executable hunks"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "automation"
+      ],
+      "types": [
+        "binary conversion",
+        "reverse-engineering tooling",
+        "data extraction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "X68000 executable parsing",
+        "relocation reconstruction",
+        "Amiga hunk generation",
+        "LZX depacking",
+        "Capcom executable depacking",
+        "SAR extraction",
+        "ADPCM extraction"
+      ],
+      "tags": [
+        "tooling",
+        "Sharp X68000",
+        "Amiga",
+        "68000",
+        "reverse engineering"
+      ],
+      "notes": "Amiga-hosted reverse-engineering utility for converting Sharp X68000 executables into Amiga executables for subsequent analysis. It reconstructs code/data/BSS hunks and relocations, handles packed X68000 executables and can depack/extract several X68000 archive, executable and sample formats.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "xevious-68k-jotd-tcdev": {
