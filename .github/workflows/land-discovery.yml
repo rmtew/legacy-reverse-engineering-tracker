@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: land-discovery-automation
@@ -62,6 +63,11 @@ jobs:
             "repos/${REPO}/git/refs/heads/main" \
             -f sha="${HEAD_SHA}" \
             -F force=false
+
+      - name: Dispatch metadata refresh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run refresh-github.yml --ref main
 
       - name: Delete landed discovery branch
         env:
