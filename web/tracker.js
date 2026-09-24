@@ -70,15 +70,18 @@ const cpuFamilyValues = record => [...new Set([
   ...runtimeProfiles(record).flatMap(profile=>[profile.cpu_family,profile.min_cpu])
 ].map(cpuFamily).filter(Boolean))];
 
-const cpuRanks = {
-  "68000":0,"68010":1,"68020":2,"68030":3,"68040":4,"68060":5,
-  "6502":0,"65C02":1,"65816":2,
-  "8086":0,"80186":1,"80286":2,"80386":3,"80486":4
+const cpuRank = value => {
+  const cpu=String(value??"").toUpperCase().replaceAll(" ","").replace(/^M(?=680)/,"");
+  const m68k={"68000":0,"68010":1,"68020":2,"68030":3,"68040":4,"68060":5};
+  const mos={"6502":0,"65C02":1,"65816":2};
+  const x86={"8086":0,"80186":1,"80286":2,"80386":3,"80486":4};
+  return m68k[cpu] ?? mos[cpu] ?? x86[cpu] ?? null;
 };
 const cpuCompatible = (minimum,available) => {
   if(!minimum||!available) return true;
   if(cpuFamily(minimum)!==cpuFamily(available)) return false;
-  if(Object.hasOwn(cpuRanks,minimum)&&Object.hasOwn(cpuRanks,available)) return cpuRanks[minimum]<=cpuRanks[available];
+  const minRank=cpuRank(minimum), availableRank=cpuRank(available);
+  if(minRank!==null&&availableRank!==null) return minRank<=availableRank;
   return String(minimum).toLowerCase()===String(available).toLowerCase();
 };
 const formatRam = kib => kib<1024 ? kib+"K" : (kib%1024===0 ? (kib/1024)+"M" : (kib/1024).toFixed(1)+"M");
