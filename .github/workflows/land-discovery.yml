@@ -48,4 +48,32 @@ jobs:
           HEAD_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          gh api             --method PATCH             "repos/${REPO}/git/refs/heads/main"             -f sha="${HEAD_SHA}"             -F force=false
+          gh api \
+            --method PATCH \
+            "repos/${REPO}/git/refs/heads/main" \
+            -f sha="${HEAD_SHA}" \
+            -F force=false
+
+      - name: Delete stale merged branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TRIGGER_BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          branches=(
+            "activity-local-date-grouping"
+            "automation/discovery-2026-09-25"
+            "automation/discovery-proof-2026-09-25"
+            "humanize-project-activity"
+            "project-change-activity"
+            "${TRIGGER_BRANCH}"
+          )
+
+          for branch in "${branches[@]}"; do
+            echo "Deleting ${branch}"
+            gh api \
+              --method DELETE \
+              "repos/${REPO}/git/refs/heads/${branch}" || true
+          done
