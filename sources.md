@@ -52,6 +52,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/idontwantyourspamthanks/PiST | Atari ST/STE 68000 IDE integrating vasm/vlink, Hatari source debugging, hardware inspection, profiling, disk/sprite tooling and MCP automation; useful Atari development/tooling discovery node |
 | https://github.com/czietz/ghidraScripts_for_Atari | Atari ST/TT/Falcon Ghidra analysis scripts for TOS executables, ROMs, a.out objects, symbols and MiNTLib function identification |
 | https://github.com/TheGoodDoktor/8BitAnalysers | Multi-platform 8-bit analysis/annotation toolkit for Spectrum, C64 and CPC; assembler export and MCP-assisted analysis |
+| https://github.com/damieng-zx/zx84 | Multi-system Z80 browser emulator with debugger/inspection tooling and a persistent MCP server for automated testing and reverse engineering; especially useful for Spectrum and CPC analysis |
 | https://github.com/TheGoodDoktor/SpectrumAnalyserProjects | Large title-by-title ZX Spectrum analysis-state collection created for 8-Bit Analysers |
 | https://github.com/TheGoodDoktor/C64AnalyserProjects | C64 title analysis-state collection including Armalyte, Bubble Bobble, Exile, Paradroid, Uridium and Wizball |
 
