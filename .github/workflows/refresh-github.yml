@@ -18,6 +18,7 @@ on:
       - "tools/merge_pending_projects.py"
       - "tools/refresh_github.py"
       - "tools/collect_activity.py"
+      - "tools/normalize_branch_activity.py"
       - "tools/record_project_activity.py"
       - "state/project-catalog-state.json"
       - ".github/workflows/refresh-github.yml"
@@ -87,6 +88,10 @@ jobs:
           GITHUB_REQUEST_DELAY: "0.10"
         run: python tools/collect_activity.py
 
+      - name: Normalize branch attribution
+        if: steps.window.outputs.run == 'true'
+        run: python tools/normalize_branch_activity.py
+
       - name: Record project catalogue changes
         if: steps.window.outputs.run == 'true'
         run: python tools/record_project_activity.py
@@ -116,6 +121,7 @@ jobs:
               python tools/merge_pending_projects.py
               python tools/refresh_github.py
               python tools/collect_activity.py
+              python tools/normalize_branch_activity.py
               python tools/record_project_activity.py
               python tools/validate_site_data.py data/projects.json data/activity.json
               if git diff --quiet -- data/projects.json data/pending-projects.json data/activity.json state/github-poll-state.json state/project-catalog-state.json; then
