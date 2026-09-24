@@ -39,7 +39,7 @@ Project classification is deliberately multi-axis rather than a flat tag pile: `
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
 
 
-The site header shows the activity-data refresh time. The site defaults to light mode and provides a Light/Dark toggle; that single preference is persisted locally in the browser using `localStorage` under `retro-development-tracker.theme`. No other UI settings are persisted yet. The Activity view can filter commits versus releases. The RSS feed is deliberately lower-noise: commits are grouped into one item per project per UTC day, while releases remain separate items. Pages deployment validates the JSON relationships and generated RSS before publishing.
+The site header shows the activity-data refresh time. With no saved preference, the site follows the browser/operating-system light/dark preference. Manually using the Light/Dark toggle creates a local override stored in `localStorage` under `retro-development-tracker.theme`; merely following the browser default does not write anything. No other UI settings are persisted yet. The Activity view can filter commits versus releases. The RSS feed is deliberately lower-noise: commits are grouped into one item per project per UTC day, while releases remain separate items. Pages deployment validates the JSON relationships and generated RSS before publishing.
 
 
 The maintenance workflow writes rate-limit diagnostics to its GitHub Actions step summary, including actual limit, remaining quota, reset time, HTTP request counts and conditional 304 counts.
