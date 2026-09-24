@@ -1,0 +1,51 @@
+name: Land discovery automation
+
+on:
+  push:
+    branches:
+      - 'automation/discovery-*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: land-discovery-automation
+  cancel-in-progress: false
+
+jobs:
+  fast-forward-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify branch is a clean fast-forward of main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          main_sha="$(gh api "repos/${REPO}/git/ref/heads/main" --jq '.object.sha')"
+          compare="$(gh api "repos/${REPO}/compare/${main_sha}...${HEAD_SHA}")"
+
+          status="$(jq -r '.status' <<<"${compare}")"
+          merge_base="$(jq -r '.merge_base_commit.sha' <<<"${compare}")"
+          ahead_by="$(jq -r '.ahead_by' <<<"${compare}")"
+          behind_by="$(jq -r '.behind_by' <<<"${compare}")"
+
+          echo "main=${main_sha}"
+          echo "head=${HEAD_SHA}"
+          echo "status=${status} ahead=${ahead_by} behind=${behind_by}"
+
+          if [[ "${merge_base}" != "${main_sha}" || "${behind_by}" != "0" || "${ahead_by}" == "0" ]]; then
+            echo "Refusing to update main: automation branch is not a non-empty clean fast-forward."
+            exit 1
+          fi
+
+      - name: Fast-forward main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          gh api             --method PATCH             "repos/${REPO}/git/refs/heads/main"             -f sha="${HEAD_SHA}"             -F force=false
