@@ -483,3 +483,10 @@ Advanced the high-priority RetroRE 6502 backlog through Andy McFadden's 6502disa
 Then followed the SourceGen index outward beyond RetroRE and promoted nine additional archaeology targets: the **GS/OS DOS 3.3 FST**, **RDOS**, **AppleVision**, **Bill Budge's 3-D Graphics System module**, **Caverns of Freitag**, **Graphics Magician Picture Painter**, **Micro-Painter**, **Sabotage** and **Starship Commander**. This adds operating-system internals, development tooling, mixed BASIC/machine-code applications and games rather than only game disassemblies.
 
 A persistent follow-up task now records the remaining SourceGen index (including Epoch, other Apple II titles, Atari 2600 Adventure, NES Super Mario Bros. and the arcade projects) so the source can be worked systematically and deduplicated against converted/published original listings.
+
+
+## 2026-09-25 — SourceGen arcade follow-through
+
+Continued the new 6502disassembly.com queue outside the Apple II section. Promoted **Asteroids**, **Battlezone**, **Centipede** and **Missile Command** as substantial arcade 6502 disassembly/analysis projects. Their project pages combine SourceGen project sets with project-specific binary construction and technical analysis of vector/graphics systems, hardware interfaces, revisions and game-state behavior.
+
+Reviewed but did not promote the site's Atari 2600 **Adventure** and NES **Super Mario Bros.** pages as independent catalogue records: both explicitly describe SourceGen conversions of pre-existing disassemblies with little or no new analysis. Keeping those as source-level references avoids inflating the project count with format conversions of already-existing work.
