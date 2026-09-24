@@ -15,8 +15,10 @@ The tracker has two views:
 - `data/projects.json` — canonical structured project data
 - `data/activity.json` — rolling 180-day attributed commit feed
 - `data/discovery-sources.json` — persistent discovery-node index and explicit research backlog
+- `data/discovery-decisions.json` — searchable reviewed candidate decisions, including exclusions and duplicates
 - `data/project-audits.json` — field-by-field research coverage for every tracked project
 - `data/research-activity.json` — append-only history of discovery/audit work and when it was performed
+- `tools/apply_discovery_batch.py` — preview and apply one validated cross-file research batch
 - `state/github-poll-state.json` — persistent per-repository polling and branch state
 - `index.html`, `web/tracker.js`, `web/tracker.css` — framework-free interactive UI
 - `tools/refresh_github.py` — adaptive conditional repository probes, metadata refresh and scan scheduling
@@ -40,6 +42,12 @@ CPU discovery and runtime compatibility are deliberately separate. The visible *
 Project classification is deliberately multi-axis rather than a flat tag pile: `record_class` distinguishes subject/tooling/hybrid records, `target_kinds` says what legacy software is being studied, `work_kinds` says what kind of reconstruction/analysis is being done, and `tool_kinds` says what a modern aid actually does. Existing `types` and free-form `tags` remain available for nuance and search.
 
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
+
+## Discovery passes
+
+Prepare one JSON batch containing a date, unique research-event ID, summary and the reviewed additions/updates. Use `python tools/apply_discovery_batch.py batch.json` to preview; add `--write` only after reviewing the summary. The tool links projects to source nodes, creates an unreviewed audit when an explicit audit is not supplied, inserts a newest-first research event and validates the complete proposed tracker before writing any file. It rejects duplicate IDs and repeated project URLs unless a shared URL is explicitly acknowledged. Batch format and a runnable example are in [the discovery workflow guide](docs/discovery-workflow.md).
+
+Commit all changed data files together after `python tools/validate_site_data.py data/projects.json data/activity.json` and `git diff --check`. Publish one commit against the current `main` ref. Catalogue changes trigger a metadata refresh and then Pages; research-index-only changes deploy directly through Pages. Check the relevant runs before finishing. In Codex Work, use the linked GitHub connector for the atomic tree/commit/ref update; the workspace shell may not have authenticated Git credentials. The existing `automation/discovery-*` workflow can also validate, fast-forward and remove a temporary discovery branch. Do not publish intermediate project/audit/source changes separately.
 
 
 The site header shows the activity-data refresh time. With no saved preference, the site follows the browser/operating-system light/dark preference. Manually using the Light/Dark toggle creates a local override stored in `localStorage` under `retro-development-tracker.theme`; merely following the browser default does not write anything. No other UI settings are persisted yet. The Activity view can filter commits versus releases. The RSS feed is deliberately lower-noise: commits are grouped into one item per project per UTC day, while releases remain separate items. Pages deployment validates the JSON relationships and generated RSS before publishing.

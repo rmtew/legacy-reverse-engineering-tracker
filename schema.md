@@ -130,6 +130,12 @@ Source review states are:
 
 The top-level `backlog` is the explicit source-research queue. Task states are `open`, `in-progress`, `done`, or `deferred`. A deferred task is retained so a consciously excluded lead is not repeatedly rediscovered.
 
+### `data/discovery-decisions.json`
+
+This is an index of specific reviewed candidate URLs, especially leads deliberately not promoted. Each decision has a stable `id`, descriptive `title`, canonical `url`, `decision` (`excluded`, `duplicate`, `deferred`, or `promoted`), concise `reason`, one or more primary `evidence_urls`, linked `source_ids`, optional `project_ids`, and `reviewed_at`. `promoted` decisions require a project reference; an excluded conversion can point to a tracked predecessor when appropriate. URLs and IDs must be unique within this index. A decision records what was reviewed; it does not assert that every other work on the subject is excluded.
+
+The batch helper can add these records alongside projects and research history. See [discovery workflow](docs/discovery-workflow.md).
+
 ### `data/project-audits.json`
 
 There must be exactly one audit record for every `data/projects.json` project ID. It tracks research coverage independently from the factual project record.

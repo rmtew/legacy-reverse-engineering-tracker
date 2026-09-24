@@ -26,6 +26,9 @@ jobs:
       - name: Validate discovery branch state
         run: python tools/validate_site_data.py data/projects.json data/activity.json
 
+      - name: Check discovery batch integrity
+        run: python -m unittest discover -s tools -p 'test_*.py'
+
       - name: Verify branch is a clean fast-forward of main
         env:
           GH_TOKEN: ${{ github.token }}

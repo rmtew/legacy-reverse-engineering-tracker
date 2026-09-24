@@ -26,6 +26,7 @@ RESEARCH_AREA_STATES = {"unreviewed", "needs-research", "reviewed", "not-applica
 RESEARCH_OVERALL_STATES = {"unreviewed", "partial", "reviewed"}
 DISCOVERY_REVIEW_STATES = {"unreviewed", "partial", "substantially-reviewed", "exhausted"}
 DISCOVERY_TASK_STATES = {"open", "in-progress", "done", "deferred"}
+DISCOVERY_DECISIONS = {"excluded", "duplicate", "deferred", "promoted"}
 
 
 def validate_date(value, label, errors, allow_none=True):
@@ -45,15 +46,18 @@ def validate_research_state(projects_path, project_ids, errors):
     discovery_path = data_dir / "discovery-sources.json"
     audits_path = data_dir / "project-audits.json"
     research_path = data_dir / "research-activity.json"
+    decisions_path = data_dir / "discovery-decisions.json"
 
-    missing_files = [str(path) for path in (discovery_path, audits_path, research_path) if not path.exists()]
+    missing_files = [str(path) for path in (discovery_path, audits_path, research_path, decisions_path) if not path.exists()]
     if missing_files:
         fail("research state files missing: " + ", ".join(missing_files), errors)
-        return 0, 0, 0
+        return 0, 0, 0, 0
 
     discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
     audits = json.loads(audits_path.read_text(encoding="utf-8"))
     research = json.loads(research_path.read_text(encoding="utf-8"))
+    decisions = json.loads(decisions_path.read_text(encoding="utf-8"))
+    validate_date(decisions.get("indexed_at"), "discovery decisions indexed_at", errors, allow_none=False)
 
     source_ids = []
     for index, source in enumerate(discovery.get("sources", [])):
@@ -98,9 +102,61 @@ def validate_research_state(projects_path, project_ids, errors):
         fail("duplicate discovery task ids: " + ", ".join(duplicate_tasks), errors)
     task_id_set = set(task_ids)
     for source in discovery.get("sources", []):
+        promoted = source.get("projects_promoted")
+        if not isinstance(promoted, list):
+            fail(f"discovery source {source.get('id')} projects_promoted must be an array", errors)
+        else:
+            unknown_projects = sorted(set(promoted) - project_ids)
+            if unknown_projects:
+                fail(f"discovery source {source.get('id')} references unknown promoted projects: {', '.join(unknown_projects)}", errors)
         unknown = sorted(set(source.get("open_task_ids") or []) - task_id_set)
         if unknown:
             fail(f"discovery source {source.get('id')} references unknown open tasks: {', '.join(unknown)}", errors)
+
+    decision_ids = set()
+    decision_urls = set()
+    if not isinstance(decisions.get("decisions"), list):
+        fail("discovery decisions must be an array", errors)
+    else:
+        for index, decision in enumerate(decisions["decisions"]):
+            if not isinstance(decision, dict):
+                fail(f"discovery decision {index} must be an object", errors)
+                continue
+            decision_id = decision.get("id")
+            url = decision.get("url")
+            if not isinstance(decision_id, str) or not decision_id.strip():
+                fail(f"discovery decision {index} is missing id", errors)
+            elif decision_id in decision_ids:
+                fail(f"duplicate discovery decision id {decision_id}", errors)
+            else:
+                decision_ids.add(decision_id)
+            if not isinstance(url, str) or not url.startswith(("https://", "http://")):
+                fail(f"discovery decision {index} has invalid url", errors)
+            elif url.rstrip("/").casefold() in decision_urls:
+                fail(f"duplicate discovery decision url {url}", errors)
+            else:
+                decision_urls.add(url.rstrip("/").casefold())
+            for field in ("title", "reason"):
+                if not isinstance(decision.get(field), str) or not decision[field].strip():
+                    fail(f"discovery decision {index} is missing {field}", errors)
+            if decision.get("decision") not in DISCOVERY_DECISIONS:
+                fail(f"discovery decision {index} has invalid decision {decision.get('decision')!r}", errors)
+            validate_date(decision.get("reviewed_at"), f"discovery decision {index} reviewed_at", errors, allow_none=False)
+            for field, allowed in (("source_ids", source_id_set), ("project_ids", project_ids)):
+                values = decision.get(field)
+                if not isinstance(values, list) or any(not isinstance(value, str) for value in values):
+                    fail(f"discovery decision {index} {field} must be an array of IDs", errors)
+                else:
+                    unknown = sorted(set(values) - allowed)
+                    if unknown:
+                        fail(f"discovery decision {index} has unknown {field}: {', '.join(unknown)}", errors)
+                    if field == "source_ids" and not values:
+                        fail(f"discovery decision {index} needs source_ids", errors)
+            evidence = decision.get("evidence_urls")
+            if not isinstance(evidence, list) or not evidence or any(not isinstance(link, str) or not link.startswith(("https://", "http://")) for link in evidence):
+                fail(f"discovery decision {index} needs evidence_urls", errors)
+            if decision.get("decision") == "promoted" and not decision.get("project_ids"):
+                fail(f"promoted discovery decision {index} needs project_ids", errors)
 
     audit_ids = []
     for index, audit in enumerate(audits.get("projects", [])):
@@ -172,7 +228,7 @@ def validate_research_state(projects_path, project_ids, errors):
     if duplicate_events:
         fail("duplicate research event ids: " + ", ".join(duplicate_events), errors)
 
-    return len(source_ids), len(audit_ids), len(event_ids)
+    return len(source_ids), len(audit_ids), len(event_ids), len(decisions.get("decisions", []))
 
 
 def validate(projects_path, activity_path, rss_path=None):
@@ -190,7 +246,7 @@ def validate(projects_path, activity_path, rss_path=None):
 
     project_ids = {value for value in ids if value}
 
-    source_count, audit_count, research_event_count = validate_research_state(projects_path, project_ids, errors)
+    source_count, audit_count, research_event_count, decision_count = validate_research_state(projects_path, project_ids, errors)
 
     for index, project in enumerate(projects):
         for field in ("upstream_name", "display_title"):
@@ -357,7 +413,7 @@ def validate(projects_path, activity_path, rss_path=None):
 
     print(
         f"Validated {len(projects)} projects, {len(activity.get('events', []))} stored activity events"
-        + f", {source_count} discovery sources, {audit_count} project audits, {research_event_count} research events"
+        + f", {source_count} discovery sources, {decision_count} discovery decisions, {audit_count} project audits, {research_event_count} research events"
         + (f" and RSS {rss_path}" if rss_path else "")
         + "."
     )
