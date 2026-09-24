@@ -427,3 +427,19 @@ Completed the **Ricardo Quesada C64** source audit. Added **Le Mans** as a fully
 Advanced the **jotd666** audit with **Xevious** and **Galaxian**, both backed by project-specific documentation explicitly describing Z80 reverse engineering and 68000 transcoding. Several other candidate repositories currently contain copied or mismatched READMEs for other games, so they remain unpromoted pending project-specific evidence rather than inheriting claims from those templates.
 
 This pass adds **17 projects**, taking the catalogue from 321 to **338**.
+
+
+## 2026-09-25 — Spectrum analyser completion and RetroRE C64/BBC/Atari batch
+
+Finished the systematic **TheGoodDoktor/SpectrumAnalyserProjects** title audit. Promoted the final eighteen substantive game-analysis directories: Saboteur, Head Over Heels, Amaurote 128, Zynaps, Hyper Sports, Universal Hero, Target Renegade, Light Force, Wizball, Athena, Robocop, Rastan, Feud, Octan, Turrican II, Monty Is Innocent, Daley Thompson's Supertest and Tai-Pan. The remaining `ZXBasic` directory was explicitly reviewed but not promoted: it has no snapshot/established legacy subject and is largely generic baseline analysis state. The dedicated Spectrum analyser queue is now complete.
+
+Advanced the **RetroRE 6502** backlog with nine independent primary-source projects:
+- Haunted House — Atari 2600 commented disassembly;
+- A View to a Kill, Chiller, Squirm, Hunchback, Wizard of Wor and Ghostbusters — C64 reverse-engineering/disassembly projects;
+- Imogen and Night World — BBC Micro py8dis/BeebAsm reconstruction projects.
+
+The Imogen and Night World repositories have no conventional README, so their build scripts were used as primary evidence: both generate reconstructed source and compare rebuilt components against original binaries. Existing canonical tracker records were preferred over alternate/older RetroRE links, so Aviator, Revs and Electron Elite were not duplicated.
+
+Also sampled the **Mark Moxon** archaeology graph. Apple II Elite, BBC Micro cassette Elite and Elite-A are current repositories centered on original-source preservation/documentation (Elite-A's historical creation itself involved disassembly), so they remain discovery context rather than being added as new reverse-engineering records in this pass. The Mark Moxon graph task remains in progress for genuinely distinct hacks, tools and ports.
+
+This pass adds **27 projects**, taking the catalogue from 338 to **365**.

@@ -125,7 +125,6 @@
 
 ### ZX Spectrum
 
-- Audit `TheGoodDoktor/SpectrumAnalyserProjects` systematically; it contains many large title-specific analysis datasets that are not yet represented individually.
 - Continue graph-style discovery through SkoolKit links, author profiles and references from already tracked disassemblies.
 - Prefer canonical/current project sources over archive mirrors, while keeping genuinely independent disassemblies as separate records.
 
@@ -185,3 +184,7 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/VilleKrumlinde/FairlightZ80 | Byte-exact ZX Spectrum Fairlight disassembly with detailed room/render/sprite/collision analysis |
 | https://github.com/mjwilson/Fairlight2-ZXSpectrum | Active Fairlight II reverse-engineering investigation focused on room/object formats and the game's apparent completion bug |
 | https://github.com/Bedazzle/Smugglers_cove | Complete byte-exact Smuggler's Cove disassembly with decoded engine/data formats, relocation testing, RZX trace validation and Claude-assisted reconstruction |
+
+| https://github.com/unorig | C64 reverse-engineered/decompiled game-source cluster including A View to a Kill, Chiller, Ghostbusters and Squirm |
+| https://github.com/dabadab/wizardofwor | Extensively documented C64 Wizard of Wor reverse engineering and buildable cartridge reconstruction |
+| https://github.com/brandonrobertz/haunted_house_disassembly | Atari 2600 Haunted House commented disassembly and reverse-engineering project |
