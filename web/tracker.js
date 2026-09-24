@@ -267,7 +267,8 @@ function matches(record) {
   const profiles=runtimeProfiles(record);
   const runtimeRequested=projectFilterState.runsOnCpu||projectFilterState.runsOnRam||projectFilterState.runsOnChipset;
   const runtimeMatch=!runtimeRequested || profiles.some(profile=>
-    (!projectFilterState.runsOnCpu || cpuCompatible(profile.min_cpu,projectFilterState.runsOnCpu))
+    (!projectFilterState.platform.size || projectFilterState.platform.has(profile.platform))
+    && (!projectFilterState.runsOnCpu || (profile.min_cpu && cpuCompatible(profile.min_cpu,projectFilterState.runsOnCpu)))
     && (!projectFilterState.runsOnRam || (Number.isFinite(profile.min_ram_kib) && profile.min_ram_kib<=Number(projectFilterState.runsOnRam)))
     && (!projectFilterState.runsOnChipset || arr(profile.chipsets).includes(projectFilterState.runsOnChipset))
   );
