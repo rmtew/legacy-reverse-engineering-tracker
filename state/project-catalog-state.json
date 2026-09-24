@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T20:50:13Z",
+  "updated_at": "2026-09-24T21:12:13Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -1248,6 +1248,73 @@
         "tools": []
       }
     },
+    "ambermoon-sourceror": {
+      "id": "ambermoon-sourceror",
+      "title": "AmbermoonSourceror",
+      "upstream_name": "AmbermoonSourceror",
+      "display_title": "AmbermoonSourceror — Ghidra-to-Amiga assembly converter",
+      "subjects": [
+        "Ambermoon"
+      ],
+      "repo": "https://github.com/Pyrdacor/AmbermoonSourceror",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Ghidra ASCII export",
+        "Amiga machine code"
+      ],
+      "reconstructed_languages": [
+        "Amiga assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-reconstruction"
+      ],
+      "tool_kinds": [
+        "reassembler",
+        "binary-analysis"
+      ],
+      "types": [
+        "reverse-engineering tooling",
+        "source converter"
+      ],
+      "re_started": null,
+      "status": "in progress",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra export conversion",
+        "assembler source normalization"
+      ],
+      "tags": [
+        "Ambermoon",
+        "Amiga",
+        "Ghidra",
+        "reverse engineering"
+      ],
+      "notes": "Work-in-progress CLI tool that converts Ghidra ASCII exports of Ambermoon AM2_CPU/AM2_BLIT into valid Amiga assembler source.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "amberstar": {
       "id": "amberstar",
       "title": "Amberstar",
@@ -1313,6 +1380,74 @@
         "cross-platform"
       ],
       "notes": "Research and format decoding across the Amiga, Atari ST and DOS versions.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "amberworld-research": {
+      "id": "amberworld-research",
+      "title": "Amberworld",
+      "upstream_name": "Amberworld",
+      "display_title": "Amberworld — Amber trilogy format & code reverse engineering",
+      "subjects": [
+        "Amberstar",
+        "Ambermoon",
+        "Albion"
+      ],
+      "repo": "https://amberworld.sourceforge.net/",
+      "project_url": "https://amberworld.sourceforge.net/",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST",
+        "DOS"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "game binaries/data files"
+      ],
+      "reconstructed_languages": [],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "data-format analysis",
+        "extraction/conversion tooling"
+      ],
+      "re_started": null,
+      "status": "historical",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "file-format reverse engineering",
+        "data extraction/conversion",
+        "disassembled-code analysis"
+      ],
+      "tags": [
+        "Amberstar",
+        "Ambermoon",
+        "Albion",
+        "reverse engineering"
+      ],
+      "notes": "Oliver Gantert's long-running Amberworld project. Its site documents extraction/conversion tools and source releases for Amberstar, Ambermoon and Albion, extensive reverse-engineered file formats, and a later return to disassembled game-code analysis.",
       "ai": {
         "usage": null,
         "tools": []
@@ -7184,6 +7319,111 @@
         "tools": []
       }
     },
+    "elite-flicker-free-c64-plus4-moxon": {
+      "id": "elite-flicker-free-c64-plus4-moxon",
+      "title": "Elite",
+      "upstream_name": "c64-elite-flicker-free",
+      "display_title": "Elite — flicker-free C64/Plus/4 patch",
+      "subjects": [
+        "Elite"
+      ],
+      "repo": "https://github.com/markmoxon/c64-elite-flicker-free",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64",
+        "Commodore Plus/4"
+      ],
+      "target_platforms": [
+        "Commodore 64",
+        "Commodore Plus/4"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": [
+        {
+          "name": "C64 PAL",
+          "platform": "Commodore 64",
+          "notes": "README provides a PAL D64 and states it is tested in VICE/online emulators and intended for real hardware.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/c64-elite-flicker-free",
+              "quote": "Download flicker-free Commodore 64 Elite (PAL)"
+            }
+          ]
+        },
+        {
+          "name": "C64 NTSC",
+          "platform": "Commodore 64",
+          "notes": "README provides an NTSC D64 for NTSC machines.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/c64-elite-flicker-free",
+              "quote": "Download flicker-free Commodore 64 Elite (NTSC)"
+            }
+          ]
+        },
+        {
+          "name": "Plus/4",
+          "platform": "Commodore Plus/4",
+          "notes": "README provides a Plus/4 PRG tested in YAPE/VICE and intended for real hardware.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/c64-elite-flicker-free",
+              "quote": "Download flicker-free Commodore Plus/4 Elite"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code/source"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan modification",
+        "patching",
+        "RE-derived patch"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "reconstructed BBC Master drawing code",
+        "binary patching",
+        "graphics algorithm backport",
+        "reference-disk validation"
+      ],
+      "tags": [
+        "Elite",
+        "6502",
+        "fan modification",
+        "retro development"
+      ],
+      "notes": "Fan patch for C64 and Plus/4 Elite that removes most ship/planet flicker. The ship drawing code is reconstructed from BBC Master Elite disassembly and backported; Mark Moxon adds improved planet drawing and build/apply tooling.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "elite-spectrum-analyser": {
       "id": "elite-spectrum-analyser",
       "title": "Elite",
@@ -7383,6 +7623,97 @@
         "tools": []
       }
     },
+    "elite-3d-moxon": {
+      "id": "elite-3d-moxon",
+      "title": "Elite 3D",
+      "upstream_name": "elite-3d",
+      "display_title": "Elite 3D — anaglyph BBC Elite modification",
+      "subjects": [
+        "Elite"
+      ],
+      "repo": "https://github.com/markmoxon/elite-3d",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "BBC Master"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": [
+        {
+          "name": "BBC Micro + 6502 Second Processor",
+          "platform": "BBC Micro",
+          "notes": "README states this configuration is supported.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-3d",
+              "quote": "BBC Micro with 6502 Second Processor"
+            }
+          ]
+        },
+        {
+          "name": "BBC Master Turbo",
+          "platform": "BBC Master",
+          "notes": "README states BBC Master Turbo is supported.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-3d",
+              "quote": "BBC Master Turbo"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code/source"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan modification",
+        "3D conversion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "BeebAsm",
+        "anaglyph rendering",
+        "flicker-free drawing backport",
+        "source-level modification"
+      ],
+      "tags": [
+        "Elite",
+        "6502",
+        "fan modification",
+        "retro development"
+      ],
+      "notes": "Full anaglyph-3D Elite modification for accelerated BBC systems, built from the documented 6502 Second Processor source and adding 3D/flicker-free rendering modifications.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "elite-demo-bbc-micro-moxon": {
       "id": "elite-demo-bbc-micro-moxon",
       "title": "Elite Demonstration Disc — BBC Micro reconstruction",
@@ -7446,6 +7777,219 @@
         "Mark Moxon"
       ],
       "notes": "Source reconstructed by hand from the Acornsoft Elite Demonstration Disc binaries; build verification reports all compiled binaries matching the originals.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "elite-over-econet-moxon": {
+      "id": "elite-over-econet-moxon",
+      "title": "Elite over Econet",
+      "upstream_name": "elite-over-econet",
+      "display_title": "Elite over Econet — network-loading & multiplayer scoreboard modification",
+      "subjects": [
+        "Elite"
+      ],
+      "repo": "https://github.com/markmoxon/elite-over-econet",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "BBC Master"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "BBC Master"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": [
+        {
+          "name": "BBC Micro",
+          "platform": "BBC Micro",
+          "notes": "Repository explicitly includes BBC Micro Econet Elite.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-over-econet",
+              "quote": "BBC Micro"
+            }
+          ]
+        },
+        {
+          "name": "BBC Master 128",
+          "platform": "BBC Master",
+          "notes": "Repository explicitly includes BBC Master 128 Econet Elite.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-over-econet",
+              "quote": "BBC Master 128"
+            }
+          ]
+        },
+        {
+          "name": "6502 Second Processor",
+          "platform": "BBC Micro",
+          "notes": "Repository explicitly includes the 6502 Second Processor version.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-over-econet",
+              "quote": "6502 Second Processor"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code/source"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan modification",
+        "network conversion"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "Econet loader integration",
+        "multiplayer scoreboards",
+        "BeebAsm",
+        "DSD/SSD image build",
+        "reconstructed Elite source"
+      ],
+      "tags": [
+        "Elite",
+        "6502",
+        "fan modification",
+        "retro development"
+      ],
+      "notes": "Network-enabled Elite variants that load over Econet and add live multiplayer scoreboards. The repository assembles source variants and builds DSD/SSD images; BBC Micro and Master bases include reconstructed source lineages.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "elite-universe-editor-moxon": {
+      "id": "elite-universe-editor-moxon",
+      "title": "Elite Universe Editor",
+      "upstream_name": "elite-universe-editor",
+      "display_title": "Elite Universe Editor — multi-platform in-game universe editor",
+      "subjects": [
+        "Elite"
+      ],
+      "repo": "https://github.com/markmoxon/elite-universe-editor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Master",
+        "BBC Micro",
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "BBC Master",
+        "BBC Micro",
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": [
+        {
+          "name": "BBC Master",
+          "platform": "BBC Master",
+          "notes": "Universe Editor target documented in the repository.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-universe-editor",
+              "quote": "BBC Master"
+            }
+          ]
+        },
+        {
+          "name": "BBC Micro + 6502 Second Processor",
+          "platform": "BBC Micro",
+          "notes": "Universe Editor target documented in the repository.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-universe-editor",
+              "quote": "6502 Second Processor"
+            }
+          ]
+        },
+        {
+          "name": "Commodore 64",
+          "platform": "Commodore 64",
+          "notes": "Universe Editor target documented in the repository; this variant patches original game binaries.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-universe-editor",
+              "quote": "Commodore 64"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code/source"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "game-specific editor",
+        "fan modification",
+        "patching"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "shared editor library",
+        "source-level hooks",
+        "C64 binary patching",
+        "multi-target build"
+      ],
+      "tags": [
+        "Elite",
+        "6502",
+        "editor",
+        "retro development"
+      ],
+      "notes": "Game-specific editor integrated into BBC Master, 6502 Second Processor and C64 Elite. The BBC variants modify documented source; the C64 variant patches original binaries while sharing a common editor library.",
       "ai": {
         "usage": null,
         "tools": []
@@ -22068,6 +22612,98 @@
         "tools": []
       }
     },
+    "teletext-elite-moxon": {
+      "id": "teletext-elite-moxon",
+      "title": "Teletext Elite",
+      "upstream_name": "teletext-elite",
+      "display_title": "Teletext Elite — BBC Micro/Master Mode 7 conversion",
+      "subjects": [
+        "Elite"
+      ],
+      "repo": "https://github.com/markmoxon/teletext-elite",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "BBC Master"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": [
+        {
+          "name": "BBC Micro",
+          "platform": "BBC Micro",
+          "notes": "Project explicitly targets BBC Micro.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/teletext-elite",
+              "quote": "Teletext Elite on the BBC Micro"
+            }
+          ]
+        },
+        {
+          "name": "BBC Master 128",
+          "platform": "BBC Master",
+          "notes": "Project explicitly targets BBC Master 128.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/teletext-elite",
+              "quote": "BBC Master 128"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code/source"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan conversion",
+        "RE-derived modification"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "BeebAsm",
+        "Mode 7 graphics conversion",
+        "reconstructed Elite source",
+        "reference verification"
+      ],
+      "tags": [
+        "Elite",
+        "6502",
+        "fan modification",
+        "retro development"
+      ],
+      "notes": "Full Elite converted to BBC teletext Mode 7. The project is built on source reconstructed from the BBC Micro disassembly and adds new teletext rendering code while preserving the complete game.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "terramex-spectrum": {
       "id": "terramex-spectrum",
       "title": "Terramex",
@@ -23285,6 +23921,67 @@
         "tools": []
       }
     },
+    "tokimeki-memorial-ps1-tetracorp": {
+      "id": "tokimeki-memorial-ps1-tetracorp",
+      "title": "Tokimeki Memorial: Forever With You",
+      "upstream_name": "tokimeki-memorial",
+      "display_title": "Tokimeki Memorial: Forever With You — PlayStation Ghidra analysis",
+      "subjects": [
+        "Tokimeki Memorial: Forever With You"
+      ],
+      "repo": "https://github.com/tetracorp/tokimeki-memorial",
+      "project_url": "https://tetracorp.github.io/tokimeki-memorial",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PlayStation"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "PlayStation game binaries"
+      ],
+      "reconstructed_languages": [],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "binary analysis"
+      ],
+      "re_started": null,
+      "status": "historical",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra",
+        "binary analysis",
+        "documented findings"
+      ],
+      "tags": [
+        "PlayStation",
+        "Ghidra",
+        "reverse engineering"
+      ],
+      "notes": "Tetracorp's analysis of the 1995 Japanese PlayStation game using Ghidra to reverse engineer the original game binaries, with methods and findings published on the project website. The author notes that active updates stopped in 2023.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "jotd-track-field-amiga": {
       "id": "jotd-track-field-amiga",
       "title": "Track & Field — Amiga arcade transcode",
@@ -23602,6 +24299,98 @@
         "binary analysis"
       ],
       "notes": "Title-specific ZX Spectrum binary-analysis state for 8-Bit Analysers. The Turrican II directory contains an approximately 209 KiB Analysis.json annotation database; tracked as analysis-state work rather than a reconstructed-source claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "elite-two-player-moxon": {
+      "id": "elite-two-player-moxon",
+      "title": "Two-player Elite",
+      "upstream_name": "elite-two-player-6502-second-processor",
+      "display_title": "Two-player Elite — split-screen BBC Elite modification",
+      "subjects": [
+        "Elite"
+      ],
+      "repo": "https://github.com/markmoxon/elite-two-player-6502-second-processor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "BBC Master"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": [
+        {
+          "name": "BBC Micro + 6502 Second Processor",
+          "platform": "BBC Micro",
+          "notes": "README states this configuration is supported.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-two-player-6502-second-processor",
+              "quote": "BBC Micro with 6502 Second Processor"
+            }
+          ]
+        },
+        {
+          "name": "BBC Master Turbo",
+          "platform": "BBC Master",
+          "notes": "README states BBC Master Turbo is supported.",
+          "evidence": [
+            {
+              "url": "https://github.com/markmoxon/elite-two-player-6502-second-processor",
+              "quote": "BBC Master Turbo"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "6502 machine code/source"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan modification",
+        "multiplayer conversion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "BeebAsm",
+        "split-screen conversion",
+        "AI pilot",
+        "joystick/Delta 14B input",
+        "source-level modification"
+      ],
+      "tags": [
+        "Elite",
+        "6502",
+        "fan modification",
+        "retro development"
+      ],
+      "notes": "Split-screen two-player conversion of Elite with keyboard/joystick/Delta 14B support and an optional AI pilot, built from the documented 6502 Second Processor source.",
       "ai": {
         "usage": null,
         "tools": []
