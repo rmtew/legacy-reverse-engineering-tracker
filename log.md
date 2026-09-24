@@ -474,3 +474,12 @@ Advanced the high-priority RetroRE 6502 backlog by resolving the older Raidenthe
 Promoted four NES projects: **Mega Man 3**, **Mega Man 4**, **Mega Man 5** and **Mega Man 6**. Each primary README states that the code and data disassembly is complete and rebuilds a clean NTSC-U ROM with xkas-plus; the source is complete while code commentary remains unfinished. The catalogue records the projects as complete/compilable disassemblies but deliberately leaves byte-exactness unknown because the documentation does not explicitly claim a byte-for-byte-identical output.
 
 The RetroRE task remains in progress for the remaining Apple II, Atari 2600/8-bit, C64 and NES leads.
+
+
+## 2026-09-25 — Apple II SourceGen discovery expansion
+
+Advanced the high-priority RetroRE 6502 backlog through Andy McFadden's 6502disassembly.com project pages. Promoted seven Apple II disassembly/analysis projects: **Bomber**, **Deathmaze 5000**, **Elite**, **Phantoms Five**, **Golden Voyage / Scott Adams Adventures**, **Space Eggs** and **Stellar 7**. These provide SourceGen project sets and substantial technical analysis; build, runnable and byte-exact fields remain unknown where the project pages do not establish a verified standalone rebuild.
+
+Then followed the SourceGen index outward beyond RetroRE and promoted nine additional archaeology targets: the **GS/OS DOS 3.3 FST**, **RDOS**, **AppleVision**, **Bill Budge's 3-D Graphics System module**, **Caverns of Freitag**, **Graphics Magician Picture Painter**, **Micro-Painter**, **Sabotage** and **Starship Commander**. This adds operating-system internals, development tooling, mixed BASIC/machine-code applications and games rather than only game disassemblies.
+
+A persistent follow-up task now records the remaining SourceGen index (including Epoch, other Apple II titles, Atari 2600 Adventure, NES Super Mario Bros. and the arcade projects) so the source can be worked systematically and deduplicated against converted/published original listings.
