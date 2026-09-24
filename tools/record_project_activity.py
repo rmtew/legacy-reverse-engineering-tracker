@@ -34,6 +34,8 @@ MATERIAL_FIELDS = (
     "source_platforms",
     "target_platforms",
     "source_cpu",
+    "target_cpu",
+    "runtime_profiles",
     "source_language",
     "reconstructed_languages",
     "record_class",
