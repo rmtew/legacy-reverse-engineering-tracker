@@ -171,3 +171,6 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/kieranhj/paradroid-beeb | Active faithful Paradroid C64-to-BBC port using the C64 disassembly as specification; extensive Claude-assisted measurement and validation |
 | https://github.com/kieranhj/elite-beebasm | BBC Elite historical-source restoration into a readable BeebAsm/Python build with binary verification |
 | https://github.com/kieranhj/jsbeeb-mcp | MCP server exposing headless BBC Micro/Master emulation, memory/register inspection, screenshots and disc automation to AI assistants |
+
+| https://github.com/temisu/ancient | Active modern decompressor/library for a large body of Amiga/Atari-era compression formats including PowerPacker, XPK, CrunchMania, StoneCracker, RNC and DMS; useful data-format archaeology tooling |
+| https://github.com/HenadziMatuts/Reuromancer | Neuromancer DOS-to-Win64 reverse-engineered port with adapted original disassembly, reconstructed routines and a DAT resource browser |
