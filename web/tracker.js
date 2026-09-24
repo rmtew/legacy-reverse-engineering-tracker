@@ -568,7 +568,8 @@ function initActivityFilters() {
     value=>({commit:"Commits",release:"Releases",project:"Project changes"}[value]||value),
     ()=>{updateClearButtons();renderActivity();});
   bindFacet("activityProjectTypeFacet",["software","tools"],activityFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityPlatformFacet",filterProjects.flatMap(p=>arr(p.source_platforms)),activityFilterState.platform,value=>value,()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityPlatformFacet",filterProjects.flatMap(platformValues),activityFilterState.platform,value=>value,()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityCpuFacet",filterProjects.flatMap(cpuFamilyValues),activityFilterState.cpu,value=>value,()=>{updateClearButtons();renderActivity();});
   bindFacet("activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),activityFilterState.targetKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
   bindFacet("activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),activityFilterState.workKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
   bindFacet("activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),activityFilterState.toolKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
@@ -585,7 +586,7 @@ function activityMatches(event) {
   const hay=[
     event.type,event.title,event.message,event.repository,event.tag,
     projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
-    ...projectTypeValues(project).map(projectTypeLabel),
+    ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),...cpuFamilyValues(project),
     ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
     ...arr(project.tags),...arr(project.ai?.tools),
     ...arr(event.changes),JSON.stringify(event.change_details||[])
@@ -593,7 +594,8 @@ function activityMatches(event) {
   return (!q||hay.includes(q))
     && facetMatch(activityFilterState.type,[activityKind(event)])
     && facetMatch(activityFilterState.projectType,projectTypeValues(project))
-    && facetMatch(activityFilterState.platform,project.source_platforms)
+    && facetMatch(activityFilterState.platform,platformValues(project))
+    && facetMatch(activityFilterState.cpu,cpuFamilyValues(project))
     && facetMatch(activityFilterState.targetKind,project.target_kinds)
     && facetMatch(activityFilterState.workKind,project.work_kinds)
     && facetMatch(activityFilterState.toolKind,project.tool_kinds)
@@ -634,6 +636,8 @@ const activityFieldLabels={
   source_cpu:"Source CPU",
   source_language:"Source language",
   reconstructed_languages:"Output language",
+  target_cpu:"Target CPU",
+  runtime_profiles:"Runtime compatibility",
   record_class:"Project type",
   target_kinds:"Target kind",
   work_kinds:"Work kind",
@@ -736,7 +740,7 @@ function humanizeProjectChange(detail) {
   }
 
   const listFields=new Set([
-    "subjects","source_platforms","target_platforms","source_cpu","source_language",
+    "subjects","source_platforms","target_platforms","source_cpu","target_cpu","source_language",
     "reconstructed_languages","target_kinds","work_kinds","tool_kinds",
     "types","techniques","tags"
   ]);
@@ -749,6 +753,9 @@ function humanizeProjectChange(detail) {
     return lines.length?lines:[{label:label+" changed",value:activityValue(before)+" → "+activityValue(after)}];
   }
 
+  if(field==="runtime_profiles"){
+    return [{label:"Runtime compatibility updated",value:""}];
+  }
   if(field==="record_class"){
     const toTypes=value=>value==="hybrid"?["Retro software","Development tools"]:
       value==="tooling"?["Development tools"]:["Retro software"];
@@ -866,7 +873,7 @@ document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("
 $("activityQ").addEventListener("input",()=>{updateClearButtons();renderActivity();});
 $("activityClear").addEventListener("click",()=>{
   $("activityQ").value="";
-  for(const key of ["type","projectType","platform","targetKind","workKind","toolKind"]) clearFacetSet(activityFilterState[key]);
+  for(const key of ["type","projectType","platform","cpu","targetKind","workKind","toolKind"]) clearFacetSet(activityFilterState[key]);
   activityFilterState.ai="";
   activityFilterState.days="30";
   clearFacetButtons($("activityView"));
