@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T18:43:10Z",
+  "updated_at": "2026-09-24T19:06:31Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -6325,8 +6325,51 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68000",
+        "m68020"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Default OCS build",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68000",
+          "min_ram_kib": 1024,
+          "min_chip_ram_kib": 512,
+          "chipsets": [
+            "OCS"
+          ],
+          "os": "Kickstart 1.3; Workbench 1.3 or later for icon launch",
+          "notes": "The documented baseline is PAL OCS with 512 KB Chip RAM plus 512 KB expansion RAM. The delivered image runs on a stock MC68000 and switches to wider routines automatically on 68020+ CPUs.",
+          "evidence": [
+            {
+              "source": "src_amiga/README.md",
+              "url": "https://github.com/ataribaby42/elite-source-code-atarist/blob/main/src_amiga/README.md",
+              "excerpt": "Target: PAL OCS, MC68000, Kickstart 1.3, 512 KB Chip RAM plus 512 KB expansion RAM."
+            },
+            {
+              "source": "src_amiga/README.md",
+              "url": "https://github.com/ataribaby42/elite-source-code-atarist/blob/main/src_amiga/README.md",
+              "excerpt": "Double-click it to launch the game from Workbench 1.3 or later."
+            }
+          ]
+        },
+        {
+          "name": "68020-only build",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68020",
+          "notes": "The explicit cpu=68020 build assembles only the native 68020 forms. The README does not restate a separate RAM minimum for this variant, so RAM is left unspecified.",
+          "evidence": [
+            {
+              "source": "src_amiga/README.md",
+              "url": "https://github.com/ataribaby42/elite-source-code-atarist/blob/main/src_amiga/README.md",
+              "excerpt": "cpu=68020 still assembles the native forms only, for a tighter image that needs an MC68020."
+            }
+          ]
+        }
+      ],
       "source_language": [
         "m68k assembly source"
       ],
@@ -7009,7 +7052,8 @@
         "binary analysis",
         "format decoding",
         "cross-version comparison",
-        "real-media verification"
+        "real-media verification",
+        "source-locked runtime verification"
       ],
       "tags": [
         "game engine",
@@ -7018,7 +7062,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. It keeps original user-owned media separate, identifies editions by content hash and exposes only source/platform routes with verified handoffs; full campaign and visual parity remain active work.",
+      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Current project status explicitly marks Dungeon Master 1 on PC DOS 3.4 as playable/source-locked; Chaos Strikes Back and Dungeon Master II have verified bounded real-media routes; Nexus and Theron's Quest remain bounded bring-up rather than complete gameplay. User-supplied media stays source-locked and full campaign/presentation parity is not claimed across the suite.",
       "ai": {
         "usage": true,
         "tools": [
@@ -11916,8 +11960,51 @@
       "source_cpu": [
         "x86"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68020"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "AGA",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68020",
+          "min_ram_kib": 10240,
+          "min_chip_ram_kib": 2048,
+          "min_fast_ram_kib": 8192,
+          "chipsets": [
+            "AGA"
+          ],
+          "os": "Kickstart and Workbench 3.1 or newer",
+          "notes": "No FPU is needed. The README recommends a 68030 at 50 MHz, but the documented minimum CPU is 68020.",
+          "evidence": [
+            {
+              "source": "README.md",
+              "url": "https://github.com/angree/Amiga-68K-ReMoM/blob/main/README.md",
+              "excerpt": "A 68020 or better, no FPU needed; AGA; Kickstart and Workbench 3.1 or newer; 8 MB of Fast RAM, plus 2 MB of Chip RAM on AGA."
+            }
+          ]
+        },
+        {
+          "name": "8-bit RTG",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68020",
+          "min_fast_ram_kib": 8192,
+          "chipsets": [
+            "RTG"
+          ],
+          "os": "Kickstart and Workbench 3.1 or newer",
+          "notes": "Requires an 8-bit CyberGraphX or Picasso96 screen mode. The README requires 8 MB Fast RAM but does not state an exact Chip-RAM or total-RAM minimum for RTG, so those are left unspecified. A 68030 at 50 MHz is recommended.",
+          "evidence": [
+            {
+              "source": "README.md",
+              "url": "https://github.com/angree/Amiga-68K-ReMoM/blob/main/README.md",
+              "excerpt": "A 68020 or better, no FPU needed; an RTG card with an 8-bit screen mode (CyberGraphX or Picasso96); Kickstart and Workbench 3.1 or newer; 8 MB of Fast RAM."
+            }
+          ]
+        }
+      ],
       "source_language": [
         "reconstructed C source",
         "original game data"
@@ -19903,13 +19990,15 @@
         "disassembly",
         "source-reconstruction",
         "binary-analysis",
-        "data-format-analysis"
+        "data-format-analysis",
+        "patching"
       ],
       "tool_kinds": [],
       "types": [
         "disassembly",
         "source reconstruction",
-        "software archaeology"
+        "software archaeology",
+        "patching"
       ],
       "re_started": null,
       "status": "active",
@@ -19926,7 +20015,8 @@
         "execution-assisted analysis",
         "source-level debugging",
         "sprite and data-format measurement",
-        "MCP/DAP-assisted debugging"
+        "MCP/DAP-assisted debugging",
+        "behavior-preserving source patch validation"
       ],
       "tags": [
         "ZX Spectrum",
@@ -19940,7 +20030,7 @@
         "Claude",
         "AI-assisted"
       ],
-      "notes": "Independent reproducible disassemblies of five ZX Spectrum games. Build scripts take user-supplied original media, generate commented/source-level-debuggable disassemblies and snapshots, and verify reassembly against the original bytes. The project emphasizes measured behaviour rather than guessed formats and integrates with a DAP/MCP-capable Spectrum emulator for source-level debugging.",
+      "notes": "Independent reproducible disassemblies of five ZX Spectrum games. Build scripts take user-supplied original media, generate commented/source-level-debuggable disassemblies and snapshots, and verify reassembly against the original bytes. The project emphasizes measured behaviour and integrates with a DAP/MCP-capable Spectrum emulator. The Hobbit now also has an optional verified-source fast-draw patch: only plotting code is replaced, all 22 pictures are compared against the original run, and whole-memory equality is checked after each picture.",
       "ai": {
         "usage": true,
         "tools": [
