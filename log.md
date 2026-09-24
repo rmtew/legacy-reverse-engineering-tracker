@@ -308,3 +308,8 @@ Following RetroRE immediately yielded **Choplifter — Apple II clean-room sourc
 The RetroRE index exposes a much larger backlog of untracked full/partial 6502 reconstructions across Apple II, Atari 2600/8-bit, BBC Micro, C64 and NES; this has been added as an explicit discovery priority rather than bulk-promoting entries without primary-source verification.
 
 Catalogue count increased from 248 to **255**.
+
+
+## 2026-09-24 — public site renamed Retro Development Project Tracker
+
+Renamed the public-facing site and RSS branding to **Retro Development Project Tracker** with the subtitle **Reverse engineering · reconstruction · preservation · homebrew · tooling**. The GitHub repository name and Pages URL remain unchanged to avoid unnecessary URL/repository churn.
