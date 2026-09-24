@@ -260,7 +260,7 @@ function matches(record) {
     ...platformValues(record),...cpuFamilyValues(record),
     ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
     ...runtimeProfiles(record).flatMap(profile=>[
-      profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.notes
+      profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.os,profile.notes
     ])
   ].join(" ").toLowerCase();
 
@@ -364,7 +364,10 @@ function runtimeProfilesHtml(record) {
       profile.name,profile.platform,
       profile.min_cpu?("CPU ≥ "+profile.min_cpu):null,
       Number.isFinite(profile.min_ram_kib)?("RAM ≥ "+formatRam(profile.min_ram_kib)):null,
-      arr(profile.chipsets).length?arr(profile.chipsets).join("/") : null
+      Number.isFinite(profile.min_chip_ram_kib)?("Chip RAM ≥ "+formatRam(profile.min_chip_ram_kib)):null,
+      Number.isFinite(profile.min_fast_ram_kib)?("Fast RAM ≥ "+formatRam(profile.min_fast_ram_kib)):null,
+      arr(profile.chipsets).length?arr(profile.chipsets).join("/") : null,
+      profile.os
     ].filter(Boolean);
     return '<li>'+esc(bits.join(" · "))+(profile.notes?'<br><span class="evidence-excerpt">'+esc(profile.notes)+'</span>':"")+'</li>';
   }).join("")+'</ul>';
