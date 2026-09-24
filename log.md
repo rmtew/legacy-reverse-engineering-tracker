@@ -490,3 +490,10 @@ A persistent follow-up task now records the remaining SourceGen index (including
 Continued the new 6502disassembly.com queue outside the Apple II section. Promoted **Asteroids**, **Battlezone**, **Centipede** and **Missile Command** as substantial arcade 6502 disassembly/analysis projects. Their project pages combine SourceGen project sets with project-specific binary construction and technical analysis of vector/graphics systems, hardware interfaces, revisions and game-state behavior.
 
 Reviewed but did not promote the site's Atari 2600 **Adventure** and NES **Super Mario Bros.** pages as independent catalogue records: both explicitly describe SourceGen conversions of pre-existing disassemblies with little or no new analysis. Keeping those as source-level references avoids inflating the project count with format conversions of already-existing work.
+
+
+## 2026-09-25 — SourceGen Apple II follow-through
+
+Promoted three further Apple II SourceGen projects after primary-page review: **ABM**, **Penny Arcade** and **Epoch**. Epoch is explicitly recorded as work in progress because its listing notes that some of the mathematics remains unexplained.
+
+The remaining first-party SourceGen item requiring a more careful provenance split is the Apple II system/peripheral ROM collection, which combines independent disassemblies with conversions of published or original listings. The persistent discovery task now records that distinction plus the site's outbound “Other Disassemblies” graph.
