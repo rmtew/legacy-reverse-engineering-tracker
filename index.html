@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <script>
+    try {
+      const savedTheme=localStorage.getItem("retro-development-tracker.theme");
+      if(savedTheme==="dark"||savedTheme==="light") document.documentElement.dataset.theme=savedTheme;
+    } catch {}
+  </script>
   <title>Retro Development Project Tracker</title>
   <link rel="alternate" type="application/rss+xml" title="Retro Development Project Tracker — Activity" href="activity.xml">
   <link rel="stylesheet" href="web/tracker.css">
@@ -16,6 +22,9 @@
   </div>
   <div class="header-links">
     <span id="dataFreshness" class="data-freshness">Data refresh pending</span>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <span id="themeToggleLabel">Dark mode</span>
+    </button>
     <a class="repo-link" href="https://github.com/rmtew/legacy-reverse-engineering-tracker">GitHub repository</a>
     <a class="rss-link" href="activity.xml" aria-label="Activity RSS feed" title="Activity RSS feed">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
