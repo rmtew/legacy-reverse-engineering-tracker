@@ -10,7 +10,9 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 - `subjects` names the actual legacy software subjects being studied or reconstructed. It is searchable and may contain several titles for a multi-game engine/project. Pure generic tooling can leave it empty; subject/hybrid records must name at least one subject.
 - `source_platforms` are the original platforms/binaries being analysed.
 - `target_platforms` are platforms produced or supported by the reconstruction/reimplementation.
-- `source_cpu` describes the original CPU architecture(s).
+- `source_cpu` describes the original CPU architecture(s). The UI groups related variants into broad discovery families such as **6502 family** and **68000 family** without discarding the exact stored CPU.
+- `target_cpu` optionally records CPU architecture(s) produced or directly targeted by a port/reimplementation. Do not infer this merely from a host language or modern build environment.
+- `runtime_profiles` optionally records verified minimum hardware requirements for runnable outputs/build variants. A profile may contain `name`, required `platform`, optional `cpu_family`, `min_cpu`, `min_ram_kib`, `min_chip_ram_kib`, `min_fast_ram_kib`, `chipsets`, `os`, `notes`, and source `evidence`. Only populate these from explicit primary evidence; never infer a runnable minimum from source CPU or platform alone.
 - `source_language` describes the material being reverse engineered, usually machine code.
 - `reconstructed_languages` describes the human-maintained source/output produced by the project.
 - `record_class` separates reverse-engineered/reimplemented **subjects** from modern supporting **tooling**; `hybrid` is reserved for projects that are materially both (for example a reconstructed historical tool that is also actively useful for archaeology).
@@ -26,7 +28,7 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 
 ## Record fields
 
-`id`, legacy `title`, `upstream_name`, `display_title`, `subjects`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
+`id`, legacy `title`, `upstream_name`, `display_title`, `subjects`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, optional `target_cpu`, optional `runtime_profiles`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
 
 ### Structured classification vocabulary
 
@@ -41,6 +43,8 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 `work_kinds` uses: `disassembly`, `decompilation`, `source-reconstruction`, `source-restoration`, `binary-analysis`, `data-format-analysis`, `copy-protection-analysis`, `reimplementation`, `reverse-engineering-derived-port`, `patching`, `translation`, `subsystem-reconstruction`.
 
 `tool_kinds` uses: `emulator`, `debugger`, `profiler`, `graphics-debugger`, `binary-analysis`, `disassembler`, `reassembler`, `ide`, `compiler-toolchain`, `assembler-toolchain`, `static-analysis`, `language-tooling`, `cycle-analysis`, `rom-tool`, `disk-filesystem-tool`, `asset-tool`, `automation`, `development-environment`.
+
+The UI's **CPU** facet is a broad discovery facet: source, target and verified-runtime CPUs are grouped into architecture families. **Runs on** is deliberately separate and only uses verified `runtime_profiles`. A selected CPU or RAM amount there means a documented output must fit that hardware; for example, a 68020 choice may include a 68000-minimum build, while a 68000 choice must exclude a 68020-minimum build.
 
 The UI renders structured classification independently of the display title. `display_title` answers “what is this project?” at a glance; classification answers “what kind of record/work/tool is it?”; `subjects` makes opaque project names searchable by the actual software being studied.
 
