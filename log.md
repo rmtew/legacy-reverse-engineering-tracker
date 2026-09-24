@@ -373,3 +373,16 @@ Catalogue count increased from 272 to **286**.
 ## 2026-09-25 — discovery automation landing verification
 
 Verified the repository-side discovery landing path by pushing this commit to an `automation/discovery-*` branch and allowing `.github/workflows/land-discovery.yml` to fast-forward `main` only after confirming the branch is non-empty, zero commits behind, and based directly on the current `main`.
+
+
+## 2026-09-25 — runtime-profile and status maintenance
+
+Reviewed repository activity since the previous maintenance pass and rechecked current primary documentation for the materially changed projects.
+
+Added evidence-backed runtime metadata for **Master of Magic — ReMoM Amiga port**: the native binary requires a 68020 or better, Kickstart/Workbench 3.1+, and 8 MB Fast RAM; AGA additionally requires 2 MB Chip RAM. AGA and 8-bit RTG are now separate runtime profiles so the RTG record does not invent an unstated Chip-RAM minimum.
+
+Added verified runtime profiles for **Elite — native Amiga port (ataribaby42)**. The default OCS build is documented for MC68000, Kickstart 1.3, 512 KB Chip RAM plus 512 KB expansion RAM, while the explicit `cpu=68020` build is recorded separately without inferring a RAM minimum that the README does not state.
+
+Refined **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** to reflect the project's own current status boundary: Dungeon Master 1 on PC DOS 3.4 is playable/source-locked, while the other named games remain verified bounded routes or active bring-up rather than being promoted to complete playability.
+
+Updated **ZX Spectrum game disassemblies — reproducible SkoolKit archaeology** to include its new patching work: The Hobbit's optional fast-draw patch is applied on top of verified source and validated by rendering all 22 pictures and comparing whole memory afterwards.
