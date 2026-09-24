@@ -7,8 +7,8 @@ A structured catalogue of retro-development projects across legacy computers and
 
 The tracker has two views:
 
-- **Projects** — filterable catalogue using additive facet chips for **Project type / Platform / Software type / Work / Development tool**, plus compact single-choice controls for AI/build/playability state. The internal subject/tooling/hybrid enum is presented as the clearer **Retro software / Development tools** distinction; hybrid records simply belong to both.
-- **Activity** — the default view: day-by-day recent commits, releases and catalogue changes, with the same topical additive facets. Branch, author, project and output-language dropdowns are intentionally omitted.
+- **Projects** — filterable catalogue using additive facet chips for **Project type / Platform / CPU / Software type / Work / Development tool**, plus compact single-choice controls for AI/build/playability state. The internal subject/tooling/hybrid enum is presented as the clearer **Retro software / Development tools** distinction; hybrid records simply belong to both.
+- **Activity** — the default view: day-by-day recent commits, releases and catalogue changes, with the same topical additive facets including CPU family. Branch, author, project and output-language dropdowns are intentionally omitted.
 
 ## Repository structure
 
@@ -31,6 +31,8 @@ The tracker has two views:
 There is no rendering framework or build step. The browser reads the JSON data directly. A twice-daily GitHub Action runs at about 6:30 AM and 6:30 PM `Pacific/Auckland`, ahead of the 7 AM/7 PM maintenance passes, and uses conditional repository probes and adaptive, staggered deep scans: recently active repositories are checked frequently, dormant ones less often, while any detected push queues an immediate scan. Activity collection is incremental, retaining 180 days locally instead of re-downloading that history. Conditional repository probes are allowed across the whole catalogue and primary throttling follows GitHub's actual `X-RateLimit-*` response headers rather than a fixed per-phase request budget. A small capped reserve is kept for deployment/other work, while a 4,000-request HTTP safety cap plus 0.10 s request pacing protects against runaway/secondary-limit behaviour without becoming the normal limiting factor. Unfinished deep scans remain queued. Repository probes are ordered oldest-first, and queued deep scans prioritize detected changes then least-recently scanned repositories, so budget limits cannot permanently starve later repositories. A separate weekly enrichment pass scans project documentation for explicit evidence about build/playability/byte-exact/start fields and records CI signals when GitHub's API quota permits.
 
 Project identity is separated from catalogue presentation: `upstream_name` preserves the project's own name, `display_title` gives the UI a concise human-readable subject/purpose label, and `subjects` records the actual legacy software names so opaque project brands remain searchable. For example, Firestaff is displayed as a Dungeon Master / Chaos Strikes Back engine reconstruction while retaining `Firestaff` as its upstream name.
+
+CPU discovery and runtime compatibility are deliberately separate. The visible **CPU** facet groups exact source/target CPUs into useful families (for example **68000 family**), while optional verified `runtime_profiles` power the separate **Runs on** filter for minimum CPU, RAM and chipset. This avoids presenting a 68020-only build as 68000-compatible merely because both are m68k.
 
 Project classification is deliberately multi-axis rather than a flat tag pile: `record_class` distinguishes subject/tooling/hybrid records, `target_kinds` says what legacy software is being studied, `work_kinds` says what kind of reconstruction/analysis is being done, and `tool_kinds` says what a modern aid actually does. Existing `types` and free-form `tags` remain available for nuance and search.
 
