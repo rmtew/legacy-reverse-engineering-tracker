@@ -1500,7 +1500,28 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Amiga 500",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "os": "Kickstart 1.3 or 2.0",
+        "notes": "README requires 1 MB and states 50 fps even on a 68000 A500.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/amidar500",
+            "excerpt": "any 68k CPU; Kickstart 1.3, 1MB memory"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "vscode-amiga-debug-bartmanabyss",
@@ -2436,7 +2457,29 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "AGA Amiga",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README explicitly describes the transcode as for 68020/AGA Amiga.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/tetris",
+            "excerpt": "for 68020/AGA amiga"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "tos3x-atari-tos-rom-reconstruction",
@@ -15708,7 +15751,67 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "min_chip_ram_kib": 512,
+        "min_fast_ram_kib": 512,
+        "chipsets": [
+          "OCS"
+        ],
+        "notes": "25 fps; README specifies 512K chip + 512K fast on OCS 68000 Amiga.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/mpatrol",
+            "excerpt": "512K chip/512k fast OCS 68000 Amiga"
+          }
+        ]
+      },
+      {
+        "name": "ECS",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "chipsets": [
+          "ECS"
+        ],
+        "notes": "25 fps on the documented baseline; extra background layer is enabled on 68020+.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/mpatrol",
+            "excerpt": "1MB ECS 68000 Amiga"
+          }
+        ]
+      },
+      {
+        "name": "AGA",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README states the AGA version runs on a vanilla A1200 at 50 fps; minimum CPU/RAM are left unstated rather than inferred from the machine model.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/mpatrol",
+            "excerpt": "runs on vanilla A1200 at 50 fps"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "jotd-ms-pacman-amiga",
@@ -15793,7 +15896,43 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Kickstart 1.3 configuration",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 512,
+        "os": "Kickstart 1.3",
+        "notes": "README states 512K memory with Kickstart 1.3 and 50 fps even on a 68000 A500.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/mspacman500",
+            "excerpt": "Kickstart 1.3, 512k memory"
+          }
+        ]
+      },
+      {
+        "name": "Kickstart 2.0 configuration",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "os": "Kickstart 2.0",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/mspacman500",
+            "excerpt": "Kickstart 2.0, 1MB memory"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "vs-sr-cd32-myth",
@@ -16555,7 +16694,28 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Amiga 500",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 512,
+        "os": "Any Kickstart",
+        "notes": "README requires 512K and states 50 fps on a 68000 A500.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/pacman500",
+            "excerpt": "Any kickstart, 512k memory"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "papple2-apple2-debugger",
@@ -19115,7 +19275,28 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Amiga 500",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "os": "Kickstart 1.3 or 2.0",
+        "notes": "README requires 1 MB and states 50 fps even on a 68000 A500.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/jotd666/scramble500",
+            "excerpt": "any 68k CPU; Kickstart 1.3, 1MB memory"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "scuba-dive-spectrum",
