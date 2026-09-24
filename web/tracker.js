@@ -14,6 +14,29 @@ const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({
 const tri = value => value === true ? "Yes" : value === false ? "No" : "Unknown";
 const projectTitle = record => record?.display_title || record?.title || record?.upstream_name || record?.id || "?";
 const upstreamName = record => record?.upstream_name || record?.title || projectTitle(record);
+
+const THEME_STORAGE_KEY="retro-development-tracker.theme";
+function applyTheme(theme,{persist=false}={}){
+  const value=theme==="dark"?"dark":"light";
+  document.documentElement.dataset.theme=value;
+  const button=$("themeToggle");
+  const label=$("themeToggleLabel");
+  const next=value==="dark"?"light":"dark";
+  if(label) label.textContent=next==="dark"?"Dark mode":"Light mode";
+  if(button){
+    const text=next==="dark"?"Switch to dark mode":"Switch to light mode";
+    button.setAttribute("aria-label",text);
+    button.title=text;
+    button.setAttribute("aria-pressed",value==="dark"?"true":"false");
+  }
+  if(persist){
+    try { localStorage.setItem(THEME_STORAGE_KEY,value); } catch {}
+  }
+}
+applyTheme(document.documentElement.dataset.theme);
+$("themeToggle").addEventListener("click",()=>{
+  applyTheme(document.documentElement.dataset.theme==="dark"?"light":"dark",{persist:true});
+});
 const flag = value => {
   const label = tri(value);
   return '<span class="flag ' + label.toLowerCase() + '" title="' + label + '">' +
