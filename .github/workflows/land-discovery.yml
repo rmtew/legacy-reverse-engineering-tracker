@@ -16,6 +16,15 @@ jobs:
   fast-forward-main:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout discovery branch
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Validate discovery branch state
+        run: python tools/validate_site_data.py data/projects.json data/activity.json
+
       - name: Verify branch is a clean fast-forward of main
         env:
           GH_TOKEN: ${{ github.token }}
