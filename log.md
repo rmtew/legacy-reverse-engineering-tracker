@@ -465,3 +465,12 @@ Advanced **RetroRE 6502** with **Monty on the Run**, which provides both a docum
 Reviewed a sample of the **BBC/Acorn predecessor graph**. Imogen, Thrust, Manic Miner, the Acorn 6502 coprocessor OS and BBC Lode Runner are already represented. `tom-seddon/exile_disassembly` explicitly describes itself as redundant because its upstream disassembly was later updated, so it was retained as discovery context rather than duplicated as another Exile record.
 
 This pass adds **5 projects**, taking the catalogue from 374 to **379**.
+
+
+## 2026-09-25 — RetroRE Mega Man 3–6 disassembly pass
+
+Advanced the high-priority RetroRE 6502 backlog by resolving the older Raidenthequick Mega Man links to their current `refreshing-lemonade` repositories.
+
+Promoted four NES projects: **Mega Man 3**, **Mega Man 4**, **Mega Man 5** and **Mega Man 6**. Each primary README states that the code and data disassembly is complete and rebuilds a clean NTSC-U ROM with xkas-plus; the source is complete while code commentary remains unfinished. The catalogue records the projects as complete/compilable disassemblies but deliberately leaves byte-exactness unknown because the documentation does not explicitly claim a byte-for-byte-identical output.
+
+The RetroRE task remains in progress for the remaining Apple II, Atari 2600/8-bit, C64 and NES leads.
