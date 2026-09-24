@@ -386,3 +386,14 @@ Added verified runtime profiles for **Elite — native Amiga port (ataribaby42)*
 Refined **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** to reflect the project's own current status boundary: Dungeon Master 1 on PC DOS 3.4 is playable/source-locked, while the other named games remain verified bounded routes or active bring-up rather than being promoted to complete playability.
 
 Updated **ZX Spectrum game disassemblies — reproducible SkoolKit archaeology** to include its new patching work: The Hobbit's optional fast-draw patch is applied on top of verified source and validated by rendering all 22 pictures and comparing whole memory afterwards.
+
+
+## 2026-09-25 — persistent research indexes and queues
+
+Converted the implicit research backlog into persistent machine-readable state.
+
+`data/discovery-sources.json` now indexes every discovery node from `sources.md`, links already promoted projects, records review dates where the existing research log/catalogue establishes them, and turns the human Open discovery priorities into explicit stateful backlog tasks.
+
+`data/project-audits.json` now contains one audit record for every catalogue project, separating factual unknowns from research-state unknowns across identity, classification, source/target CPU, build evidence, runtime profiles, AI evidence and project relationships. Missing evidence is still not treated as false; `needs-research`, `not-applicable` and `no-evidence-found` are distinct states.
+
+`data/research-activity.json` provides append-only research history and is seeded from the research-oriented entries already present in this log. Validation now enforces source/task references and exact project-audit coverage. The pending-project merge tool creates an unreviewed audit placeholder for every newly added project so the index cannot silently fall behind the catalogue.

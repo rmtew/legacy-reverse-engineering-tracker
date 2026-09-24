@@ -1,6 +1,6 @@
 # Discovery Sources
 
-These are **discovery nodes**, not merely individual tracked projects. Search their READMEs, credits, related repositories, predecessor/successor links, tools, forums and curated lists.
+> **Canonical research state:** `data/discovery-sources.json` tracks each discovery node, review depth, linked promoted projects and the explicit remaining-work queue. `data/project-audits.json` separately tracks field-by-field research coverage for existing projects, while `data/research-activity.json` records when research work occurred. This file remains the human-readable discovery map and search strategy.\n\nThese are **discovery nodes**, not merely individual tracked projects. Search their READMEs, credits, related repositories, predecessor/successor links, tools, forums and curated lists.
 
 | Source | Reason |
 |---|---|

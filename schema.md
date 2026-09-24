@@ -112,6 +112,47 @@ Some repositories contain several independently tracked reverse-engineering proj
 - `github_branch` overrides the default branch when the relevant reconstruction lives on another branch (for example, an original-game disassembly branch beside a modified version).
 
 
+
+## Research-state indexes
+
+Research coverage is persistent state rather than being inferred from null project fields.
+
+### `data/discovery-sources.json`
+
+This is the canonical discovery-node/work-queue index. Each source has a stable `id`, human/source URL, source `kind`, rationale, `review_state`, indexing/review dates, promoted project IDs and linked open tasks.
+
+Source review states are:
+
+- `unreviewed` — known lead, not yet investigated.
+- `partial` — investigated enough to yield context/projects, but meaningful graph work remains.
+- `substantially-reviewed` — the current source graph has been worked through; revisit mainly for changes/new links.
+- `exhausted` — reviewed and no remaining useful leads are currently known.
+
+The top-level `backlog` is the explicit source-research queue. Task states are `open`, `in-progress`, `done`, or `deferred`. A deferred task is retained so a consciously excluded lead is not repeatedly rediscovered.
+
+### `data/project-audits.json`
+
+There must be exactly one audit record for every `data/projects.json` project ID. It tracks research coverage independently from the factual project record.
+
+Audit areas are `identity`, `classification`, `source_cpu`, `target_cpu`, `build`, `runtime_profiles`, `ai`, and `relationships`.
+
+Area states are:
+
+- `unreviewed` — no meaningful check has yet been made.
+- `needs-research` — the project has been reviewed generally, but this area still needs primary-source work.
+- `reviewed` — the area has been checked and the catalogue reflects the established result.
+- `not-applicable` — the field does not sensibly apply to this project.
+- `no-evidence-found` — a check was performed but found no positive evidence; this never means the underlying fact is false.
+
+This distinction is important: an absent `target_cpu` or `runtime_profiles` value no longer implies either “not researched” or “no evidence exists”. The audit index records which case applies.
+
+### `data/research-activity.json`
+
+Append-only research history. Events record when discovery/audit work occurred and may reference source IDs or project IDs. The initial migration seeds this history from research-oriented `log.md` sections; subsequent research passes should append a concise event as they update source/task/audit state.
+
+`sources.md` and `log.md` remain useful human-readable context, but these JSON files are the canonical current research queue and coverage state.
+
+
 ## Activity data
 
 `data/activity.json` is a generated rolling activity feed covering 180 days. It is not hand-edited.
