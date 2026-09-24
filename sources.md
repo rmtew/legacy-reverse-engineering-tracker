@@ -96,6 +96,7 @@
 | https://github.com/0xC0DE6502 | Acorn Electron/BBC Micro reverse-engineering cluster: game disassemblies, tape loader/protection analysis, Electroniq emulator and source-level debugger |
 
 | https://github.com/realdmx/retrore | Curated 6502 reverse-engineering/original-source index across Apple II, Atari 2600/8-bit, BBC/Acorn, C64, NES and others; its RE/Original distinction is useful for discovery triage |
+| https://github.com/vermiceli | NES Contra/Super C byte-exact annotated disassemblies with extensive bank, asset, debugging and subsystem documentation |
 
 | https://github.com/lantus | Amiga/68k retro-development profile with OCS homebrew/conversions and ports; ZippyRace-OCS is a verified source-available fan conversion, with related repositories worth auditing |
 
@@ -119,10 +120,8 @@
 
 ### Commodore 64
 
-- Audit `TheGoodDoktor/C64AnalyserProjects` title directories for sufficiently substantive independent binary-analysis records; preserve analysis-state projects distinctly from full source reconstructions.
 - Continue mining Ricardo Quesada's C64 work beyond Commando.
 - Continue mining C64 Mark and the wider Llamasource graph.
-- Enumerate additional Piddewitt reverse-engineered game-source repositories.
 - Treat recovered/original source collections cautiously: original source alone does not qualify unless substantial reverse engineering accompanies it.
 
 ### ZX Spectrum

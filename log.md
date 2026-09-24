@@ -397,3 +397,18 @@ Converted the implicit research backlog into persistent machine-readable state.
 `data/project-audits.json` now contains one audit record for every catalogue project, separating factual unknowns from research-state unknowns across identity, classification, source/target CPU, build evidence, runtime profiles, AI evidence and project relationships. Missing evidence is still not treated as false; `needs-research`, `not-applicable` and `no-evidence-found` are distinct states.
 
 `data/research-activity.json` provides append-only research history and is seeded from the research-oriented entries already present in this log. Validation now enforces source/task references and exact project-audit coverage. The pending-project merge tool creates an unreviewed audit placeholder for every newly added project so the index cannot silently fall behind the catalogue.
+
+
+## 2026-09-25 — analyser queues and RetroRE batch
+
+Continued preemptive discovery from the persistent research queues rather than a broad search.
+
+Completed the title-level audit of **TheGoodDoktor/C64AnalyserProjects**, promoting the nine remaining per-game analysis states after verifying their dedicated annotation databases, saved analysis/emulator state and configuration. The C64 analyser backlog task is now complete.
+
+Advanced **TheGoodDoktor/SpectrumAnalyserProjects** with ten especially substantive title records: Batman, Bobby Bearing, Cybernoid, Dan Dare, Everyone's A Wally, Exolon, Jack the Nipper II, Manic Miner, Ranarama and Starquake. These were selected for deep per-title analysis data and, where present, exported Z80/Skool source, Lua viewers/exporters, maps, flow graphs and decoded graphics. The broader Spectrum analyser queue remains in progress.
+
+Advanced the **RetroRE 6502** backlog with primary-source verification of The Legend of Zelda, Final Fantasy, Contra, Balloon Fight, Jackal, Pharaoh's Curse, Rambo and Planetoid. Following Contra's own project graph also yielded **Super C**. Byte-exact status was recorded only where the primary project documentation explicitly states matching reconstruction output.
+
+The discovery index's task-to-source links were also normalized. The initial migration's keyword-derived links were too broad; active backlog tasks now point at the actual source nodes that should drive future queue selection.
+
+This pass adds **28 projects**, taking the catalogue from 293 to **321**.
