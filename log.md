@@ -322,3 +322,12 @@ Replaced the dropdown-heavy Projects and Activity filters with additive facet ch
 The internal `subject/tooling/hybrid` classification is no longer exposed as UI jargon. **Project type** presents **Retro software** and **Development tools**; hybrid records belong to both. Projects now expose additive Platform, Software type, Work and Development tool facets, with CPU/output language under More filters, while AI/Compiles/Playable/Byte exact use compact mutually exclusive Any/Yes/No/Unknown controls.
 
 Activity was simplified to Search, Period, additive Activity type / Project type / Platform / Software type / Work / Development tool facets, and AI state. Dedicated project, author, branch and output-language filters were removed. The activity text search remains for project/subject and activity text, but no longer indexes authors or branch names.
+
+
+## 2026-09-24 — CPU-family and verified runtime compatibility filtering
+
+Moved **CPU** into the primary additive filters and normalized closely related stored variants into discovery families such as **6502 family**, **68000 family**, **x86**, Z80 and ARM. Platform filtering now considers both source and target platforms, and CPU discovery can consider source CPU, optional target CPU and verified runtime profiles, making same-architecture ports easier to find.
+
+Added an optional **Runs on** compatibility section, deliberately separate from the broad CPU facet. It is driven only by verified `runtime_profiles` and supports minimum CPU, RAM budget and chipset compatibility. Selecting a 68020-class CPU can include a build whose documented minimum is 68000; selecting 68000 excludes a 68020-minimum build. The controls remain explicitly empty until requirements have been verified rather than inferring compatibility from source architecture.
+
+The schema now supports optional `target_cpu` and `runtime_profiles`, validation enforces their shape, and catalogue activity treats changes to these fields as material. Activity filtering also gained the normalized CPU-family facet.
