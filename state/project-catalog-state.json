@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T01:40:41Z",
+  "updated_at": "2026-09-24T02:26:51Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -17434,6 +17434,100 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "zippy-race-amiga-ocs-lantus": {
+      "id": "zippy-race-amiga-ocs-lantus",
+      "title": "ZippyRace-OCS",
+      "upstream_name": "ZippyRace-OCS",
+      "display_title": "Zippy Race — OCS Amiga fan conversion",
+      "subjects": [
+        "Zippy Race"
+      ],
+      "repo": "https://github.com/lantus/ZippyRace-OCS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "OCS Amiga",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68000",
+          "min_ram_kib": 1024,
+          "chipsets": [
+            "OCS"
+          ],
+          "notes": "README states 50/60 fps on any Amiga with 1 Meg; the Makefile explicitly compiles and assembles for 68000.",
+          "evidence": [
+            {
+              "source": "README",
+              "url": "https://github.com/lantus/ZippyRace-OCS",
+              "excerpt": "runs at 50/60fps on any Amiga with 1Meg"
+            },
+            {
+              "source": "Makefile",
+              "url": "https://github.com/lantus/ZippyRace-OCS/blob/main/Makefile",
+              "excerpt": "-m68000 / -mcpu=68000"
+            }
+          ]
+        }
+      ],
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan conversion",
+        "homebrew reimplementation"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "handwritten arcade behavior recreation",
+        "OCS custom-chip programming",
+        "ProTracker music conversion",
+        "C with m68k assembly",
+        "WHDLoad support"
+      ],
+      "tags": [
+        "game",
+        "homebrew",
+        "fan conversion",
+        "arcade conversion",
+        "Amiga",
+        "OCS",
+        "Zippy Race"
+      ],
+      "notes": "Hand-written fan conversion of Irem's 1983 arcade Zippy Race for OCS Amiga. The README explicitly states that no reverse engineering or transcoding was performed; the game was recreated by hand in C with some assembly to match the arcade original as closely as possible. It is tracked under the broader retro-development/homebrew scope rather than as an RE-derived port.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "zool-2-aga-hitchhikr": {
