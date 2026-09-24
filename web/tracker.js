@@ -529,6 +529,8 @@ $("details").addEventListener("click", event => {
 
 
 let activityData = { generated_at: null, window_days: 180, events: [] };
+let activityDirty = true;
+const activityVisible = () => $("activityView").classList.contains("active");
 const projectById = () => new Map(projects.map(project => [project.id, project]));
 const isProjectActivity = event => String(event.type || "").startsWith("project_");
 const activityKind = event => isProjectActivity(event) ? "project" : event.type;
@@ -573,15 +575,15 @@ function initActivityFilters() {
   const filterProjects=[...projects,...eventProjects];
   bindFacet("activityTypeFacet",["commit","release","project"],activityFilterState.type,
     value=>({commit:"Commits",release:"Releases",project:"Project changes"}[value]||value),
-    ()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityProjectTypeFacet",["software","tools"],activityFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityPlatformFacet",filterProjects.flatMap(platformValues),activityFilterState.platform,value=>value,()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityCpuFacet",filterProjects.flatMap(cpuFamilyValues),activityFilterState.cpu,value=>value,()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),activityFilterState.targetKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),activityFilterState.workKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
-  bindFacet("activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),activityFilterState.toolKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
-  bindSegment("activityDaysSegment",activityFilterState,"days",()=>{updateClearButtons();renderActivity();});
-  bindSegment("activityAiSegment",activityFilterState,"ai",()=>{updateClearButtons();renderActivity();});
+    ()=>{updateClearButtons();requestActivityRender();});
+  bindFacet("activityProjectTypeFacet",["software","tools"],activityFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();requestActivityRender();});
+  bindFacet("activityPlatformFacet",filterProjects.flatMap(platformValues),activityFilterState.platform,value=>value,()=>{updateClearButtons();requestActivityRender();});
+  bindFacet("activityCpuFacet",filterProjects.flatMap(cpuFamilyValues),activityFilterState.cpu,value=>value,()=>{updateClearButtons();requestActivityRender();});
+  bindFacet("activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),activityFilterState.targetKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
+  bindFacet("activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),activityFilterState.workKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
+  bindFacet("activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),activityFilterState.toolKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
+  bindSegment("activityDaysSegment",activityFilterState,"days",()=>{updateClearButtons();requestActivityRender();});
+  bindSegment("activityAiSegment",activityFilterState,"ai",()=>{updateClearButtons();requestActivityRender();});
 }
 
 function activityMatches(event) {
@@ -813,6 +815,7 @@ function localDayLabel(day) {
 }
 
 function renderActivity() {
+  activityDirty=false;
   const map=projectById();
   const events=combinedActivityEvents().filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
   $("activityCount").textContent=events.length;
@@ -871,13 +874,19 @@ function renderActivity() {
   }).join("");
 }
 
+function requestActivityRender(){
+  activityDirty=true;
+  if(activityVisible()) renderActivity();
+}
+
 document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("click",()=>{
+  if(button.classList.contains("active")) return;
   document.querySelectorAll(".view-tab").forEach(x=>x.classList.toggle("active",x===button));
   document.querySelectorAll(".view-panel").forEach(panel=>panel.classList.toggle("active",panel.id===button.dataset.view));
-  if(button.dataset.view==="activityView") renderActivity();
+  if(button.dataset.view==="activityView" && activityDirty) renderActivity();
 }));
 
-$("activityQ").addEventListener("input",()=>{updateClearButtons();renderActivity();});
+$("activityQ").addEventListener("input",()=>{updateClearButtons();requestActivityRender();});
 $("activityClear").addEventListener("click",()=>{
   $("activityQ").value="";
   for(const key of ["type","projectType","platform","cpu","targetKind","workKind","toolKind"]) clearFacetSet(activityFilterState[key]);
@@ -887,7 +896,7 @@ $("activityClear").addEventListener("click",()=>{
   resetSegment("activityDaysSegment","30");
   resetSegment("activityAiSegment","");
   updateClearButtons();
-  renderActivity();
+  requestActivityRender();
 });
 
 Promise.all([
