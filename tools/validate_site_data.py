@@ -41,6 +41,37 @@ def validate(projects_path, activity_path, rss_path=None):
             if not isinstance(value, str) or not value.strip():
                 fail(f"project {index} field {field} must be a non-empty string", errors)
         subjects = project.get("subjects")
+        target_cpu = project.get("target_cpu")
+        if target_cpu is not None:
+            if not isinstance(target_cpu, list):
+                fail(f"project {index} field target_cpu must be an array when present", errors)
+            elif any(not isinstance(value, str) or not value.strip() for value in target_cpu):
+                fail(f"project {index} target_cpu must contain only non-empty strings", errors)
+        runtime_profiles = project.get("runtime_profiles")
+        if runtime_profiles is not None:
+            if not isinstance(runtime_profiles, list):
+                fail(f"project {index} field runtime_profiles must be an array when present", errors)
+            else:
+                for profile_index, profile in enumerate(runtime_profiles):
+                    if not isinstance(profile, dict):
+                        fail(f"project {index} runtime profile {profile_index} must be an object", errors)
+                        continue
+                    if not isinstance(profile.get("platform"), str) or not profile.get("platform", "").strip():
+                        fail(f"project {index} runtime profile {profile_index} must have a non-empty platform", errors)
+                    for field in ("name", "cpu_family", "min_cpu", "os", "notes"):
+                        value = profile.get(field)
+                        if value is not None and (not isinstance(value, str) or not value.strip()):
+                            fail(f"project {index} runtime profile {profile_index} field {field} must be a non-empty string when present", errors)
+                    for field in ("min_ram_kib", "min_chip_ram_kib", "min_fast_ram_kib"):
+                        value = profile.get(field)
+                        if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 0):
+                            fail(f"project {index} runtime profile {profile_index} field {field} must be a non-negative integer when present", errors)
+                    chipsets = profile.get("chipsets")
+                    if chipsets is not None and (not isinstance(chipsets, list) or any(not isinstance(value, str) or not value.strip() for value in chipsets)):
+                        fail(f"project {index} runtime profile {profile_index} chipsets must be an array of non-empty strings", errors)
+                    evidence = profile.get("evidence")
+                    if evidence is not None and not isinstance(evidence, list):
+                        fail(f"project {index} runtime profile {profile_index} evidence must be an array when present", errors)
         if not isinstance(subjects, list):
             fail(f"project {index} field subjects must be an array", errors)
         elif any(not isinstance(value, str) or not value.strip() for value in subjects):
