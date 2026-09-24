@@ -254,18 +254,31 @@ function matches(record) {
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
     ...projectTypeValues(record).map(projectTypeLabel),
     ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
-    ...arr(record.source_platforms), ...arr(record.target_platforms),
-    ...arr(record.source_cpu), ...arr(record.reconstructed_languages)
+    ...platformValues(record),...cpuFamilyValues(record),
+    ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
+    ...runtimeProfiles(record).flatMap(profile=>[
+      profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.notes
+    ])
   ].join(" ").toLowerCase();
+
+  const profiles=runtimeProfiles(record);
+  const runtimeRequested=projectFilterState.runsOnCpu||projectFilterState.runsOnRam||projectFilterState.runsOnChipset;
+  const runtimeMatch=!runtimeRequested || profiles.some(profile=>
+    (!projectFilterState.runsOnCpu || cpuCompatible(profile.min_cpu,projectFilterState.runsOnCpu))
+    && (!projectFilterState.runsOnRam || (Number.isFinite(profile.min_ram_kib) && profile.min_ram_kib<=Number(projectFilterState.runsOnRam)))
+    && (!projectFilterState.runsOnChipset || arr(profile.chipsets).includes(projectFilterState.runsOnChipset))
+  );
 
   return (!query || haystack.includes(query))
     && facetMatch(projectFilterState.projectType,projectTypeValues(record))
-    && facetMatch(projectFilterState.platform,record.source_platforms)
+    && facetMatch(projectFilterState.platform,platformValues(record))
+    && facetMatch(projectFilterState.cpu,cpuFamilyValues(record))
     && facetMatch(projectFilterState.targetKind,record.target_kinds)
     && facetMatch(projectFilterState.workKind,record.work_kinds)
     && facetMatch(projectFilterState.toolKind,record.tool_kinds)
     && facetMatch(projectFilterState.cpu,record.source_cpu)
     && facetMatch(projectFilterState.language,record.reconstructed_languages)
+    && runtimeMatch
     && (!projectFilterState.ai || tri(ai.usage)===projectFilterState.ai)
     && (!projectFilterState.compilable || tri(build.compilable)===projectFilterState.compilable)
     && (!projectFilterState.playable || tri(build.playable)===projectFilterState.playable)
@@ -339,6 +352,20 @@ function evidenceHtml(entries) {
   }).join("") + '</ul>';
 }
 
+function runtimeProfilesHtml(record) {
+  const profiles=runtimeProfiles(record);
+  if(!profiles.length) return "?";
+  return '<ul class="evidence-list">'+profiles.map(profile=>{
+    const bits=[
+      profile.name,profile.platform,
+      profile.min_cpu?("CPU ≥ "+profile.min_cpu):null,
+      Number.isFinite(profile.min_ram_kib)?("RAM ≥ "+formatRam(profile.min_ram_kib)):null,
+      arr(profile.chipsets).length?arr(profile.chipsets).join("/") : null
+    ].filter(Boolean);
+    return '<li>'+esc(bits.join(" · "))+(profile.notes?'<br><span class="evidence-excerpt">'+esc(profile.notes)+'</span>':"")+'</li>';
+  }).join("")+'</ul>';
+}
+
 function ciEvidenceHtml(entries) {
   const items = arr(entries);
   if (!items.length) return "?";
@@ -383,7 +410,10 @@ function showDetails(record) {
     + line("Repository", repo)
     + line("Source platform", tags(record.source_platforms))
     + line("Target platform", tags(record.target_platforms))
-    + line("CPU", tags(record.source_cpu))
+    + line("CPU family", tags(cpuFamilyValues(record)))
+    + line("Source CPU", tags(record.source_cpu))
+    + (arr(record.target_cpu).length ? line("Target CPU", tags(record.target_cpu)) : "")
+    + (runtimeProfiles(record).length ? line("Runs on", runtimeProfilesHtml(record)) : "")
     + line("Original/source language", tags(record.source_language))
     + line("Reconstructed language", tags(record.reconstructed_languages))
     + line("Project type", tags(projectTypeValues(record).map(projectTypeLabel)))
@@ -423,18 +453,35 @@ function showDetails(record) {
   $("details").showModal();
 }
 
+function initCompatibilityFilters(){
+  const profiles=projects.flatMap(runtimeProfiles);
+  const empty=$("compatibilityEmpty");
+  const controls=$("compatibilityControls");
+  if(!profiles.length){
+    empty.hidden=false;
+    controls.hidden=true;
+    return;
+  }
+  empty.hidden=true;
+  controls.hidden=false;
+  bindChoiceFacet("runsOnCpuFacet",profiles.map(profile=>profile.min_cpu).filter(Boolean),projectFilterState,"runsOnCpu",value=>value,()=>{updateClearButtons();render();});
+  bindChoiceFacet("runsOnRamFacet",profiles.map(profile=>profile.min_ram_kib).filter(Number.isFinite).map(String),projectFilterState,"runsOnRam",value=>formatRam(Number(value)),()=>{updateClearButtons();render();});
+  bindChoiceFacet("runsOnChipsetFacet",profiles.flatMap(profile=>arr(profile.chipsets)),projectFilterState,"runsOnChipset",value=>value,()=>{updateClearButtons();render();});
+}
+
 function init() {
   bindFacet("projectTypeFacet",["software","tools"],projectFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();render();});
-  bindFacet("platformFacet",projects.flatMap(record=>arr(record.source_platforms)),projectFilterState.platform,value=>value,()=>{updateClearButtons();render();});
+  bindFacet("platformFacet",projects.flatMap(platformValues),projectFilterState.platform,value=>value,()=>{updateClearButtons();render();});
+  bindFacet("cpuFacet",projects.flatMap(cpuFamilyValues),projectFilterState.cpu,value=>value,()=>{updateClearButtons();render();});
   bindFacet("targetKindFacet",projects.flatMap(record=>arr(record.target_kinds)),projectFilterState.targetKind,classificationLabel,()=>{updateClearButtons();render();});
   bindFacet("workKindFacet",projects.flatMap(record=>arr(record.work_kinds)),projectFilterState.workKind,classificationLabel,()=>{updateClearButtons();render();});
   bindFacet("toolKindFacet",projects.flatMap(record=>arr(record.tool_kinds)),projectFilterState.toolKind,classificationLabel,()=>{updateClearButtons();render();});
-  bindFacet("cpuFacet",projects.flatMap(record=>arr(record.source_cpu)),projectFilterState.cpu,value=>value,()=>{updateClearButtons();render();});
   bindFacet("languageFacet",projects.flatMap(record=>arr(record.reconstructed_languages)),projectFilterState.language,value=>value,()=>{updateClearButtons();render();});
   bindSegment("aiSegment",projectFilterState,"ai",()=>{updateClearButtons();render();});
   bindSegment("compilableSegment",projectFilterState,"compilable",()=>{updateClearButtons();render();});
   bindSegment("playableSegment",projectFilterState,"playable",()=>{updateClearButtons();render();});
   bindSegment("exactSegment",projectFilterState,"exact",()=>{updateClearButtons();render();});
+  initCompatibilityFilters();
   $("total").textContent = projects.length;
   updateClearButtons();
   render();
@@ -446,8 +493,16 @@ $("q").addEventListener("input",()=>{updateClearButtons();render();});
 $("clear").addEventListener("click", () => {
   $("q").value = "";
   for(const key of ["projectType","platform","targetKind","workKind","toolKind","cpu","language"]) clearFacetSet(projectFilterState[key]);
-  for(const key of ["ai","compilable","playable","exact"]) projectFilterState[key]="";
+  for(const key of ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"]) projectFilterState[key]="";
   clearFacetButtons($("projects"));
+  for(const id of ["runsOnCpuFacet","runsOnRamFacet","runsOnChipsetFacet"]) {
+    const container=$(id);
+    if(container) container.querySelectorAll(".choice-chip").forEach(button=>{
+      const selected=button.dataset.value==="";
+      button.classList.toggle("selected",selected);
+      button.setAttribute("aria-pressed",selected?"true":"false");
+    });
+  }
   for(const id of ["aiSegment","compilableSegment","playableSegment","exactSegment"]) resetSegment(id);
   updateClearButtons();
   render();
