@@ -1,7 +1,453 @@
 {
-  "generated_at": "2026-09-24T07:44:21Z",
+  "generated_at": "2026-09-24T07:49:24Z",
   "window_days": 180,
   "events": [
+    {
+      "type": "project_updated",
+      "date": "2026-09-24T07:49:24Z",
+      "project_id": "openua",
+      "project": {
+        "id": "openua",
+        "title": "OpenUA / Forgotten Realms: Unlimited Adventures",
+        "upstream_name": "OpenUA",
+        "display_title": "OpenUA — Forgotten Realms: Unlimited Adventures engine reconstruction",
+        "subjects": [
+          "Forgotten Realms: Unlimited Adventures"
+        ],
+        "repo": "https://github.com/slaapliedje/OpenUA",
+        "project_url": null,
+        "github_path": null,
+        "github_branch": null,
+        "source_platforms": [
+          "Macintosh"
+        ],
+        "target_platforms": [
+          "Amiga",
+          "Atari ST",
+          "Atari STE",
+          "Atari TT",
+          "Atari Falcon"
+        ],
+        "source_cpu": [
+          "m68k"
+        ],
+        "target_cpu": [
+          "m68000",
+          "m68020"
+        ],
+        "runtime_profiles": [
+          {
+            "name": "Atari ST / STE / Mega ST 68000 build",
+            "platform": "Atari ST",
+            "cpu_family": "68000 family",
+            "min_cpu": "68000",
+            "min_ram_kib": 2048,
+            "chipsets": [
+              "ST",
+              "STE"
+            ],
+            "os": "TOS 1.04 and 2.06 tested; EmuTOS tested",
+            "notes": "The shipping ST/STE binary is compiled for a bare 68000 and is explicitly described as the safe run-on-anything Atari build; a stock non-e ST is verified.",
+            "evidence": [
+              {
+                "source": "HARDWARE.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                "excerpt": "Atari ST / STE / Mega ST — openua-atari-st-*.zip, 2 MB, colour monitor; tested on TOS 2.06, EmuTOS and TOS 1.04."
+              },
+              {
+                "source": "README.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/README.md",
+                "excerpt": "A 68000 build runs on any Atari, and a stock non-e ST is verified too."
+              }
+            ]
+          },
+          {
+            "name": "Atari Falcon030 / TT030",
+            "platform": "Atari Falcon / TT",
+            "cpu_family": "68000 family",
+            "min_cpu": "68030",
+            "min_ram_kib": 4096,
+            "os": "Falcon: TOS 4.04; TT: TOS 3.0x",
+            "notes": "One -m68020-60 binary serves both Falcon030 and TT030; the standard target machines documented here are 68030 systems.",
+            "evidence": [
+              {
+                "source": "HARDWARE.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                "excerpt": "Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT). One binary serves both."
+              },
+              {
+                "source": "README.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/README.md",
+                "excerpt": "The Macintosh 68k code is retargeted to machines including the target 68020/030 family; Falcon030 and TT030 are supported backends."
+              }
+            ]
+          },
+          {
+            "name": "Accelerated Atari ST / STE 020+ build",
+            "platform": "Atari ST",
+            "cpu_family": "68000 family",
+            "min_cpu": "68020",
+            "chipsets": [
+              "ST",
+              "STE"
+            ],
+            "os": "No extra TOS floor documented; TOS 2.06 tested",
+            "notes": "On an accelerated ST/STE the Falcon/TT -m68020-60 binary detects ST hardware and selects the native ST display backend. The documentation explicitly states an 020 or better is required for this variant.",
+            "evidence": [
+              {
+                "source": "HARDWARE.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md#accelerated-st-and-ste-030-or-040-accelerator",
+                "excerpt": "Run the Falcon/TT zip's binary; the Falcon/TT zip is -m68020-60. Requirements are just the accelerator: an 020 or better."
+              }
+            ]
+          },
+          {
+            "name": "Amiga ECS/OCS",
+            "platform": "Amiga",
+            "cpu_family": "68000 family",
+            "min_cpu": "68000",
+            "min_ram_kib": 2048,
+            "chipsets": [
+              "OCS",
+              "ECS"
+            ],
+            "os": "Kickstart 2.0+",
+            "notes": "Bare-68000 ECS/OCS build; Kickstart 1.3 will not launch it. The documentation describes 7 MHz as playable, with acceleration improving comfort.",
+            "evidence": [
+              {
+                "source": "HARDWARE.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                "excerpt": "Amiga ECS/OCS (A500+ / A600 / A2000, bare 68000) — Kickstart 2.0 or later, 2 MB; playable at 7 MHz."
+              }
+            ]
+          },
+          {
+            "name": "Amiga AGA / RTG",
+            "platform": "Amiga",
+            "cpu_family": "68000 family",
+            "min_cpu": "68020",
+            "chipsets": [
+              "AGA",
+              "RTG"
+            ],
+            "os": "Kickstart 3.0+",
+            "notes": "One -m68020 Amiga binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime. The hardware guide describes memory as about 4 MB, so no exact minimum RAM value is asserted here.",
+            "evidence": [
+              {
+                "source": "HARDWARE.md",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                "excerpt": "Amiga AGA (A1200 / A4000) and RTG — Kickstart 3.0+, about 4 MB; one frua serves AGA and Picasso96/CyberGraphX RTG."
+              },
+              {
+                "source": "toolchain/m68k-amigaos.mk",
+                "url": "https://github.com/slaapliedje/OpenUA/blob/main/toolchain/m68k-amigaos.mk",
+                "excerpt": "The codebase is already GCC -std=gnu99 -m68020 C."
+              }
+            ]
+          }
+        ],
+        "source_language": [
+          "m68k machine code"
+        ],
+        "reconstructed_languages": [
+          "C",
+          "m68k assembly"
+        ],
+        "record_class": "subject",
+        "target_kinds": [
+          "game-engine"
+        ],
+        "work_kinds": [
+          "decompilation",
+          "reimplementation"
+        ],
+        "tool_kinds": [],
+        "types": [
+          "decompilation",
+          "reimplementation"
+        ],
+        "re_started": null,
+        "status": "playable beta",
+        "build": {
+          "compilable": true,
+          "runnable": true,
+          "playable": true,
+          "byte_exact": false
+        },
+        "techniques": [
+          "decompilation",
+          "static analysis",
+          "hardware abstraction layer",
+          "cross-platform porting",
+          "emulator validation",
+          "real-hardware testing"
+        ],
+        "tags": [
+          "game engine",
+          "cross-platform",
+          "68k"
+        ],
+        "notes": "Macintosh 68K FRUA engine reconstruction with Amiga and Atari-family targets.",
+        "ai": {
+          "usage": true,
+          "tools": [
+            "Claude"
+          ]
+        }
+      },
+      "title": "Project metadata updated",
+      "message": "runtime profiles: {'name': 'Atari ST / STE / Mega ST 68000 build', 'platform': 'Atari ST', 'cpu_family': '68000 family', 'min_cpu': '68000', 'min_ram_kib': 2048, 'chipsets': ['ST', 'STE'], 'os': 'TOS 1.04 and 2.06 tested; EmuTOS tested', 'notes': 'The shipping ST/STE binary is compiled for a bare 68000 and is explicitly described as the safe run-on-anything Atari build; a stock non-e ST is verified.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Atari ST / STE / Mega ST — openua-atari-st-*.zip, 2 MB, colour monitor; tested on TOS 2.06, EmuTOS and TOS 1.04.'}, {'source': 'README.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/README.md', 'excerpt': 'A 68000 build runs on any Atari, and a stock non-e ST is verified too.'}]}, {'name': 'Atari Falcon / TT 020-60 build', 'platform': 'Atari Falcon / TT', 'cpu_family': '68000 family', 'min_cpu': '68020', 'min_ram_kib': 4096, 'os': 'Falcon: TOS 4.04; TT: TOS 3.0x', 'notes': 'The Falcon/TT binary uses -m68020-60 code generation; the same binary may also be used on an accelerated ST/STE with a 68020 or better.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT).'}, {'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md#accelerated-st-and-ste-030-or-040-accelerator', 'excerpt': 'The Falcon/TT zip is -m68020-60; requirements are an 020 or better.'}]}, {'name': 'Amiga ECS/OCS', 'platform': 'Amiga', 'cpu_family': '68000 family', 'min_cpu': '68000', 'min_ram_kib': 2048, 'chipsets': ['OCS', 'ECS'], 'os': 'Kickstart 2.0+', 'notes': 'Bare-68000 ECS/OCS build; Kickstart 1.3 will not launch it. The documentation describes 7 MHz as playable, with acceleration improving comfort.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Amiga ECS/OCS (A500+ / A600 / A2000, bare 68000) — Kickstart 2.0 or later, 2 MB; playable at 7 MHz.'}]}, {'name': 'Amiga AGA / RTG', 'platform': 'Amiga', 'cpu_family': '68000 family', 'min_cpu': '68020', 'min_ram_kib': 4096, 'chipsets': ['AGA', 'RTG'], 'os': 'Kickstart 3.0+', 'notes': 'One binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime; the AGA path is documented for A1200/A4000-class machines.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Amiga AGA (A1200 / A4000) and RTG — Kickstart 3.0+, about 4 MB; one frua serves AGA and Picasso96/CyberGraphX RTG.'}, {'source': 'toolchain/m68k-amigaos.mk', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/toolchain/m68k-amigaos.mk', 'excerpt': 'The codebase is already GCC -std=gnu99 -m68020 C.'}]} → {'name': 'Atari ST / STE / Mega ST 68000 build', 'platform': 'Atari ST', 'cpu_family': '68000 family', 'min_cpu': '68000', 'min_ram_kib': 2048, 'chipsets': ['ST', 'STE'], 'os': 'TOS 1.04 and 2.06 tested; EmuTOS tested', 'notes': 'The shipping ST/STE binary is compiled for a bare 68000 and is explicitly described as the safe run-on-anything Atari build; a stock non-e ST is verified.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Atari ST / STE / Mega ST — openua-atari-st-*.zip, 2 MB, colour monitor; tested on TOS 2.06, EmuTOS and TOS 1.04.'}, {'source': 'README.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/README.md', 'excerpt': 'A 68000 build runs on any Atari, and a stock non-e ST is verified too.'}]}, {'name': 'Atari Falcon030 / TT030', 'platform': 'Atari Falcon / TT', 'cpu_family': '68000 family', 'min_cpu': '68030', 'min_ram_kib': 4096, 'os': 'Falcon: TOS 4.04; TT: TOS 3.0x', 'notes': 'One -m68020-60 binary serves both Falcon030 and TT030; the standard target machines documented here are 68030 systems.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT). One binary serves both.'}, {'source': 'README.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/README.md', 'excerpt': 'The Macintosh 68k code is retargeted to machines including the target 68020/030 family; Falcon030 and TT030 are supported backends.'}]}, {'name': 'Accelerated Atari ST / STE 020+ build', 'platform': 'Atari ST', 'cpu_family': '68000 family', 'min_cpu': '68020', 'chipsets': ['ST', 'STE'], 'os': 'No extra TOS floor documented; TOS 2.06 tested', 'notes': 'On an accelerated ST/STE the Falcon/TT -m68020-60 binary detects ST hardware and selects the native ST display backend. The documentation explicitly states an 020 or better is required for this variant.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md#accelerated-st-and-ste-030-or-040-accelerator', 'excerpt': \"Run the Falcon/TT zip's binary; the Falcon/TT zip is -m68020-60. Requirements are just the accelerator: an 020 or better.\"}]}, {'name': 'Amiga ECS/OCS', 'platform': 'Amiga', 'cpu_family': '68000 family', 'min_cpu': '68000', 'min_ram_kib': 2048, 'chipsets': ['OCS', 'ECS'], 'os': 'Kickstart 2.0+', 'notes': 'Bare-68000 ECS/OCS build; Kickstart 1.3 will not launch it. The documentation describes 7 MHz as playable, with acceleration improving comfort.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Amiga ECS/OCS (A500+ / A600 / A2000, bare 68000) — Kickstart 2.0 or later, 2 MB; playable at 7 MHz.'}]}, {'name': 'Amiga AGA / RTG', 'platform': 'Amiga', 'cpu_family': '68000 family', 'min_cpu': '68020', 'chipsets': ['AGA', 'RTG'], 'os': 'Kickstart 3.0+', 'notes': 'One -m68020 Amiga binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime. The hardware guide describes memory as about 4 MB, so no exact minimum RAM value is asserted here.', 'evidence': [{'source': 'HARDWARE.md', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md', 'excerpt': 'Amiga AGA (A1200 / A4000) and RTG — Kickstart 3.0+, about 4 MB; one frua serves AGA and Picasso96/CyberGraphX RTG.'}, {'source': 'toolchain/m68k-amigaos.mk', 'url': 'https://github.com/slaapliedje/OpenUA/blob/main/toolchain/m68k-amigaos.mk', 'excerpt': 'The codebase is already GCC -std=gnu99 -m68020 C.'}]}; status: active → playable beta; techniques: decompilation, static analysis → decompilation, static analysis, hardware abstraction layer, cross-platform porting, emulator validation, real-hardware testing",
+      "url": "https://github.com/slaapliedje/OpenUA",
+      "changes": [
+        "runtime_profiles",
+        "status",
+        "techniques"
+      ],
+      "change_details": [
+        {
+          "field": "runtime_profiles",
+          "before": [
+            {
+              "name": "Atari ST / STE / Mega ST 68000 build",
+              "platform": "Atari ST",
+              "cpu_family": "68000 family",
+              "min_cpu": "68000",
+              "min_ram_kib": 2048,
+              "chipsets": [
+                "ST",
+                "STE"
+              ],
+              "os": "TOS 1.04 and 2.06 tested; EmuTOS tested",
+              "notes": "The shipping ST/STE binary is compiled for a bare 68000 and is explicitly described as the safe run-on-anything Atari build; a stock non-e ST is verified.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Atari ST / STE / Mega ST — openua-atari-st-*.zip, 2 MB, colour monitor; tested on TOS 2.06, EmuTOS and TOS 1.04."
+                },
+                {
+                  "source": "README.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/README.md",
+                  "excerpt": "A 68000 build runs on any Atari, and a stock non-e ST is verified too."
+                }
+              ]
+            },
+            {
+              "name": "Atari Falcon / TT 020-60 build",
+              "platform": "Atari Falcon / TT",
+              "cpu_family": "68000 family",
+              "min_cpu": "68020",
+              "min_ram_kib": 4096,
+              "os": "Falcon: TOS 4.04; TT: TOS 3.0x",
+              "notes": "The Falcon/TT binary uses -m68020-60 code generation; the same binary may also be used on an accelerated ST/STE with a 68020 or better.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT)."
+                },
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md#accelerated-st-and-ste-030-or-040-accelerator",
+                  "excerpt": "The Falcon/TT zip is -m68020-60; requirements are an 020 or better."
+                }
+              ]
+            },
+            {
+              "name": "Amiga ECS/OCS",
+              "platform": "Amiga",
+              "cpu_family": "68000 family",
+              "min_cpu": "68000",
+              "min_ram_kib": 2048,
+              "chipsets": [
+                "OCS",
+                "ECS"
+              ],
+              "os": "Kickstart 2.0+",
+              "notes": "Bare-68000 ECS/OCS build; Kickstart 1.3 will not launch it. The documentation describes 7 MHz as playable, with acceleration improving comfort.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Amiga ECS/OCS (A500+ / A600 / A2000, bare 68000) — Kickstart 2.0 or later, 2 MB; playable at 7 MHz."
+                }
+              ]
+            },
+            {
+              "name": "Amiga AGA / RTG",
+              "platform": "Amiga",
+              "cpu_family": "68000 family",
+              "min_cpu": "68020",
+              "min_ram_kib": 4096,
+              "chipsets": [
+                "AGA",
+                "RTG"
+              ],
+              "os": "Kickstart 3.0+",
+              "notes": "One binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime; the AGA path is documented for A1200/A4000-class machines.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Amiga AGA (A1200 / A4000) and RTG — Kickstart 3.0+, about 4 MB; one frua serves AGA and Picasso96/CyberGraphX RTG."
+                },
+                {
+                  "source": "toolchain/m68k-amigaos.mk",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/toolchain/m68k-amigaos.mk",
+                  "excerpt": "The codebase is already GCC -std=gnu99 -m68020 C."
+                }
+              ]
+            }
+          ],
+          "after": [
+            {
+              "name": "Atari ST / STE / Mega ST 68000 build",
+              "platform": "Atari ST",
+              "cpu_family": "68000 family",
+              "min_cpu": "68000",
+              "min_ram_kib": 2048,
+              "chipsets": [
+                "ST",
+                "STE"
+              ],
+              "os": "TOS 1.04 and 2.06 tested; EmuTOS tested",
+              "notes": "The shipping ST/STE binary is compiled for a bare 68000 and is explicitly described as the safe run-on-anything Atari build; a stock non-e ST is verified.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Atari ST / STE / Mega ST — openua-atari-st-*.zip, 2 MB, colour monitor; tested on TOS 2.06, EmuTOS and TOS 1.04."
+                },
+                {
+                  "source": "README.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/README.md",
+                  "excerpt": "A 68000 build runs on any Atari, and a stock non-e ST is verified too."
+                }
+              ]
+            },
+            {
+              "name": "Atari Falcon030 / TT030",
+              "platform": "Atari Falcon / TT",
+              "cpu_family": "68000 family",
+              "min_cpu": "68030",
+              "min_ram_kib": 4096,
+              "os": "Falcon: TOS 4.04; TT: TOS 3.0x",
+              "notes": "One -m68020-60 binary serves both Falcon030 and TT030; the standard target machines documented here are 68030 systems.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT). One binary serves both."
+                },
+                {
+                  "source": "README.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/README.md",
+                  "excerpt": "The Macintosh 68k code is retargeted to machines including the target 68020/030 family; Falcon030 and TT030 are supported backends."
+                }
+              ]
+            },
+            {
+              "name": "Accelerated Atari ST / STE 020+ build",
+              "platform": "Atari ST",
+              "cpu_family": "68000 family",
+              "min_cpu": "68020",
+              "chipsets": [
+                "ST",
+                "STE"
+              ],
+              "os": "No extra TOS floor documented; TOS 2.06 tested",
+              "notes": "On an accelerated ST/STE the Falcon/TT -m68020-60 binary detects ST hardware and selects the native ST display backend. The documentation explicitly states an 020 or better is required for this variant.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md#accelerated-st-and-ste-030-or-040-accelerator",
+                  "excerpt": "Run the Falcon/TT zip's binary; the Falcon/TT zip is -m68020-60. Requirements are just the accelerator: an 020 or better."
+                }
+              ]
+            },
+            {
+              "name": "Amiga ECS/OCS",
+              "platform": "Amiga",
+              "cpu_family": "68000 family",
+              "min_cpu": "68000",
+              "min_ram_kib": 2048,
+              "chipsets": [
+                "OCS",
+                "ECS"
+              ],
+              "os": "Kickstart 2.0+",
+              "notes": "Bare-68000 ECS/OCS build; Kickstart 1.3 will not launch it. The documentation describes 7 MHz as playable, with acceleration improving comfort.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Amiga ECS/OCS (A500+ / A600 / A2000, bare 68000) — Kickstart 2.0 or later, 2 MB; playable at 7 MHz."
+                }
+              ]
+            },
+            {
+              "name": "Amiga AGA / RTG",
+              "platform": "Amiga",
+              "cpu_family": "68000 family",
+              "min_cpu": "68020",
+              "chipsets": [
+                "AGA",
+                "RTG"
+              ],
+              "os": "Kickstart 3.0+",
+              "notes": "One -m68020 Amiga binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime. The hardware guide describes memory as about 4 MB, so no exact minimum RAM value is asserted here.",
+              "evidence": [
+                {
+                  "source": "HARDWARE.md",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
+                  "excerpt": "Amiga AGA (A1200 / A4000) and RTG — Kickstart 3.0+, about 4 MB; one frua serves AGA and Picasso96/CyberGraphX RTG."
+                },
+                {
+                  "source": "toolchain/m68k-amigaos.mk",
+                  "url": "https://github.com/slaapliedje/OpenUA/blob/main/toolchain/m68k-amigaos.mk",
+                  "excerpt": "The codebase is already GCC -std=gnu99 -m68020 C."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "field": "status",
+          "before": "active",
+          "after": "playable beta"
+        },
+        {
+          "field": "techniques",
+          "before": [
+            "decompilation",
+            "static analysis"
+          ],
+          "after": [
+            "decompilation",
+            "static analysis",
+            "hardware abstraction layer",
+            "cross-platform porting",
+            "emulator validation",
+            "real-hardware testing"
+          ]
+        }
+      ],
+      "branches": []
+    },
+    {
+      "type": "commit",
+      "date": "2026-09-24T07:48:30Z",
+      "project_id": "firestaff-dungeon-master-engine",
+      "repository": "yeager/firestaff",
+      "sha": "c73541b419052af04557b1a95ccc927a5f52c0b5",
+      "title": "test(theron): compare all US ISO dungeon sources",
+      "message": "test(theron): compare all US ISO dungeon sources",
+      "url": "https://github.com/yeager/firestaff/commit/c73541b419052af04557b1a95ccc927a5f52c0b5",
+      "author": "yeager",
+      "branches": [
+        "main"
+      ]
+    },
     {
       "type": "project_updated",
       "date": "2026-09-24T07:44:21Z",
@@ -288,6 +734,20 @@
         }
       ],
       "branches": []
+    },
+    {
+      "type": "commit",
+      "date": "2026-09-24T07:38:15Z",
+      "project_id": "firestaff-dungeon-master-engine",
+      "repository": "yeager/firestaff",
+      "sha": "b1df907c01153b5ea89f3060b738abecacada277",
+      "title": "fix(theron): load US ISO roster and dungeon source",
+      "message": "fix(theron): load US ISO roster and dungeon source",
+      "url": "https://github.com/yeager/firestaff/commit/b1df907c01153b5ea89f3060b738abecacada277",
+      "author": "yeager",
+      "branches": [
+        "main"
+      ]
     },
     {
       "type": "commit",

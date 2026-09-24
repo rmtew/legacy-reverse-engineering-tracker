@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T07:44:21Z",
+  "updated_at": "2026-09-24T07:49:24Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -12207,23 +12207,42 @@
           ]
         },
         {
-          "name": "Atari Falcon / TT 020-60 build",
+          "name": "Atari Falcon030 / TT030",
           "platform": "Atari Falcon / TT",
           "cpu_family": "68000 family",
-          "min_cpu": "68020",
+          "min_cpu": "68030",
           "min_ram_kib": 4096,
           "os": "Falcon: TOS 4.04; TT: TOS 3.0x",
-          "notes": "The Falcon/TT binary uses -m68020-60 code generation; the same binary may also be used on an accelerated ST/STE with a 68020 or better.",
+          "notes": "One -m68020-60 binary serves both Falcon030 and TT030; the standard target machines documented here are 68030 systems.",
           "evidence": [
             {
               "source": "HARDWARE.md",
               "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md",
-              "excerpt": "Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT)."
+              "excerpt": "Atari Falcon030 / TT030 — openua-falcon-*.zip, 4 MB, TOS 4.04 (Falcon) or 3.0x (TT). One binary serves both."
             },
+            {
+              "source": "README.md",
+              "url": "https://github.com/slaapliedje/OpenUA/blob/main/README.md",
+              "excerpt": "The Macintosh 68k code is retargeted to machines including the target 68020/030 family; Falcon030 and TT030 are supported backends."
+            }
+          ]
+        },
+        {
+          "name": "Accelerated Atari ST / STE 020+ build",
+          "platform": "Atari ST",
+          "cpu_family": "68000 family",
+          "min_cpu": "68020",
+          "chipsets": [
+            "ST",
+            "STE"
+          ],
+          "os": "No extra TOS floor documented; TOS 2.06 tested",
+          "notes": "On an accelerated ST/STE the Falcon/TT -m68020-60 binary detects ST hardware and selects the native ST display backend. The documentation explicitly states an 020 or better is required for this variant.",
+          "evidence": [
             {
               "source": "HARDWARE.md",
               "url": "https://github.com/slaapliedje/OpenUA/blob/main/HARDWARE.md#accelerated-st-and-ste-030-or-040-accelerator",
-              "excerpt": "The Falcon/TT zip is -m68020-60; requirements are an 020 or better."
+              "excerpt": "Run the Falcon/TT zip's binary; the Falcon/TT zip is -m68020-60. Requirements are just the accelerator: an 020 or better."
             }
           ]
         },
@@ -12252,13 +12271,12 @@
           "platform": "Amiga",
           "cpu_family": "68000 family",
           "min_cpu": "68020",
-          "min_ram_kib": 4096,
           "chipsets": [
             "AGA",
             "RTG"
           ],
           "os": "Kickstart 3.0+",
-          "notes": "One binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime; the AGA path is documented for A1200/A4000-class machines.",
+          "notes": "One -m68020 Amiga binary serves AGA and Picasso96/CyberGraphX RTG, selecting the display path at runtime. The hardware guide describes memory as about 4 MB, so no exact minimum RAM value is asserted here.",
           "evidence": [
             {
               "source": "HARDWARE.md",
@@ -12294,7 +12312,7 @@
         "reimplementation"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "playable beta",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -12303,7 +12321,11 @@
       },
       "techniques": [
         "decompilation",
-        "static analysis"
+        "static analysis",
+        "hardware abstraction layer",
+        "cross-platform porting",
+        "emulator validation",
+        "real-hardware testing"
       ],
       "tags": [
         "game engine",
