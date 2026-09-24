@@ -368,3 +368,8 @@ Hardware requirements remain evidence-only. **Fighter Pilot** is the only new re
 Discovery sources were expanded for Dennis Debro, ZornsLemma, TobyLobster, nmikstas, cadaver and Crossroads 2, and the existing sarnau node now reflects the substantial Atari 8-bit archaeology cluster. Strong unpromoted follow-ups remain in the same graph, including additional sarnau Atari 8-bit analyses, Zelda/NES work and further BBC Micro disassemblies.
 
 Catalogue count increased from 272 to **286**.
+
+
+## 2026-09-25 — discovery automation landing verification
+
+Verified the repository-side discovery landing path by pushing this commit to an `automation/discovery-*` branch and allowing `.github/workflows/land-discovery.yml` to fast-forward `main` only after confirming the branch is non-empty, zero commits behind, and based directly on the current `main`.
