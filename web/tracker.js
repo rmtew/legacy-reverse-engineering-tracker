@@ -16,9 +16,14 @@ const projectTitle = record => record?.display_title || record?.title || record?
 const upstreamName = record => record?.upstream_name || record?.title || projectTitle(record);
 
 const THEME_STORAGE_KEY="retro-development-tracker.theme";
-function applyTheme(theme,{persist=false}={}){
-  const value=theme==="dark"?"dark":"light";
-  document.documentElement.dataset.theme=value;
+const browserDarkMode=window.matchMedia("(prefers-color-scheme: dark)");
+const effectiveTheme = () => {
+  const explicit=document.documentElement.dataset.theme;
+  if(explicit==="dark"||explicit==="light") return explicit;
+  return browserDarkMode.matches?"dark":"light";
+};
+function updateThemeToggle(){
+  const value=effectiveTheme();
   const button=$("themeToggle");
   const label=$("themeToggleLabel");
   const next=value==="dark"?"light":"dark";
@@ -29,13 +34,19 @@ function applyTheme(theme,{persist=false}={}){
     button.title=text;
     button.setAttribute("aria-pressed",value==="dark"?"true":"false");
   }
-  if(persist){
-    try { localStorage.setItem(THEME_STORAGE_KEY,value); } catch {}
-  }
 }
-applyTheme(document.documentElement.dataset.theme);
+function applyManualTheme(theme){
+  const value=theme==="dark"?"dark":"light";
+  document.documentElement.dataset.theme=value;
+  try { localStorage.setItem(THEME_STORAGE_KEY,value); } catch {}
+  updateThemeToggle();
+}
+updateThemeToggle();
+browserDarkMode.addEventListener?.("change",()=>{
+  if(!document.documentElement.dataset.theme) updateThemeToggle();
+});
 $("themeToggle").addEventListener("click",()=>{
-  applyTheme(document.documentElement.dataset.theme==="dark"?"light":"dark",{persist:true});
+  applyManualTheme(effectiveTheme()==="dark"?"light":"dark");
 });
 const flag = value => {
   const label = tri(value);
