@@ -1,6 +1,6 @@
-# Legacy Reverse Engineering Tracker
+# Retro Development Project Tracker
 
-A structured catalogue of reverse-engineering, source-reconstruction and closely related native-port projects across legacy computers and consoles. The platform list is intentionally open-ended; current coverage includes Amiga, Atari ST, ZX Spectrum, Commodore 64, Amstrad CPC, BBC Micro/Master, Acorn Electron/Archimedes, NES, PMD 85 and others.
+A structured catalogue of retro-development projects across legacy computers and consoles: reverse engineering, source reconstruction, preservation, homebrew, native ports and directly relevant tooling. The platform list is intentionally open-ended; current coverage includes Amiga, Atari ST, ZX Spectrum, Commodore 64, Amstrad CPC, BBC Micro/Master, Acorn Electron/Archimedes, NES, PMD 85 and others.
 
 **Live tracker:** https://rmtew.github.io/legacy-reverse-engineering-tracker/  
 **Activity RSS:** https://rmtew.github.io/legacy-reverse-engineering-tracker/activity.xml
