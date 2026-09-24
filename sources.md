@@ -113,7 +113,6 @@
 
 - Continue auditing `jotd666` repositories not yet promoted, especially candidates with missing or template/copied READMEs; require project-specific evidence before adding them.
 - Continue mining `hitchhikr` beyond the eight promoted Amiga/ST disassemblies and follow its credited tool/predecessor links.
-- Resolve and assess AmberWorlds / Oliver Gantert, Slothsoft / Daniel Schulz and Nico Bendlin's Amber research as possible additional tracked projects.
 - Continue mining Tetracorp external references and the Pyrdacor/Amber predecessor graph.
 - Continue watching `geogeo28/atari_reverse` for newly added reverse-engineering targets.
 - **BLACK ICE remains excluded** because its own documentation identifies it as an original game built from knowledge gained during RE work rather than an RE project itself.
@@ -136,7 +135,6 @@
 
 - Audit RetroRE's untracked **Full/Partial** 6502 reverse-engineering links systematically. High-value leads include Apple II Choplifter/6502disassembly projects, BBC Micro Exile/Imogen/Thrust, Atari 2600 multi-title disassembly collections, C64 title reconstructions and NES full disassemblies; continue distinguishing original-source preservation from RE.
 
-- Mine Mark Moxon's linked archaeology graph beyond the projects already promoted, but keep original-source-only preservation distinct from binary/source reconstruction.
 - Follow credited predecessors and related disassemblies around BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes and NES projects.
 - Treat newly represented platforms as first-class discovery targets rather than restricting future searches to the original five platform families.
 
@@ -188,3 +186,7 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/unorig | C64 reverse-engineered/decompiled game-source cluster including A View to a Kill, Chiller, Ghostbusters and Squirm |
 | https://github.com/dabadab/wizardofwor | Extensively documented C64 Wizard of Wor reverse engineering and buildable cartridge reconstruction |
 | https://github.com/brandonrobertz/haunted_house_disassembly | Atari 2600 Haunted House commented disassembly and reverse-engineering project |
+
+| https://amberworld.sourceforge.net/ | Oliver Gantert's Amberstar/Ambermoon/Albion reverse-engineering, file-format documentation and extraction/conversion tooling |
+| http://slothsoft.net/Ambermoon/ | Daniel Schulz's Ambermoon savegame/data tooling, credited by Pyrdacor as predecessor research |
+| https://gitlab.com/ambermoon/research | Nico Bendlin's Ambermoon Ghidra research project and Ghidra-server documentation, credited by Pyrdacor |

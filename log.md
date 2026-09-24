@@ -443,3 +443,14 @@ The Imogen and Night World repositories have no conventional README, so their bu
 Also sampled the **Mark Moxon** archaeology graph. Apple II Elite, BBC Micro cassette Elite and Elite-A are current repositories centered on original-source preservation/documentation (Elite-A's historical creation itself involved disassembly), so they remain discovery context rather than being added as new reverse-engineering records in this pass. The Mark Moxon graph task remains in progress for genuinely distinct hacks, tools and ports.
 
 This pass adds **27 projects**, taking the catalogue from 338 to **365**.
+
+
+## 2026-09-25 — Mark Moxon and Amber predecessor graph pass
+
+Completed the main **Mark Moxon Elite hack/tool graph** audit. Added six distinct runnable projects: flicker-free Commodore 64/Plus/4 Elite, Teletext Elite, Elite 3D, Two-player Elite, Elite Universe Editor and Elite over Econet. The current original-source-only repositories and Elite Compendium variants remain discovery context rather than being misclassified as reconstruction work. `!EliteNet` was explicitly reviewed but not promoted because it is a companion Archimedes scoreboard application and the game itself is untouched.
+
+Resolved the named **Amber predecessor** backlog using Pyrdacor's primary Ambermoon documentation. Added **Amberworld** as a historical Amberstar/Ambermoon/Albion reverse-engineering and format-tooling project, and **AmbermoonSourceror** as a Ghidra-export-to-Amiga-assembler tool. Added concrete discovery nodes for Daniel Schulz's Slothsoft Ambermoon tooling and Nico Bendlin's GitLab/Ghidra research rather than leaving them as unresolved names. Confirmed that `kermitfrog/Amberstar` is a fork of the already tracked `Pyrdacor/Amberstar`, so it was not duplicated.
+
+Expanded the **Tetracorp** graph beyond Amiga work with **Tokimeki Memorial: Forever With You**, a documented Ghidra analysis of the 1995 Japanese PlayStation release. This also adds PlayStation as a represented source platform.
+
+This pass adds **9 projects**, taking the catalogue from 365 to **374**.
