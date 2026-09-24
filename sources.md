@@ -96,6 +96,8 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 
 | https://github.com/realdmx/retrore | Curated 6502 reverse-engineering/original-source index across Apple II, Atari 2600/8-bit, BBC/Acorn, C64, NES and others; its RE/Original distinction is useful for discovery triage |
 
+| https://github.com/lantus | Amiga/68k retro-development profile with OCS homebrew/conversions and ports; ZippyRace-OCS is a verified source-available fan conversion, with related repositories worth auditing |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
@@ -156,4 +158,4 @@ Graph-style discovery is intentional: many of the strongest finds were adjacent 
 
 ## Promotion rule
 
-A lead becomes a record in `data/projects.json` once there is a concrete source and enough evidence to say what is being reverse engineered or reconstructed. Core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling may also qualify when directly useful to software archaeology or reproducible legacy development. Ordinary source releases or open-source maintenance alone normally remain discovery nodes rather than catalogue records. Unknown metadata is acceptable; invented metadata is not.
+A lead becomes a record in `data/projects.json` once there is a concrete source and enough evidence to say what the project actually is. Reverse engineering, reconstruction, preservation, ports, substantial original homebrew/fan conversions, and directly relevant development tooling are all within the broader Retro Development Project Tracker scope. Core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling may qualify when directly useful to retro development or software archaeology. Ordinary source mirrors or routine open-source maintenance alone normally remain discovery nodes rather than catalogue records. Unknown metadata is acceptable; invented metadata is not.

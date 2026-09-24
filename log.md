@@ -346,3 +346,12 @@ Added an explicit **Light/Dark** theme toggle in the site header. Light mode is 
 ## 2026-09-24 — browser-default theme behaviour
 
 Adjusted theme handling so an unset tracker preference follows the browser/OS `prefers-color-scheme` value. Nothing is written to storage merely by loading the site. Only an explicit user click on the Light/Dark toggle creates a persistent `localStorage` override; once present, that manual override takes precedence over browser defaults.
+
+
+## 2026-09-24 — Zippy Race OCS Amiga fan conversion
+
+Promoted **Zippy Race — OCS Amiga fan conversion** from `lantus/ZippyRace-OCS`. This is intentionally a broader-scope retro-development/homebrew record rather than a reverse-engineering record: the project's own README explicitly says **no reverse engineering or transcoding was performed** and that the game was written by hand to recreate the 1983 Irem arcade game.
+
+The repository contains the complete C/m68k-assembly Amiga implementation, assets and build system. Its Makefile targets **68000** explicitly, while the README states that it runs at **50/60 fps on any Amiga with 1 MB**, so the record includes a verified OCS runtime profile of 68000 + 1 MB rather than inferring compatibility from the Amiga target alone. The `lantus` profile was added as a recurring Amiga/68k retro-development discovery node.
+
+Catalogue count increased from 255 to **256**.
