@@ -231,7 +231,11 @@ def event_from_commit(project_id, repo, item):
 
 def project_matches_branch(project, branch):
     explicit = project.get("github_branch")
-    return not explicit or explicit == branch
+    if explicit:
+        return explicit == branch
+    gh = project.get("github") or {}
+    tracked = gh.get("tracking_branch") or gh.get("default_branch")
+    return tracked == branch if tracked else True
 
 def path_touched(files, project_path):
     prefix = project_path.rstrip("/") + "/"
@@ -342,6 +346,22 @@ def update_project_latest(project, item):
         }
         gh["activity_state"] = activity_state(day)
 
+def repair_project_latest(project, event):
+    """Repair a latest-commit pointer proven to have come from the wrong branch."""
+    when = event.get("date") or ""
+    if not when:
+        return
+    day = when[:10]
+    project["last_activity"] = day
+    gh = project.setdefault("github", {})
+    gh["latest_commit"] = {
+        "sha": event.get("sha"),
+        "date": day,
+        "message": event.get("title") or (event.get("message") or "").splitlines()[0],
+        "url": event.get("url"),
+    }
+    gh["activity_state"] = activity_state(day)
+
 def main():
     projects = load_json(PROJECTS, [])
     payload = load_json(ACTIVITY, {"generated_at": None, "window_days": DAYS, "events": []})
@@ -358,6 +378,7 @@ def main():
 
     events = {}
     project_events = []
+    repair_latest_ids = set()
     for old in payload.get("events", []):
         when = parse_time(old.get("date"))
         if not when or when < CUTOFF:
@@ -367,10 +388,16 @@ def main():
             # project set so a removal remains visible after its record is gone.
             project_events.append(old)
             continue
-        if old.get("project_id") not in project_by_id:
+        project = project_by_id.get(old.get("project_id"))
+        if not project:
+            continue
+        old["branches"] = sorted(set(old.get("branches") or []))
+        if old["branches"] and not any(project_matches_branch(project, branch) for branch in old["branches"]):
+            latest = ((project.get("github") or {}).get("latest_commit") or {}).get("sha")
+            if latest and latest == old.get("sha"):
+                repair_latest_ids.add(project["id"])
             continue
         key = (old.get("project_id"), old.get("repository"), old.get("sha"))
-        old["branches"] = sorted(set(old.get("branches") or []))
         events[key] = old
 
     baseline = parse_time(payload.get("generated_at")) or (NOW - timedelta(days=2))
@@ -466,6 +493,21 @@ def main():
         project = project_by_id.get(project_id)
         if project:
             update_project_latest(project, item)
+
+    if repair_latest_ids:
+        latest_valid = {}
+        for event in events.values():
+            project_id = event.get("project_id")
+            if project_id not in repair_latest_ids:
+                continue
+            when = parse_time(event.get("date"))
+            old = latest_valid.get(project_id)
+            if when and (old is None or when > parse_time(old.get("date"))):
+                latest_valid[project_id] = event
+        for project_id, event in latest_valid.items():
+            project = project_by_id.get(project_id)
+            if project:
+                repair_project_latest(project, event)
 
     items_by_project = {}
     for event in events.values():
