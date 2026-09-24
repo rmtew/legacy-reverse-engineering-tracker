@@ -313,3 +313,12 @@ Catalogue count increased from 248 to **255**.
 ## 2026-09-24 — public site renamed Retro Development Project Tracker
 
 Renamed the public-facing site and RSS branding to **Retro Development Project Tracker** with the subtitle **Reverse engineering · reconstruction · preservation · homebrew · tooling**. The GitHub repository name and Pages URL remain unchanged to avoid unnecessary URL/repository churn.
+
+
+## 2026-09-24 — additive facet filtering
+
+Replaced the dropdown-heavy Projects and Activity filters with additive facet chips. Multiple choices inside one facet are ORed (for example Amiga + Atari ST + Amstrad CPC), while different facets combine to narrow results (for example those platforms + Game + Source reconstruction).
+
+The internal `subject/tooling/hybrid` classification is no longer exposed as UI jargon. **Project type** presents **Retro software** and **Development tools**; hybrid records belong to both. Projects now expose additive Platform, Software type, Work and Development tool facets, with CPU/output language under More filters, while AI/Compiles/Playable/Byte exact use compact mutually exclusive Any/Yes/No/Unknown controls.
+
+Activity was simplified to Search, Period, additive Activity type / Project type / Platform / Software type / Work / Development tool facets, and AI state. Dedicated project, author, branch and output-language filters were removed. The activity text search remains for project/subject and activity text, but no longer indexes authors or branch names.

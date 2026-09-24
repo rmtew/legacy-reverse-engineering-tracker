@@ -27,7 +27,7 @@ const tags = value => {
 };
 
 const classificationLabels = {
-  subject:"Subject", tooling:"Tooling", hybrid:"Hybrid", game:"Game", application:"Application", demo:"Demo",
+  subject:"Retro software", tooling:"Development tools", hybrid:"Retro software + development tools", game:"Game", application:"Application", demo:"Demo",
   "operating-system":"Operating system", "firmware-rom":"Firmware / ROM", "system-software":"System software",
   "game-engine":"Game engine", "game-subsystem":"Game subsystem", "development-tool":"Development tool",
   disassembly:"Disassembly", decompilation:"Decompilation", "source-reconstruction":"Source reconstruction",
@@ -42,6 +42,11 @@ const classificationLabels = {
   "development-environment":"Development environment"
 };
 const classificationLabel = value => classificationLabels[value] || String(value ?? "");
+const projectTypeLabels = {software:"Retro software",tools:"Development tools"};
+const projectTypeLabel = value => projectTypeLabels[value] || value;
+const projectTypeValues = record => record?.record_class === "hybrid"
+  ? ["software","tools"]
+  : record?.record_class === "tooling" ? ["tools"] : ["software"];
 const classificationValueTags = value => {
   const values = arr(value);
   return values.length ? tags(values.map(classificationLabel)) : "?";
@@ -71,59 +76,90 @@ const compactToolKinds = record => {
 
 const classificationTags = (record,{compact=false}={}) => {
   const chips=[];
+  for(const value of projectTypeValues(record)){
+    chips.push('<span class="classification-chip class-chip" title="Project type">'+esc(projectTypeLabel(value))+'</span>');
+  }
   if(compact){
-    if(record.record_class==="tooling"){
-      chips.push(classificationChip(record.record_class,"class","Class"));
+    if(projectTypeValues(record).includes("tools")){
       for(const value of compactToolKinds(record)) chips.push(classificationChip(value,"tool","Tool"));
-    }else if(record.record_class==="hybrid"){
-      chips.push(classificationChip(record.record_class,"class","Class"));
-      for(const value of arr(record.target_kinds).slice(0,1)) chips.push(classificationChip(value,"target","Target"));
-      for(const value of arr(record.work_kinds).slice(0,1)) chips.push(classificationChip(value,"work","Work"));
-      for(const value of compactToolKinds(record).slice(0,1)) chips.push(classificationChip(value,"tool","Tool"));
     }else{
-      for(const value of arr(record.target_kinds).slice(0,1)) chips.push(classificationChip(value,"target","Target"));
+      for(const value of arr(record.target_kinds).slice(0,1)) chips.push(classificationChip(value,"target","Software type"));
       for(const value of arr(record.work_kinds).slice(0,2)) chips.push(classificationChip(value,"work","Work"));
     }
   }else{
-    if(record.record_class) chips.push(classificationChip(record.record_class,"class","Class"));
-    for(const value of arr(record.target_kinds)) chips.push(classificationChip(value,"target","Target"));
+    for(const value of arr(record.target_kinds)) chips.push(classificationChip(value,"target","Software type"));
     for(const value of arr(record.work_kinds)) chips.push(classificationChip(value,"work","Work"));
-    for(const value of arr(record.tool_kinds)) chips.push(classificationChip(value,"tool","Tool"));
+    for(const value of arr(record.tool_kinds)) chips.push(classificationChip(value,"tool","Development tool"));
   }
   return chips.length?'<span class="classification-tags'+(compact?' compact-classification':'')+'">'+chips.join("")+"</span>":"?";
 };
 const classificationSortValue = record => [
-  record.record_class,...arr(record.target_kinds),...arr(record.work_kinds),...arr(record.tool_kinds)
+  ...projectTypeValues(record).map(projectTypeLabel),
+  ...arr(record.target_kinds),...arr(record.work_kinds),...arr(record.tool_kinds)
 ].filter(Boolean).join(" ");
 
-const filterIds = [
-  "recordClass","targetKind","workKind","toolKind",
-  "sourcePlatform","targetPlatform","cpu","language","tag",
-  "status","activity","compilable","playable","exact","ai"
-];
+const projectFilterState = {
+  projectType:new Set(), platform:new Set(), targetKind:new Set(), workKind:new Set(),
+  toolKind:new Set(), cpu:new Set(), language:new Set(),
+  ai:"", compilable:"", playable:"", exact:""
+};
+const activityFilterState = {
+  type:new Set(), projectType:new Set(), platform:new Set(), targetKind:new Set(),
+  workKind:new Set(), toolKind:new Set(), ai:"", days:"30"
+};
 
-function unique(field) {
-  return [...new Set(projects.flatMap(record => arr(record[field])).filter(Boolean))]
-    .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: "base" }));
+const sortedUnique = (values,labeler=value=>value) =>
+  [...new Set(values.filter(Boolean))].sort((a,b)=>
+    String(labeler(a)).localeCompare(String(labeler(b)),undefined,{numeric:true,sensitivity:"base"})
+  );
+const facetMatch = (selected,values) => !selected.size || arr(values).some(value=>selected.has(value));
+
+function bindFacet(containerId,values,selected,labeler,onChange){
+  const container=$(containerId);
+  container.innerHTML=sortedUnique(values,labeler).map(value=>
+    '<button type="button" class="facet-chip" data-value="'+esc(value)+'" aria-pressed="false">'+esc(labeler(value))+'</button>'
+  ).join("");
+  container.querySelectorAll(".facet-chip").forEach(button=>button.addEventListener("click",()=>{
+    const value=button.dataset.value;
+    if(selected.has(value)) selected.delete(value); else selected.add(value);
+    button.classList.toggle("selected",selected.has(value));
+    button.setAttribute("aria-pressed",selected.has(value)?"true":"false");
+    onChange();
+  }));
 }
 
-function fillSelect(id, field, labeler = value => value) {
-  const select = $(id);
-  for (const value of unique(field)) {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = labeler(value);
-    select.append(option);
-  }
+function bindSegment(containerId,state,key,onChange){
+  const container=$(containerId);
+  container.querySelectorAll("button").forEach(button=>button.addEventListener("click",()=>{
+    state[key]=button.dataset.value;
+    container.querySelectorAll("button").forEach(item=>item.classList.toggle("selected",item===button));
+    onChange();
+  }));
 }
 
-function fillActivitySelect() {
-  const values = [...new Set(projects.map(record => record.github?.activity_state).filter(Boolean))].sort();
-  for (const value of values) {
-    const option = document.createElement("option");
-    option.value = option.textContent = value;
-    $("activity").append(option);
-  }
+function clearFacetSet(set){ set.clear(); }
+function clearFacetButtons(scope){
+  scope.querySelectorAll(".facet-chip.selected").forEach(button=>{
+    button.classList.remove("selected");
+    button.setAttribute("aria-pressed","false");
+  });
+}
+function resetSegment(containerId,value=""){
+  const container=$(containerId);
+  container.querySelectorAll("button").forEach(button=>button.classList.toggle("selected",button.dataset.value===value));
+}
+function projectFiltersActive(){
+  return $("q").value.trim() || ["projectType","platform","targetKind","workKind","toolKind","cpu","language"].some(key=>projectFilterState[key].size)
+    || ["ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
+}
+function activityFiltersActive(){
+  return $("activityQ").value.trim() || activityFilterState.days!=="30"
+    || ["type","projectType","platform","targetKind","workKind","toolKind"].some(key=>activityFilterState[key].size)
+    || activityFilterState.ai;
+}
+function updateClearButtons(){
+  $("clear").hidden=!projectFiltersActive();
+  $("activityClear").hidden=!activityFiltersActive();
 }
 
 function sortValue(record, key) {
@@ -165,27 +201,24 @@ function matches(record) {
     projectTitle(record), record.title, record.upstream_name, ...arr(record.subjects),
     record.notes, record.repo, record.project_url, record.status,
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
-    record.record_class, ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
+    ...projectTypeValues(record).map(projectTypeLabel),
+    ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
     ...arr(record.source_platforms), ...arr(record.target_platforms),
     ...arr(record.source_cpu), ...arr(record.reconstructed_languages)
   ].join(" ").toLowerCase();
 
   return (!query || haystack.includes(query))
-    && (!$("recordClass").value || record.record_class === $("recordClass").value)
-    && (!$("targetKind").value || arr(record.target_kinds).includes($("targetKind").value))
-    && (!$("workKind").value || arr(record.work_kinds).includes($("workKind").value))
-    && (!$("toolKind").value || arr(record.tool_kinds).includes($("toolKind").value))
-    && (!$("sourcePlatform").value || arr(record.source_platforms).includes($("sourcePlatform").value))
-    && (!$("targetPlatform").value || arr(record.target_platforms).includes($("targetPlatform").value))
-    && (!$("cpu").value || arr(record.source_cpu).includes($("cpu").value))
-    && (!$("language").value || arr(record.reconstructed_languages).includes($("language").value))
-    && (!$("tag").value || arr(record.tags).includes($("tag").value))
-    && (!$("status").value || record.status === $("status").value)
-    && (!$("activity").value || record.github?.activity_state === $("activity").value)
-    && (!$("compilable").value || tri(build.compilable) === $("compilable").value)
-    && (!$("playable").value || tri(build.playable) === $("playable").value)
-    && (!$("exact").value || tri(build.byte_exact) === $("exact").value)
-    && (!$("ai").value || tri(ai.usage) === $("ai").value);
+    && facetMatch(projectFilterState.projectType,projectTypeValues(record))
+    && facetMatch(projectFilterState.platform,record.source_platforms)
+    && facetMatch(projectFilterState.targetKind,record.target_kinds)
+    && facetMatch(projectFilterState.workKind,record.work_kinds)
+    && facetMatch(projectFilterState.toolKind,record.tool_kinds)
+    && facetMatch(projectFilterState.cpu,record.source_cpu)
+    && facetMatch(projectFilterState.language,record.reconstructed_languages)
+    && (!projectFilterState.ai || tri(ai.usage)===projectFilterState.ai)
+    && (!projectFilterState.compilable || tri(build.compilable)===projectFilterState.compilable)
+    && (!projectFilterState.playable || tri(build.playable)===projectFilterState.playable)
+    && (!projectFilterState.exact || tri(build.byte_exact)===projectFilterState.exact);
 }
 
 function projectCell(record) {
@@ -302,10 +335,10 @@ function showDetails(record) {
     + line("CPU", tags(record.source_cpu))
     + line("Original/source language", tags(record.source_language))
     + line("Reconstructed language", tags(record.reconstructed_languages))
-    + line("Record class", classificationValueTags(record.record_class))
-    + line("Target kind", classificationValueTags(record.target_kinds))
-    + line("Work kind", classificationValueTags(record.work_kinds))
-    + line("Tool kind", classificationValueTags(record.tool_kinds))
+    + line("Project type", tags(projectTypeValues(record).map(projectTypeLabel)))
+    + line("Software type", classificationValueTags(record.target_kinds))
+    + line("Work", classificationValueTags(record.work_kinds))
+    + line("Development tool", classificationValueTags(record.tool_kinds))
     + line("Legacy type descriptors", tags(record.types))
     + line("Started", esc(record.re_started ?? "?"))
     + line("Last activity", esc(record.last_activity ?? "?"))
@@ -340,28 +373,32 @@ function showDetails(record) {
 }
 
 function init() {
-  fillSelect("recordClass", "record_class", classificationLabel);
-  fillSelect("targetKind", "target_kinds", classificationLabel);
-  fillSelect("workKind", "work_kinds", classificationLabel);
-  fillSelect("toolKind", "tool_kinds", classificationLabel);
-  fillSelect("sourcePlatform", "source_platforms");
-  fillSelect("targetPlatform", "target_platforms");
-  fillSelect("cpu", "source_cpu");
-  fillSelect("language", "reconstructed_languages");
-  fillSelect("tag", "tags");
-  fillSelect("status", "status");
-  fillActivitySelect();
+  bindFacet("projectTypeFacet",["software","tools"],projectFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();render();});
+  bindFacet("platformFacet",projects.flatMap(record=>arr(record.source_platforms)),projectFilterState.platform,value=>value,()=>{updateClearButtons();render();});
+  bindFacet("targetKindFacet",projects.flatMap(record=>arr(record.target_kinds)),projectFilterState.targetKind,classificationLabel,()=>{updateClearButtons();render();});
+  bindFacet("workKindFacet",projects.flatMap(record=>arr(record.work_kinds)),projectFilterState.workKind,classificationLabel,()=>{updateClearButtons();render();});
+  bindFacet("toolKindFacet",projects.flatMap(record=>arr(record.tool_kinds)),projectFilterState.toolKind,classificationLabel,()=>{updateClearButtons();render();});
+  bindFacet("cpuFacet",projects.flatMap(record=>arr(record.source_cpu)),projectFilterState.cpu,value=>value,()=>{updateClearButtons();render();});
+  bindFacet("languageFacet",projects.flatMap(record=>arr(record.reconstructed_languages)),projectFilterState.language,value=>value,()=>{updateClearButtons();render();});
+  bindSegment("aiSegment",projectFilterState,"ai",()=>{updateClearButtons();render();});
+  bindSegment("compilableSegment",projectFilterState,"compilable",()=>{updateClearButtons();render();});
+  bindSegment("playableSegment",projectFilterState,"playable",()=>{updateClearButtons();render();});
+  bindSegment("exactSegment",projectFilterState,"exact",()=>{updateClearButtons();render();});
   $("total").textContent = projects.length;
+  updateClearButtons();
   render();
 }
 
 // Project and activity data are loaded together below.
 
-$("q").addEventListener("input", render);
-filterIds.forEach(id => $(id).addEventListener("change", render));
+$("q").addEventListener("input",()=>{updateClearButtons();render();});
 $("clear").addEventListener("click", () => {
   $("q").value = "";
-  filterIds.forEach(id => { $(id).value = ""; });
+  for(const key of ["projectType","platform","targetKind","workKind","toolKind","cpu","language"]) clearFacetSet(projectFilterState[key]);
+  for(const key of ["ai","compilable","playable","exact"]) projectFilterState[key]="";
+  clearFacetButtons($("projects"));
+  for(const id of ["aiSegment","compilableSegment","playableSegment","exactSegment"]) resetSegment(id);
+  updateClearButtons();
   render();
 });
 
@@ -383,7 +420,7 @@ const projectById = () => new Map(projects.map(project => [project.id, project])
 const isProjectActivity = event => String(event.type || "").startsWith("project_");
 const activityKind = event => isProjectActivity(event) ? "project" : event.type;
 const projectForEvent = (event, map=projectById()) => map.get(event.project_id) || event.project || null;
-const activityFilterIds = ["activityDays","activityType","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"];
+
 
 function combinedActivityEvents() {
   const events=[...activityData.events];
@@ -418,55 +455,43 @@ function formatFreshness(value) {
   return "Data refreshed "+date.toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"});
 }
 
-function addOptions(selectId, values) {
-  const select = $(selectId);
-  for (const value of [...new Set(values.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),undefined,{numeric:true,sensitivity:"base"}))) {
-    const option=document.createElement("option");
-    option.value=option.textContent=value;
-    select.append(option);
-  }
-}
-
 function initActivityFilters() {
   const eventProjects=activityData.events.map(event=>event.project).filter(Boolean);
   const filterProjects=[...projects,...eventProjects];
-  addOptions("activityPlatform", filterProjects.flatMap(p=>arr(p.source_platforms)));
-
-  const byId=new Map();
-  for(const project of filterProjects){
-    if(project?.id && !byId.has(project.id)) byId.set(project.id,project);
-  }
-  const projectSelect=$("activityProject");
-  for (const project of [...byId.values()].sort((a,b)=>projectTitle(a).localeCompare(projectTitle(b)))) {
-    const option=document.createElement("option");
-    option.value=project.id; option.textContent=projectTitle(project); projectSelect.append(option);
-  }
-
-  addOptions("activityLanguage", filterProjects.flatMap(p=>arr(p.reconstructed_languages)));
-  addOptions("activityBranch", combinedActivityEvents().flatMap(e=>arr(e.branches)));
+  bindFacet("activityTypeFacet",["commit","release","project"],activityFilterState.type,
+    value=>({commit:"Commits",release:"Releases",project:"Project changes"}[value]||value),
+    ()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityProjectTypeFacet",["software","tools"],activityFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityPlatformFacet",filterProjects.flatMap(p=>arr(p.source_platforms)),activityFilterState.platform,value=>value,()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),activityFilterState.targetKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),activityFilterState.workKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
+  bindFacet("activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),activityFilterState.toolKind,classificationLabel,()=>{updateClearButtons();renderActivity();});
+  bindSegment("activityDaysSegment",activityFilterState,"days",()=>{updateClearButtons();renderActivity();});
+  bindSegment("activityAiSegment",activityFilterState,"ai",()=>{updateClearButtons();renderActivity();});
 }
 
 function activityMatches(event) {
   const project=projectForEvent(event);
   if(!project) return false;
-  const days=Number($("activityDays").value||30);
-  const cutoff=Date.now()-days*86400000;
+  const cutoff=Date.now()-Number(activityFilterState.days||30)*86400000;
   if(new Date(event.date).getTime()<cutoff) return false;
   const q=$("activityQ").value.trim().toLowerCase();
   const hay=[
-    event.type,event.title,event.message,event.author,event.repository,event.tag,
+    event.type,event.title,event.message,event.repository,event.tag,
     projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
-    project.record_class,...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
-    ...arr(event.branches),...arr(project.tags),...arr(project.ai?.tools),
+    ...projectTypeValues(project).map(projectTypeLabel),
+    ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
+    ...arr(project.tags),...arr(project.ai?.tools),
     ...arr(event.changes),JSON.stringify(event.change_details||[])
   ].join(" ").toLowerCase();
   return (!q||hay.includes(q))
-    && (!$("activityType").value||activityKind(event)===$("activityType").value)
-    && (!$("activityPlatform").value||arr(project.source_platforms).includes($("activityPlatform").value))
-    && (!$("activityProject").value||project.id===$("activityProject").value)
-    && (!$("activityLanguage").value||arr(project.reconstructed_languages).includes($("activityLanguage").value))
-    && (!$("activityBranch").value||arr(event.branches).includes($("activityBranch").value))
-    && (!$("activityAi").value||tri(project.ai?.usage)===$("activityAi").value);
+    && facetMatch(activityFilterState.type,[activityKind(event)])
+    && facetMatch(activityFilterState.projectType,projectTypeValues(project))
+    && facetMatch(activityFilterState.platform,project.source_platforms)
+    && facetMatch(activityFilterState.targetKind,project.target_kinds)
+    && facetMatch(activityFilterState.workKind,project.work_kinds)
+    && facetMatch(activityFilterState.toolKind,project.tool_kinds)
+    && (!activityFilterState.ai||tri(project.ai?.usage)===activityFilterState.ai);
 }
 
 function activityPlatformTags(project) {
@@ -503,7 +528,7 @@ const activityFieldLabels={
   source_cpu:"Source CPU",
   source_language:"Source language",
   reconstructed_languages:"Output language",
-  record_class:"Record class",
+  record_class:"Project type",
   target_kinds:"Target kind",
   work_kinds:"Work kind",
   tool_kinds:"Tool kind",
@@ -618,6 +643,11 @@ function humanizeProjectChange(detail) {
     return lines.length?lines:[{label:label+" changed",value:activityValue(before)+" → "+activityValue(after)}];
   }
 
+  if(field==="record_class"){
+    const toTypes=value=>value==="hybrid"?["Retro software","Development tools"]:
+      value==="tooling"?["Development tools"]:["Retro software"];
+    return [{label:"Project type changed",value:toTypes(before).join(" + ")+" → "+toTypes(after).join(" + ")}];
+  }
   if(field==="title"){
     return [{label:"Project renamed",value:activityValue(before)+" → "+activityValue(after)}];
   }
@@ -727,12 +757,16 @@ document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("
   if(button.dataset.view==="activityView") renderActivity();
 }));
 
-$("activityQ").addEventListener("input",renderActivity);
-activityFilterIds.forEach(id=>$(id).addEventListener("change",renderActivity));
+$("activityQ").addEventListener("input",()=>{updateClearButtons();renderActivity();});
 $("activityClear").addEventListener("click",()=>{
   $("activityQ").value="";
-  $("activityDays").value="30";
-  ["activityType","activityPlatform","activityProject","activityLanguage","activityBranch","activityAi"].forEach(id=>$(id).value="");
+  for(const key of ["type","projectType","platform","targetKind","workKind","toolKind"]) clearFacetSet(activityFilterState[key]);
+  activityFilterState.ai="";
+  activityFilterState.days="30";
+  clearFacetButtons($("activityView"));
+  resetSegment("activityDaysSegment","30");
+  resetSegment("activityAiSegment","");
+  updateClearButtons();
   renderActivity();
 });
 
@@ -745,6 +779,7 @@ Promise.all([
   $("dataFreshness").textContent=formatFreshness(activityData.generated_at);
   init();
   initActivityFilters();
+  updateClearButtons();
   renderActivity();
 }).catch(error=>{
   $("activityFeed").innerHTML='<div class="activity-empty">Could not load activity: '+esc(error.message)+'</div>';

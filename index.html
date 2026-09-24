@@ -34,56 +34,59 @@
   </nav>
 
   <section id="projects" class="view-panel">
-  <section class="filters" aria-label="Project filters">
-    <label class="search">Search
-      <input id="q" type="search" placeholder="project, subject, technique, notes…" autocomplete="off">
-    </label>
-    <label>Source
-      <select id="sourcePlatform"><option value="">All</option></select>
-    </label>
-    <label>Target
-      <select id="targetPlatform"><option value="">All</option></select>
-    </label>
-    <label>CPU
-      <select id="cpu"><option value="">All</option></select>
-    </label>
-    <label>Output language
-      <select id="language"><option value="">All</option></select>
-    </label>
-    <label>Class
-      <select id="recordClass"><option value="">All</option></select>
-    </label>
-    <label>Target kind
-      <select id="targetKind"><option value="">All</option></select>
-    </label>
-    <label>Work
-      <select id="workKind"><option value="">All</option></select>
-    </label>
-    <label>Tool
-      <select id="toolKind"><option value="">All</option></select>
-    </label>
-    <label>Tag
-      <select id="tag"><option value="">All</option></select>
-    </label>
-    <label>Status
-      <select id="status"><option value="">All</option></select>
-    </label>
-    <label>GitHub activity
-      <select id="activity"><option value="">All</option></select>
-    </label>
-    <label>Compilable
-      <select id="compilable"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
-    </label>
-    <label>Playable
-      <select id="playable"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
-    </label>
-    <label>Byte exact
-      <select id="exact"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
-    </label>
-    <label>AI usage
-      <select id="ai"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
-    </label>
-    <button id="clear" type="button">Clear</button>
+  <section class="filter-panel" aria-label="Project filters">
+    <div class="filter-top">
+      <label class="filter-search"><span>Search</span>
+        <input id="q" type="search" placeholder="project, subject, technique, notes…" autocomplete="off">
+      </label>
+      <button id="clear" class="clear-filters" type="button" hidden>Clear filters</button>
+    </div>
+    <div class="facet-group">
+      <div class="facet-label">Project type</div>
+      <div id="projectTypeFacet" class="facet-values"></div>
+    </div>
+    <div class="facet-group">
+      <div class="facet-label">Platform</div>
+      <div id="platformFacet" class="facet-values"></div>
+    </div>
+    <div class="facet-group">
+      <div class="facet-label">Software type</div>
+      <div id="targetKindFacet" class="facet-values"></div>
+    </div>
+    <div class="facet-group">
+      <div class="facet-label">Work</div>
+      <div id="workKindFacet" class="facet-values"></div>
+    </div>
+    <div class="facet-group">
+      <div class="facet-label">Development tool</div>
+      <div id="toolKindFacet" class="facet-values"></div>
+    </div>
+    <details class="more-filters">
+      <summary>More filters</summary>
+      <div class="facet-group">
+        <div class="facet-label">CPU</div>
+        <div id="cpuFacet" class="facet-values"></div>
+      </div>
+      <div class="facet-group">
+        <div class="facet-label">Output language</div>
+        <div id="languageFacet" class="facet-values"></div>
+      </div>
+    </details>
+    <div class="segment-grid">
+      <div class="segment-filter"><span>AI</span><div id="aiSegment" class="segment-control">
+        <button type="button" data-value="" class="selected">Any</button><button type="button" data-value="Yes">Yes</button><button type="button" data-value="No">No</button><button type="button" data-value="Unknown">Unknown</button>
+      </div></div>
+      <div class="segment-filter"><span>Compiles</span><div id="compilableSegment" class="segment-control">
+        <button type="button" data-value="" class="selected">Any</button><button type="button" data-value="Yes">Yes</button><button type="button" data-value="No">No</button><button type="button" data-value="Unknown">Unknown</button>
+      </div></div>
+      <div class="segment-filter"><span>Playable</span><div id="playableSegment" class="segment-control">
+        <button type="button" data-value="" class="selected">Any</button><button type="button" data-value="Yes">Yes</button><button type="button" data-value="No">No</button><button type="button" data-value="Unknown">Unknown</button>
+      </div></div>
+      <div class="segment-filter"><span>Byte exact</span><div id="exactSegment" class="segment-control">
+        <button type="button" data-value="" class="selected">Any</button><button type="button" data-value="Yes">Yes</button><button type="button" data-value="No">No</button><button type="button" data-value="Unknown">Unknown</button>
+      </div></div>
+    </div>
+    <p class="filter-hint">Choose any number within a row; rows combine to narrow the results.</p>
   </section>
 
   <div class="result-bar">
@@ -117,42 +120,43 @@
   </section>
 
   <section id="activityView" class="view-panel active">
-    <section class="filters activity-filters" aria-label="Activity filters">
-      <label class="search">Search
-        <input id="activityQ" type="search" placeholder="commit, author, project, subject…" autocomplete="off">
-      </label>
-      <label>Period
-        <select id="activityDays">
-          <option value="7">7 days</option>
-          <option value="30" selected>30 days</option>
-          <option value="90">90 days</option>
-          <option value="180">180 days</option>
-        </select>
-      </label>
-      <label>Activity type
-        <select id="activityType">
-          <option value="">All</option>
-          <option value="commit">Commits</option>
-          <option value="release">Releases</option>
-          <option value="project">Project changes</option>
-        </select>
-      </label>
-      <label>Source platform
-        <select id="activityPlatform"><option value="">All</option></select>
-      </label>
-      <label>Project
-        <select id="activityProject"><option value="">All</option></select>
-      </label>
-      <label>Output language
-        <select id="activityLanguage"><option value="">All</option></select>
-      </label>
-      <label>Branch
-        <select id="activityBranch"><option value="">All</option></select>
-      </label>
-      <label>AI usage
-        <select id="activityAi"><option value="">Any</option><option>Yes</option><option>No</option><option>Unknown</option></select>
-      </label>
-      <button id="activityClear" type="button">Clear</button>
+    <section class="filter-panel activity-filter-panel" aria-label="Activity filters">
+      <div class="filter-top">
+        <label class="filter-search"><span>Search</span>
+          <input id="activityQ" type="search" placeholder="project, subject, activity text…" autocomplete="off">
+        </label>
+        <button id="activityClear" class="clear-filters" type="button" hidden>Clear filters</button>
+      </div>
+      <div class="segment-filter activity-period"><span>Period</span><div id="activityDaysSegment" class="segment-control">
+        <button type="button" data-value="7">7 days</button><button type="button" data-value="30" class="selected">30 days</button><button type="button" data-value="90">90 days</button><button type="button" data-value="180">180 days</button>
+      </div></div>
+      <div class="facet-group">
+        <div class="facet-label">Activity type</div>
+        <div id="activityTypeFacet" class="facet-values"></div>
+      </div>
+      <div class="facet-group">
+        <div class="facet-label">Project type</div>
+        <div id="activityProjectTypeFacet" class="facet-values"></div>
+      </div>
+      <div class="facet-group">
+        <div class="facet-label">Platform</div>
+        <div id="activityPlatformFacet" class="facet-values"></div>
+      </div>
+      <div class="facet-group">
+        <div class="facet-label">Software type</div>
+        <div id="activityTargetKindFacet" class="facet-values"></div>
+      </div>
+      <div class="facet-group">
+        <div class="facet-label">Work</div>
+        <div id="activityWorkKindFacet" class="facet-values"></div>
+      </div>
+      <div class="facet-group">
+        <div class="facet-label">Development tool</div>
+        <div id="activityToolKindFacet" class="facet-values"></div>
+      </div>
+      <div class="segment-filter activity-ai"><span>AI</span><div id="activityAiSegment" class="segment-control">
+        <button type="button" data-value="" class="selected">Any</button><button type="button" data-value="Yes">Yes</button><button type="button" data-value="No">No</button><button type="button" data-value="Unknown">Unknown</button>
+      </div></div>
     </section>
     <div class="result-bar">
       <span><strong id="activityCount">0</strong> events across <strong id="activityProjectCount">0</strong> projects</span>

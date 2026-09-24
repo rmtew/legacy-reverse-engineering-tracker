@@ -7,8 +7,8 @@ A structured catalogue of retro-development projects across legacy computers and
 
 The tracker has two views:
 
-- **Projects** — filterable catalogue with structured **Class / Target kind / Work / Tool** facets separating reconstructed subjects (games, applications, OS/ROMs, etc.) from modern archaeology/development tooling.
-- **Activity** — the default view: day-by-day recent commits and latest releases across tracked projects, including active non-default branches.
+- **Projects** — filterable catalogue using additive facet chips for **Project type / Platform / Software type / Work / Development tool**, plus compact single-choice controls for AI/build/playability state. The internal subject/tooling/hybrid enum is presented as the clearer **Retro software / Development tools** distinction; hybrid records simply belong to both.
+- **Activity** — the default view: day-by-day recent commits, releases and catalogue changes, with the same topical additive facets. Branch, author, project and output-language dropdowns are intentionally omitted.
 
 ## Repository structure
 
