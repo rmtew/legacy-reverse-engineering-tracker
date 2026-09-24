@@ -412,3 +412,18 @@ Advanced the **RetroRE 6502** backlog with primary-source verification of The Le
 The discovery index's task-to-source links were also normalized. The initial migration's keyword-derived links were too broad; active backlog tasks now point at the actual source nodes that should drive future queue selection.
 
 This pass adds **28 projects**, taking the catalogue from 293 to **321**.
+
+
+## 2026-09-25 — Spectrum, RetroRE, Ricardo and jotd queue pass
+
+Continued preemptive discovery from four explicit research queues.
+
+Promoted ten more substantial **SpectrumAnalyserProjects** title states: Cobra, Auf Wiedersehen Monty, Elite, Livingstone I Presume, Thrust, Firelord, Zub, Spellbound 128K, Chase H.Q. and Cybernoid II. The pass prioritised large per-title annotation databases and, where present, custom Lua analysis/viewer tooling. The Spectrum analyser queue remains in progress.
+
+Advanced **RetroRE 6502** with two primary-source NES reconstructions: **Super Mario Bros. 3**, whose NESASM source explicitly rebuilds the US PRG1 ROM byte-for-byte, and **Tecmo Super Bowl**, whose repository describes an exhaustive fully labelled/commented reverse engineering and byte-for-byte rebuild.
+
+Completed the **Ricardo Quesada C64** source audit. Added **Le Mans** as a fully disassembled/patched C64 reconstruction, **Regenerator 2000** as a modern Commodore 6502 disassembler/debugger/MCP reverse-engineering workbench, and **VChar64** as substantive C64/128 asset-development tooling. Other inspected repositories were original homebrew, small misc/demo collections or mirrors; **UNP64** explicitly identifies itself as an official mirror and was not duplicated as a separate project.
+
+Advanced the **jotd666** audit with **Xevious** and **Galaxian**, both backed by project-specific documentation explicitly describing Z80 reverse engineering and 68000 transcoding. Several other candidate repositories currently contain copied or mismatched READMEs for other games, so they remain unpromoted pending project-specific evidence rather than inheriting claims from those templates.
+
+This pass adds **17 projects**, taking the catalogue from 321 to **338**.

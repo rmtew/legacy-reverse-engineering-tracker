@@ -24,7 +24,7 @@
 | https://skoolkit.ca/links/ | Curated Spectrum disassembly index and historical project graph |
 | https://skoolkit.ca/disassemblies/ | Maintained complete Spectrum disassemblies and update dates |
 | https://skoolkit.arcadegeek.co.uk/ | Large Spectrum disassembly archive |
-| https://github.com/ricardoquesada | C64 disassembly trail; Commando and adjacent work |
+| https://github.com/ricardoquesada | C64 software archaeology and development tooling: Commando, Rambo and Le Mans disassemblies plus Regenerator 2000 and VChar64 |
 | https://github.com/Piddewitt | C64 reverse-engineered game-source projects |
 | C64 Mark | C64 disassembly trail |
 | Simon Frankau | Speedball 2 and Head Over Heels cross-version analysis |
@@ -120,7 +120,6 @@
 
 ### Commodore 64
 
-- Continue mining Ricardo Quesada's C64 work beyond Commando.
 - Continue mining C64 Mark and the wider Llamasource graph.
 - Treat recovered/original source collections cautiously: original source alone does not qualify unless substantial reverse engineering accompanies it.
 
