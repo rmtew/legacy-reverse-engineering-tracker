@@ -341,3 +341,8 @@ Removed unconditional Activity-feed reconstruction from Activity/Projects tab sw
 ## 2026-09-24 — persistent light/dark theme toggle
 
 Added an explicit **Light/Dark** theme toggle in the site header. Light mode is now the default regardless of operating-system preference. The selected theme is restored before the stylesheet loads to avoid a theme flash and is persisted locally in the browser with `localStorage` key `retro-development-tracker.theme`. No other settings are persisted yet.
+
+
+## 2026-09-24 — browser-default theme behaviour
+
+Adjusted theme handling so an unset tracker preference follows the browser/OS `prefers-color-scheme` value. Nothing is written to storage merely by loading the site. Only an explicit user click on the Light/Dark toggle creates a persistent `localStorage` override; once present, that manual override takes precedence over browser defaults.
