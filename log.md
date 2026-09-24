@@ -331,3 +331,8 @@ Moved **CPU** into the primary additive filters and normalized closely related s
 Added an optional **Runs on** compatibility section, deliberately separate from the broad CPU facet. It is driven only by verified `runtime_profiles` and supports minimum CPU, RAM budget and chipset compatibility. Selecting a 68020-class CPU can include a build whose documented minimum is 68000; selecting 68000 excludes a 68020-minimum build. The controls remain explicitly empty until requirements have been verified rather than inferring compatibility from source architecture.
 
 The schema now supports optional `target_cpu` and `runtime_profiles`, validation enforces their shape, and catalogue activity treats changes to these fields as material. Activity filtering also gained the normalized CPU-family facet.
+
+
+## 2026-09-24 — instant view switching
+
+Removed unconditional Activity-feed reconstruction from Activity/Projects tab switching. The rendered Activity DOM is now retained and only marked dirty when Activity data/filter state changes; switching back to an unchanged Activity view is therefore a visibility toggle rather than a full regroup/sort/HTML rebuild. Off-screen activity-day layout is also deferred with CSS `content-visibility` to reduce the cost of showing long feeds.
