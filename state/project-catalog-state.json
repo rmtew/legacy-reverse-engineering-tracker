@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-24T19:38:30Z",
+  "updated_at": "2026-09-24T19:54:27Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -1849,6 +1849,72 @@
         "Archon"
       ],
       "notes": "Reverse-engineered reconstruction of the C64 Archon game logic as extensively commented, relocatable Kick Assembler source. Original addresses are retained as documentation while variables, constants and routines are renamed and reorganised for readability rather than binary identity.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "armalyte-c64-analyser": {
+      "id": "armalyte-c64-analyser",
+      "title": "Armalyte",
+      "upstream_name": "Armalyte",
+      "display_title": "Armalyte — C64 analyser project",
+      "subjects": [
+        "Armalyte"
+      ],
+      "repo": "https://github.com/TheGoodDoktor/C64AnalyserProjects",
+      "project_url": "https://github.com/TheGoodDoktor/C64AnalyserProjects/tree/main/Armalyte",
+      "github_path": "Armalyte",
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "source_language": [
+        "6502/6510 machine code"
+      ],
+      "reconstructed_languages": [
+        "8-Bit Analysers analysis metadata"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "binary analysis",
+        "analysis state"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "8-Bit Analysers",
+        "code/data annotation",
+        "self-modifying-code marking"
+      ],
+      "tags": [
+        "game",
+        "Commodore 64",
+        "6502",
+        "binary analysis"
+      ],
+      "notes": "Title-specific C64 binary-analysis state for 8-Bit Analysers. The Armalyte directory contains a large Analysis.json annotation database (~803 KB) plus saved analyser/emulator state and configuration. This is tracked as an analysis-state project, not as a reconstructed source tree.",
       "ai": {
         "usage": null,
         "tools": []
@@ -4231,7 +4297,9 @@
         "Amiga"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "source_language": [
         "arcade machine code"
@@ -5035,8 +5103,23 @@
         "Amiga"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "AGA version",
+          "platform": "Amiga 1200",
+          "min_fast_ram_kib": 4096,
+          "notes": "README states the AGA version runs on an A1200 with 4 MB Fast RAM.",
+          "evidence": [
+            {
+              "url": "https://github.com/jotd666/double_dragon/blob/master/README.md",
+              "quote": "AGA version runs on A1200 with 4MB fastmem"
+            }
+          ]
+        }
+      ],
       "source_language": [
         "arcade machine code"
       ],
@@ -6626,6 +6709,72 @@
         "tools": []
       }
     },
+    "exile-c64-analyser": {
+      "id": "exile-c64-analyser",
+      "title": "Exile",
+      "upstream_name": "Exile",
+      "display_title": "Exile — C64 analyser project",
+      "subjects": [
+        "Exile"
+      ],
+      "repo": "https://github.com/TheGoodDoktor/C64AnalyserProjects",
+      "project_url": "https://github.com/TheGoodDoktor/C64AnalyserProjects/tree/main/Exile",
+      "github_path": "Exile",
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "source_language": [
+        "6502/6510 machine code"
+      ],
+      "reconstructed_languages": [
+        "8-Bit Analysers analysis metadata"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "binary analysis",
+        "analysis state"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "8-Bit Analysers",
+        "code/data annotation",
+        "self-modifying-code marking"
+      ],
+      "tags": [
+        "game",
+        "Commodore 64",
+        "6502",
+        "binary analysis"
+      ],
+      "notes": "Title-specific C64 binary-analysis state for 8-Bit Analysers. The Exile directory contains a large Analysis.json annotation database (~1.43 MB) plus saved analyser/emulator state and configuration. This is tracked as an analysis-state project, not as a reconstructed source tree.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "exile-bbc-micro-chriskillpack": {
       "id": "exile-bbc-micro-chriskillpack",
       "title": "exile-beebasm",
@@ -7496,8 +7645,33 @@
         "Amiga"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "A1200 version",
+          "platform": "Amiga 1200",
+          "notes": "README requires an A1200 with Fast RAM; the amount is not stated.",
+          "evidence": [
+            {
+              "url": "https://github.com/jotd666/ghosts_and_goblins/blob/master/README.md",
+              "quote": "some A1200 with fast memory"
+            }
+          ]
+        },
+        {
+          "name": "CD32 version",
+          "platform": "Amiga CD32",
+          "notes": "README states a vanilla CD32 is supported.",
+          "evidence": [
+            {
+              "url": "https://github.com/jotd666/ghosts_and_goblins/blob/master/README.md",
+              "quote": "or vanilla CD32"
+            }
+          ]
+        }
+      ],
       "source_language": [
         "arcade machine code"
       ],
@@ -8117,6 +8291,144 @@
         "jotd666"
       ],
       "notes": "Gyruss Amiga port; README explicitly credits game reverse engineering and M6809/Z80→68000 conversion plus Amiga graphics/sound conversion.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "hansmanns-lode-runner-c64": {
+      "id": "hansmanns-lode-runner-c64",
+      "title": "Hansmanns Loderunner",
+      "upstream_name": "Hansmanns Loderunner",
+      "display_title": "Hansmann's Lode Runner — C64 RE-derived modification",
+      "subjects": [
+        "Lode Runner"
+      ],
+      "repo": "https://github.com/Piddewitt/Hansmanns_Loderunner",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502/6510 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "RE-derived modification",
+        "source modification"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "64tass",
+        "source modification",
+        "reassembly"
+      ],
+      "tags": [
+        "game",
+        "Commodore 64",
+        "6502",
+        "RE-derived modification"
+      ],
+      "notes": "Substantial modified C64 Lode Runner built from Piddewitt's reverse-engineered source. The repository explicitly describes itself as modified assembler source of the reverse-engineered version, documents every source change, adds gameplay/debug/editor features and collected Apple/MSX/C64 levels, and includes 64tass scripts that assemble source into PRG output.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "hansmanns-castles-dr-creep-c64": {
+      "id": "hansmanns-castles-dr-creep-c64",
+      "title": "Hansmanns-Castles-of-Dr-Creep",
+      "upstream_name": "Hansmanns-Castles-of-Dr-Creep",
+      "display_title": "Hansmann's Castles of Dr. Creep — C64 RE-derived modification",
+      "subjects": [
+        "The Castles of Dr. Creep"
+      ],
+      "repo": "https://github.com/Piddewitt/Hansmanns-Castles-of-Dr-Creep",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502/6510 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "RE-derived modification",
+        "source modification"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "64tass",
+        "source modification",
+        "reassembly"
+      ],
+      "tags": [
+        "game",
+        "Commodore 64",
+        "6502",
+        "RE-derived modification"
+      ],
+      "notes": "Substantial modified C64 Castles of Dr. Creep built from Piddewitt's reverse-engineered source. The repository explicitly describes modified assembler source of the reverse-engineered version, documents source changes, modifies/enhances all castles, adds a new castle and intro, and includes 64tass scripts that assemble source into program output.",
       "ai": {
         "usage": null,
         "tools": []
@@ -11818,8 +12130,33 @@
         "Amiga"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "A500 version",
+          "platform": "Amiga 500",
+          "notes": "README states the port runs at 25 fps on A500.",
+          "evidence": [
+            {
+              "url": "https://github.com/jotd666/mappy/blob/master/README.md",
+              "quote": "25 fps on A500"
+            }
+          ]
+        },
+        {
+          "name": "AGA version",
+          "platform": "Amiga 1200",
+          "notes": "README states 50 fps on a vanilla A1200.",
+          "evidence": [
+            {
+              "url": "https://github.com/jotd666/mappy/blob/master/README.md",
+              "quote": "50 fps vanilla A1200"
+            }
+          ]
+        }
+      ],
       "source_language": [
         "arcade machine code"
       ],
@@ -14638,6 +14975,75 @@
         "software archaeology"
       ],
       "notes": "Programmable Python static-tracing disassembler supporting 6502, 65C02 and 8080 binaries. It handles runtime relocation, user-defined labels/data structures and optional input MD5 verification, and emits source for assemblers including beebasm, ACME, xa and z88dk-z80asm. It underpins several BBC Micro reconstruction projects discovered in the same graph.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "quazatron-spectrum-analyser": {
+      "id": "quazatron-spectrum-analyser",
+      "title": "Quazatron",
+      "upstream_name": "Quazatron",
+      "display_title": "Quazatron — ZX Spectrum analyser project",
+      "subjects": [
+        "Quazatron"
+      ],
+      "repo": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects",
+      "project_url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/tree/main/Quazatron",
+      "github_path": "Quazatron",
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "8-Bit Analysers analysis metadata",
+        "Z80 assembly",
+        "Lua"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "binary analysis",
+        "analysis state"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "8-Bit Analysers",
+        "code/data annotation",
+        "assembler export",
+        "Lua analysis scripts"
+      ],
+      "tags": [
+        "game",
+        "ZX Spectrum",
+        "Z80",
+        "binary analysis"
+      ],
+      "notes": "Substantial title-specific ZX Spectrum analysis project. The directory contains a ~1.11 MB Analysis.json database, a ~353 KB exported Quazatron.asm listing, configuration/graphics metadata and custom Lua analysis/viewer scripts; tracked as binary-analysis/assembler-export work rather than claiming a byte-exact source reconstruction.",
       "ai": {
         "usage": null,
         "tools": []
@@ -18905,8 +19311,27 @@
         "Amiga"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "WHDLoad version",
+          "platform": "Amiga",
+          "chipsets": [
+            "ECS",
+            "AGA"
+          ],
+          "os": "WHDLoad",
+          "notes": "README states a hard drive, WHDLoad and some Fast RAM are required; no quantitative Fast-RAM minimum is given.",
+          "evidence": [
+            {
+              "url": "https://github.com/jotd666/us_champ_vball/blob/master/README.md",
+              "quote": "You need a hard drive, whdload and some fast memory"
+            }
+          ]
+        }
+      ],
       "source_language": [
         "arcade machine code"
       ],
@@ -19646,6 +20071,71 @@
         "tools": []
       }
     },
+    "where-time-stood-still-spectrum-analyser": {
+      "id": "where-time-stood-still-spectrum-analyser",
+      "title": "Where Time Stood Still",
+      "upstream_name": "Where Time Stood Still",
+      "display_title": "Where Time Stood Still — ZX Spectrum analyser project",
+      "subjects": [
+        "Where Time Stood Still"
+      ],
+      "repo": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects",
+      "project_url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/tree/main/Where%20Time%20Stood%20Still",
+      "github_path": "Where Time Stood Still",
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "8-Bit Analysers analysis metadata"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "binary analysis",
+        "analysis state"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "8-Bit Analysers",
+        "code/data annotation"
+      ],
+      "tags": [
+        "game",
+        "ZX Spectrum",
+        "Z80",
+        "binary analysis"
+      ],
+      "notes": "Title-specific ZX Spectrum binary-analysis state for 8-Bit Analysers. The directory contains a ~1.52 MB Analysis.json annotation database with project configuration; tracked as an analysis-state project rather than a reconstructed-source claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "winuae-amiga-emulator": {
       "id": "winuae-amiga-emulator",
       "title": "WinUAE",
@@ -19712,6 +20202,72 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "wizball-c64-analyser": {
+      "id": "wizball-c64-analyser",
+      "title": "Wizball",
+      "upstream_name": "Wizball",
+      "display_title": "Wizball — C64 analyser project",
+      "subjects": [
+        "Wizball"
+      ],
+      "repo": "https://github.com/TheGoodDoktor/C64AnalyserProjects",
+      "project_url": "https://github.com/TheGoodDoktor/C64AnalyserProjects/tree/main/Wizball",
+      "github_path": "Wizball",
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "source_language": [
+        "6502/6510 machine code"
+      ],
+      "reconstructed_languages": [
+        "8-Bit Analysers analysis metadata"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "binary analysis",
+        "analysis state"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "8-Bit Analysers",
+        "code/data annotation",
+        "self-modifying-code marking"
+      ],
+      "tags": [
+        "game",
+        "Commodore 64",
+        "6502",
+        "binary analysis"
+      ],
+      "notes": "Title-specific C64 binary-analysis state for 8-Bit Analysers. The Wizball directory contains a large Analysis.json annotation database (~736 KB) plus saved analyser/emulator state and configuration. This is tracked as an analysis-state project, not as a reconstructed source tree.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "wonder-boy-monsterland-st": {
