@@ -454,3 +454,14 @@ Resolved the named **Amber predecessor** backlog using Pyrdacor's primary Amberm
 Expanded the **Tetracorp** graph beyond Amiga work with **Tokimeki Memorial: Forever With You**, a documented Ghidra analysis of the 1995 Japanese PlayStation release. This also adds PlayStation as a represented source platform.
 
 This pass adds **9 projects**, taking the catalogue from 365 to **374**.
+
+
+## 2026-09-25 — Hitchhikr tooling, RetroRE Monty/Punch-Out and BBC predecessor pass
+
+Advanced the **hitchhikr** discovery graph with three independently evidenced projects: **x68k2amiga**, an X68000-to-Amiga executable conversion/depacking utility built specifically to aid subsequent reversing; **crudNES**, a NES emulator whose runtime tracer generates disassembly and ROM-reconstruction files; and **Oktalyzer**, a complete Amiga disassembly being modernized with new replay/mixer and Vampire support.
+
+Advanced **RetroRE 6502** with **Monty on the Run**, which provides both a documented byte-perfect C64 reconstruction and a synchronized refactored source tree, and **Mike Tyson's Punch-Out!!**, an ongoing NES reverse-engineering project whose build script reconstructs banks and checksum-compares them to the originals.
+
+Reviewed a sample of the **BBC/Acorn predecessor graph**. Imogen, Thrust, Manic Miner, the Acorn 6502 coprocessor OS and BBC Lode Runner are already represented. `tom-seddon/exile_disassembly` explicitly describes itself as redundant because its upstream disassembly was later updated, so it was retained as discovery context rather than duplicated as another Exile record.
+
+This pass adds **5 projects**, taking the catalogue from 374 to **379**.

@@ -190,3 +190,5 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://amberworld.sourceforge.net/ | Oliver Gantert's Amberstar/Ambermoon/Albion reverse-engineering, file-format documentation and extraction/conversion tooling |
 | http://slothsoft.net/Ambermoon/ | Daniel Schulz's Ambermoon savegame/data tooling, credited by Pyrdacor as predecessor research |
 | https://gitlab.com/ambermoon/research | Nico Bendlin's Ambermoon Ghidra research project and Ghidra-server documentation, credited by Pyrdacor |
+
+| https://github.com/Dave-Agent/monty-on-the-run | Byte-perfect and refactored C64 Monty on the Run reconstruction with Ghidra/KickAssembler methodology |
