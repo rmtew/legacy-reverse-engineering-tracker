@@ -10,7 +10,7 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/slaapliedje/OpenUA | Active cross-68K reconstruction |
 | https://github.com/HoraceAndTheSpider/Bloodwych-68k | Active Amiga 68K reconstruction/tooling |
 | https://github.com/geogeo28/atari_reverse | Reusable Atari ST reconstruction framework; watch for new RE targets |
-| https://github.com/sarnau | Atari ST software/protection analysis and CPC application reverse engineering |
+| https://github.com/sarnau | Atari ST and Atari 8-bit software archaeology plus CPC application reverse engineering; current Atari 8-bit work includes Jumpman, The Goonies and Fighter Pilot |
 | https://github.com/mwenge | Llamasoft Source Project and adjacent reconstructions (C64/VIC-20/C16/Atari 8-bit/Jaguar), plus Uridium and related software-archaeology work |
 | https://github.com/dpt | Spectrum Chase H.Q./Great Escape work |
 | https://github.com/nzeemin/skoolkit-game-revs | Multi-title Spectrum reverse-engineering collection |
@@ -98,6 +98,13 @@ These are **discovery nodes**, not merely individual tracked projects. Search th
 | https://github.com/realdmx/retrore | Curated 6502 reverse-engineering/original-source index across Apple II, Atari 2600/8-bit, BBC/Acorn, C64, NES and others; its RE/Original distinction is useful for discovery triage |
 
 | https://github.com/lantus | Amiga/68k retro-development profile with OCS homebrew/conversions and ports; ZippyRace-OCS is a verified source-available fan conversion, with related repositories worth auditing |
+
+| https://github.com/DNSDEBRO/Disassemblies | Large Atari 2600 reverse-engineering collection with analyzed, labeled and commented source across dozens of title directories |
+| https://github.com/ZornsLemma | BBC/Acorn software archaeology and tooling profile: py8dis plus Imogen, Night World, Stop Press and related reconstruction work |
+| https://github.com/TobyLobster | BBC Micro disassembly/reassembly and emulator source: Manic Miner, Repton 2, Chuckie Egg, Boulderdash and beebjit |
+| https://github.com/nmikstas | NES disassembly/reassembly cluster including Dragon Warrior, Metroid, Ultima Exodus and Punch-Out |
+| https://github.com/cadaver | C64 retro-development and reverse-engineering source including active Green Beret reconstruction plus reusable C64 tooling |
+| https://github.com/MarkRdgOx/crossroads-2-disassembly | C64 Crossroads 2 reverse engineering with detailed code and timing analysis |
 
 ## Open discovery priorities
 

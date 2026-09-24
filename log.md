@@ -355,3 +355,16 @@ Promoted **Zippy Race — OCS Amiga fan conversion** from `lantus/ZippyRace-OCS`
 The repository contains the complete C/m68k-assembly Amiga implementation, assets and build system. Its Makefile targets **68000** explicitly, while the README states that it runs at **50/60 fps on any Amiga with 1 MB**, so the record includes a verified OCS runtime profile of 68000 + 1 MB rather than inferring compatibility from the Amiga target alone. The `lantus` profile was added as a recurring Amiga/68k retro-development discovery node.
 
 Catalogue count increased from 255 to **256**.
+
+
+## 2026-09-25 — deeper cross-platform discovery pass
+
+Read the canonical catalogue, discovery-source graph and current 180-day activity feed before searching, then expanded outward through RetroRE 6502, author profiles and primary project documentation. This pass followed the represented-platform graph rather than a fixed platform list and introduced **Atari 2600** as a first-class source platform where primary project evidence supported it.
+
+Promoted **14 verified projects** across Atari 2600, Atari 8-bit, Commodore 64, BBC Micro and NES, together with two directly relevant BBC/6502 development tools. The additions include source reconstructions, disassemblies, binary/data analysis, a preservation-oriented emulator/debugger and a programmable tracing disassembler.
+
+Hardware requirements remain evidence-only. **Fighter Pilot** is the only new record in this pass with a `runtime_profiles` entry because its README explicitly requires at least **48K** on named Atari 8-bit machines; no CPU minimum or other runnable requirement was inferred from platform or architecture alone.
+
+Discovery sources were expanded for Dennis Debro, ZornsLemma, TobyLobster, nmikstas, cadaver and Crossroads 2, and the existing sarnau node now reflects the substantial Atari 8-bit archaeology cluster. Strong unpromoted follow-ups remain in the same graph, including additional sarnau Atari 8-bit analyses, Zelda/NES work and further BBC Micro disassemblies.
+
+Catalogue count increased from 272 to **286**.
