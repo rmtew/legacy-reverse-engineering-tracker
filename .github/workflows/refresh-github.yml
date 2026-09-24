@@ -1,5 +1,6 @@
 # Fair adaptive polling: oldest probes first; changed/oldest queued scans first.
 # Discovery landings explicitly dispatch this workflow because GITHUB_TOKEN ref updates do not emit downstream push workflows.
+# workflow_dispatch is allowed from github-actions[bot]; bot-authored pushes remain blocked to prevent recursion.
 name: Refresh GitHub metadata
 
 on:
@@ -32,7 +33,7 @@ concurrency:
 
 jobs:
   refresh:
-    if: github.actor != 'github-actions[bot]'
+    if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
