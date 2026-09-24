@@ -160,3 +160,14 @@ Graph-style discovery is intentional: many of the strongest finds were adjacent 
 ## Promotion rule
 
 A lead becomes a record in `data/projects.json` once there is a concrete source and enough evidence to say what the project actually is. Reverse engineering, reconstruction, preservation, ports, substantial original homebrew/fan conversions, and directly relevant development tooling are all within the broader Retro Development Project Tracker scope. Core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling may qualify when directly useful to retro development or software archaeology. Ordinary source mirrors or routine open-source maintenance alone normally remain discovery nodes rather than catalogue records. Unknown metadata is acceptable; invented metadata is not.
+
+| https://github.com/tom-seddon | Major Acorn/BBC software-archaeology and tooling source: MOS/Tube/Electron ROM disassemblies, application/game disassemblies, 6502 analysis tooling, emulators and BeebAsm work |
+| https://github.com/tom-seddon/acorn_mos_disassembly | Multi-version Acorn Master-family MOS disassembly with reproducible reference-ROM builds plus refreshed experimental ROM variants |
+| https://github.com/tom-seddon/acorn_6502_copro_os_disassembly | Buildable, verified disassembly of Acorn 6502 Second Processor and Master Turbo OS ROMs |
+| https://github.com/rm-hull/thrust | Active Go/WASM clean-room Thrust reimplementation using Kieran H.J.'s 6502 disassembly and explicit Gemini-assisted archaeology |
+| https://github.com/kieranhj | Strong BBC Micro archaeology/port source: Thrust disassembly, reverse-engineered Stunt Car Racer and Paradroid ports, Elite source restoration, emulator/MCP tooling and related 6502 work |
+| https://github.com/kieranhj/thrust-disassembly | Actively re-annotated BBC Micro Thrust disassembly; Claude-assisted code archaeology with CRC-preserving verification |
+| https://github.com/kieranhj/scr-beeb | Stunt Car Racer C64-to-BBC Master port built by reverse engineering the original 6502 code and data structures |
+| https://github.com/kieranhj/paradroid-beeb | Active faithful Paradroid C64-to-BBC port using the C64 disassembly as specification; extensive Claude-assisted measurement and validation |
+| https://github.com/kieranhj/elite-beebasm | BBC Elite historical-source restoration into a readable BeebAsm/Python build with binary verification |
+| https://github.com/kieranhj/jsbeeb-mcp | MCP server exposing headless BBC Micro/Master emulation, memory/register inspection, screenshots and disc automation to AI assistants |
