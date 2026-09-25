@@ -114,7 +114,7 @@
 ### Amiga / Atari ST
 
 - Continue auditing `jotd666` repositories not yet promoted, especially candidates with missing or template/copied READMEs; require project-specific evidence before adding them.
-- Finish the `sarnau` Atari ST profile inventory and resolve the documented Starflight/STTRANS deferrals; distinguish original-source publications from independent reconstruction work.
+- Revisit the `sarnau` Starflight and STTRANS Atari ST candidates when project-specific authored analysis or reconstruction status is available; the remaining profile inventory is reviewed.
 - Continue mining Tetracorp external references and the Pyrdacor/Amber predecessor graph.
 - Continue watching `geogeo28/atari_reverse` for newly added reverse-engineering targets.
 - **BLACK ICE remains excluded** because its own documentation identifies it as an original game built from knowledge gained during RE work rather than an RE project itself.
