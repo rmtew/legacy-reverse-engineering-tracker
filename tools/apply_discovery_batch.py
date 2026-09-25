@@ -15,7 +15,6 @@ from pathlib import Path
 import shutil
 import tempfile
 
-from merge_pending_projects import new_audit
 from validate_site_data import validate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -107,8 +106,14 @@ def apply_batch(data: dict, batch: dict) -> dict:
         require(not collision or entry.get("allow_shared_url") is True,
                 f"Project {project_id} shares URL with {', '.join(collision)}; use a distinct project_url or explicitly allow_shared_url")
         known_urls.setdefault(unique_url(url), []).append(project_id)
-        audit = copy.deepcopy(entry.get("audit", new_audit(project_id)))
+        require(isinstance(entry.get("audit"), dict), f"Project {project_id} needs an explicit researched audit")
+        audit = copy.deepcopy(entry["audit"])
         require(audit.get("project_id", project_id) == project_id and project_id not in audit_ids, f"Invalid audit for {project_id}")
+        require(audit.get("last_reviewed") == day, f"Project {project_id} audit must be reviewed in this batch")
+        for area in ("source_cpu", "target_cpu"):
+            state = (audit.get("areas", {}).get(area) or {}).get("state")
+            require(state in {"reviewed", "needs-research", "no-evidence-found", "not-applicable"},
+                    f"Project {project_id} needs an explicit {area} audit decision")
         audit["project_id"] = project_id
         projects.append(project)
         audits.append(audit)

@@ -8,7 +8,7 @@ The root object requires `date` (ISO calendar date), a unique `event_id`, and `s
 
 | Field | Contents |
 | --- | --- |
-| `projects` | `{ "project": <full project record>, "source_ids": ["existing-or-new-source-id"], "audit": <optional full audit>, "allow_shared_url": true|false }` |
+| `projects` | `{ "project": <full project record>, "source_ids": ["existing-or-new-source-id"], "audit": <required researched audit>, "allow_shared_url": true|false }` |
 | `sources` | New source records in the discovery-source schema. Missing index/review dates, review state, and link arrays receive conservative defaults. |
 | `source_updates` | Existing source `id`, plus `review_state`, `reason`, or `last_reviewed`. Project links are added automatically from `projects`. |
 | `tasks` | New backlog records. Open tasks are linked to their `source_ids`. |
@@ -16,7 +16,7 @@ The root object requires `date` (ISO calendar date), a unique `event_id`, and `s
 | `decisions` | Candidate decisions in the [schema](../schema.md), with `reviewed_at` and `project_ids` optional when not applicable. |
 | `source_ids` | Additional existing sources reviewed in the pass; included in the research event. |
 
-`project` follows the full `data/projects.json` schema. The helper creates an **unreviewed** audit if the entry omits `audit`; supply an explicit audited record when fields have actually been checked. Each project needs at least one source ID. URLs shared by independent projects require `allow_shared_url: true` in that entry. The helper refuses an existing project ID, decision ID, event ID, or decision URL. It checks each new project's `project_url` (falling back to `repo`) for collisions; a shared repository with distinct project pages is fine.
+`project` follows the full `data/projects.json` schema. Every new project requires an explicit audit reviewed on the batch date. Decide both `source_cpu` and `target_cpu` from primary evidence at creation: use `reviewed` for verified values, `not-applicable` for data-only work where an original/target CPU does not sensibly apply, `no-evidence-found` after an actual search, or `needs-research` with a concrete next action. Do not infer a minimum runnable CPU from a platform or from the source architecture. The helper rejects omitted or wholly unreviewed CPU audits. Run `python tools/cpu_audit_queue.py --limit 20` to select unresolved existing projects for subsequent research. Each project needs at least one source ID. URLs shared by independent projects require `allow_shared_url: true` in that entry. The helper refuses an existing project ID, decision ID, event ID, or decision URL. It checks each new project's `project_url` (falling back to `repo`) for collisions; a shared repository with distinct project pages is fine.
 
 For a decision-only pass, a batch can look like this after replacing the example details with a real reviewed lead:
 

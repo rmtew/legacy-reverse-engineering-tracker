@@ -11,6 +11,7 @@ import tempfile
 import unittest
 
 from apply_discovery_batch import FILES, ROOT, run
+from merge_pending_projects import new_audit
 
 
 class DiscoveryBatchTests(unittest.TestCase):
@@ -34,13 +35,23 @@ class DiscoveryBatchTests(unittest.TestCase):
                        repo="https://example.org/sample-research", project_url="https://example.org/sample-research")
         return {
             "date": day, "event_id": day + "-test-research", "summary": "Test discovery batch",
-            "projects": [{"project": project, "source_ids": [self.source_id]}],
+            "projects": [{"project": project, "source_ids": [self.source_id],
+                          "audit": self.researched_audit(day)}],
             "decisions": [{"id": "sample-exclusion", "title": "Sample excluded lead",
                            "url": "https://example.org/excluded", "decision": "excluded",
                            "reason": "Verified conversion of an existing listing.",
                            "evidence_urls": ["https://example.org/excluded"],
                            "source_ids": [self.source_id]}],
         }
+
+    def researched_audit(self, day):
+        audit = new_audit("sample-research-test")
+        audit["last_reviewed"] = day
+        audit["overall_state"] = "partial"
+        for area in ("source_cpu", "target_cpu"):
+            audit["areas"][area] = {"state": "reviewed" if area == "source_cpu" else "not-applicable",
+                                     "checked_at": day}
+        return audit
 
     def test_preview_then_apply_links_all_records(self):
         batch = self.batch()
@@ -52,11 +63,18 @@ class DiscoveryBatchTests(unittest.TestCase):
         audits = json.loads((self.data / "project-audits.json").read_text())
         sources = json.loads((self.data / "discovery-sources.json").read_text())
         events = json.loads((self.data / "research-activity.json").read_text())
-        self.assertEqual(next(a for a in audits["projects"] if a["project_id"] == "sample-research-test")["overall_state"], "unreviewed")
+        self.assertEqual(next(a for a in audits["projects"] if a["project_id"] == "sample-research-test")["overall_state"], "partial")
         self.assertIn("sample-research-test", next(s for s in sources["sources"] if s["id"] == self.source_id)["projects_promoted"])
         self.assertEqual(events["events"][0]["id"], batch["event_id"])
         original_count = len(json.loads(self.before["discovery-decisions.json"])["decisions"])
         self.assertEqual(len(json.loads((self.data / "discovery-decisions.json").read_text())["decisions"]), original_count + 1)
+
+    def test_new_project_requires_cpu_review(self):
+        batch = self.batch()
+        del batch["projects"][0]["audit"]
+        with self.assertRaisesRegex(ValueError, "explicit researched audit"):
+            run(self.root, batch, write=True)
+        self.assertTrue(all((self.data / name).read_bytes() == content for name, content in self.before.items()))
 
     def test_invalid_link_never_writes(self):
         batch = self.batch()
