@@ -66,6 +66,19 @@ class ActivityHistoryTest(unittest.TestCase):
         freeze_addition_context([addition], [project], {"a/b": state}, now)
         self.assertNotIn("activity_context", addition)
 
+    def test_later_lookup_fills_missing_historical_date_without_changing_counts(self):
+        now = datetime(2026, 9, 26, tzinfo=timezone.utc)
+        addition = {"type": "project_added", "date": "2026-09-25T00:00:00Z", "project_id": "p",
+                    "activity_context": {"last_commit": None, "last_activity": None,
+                                         "commits_90d": 0, "active_days_90d": 0}}
+        project = {"id": "p", "last_activity": "2021-07-10", "github": {
+            "repository": "a/b", "latest_commit": {"date": "2021-07-10", "sha": "old"}}}
+        freeze_addition_context([addition], [project], {}, now)
+        self.assertEqual(addition["activity_context"]["last_commit"]["date"], "2021-07-10")
+        self.assertEqual(addition["activity_context"]["commits_90d"], 0)
+        project["github"]["latest_commit"]["sha"] = "new"
+        self.assertEqual(addition["activity_context"]["last_commit"]["sha"], "old")
+
 
 if __name__ == "__main__":
     unittest.main()

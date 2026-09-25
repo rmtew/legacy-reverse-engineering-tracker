@@ -14,10 +14,10 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -179,7 +179,7 @@ def probe_order(repositories, state):
         return (last, repo.casefold())
     return sorted(repositories, key=key)
 
-def api(path, *, etag=None, allow_404=False, conditional_probe=False):
+def api(path, *, etag=None, allow_404=False, allow_empty_repo=False, conditional_probe=False):
     global REQUESTS, NOT_MODIFIED
     if REQUESTS >= MAX_HTTP_REQUESTS:
         raise RateStop(f"HTTP safety cap reached ({MAX_HTTP_REQUESTS})")
@@ -218,6 +218,8 @@ def api(path, *, etag=None, allow_404=False, conditional_probe=False):
         time.sleep(REQUEST_DELAY)
         if allow_404 and exc.code == 404:
             return 404, None, response_headers
+        if allow_empty_repo and exc.code == 409:
+            return 409, None, response_headers
         if exc.code in (403, 429) and (
             "rate limit" in body.lower() or "secondary" in body.lower()
         ):
@@ -306,6 +308,78 @@ def enrich_changed_repo(repo, info, repo_projects):
                 }
             else:
                 gh.pop("latest_release", None)
+
+
+def fill_missing_latest_commits(repos, state, request=get_json):
+    """Fetch one historical commit per tracked branch/path missing a latest date.
+
+    The rolling activity collector intentionally fetches only 180 days. A
+    repository older than that still needs its most recent upstream date for
+    the project record and the addition card, without adding an old commit to
+    the current activity timeline.
+    """
+    groups = {}
+    for repo, projects in repos.items():
+        rs = state["repositories"].get(repo) or {}
+        for project in projects:
+            if (project.get("github") or {}).get("latest_commit"):
+                continue
+            branch = (project.get("github_branch") or (project.get("github") or {}).get("tracking_branch")
+                      or rs.get("default_branch") or "main")
+            groups.setdefault((repo, branch, project.get("github_path") or ""), []).append(project)
+
+    found = unavailable = checked = 0
+    for (repo, branch, path), projects in sorted(groups.items()):
+        rs = state["repositories"][repo]
+        key = json.dumps([branch, path], separators=(",", ":"))
+        empty_checks = rs.setdefault("empty_commit_lookups", {})
+        prior = empty_checks.get(key) or {}
+        prior_day = parse_day(prior.get("checked_at"))
+        if (prior_day and TODAY - prior_day < timedelta(days=30)
+                and prior.get("pushed_at") == rs.get("last_seen_pushed_at")):
+            for project in projects:
+                project.setdefault("github", {})["latest_commit_lookup"] = "unavailable"
+            continue
+
+        params = {"sha": branch, "per_page": 1}
+        if path:
+            params["path"] = path
+        try:
+            items, _, status = request(f"/repos/{repo}/commits?{urlencode(params)}",
+                                       allow_404=True, allow_empty_repo=True)
+        except RateStop as exc:
+            print(f"RATE STOP during latest-commit lookup: {exc}", file=sys.stderr)
+            break
+        except Exception as exc:
+            print(f"WARNING: latest commit {repo} {branch} {path}: {exc}", file=sys.stderr)
+            continue
+        checked += 1
+        item = items[0] if isinstance(items, list) and items else None
+        commit = (item or {}).get("commit") or {}
+        when = (commit.get("committer") or {}).get("date") or (commit.get("author") or {}).get("date")
+        if not item or not when or not item.get("sha"):
+            empty_checks[key] = {"checked_at": TODAY.isoformat(),
+                                 "pushed_at": rs.get("last_seen_pushed_at")}
+            for project in projects:
+                project.setdefault("github", {})["latest_commit_lookup"] = "unavailable"
+            unavailable += len(projects)
+            continue
+
+        empty_checks.pop(key, None)
+        day = iso_date(when)
+        for project in projects:
+            gh = project.setdefault("github", {})
+            gh["latest_commit"] = {
+                "sha": item["sha"], "date": day,
+                "message": (commit.get("message") or "").splitlines()[0],
+                "url": item.get("html_url"),
+            }
+            gh.pop("latest_commit_lookup", None)
+            if not parse_day(project.get("last_activity")) or parse_day(project["last_activity"]) < parse_day(day):
+                project["last_activity"] = day
+            gh["activity_state"] = activity_state(project["last_activity"])
+            found += 1
+    return checked, found, unavailable
 
 def main():
     records = json.loads(PROJECTS.read_text(encoding="utf-8"))
@@ -421,6 +495,7 @@ def main():
         if stopped:
             break
 
+    history_checked, history_found, history_unavailable = fill_missing_latest_commits(repos, state)
     state.setdefault("rate", {})["probe"] = rate_snapshot()
     save_state(state)
     append_summary("GitHub repository probe phase")
@@ -429,7 +504,8 @@ def main():
     print(
         f"Probed {probed}/{len(repos)} repositories; detected {changed_count} pushed changes; "
         f"requested {requested} deep scans; made {REQUESTS} HTTP requests "
-        f"({NOT_MODIFIED} returned 304); primary remaining "
+        f"({NOT_MODIFIED} returned 304); checked {history_checked} missing historical heads "
+        f"({history_found} project dates found, {history_unavailable} unavailable); primary remaining "
         f"{RATE_REMAINING if RATE_REMAINING is not None else '?'}/"
         f"{RATE_LIMIT if RATE_LIMIT is not None else '?'}; reserve {effective_reserve()}."
     )

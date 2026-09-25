@@ -967,6 +967,10 @@ function additionContextHtml(event, project) {
     '<span class="detail-separator">·</span>'+(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(value)+'</a>':esc(value))+'</div>';
   if(commit?.date) lines.push(entry("Last commit",activityDate(commit.date),commit.url));
   else if(lastActivity) lines.push(entry("Last upstream activity",activityDate(lastActivity)));
+  else if(context){
+    const unavailable=context.last_commit_lookup==="unavailable" || project?.github?.latest_commit_lookup==="unavailable";
+    lines.push(entry("Last commit",unavailable?"None found on tracked branch/path":"Historical lookup pending"));
+  }
   if(release?.published_at) lines.push(entry("Latest release",(release.tag||release.name||"Release")+" · "+activityDate(release.published_at),release.url));
   if(context){
     const count=context.commits_90d||0;

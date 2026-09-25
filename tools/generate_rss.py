@@ -204,6 +204,9 @@ def change_description(event, project):
     if last_activity:
         label = "Last commit" if commit.get("date") else "Last upstream activity"
         bits.append("<p><strong>" + label + ":</strong> " + html.escape(last_activity) + "</p>")
+    elif context:
+        status = "None found on tracked branch/path" if context.get("last_commit_lookup") == "unavailable" else "Historical lookup pending"
+        bits.append("<p><strong>Last commit:</strong> " + status + "</p>")
     release = context.get("latest_release") or {}
     if release.get("published_at"):
         tag = release.get("tag") or release.get("name") or "Release"
