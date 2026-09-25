@@ -10833,6 +10833,112 @@
     "tool_kinds": []
   },
   {
+    "id": "betrayal-at-krondor-dos-byte-match",
+    "title": "Betrayal at Krondor",
+    "upstream_name": "Betrayal at Krondor",
+    "display_title": "Betrayal at Krondor — byte-matched DOS source reconstruction",
+    "subjects": [
+      "Betrayal at Krondor"
+    ],
+    "repo": "https://github.com/canassa/betrayal-at-krondor",
+    "source_platforms": [
+      "DOS"
+    ],
+    "target_platforms": [
+      "DOS"
+    ],
+    "source_cpu": [
+      "x86"
+    ],
+    "target_cpu": [
+      "x86"
+    ],
+    "source_language": [
+      "DOS game binaries"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "x86 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-reconstruction",
+      "decompilation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game source reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2026-08-02",
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "byte-matched recompilation",
+      "historical toolchain reproduction",
+      "asset inspection"
+    ],
+    "tags": [
+      "DOS",
+      "Betrayal at Krondor"
+    ],
+    "notes": "Reconstructs the 1993 game from DOS binaries and reports full byte matches for both 1.00 floppy and 1.02 CD-ROM releases. Build recreates a Borland/TASM toolchain and requires user-supplied original game files for play; project also includes a browser-based asset viewer. The author says source cleanup and documentation remain ongoing.",
+    "github": {
+      "repository": "canassa/betrayal-at-krondor",
+      "created_at": "2012-09-07",
+      "pushed_at": "2026-08-02",
+      "updated_at": "2026-09-25",
+      "checked_at": "2026-09-25",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "active",
+      "languages": [
+        "Assembly",
+        "C",
+        "JavaScript",
+        "Python",
+        "HTML",
+        "Makefile",
+        "Nix",
+        "Shell"
+      ],
+      "latest_release": {
+        "tag": "toolchain-v1",
+        "name": "toolchain v1",
+        "published_at": "2026-07-21",
+        "url": "https://github.com/canassa/betrayal-at-krondor/releases/tag/toolchain-v1"
+      },
+      "latest_commit": {
+        "sha": "1fc2a69e306af1623cd22f3390a5569302059f4d",
+        "date": "2026-08-02",
+        "message": "🏗️ rewrite gstate_hourly_tick without the goto",
+        "url": "https://github.com/canassa/betrayal-at-krondor/commit/1fc2a69e306af1623cd22f3390a5569302059f4d"
+      }
+    }
+  },
+  {
     "id": "budge-3d-module-apple2-6502disassembly",
     "title": "Bill Budge 3-D Graphics System and Game Tool",
     "upstream_name": "Bill Budge 3-D Graphics System and Game Tool",
@@ -10897,6 +11003,96 @@
       "software archaeology"
     ],
     "notes": "Disassembly of a generated module from Bill Budge's 3-D Graphics System and Game Tool, covering its scale/rotate/position/draw library, page flipping, XOR rendering and character-generator support."
+  },
+  {
+    "id": "bird-strike-bbc-micro-fixed-disassembly",
+    "title": "Bird Strike",
+    "upstream_name": "Bird Strike",
+    "display_title": "Bird Strike — BBC Micro disassembly and crash repair",
+    "subjects": [
+      "Bird Strike"
+    ],
+    "repo": "https://github.com/iainfm/BirdStrike",
+    "source_platforms": [
+      "BBC Micro"
+    ],
+    "target_platforms": [
+      "BBC Micro"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 binary"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "patching",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game disassembly",
+      "bug fix"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "disassembly",
+      "emulator save-state analysis",
+      "bug localization"
+    ],
+    "tags": [
+      "BBC Micro",
+      "Bird Strike"
+    ],
+    "notes": "Disassembled BIRDSK2 with WFDis/Beebdis and reassembled it with BeebAsm. Diagnoses and repairs graphical corruption after level 13 and a crash at level 23; includes playable binary, disk image and emulator save states. Later comments incorporate labels from the author's original sources.",
+    "github": {
+      "repository": "iainfm/BirdStrike",
+      "created_at": "2021-01-04",
+      "pushed_at": "2021-06-10",
+      "updated_at": "2021-06-18",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": null,
+      "languages": [
+        "Assembly",
+        "BASIC"
+      ],
+      "latest_release": {
+        "tag": "0.3.0",
+        "name": "Third release",
+        "published_at": "2021-04-13",
+        "url": "https://github.com/iainfm/BirdStrike/releases/tag/0.3.0"
+      }
+    }
   },
   {
     "id": "bloodwych",
@@ -12175,6 +12371,103 @@
       "source-reconstruction"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "bumpys-arcade-fantasy-dos-decompilation",
+    "title": "Bumpy's Arcade Fantasy",
+    "upstream_name": "Bumpy's Arcade Fantasy",
+    "display_title": "Bumpy's Arcade Fantasy — DOS decompilation and playable build",
+    "subjects": [
+      "Bumpy's Arcade Fantasy"
+    ],
+    "repo": "https://github.com/GeReV/bumpy-reverse",
+    "source_platforms": [
+      "DOS"
+    ],
+    "target_platforms": [
+      "DOS"
+    ],
+    "source_cpu": [
+      "x86"
+    ],
+    "target_cpu": [
+      "x86"
+    ],
+    "source_language": [
+      "16-bit x86 DOS binary"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "decompilation",
+      "source-reconstruction",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game decompilation",
+      "playable reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2026-07-14",
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "Ghidra decompilation",
+      "asset extraction",
+      "16-bit DOS rebuild"
+    ],
+    "tags": [
+      "DOS",
+      "Bumpy's Arcade Fantasy"
+    ],
+    "notes": "Reconstructed C engine for the 1992 DOS English release, with format decoders and documentation. Two Open Watcom targets: structure-faithful BUMPY.EXE is link-only and byte-compared but not run; BUMPYP.EXE adds a host layer and plays in DOSBox with user-supplied game files. Author explicitly describes Claude-led work; no byte-identical final build claim.",
+    "github": {
+      "repository": "GeReV/bumpy-reverse",
+      "created_at": "2026-06-16",
+      "pushed_at": "2026-07-14",
+      "updated_at": "2026-07-14",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "languages": [
+        "C",
+        "Python",
+        "Makefile",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "c6fc4020cc9766bb3b6247b5e9dd65c1d019f136",
+        "date": "2026-07-14",
+        "message": "docs: add tools.md documenting tools/extract scripts",
+        "url": "https://github.com/GeReV/bumpy-reverse/commit/c6fc4020cc9766bb3b6247b5e9dd65c1d019f136"
+      }
+    }
   },
   {
     "id": "jotd-burgertime-amiga",
@@ -18454,6 +18747,94 @@
     }
   },
   {
+    "id": "dos-re-recovery-framework",
+    "title": "dos_re",
+    "upstream_name": "dos_re",
+    "display_title": "dos_re — DOS game recovery and port framework",
+    "subjects": [
+      "dos_re"
+    ],
+    "repo": "https://github.com/missingno7/dos_re",
+    "source_platforms": [
+      "DOS"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "DOS executables"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "native source ports"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "source-reconstruction",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [
+      "binary-analysis",
+      "development-environment",
+      "automation"
+    ],
+    "types": [
+      "DOS game reverse-engineering framework"
+    ],
+    "re_started": null,
+    "last_activity": "2026-07-23",
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "oracle comparison",
+      "execution replay",
+      "static recovery",
+      "implementation planning"
+    ],
+    "tags": [
+      "DOS",
+      "dos_re"
+    ],
+    "notes": "Modular Python 3.11+ framework for recovering DOS games and developing native source ports. Combines static facts, original-executable oracle runs, deterministic replays and partial generated or authored implementations; it is a framework, not a completed port of a specific game or a universal decompiler.",
+    "github": {
+      "repository": "missingno7/dos_re",
+      "created_at": "2026-07-06",
+      "pushed_at": "2026-07-23",
+      "updated_at": "2026-09-13",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "192572fe3e8410b25f54ea7a402c793fa2aa7577",
+        "date": "2026-07-23",
+        "message": "display: support upstream pygame borderless windows",
+        "url": "https://github.com/missingno7/dos_re/commit/192572fe3e8410b25f54ea7a402c793fa2aa7577"
+      }
+    }
+  },
+  {
     "id": "jotd-double-dragon-amiga",
     "title": "Double Dragon — Amiga arcade transcode",
     "upstream_name": "Double Dragon",
@@ -23715,10 +24096,10 @@
       "pushed_at": "2026-09-25",
       "updated_at": "2026-09-25",
       "latest_commit": {
-        "sha": "c2aefb20b9c800f5a06140c0a87b7c2d01fd1153",
+        "sha": "e589b70063e52acf2ebcdfdd8dece3369124686d",
         "date": "2026-09-25",
-        "message": "fix(dm2): expose player load queries",
-        "url": "https://github.com/yeager/firestaff/commit/c2aefb20b9c800f5a06140c0a87b7c2d01fd1153"
+        "message": "feat(theron): support authentic RAR audio and JP ISO",
+        "url": "https://github.com/yeager/firestaff/commit/e589b70063e52acf2ebcdfdd8dece3369124686d"
       },
       "languages": [
         "C",
@@ -33745,6 +34126,85 @@
     }
   },
   {
+    "id": "kings-valley-msx-annotated-disassembly",
+    "title": "King's Valley",
+    "upstream_name": "King's Valley",
+    "display_title": "King's Valley — annotated MSX ROM disassembly",
+    "subjects": [
+      "King's Valley"
+    ],
+    "repo": "https://github.com/GuillianSeed/Kings-Valley",
+    "source_platforms": [
+      "MSX"
+    ],
+    "target_platforms": [
+      "MSX"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "MSX game ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated disassembly"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "ROM disassembly",
+      "version-selectable reassembly"
+    ],
+    "tags": [
+      "MSX",
+      "King's Valley"
+    ],
+    "notes": "Annotated disassembly of Konami's RC727 game. Sjasm can assemble either ROM version using VERSION2; version 2 contains bug fixes. The source file documents the original/version differences; the README does not claim byte-identical builds.",
+    "github": {
+      "repository": "GuillianSeed/Kings-Valley",
+      "created_at": "2021-12-31",
+      "pushed_at": "2021-12-31",
+      "updated_at": "2026-09-23",
+      "checked_at": "2026-09-25",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": null,
+      "languages": [
+        "Assembly"
+      ]
+    }
+  },
+  {
     "id": "knight-lore-tcdev-spectrum",
     "title": "Knight Lore — tcdev",
     "upstream_name": "Knight Lore",
@@ -36354,7 +36814,7 @@
       "repository": "gooofy/lxa",
       "created_at": "2021-07-17",
       "pushed_at": "2026-04-28",
-      "updated_at": "2026-09-24",
+      "updated_at": "2026-09-25",
       "checked_at": "2026-09-25",
       "default_branch": "main",
       "tracking_branch": "main",
@@ -46405,6 +46865,111 @@
         "Python",
         "Assembly"
       ]
+    }
+  },
+  {
+    "id": "pyramid-warp-msx-enhanced-disassembly",
+    "title": "Pyramid Warp",
+    "upstream_name": "Pyramid Warp",
+    "display_title": "Pyramid Warp — MSX disassembly and enhanced ROMs",
+    "subjects": [
+      "Pyramid Warp"
+    ],
+    "repo": "https://github.com/theNestruo/msx-pyramidwarpex",
+    "source_platforms": [
+      "MSX"
+    ],
+    "target_platforms": [
+      "MSX"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "MSX cartridge machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated disassembly",
+      "enhanced game"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "annotated ROM disassembly",
+      "ROM reassembly",
+      "gameplay enhancement"
+    ],
+    "tags": [
+      "MSX",
+      "Pyramid Warp"
+    ],
+    "notes": "Annotated 1983 T&E SOFT ROM assembles to the original verbatim. Enhanced and Enhanced+ variants change graphics, sound, rooms and difficulty; their outputs should not be described as byte-identical to the original. README states the enhanced RAM start is $E000 and its RAM requirement is 8 KB, but does not establish the original ROM's minimum.",
+    "runtime_profiles": [
+      {
+        "name": "Enhanced ROM",
+        "platform": "MSX",
+        "min_ram_kib": 8,
+        "notes": "The README states the enhanced variant moves RAM start to $E000 and requires 8 KB; this is not a requirement for the original ROM.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/theNestruo/msx-pyramidwarpex/blob/master/README.md",
+            "excerpt": "Moved RAM start from $C000 to $E000 (RAM requirement is now 8KB)"
+          }
+        ]
+      }
+    ],
+    "github": {
+      "repository": "theNestruo/msx-pyramidwarpex",
+      "created_at": "2017-03-05",
+      "pushed_at": "2021-07-10",
+      "updated_at": "2026-01-06",
+      "checked_at": "2026-09-25",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": true,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": null,
+      "languages": [
+        "Assembly",
+        "Makefile",
+        "Batchfile"
+      ],
+      "latest_release": {
+        "tag": "1.1",
+        "name": "1.1",
+        "published_at": "2021-07-10",
+        "url": "https://github.com/theNestruo/msx-pyramidwarpex/releases/tag/1.1"
+      }
     }
   },
   {
@@ -62418,6 +62983,89 @@
     }
   },
   {
+    "id": "visicalc-apple-ii-buildable-disassembly",
+    "title": "VisiCalc",
+    "upstream_name": "VisiCalc",
+    "display_title": "VisiCalc — buildable Apple II disassembly",
+    "subjects": [
+      "VisiCalc"
+    ],
+    "repo": "https://github.com/hwatkins/visicalc",
+    "source_platforms": [
+      "Apple II"
+    ],
+    "target_platforms": [
+      "Apple II"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated disassembly"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "disassembly",
+      "data/code separation",
+      "binary comparison"
+    ],
+    "tags": [
+      "Apple II",
+      "VisiCalc"
+    ],
+    "notes": "Buildable Merlin32/ca65 adaptation of the Brutal Deluxe VisiCalc disassembly. Recovers two regions left undecoded in the earlier listing, corrects code/data boundaries, and generates a DOS 3.3 disk image. README says source-only corrections retain byte-identical binaries; this is credited follow-on analysis, not the original disassembly. Whole-program match against the source binary is not claimed.",
+    "github": {
+      "repository": "hwatkins/visicalc",
+      "created_at": "2025-03-28",
+      "pushed_at": "2026-03-21",
+      "updated_at": "2026-09-10",
+      "checked_at": "2026-09-25",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": null,
+      "languages": [
+        "Assembly",
+        "Python",
+        "Makefile"
+      ]
+    }
+  },
+  {
     "id": "voidrunner-c16",
     "title": "Voidrunner",
     "upstream_name": "Voidrunner",
@@ -65232,475 +65880,5 @@
         "Lua"
       ]
     }
-  },
-  {
-    "id": "visicalc-apple-ii-buildable-disassembly",
-    "title": "VisiCalc",
-    "upstream_name": "VisiCalc",
-    "display_title": "VisiCalc — buildable Apple II disassembly",
-    "subjects": [
-      "VisiCalc"
-    ],
-    "repo": "https://github.com/hwatkins/visicalc",
-    "source_platforms": [
-      "Apple II"
-    ],
-    "target_platforms": [
-      "Apple II"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "source_language": [
-      "6502 machine code"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "application"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "annotated disassembly"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "disassembly",
-      "data/code separation",
-      "binary comparison"
-    ],
-    "tags": [
-      "Apple II",
-      "VisiCalc"
-    ],
-    "notes": "Buildable Merlin32/ca65 adaptation of the Brutal Deluxe VisiCalc disassembly. Recovers two regions left undecoded in the earlier listing, corrects code/data boundaries, and generates a DOS 3.3 disk image. README says source-only corrections retain byte-identical binaries; this is credited follow-on analysis, not the original disassembly. Whole-program match against the source binary is not claimed."
-  },
-  {
-    "id": "pyramid-warp-msx-enhanced-disassembly",
-    "title": "Pyramid Warp",
-    "upstream_name": "Pyramid Warp",
-    "display_title": "Pyramid Warp — MSX disassembly and enhanced ROMs",
-    "subjects": [
-      "Pyramid Warp"
-    ],
-    "repo": "https://github.com/theNestruo/msx-pyramidwarpex",
-    "source_platforms": [
-      "MSX"
-    ],
-    "target_platforms": [
-      "MSX"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "source_language": [
-      "MSX cartridge machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "patching"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "annotated disassembly",
-      "enhanced game"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "annotated ROM disassembly",
-      "ROM reassembly",
-      "gameplay enhancement"
-    ],
-    "tags": [
-      "MSX",
-      "Pyramid Warp"
-    ],
-    "notes": "Annotated 1983 T&E SOFT ROM assembles to the original verbatim. Enhanced and Enhanced+ variants change graphics, sound, rooms and difficulty; their outputs should not be described as byte-identical to the original. README states the enhanced RAM start is $E000 and its RAM requirement is 8 KB, but does not establish the original ROM's minimum.",
-    "runtime_profiles": [
-      {
-        "name": "Enhanced ROM",
-        "platform": "MSX",
-        "min_ram_kib": 8,
-        "notes": "The README states the enhanced variant moves RAM start to $E000 and requires 8 KB; this is not a requirement for the original ROM.",
-        "evidence": [
-          {
-            "source": "README",
-            "url": "https://github.com/theNestruo/msx-pyramidwarpex/blob/master/README.md",
-            "excerpt": "Moved RAM start from $C000 to $E000 (RAM requirement is now 8KB)"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "kings-valley-msx-annotated-disassembly",
-    "title": "King's Valley",
-    "upstream_name": "King's Valley",
-    "display_title": "King's Valley — annotated MSX ROM disassembly",
-    "subjects": [
-      "King's Valley"
-    ],
-    "repo": "https://github.com/GuillianSeed/Kings-Valley",
-    "source_platforms": [
-      "MSX"
-    ],
-    "target_platforms": [
-      "MSX"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "source_language": [
-      "MSX game ROM machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "annotated disassembly"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "ROM disassembly",
-      "version-selectable reassembly"
-    ],
-    "tags": [
-      "MSX",
-      "King's Valley"
-    ],
-    "notes": "Annotated disassembly of Konami's RC727 game. Sjasm can assemble either ROM version using VERSION2; version 2 contains bug fixes. The source file documents the original/version differences; the README does not claim byte-identical builds."
-  },
-  {
-    "id": "bird-strike-bbc-micro-fixed-disassembly",
-    "title": "Bird Strike",
-    "upstream_name": "Bird Strike",
-    "display_title": "Bird Strike — BBC Micro disassembly and crash repair",
-    "subjects": [
-      "Bird Strike"
-    ],
-    "repo": "https://github.com/iainfm/BirdStrike",
-    "source_platforms": [
-      "BBC Micro"
-    ],
-    "target_platforms": [
-      "BBC Micro"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "source_language": [
-      "6502 binary"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "patching",
-      "binary-analysis"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game disassembly",
-      "bug fix"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "disassembly",
-      "emulator save-state analysis",
-      "bug localization"
-    ],
-    "tags": [
-      "BBC Micro",
-      "Bird Strike"
-    ],
-    "notes": "Disassembled BIRDSK2 with WFDis/Beebdis and reassembled it with BeebAsm. Diagnoses and repairs graphical corruption after level 13 and a crash at level 23; includes playable binary, disk image and emulator save states. Later comments incorporate labels from the author's original sources."
-  },
-  {
-    "id": "dos-re-recovery-framework",
-    "title": "dos_re",
-    "upstream_name": "dos_re",
-    "display_title": "dos_re — DOS game recovery and port framework",
-    "subjects": [
-      "dos_re"
-    ],
-    "repo": "https://github.com/missingno7/dos_re",
-    "source_platforms": [
-      "DOS"
-    ],
-    "target_platforms": [
-      "analysis host"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "source_language": [
-      "DOS executables"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "native source ports"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis",
-      "source-reconstruction",
-      "reverse-engineering-derived-port"
-    ],
-    "tool_kinds": [
-      "binary-analysis",
-      "development-environment",
-      "automation"
-    ],
-    "types": [
-      "DOS game reverse-engineering framework"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": null,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "oracle comparison",
-      "execution replay",
-      "static recovery",
-      "implementation planning"
-    ],
-    "tags": [
-      "DOS",
-      "dos_re"
-    ],
-    "notes": "Modular Python 3.11+ framework for recovering DOS games and developing native source ports. Combines static facts, original-executable oracle runs, deterministic replays and partial generated or authored implementations; it is a framework, not a completed port of a specific game or a universal decompiler."
-  },
-  {
-    "id": "bumpys-arcade-fantasy-dos-decompilation",
-    "title": "Bumpy's Arcade Fantasy",
-    "upstream_name": "Bumpy's Arcade Fantasy",
-    "display_title": "Bumpy's Arcade Fantasy — DOS decompilation and playable build",
-    "subjects": [
-      "Bumpy's Arcade Fantasy"
-    ],
-    "repo": "https://github.com/GeReV/bumpy-reverse",
-    "source_platforms": [
-      "DOS"
-    ],
-    "target_platforms": [
-      "DOS"
-    ],
-    "source_cpu": [
-      "x86"
-    ],
-    "target_cpu": [
-      "x86"
-    ],
-    "source_language": [
-      "16-bit x86 DOS binary"
-    ],
-    "reconstructed_languages": [
-      "C"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "decompilation",
-      "source-reconstruction",
-      "data-format-analysis"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game decompilation",
-      "playable reconstruction"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude"
-      ]
-    },
-    "techniques": [
-      "Ghidra decompilation",
-      "asset extraction",
-      "16-bit DOS rebuild"
-    ],
-    "tags": [
-      "DOS",
-      "Bumpy's Arcade Fantasy"
-    ],
-    "notes": "Reconstructed C engine for the 1992 DOS English release, with format decoders and documentation. Two Open Watcom targets: structure-faithful BUMPY.EXE is link-only and byte-compared but not run; BUMPYP.EXE adds a host layer and plays in DOSBox with user-supplied game files. Author explicitly describes Claude-led work; no byte-identical final build claim."
-  },
-  {
-    "id": "betrayal-at-krondor-dos-byte-match",
-    "title": "Betrayal at Krondor",
-    "upstream_name": "Betrayal at Krondor",
-    "display_title": "Betrayal at Krondor — byte-matched DOS source reconstruction",
-    "subjects": [
-      "Betrayal at Krondor"
-    ],
-    "repo": "https://github.com/canassa/betrayal-at-krondor",
-    "source_platforms": [
-      "DOS"
-    ],
-    "target_platforms": [
-      "DOS"
-    ],
-    "source_cpu": [
-      "x86"
-    ],
-    "target_cpu": [
-      "x86"
-    ],
-    "source_language": [
-      "DOS game binaries"
-    ],
-    "reconstructed_languages": [
-      "C",
-      "x86 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "source-reconstruction",
-      "decompilation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game source reconstruction"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-26",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "byte-matched recompilation",
-      "historical toolchain reproduction",
-      "asset inspection"
-    ],
-    "tags": [
-      "DOS",
-      "Betrayal at Krondor"
-    ],
-    "notes": "Reconstructs the 1993 game from DOS binaries and reports full byte matches for both 1.00 floppy and 1.02 CD-ROM releases. Build recreates a Borland/TASM toolchain and requires user-supplied original game files for play; project also includes a browser-based asset viewer. The author says source cleanup and documentation remain ongoing."
   }
 ]
