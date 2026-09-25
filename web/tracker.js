@@ -214,7 +214,7 @@ function projectDirectionMatch(record){
 function bindFacet(containerId,values,selected,labeler,onChange){
   const container=$(containerId);
   container.innerHTML=sortedUnique(values,labeler).map(value=>
-    '<button type="button" class="facet-chip" data-value="'+esc(value)+'" aria-pressed="false">'+esc(labeler(value))+'</button>'
+    '<button type="button" class="facet-chip'+(selected.has(value)?' selected':'')+'" data-value="'+esc(value)+'" aria-pressed="'+(selected.has(value)?'true':'false')+'">'+esc(labeler(value))+'</button>'
   ).join("");
   container.querySelectorAll(".facet-chip").forEach(button=>button.addEventListener("click",()=>{
     const value=button.dataset.value;
@@ -407,7 +407,7 @@ function matches(record) {
   const query = $("q").value.trim().toLowerCase();
   const build = record.build || {};
   const ai = record.ai || {};
-  const haystack = [
+  const haystack = query ? [
     projectTitle(record), record.title, record.upstream_name, ...arr(record.subjects),
     record.notes, record.repo, record.project_url, record.status,
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
@@ -418,7 +418,7 @@ function matches(record) {
     ...runtimeProfiles(record).flatMap(profile=>[
       profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.os,profile.notes
     ])
-  ].join(" ").toLowerCase();
+  ].join(" ").toLowerCase() : "";
 
   const profiles=runtimeProfiles(record);
   const runtimeRequested=projectFilterState.runsOnCpu||projectFilterState.runsOnRam||projectFilterState.runsOnChipset;
@@ -649,9 +649,9 @@ function init() {
   render();
 }
 
-// Project and activity data are loaded together below.
+// Each view is initialized when its data and visible panel are ready.
 
-$("q").addEventListener("input",()=>{updateClearButtons();render();});
+$("q").addEventListener("input",()=>{updateClearButtons();if(projectUiReady) render();});
 $("clear").addEventListener("click", () => {
   $("q").value = "";
   for(const key of ["projectType","targetKind","workKind","toolKind","language"]) clearFacetSet(projectFilterState[key]);
@@ -672,14 +672,14 @@ $("clear").addEventListener("click", () => {
   }
   for(const id of ["aiSegment","compilableSegment","playableSegment","exactSegment"]) resetSegment(id);
   updateClearButtons();
-  render();
+  if(projectUiReady) render();
 });
 
 document.querySelectorAll("th[data-key]").forEach(th => th.addEventListener("click", () => {
   sort = sort.key === th.dataset.key
     ? { key: sort.key, dir: -sort.dir }
     : { key: th.dataset.key, dir: 1 };
-  render();
+  if(projectUiReady) render();
 }));
 
 document.querySelector("#details .close").addEventListener("click", () => $("details").close());
@@ -688,13 +688,15 @@ $("details").addEventListener("click", event => {
 });
 
 
-let activityData = { generated_at: null, window_days: 180, events: [] };
+let activityData = { generated_at: null, window_days: 30, events: [] };
 let activityDirty = true;
+const ACTIVITY_PAGE_SIZE=150;
+let activityVisibleCount=ACTIVITY_PAGE_SIZE;
 const activityVisible = () => $("activityView").classList.contains("active");
 const projectById = () => new Map(projects.map(project => [project.id, project]));
 const isProjectActivity = event => String(event.type || "").startsWith("project_");
 const activityKind = event => isProjectActivity(event) ? "project" : event.type;
-const projectForEvent = (event, map=projectById()) => map.get(event.project_id) || event.project || null;
+const projectForEvent = (event, map) => map.get(event.project_id) || event.project || null;
 
 
 function combinedActivityEvents() {
@@ -730,7 +732,7 @@ function formatFreshness(value) {
   return "Data refreshed "+date.toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"});
 }
 
-function initActivityFilters() {
+function bindActivityProjectFacets() {
   const eventProjects=activityData.events.map(event=>event.project).filter(Boolean);
   const filterProjects=[...projects,...eventProjects];
   bindFacet("activityTypeFacet",["commit","release","project"],activityFilterState.type,
@@ -742,26 +744,30 @@ function initActivityFilters() {
   bindFacet("activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),activityFilterState.targetKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
   bindFacet("activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),activityFilterState.workKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
   bindFacet("activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),activityFilterState.toolKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
+}
+
+function initActivityFilters() {
+  bindActivityProjectFacets();
   bindSegment("activityDaysSegment",activityFilterState,"days",()=>{updateClearButtons();requestActivityRender();});
   bindSegment("activityAiSegment",activityFilterState,"ai",()=>{updateClearButtons();requestActivityRender();});
 }
 
-function activityMatches(event) {
-  const project=projectForEvent(event);
+function activityMatches(event,map,cutoff,q) {
+  const project=projectForEvent(event,map);
   if(!project) return false;
-  const cutoff=Date.now()-Number(activityFilterState.days||30)*86400000;
   if(new Date(event.date).getTime()<cutoff) return false;
-  const q=$("activityQ").value.trim().toLowerCase();
-  const hay=[
-    event.type,event.title,event.message,event.repository,event.tag,
-    projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
-    ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),...cpuFamilyValues(project),
-    ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
-    ...arr(project.tags),...arr(project.ai?.tools),
-    ...arr(event.changes),JSON.stringify(event.change_details||[])
-  ].join(" ").toLowerCase();
-  return (!q||hay.includes(q))
-    && facetMatch(activityFilterState.type,[activityKind(event)])
+  if(q){
+    const hay=[
+      event.type,event.title,event.message,event.repository,event.tag,
+      projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
+      ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),...cpuFamilyValues(project),
+      ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
+      ...arr(project.tags),...arr(project.ai?.tools),
+      ...arr(event.changes),JSON.stringify(event.change_details||[])
+    ].join(" ").toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return facetMatch(activityFilterState.type,[activityKind(event)])
     && facetMatch(activityFilterState.projectType,projectTypeValues(project))
     && facetMatch(activityFilterState.platform,platformValues(project))
     && facetMatch(activityFilterState.cpu,cpuFamilyValues(project))
@@ -977,9 +983,14 @@ function localDayLabel(day) {
 function renderActivity() {
   activityDirty=false;
   const map=projectById();
-  const events=combinedActivityEvents().filter(activityMatches).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const cutoff=Date.now()-Number(activityFilterState.days||30)*86400000;
+  const query=$("activityQ").value.trim().toLowerCase();
+  const events=combinedActivityEvents().filter(event=>activityMatches(event,map,cutoff,query)).sort((a,b)=>new Date(b.date)-new Date(a.date));
   $("activityCount").textContent=events.length;
   $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
+  const shown=Math.min(activityVisibleCount,events.length);
+  $("activityMore").hidden=shown===events.length;
+  $("activityMore").textContent=`Show more (${shown} of ${events.length})`;
 
   if(!events.length){
     $("activityFeed").innerHTML='<div class="activity-empty">No activity matches the current filters.</div>';
@@ -987,7 +998,7 @@ function renderActivity() {
   }
 
   const days=new Map();
-  for(const event of events){
+  for(const event of events.slice(0,shown)){
     const day=localDayKey(event.date);
     if(!days.has(day)) days.set(day,new Map());
     const byProject=days.get(day);
@@ -1036,15 +1047,21 @@ function renderActivity() {
 
 function requestActivityRender(){
   activityDirty=true;
-  if(activityVisible()) renderActivity();
+  activityVisibleCount=ACTIVITY_PAGE_SIZE;
+  if(activityVisible()) renderReadyActivity();
 }
 
 document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("click",()=>{
   if(button.classList.contains("active")) return;
   document.querySelectorAll(".view-tab").forEach(x=>x.classList.toggle("active",x===button));
   document.querySelectorAll(".view-panel").forEach(panel=>panel.classList.toggle("active",panel.id===button.dataset.view));
-  if(button.dataset.view==="activityView" && activityDirty) renderActivity();
+  initializeReadyViews();
 }));
+
+$("activityMore").addEventListener("click",()=>{
+  activityVisibleCount+=ACTIVITY_PAGE_SIZE;
+  renderActivity();
+});
 
 $("activityQ").addEventListener("input",()=>{updateClearButtons();requestActivityRender();});
 $("activityClear").addEventListener("click",()=>{
@@ -1059,17 +1076,67 @@ $("activityClear").addEventListener("click",()=>{
   requestActivityRender();
 });
 
-Promise.all([
-  fetch("data/projects.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("projects HTTP "+r.status);return r.json()}),
-  fetch("data/activity.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("activity HTTP "+r.status);return r.json()})
-]).then(([projectData,activity])=>{
-  activityData=activity;
-  projects=projectData;
-  $("dataFreshness").textContent=formatFreshness(activityData.generated_at);
-  init();
-  initActivityFilters();
+let projectsReady=false;
+let projectUiReady=false;
+let activityReady=false;
+let activityUiReady=false;
+let fullActivityReady=false;
+let fullActivityRequest=null;
+
+function loadFullActivity(){
+  if(fullActivityRequest) return;
+  $("activityFeed").innerHTML='<div class="loading">Loading older activity…</div>';
+  $("activityMore").hidden=true;
+  fullActivityRequest=fetch("data/activity.json",{cache:"no-cache"})
+    .then(response=>{if(!response.ok) throw new Error("activity HTTP "+response.status);return response.json();})
+    .then(activity=>{
+      activityData=activity;
+      fullActivityReady=true;
+      $("dataFreshness").textContent=formatFreshness(activityData.generated_at);
+      if(activityUiReady) bindActivityProjectFacets();
+      activityDirty=true;
+      if(activityVisible()) renderReadyActivity();
+    }).catch(error=>{
+      if(Number(activityFilterState.days)>30){
+        $("activityFeed").innerHTML='<div class="activity-empty">Could not load older activity: '+esc(error.message)+'</div>';
+      }
+    }).finally(()=>{fullActivityRequest=null;});
+}
+
+function renderReadyActivity(){
+  if(!projectsReady||!activityReady||!activityUiReady) return;
+  if(Number(activityFilterState.days)>30&&!fullActivityReady){loadFullActivity();return;}
+  if(activityDirty) renderActivity();
+}
+
+function initializeReadyViews(){
+  if(projectsReady&&activityReady&&!activityUiReady){
+    initActivityFilters();
+    activityUiReady=true;
+  }
+  if(projectsReady&&!projectUiReady&&$("projects").classList.contains("active")){
+    init();
+    projectUiReady=true;
+  }
   updateClearButtons();
-  renderActivity();
-}).catch(error=>{
-  $("activityFeed").innerHTML='<div class="activity-empty">Could not load activity: '+esc(error.message)+'</div>';
-});
+  if(activityVisible()) renderReadyActivity();
+}
+
+fetch("data/projects.json",{cache:"no-cache"})
+  .then(response=>{if(!response.ok) throw new Error("projects HTTP "+response.status);return response.json();})
+  .then(data=>{projects=data;projectsReady=true;initializeReadyViews();})
+  .catch(error=>{
+    $("rows").innerHTML='<tr><td colspan="11" class="empty">Could not load projects: '+esc(error.message)+'</td></tr>';
+    $("activityFeed").innerHTML='<div class="activity-empty">Could not load projects: '+esc(error.message)+'</div>';
+  });
+
+fetch("data/activity-30d.json",{cache:"no-cache"})
+  .then(response=>{if(!response.ok) throw new Error("activity HTTP "+response.status);return response.json();})
+  .then(data=>{
+    activityData=data;
+    activityReady=true;
+    $("dataFreshness").textContent=formatFreshness(data.generated_at);
+    initializeReadyViews();
+  }).catch(error=>{
+    $("activityFeed").innerHTML='<div class="activity-empty">Could not load activity: '+esc(error.message)+'</div>';
+  });

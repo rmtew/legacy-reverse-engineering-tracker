@@ -53,4 +53,4 @@ function combinedActivityEvents() {
 }
 
 // If the main data load happened unusually quickly, redraw with the fallback.
-if (projects.length) renderActivity();
+if (projects.length && activityReady && activityVisible()) renderActivity();

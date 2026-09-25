@@ -12,6 +12,8 @@ on:
       - "data/project-audits.json"
       - "data/research-activity.json"
       - "tools/generate_rss.py"
+      - "tools/generate_recent_activity.py"
+      - "tools/test_recent_activity.py"
       - "tools/validate_site_data.py"
       - "tools/apply_discovery_batch.py"
       - "tools/test_discovery_batch.py"
@@ -85,7 +87,7 @@ jobs:
         run: node --test tools/test_cpu_filters.js
 
       - name: Check RSS generator syntax
-        run: python -m py_compile tools/generate_rss.py tools/validate_site_data.py tools/apply_discovery_batch.py
+        run: python -m py_compile tools/generate_rss.py tools/generate_recent_activity.py tools/validate_site_data.py tools/apply_discovery_batch.py
 
       - name: Check discovery batch integrity
         run: python -m unittest discover -s tools -p 'test_*.py'
@@ -100,6 +102,9 @@ jobs:
 
       - name: Generate activity RSS
         run: python tools/generate_rss.py data/activity.json data/projects.json _site/activity.xml
+
+      - name: Generate recent activity feed
+        run: python tools/generate_recent_activity.py data/activity.json _site/data/activity-30d.json
 
       - name: Validate generated site data
         run: python tools/validate_site_data.py data/projects.json data/activity.json _site/activity.xml
