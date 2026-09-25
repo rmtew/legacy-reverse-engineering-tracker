@@ -109,6 +109,8 @@
 | https://github.com/cadaver | C64 retro-development and reverse-engineering source including active Green Beret reconstruction plus reusable C64 tooling |
 | https://github.com/MarkRdgOx/crossroads-2-disassembly | C64 Crossroads 2 reverse engineering with detailed code and timing analysis |
 
+| https://github.com/tinic/png2amiga | Active multiplatform retro graphics converter and asset-pipeline tooling spanning Amiga, Atari, IBM PC, Commodore, Sega, Nintendo, CPC, Thomson and TED formats |
+
 ## Open discovery priorities
 
 ### Amiga / Atari ST
@@ -180,7 +182,7 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/HenadziMatuts/Reuromancer | Neuromancer DOS-to-Win64 reverse-engineered port with adapted original disassembly, reconstructed routines and a DAT resource browser |
 
 | https://github.com/pobtastic/hobbit | Dedicated historical repository for Pobtastic's SkoolKit Hobbit disassembly; canonical tracker record follows its newer adventure-games monorepo location and published site |
-| https://github.com/jonsole/zx-spectrum-disassemblies | Active reproducible SkoolKit disassemblies of Atic Atac, Manic Miner, Fairlight, Knight Lore and The Hobbit; byte-verifying builds plus source-level DAP/MCP debugging and Claude-assisted archaeology |
+| https://github.com/jonsole/zx-spectrum-disassemblies | Active reproducible SkoolKit disassemblies of Atic Atac, Manic Miner, Fairlight, Knight Lore, The Hobbit and Ant Attack; byte-verifying builds plus source-level DAP/MCP debugging and Claude-assisted archaeology |
 | https://github.com/VilleKrumlinde/FairlightZ80 | Byte-exact ZX Spectrum Fairlight disassembly with detailed room/render/sprite/collision analysis |
 | https://github.com/mjwilson/Fairlight2-ZXSpectrum | Active Fairlight II reverse-engineering investigation focused on room/object formats and the game's apparent completion bug |
 | https://github.com/Bedazzle/Smugglers_cove | Complete byte-exact Smuggler's Cove disassembly with decoded engine/data formats, relocation testing, RZX trace validation and Claude-assisted reconstruction |
