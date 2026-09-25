@@ -254,6 +254,9 @@ function initFacetPicker(id,values){
     const query=event.target.value.trim().toLowerCase();
     options.querySelectorAll("label").forEach(label=>{label.hidden=!label.textContent.toLowerCase().includes(query);});
   });
+  picker.querySelector("summary").addEventListener("click",()=>{
+    document.querySelectorAll(".facet-picker[open]").forEach(other=>{if(other!==picker) other.open=false;});
+  });
   picker.addEventListener("toggle",()=>{
     if(!picker.open) return;
     document.querySelectorAll(".facet-picker[open]").forEach(other=>{if(other!==picker) other.open=false;});
