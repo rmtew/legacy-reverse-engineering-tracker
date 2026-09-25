@@ -47447,5 +47447,393 @@
         "Lua"
       ]
     }
+  },
+  {
+    "id": "wikinger2-amiga-rust-port",
+    "title": "Wikinger II — Amiga game reconstruction",
+    "upstream_name": "Wikinger II — Amiga game reconstruction",
+    "display_title": "Wikinger II — Amiga game reconstruction",
+    "subjects": [
+      "Wikinger II"
+    ],
+    "repo": "https://github.com/SirVer/wikinger2",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS",
+      "Windows"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Amiga game binary"
+    ],
+    "reconstructed_languages": [
+      "Rust"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "decompilation",
+      "reverse-engineering-derived-port",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game reconstruction",
+      "port"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-14",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": false
+    },
+    "ai": {
+      "usage": true,
+      "tools": [],
+      "evidence": [
+        "README.md How this came to be explicitly states AI-assisted decompilation and rules extraction"
+      ]
+    },
+    "techniques": [
+      "Ghidra",
+      "IRA",
+      "save-format analysis"
+    ],
+    "tags": [
+      "Amiga",
+      "game",
+      "Rust"
+    ],
+    "notes": "Author analyzed the original ADF with Ghidra, IRA and FS-UAE and used AI to extract rules. Desktop port documents deviations; original save and highscores formats are byte-compatible, which does not imply a byte-exact game binary. README provides cargo run/install instructions."
+  },
+  {
+    "id": "coppershock-amonia-reconstruction",
+    "title": "Coppershock — Amonia demo reconstruction",
+    "upstream_name": "Coppershock — Amonia demo reconstruction",
+    "display_title": "Coppershock — Amonia demo reconstruction",
+    "subjects": [
+      "Coppershock"
+    ],
+    "repo": "https://github.com/kluzzebass/amonia-coppershock",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Tetragon-packed Amiga executable"
+    ],
+    "reconstructed_languages": [
+      "m68k assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "demo"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2026-03-19",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "unpacking",
+      "disassembly"
+    ],
+    "tags": [
+      "Amiga",
+      "demo",
+      "68k"
+    ],
+    "notes": "coppershock.S identifies an AsmOne reconstruction of the 1990 Amonia demo from a packed executable; source and assets are present. Reassembly and equivalence have not been independently checked."
+  },
+  {
+    "id": "turbo-st-source-analysis",
+    "title": "Turbo ST — annotated Atari ST source analysis",
+    "upstream_name": "Turbo ST — annotated Atari ST source analysis",
+    "display_title": "Turbo ST — annotated Atari ST source analysis",
+    "subjects": [
+      "Turbo ST"
+    ],
+    "repo": "https://github.com/mbackschat/atari-st-turbost",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "Atari ST"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "original m68k assembly source",
+      "Atari ST game disk"
+    ],
+    "reconstructed_languages": [
+      "m68k assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-restoration",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated source",
+      "game analysis"
+    ],
+    "re_started": null,
+    "last_activity": "2026-04-06",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "README.md Credits credits Claude Code for reverse-engineering and documentation"
+      ]
+    },
+    "techniques": [
+      "source annotation",
+      "algorithm analysis"
+    ],
+    "tags": [
+      "Atari ST",
+      "game",
+      "68k"
+    ],
+    "notes": "Original programmer supplies original assembly in misc/TURBOST-Original.S and commented source plus documentation. README describes as68/link68 build and a prebuilt PRG, but source ancestry is the original source, not a binary-only reconstruction. Claude Code assisted documentation and comments."
+  },
+  {
+    "id": "idris-atari-st-reconstruction",
+    "title": "Idris OS — partial Atari ST reconstruction",
+    "upstream_name": "Idris OS — partial Atari ST reconstruction",
+    "display_title": "Idris OS — partial Atari ST reconstruction",
+    "subjects": [
+      "Idris OS"
+    ],
+    "repo": "https://github.com/th-otto/Idris",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "Atari ST"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Idris OS binaries",
+      "m68k disassembly"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "m68k assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "operating-system"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "partial source reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2025-11-18",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "disassembly",
+      "source recovery"
+    ],
+    "tags": [
+      "Atari ST",
+      "operating system",
+      "68k"
+    ],
+    "notes": "Partial reconstructed Idris OS source tree: kernel holds original xidris/idrisk1a binaries and large .orig.s listings, plus C and assembly modules and a cross-toolchain GNUmakefile. Build and fidelity unverified."
+  },
+  {
+    "id": "d68k-amiga-disassembler",
+    "title": "D68k — Amiga m68k disassembler",
+    "upstream_name": "D68k — Amiga m68k disassembler",
+    "display_title": "D68k — Amiga m68k disassembler",
+    "subjects": [
+      "D68k"
+    ],
+    "repo": "https://github.com/denis2342/D68k",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Amiga HUNK executables"
+    ],
+    "reconstructed_languages": [
+      "m68k assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly"
+    ],
+    "tool_kinds": [
+      "disassembler"
+    ],
+    "types": [
+      "disassembler"
+    ],
+    "re_started": null,
+    "last_activity": "2025-10-14",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "HUNK parsing",
+      "label recovery"
+    ],
+    "tags": [
+      "Amiga",
+      "disassembler",
+      "68k"
+    ],
+    "notes": "Denis Ahrens disassembler source for AmigaOS 2+ includes documented A68k/SLink and vasm assembly commands; source traverses hunks and uses passes for labels and disassembly. No runtime verification."
+  },
+  {
+    "id": "atari-m68000-disasmb-codaway",
+    "title": "AtariM68000_DisAsmb — Atari ST disassembler",
+    "upstream_name": "AtariM68000_DisAsmb — Atari ST disassembler",
+    "display_title": "AtariM68000_DisAsmb — Atari ST disassembler",
+    "subjects": [
+      "AtariM68000_DisAsmb"
+    ],
+    "repo": "https://github.com/Codaway/AtariM68000_DisAsmb",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Atari ST EXE binaries"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly",
+      "copy-protection-analysis"
+    ],
+    "tool_kinds": [
+      "disassembler"
+    ],
+    "types": [
+      "disassembler"
+    ],
+    "re_started": null,
+    "last_activity": "2024-11-23",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "control-flow tracing",
+      "code-data separation"
+    ],
+    "tags": [
+      "Atari ST",
+      "disassembler",
+      "copy protection"
+    ],
+    "notes": "README describes a C disassembler that follows instructions and branches from the executable entry point; author used it to investigate copy protection and says output is imperfect. Build and runtime unverified."
   }
 ]
