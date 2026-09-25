@@ -86,9 +86,9 @@ const cpuFamily = value => {
   const raw=String(value??"").trim();
   const cpu=raw.toLowerCase().replaceAll(" ","");
   if(!cpu) return "";
-  if(cpu.includes("6502")||cpu.includes("6510")||cpu.includes("7501")||cpu.includes("8501")||cpu.includes("2a03")||cpu.includes("huc6280")) return "6502 family";
+  if(/6502|6507|6510|7501|8501|2a03|huc6280|65c0?2|65c12|65c102|65816|6500\/1/.test(cpu)) return "6502 family";
   if(cpu.includes("m68k")||cpu.includes("68000")||cpu.includes("68010")||cpu.includes("68020")||cpu.includes("68030")||cpu.includes("68040")||cpu.includes("68060")) return "68000 family";
-  if(cpu==="8086"||cpu.includes("x86")) return "x86";
+  if(/^(?:8086|80186|80286|80386|80486|i[3456]86)$/.test(cpu)||cpu.includes("x86")) return "x86";
   if(cpu.includes("z80")) return "Z80";
   if(cpu.includes("8080")) return "8080";
   if(cpu.includes("6809")) return "6809";
@@ -314,7 +314,6 @@ function matches(record) {
     && facetMatch(projectFilterState.targetKind,record.target_kinds)
     && facetMatch(projectFilterState.workKind,record.work_kinds)
     && facetMatch(projectFilterState.toolKind,record.tool_kinds)
-    && facetMatch(projectFilterState.cpu,record.source_cpu)
     && facetMatch(projectFilterState.language,record.reconstructed_languages)
     && runtimeMatch
     && (!projectFilterState.ai || tri(ai.usage)===projectFilterState.ai)
