@@ -1,7 +1,71 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T04:05:49Z",
+  "updated_at": "2026-09-25T04:18:24Z",
   "projects": {
+    "dec0de-atari-st-deprotection": {
+      "id": "dec0de-atari-st-deprotection",
+      "title": "$DEC0DE — Atari ST deprotection",
+      "upstream_name": "$DEC0DE — Atari ST deprotection",
+      "display_title": "$DEC0DE — Atari ST deprotection",
+      "subjects": [
+        "Atari ST executable protection"
+      ],
+      "repo": "https://github.com/orionfuzion/dec0de",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "protected Atari ST executables"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "copy-protection-analysis",
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "deprotection tool"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Atari ST executable protection"
+      ],
+      "notes": "C tool removes documented protection schemes from ST programs, including Rob Northen Copylock series 1/2, Anti-bitos and several packers. Source and prebuilt binaries for ST and hosts are provided; each supported protection is listed in the README.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "180-spectrum": {
       "id": "180-spectrum",
       "title": "180",
@@ -2463,6 +2527,72 @@
         "tools": []
       }
     },
+    "amiga-lzx-rust": {
+      "id": "amiga-lzx-rust",
+      "title": "Amiga LZX — Rust reconstruction",
+      "upstream_name": "Amiga LZX — Rust reconstruction",
+      "display_title": "Amiga LZX — Rust reconstruction",
+      "subjects": [
+        "Amiga LZX archiver"
+      ],
+      "repo": "https://github.com/bitplane/amiga-lzx",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "original Amiga LZX compressor binary",
+        "LZX archives"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "clean-room archiver reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Amiga LZX archiver"
+      ],
+      "notes": "Author describes LLM-assisted reconstruction: original compressor decompiled with Ghidra, a specification written, then Rust implementation built from the spec, with unlzx.c informing decompressor documentation. CLI/library create, list, extract and test Amiga LZX archives; runs on modern hosts.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "LLM"
+        ]
+      }
+    },
     "amiga-re-rust-toolkit": {
       "id": "amiga-re-rust-toolkit",
       "title": "amiga-re — Rust reversing toolkit",
@@ -3617,6 +3747,146 @@
         "reverse engineering"
       ],
       "notes": "Pure-Rust Another World VM resource unpacker, bytecode disassembler and assembler across several releases including the Amiga, with OFS ADF extraction and byte-identical bytecode round-trip documented. Byte-identical VM bytecode round-trip does not imply an Amiga executable rebuild.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "another-world-cross-port-archaeology": {
+      "id": "another-world-cross-port-archaeology",
+      "title": "Another World — cross-port archaeology",
+      "upstream_name": "Another World — cross-port archaeology",
+      "display_title": "Another World — cross-port archaeology",
+      "subjects": [
+        "Another World"
+      ],
+      "repo": "https://github.com/ArqueologiaDigital/another-world-archaeology",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "DOS",
+        "SNES",
+        "Sega Genesis",
+        "Game Boy Advance"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "original release executables and game data"
+      ],
+      "reconstructed_languages": [
+        "bytecode disassembly",
+        "documentation"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis",
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "cross-port comparative analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "DOS",
+        "SNES",
+        "Sega Genesis",
+        "Game Boy Advance",
+        "Another World"
+      ],
+      "notes": "Active comparative archaeology of Another World releases, with checksum provenance, extractors and bytecode disassemblies. Includes the original Amiga lineage. Original game fixtures are expected from a separate sibling archive; do not infer that every release has been completely decoded.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "another-world-cross-port-reconstruction": {
+      "id": "another-world-cross-port-reconstruction",
+      "title": "Another World — cross-port source reconstruction",
+      "upstream_name": "Another World — cross-port source reconstruction",
+      "display_title": "Another World — cross-port source reconstruction",
+      "subjects": [
+        "Another World"
+      ],
+      "repo": "https://github.com/ArqueologiaDigital/another-world-source-reconstruction",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "DOS",
+        "SNES",
+        "Sega Genesis",
+        "Game Boy Advance"
+      ],
+      "target_platforms": [
+        "Amiga",
+        "DOS",
+        "SNES",
+        "Sega Genesis",
+        "Game Boy Advance"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "game binaries and bytecode"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "source reconstruction",
+        "bytecode reassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "DOS",
+        "SNES",
+        "Sega Genesis",
+        "Game Boy Advance",
+        "Another World"
+      ],
+      "notes": "Active work toward one conditional source tree for multiple release lineages, including Chahi’s 1991 Amiga bytecode. README says phase-one bytecode matching exists; non-bytecode resources and bank/ADF packaging remain planned. Do not read the repository tagline as evidence of full executable byte-exact builds. Depends on sibling archaeology and external VMTools.",
       "ai": {
         "usage": null,
         "tools": []
@@ -4834,6 +5104,67 @@
         "tools": []
       }
     },
+    "atari-hd-image-builder": {
+      "id": "atari-hd-image-builder",
+      "title": "atari-hd — Atari ST disk image builder",
+      "upstream_name": "atari-hd — Atari ST disk image builder",
+      "display_title": "atari-hd — Atari ST disk image builder",
+      "subjects": [
+        "Atari ST AHDI and disk partition formats"
+      ],
+      "repo": "https://github.com/sidecartridge/atari-hd",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Atari ST hard disk reference images and partition formats"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "hard disk image builder"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Atari ST AHDI and disk partition formats"
+      ],
+      "notes": "TUI and CLI build raw Atari ST bootable disk images; implements AHDI, PPDRIVER and HDDRIVER partition layouts. README states byte-level validation against ICDFMT/PPTOSDOS reference disks. Host utility, not a recovered TOS system source.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "jumpman-atari8-sarnau": {
       "id": "jumpman-atari8-sarnau",
       "title": "Atari-Jumpman",
@@ -5308,6 +5639,68 @@
         "6502"
       ],
       "notes": "Llamasoft Source Project reconstruction of the C64 and Atari 8-bit versions of Attack of the Mutant Camels. The same repository also preserves the separately available original Konix work-in-progress source, which is not treated as reverse-engineering evidence.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "audio-sculpture-st-ipl-analysis": {
+      "id": "audio-sculpture-st-ipl-analysis",
+      "title": "Audio Sculpture 1.5 — IPL protection analysis",
+      "upstream_name": "Audio Sculpture 1.5 — IPL protection analysis",
+      "display_title": "Audio Sculpture 1.5 — IPL protection analysis",
+      "subjects": [
+        "Audio Sculpture 1.5"
+      ],
+      "repo": "https://github.com/orionfuzion/newcracks",
+      "project_url": "https://github.com/orionfuzion/newcracks/tree/master/AudioS15",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "original protected floppy tracks"
+      ],
+      "reconstructed_languages": [
+        "documentation",
+        "debugger scripts"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "copy-protection-analysis",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "protection analysis",
+        "Hatari tutorial"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Audio Sculpture 1.5"
+      ],
+      "notes": "Project-specific Hatari debugging walkthrough and files for analyzing Audio Sculpture 1.5 IPL protection, especially physical track/sector checks. README refers software anti-debugger detail to the Son Shu Shi analysis; no standalone reconstructed application is claimed.",
       "ai": {
         "usage": null,
         "tools": []
@@ -9319,6 +9712,67 @@
         "reverse engineering"
       ],
       "notes": "NES emulator modified specifically for reverse engineering. Its tracer records code and data accesses while a game runs and generates disassembly plus the supporting files needed to recreate the ROM image; mapper-aware disassembly coverage expands as execution is observed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "crunchmania-python": {
+      "id": "crunchmania-python",
+      "title": "Crunch-Mania — Python format tools",
+      "upstream_name": "Crunch-Mania — Python format tools",
+      "display_title": "Crunch-Mania — Python format tools",
+      "subjects": [
+        "Crunch-Mania Amiga compressed streams"
+      ],
+      "repo": "https://github.com/bitplane/crunchmania",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "CrM! and CrM2 streams",
+        "ADF images"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "decompressor",
+        "compressed-stream scanner"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Crunch-Mania Amiga compressed streams"
+      ],
+      "notes": "Python package exposes four documented Crunch-Mania variants, including delta forms; can scan ADF for embedded CrM blocks and unpack obfuscated variants used in Amiga demos/games. Distinct implementation from the already tracked Ancient format collection.",
       "ai": {
         "usage": null,
         "tools": []
@@ -25544,6 +25998,67 @@
         "tools": []
       }
     },
+    "pfx-unpacker-atari-st": {
+      "id": "pfx-unpacker-atari-st",
+      "title": "PFX Unpacker — Atari ST executables",
+      "upstream_name": "PFX Unpacker — Atari ST executables",
+      "display_title": "PFX Unpacker — Atari ST executables",
+      "subjects": [
+        "PFX/PFXPAK compressed TOS executables"
+      ],
+      "repo": "https://github.com/NeHeGL/pfx-unpacker",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "packed .PRG TOS executable"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis"
+      ],
+      "types": [
+        "executable unpacker"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "PFX/PFXPAK compressed TOS executables"
+      ],
+      "notes": "Python CLI/optional GUI extracts standard runnable TOS executables from PFX 1.13P and 2.1P packed files, translating XPFX.S decompression logic. It explicitly does not support ICE, Synergy, UPX or generic LHA archives.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "phantoms-five-apple2-6502disassembly": {
       "id": "phantoms-five-apple2-6502disassembly",
       "title": "Phantoms Five",
@@ -29453,6 +29968,72 @@
         "tools": []
       }
     },
+    "safari-guns-st-crack-research": {
+      "id": "safari-guns-st-crack-research",
+      "title": "Safari Guns — documented ST reconstruction",
+      "upstream_name": "Safari Guns — documented ST reconstruction",
+      "display_title": "Safari Guns — documented ST reconstruction",
+      "subjects": [
+        "Safari Guns"
+      ],
+      "repo": "https://github.com/orionfuzion/newcracks",
+      "project_url": "https://github.com/orionfuzion/newcracks/tree/master/SafariG",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari Falcon",
+        "Atari TT"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "protected disk and executable"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "copy-protection-analysis",
+        "patching",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "documented crack",
+        "loader restoration"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Safari Guns"
+      ],
+      "notes": "Project-specific source and detailed disk/protection analysis accompany a modified Safari Guns release. Includes loader and bug fixes, partial filing, hard-drive support and a 512 KiB configuration; Falcon/TT/CT60 claims are upstream and not independently run here. This is a patch/reconstruction, not complete original game source.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "sanxion-c64-analyser": {
       "id": "sanxion-c64-analyser",
       "title": "Sanxion",
@@ -30856,6 +31437,74 @@
         ]
       }
     },
+    "son-shu-shi-st-protection-rework": {
+      "id": "son-shu-shi-st-protection-rework",
+      "title": "Son Shu Shi — ST protection and loader rework",
+      "upstream_name": "Son Shu Shi — ST protection and loader rework",
+      "display_title": "Son Shu Shi — ST protection and loader rework",
+      "subjects": [
+        "Son Shu Shi"
+      ],
+      "repo": "https://github.com/orionfuzion/newcracks",
+      "project_url": "https://github.com/orionfuzion/newcracks/tree/master/SonShuSi",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari Mega STE",
+        "Atari TT",
+        "Atari Falcon"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "protected floppy tracks and game binary"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "documentation"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "copy-protection-analysis",
+        "patching",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "documented crack",
+        "loader rework"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Son Shu Shi"
+      ],
+      "notes": "Documented IPL disk/protection analysis and source for loader changes, checksum removal, repacking, filing and machine compatibility; release images provided. Credits original ST and Amiga game programmers separately: this work examines the ST version, not Amiga executable code.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "sonicarranger-sonicconv": {
       "id": "sonicarranger-sonicconv",
       "title": "SonicArranger packed format converter",
@@ -31568,6 +32217,64 @@
         "software archaeology"
       ],
       "notes": "Reverse-engineered C64 Squirm source. The README describes an ongoing effort to work through and comment the code, with the decompiled output in 64tass syntax.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "st-recover-floppy-imaging": {
+      "id": "st-recover-floppy-imaging",
+      "title": "ST Recover — floppy imaging",
+      "upstream_name": "ST Recover — floppy imaging",
+      "display_title": "ST Recover — floppy imaging",
+      "subjects": [
+        "Atari ST floppy disks"
+      ],
+      "repo": "https://github.com/ChrisBertrandDotNet/ST-Recover",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "physical Atari ST floppy disks"
+      ],
+      "reconstructed_languages": [
+        "Windows application"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "floppy recovery",
+        "disk image creator"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Atari ST floppy disks"
+      ],
+      "notes": "Reads ST floppies via PC drive into .ST images, including unusual sector layouts and damage recovery. README says USB drives handle standard 360/720 KB only; special formats require internal drive/driver. Protected malformed disks and 900 KB operation were not verified by author, despite broad summary.",
       "ai": {
         "usage": null,
         "tools": []
