@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T06:40:33Z",
+  "updated_at": "2026-09-25T07:17:56Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -15616,7 +15616,8 @@
       "techniques": [
         "source adaptation",
         "native Amiga hardware porting",
-        "emulator validation"
+        "emulator validation",
+        "cycle-exact WinUAE runtime verification"
       ],
       "tags": [
         "game",
@@ -15625,7 +15626,7 @@
         "Atari ST",
         "native port"
       ],
-      "notes": "Independent native Amiga version developed from the corrected Atari ST source tree, with native bitplanes, Amiga input, Paula sound/music and AmigaDOS file handling. Extensively checked in WinUAE; real hardware remains untested.",
+      "notes": "Independent native Amiga version developed from the corrected Atari ST source tree, with native bitplanes, Amiga input, Paula sound/music and AmigaDOS file handling. The documented stock baseline remains PAL OCS/MC68000 with 512 KB Chip + 512 KB expansion RAM and Kickstart 1.3; an explicit 68020-only build is also supported. Current development is adding optional gameplay/presentation extensions including flyable ships and seeded planet surfaces. Runtime verification is extensive under WinUAE, while real hardware and physical mouse/joystick testing remain unvalidated.",
       "ai": {
         "usage": null,
         "tools": []
@@ -17152,8 +17153,24 @@
         "HuC6280",
         "SH-2"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "arm64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Apple Silicon macOS host smoke",
+          "platform": "macOS",
+          "cpu_family": "arm64",
+          "notes": "PROJECT_STATUS explicitly records a native macOS host smoke and Apple Silicon macOS boot for Dungeon Master 1. This is a verified host configuration, not a general minimum CPU or memory requirement for Firestaff.",
+          "evidence": [
+            {
+              "source": "docs/PROJECT_STATUS.md",
+              "url": "https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md",
+              "excerpt": "Dungeon Master 1 | Playable/source-locked V1; native macOS host smoke verified ... Apple Silicon macOS boot"
+            }
+          ]
+        }
+      ],
       "source_language": [
         "legacy machine code",
         "game data"
@@ -17191,7 +17208,10 @@
         "format decoding",
         "cross-version comparison",
         "real-media verification",
-        "source-locked runtime verification"
+        "source-locked runtime verification",
+        "instrumented Mednafen capture",
+        "Backup RAM format analysis",
+        "CD track provenance verification"
       ],
       "tags": [
         "game engine",
@@ -17200,7 +17220,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Current project status explicitly marks Dungeon Master 1 on PC DOS 3.4 as playable/source-locked; Chaos Strikes Back and Dungeon Master II have verified bounded real-media routes; Nexus and Theron's Quest remain bounded bring-up rather than complete gameplay. User-supplied media stays source-locked and full campaign/presentation parity is not claimed across the suite.",
+      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Current project status marks Dungeon Master 1 on PC DOS 3.4 as playable/source-locked; Chaos Strikes Back and Dungeon Master II have verified bounded real-media routes; Nexus remains active real-data bring-up. Theron's Quest has a verified bounded Japanese runtime route and verified US routes, including an authentic Continue-to-dungeon-2 native route, while later campaign progression, presentation and end-to-end gameplay remain open. User-supplied media stays source-locked and full parity is not claimed across the suite.",
       "ai": {
         "usage": true,
         "tools": [
@@ -32208,9 +32228,9 @@
     },
     "png2amiga-multiplatform-asset-converter": {
       "id": "png2amiga-multiplatform-asset-converter",
-      "title": "png2amiga — Amiga and Atari ST asset converter",
-      "upstream_name": "png2amiga — Amiga and Atari ST asset converter",
-      "display_title": "png2amiga — Amiga and Atari ST asset converter",
+      "title": "png2amiga",
+      "upstream_name": "png2amiga",
+      "display_title": "png2amiga — multiplatform retro graphics converter",
       "subjects": [
         "png2amiga"
       ],
@@ -32221,15 +32241,47 @@
       "source_platforms": [
         "Amiga",
         "Atari ST",
-        "Atari STE"
+        "Atari STE",
+        "IBM PC",
+        "Commodore 64",
+        "Sega Genesis / Mega Drive",
+        "Super Nintendo",
+        "Game Boy Advance",
+        "Sega Master System",
+        "Game Gear",
+        "Amstrad CPC",
+        "Amstrad CPC Plus",
+        "Thomson TO7/70",
+        "Thomson TO8",
+        "Commodore Plus/4",
+        "Commodore 16"
       ],
       "target_platforms": [
-        "analysis host",
+        "Windows",
+        "Linux",
+        "macOS",
         "Web"
       ],
       "source_cpu": [],
-      "target_cpu": [],
-      "runtime_profiles": null,
+      "target_cpu": [
+        "x86-64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Standard x86-64 release build",
+          "platform": "Windows / Linux / macOS",
+          "cpu_family": "x86-64",
+          "min_cpu": "x86-64 with AVX2",
+          "notes": "The README explicitly requires AVX2 for the standard x86-64 binaries and gives Intel Haswell (2013+) / AMD Zen (2017+) as examples. A compatibility build is available for older x86-64 CPUs, but no more specific lower CPU floor is asserted.",
+          "evidence": [
+            {
+              "source": "README.md",
+              "url": "https://github.com/tinic/png2amiga/blob/main/README.md",
+              "excerpt": "The x86-64 binaries need AVX2 (Intel Haswell 2013+, AMD Zen 2017+). On an older CPU, use png2amiga-windows-x86_64-compat.exe from the same release."
+            }
+          ]
+        }
+      ],
       "source_language": [
         "PNG",
         "JPEG",
@@ -32252,22 +32304,36 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
       "techniques": [
         "palette quantization",
         "bitplane encoding",
-        "HAM encoding"
+        "HAM encoding",
+        "retro palette quantization",
+        "bitplane and tile encoding",
+        "tile deduplication and budget fitting",
+        "format-specific screen packing"
       ],
       "tags": [
         "Amiga",
         "Atari ST",
-        "graphics"
+        "graphics",
+        "retro asset pipeline",
+        "graphics converter",
+        "IBM PC",
+        "Commodore 64",
+        "Sega Genesis",
+        "SNES",
+        "Game Boy Advance",
+        "Sega Master System",
+        "Game Gear",
+        "Amstrad CPC"
       ],
-      "notes": "Modern cross-platform image converter outputs Amiga bitplanes/IFF/SHAM and Atari STF/STE DEGAS formats, plus other retro targets. README describes browser preview and Amiga viewer output. Graphics pipeline tooling rather than recovered original-game source.",
+      "notes": "Cross-platform image/asset converter for Amiga, Atari ST/STE, IBM PC, C64, Genesis, SNES Mode 7, Game Boy Advance, Sega Master System/Game Gear, Amstrad CPC/CPC Plus, Thomson and Commodore TED targets. v1.109.0 (25 September 2026) added SMS/GG and CPC/CPC Plus output modes with packed-output round-trip tests. The README documents native CMake builds, a WebAssembly web app and pre-built desktop releases; standard x86-64 binaries require AVX2, while a compatibility build is provided for older x86-64 CPUs.",
       "ai": {
         "usage": true,
         "tools": [
@@ -46724,7 +46790,8 @@
         "Manic Miner",
         "Fairlight",
         "Knight Lore",
-        "The Hobbit"
+        "The Hobbit",
+        "Ant Attack"
       ],
       "repo": "https://github.com/jonsole/zx-spectrum-disassemblies",
       "project_url": "https://jonsole.github.io/zx-spectrum-disassemblies/",
@@ -46794,9 +46861,10 @@
         "Knight Lore",
         "The Hobbit",
         "Claude",
-        "AI-assisted"
+        "AI-assisted",
+        "Ant Attack"
       ],
-      "notes": "Independent reproducible disassemblies of five ZX Spectrum games. Build scripts take user-supplied original media, generate commented/source-level-debuggable disassemblies and snapshots, and verify reassembly against the original bytes. The project emphasizes measured behaviour and integrates with a DAP/MCP-capable Spectrum emulator. The Hobbit now also has an optional verified-source fast-draw patch: only plotting code is replaced, all 22 pictures are compared against the original run, and whole-memory equality is checked after each picture.",
+      "notes": "Independent reproducible disassemblies of six ZX Spectrum games: Atic Atac, Manic Miner, Fairlight, Knight Lore, The Hobbit and Ant Attack. Build scripts take user-supplied original media, generate commented/source-level-debuggable disassemblies and snapshots, and verify reassembly against the original bytes. Ant Attack is documented as 100% covered (41,984/41,984 bytes), with every routine named and every instruction but three observed to execute; its build reassembles byte-for-byte. The Hobbit also has an optional verified-source fast-draw patch whose 22 pictures are compared against the original run with whole-memory equality checks.",
       "ai": {
         "usage": true,
         "tools": [
