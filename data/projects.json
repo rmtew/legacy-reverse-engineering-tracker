@@ -2242,6 +2242,96 @@
     "notes": "Oliver Gantert's long-running Amberworld project. Its site documents extraction/conversion tools and source releases for Amberstar, Ambermoon and Albion, extensive reverse-engineered file formats, and a later return to disassembled game-code analysis."
   },
   {
+    "id": "amiberry-mcp-server",
+    "title": "Amiberry MCP Server",
+    "upstream_name": "Amiberry MCP Server",
+    "display_title": "Amiberry MCP Server — emulator control and debugging",
+    "subjects": [],
+    "repo": "https://github.com/BlitterStudio/amiberry-mcp-server",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Amiga hardware/OS behavior"
+    ],
+    "reconstructed_languages": [
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "debugger",
+      "automation",
+      "rom-tool"
+    ],
+    "types": [
+      "Amiberry MCP server",
+      "emulator automation",
+      "adjacent tooling"
+    ],
+    "re_started": null,
+    "last_activity": "2026-08-03",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "emulator IPC",
+      "savestate inspection",
+      "memory inspection",
+      "screenshot automation",
+      "ROM identification"
+    ],
+    "tags": [
+      "Amiga",
+      "68000",
+      "debugger",
+      "reverse-engineering tooling"
+    ],
+    "notes": "Python MCP integration for the Amiberry emulator, including machine control, live memory access, save states, ROM identification and screenshots. Runtime controls require Amiberry built with USE_IPC_SOCKET=ON; its README limits the server to macOS and Linux.",
+    "github": {
+      "repository": "BlitterStudio/amiberry-mcp-server",
+      "created_at": "2026-01-31",
+      "pushed_at": "2026-08-03",
+      "updated_at": "2026-09-20",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "cbfa0c3143a2a71f55e854605cd9cf789f4a5ca5",
+        "date": "2026-08-03",
+        "message": "docs: sync documentation with the actual tool and endpoint surface",
+        "url": "https://github.com/BlitterStudio/amiberry-mcp-server/commit/cbfa0c3143a2a71f55e854605cd9cf789f4a5ca5"
+      }
+    }
+  },
+  {
     "id": "jotd-amidar-amiga",
     "title": "Amidar — Amiga arcade port",
     "upstream_name": "Amidar",
@@ -2571,6 +2661,111 @@
         "byte_exact": [],
         "re_started": [],
         "ci": []
+      }
+    }
+  },
+  {
+    "id": "amiga-devbench-mcp",
+    "title": "Amiga DevBench",
+    "upstream_name": "Amiga DevBench",
+    "display_title": "Amiga DevBench — serial debugger and MCP development environment",
+    "subjects": [],
+    "repo": "https://github.com/geekychris/amiga_mcp",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Amiga hardware/OS behavior"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "debugger",
+      "development-environment",
+      "automation"
+    ],
+    "types": [
+      "debugger",
+      "cross-development environment",
+      "MCP server"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-19",
+    "last_checked": "2026-09-25",
+    "status": "active",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "https://github.com/geekychris/amiga_mcp includes explicit Claude Code workflow and instruction files.",
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "serial target inspection",
+      "source debugging",
+      "memory inspection",
+      "remote deployment",
+      "emulator automation"
+    ],
+    "tags": [
+      "Amiga",
+      "68000",
+      "debugger",
+      "reverse-engineering tooling"
+    ],
+    "notes": "Host/target bridge over serial to a real or FS-UAE Amiga, with memory/register inspection, breakpoints, remote execution, a web dashboard and MCP tools. The optional patched FS-UAE enables a separate emulator-level debugger; ordinary FS-UAE still supports the serial bridge. Docker is used for the 68k cross compiler.",
+    "github": {
+      "repository": "geekychris/amiga_mcp",
+      "created_at": "2026-03-08",
+      "pushed_at": "2026-09-19",
+      "updated_at": "2026-09-24",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python",
+        "C",
+        "HTML",
+        "Shell",
+        "TypeScript",
+        "PowerShell",
+        "Makefile",
+        "GDB",
+        "Dockerfile"
+      ],
+      "latest_commit": {
+        "sha": "cc662449143e08921f818193ef78f628156abeeb",
+        "date": "2026-09-19",
+        "message": "examples: bump submodule for warden_keep extra keybindings",
+        "url": "https://github.com/geekychris/amiga_mcp/commit/cc662449143e08921f818193ef78f628156abeeb"
       }
     }
   },
@@ -15890,7 +16085,7 @@
       "data-format analysis"
     ],
     "re_started": null,
-    "last_activity": "2026-09-24",
+    "last_activity": "2026-09-25",
     "last_checked": "2026-09-24",
     "status": "active",
     "build": {
@@ -15936,13 +16131,13 @@
       "primary_language": "C",
       "activity_state": "active",
       "created_at": "2026-04-20",
-      "pushed_at": "2026-09-24",
-      "updated_at": "2026-09-24",
+      "pushed_at": "2026-09-25",
+      "updated_at": "2026-09-25",
       "latest_commit": {
-        "sha": "53ae521757d684e2c312c4d31fd83bc108a06d85",
-        "date": "2026-09-24",
-        "message": "test(theron): gate callee fixture on authentic media",
-        "url": "https://github.com/yeager/firestaff/commit/53ae521757d684e2c312c4d31fd83bc108a06d85"
+        "sha": "0cd2ee3f58ed08a7b995137007fc8601b5726ffa",
+        "date": "2026-09-25",
+        "message": "fix(theron): block guessed authentic stair targets",
+        "url": "https://github.com/yeager/firestaff/commit/0cd2ee3f58ed08a7b995137007fc8601b5726ffa"
       },
       "languages": [
         "C",
@@ -16398,6 +16593,101 @@
       "reimplementation"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "fsuae-remote-debug-patch",
+    "title": "FS-UAE remote patch",
+    "upstream_name": "FS-UAE remote patch",
+    "display_title": "FS-UAE remote patch — HTTP, GDB and MCP debugger",
+    "subjects": [],
+    "repo": "https://github.com/geekychris/fsuae_remote_patch",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Amiga hardware/OS behavior"
+    ],
+    "reconstructed_languages": [
+      "C++",
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "debugger",
+      "disassembler",
+      "automation"
+    ],
+    "types": [
+      "FS-UAE debugger patch",
+      "remote debugging",
+      "MCP server"
+    ],
+    "re_started": null,
+    "last_activity": "2026-06-06",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "remote 68000 debugging",
+      "watchpoints",
+      "trace breakpoints",
+      "annotated disassembly",
+      "GDB remote protocol"
+    ],
+    "tags": [
+      "Amiga",
+      "68000",
+      "debugger",
+      "reverse-engineering tooling"
+    ],
+    "notes": "Independent patch and C++ source for FS-UAE that add HTTP/JSON-RPC, WebSocket debugger events, a GDB remote stub, Amiga library annotations and an optional 26-tool MCP adapter. Integrated optionally with Amiga DevBench; the patch must be applied to an FS-UAE source build.",
+    "github": {
+      "repository": "geekychris/fsuae_remote_patch",
+      "created_at": "2026-05-31",
+      "pushed_at": "2026-06-06",
+      "updated_at": "2026-07-23",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "recent",
+      "languages": [
+        "C++",
+        "NASL",
+        "HTML",
+        "Python",
+        "Shell",
+        "GDB"
+      ],
+      "latest_commit": {
+        "sha": "a846a118ab622f556af9c56770a8977854bc31d0",
+        "date": "2026-06-06",
+        "message": "Add zero-cost trace-BP mode + FSUAE_NO_UAEFS env gate",
+        "url": "https://github.com/geekychris/fsuae_remote_patch/commit/a846a118ab622f556af9c56770a8977854bc31d0"
+      }
+    }
   },
   {
     "id": "jotd-galaga-amiga",
@@ -27483,6 +27773,120 @@
     "tool_kinds": []
   },
   {
+    "id": "neost-atari-emulator",
+    "title": "NeoST",
+    "upstream_name": "NeoST",
+    "display_title": "NeoST — Atari ST/STE emulator and debugger",
+    "subjects": [],
+    "repo": "https://github.com/habib256/neost",
+    "source_platforms": [
+      "Atari ST",
+      "Atari STE"
+    ],
+    "target_platforms": [
+      "Linux",
+      "Windows",
+      "macOS",
+      "Web",
+      "Android"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Atari hardware/OS behavior"
+    ],
+    "reconstructed_languages": [
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "profiler"
+    ],
+    "types": [
+      "emulator",
+      "debugger",
+      "adjacent tooling"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-23",
+    "last_checked": "2026-09-25",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "https://github.com/habib256/neost/blob/main/CLAUDE.md documents instructions for Claude Code.",
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "hardware emulation",
+      "Hatari differential testing",
+      "disassembly",
+      "watchpoints",
+      "deterministic headless debugging"
+    ],
+    "tags": [
+      "Atari ST",
+      "Atari STE",
+      "68000",
+      "debugger",
+      "reverse-engineering tooling"
+    ],
+    "notes": "Chip-oriented ST/Mega ST/STE/Mega STE emulator using Moira 68000 and comparing hardware behavior with Hatari. Its debugger exposes symbols, disassembly, breakpoints, watchpoints and headless operation. The README advertises desktop, web and Android packages; it explicitly says the Android APK was tested under QEMU but not on a real device.",
+    "github": {
+      "repository": "habib256/neost",
+      "created_at": "2026-05-31",
+      "pushed_at": "2026-09-23",
+      "updated_at": "2026-09-23",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "active",
+      "languages": [
+        "C++",
+        "Python",
+        "C",
+        "Shell",
+        "Assembly",
+        "CMake",
+        "HTML",
+        "RenderScript",
+        "Java"
+      ],
+      "latest_release": {
+        "tag": "0.6.1",
+        "name": "NeoST 0.6.1",
+        "published_at": "2026-09-01",
+        "url": "https://github.com/habib256/neost/releases/tag/0.6.1"
+      },
+      "latest_commit": {
+        "sha": "c70dc1b7fca9f8a6d43e99412bfe255e044aec08",
+        "date": "2026-09-23",
+        "message": "Identité de build (commit + date) dans --version et hello ; trace GEMDOS avec handle, répondant et D0",
+        "url": "https://github.com/habib256/neost/commit/c70dc1b7fca9f8a6d43e99412bfe255e044aec08"
+      }
+    }
+  },
+  {
     "id": "nether-earth-spectrum",
     "title": "Nether Earth",
     "upstream_name": "Nether Earth",
@@ -35015,6 +35419,108 @@
       "disassembly"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "shirazmcp-hatari-debugger",
+    "title": "ShirazMCP",
+    "upstream_name": "ShirazMCP",
+    "display_title": "ShirazMCP — Hatari live reverse-engineering server",
+    "subjects": [],
+    "repo": "https://github.com/shazz/ShirazMCP",
+    "source_platforms": [
+      "Atari ST",
+      "Atari STE"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Atari hardware/OS behavior"
+    ],
+    "reconstructed_languages": [
+      "Rust"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "debugger",
+      "binary-analysis",
+      "disassembler",
+      "asset-tool",
+      "automation"
+    ],
+    "types": [
+      "Hatari MCP server",
+      "debugger",
+      "asset ripper"
+    ],
+    "re_started": null,
+    "last_activity": "2026-07-11",
+    "last_checked": "2026-09-25",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "live disassembly",
+      "watchpoints",
+      "cross references",
+      "asset extraction",
+      "hot patching",
+      "frame stepping"
+    ],
+    "tags": [
+      "Atari ST",
+      "Atari STE",
+      "68000",
+      "debugger",
+      "reverse-engineering tooling"
+    ],
+    "notes": "Local Rust MCP server for Hatari with CPU/memory inspection, disassembly, xrefs, watchpoints, screen and sound extraction, depacking, profiling and live 68000 patching. Requires Hatari, a user-supplied TOS ROM and an X display; the README says there are no prebuilt releases and Windows is unsupported.",
+    "github": {
+      "repository": "shazz/ShirazMCP",
+      "created_at": "2026-07-11",
+      "pushed_at": "2026-07-11",
+      "updated_at": "2026-07-11",
+      "checked_at": "2026-09-25",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Rust",
+      "activity_state": "active",
+      "languages": [
+        "Rust",
+        "Python",
+        "Assembly",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "9f5989aa5b7782454541811e3ddc0cb12461ff2e",
+        "date": "2026-07-11",
+        "message": "feat(profile): add hbl_count to profile output (raster budget in scanlines)",
+        "url": "https://github.com/shazz/ShirazMCP/commit/9f5989aa5b7782454541811e3ddc0cb12461ff2e"
+      }
+    }
   },
   {
     "id": "shufflepuck-cafe-reforged",
@@ -43634,358 +44140,5 @@
         "Lua"
       ]
     }
-  },
-  {
-    "id": "shirazmcp-hatari-debugger",
-    "title": "ShirazMCP",
-    "upstream_name": "ShirazMCP",
-    "display_title": "ShirazMCP — Hatari live reverse-engineering server",
-    "subjects": [],
-    "repo": "https://github.com/shazz/ShirazMCP",
-    "source_platforms": [
-      "Atari ST",
-      "Atari STE"
-    ],
-    "target_platforms": [
-      "Linux",
-      "macOS"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Atari hardware/OS behavior"
-    ],
-    "reconstructed_languages": [
-      "Rust"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "debugger",
-      "binary-analysis",
-      "disassembler",
-      "asset-tool",
-      "automation"
-    ],
-    "types": [
-      "Hatari MCP server",
-      "debugger",
-      "asset ripper"
-    ],
-    "re_started": null,
-    "last_activity": "2026-07-11",
-    "last_checked": "2026-09-25",
-    "status": null,
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "live disassembly",
-      "watchpoints",
-      "cross references",
-      "asset extraction",
-      "hot patching",
-      "frame stepping"
-    ],
-    "tags": [
-      "Atari ST",
-      "Atari STE",
-      "68000",
-      "debugger",
-      "reverse-engineering tooling"
-    ],
-    "notes": "Local Rust MCP server for Hatari with CPU/memory inspection, disassembly, xrefs, watchpoints, screen and sound extraction, depacking, profiling and live 68000 patching. Requires Hatari, a user-supplied TOS ROM and an X display; the README says there are no prebuilt releases and Windows is unsupported."
-  },
-  {
-    "id": "neost-atari-emulator",
-    "title": "NeoST",
-    "upstream_name": "NeoST",
-    "display_title": "NeoST — Atari ST/STE emulator and debugger",
-    "subjects": [],
-    "repo": "https://github.com/habib256/neost",
-    "source_platforms": [
-      "Atari ST",
-      "Atari STE"
-    ],
-    "target_platforms": [
-      "Linux",
-      "Windows",
-      "macOS",
-      "Web",
-      "Android"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Atari hardware/OS behavior"
-    ],
-    "reconstructed_languages": [
-      "C++"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "profiler"
-    ],
-    "types": [
-      "emulator",
-      "debugger",
-      "adjacent tooling"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-23",
-    "last_checked": "2026-09-25",
-    "status": "active",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude"
-      ],
-      "evidence": [
-        "https://github.com/habib256/neost/blob/main/CLAUDE.md documents instructions for Claude Code."
-      ]
-    },
-    "techniques": [
-      "hardware emulation",
-      "Hatari differential testing",
-      "disassembly",
-      "watchpoints",
-      "deterministic headless debugging"
-    ],
-    "tags": [
-      "Atari ST",
-      "Atari STE",
-      "68000",
-      "debugger",
-      "reverse-engineering tooling"
-    ],
-    "notes": "Chip-oriented ST/Mega ST/STE/Mega STE emulator using Moira 68000 and comparing hardware behavior with Hatari. Its debugger exposes symbols, disassembly, breakpoints, watchpoints and headless operation. The README advertises desktop, web and Android packages; it explicitly says the Android APK was tested under QEMU but not on a real device."
-  },
-  {
-    "id": "amiga-devbench-mcp",
-    "title": "Amiga DevBench",
-    "upstream_name": "Amiga DevBench",
-    "display_title": "Amiga DevBench — serial debugger and MCP development environment",
-    "subjects": [],
-    "repo": "https://github.com/geekychris/amiga_mcp",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Linux",
-      "Windows",
-      "macOS"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Amiga hardware/OS behavior"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "C"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "debugger",
-      "development-environment",
-      "automation"
-    ],
-    "types": [
-      "debugger",
-      "cross-development environment",
-      "MCP server"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-18",
-    "last_checked": "2026-09-25",
-    "status": "active",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude"
-      ],
-      "evidence": [
-        "https://github.com/geekychris/amiga_mcp includes explicit Claude Code workflow and instruction files."
-      ]
-    },
-    "techniques": [
-      "serial target inspection",
-      "source debugging",
-      "memory inspection",
-      "remote deployment",
-      "emulator automation"
-    ],
-    "tags": [
-      "Amiga",
-      "68000",
-      "debugger",
-      "reverse-engineering tooling"
-    ],
-    "notes": "Host/target bridge over serial to a real or FS-UAE Amiga, with memory/register inspection, breakpoints, remote execution, a web dashboard and MCP tools. The optional patched FS-UAE enables a separate emulator-level debugger; ordinary FS-UAE still supports the serial bridge. Docker is used for the 68k cross compiler."
-  },
-  {
-    "id": "amiberry-mcp-server",
-    "title": "Amiberry MCP Server",
-    "upstream_name": "Amiberry MCP Server",
-    "display_title": "Amiberry MCP Server — emulator control and debugging",
-    "subjects": [],
-    "repo": "https://github.com/BlitterStudio/amiberry-mcp-server",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Linux",
-      "macOS"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Amiga hardware/OS behavior"
-    ],
-    "reconstructed_languages": [
-      "Python"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "debugger",
-      "automation",
-      "rom-tool"
-    ],
-    "types": [
-      "Amiberry MCP server",
-      "emulator automation",
-      "adjacent tooling"
-    ],
-    "re_started": null,
-    "last_activity": "2026-08-03",
-    "last_checked": "2026-09-25",
-    "status": null,
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "emulator IPC",
-      "savestate inspection",
-      "memory inspection",
-      "screenshot automation",
-      "ROM identification"
-    ],
-    "tags": [
-      "Amiga",
-      "68000",
-      "debugger",
-      "reverse-engineering tooling"
-    ],
-    "notes": "Python MCP integration for the Amiberry emulator, including machine control, live memory access, save states, ROM identification and screenshots. Runtime controls require Amiberry built with USE_IPC_SOCKET=ON; its README limits the server to macOS and Linux."
-  },
-  {
-    "id": "fsuae-remote-debug-patch",
-    "title": "FS-UAE remote patch",
-    "upstream_name": "FS-UAE remote patch",
-    "display_title": "FS-UAE remote patch — HTTP, GDB and MCP debugger",
-    "subjects": [],
-    "repo": "https://github.com/geekychris/fsuae_remote_patch",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Linux",
-      "macOS"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Amiga hardware/OS behavior"
-    ],
-    "reconstructed_languages": [
-      "C++",
-      "Python"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "debugger",
-      "disassembler",
-      "automation"
-    ],
-    "types": [
-      "FS-UAE debugger patch",
-      "remote debugging",
-      "MCP server"
-    ],
-    "re_started": null,
-    "last_activity": "2026-06-05",
-    "last_checked": "2026-09-25",
-    "status": null,
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "remote 68000 debugging",
-      "watchpoints",
-      "trace breakpoints",
-      "annotated disassembly",
-      "GDB remote protocol"
-    ],
-    "tags": [
-      "Amiga",
-      "68000",
-      "debugger",
-      "reverse-engineering tooling"
-    ],
-    "notes": "Independent patch and C++ source for FS-UAE that add HTTP/JSON-RPC, WebSocket debugger events, a GDB remote stub, Amiga library annotations and an optional 26-tool MCP adapter. Integrated optionally with Amiga DevBench; the patch must be applied to an FS-UAE source build."
   }
 ]
