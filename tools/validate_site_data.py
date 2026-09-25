@@ -355,6 +355,16 @@ def validate(projects_path, activity_path, rss_path=None):
             if key in seen_commits:
                 fail(f"duplicate activity event key {key!r}", errors)
             seen_commits.add(key)
+        elif event_type == "daily_commits":
+            if project_id not in project_ids:
+                fail(f"activity summary {index} references unknown project {project_id!r}", errors)
+            if not event.get("day") or not event.get("shas") or event.get("count") != len(set(event["shas"])):
+                fail(f"activity summary {index} has invalid day or commit identities", errors)
+            for sha in event.get("shas") or []:
+                key = (project_id, event.get("repository"), sha)
+                if key in seen_commits:
+                    fail(f"duplicate activity event key {key!r}", errors)
+                seen_commits.add(key)
         elif event_type in project_event_types:
             if not project_id:
                 fail(f"project activity event {index} is missing project_id", errors)

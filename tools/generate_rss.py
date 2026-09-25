@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Generate a low-noise RSS 2.0 feed from tracker activity.
 
-Commit activity is aggregated into one RSS item per project per UTC calendar day.
-Releases remain separate RSS items.
+Commit activity is published after its UTC day closes, so daily items do not
+repeat earlier commits as the day progresses. Catalogue changes and releases
+remain separate items.
 """
 from __future__ import annotations
 
@@ -18,6 +19,9 @@ import xml.etree.ElementTree as ET
 SITE_URL = "https://rmtew.github.io/legacy-reverse-engineering-tracker/"
 FEED_URL = SITE_URL + "activity.xml"
 DEFAULT_LIMIT = 200
+# Existing catalogue history was never in RSS. Start with future changes so
+# the first deployment does not send hundreds of retrospective notifications.
+CATALOG_FEED_START = "2026-09-25T21:57:35Z"
 ATOM_NS = "http://www.w3.org/2005/Atom"
 ET.register_namespace("atom", ATOM_NS)
 
@@ -94,10 +98,19 @@ def release_events(projects):
 
 
 def aggregate_commit_days(activity):
-    """Return one event per project per UTC day."""
+    """Return settled project/UTC-day items using only post-discovery commits."""
+    tracked_since = {}
+    for event in activity.get("events", []):
+        if event.get("type") in ("project_added", "project_restored"):
+            project_id = event.get("project_id")
+            if project_id not in tracked_since or event["date"] < tracked_since[project_id]:
+                tracked_since[project_id] = event["date"]
+    current_day = str(activity.get("generated_at") or "")[:10]
     grouped = defaultdict(list)
     for event in activity.get("events", []):
         if event.get("type") != "commit" or not event.get("sha") or not event.get("date"):
+            continue
+        if event["date"][:10] >= current_day or event["date"] < tracked_since.get(event.get("project_id"), ""):
             continue
         grouped[(event.get("project_id"), str(event["date"])[:10])].append(event)
 
@@ -183,6 +196,29 @@ def release_description(event, project):
     return "".join(bits)
 
 
+def change_description(event, project):
+    bits = [release_description({"message": ""}, project)]
+    context = event.get("activity_context") or {}
+    commit = context.get("last_commit") or {}
+    last_activity = commit.get("date") or context.get("last_activity")
+    if last_activity:
+        label = "Last commit" if commit.get("date") else "Last upstream activity"
+        bits.append("<p><strong>" + label + ":</strong> " + html.escape(last_activity) + "</p>")
+    release = context.get("latest_release") or {}
+    if release.get("published_at"):
+        tag = release.get("tag") or release.get("name") or "Release"
+        bits.append("<p><strong>Latest release:</strong> " + html.escape(tag + " · " + release["published_at"]) + "</p>")
+    if "commits_90d" in context:
+        bits.append("<p><strong>Last 90 days:</strong> " + str(context["commits_90d"]) +
+                    " commits across " + str(context.get("active_days_90d", 0)) + " active days</p>")
+    elif event.get("type") in ("project_added", "project_restored"):
+        bits.append("<p>Initial activity scan pending.</p>")
+    changes = event.get("changes") or []
+    if changes:
+        bits.append("<p><strong>Changed:</strong> " + html.escape(", ".join(field.replace("_", " ") for field in changes)) + "</p>")
+    return "".join(bits)
+
+
 def generate(activity_path, projects_path, output_path, limit):
     activity = json.loads(activity_path.read_text(encoding="utf-8"))
     projects = json.loads(projects_path.read_text(encoding="utf-8"))
@@ -190,6 +226,9 @@ def generate(activity_path, projects_path, output_path, limit):
 
     events = aggregate_commit_days(activity)
     events.extend(release_events(projects))
+    events.extend(event for event in activity.get("events", [])
+                  if str(event.get("type", "")).startswith("project_")
+                  and str(event.get("date") or "") > CATALOG_FEED_START)
     events.sort(key=lambda event: event.get("date") or "", reverse=True)
     events = events[:limit]
 
@@ -212,11 +251,18 @@ def generate(activity_path, projects_path, output_path, limit):
         ET.SubElement(channel, "lastBuildDate").text = build_date
 
     for event in events:
-        project = by_id.get(event.get("project_id"), {})
+        project = by_id.get(event.get("project_id")) or event.get("project") or {}
         display_name = project_title(project, event.get("project_id"))
         item = ET.SubElement(channel, "item")
 
-        if event.get("type") == "release":
+        if str(event.get("type", "")).startswith("project_"):
+            kind = event["type"].replace("project_", "").replace("_", " ")
+            ET.SubElement(item, "title").text = display_name + " — " + kind
+            ET.SubElement(item, "link").text = event.get("url") or project.get("project_url") or project.get("repo") or SITE_URL
+            guid = ET.SubElement(item, "guid", {"isPermaLink": "false"})
+            guid.text = "legacy-re:" + str(event.get("project_id")) + ":" + event["type"] + ":" + str(event["date"])
+            ET.SubElement(item, "description").text = change_description(event, project)
+        elif event.get("type") == "release":
             tag = event.get("tag") or "release"
             ET.SubElement(item, "title").text = display_name + " — released " + tag
             link = event.get("url") or project.get("project_url") or project.get("repo") or SITE_URL

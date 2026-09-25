@@ -12,6 +12,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from activity_history import write_activity
+
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
 ACTIVITY = ROOT / "data" / "activity.json"
@@ -323,7 +325,7 @@ def main():
     activity["window_days"] = DAYS
     activity["events"] = retained
     PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    ACTIVITY.write_text(json.dumps(activity, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_activity(ACTIVITY, activity)
 
     state = {
         "version": 1,

@@ -19,6 +19,8 @@ from urllib.error import HTTPError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
+from activity_history import compact_history, freeze_addition_context, write_activity
+
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
 ACTIVITY = ROOT / "data" / "activity.json"
@@ -377,6 +379,7 @@ def main():
             by_repo.setdefault(repo, []).append(project)
 
     events = {}
+    summaries = []
     project_events = []
     repair_latest_ids = set()
     for old in payload.get("events", []):
@@ -384,6 +387,10 @@ def main():
         if not when or when < CUTOFF:
             continue
         if old.get("type") != "commit":
+            if old.get("type") == "daily_commits":
+                if old.get("project_id") in project_by_id:
+                    summaries.append(old)
+                continue
             # Catalogue-change events are persisted independently of the current
             # project set so a removal remains visible after its record is gone.
             project_events.append(old)
@@ -523,26 +530,18 @@ def main():
         if project:
             detect_ai(project, items)
 
-    output = sorted(
-        list(events.values()) + project_events,
-        key=lambda e: (
-            e.get("date") or "",
-            e.get("repository") or "",
-            e.get("sha") or "",
-            e.get("type") or "",
-            e.get("project_id") or "",
-        ),
-        reverse=True,
-    )
+    output = compact_history(list(events.values()) + summaries + project_events, NOW)
     for event in output:
         event["branches"] = sorted(set(event.get("branches") or []))
+
+    freeze_addition_context(output, projects, state["repositories"], NOW)
 
     payload = {
         "generated_at": NOW_ISO,
         "window_days": DAYS,
         "events": output,
     }
-    ACTIVITY.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_activity(ACTIVITY, payload)
     projects.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
     PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     state.setdefault("rate", {})["activity"] = rate_snapshot()

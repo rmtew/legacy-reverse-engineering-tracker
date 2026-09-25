@@ -17,7 +17,10 @@ class RecentActivityTest(unittest.TestCase):
         output = recent_activity(activity)
         self.assertEqual(output["window_days"], 30)
         self.assertEqual(output["generated_at"], activity["generated_at"])
-        self.assertEqual(output["events"], activity["events"][:2])
+        self.assertEqual(output["events"], [
+            {"date": "2026-09-25T07:00:00Z", "type": "commit"},
+            activity["events"][1],
+        ])
         self.assertEqual(len(activity["events"]), 3)
 
 

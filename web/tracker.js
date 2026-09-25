@@ -695,7 +695,7 @@ let activityVisibleCount=ACTIVITY_PAGE_SIZE;
 const activityVisible = () => $("activityView").classList.contains("active");
 const projectById = () => new Map(projects.map(project => [project.id, project]));
 const isProjectActivity = event => String(event.type || "").startsWith("project_");
-const activityKind = event => isProjectActivity(event) ? "project" : event.type;
+const activityKind = event => isProjectActivity(event) ? "project" : (event.type==="daily_commits" ? "commit" : event.type);
 const projectForEvent = (event, map) => map.get(event.project_id) || event.project || null;
 
 
@@ -758,7 +758,7 @@ function activityMatches(event,map,cutoff,q) {
   if(new Date(event.date).getTime()<cutoff) return false;
   if(q){
     const hay=[
-      event.type,event.title,event.message,event.repository,event.tag,
+      event.type,event.title,event.latest_title,event.message,event.repository,event.tag,
       projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
       ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),...cpuFamilyValues(project),
       ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
@@ -950,7 +950,38 @@ function humanizeProjectChange(detail) {
   return [{label:label+" changed",value:activityValue(before)+" → "+activityValue(after)}];
 }
 
-function projectChangeHtml(event) {
+function activityDate(value) {
+  if(!value) return "";
+  const [year,month,day]=String(value).slice(0,10).split("-").map(Number);
+  return new Date(year,month-1,day).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+}
+
+function additionContextHtml(event, project) {
+  if(!["project_added","project_restored"].includes(event.type)) return "";
+  const context=event.activity_context;
+  const commit=context?.last_commit || project?.github?.latest_commit;
+  const lastActivity=context?.last_activity || project?.last_activity;
+  const release=context?.latest_release || (!context && project?.github?.latest_release);
+  const lines=[];
+  const entry=(label,value,url)=>'<div class="activity-change-line"><span class="activity-change-label">'+label+'</span>'+
+    '<span class="detail-separator">·</span>'+(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(value)+'</a>':esc(value))+'</div>';
+  if(commit?.date) lines.push(entry("Last commit",activityDate(commit.date),commit.url));
+  else if(lastActivity) lines.push(entry("Last upstream activity",activityDate(lastActivity)));
+  if(release?.published_at) lines.push(entry("Latest release",(release.tag||release.name||"Release")+" · "+activityDate(release.published_at),release.url));
+  if(context){
+    const count=context.commits_90d||0;
+    const days=context.active_days_90d||0;
+    lines.push(entry("Last 90 days",count+" commit"+(count===1?"":"s")+" across "+days+" active day"+(days===1?"":"s")));
+  }else{
+    lines.push(entry("Activity", "Initial scan pending"));
+  }
+  return lines.join("");
+}
+
+function projectChangeHtml(event, project) {
+  if(event.type==="project_added" || event.type==="project_restored"){
+    return additionContextHtml(event,project);
+  }
   const lines=projectChangeDetails(event).flatMap(humanizeProjectChange);
   if(!lines.length){
     return event.message?'<div class="activity-change-line">'+esc(event.message)+'</div>':"";
@@ -1016,7 +1047,8 @@ function renderActivity() {
       const project=map.get(projectId) || commits.find(event=>event.project)?.project;
       const commitHtml=commits.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(event=>{
         const time=new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
-        const title=event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title);
+        const summary=event.type==="daily_commits";
+        const title=summary?(event.count+" commit"+(event.count===1?"":"s")):(event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title));
         const identity=event.type==="release"?(event.tag?esc(event.tag):"release"):(event.sha?esc(event.sha.slice(0,8)):"");
         const detailParts=[];
         let details="";
@@ -1027,7 +1059,10 @@ function renderActivity() {
         }else if(isProjectActivity(event)){
           const kind=esc(event.type.replace(/^project_/,"").replaceAll("_"," "));
           details='<span class="activity-kind">'+kind+'</span>'
-            +'<div class="activity-change-lines">'+projectChangeHtml(event)+'</div>';
+            +'<div class="activity-change-lines">'+projectChangeHtml(event,project)+'</div>';
+        }else if(summary){
+          const latest=event.latest_url?'<a href="'+esc(event.latest_url)+'" target="_blank" rel="noopener">'+esc(event.latest_title||"Latest commit")+'</a>':esc(event.latest_title||"Latest commit");
+          details='<span class="activity-kind">'+esc(activityDate(event.day))+'</span><span class="detail-separator">·</span><span>Latest: '+latest+'</span>';
         }else{
           if(event.author) detailParts.push('<span class="activity-author">'+esc(event.author)+'</span>');
           if(identity) detailParts.push('<span class="activity-identity">'+identity+'</span>');
@@ -1087,7 +1122,7 @@ function loadFullActivity(){
   if(fullActivityRequest) return;
   $("activityFeed").innerHTML='<div class="loading">Loading older activity…</div>';
   $("activityMore").hidden=true;
-  fullActivityRequest=fetch("data/activity.json",{cache:"no-cache"})
+  fullActivityRequest=fetch("data/activity-180d.json",{cache:"no-cache"})
     .then(response=>{if(!response.ok) throw new Error("activity HTTP "+response.status);return response.json();})
     .then(activity=>{
       activityData=activity;

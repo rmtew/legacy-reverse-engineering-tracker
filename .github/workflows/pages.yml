@@ -104,7 +104,9 @@ jobs:
         run: python tools/generate_rss.py data/activity.json data/projects.json _site/activity.xml
 
       - name: Generate recent activity feed
-        run: python tools/generate_recent_activity.py data/activity.json _site/data/activity-30d.json
+        run: |
+          python tools/generate_recent_activity.py data/activity.json _site/data/activity-30d.json
+          python tools/generate_recent_activity.py data/activity.json _site/data/activity-180d.json --days 180
 
       - name: Validate generated site data
         run: python tools/validate_site_data.py data/projects.json data/activity.json _site/activity.xml

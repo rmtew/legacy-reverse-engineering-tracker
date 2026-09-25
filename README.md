@@ -13,7 +13,7 @@ The tracker has two views:
 ## Repository structure
 
 - `data/projects.json` — canonical structured project data
-- `data/activity.json` — rolling 180-day attributed commit feed
+- `data/activity.json` — rolling 180-day activity; individual commits for 14 days, then compact project/day summaries retaining SHAs for safe incremental collection
 - `data/discovery-sources.json` — persistent discovery-node index and explicit research backlog
 - `data/discovery-decisions.json` — searchable reviewed candidate decisions, including exclusions and duplicates
 - `data/project-audits.json` — field-by-field research coverage for every tracked project
@@ -50,7 +50,7 @@ Prepare one JSON batch containing a date, unique research-event ID, summary and 
 Commit all changed data files together after `python tools/validate_site_data.py data/projects.json data/activity.json` and `git diff --check`. Publish one commit against the current `main` ref. Catalogue changes trigger a metadata refresh and then Pages; research-index-only changes deploy directly through Pages. Check the relevant runs before finishing. In Codex Work, use the linked GitHub connector for the atomic tree/commit/ref update; the workspace shell may not have authenticated Git credentials. The existing `automation/discovery-*` workflow can also validate, fast-forward and remove a temporary discovery branch. Do not publish intermediate project/audit/source changes separately.
 
 
-The site header shows the activity-data refresh time. With no saved preference, the site follows the browser/operating-system light/dark preference. Manually using the Light/Dark toggle creates a local override stored in `localStorage` under `retro-development-tracker.theme`; merely following the browser default does not write anything. No other UI settings are persisted yet. The Activity view can filter commits versus releases. The RSS feed is deliberately lower-noise: commits are grouped into one item per project per UTC day, while releases remain separate items. Pages deployment validates the JSON relationships and generated RSS before publishing.
+The site header shows the activity-data refresh time. With no saved preference, the site follows the browser/operating-system light/dark preference. Manually using the Light/Dark toggle creates a local override stored in `localStorage` under `retro-development-tracker.theme`; merely following the browser default does not write anything. No other UI settings are persisted yet. The Activity view loads slim 30-day and 180-day browser feeds, showing individual recent commits and older daily summaries. Project additions show a frozen latest commit/release and 90-day activity count after their first completed repository scan. RSS publishes completed UTC-day commit digests, releases and meaningful catalogue changes; pre-tracking backfills and pre-rollout catalogue additions do not become new feed items. Pages deployment validates the JSON relationships and generated RSS before publishing.
 
 
 The maintenance workflow writes rate-limit diagnostics to its GitHub Actions step summary, including actual limit, remaining quota, reset time, HTTP request counts and conditional 304 counts.
