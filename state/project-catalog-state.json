@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T05:09:45Z",
+  "updated_at": "2026-09-25T05:31:52Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -746,6 +746,67 @@
         "HDF"
       ],
       "notes": "Plain JavaScript OFS/FFS reader/writer for ADF and HDF images, with extraction and raw-sector access useful for recovering files from damaged images. Multi-partition HDFs are not supported.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "adf7z-amiga-filesystem": {
+      "id": "adf7z-amiga-filesystem",
+      "title": "Adf7z",
+      "upstream_name": "Adf7z",
+      "display_title": "Adf7z — 7-Zip Amiga ADF extractor",
+      "subjects": [],
+      "repo": "https://github.com/tillenius/Adf7z",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ADF disk images",
+        "Amiga OFS/FFS"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "7-Zip filesystem plugin"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "OFS/FFS extraction",
+        "ADF parsing"
+      ],
+      "tags": [
+        "Amiga",
+        "ADF",
+        "OFS",
+        "FFS"
+      ],
+      "notes": "7-Zip format plugin for extracting Amiga OFS/FFS files from ADF images. README limits it to read/extract operations: links and attributes are not supported, and ADF creation or modification is unavailable.",
       "ai": {
         "usage": null,
         "tools": []
@@ -4016,6 +4077,70 @@
         "Llamasource"
       ],
       "notes": "Reverse-engineered commented source; README explicitly states the game compiles and plays.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "another-world-js-dos": {
+      "id": "another-world-js-dos",
+      "title": "Another World JS",
+      "upstream_name": "Another World JS",
+      "display_title": "Another World — DOS-data browser interpreter",
+      "subjects": [
+        "Another World JS"
+      ],
+      "repo": "https://github.com/cyxx/another_js",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Another World DOS demo/anniversary game data"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game",
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "browser engine"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "26-opcode bytecode interpreter",
+        "DOS data extraction",
+        "rewind"
+      ],
+      "tags": [
+        "DOS",
+        "Another World",
+        "virtual machine"
+      ],
+      "notes": "Browser port interprets the game’s 26 bytecode opcodes and converts DOS demo/anniversary assets. Its Amiga palette option does not imply Amiga disk-data support. This is a distinct browser implementation alongside the tracked raw(gl) engine.",
       "ai": {
         "usage": null,
         "tools": []
@@ -9592,6 +9717,68 @@
         "tools": []
       }
     },
+    "coco-image-viewer-atari-tiny": {
+      "id": "coco-image-viewer-atari-tiny",
+      "title": "CoCo Image Viewer",
+      "upstream_name": "CoCo Image Viewer",
+      "display_title": "CoCo Image Viewer — Atari ST Tiny picture decoder",
+      "subjects": [],
+      "repo": "https://github.com/reyco2000/CoCo-Image-Viewer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Atari ST Tiny .TNY/.TN1/.TN2/.TN3 images"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "legacy image viewer and converter"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "TNY RLE decoding",
+        "ST bitplane decoding",
+        "PNG export"
+      ],
+      "tags": [
+        "Atari ST",
+        "TNY",
+        "graphics"
+      ],
+      "notes": "Cross-platform viewer/converter primarily for TRS-80 Color Computer formats; separately documents and implements Atari ST Tiny compressed image decoding across low, medium and high resolutions. The ST record is limited to Tiny graphics support, not general Atari disk filesystem coverage.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "commando-c64": {
       "id": "commando-c64",
       "title": "Commando",
@@ -12065,6 +12252,74 @@
         "jotd666"
       ],
       "notes": "AGA Amiga Double Dragon port; README credits reverse engineering, 68000 transcode and graphics/sound conversion.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dpaint-js-amiga-st-graphics": {
+      "id": "dpaint-js-amiga-st-graphics",
+      "title": "DPaint.js",
+      "upstream_name": "DPaint.js",
+      "display_title": "DPaint.js — Amiga IFF/ADF and ST Deluxe Paint graphics editor",
+      "subjects": [],
+      "repo": "https://github.com/steffest/DPaint-js",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga icons",
+        "IFF ILBM/ANIM",
+        "ADF disk images",
+        "Deluxe Paint ST compressed images"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "retro graphics editor and converter"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ILBM/ANIM decoding",
+        "ADF integration",
+        "ST compression decoding",
+        "palette conversion"
+      ],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "IFF",
+        "ADF",
+        "Deluxe Paint"
+      ],
+      "notes": "Browser image editor with Amiga icon, ILBM, ANIM and ADF read/write support plus documented Atari ST Deluxe Paint compression modes and ST palette limits. Its embedded Amiga emulator requires files omitted from this repository; core format editing runs without it.",
       "ai": {
         "usage": null,
         "tools": []
@@ -14630,6 +14885,67 @@
         "tools": []
       }
     },
+    "exploring-another-world-dos": {
+      "id": "exploring-another-world-dos",
+      "title": "Exploring Another World",
+      "upstream_name": "Exploring Another World",
+      "display_title": "Another World — DOS resource and VM exploration",
+      "subjects": [
+        "Exploring Another World"
+      ],
+      "repo": "https://github.com/noteed/exploring",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Another World DOS MEMLIST.BIN/BANK files"
+      ],
+      "reconstructed_languages": [
+        "Haskell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game data research"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "MEMLIST parsing",
+        "BANK decoding",
+        "SQLite resource analysis"
+      ],
+      "tags": [
+        "DOS",
+        "Another World",
+        "virtual machine"
+      ],
+      "notes": "Haskell research into Another World PC/DOS data layout and virtual-machine resources, with concrete MEMLIST and BANK parsing. An Amiga ADF is cited as background, not as proof of Amiga-media decoding; no full game rebuild is claimed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "fairlight-spectrum-krumlinde": {
       "id": "fairlight-spectrum-krumlinde",
       "title": "Fairlight",
@@ -15273,6 +15589,71 @@
         "tools": []
       }
     },
+    "flashfloppy-amiga-st": {
+      "id": "flashfloppy-amiga-st",
+      "title": "FlashFloppy",
+      "upstream_name": "FlashFloppy",
+      "display_title": "FlashFloppy — Gotek Amiga/Atari floppy-drive emulator",
+      "subjects": [],
+      "repo": "https://github.com/keirf/flashfloppy",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ADF disk images",
+        "ST disk images",
+        "HFE disk images"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "emulator",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "floppy-drive emulator firmware"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "floppy interface emulation",
+        "disk-image parsing",
+        "track-layout configuration"
+      ],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "Gotek",
+        "ADF",
+        "ST"
+      ],
+      "notes": "Open firmware for Gotek hardware exposes USB disk images as a floppy drive to Amiga and Atari ST hosts. Official documentation lists ADF and ST support. This is drive emulation rather than a title reconstruction; compatibility with protection/extended formats varies and should not be inferred from ordinary ADF/ST support.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "fluxfox-amiga-atari-disk": {
       "id": "fluxfox-amiga-atari-disk",
       "title": "fluxfox",
@@ -15735,6 +16116,135 @@
         "reverse-engineering tooling"
       ],
       "notes": "Independent patch and C++ source for FS-UAE that add HTTP/JSON-RPC, WebSocket debugger events, a GDB remote stub, Amiga library annotations and an optional 26-tool MCP adapter. Integrated optionally with Amiga DevBench; the patch must be applied to an FS-UAE source build.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "fujiboink-amiga-port": {
+      "id": "fujiboink-amiga-port",
+      "title": "FujiBoink!",
+      "upstream_name": "FujiBoink!",
+      "display_title": "FujiBoink! — Atari ST demo converted to Amiga",
+      "subjects": [
+        "FujiBoink!"
+      ],
+      "repo": "https://github.com/mnemo70/fujiboink",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "FujiBoink Atari ST demo design"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "translation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "native demo conversion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "animation regeneration",
+        "color conversion",
+        "Amiga assembly"
+      ],
+      "tags": [
+        "Atari ST",
+        "Amiga",
+        "demo"
+      ],
+      "notes": "Documented 1:1 Amiga conversion of the Atari ST FujiBoink demo with scripts regenerating animation and color data and Amiga assembly source. It is a new native implementation; no binary-derived disassembly or byte-exact port claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "gadf-amiga-bootable-images": {
+      "id": "gadf-amiga-bootable-images",
+      "title": "gadf",
+      "upstream_name": "gadf",
+      "display_title": "gadf — bootable Amiga ADF image builder",
+      "subjects": [],
+      "repo": "https://github.com/sphair/gadf",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga OFS disk format",
+        "AmigaDOS startup-sequence"
+      ],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "ADF disk image builder"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "OFS image construction",
+        "bootblock generation",
+        "startup-sequence packaging"
+      ],
+      "tags": [
+        "Amiga",
+        "ADF",
+        "OFS",
+        "bootblock"
+      ],
+      "notes": "Go command-line tool creates 880 KB bootable AmigaDOS OFS images for executables and accompanying files, with startup-sequence and bootblock. README specifies Kickstart 1.2+; shell suppression is only effective on Kickstart 2.0+.",
       "ai": {
         "usage": null,
         "tools": []
@@ -18292,6 +18802,71 @@
         "tools": []
       }
     },
+    "hode-heart-of-darkness": {
+      "id": "hode-heart-of-darkness",
+      "title": "hode",
+      "upstream_name": "hode",
+      "display_title": "Heart of Darkness — reimplemented Windows engine",
+      "subjects": [
+        "hode"
+      ],
+      "repo": "https://github.com/cyxx/hode",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Heart of Darkness Windows demo/CD data"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game",
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game engine reimplementation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "PAF resource parsing",
+        "engine recreation",
+        "original file loading"
+      ],
+      "tags": [
+        "Windows",
+        "Heart of Darkness"
+      ],
+      "notes": "Source reimplementation of the Heart of Darkness engine for original Windows demo/CD data. Documentation lists concrete resource files and tested releases; no original Amiga or Atari ST edition is asserted.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "hollywood-poker-spectrum": {
       "id": "hollywood-poker-spectrum",
       "title": "Hollywood Poker",
@@ -19110,6 +19685,65 @@
         "graphics"
       ],
       "notes": "Python/PyGame viewer decodes Amiga ILBM including EHB, HAM6/8 and deep-color modes; also writes 24-bit and HAM IFF from modern images. Author notes PyGame can load IFF directly but this code implements decoding.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "image-rider-stx": {
+      "id": "image-rider-stx",
+      "title": "image-rider",
+      "upstream_name": "image-rider",
+      "display_title": "image-rider — exploratory Atari ST STX parser",
+      "subjects": [],
+      "repo": "https://github.com/jgerrish/image-rider",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "STX/Pasti disk images"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "disk image parser"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "STX format detection",
+        "track/sector extraction",
+        "checksum checks"
+      ],
+      "tags": [
+        "Atari ST",
+        "STX",
+        "Pasti"
+      ],
+      "notes": "Rust parser detects STX and its example can output track/sector image data. README explicitly says no listed image format is fully parsed and unknown input may fail; record limited to implemented exploratory extraction rather than complete STX decoding.",
       "ai": {
         "usage": null,
         "tools": []
@@ -20685,6 +21319,66 @@
         ]
       }
     },
+    "jrpacman500-maze-converter": {
+      "id": "jrpacman500-maze-converter",
+      "title": "Jr. Pac-Man",
+      "upstream_name": "Jr. Pac-Man",
+      "display_title": "Jr. Pac-Man — Amiga maze and sprite conversion script",
+      "subjects": [],
+      "repo": "https://github.com/jotd666/jrpacman500",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Jr. Pac-Man arcade screenshot and sprite art"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "asset conversion script"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "maze wall and dot extraction",
+        "68000 source emission",
+        "sprite conversion"
+      ],
+      "tags": [
+        "Amiga",
+        "Jr. Pac-Man",
+        "arcade"
+      ],
+      "notes": "A 15 KB Python script detects walls and dots in MAME maze screenshots and writes assembly and sprite data for an Amiga conversion. The public repository contains only assets/ and no generated src tree or working game; scope is the conversion script, whose inputs and dependencies are not bundled.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "jsbeeb-mcp-kieranhj": {
       "id": "jsbeeb-mcp-kieranhj",
       "title": "jsbeeb-mcp",
@@ -20830,6 +21524,70 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "jungle-king-arcade-disassembly": {
+      "id": "jungle-king-arcade-disassembly",
+      "title": "Jungle King",
+      "upstream_name": "Jungle King",
+      "display_title": "Jungle King — arcade Z80 disassembly",
+      "subjects": [
+        "Jungle King"
+      ],
+      "repo": "https://github.com/jotd666/jungle_king",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Jungle King arcade ROM"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "arcade disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Z80 code annotation",
+        "Taito SJ hardware mapping",
+        "post-processing script"
+      ],
+      "tags": [
+        "Arcade",
+        "Jungle King",
+        "Z80"
+      ],
+      "notes": "Repository contains a 256 KB Jungle King Z80 listing with a Taito SJ hardware map and a post-processing script. It has no Amiga port source or executable; classified as arcade analysis only.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "k240-amiga": {
@@ -21277,6 +22035,63 @@
         "binary analysis"
       ],
       "notes": "Title-specific C64 binary-analysis state for 8-Bit Analysers. The KungFuMaster directory contains an Analysis.json annotation database (644 KiB), saved analysis state (1235 KiB), emulator save state and project configuration. Tracked as an analysis-state project, not as a reconstructed source tree.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "l-packer-amiga-atari": {
+      "id": "l-packer-amiga-atari",
+      "title": "L-Packer",
+      "upstream_name": "L-Packer",
+      "display_title": "L-Packer — Atari ST and Amiga executable cruncher",
+      "subjects": [],
+      "repo": "https://github.com/arnaud-carre/L-Packer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga HUNK and Atari executable formats"
+      ],
+      "reconstructed_languages": [],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "executable compressor"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Deflate/ZX0/LZ4 compression",
+        "cross-platform executable packing"
+      ],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "packer"
+      ],
+      "notes": "Author distributes a v0.99 beta executable compressor for Atari ST and Amiga with benchmark and usage documentation. GitHub repository currently holds a binary, not the promised full source; buildability and implementation details are unverified. Included as directly relevant development tooling with that limitation visible.",
       "ai": {
         "usage": null,
         "tools": []
@@ -23423,6 +24238,70 @@
         "tools": []
       }
     },
+    "marble-madness-ii-arcade-render-study": {
+      "id": "marble-madness-ii-arcade-render-study",
+      "title": "Marble Madness II",
+      "upstream_name": "Marble Madness II",
+      "display_title": "Marble Madness II — arcade video-memory render study",
+      "subjects": [
+        "Marble Madness II"
+      ],
+      "repo": "https://github.com/jotd666/marble_madness_2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Atari VAD arcade RAM dump",
+        "MAME graphics sheets"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "video hardware analysis",
+        "frame renderer"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "VAD memory map analysis",
+        "motion-object decoding",
+        "graphics sheet reconstruction"
+      ],
+      "tags": [
+        "Arcade",
+        "Marble Madness II",
+        "Amiga port research"
+      ],
+      "notes": "Contains a 27 KB C renderer for a Marble Madness II prototype RAM dump and MAME graphics sheets, a graphics-generation script, and an early Amiga loader. Its TODO says ROM patching, tiles and sprites are unfinished; the record covers arcade video-data analysis, not a playable Amiga port. The explanatory markdown contains apparent generated drafting text, so independently verify individual claims in source before treating them as original research.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "vs-sr-cd32-marvinsmarvellousadventure": {
       "id": "vs-sr-cd32-marvinsmarvellousadventure",
       "title": "Marvin's Marvellous Adventure — CD32 reverse-engineering documentation",
@@ -24474,6 +25353,76 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "midimaze-browser-source-port": {
+      "id": "midimaze-browser-source-port",
+      "title": "MIDI Maze JS",
+      "upstream_name": "MIDI Maze JS",
+      "display_title": "MIDI Maze — browser port from reconstructed ST source",
+      "subjects": [
+        "MIDI Maze JS"
+      ],
+      "repo": "https://github.com/diegoparrilla/midi-maze-js",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "MIDI Maze reconstructed C",
+        "MIDI Maze .MAZ maps",
+        "MIDI ring protocol"
+      ],
+      "reconstructed_languages": [
+        "TypeScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "browser game port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "source-guided porting",
+        "MIDI protocol reproduction",
+        "browser rendering"
+      ],
+      "tags": [
+        "Atari ST",
+        "MIDI Maze",
+        "browser",
+        "MIDI"
+      ],
+      "notes": "Playable solo browser recreation derived line by line from sarnau’s reconstructed Atari ST C source. Optional network ring uses md-MIDI2IP and is usually unavailable outside a live orchestrator; this is a distinct derivative port, not a second independent decompilation.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Claude Code"
+        ]
       }
     },
     "midi-maze-2-title-music-reconstruction": {
@@ -25711,6 +26660,72 @@
         "tools": []
       }
     },
+    "newtua-amiga-archive-decoders": {
+      "id": "newtua-amiga-archive-decoders",
+      "title": "newtua-formats",
+      "upstream_name": "newtua-formats",
+      "display_title": "newtua-formats — Amiga PowerPacker/LZX/DMS decoders",
+      "subjects": [],
+      "repo": "https://github.com/new-the-unarchiver/newtua-formats",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "PowerPacker",
+        "Amiga LZX",
+        "DMS disk archives"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "archive decoder library"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "legacy decompression",
+        "XADMaster source port",
+        "format tests"
+      ],
+      "tags": [
+        "Amiga",
+        "LZX",
+        "DMS",
+        "PowerPacker"
+      ],
+      "notes": "Multi-platform Rust decoder crates port legacy algorithms from The Unarchiver/XADMaster; the Amiga crate handles PowerPacker, LZX and DMS including encrypted DMS and FMS files. README excludes LZX block type 1 and DMS self-extracting wrappers. Distinct from xdms-rs and other single-format tools.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "jotd-nibbler-amiga": {
       "id": "jotd-nibbler-amiga",
       "title": "Nibbler — Amiga arcade transcode",
@@ -25844,6 +26859,68 @@
         "software archaeology"
       ],
       "notes": "Partial BBC Micro Night World reconstruction. The build generates py8dis-derived assembly, reconstructs BASIC portions, reassembles with BeebAsm and verifies key rebuilt components against original binaries before producing a disc image; profiling and sprite-analysis material are also retained.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "nitecrwl-atari-st": {
+      "id": "nitecrwl-atari-st",
+      "title": "NiteCrawl",
+      "upstream_name": "NiteCrawl",
+      "display_title": "NiteCrawl — Atari ST C++ decompilation",
+      "subjects": [
+        "NiteCrawl"
+      ],
+      "repo": "https://github.com/SegHaxx/nitecrwl",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Atari ST game binary (author-described)"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game source recovery"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "C++ translation",
+        "GEM AES/VDI implementation"
+      ],
+      "tags": [
+        "Atari ST",
+        "decompilation"
+      ],
+      "notes": "Repository description calls this a decompiled Atari ST game; tree contains substantial C++ gameplay/rendering code, AES/VDI headers and a cross-build Makefile. Original binary identity, matching and runtime verification are undocumented, so those claims remain unknown.",
       "ai": {
         "usage": null,
         "tools": []
@@ -28902,6 +29979,68 @@
         "tools": []
       }
     },
+    "pushover-dos-browser": {
+      "id": "pushover-dos-browser",
+      "title": "Pushover",
+      "upstream_name": "Pushover",
+      "display_title": "Pushover — DOS-derived browser reverse engineering",
+      "subjects": [
+        "Pushover"
+      ],
+      "repo": "https://github.com/VorticonCmdr/pushover",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Pushover DOS executable and game data"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "browser game recreation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra static analysis",
+        "DOSBox live tracing",
+        "original asset decoding"
+      ],
+      "tags": [
+        "DOS",
+        "Pushover"
+      ],
+      "notes": "Playable browser reimplementation based on the DOS executable and user-provided DOS assets, using static and live DOSBox tracing. Historical Amiga/ST releases are mentioned but their media are not analyzed or accepted; original data omission is normal bring-your-own-data design.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "py8dis-zornslemma": {
       "id": "py8dis-zornslemma",
       "title": "py8dis",
@@ -30930,6 +32069,71 @@
         "jotd666"
       ],
       "notes": "Roc'n Rope Amiga port; README credits reverse engineering, 68000 transcode and graphics/sound conversion.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rockford-hidden-level-patcher": {
+      "id": "rockford-hidden-level-patcher",
+      "title": "Rockford Patcher",
+      "upstream_name": "Rockford Patcher",
+      "display_title": "Rockford — DOS hidden-level recovery and patcher",
+      "subjects": [
+        "Rockford Patcher"
+      ],
+      "repo": "https://github.com/asahala/Rockford-Patcher",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ROCKFORD.EXE",
+        "CELLMAPS.BIN"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "patching",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "hidden-level patcher"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "level-data recovery",
+        "binary patching",
+        "graphics reconstruction"
+      ],
+      "tags": [
+        "DOS",
+        "Rockford",
+        "hidden levels"
+      ],
+      "notes": "Patches the DOS Rockford executable to unlock hidden levels and reconstructs additional theme tiles, values and graphics. Historical Amiga art is compared in the research, but the tool does not patch Amiga media.",
       "ai": {
         "usage": null,
         "tools": []
@@ -34028,6 +35232,70 @@
         "tools": []
       }
     },
+    "starflight-st-asset-analysis": {
+      "id": "starflight-st-asset-analysis",
+      "title": "Starflight",
+      "upstream_name": "Starflight",
+      "display_title": "Starflight — Atari ST binary and asset analysis",
+      "subjects": [
+        "Starflight"
+      ],
+      "repo": "https://github.com/sarnau/AtariST-Starflight",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Starflight BTX/AGO/OMEGA data"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game asset analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra analysis",
+        "tile library decoding",
+        "font extraction",
+        "RLE decompression"
+      ],
+      "tags": [
+        "Atari ST",
+        "Starflight",
+        "assets"
+      ],
+      "notes": "Atari ST Starflight research repository with a Ghidra project and Python BTX, AGO and OMEGA font/tile readers. The code demonstrates concrete format analysis; it does not establish a compiled or playable game reconstruction.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "starflight-reverse": {
       "id": "starflight-reverse",
       "title": "Starflight Reverse",
@@ -34648,6 +35916,72 @@
         "tools": []
       }
     },
+    "stm32-usbfloppytracer-amiga-st": {
+      "id": "stm32-usbfloppytracer-amiga-st",
+      "title": "STM32 USB Floppy Tracer",
+      "upstream_name": "STM32 USB Floppy Tracer",
+      "display_title": "STM32 USB Floppy Tracer — Amiga/Atari physical disk imaging",
+      "subjects": [],
+      "repo": "https://github.com/Slamy/STM32-USBFloppyTracer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ADF/IPF/ST/STX disk images",
+        "raw floppy tracks"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis",
+        "copy-protection-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "physical floppy imaging"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "raw-track write and verification",
+        "write precompensation",
+        "CopyLock variable-density analysis"
+      ],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "STX",
+        "IPF",
+        "preservation"
+      ],
+      "notes": "STM32F407 firmware plus Rust host CLI/GUI reads ADF and ST and writes ADF, IPF, ST and experimental patched STX. Verifies written tracks. Weak-bit and some other protections remain experimental; README lists STX cases it cannot support and requires nightly Rust and external IPF parser.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "storm-coming-up-amiga": {
       "id": "storm-coming-up-amiga",
       "title": "Storm Coming Up intro",
@@ -34769,6 +36103,127 @@
         "SkoolKit"
       ],
       "notes": "Complete 48K RAM disassembly by Philip M. Anderson; source preserved in Michael Cook's archive.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "stos-atari-basic-source": {
+      "id": "stos-atari-basic-source",
+      "title": "STOS BASIC",
+      "upstream_name": "STOS BASIC",
+      "display_title": "STOS BASIC — Atari ST compiler and interpreter source",
+      "subjects": [],
+      "repo": "https://github.com/th-otto/STOS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "STOS BASIC original assembly sources"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "language-tooling",
+        "compiler-toolchain"
+      ],
+      "types": [
+        "historical programming system"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original source preservation",
+        "compiler assembly",
+        "extension source"
+      ],
+      "tags": [
+        "Atari ST",
+        "STOS",
+        "BASIC"
+      ],
+      "notes": "Mixed archive of historical STOS BASIC interpreter/compiler, extension and project assembly sources, including an orig tree and adapted src/compiler trees. Catalogued as a preserved development system; the repository does not establish binary-derived reconstruction or a verified end-to-end modern build.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sttrans-stbook-analysis": {
+      "id": "sttrans-stbook-analysis",
+      "title": "STTRANS",
+      "upstream_name": "STTRANS",
+      "display_title": "STTRANS — Atari STBook transfer protocol research",
+      "subjects": [],
+      "repo": "https://github.com/sarnau/STTRANS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "STTRANS.PRG serial protocol"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "automation"
+      ],
+      "types": [
+        "serial transfer companion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "serial command exchange",
+        "Ghidra project",
+        "file transfer protocol"
+      ],
+      "tags": [
+        "Atari ST",
+        "STBook",
+        "serial"
+      ],
+      "notes": "Research repository includes original STTRANS.PRG, its Ghidra analysis project and an 8.9 KB Python serial transfer companion implementing command, path and block/checksum handling. The public README has no detailed findings and no reconstructed STTRANS executable; this record describes the protocol/tooling work only.",
       "ai": {
         "usage": null,
         "tools": []
@@ -35184,6 +36639,68 @@
         "software archaeology"
       ],
       "notes": "NESASM-based disassembly of Super Mario Bros. 3 US PRG1. The README explicitly states that it reassembles into a byte-for-byte perfect clone and is intended for internal research and technical ROM hacking; support files for NoDice/MusConv are included.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "super-pacman-arcade-disassembly": {
+      "id": "super-pacman-arcade-disassembly",
+      "title": "Super Pac-Man",
+      "upstream_name": "Super Pac-Man",
+      "display_title": "Super Pac-Man — arcade 6809 disassembly",
+      "subjects": [
+        "Super Pac-Man"
+      ],
+      "repo": "https://github.com/jotd666/super_pacman",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6809"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Super Pac-Man arcade ROM"
+      ],
+      "reconstructed_languages": [
+        "6809 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "arcade disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6809 code annotation",
+        "hardware register mapping"
+      ],
+      "tags": [
+        "Arcade",
+        "Super Pac-Man",
+        "6809"
+      ],
+      "notes": "Project-specific Super Pac-Man 6809 listing and ROM-byte extraction exist. README still describes Mappy and the Amiga build references a missing super_pacman.68k; no completed Amiga game port or working build is inferred.",
       "ai": {
         "usage": null,
         "tools": []
@@ -35709,6 +37226,66 @@
         "68k"
       ],
       "notes": "Reconstruction of the Star-Wars scroller from The Cuddly Demos.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tearaway-thomas-dhp2": {
+      "id": "tearaway-thomas-dhp2",
+      "title": "Tearaway Thomas",
+      "upstream_name": "Tearaway Thomas",
+      "display_title": "Tearaway Thomas — Amiga DHp2 unpacking research",
+      "subjects": [
+        "Tearaway Thomas"
+      ],
+      "repo": "https://github.com/mrdiskodave/tearaway-thomas",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Tearaway Thomas DHp2 packed data"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "data-format-analysis",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game data unpacker"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "DHp2 decompression",
+        "packed/unpacked comparison"
+      ],
+      "tags": [
+        "Amiga",
+        "Tearaway Thomas",
+        "DHp2"
+      ],
+      "notes": "Contains packed and unpacked Tearaway Thomas data and a substantive Python DHp2 decompressor. The README calls it a partial reimplementation, but the public tree substantiates unpacking research only; no playable reconstruction is claimed.",
       "ai": {
         "usage": null,
         "tools": []
@@ -37347,6 +38924,68 @@
         "binary analysis"
       ],
       "notes": "Substantial title-specific ZX Spectrum analysis project. The Thrust directory contains an approximately 1464 KiB Analysis.json annotation database plus project configuration. Tracked as binary-analysis/analysis-state work; no byte-exact reconstruction claim is inferred.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tiger-heli-arcade-disassembly": {
+      "id": "tiger-heli-arcade-disassembly",
+      "title": "Tiger Heli",
+      "upstream_name": "Tiger Heli",
+      "display_title": "Tiger Heli — arcade Z80 disassembly",
+      "subjects": [
+        "Tiger Heli"
+      ],
+      "repo": "https://github.com/jotd666/tiger_heli",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Tiger Heli arcade ROM"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "arcade disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Z80 code annotation",
+        "hardware register mapping"
+      ],
+      "tags": [
+        "Arcade",
+        "Tiger Heli",
+        "Z80"
+      ],
+      "notes": "Project-specific Tiger Heli Z80 listing and ROM bytes exist. README describes Jail Break and the Amiga scaffold labels Commando while its makefile identifies Dig Dug 2; no completed Tiger Heli Amiga port is inferred.",
       "ai": {
         "usage": null,
         "tools": []
