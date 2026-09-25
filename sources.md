@@ -196,3 +196,4 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://gitlab.com/ambermoon/research | Nico Bendlin's Ambermoon Ghidra research project and Ghidra-server documentation, credited by Pyrdacor |
 
 | https://github.com/Dave-Agent/monty-on-the-run | Byte-perfect and refactored C64 Monty on the Run reconstruction with Ghidra/KickAssembler methodology |
+| https://github.com/g0me3 | NES/Famicom Back From Source reconstructions, FDS-to-cartridge conversions, multi-console IDA loaders/scripts and ROM graphics tooling |

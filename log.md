@@ -497,3 +497,12 @@ Reviewed but did not promote the site's Atari 2600 **Adventure** and NES **Super
 Promoted three further Apple II SourceGen projects after primary-page review: **ABM**, **Penny Arcade** and **Epoch**. Epoch is explicitly recorded as work in progress because its listing notes that some of the mathematics remains unexplained.
 
 The remaining first-party SourceGen item requiring a more careful provenance split is the Apple II system/peripheral ROM collection, which combines independent disassemblies with conversions of published or original listings. The persistent discovery task now records that distinction plus the site's outbound “Other Disassemblies” graph.
+
+
+## 2026-09-26 — g0me3 completion and cross-platform CPU audit
+
+Completed the 11-repository **g0me3** profile inventory. Added four further game projects: **RoboCop 3 (NES) — Back From Source reconstruction**, **Rambo (NES) — Back From Source reconstruction**, **Green Beret — FDS-to-UNROM NES conversion** and **Backgammon — FDS-to-NES cartridge conversion**. Also added **TileMapper — multi-console ROM tile-map viewer** and **ida_stuff — retro-console IDA loaders and analysis scripts** as reusable tooling. The customized FCEUX fork remains explicitly deferred until project-specific archaeology or debugging work is documented beyond its repository description.
+
+Ran the CPU audit queue before selecting existing records and resolved ten queued CPU audit areas across five projects. Primary technical evidence now records the DOS **Pushover** executable as 16-bit x86, the original **Amiga LZX** compressor as 68000 and its released host builds as x86-64/arm64, and **L-Packer** output depackers as 68000. **Another World JS** and **hode** were explicitly marked CPU-not-applicable where their documented inputs are VM bytecode/data and their outputs are portable browser/host code, rather than inferring CPUs from platform labels.
+
+This pass adds **6 projects**, taking the catalogue from 692 to **698**, completes the g0me3 discovery task, and reduces the unresolved project CPU queue from 189 to **184** while resolving ten individual source/target audit areas.

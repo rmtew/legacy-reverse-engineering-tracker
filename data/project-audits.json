@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-09-25",
+  "indexed_at": "2026-09-26",
   "area_names": [
     "identity",
     "classification",
@@ -25113,47 +25113,50 @@
     },
     {
       "project_id": "amiga-lzx-rust",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26"
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README documents a spec-mediated clean-room-style Rust reconstruction from a decompiled compressor and unlzx.c documentation."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "ALGORITHM.md explicitly says the compressor was reverse-engineered from amiga/LZX_68000EC-r, and documents native 68k behavior."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README explicitly offers Linux x86_64/aarch64 and macOS universal builds; normalized as x86-64 and arm64."
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "README claim reviewed; no local execution."
+          "checked_at": "2026-09-26",
+          "note": "Cargo installation, CLI/library usage and release binaries are documented; not independently executed."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Modern host releases do not define a legacy-hardware minimum profile."
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Primary README explicitly documents LLM assistance."
+          "checked_at": "2026-09-26",
+          "note": "Primary README explicitly calls the work LLM-assisted."
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "README distinguishes the decompiled original compressor from unlzx.c's role in decompressor documentation."
         }
       },
-      "next_actions": [
-        "Check additional build, minimum hardware and predecessor evidence where applicable."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "st-recover-floppy-imaging",
@@ -26918,87 +26921,97 @@
     },
     {
       "project_id": "another-world-js-dos",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README describes a JavaScript engine rewrite that interprets the game's 26-opcode virtual-machine bytecode."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "The project consumes DOS game data and VM bytecode rather than reconstructing the original native executable instruction set."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "The output is JavaScript/HTML5 for a browser, not a fixed native CPU target."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README documents conversion commands and a playable DOS-demo web build; not independently executed."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Browser runtime has no legacy-hardware minimum profile."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance evidence was found in the primary repository."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README scopes data extraction to DOS demo/anniversary files; the optional Amiga palette is not an Amiga code/data lineage claim."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "hode-heart-of-darkness",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README describes a reimplementation of the Heart of Darkness engine using original Windows release data."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "The documented dependency is the Windows demo/CD data-file set; the README does not claim native-executable disassembly or transpilation."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Portable C/C++ host builds do not establish one fixed output CPU."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README documents command-line execution and tested release data; the build was not independently executed."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No legacy-hardware runtime target is produced."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance evidence was found in the primary repository."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README requires original Windows data and does not assert an Amiga or Atari ST source relationship."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "nitecrwl-atari-st",
@@ -27086,45 +27099,51 @@
     },
     {
       "project_id": "pushover-dos-browser",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README identifies the from-scratch Pushover browser port and its DOS evidence base."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README documents static/dynamic reverse engineering, a playable reimplementation and original-data decoders."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary reverse-engineering notes identify the DOS executable and resident driver as x86 16-bit real-mode code (docs/formats/audio.md and docs/re-notes/PUSH_EXE_decompressor_stub.md)."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "The output is dependency-free JavaScript for a browser, with no fixed native target CPU."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README documents the live browser build, local HTTP serving and three test tiers; not independently executed in this audit."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "This browser reimplementation has no legacy-hardware runtime profile."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "The README exposes an AI-agent authoring interface but makes no explicit claim that AI was used to create the project."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The project explicitly derives behavior from the DOS executables and requires user-supplied DOS data; Amiga/ST releases are historical context only."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "exploring-another-world-dos",
@@ -27296,44 +27315,52 @@
     },
     {
       "project_id": "l-packer-amiga-atari",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README identifies L-Packer v0.99 and its Atari/Amiga executable-cruncher scope."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "This is original executable-packing tooling; the README does not present it as reverse-engineered or reconstructed."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "There is no earlier subject program or binary being reconstructed; input is executable/data format material."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README credits Inflate and ZX0 68k depackers and states that the packed outputs target Atari and Amiga executables."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README documents a distributed v0.99 beta executable and says full source is planned for 1.0; compilability remains unknown by design."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "The README gives decompression timing examples but no minimum runnable hardware, RAM, chipset or OS profile."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance evidence was found in the primary repository."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README credits the upstream compression/depacker authors and compares Shrinkler, STrinkler, UPX and Cranker without claiming their source."
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Revisit the build/source audit if the promised version 1.0 source is published."
       ]
     },
     {
@@ -30484,6 +30511,289 @@
       },
       "next_actions": [
         "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+      ]
+    },
+    {
+      "project_id": "robocop-3-nes-g0me3",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary banked source and DASM scripts reconstruct a native NES 6502 program."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "This is a same-platform source reconstruction rather than a port to a distinct target CPU."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Repository build scripts assemble the bank sources; the build was not independently executed."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance claim was found in the primary repository."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Independent Back From Source reconstruction of the NES title; no upstream source archive is claimed."
+        }
+      },
+      "next_actions": [
+        "Verify assembled ROM coverage and any byte comparison against a documented original image."
+      ]
+    },
+    {
+      "project_id": "rambo-nes-g0me3",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary banked source and DASM build files reconstruct a native NES 6502 program."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "This is a same-platform source reconstruction, not a distinct CPU port."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Shell and batch build scripts assemble a NES image; not independently executed."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance claim was found in the primary repository."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Independent Back From Source reconstruction of the NES title."
+        }
+      },
+      "next_actions": [
+        "Verify reconstructed-bank completeness and any original-ROM comparison evidence."
+      ]
+    },
+    {
+      "project_id": "green-beret-fds-to-nes-g0me3",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Explicit FDS-to-UNROM conversion, recorded as a fan conversion derived from reconstructed source."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The primary FDS program is reconstructed as native 6502 assembly."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The build script emits a native UNROM NES image from 6502 banks."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary shell and batch scripts assemble the converted NES image; not independently run."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance claim was found."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Derived from the Famicom Disk System release and converted to UNROM cartridge format."
+        }
+      },
+      "next_actions": [
+        "Verify the generated image in an emulator and document mapper/region runtime behavior if primary evidence appears."
+      ]
+    },
+    {
+      "project_id": "backgammon-fds-to-nes-g0me3",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Explicit FDS-to-cartridge conversion from reconstructed source."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The primary FDS program is represented as banked 6502 assembly."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The build emits a native NES cartridge image using the reconstructed 6502 program."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Build scripts and a working-conversion commit claim exist; the build was not independently executed."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-assistance claim was found."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Derived from the Famicom Disk System Backgammon release and converted to cartridge form."
+        }
+      },
+      "next_actions": [
+        "Independently verify the cartridge build and record mapper/region details from primary project evidence."
+      ]
+    },
+    {
+      "project_id": "tilemapper-g0me3",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "The tool reads graphics/tile data across several ROM formats rather than analyzing executable code for one source CPU."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "It is a host-side data viewer, not a port or native-code output generator."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Source is present, but no current build instructions were found."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Repository says the initial commit is based on the author's own earlier Borland Delphi 3 sources."
+        }
+      },
+      "next_actions": [
+        "Confirm current Delphi/Lazarus build compatibility and supported executable host versions."
+      ]
+    },
+    {
+      "project_id": "ida-stuff-retro-loaders-g0me3",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary loader and analysis-script trees explicitly cover NES 6502, SNES 65816, Genesis m68000 and Dreamcast SH-4 material."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "IDA host tooling does not generate a port or native target program."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "C++ loader sources, Visual Studio projects and bundled loader binaries are present; compatibility was not executed."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "IDA and Windows version requirements are not documented in the terse README."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Several game-specific scripts support the author's separately tracked Back From Source projects."
+        }
+      },
+      "next_actions": [
+        "Identify the supported IDA SDK/version range and verify a loader build against the retained project files."
       ]
     }
   ]
