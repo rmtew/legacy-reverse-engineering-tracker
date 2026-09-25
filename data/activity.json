@@ -1,7 +1,83 @@
 {
-  "generated_at": "2026-09-25T01:04:36Z",
+  "generated_at": "2026-09-25T01:12:19Z",
   "window_days": 180,
   "events": [
+    {
+      "type": "project_added",
+      "date": "2026-09-25T01:12:19Z",
+      "project_id": "midi-maze-2-title-music-reconstruction",
+      "project": {
+        "id": "midi-maze-2-title-music-reconstruction",
+        "title": "MIDI-MAZE II title music and player reconstruction",
+        "upstream_name": "MIDI-MAZE II title music",
+        "display_title": "MIDI-MAZE II — Atari ST title music and player reconstruction",
+        "subjects": [
+          "MIDI-MAZE II"
+        ],
+        "repo": "https://github.com/sarnau/MIDI-Maze-2-Title-Music",
+        "project_url": null,
+        "github_path": null,
+        "github_branch": null,
+        "source_platforms": [
+          "Atari ST"
+        ],
+        "target_platforms": [
+          "analysis host"
+        ],
+        "source_cpu": [
+          "m68000"
+        ],
+        "target_cpu": [],
+        "runtime_profiles": null,
+        "source_language": [
+          "m68k binary",
+          "compressed game data"
+        ],
+        "reconstructed_languages": [
+          "Python"
+        ],
+        "record_class": "subject",
+        "target_kinds": [
+          "game-subsystem"
+        ],
+        "work_kinds": [
+          "binary-analysis",
+          "data-format-analysis",
+          "subsystem-reconstruction"
+        ],
+        "tool_kinds": [],
+        "types": [
+          "binary-analysis",
+          "data-format-analysis",
+          "subsystem-reconstruction"
+        ],
+        "re_started": null,
+        "status": null,
+        "build": {
+          "compilable": null,
+          "runnable": true,
+          "playable": null,
+          "byte_exact": null
+        },
+        "techniques": [],
+        "tags": [
+          "Atari ST",
+          "reverse engineering",
+          "game music"
+        ],
+        "notes": "Analyses the SMS Synthesizer driver linked into MIDIMAZE.PRG and the compressed MIDIMAZE.CMP music archive; Python scripts render the title track, unpack the data, extract 32 samples and export the decoded score and instruments as MIDI, SF2 and DLS. README compares rendered audio and YM register timing with the game under Hatari. Its exactness claims concern extracted samples and audio, not a byte-identical rebuilt Atari ST game executable; RMID playback is explicitly unverified.",
+        "ai": {
+          "usage": null,
+          "tools": []
+        }
+      },
+      "title": "Project added",
+      "message": "Added to the tracked catalogue.",
+      "url": "https://github.com/sarnau/MIDI-Maze-2-Title-Music",
+      "changes": [],
+      "change_details": [],
+      "branches": []
+    },
     {
       "type": "project_added",
       "date": "2026-09-25T01:04:36Z",
@@ -124088,6 +124164,34 @@
       "branches": [
         "main",
         "master-2px-scroll"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-04T22:46:09Z",
+      "project_id": "midi-maze-2-title-music-reconstruction",
+      "repository": "sarnau/MIDI-Maze-2-Title-Music",
+      "sha": "2e27679128695a558ebcbce41c0333e2cebd8139",
+      "title": "Add MIT licence for the tools, NOTICE for the game-derived files",
+      "message": "Add MIT licence for the tools, NOTICE for the game-derived files\n\nThe Python tools are new work and go under MIT. The vendored game files,\nthe extracted samples, the renders and the MIDI/SF2/DLS/RMID exports all\nderive from MIDI-MAZE II and are listed separately in NOTICE, along with\ncredits for the music (Juergen Piscol) and the SMS Synthesizer (R.A.P.).",
+      "url": "https://github.com/sarnau/MIDI-Maze-2-Title-Music/commit/2e27679128695a558ebcbce41c0333e2cebd8139",
+      "author": "sarnau",
+      "branches": [
+        "main"
+      ]
+    },
+    {
+      "type": "commit",
+      "date": "2026-08-04T22:41:21Z",
+      "project_id": "midi-maze-2-title-music-reconstruction",
+      "repository": "sarnau/MIDI-Maze-2-Title-Music",
+      "sha": "2cb6e4196bdc3474c0152a9e9b891af2c6c211ad",
+      "title": "MIDI-MAZE II title music: player, score and sample banks",
+      "message": "MIDI-MAZE II title music: player, score and sample banks\n\nReverse engineered from the Atari ST game. The title track is not YM2149\nchip music: it is driven by the SMS Synthesizer (R.A.P., 1990), a six\nchannel 8-bit sample mixer at 19200 Hz that uses the YM's three volume\nregisters as a DAC. The driver sits in MIDIMAZE.PRG at text offset $6034;\nits data is packed into MIDIMAZE.CMP.\n\nContents:\n  smsplay.py         re-implementation of the driver, renders the track\n  cmp_unpack.py      the .CMP container (Huffman + escape RLE + delta)\n  extract_samples.py the 32 sampled instruments -> samples/\n  midi_export.py     the score -> Standard MIDI File\n  sf2_export.py      instruments -> SoundFont 2\n  dls_export.py      instruments -> DLS, and SMF+bank -> RMID\n  game/              MIDIMAZE.CMP and .PRG, so a clone rebuilds everything\n\nChecked against the real game under Hatari (TOS 1.04): identical note\ntiming with no drift, 0.983 spectral correlation, and the traced YM\nregister stream matches.\n\nMusic by Jürgen Piscol. Player by R.A.P., Karlsruhe.",
+      "url": "https://github.com/sarnau/MIDI-Maze-2-Title-Music/commit/2cb6e4196bdc3474c0152a9e9b891af2c6c211ad",
+      "author": "sarnau",
+      "branches": [
+        "main"
       ]
     },
     {

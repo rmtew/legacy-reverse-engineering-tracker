@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T01:04:36Z",
+  "updated_at": "2026-09-25T01:12:19Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -20148,6 +20148,71 @@
         "documentation"
       ],
       "notes": "Measurement-first reverse-engineering documentation of the Amiga CD32 release of Microcosm. The repository redistributes no game assets; reproducible tools derive structural, executable, compression, graphics/audio and archaeological findings from user-supplied media.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "midi-maze-2-title-music-reconstruction": {
+      "id": "midi-maze-2-title-music-reconstruction",
+      "title": "MIDI-MAZE II title music and player reconstruction",
+      "upstream_name": "MIDI-MAZE II title music",
+      "display_title": "MIDI-MAZE II — Atari ST title music and player reconstruction",
+      "subjects": [
+        "MIDI-MAZE II"
+      ],
+      "repo": "https://github.com/sarnau/MIDI-Maze-2-Title-Music",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "m68k binary",
+        "compressed game data"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis",
+        "subsystem-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "binary-analysis",
+        "data-format-analysis",
+        "subsystem-reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "reverse engineering",
+        "game music"
+      ],
+      "notes": "Analyses the SMS Synthesizer driver linked into MIDIMAZE.PRG and the compressed MIDIMAZE.CMP music archive; Python scripts render the title track, unpack the data, extract 32 samples and export the decoded score and instruments as MIDI, SF2 and DLS. README compares rendered audio and YM register timing with the game under Hatari. Its exactness claims concern extracted samples and audio, not a byte-identical rebuilt Atari ST game executable; RMID playback is explicitly unverified.",
       "ai": {
         "usage": null,
         "tools": []
