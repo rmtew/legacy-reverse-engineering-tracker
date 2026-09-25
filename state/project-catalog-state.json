@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T03:51:25Z",
+  "updated_at": "2026-09-25T04:05:49Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -1118,6 +1118,70 @@
         "tools": []
       }
     },
+    "alis-silmarils-vm": {
+      "id": "alis-silmarils-vm",
+      "title": "ALIS — Silmarils virtual machine",
+      "upstream_name": "ALIS — Silmarils virtual machine",
+      "display_title": "ALIS — Silmarils virtual machine",
+      "subjects": [
+        "ALIS"
+      ],
+      "repo": "https://github.com/maestun/alis",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST",
+        "Amiga",
+        "DOS"
+      ],
+      "target_platforms": [
+        "macOS",
+        "Linux",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "game data and bytecode"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game VM reimplementation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Amiga",
+        "DOS",
+        "ALIS"
+      ],
+      "notes": "Reimplements Silmarils ALIS VM using original game data. Primary compatibility matrix marks multiple ST and Amiga versions playable (including Mad Show, Targhan, Colorado), while Manhattan Dealers and Operation: Cleanstreets are broken; playability is per game/version, not universal.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "amaurote-128-spectrum-analyser": {
       "id": "amaurote-128-spectrum-analyser",
       "title": "Amaurote 128",
@@ -1998,6 +2062,67 @@
         "tools": []
       }
     },
+    "amifuse-filesystem-emulation": {
+      "id": "amifuse-filesystem-emulation",
+      "title": "AmiFUSE",
+      "upstream_name": "AmiFUSE",
+      "display_title": "AmiFUSE",
+      "subjects": [
+        "Amiga filesystem drivers"
+      ],
+      "repo": "https://github.com/reinauer/AmiFUSE",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "macOS",
+        "Linux",
+        "Windows"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga filesystem handler binaries",
+        "ADF and HDF images"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "emulator"
+      ],
+      "types": [
+        "filesystem image mount tool"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Amiga filesystem drivers"
+      ],
+      "notes": "Mounts Amiga HDF/RDB and ADF images by executing native filesystem handler binaries through m68k emulation, including PFS3. ADF use requires an external driver. Documented as an alternative to reimplementing each filesystem format; not a reconstructed filesystem driver.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "kickstart-11-a1000-disassembly": {
       "id": "kickstart-11-a1000-disassembly",
       "title": "Amiga 1000 Kickstart 1.1 v31.34 disassembly",
@@ -2631,6 +2756,65 @@
         "tools": []
       }
     },
+    "amigaffh-formats": {
+      "id": "amigaffh-formats",
+      "title": "AmigaFFH — Amiga file formats",
+      "upstream_name": "AmigaFFH — Amiga file formats",
+      "display_title": "AmigaFFH — Amiga file formats",
+      "subjects": [
+        "Amiga IFF and AmigaBASIC formats"
+      ],
+      "repo": "https://github.com/cran/AmigaFFH",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "R"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "IFF",
+        "tokenized AmigaBASIC files"
+      ],
+      "reconstructed_languages": [
+        "R"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "language-tooling"
+      ],
+      "types": [
+        "file format parser"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Amiga IFF and AmigaBASIC formats"
+      ],
+      "notes": "R package for reading Amiga native formats, including IFF images and tokenized AmigaBASIC programs. Repository is a CRAN mirror of pepijn-devries/AmigaFFH; install snippet in README unexpectedly names ProTrackR, so package installation was not verified here.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "amiga-hunk-parser-c-emoon": {
       "id": "amiga-hunk-parser-c-emoon",
       "title": "AmigaHunkParser — C HUNK parser",
@@ -2816,6 +3000,68 @@
         "source preservation"
       ],
       "notes": "Rebuilds a Git timeline from surviving original AmigaOS 3 RCS source revisions. Tags represent approximate inferred states from pre-1.0 through 3.1; early source trees are especially incomplete and ordering can be uncertain. This is archival source-history reconstruction, not source recovered from ROM binaries; no reproducible build is claimed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "amiga-quarterback-extractor": {
+      "id": "amiga-quarterback-extractor",
+      "title": "AmigaQB_extract",
+      "upstream_name": "AmigaQB_extract",
+      "display_title": "AmigaQB_extract",
+      "subjects": [
+        "Quarterback backups"
+      ],
+      "repo": "https://github.com/keithgh1/AmigaQB_extract",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Quarterback ADF backup format"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "backup extractor",
+        "data recovery"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Quarterback backups"
+      ],
+      "notes": "Recovers Central Coast Software Quarterback backups from ADF images, including damaged or catalogless sets. README documents v4.x through v6.x, compressed markers, catalog layout and format research checked against original GPL Quarterback source. Host-side recovery tool, not an Amiga executable.",
       "ai": {
         "usage": null,
         "tools": []
@@ -10378,6 +10624,76 @@
         "software archaeology"
       ],
       "notes": "Andy McFadden’s annotated SourceGen disassemblies of the 256-byte Disk II controller BOOT0 firmware and a DOS 3.3 BOOT1 sector. BOOT0 explains its decoding table and sector-read behavior; the linked BOOT1 listing traces loading RWTS. The ROM index supplies the paired project set. BOOT1 is one sample from a disk image, not a claim to cover every DOS version.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "disk-utilities-amiga": {
+      "id": "disk-utilities-amiga",
+      "title": "Disk Utilities — Amiga disk analysis",
+      "upstream_name": "Disk Utilities — Amiga disk analysis",
+      "display_title": "Disk Utilities — Amiga disk analysis",
+      "subjects": [
+        "Amiga disk images and track loaders"
+      ],
+      "repo": "https://github.com/keirf/disk-utilities",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows",
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ADF",
+        "IPF",
+        "raw disk images",
+        "Copylock routines"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis",
+        "copy-protection-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "disassembler",
+        "emulator"
+      ],
+      "types": [
+        "disk analysis suite",
+        "Copylock analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Amiga disk images and track loaders"
+      ],
+      "notes": "Collection reads and converts flux and sector disk images (including ADF, Extended ADF and IPF), reads Amiga ADF files and boot blocks, and includes a limited Amiga emulator plus m68k disassembler to run track-loader/protection code and dump decrypted Copylock output. IPF/CTRaw support depends on CAPS library.",
       "ai": {
         "usage": null,
         "tools": []
@@ -20115,6 +20431,72 @@
         "tools": []
       }
     },
+    "level9-next-amiga-st-bitmap-converter": {
+      "id": "level9-next-amiga-st-bitmap-converter",
+      "title": "Level 9 Spectrum Next bitmap converter",
+      "upstream_name": "Level 9 Spectrum Next bitmap converter",
+      "display_title": "Level 9 — Amiga/ST bitmap converter",
+      "subjects": [
+        "Level 9 adventure bitmap data"
+      ],
+      "repo": "https://github.com/stefanbylund/zxnext_level9",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "ZX Spectrum Next"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga and Atari ST Level 9 bitmap files"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "game interpreter port",
+        "bitmap converter"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "ZX Spectrum Next",
+        "Level 9"
+      ],
+      "notes": "Spectrum Next port of Glen Summers’s reverse-engineered Level 9 interpreter. Its convert_bitmap tool transforms original Amiga and ST Level 9 bitmap images to NXI; this record highlights the verified asset bridge, not a native Amiga/ST runtime. V1 story format is deliberately omitted in the constrained Next port.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "vs-sr-cd32-liberation": {
       "id": "vs-sr-cd32-liberation",
       "title": "Liberation: Captive II — CD32 reverse-engineering documentation",
@@ -20730,6 +21112,73 @@
         "Lode Runner"
       ],
       "notes": "Disassembly of the BBC Micro main Lode Runner binary (LODE1), published as labelled/commented BeebAsm-compatible 6502 source. The repository explicitly identifies the scope as the main binary rather than a complete disk reconstruction.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lotus-ste-enhancement": {
+      "id": "lotus-ste-enhancement",
+      "title": "Lotus STE",
+      "upstream_name": "Lotus STE",
+      "display_title": "Lotus STE",
+      "subjects": [
+        "Lotus Esprit Turbo Challenge"
+      ],
+      "repo": "https://github.com/jonathanopalise/lotus-ste",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari STE",
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "patching"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "asset-tool"
+      ],
+      "types": [
+        "game enhancement",
+        "binary patch"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Lotus Esprit Turbo Challenge"
+      ],
+      "notes": "Reverse engineered ST-side routines and patch build add blitter graphics and sampled audio. Requires separately obtained Empire version game files. Builds a bootable image; full enhancements need STE with at least 1 MiB RAM, while blitter-equipped ST models run a subset.",
       "ai": {
         "usage": null,
         "tools": []
@@ -29416,6 +29865,67 @@
         "tools": []
       }
     },
+    "scummvm-extraction-tools": {
+      "id": "scummvm-extraction-tools",
+      "title": "ScummVM Tools — Amiga/ST extractors",
+      "upstream_name": "ScummVM Tools — Amiga/ST extractors",
+      "display_title": "ScummVM Tools — Amiga/ST extractors",
+      "subjects": [
+        "AGOS and game archive formats"
+      ],
+      "repo": "https://github.com/scummvm/scummvm-tools",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga and ST adventure-game archives"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "game archive extractors"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "AGOS and game archive formats"
+      ],
+      "notes": "Project tool collection includes extract_agos for packed Amiga/ST Elvira 1/2, Waxworks and Simon the Sorcerer 1 files, plus Cinematique and other archive extractors. Entry indexes the collection and its documented Amiga/ST scope, not a claim that every tool supports both platforms.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "swos-openswos": {
       "id": "swos-openswos",
       "title": "Sensible World of Soccer / OpenSWOS",
@@ -32070,6 +32580,70 @@
         "software archaeology"
       ],
       "notes": "BBC Master 128 port derived from a raw C64 6502 disassembly. The team reverse engineered game functionality and data structures, rearranged them for the BBC memory map, and replaced or augmented graphics, sound and I/O for BBC hardware.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "stunt-car-racer-ste-patches": {
+      "id": "stunt-car-racer-ste-patches",
+      "title": "Stunt Car Racer STE",
+      "upstream_name": "Stunt Car Racer STE",
+      "display_title": "Stunt Car Racer STE",
+      "subjects": [
+        "Stunt Car Racer"
+      ],
+      "repo": "https://github.com/jonathanopalise/stunt-car-racer-ste",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari STE"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "patching"
+      ],
+      "tool_kinds": [
+        "binary-analysis"
+      ],
+      "types": [
+        "experimental game patch"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Atari ST",
+        "Stunt Car Racer"
+      ],
+      "notes": "Experimental blitter replacements for selected ST rendering routines. Make produces overlay binaries; run the unmodified game under Hatari and load patches into memory using the debugger. No standalone runnable disk image and no demonstrated performance improvement. STE with at least 1 MiB specified.",
       "ai": {
         "usage": null,
         "tools": []
@@ -35755,6 +36329,66 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "vamigados-browser-filesystem": {
+      "id": "vamigados-browser-filesystem",
+      "title": "vAmigaDOS — browser image explorer",
+      "upstream_name": "vAmigaDOS — browser image explorer",
+      "display_title": "vAmigaDOS — browser image explorer",
+      "subjects": [
+        "AmigaDOS filesystems"
+      ],
+      "repo": "https://github.com/vAmigaDOS/vAmigaDOS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Web browser"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ADF and HDF images"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "Svelte",
+        "WebAssembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "emulator"
+      ],
+      "types": [
+        "browser disk explorer"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "AmigaDOS filesystems"
+      ],
+      "notes": "Browser shell for inspecting and editing Amiga ADF/HDF disk images, powered by the vAmiga emulator compiled to WebAssembly. Offers directory navigation, file operations and filesystem diagnostics; indexes a useful archival tool rather than independent OS reconstruction.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "vchar64-commodore-asset-editor": {
