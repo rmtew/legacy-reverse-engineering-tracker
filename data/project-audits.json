@@ -4364,7 +4364,7 @@
     },
     {
       "project_id": "elite-amiga-ataribaby42",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -4389,8 +4389,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Current README documents automated structural checks plus WinUAE runtime verification across major game screens and save/load flow."
+          "checked_at": "2026-09-26",
+          "note": "Version 1.81 fixes dual-buffer cockpit instrument refresh after reset/relaunch and adds native regression cases for launch, hyperspace and galactic-jump transitions on both Atari and Amiga trees."
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -4398,9 +4398,9 @@
           "note": "Rechecked the stock OCS/68000 and 68020-only profiles; recent gameplay/planet changes do not alter the documented minimum compatibility floors."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-25",
-          "note": "Reviewed current documentation and recent feature/fix commits; no explicit AI-use evidence was found. This does not establish non-use."
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Current AGENTS.md explicitly directs coding agents and requires their WinUAE diagnostics to use an isolated agent-owned desktop and copies; no specific agent product is named."
         },
         "relationships": {
           "state": "needs-research",
@@ -5471,7 +5471,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5496,8 +5496,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "PROJECT_STATUS retains Dungeon Master 1 as playable/source-locked and distinguishes bounded routes/bring-up for the other subjects."
+          "checked_at": "2026-09-26",
+          "note": "Recent primary commits add passing authentic Amiga/French-DOS DM2 runtime regressions, direct FM Towns CSB save resume, and an exact US Theron source-frame comparison; upstream explicitly limits the latter to one captured frame, not gameplay parity."
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -7746,7 +7746,7 @@
     },
     {
       "project_id": "jotd-commando-amiga",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -7760,8 +7760,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Project-local src/commando_z80.asm is the annotated original arcade program used for the transcode and explicitly identifies its Z80 instruction stream."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -7788,7 +7789,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8031,7 +8031,7 @@
     },
     {
       "project_id": "jotd-ghosts-goblins-amiga",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -8045,8 +8045,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Project-local tools/decode_m6809_log.py compares the Amiga trace against the original MAME trace while src/rom_6000.asm carries the original arcade ROM listing."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -8072,7 +8073,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8360,7 +8360,7 @@
     },
     {
       "project_id": "jotd-mappy-amiga",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -8374,8 +8374,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Project-local src/mappy_6809.asm is the original arcade program listing used by the Amiga transcode and explicitly identifies the source CPU family."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -8401,7 +8402,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -22093,7 +22093,7 @@
     },
     {
       "project_id": "blues-brothers-engine-cyxx",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -22105,8 +22105,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "README requires Amiga/DOS game data and calls this a rewritten engine; it does not translate or reconstruct instructions from the original executables, so a source ISA is not applicable."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -22130,7 +22131,8 @@
         }
       },
       "next_actions": [
-        "Verify runtime/build behavior beyond primary documentation and review related projects"
+        "Verify build behavior and supported host configurations beyond the README.",
+        "Review predecessor/successor relationships among the related cyxx engines."
       ]
     },
     {
@@ -24763,7 +24765,7 @@
     },
     {
       "project_id": "another-world-cross-port-archaeology",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -24775,12 +24777,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README defines the current comparison target as extracted Another World VM bytecode and disassembly artifacts; no native host instruction set is being reconstructed."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "The archaeology repository produces metadata, extractors, disassemblies and comparative research rather than a runnable native port or executable output."
         },
         "build": {
           "state": "needs-research",
@@ -24801,12 +24805,12 @@
         }
       },
       "next_actions": [
-        "Check additional build, minimum hardware and predecessor evidence where applicable."
+        "Verify extractor/build coverage and explicit runtime requirements only where the research tooling itself has a documented runnable configuration."
       ]
     },
     {
       "project_id": "another-world-cross-port-reconstruction",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -24818,12 +24822,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "README and PLAN identify the reconstructed program material as Another World VM bytecode shared across native releases; the current work is not a native-ISA disassembly."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "PLAN verifies reassembled VM bytecode resources and explicitly drops engine-binary reconstruction and whole-port packaging from current scope, so no native output CPU applies."
         },
         "build": {
           "state": "reviewed",
@@ -24845,7 +24851,7 @@
         }
       },
       "next_actions": [
-        "Check additional build, minimum hardware and predecessor evidence where applicable."
+        "Track completion of raw-resource matching and any future engine or whole-port packaging scope before revisiting build/runtime or native CPU metadata."
       ]
     },
     {
@@ -27057,44 +27063,54 @@
     },
     {
       "project_id": "stos-atari-basic-source",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Repository tree and original source headings identify the STOS BASIC interpreter/runtime, compiler and extension collection."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Reviewed as preserved historical Atari development tooling and source, not as a binary-derived reconstruction claim."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Core original interpreter/runtime and compiler sources are 68000 assembly; repository documentation explicitly discusses STOS access to 68000 data/address registers."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Core compiler/runtime sources emit and execute native Atari ST 68000 code. Later Falcon/020+ extension files remain component-specific and are not treated as the core minimum."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Historical binaries and extensive source trees are present, but no root build guide or verified modern end-to-end core build was found in the reviewed repository material."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "Reviewed core and extension documentation exposed CPU distinctions but no reliable single minimum RAM/ROM profile for the catalogued collection; no platform-wide minimum was inferred."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No explicit AI-use statement or project-agent configuration was found in the reviewed repository tree."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "The mixed orig/adapted trees and individual extensions still require component-level provenance and ancestry review."
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Resolve provenance for the original and adapted core trees and major extensions.",
+        "Establish whether the core interpreter/compiler has a reproducible modern build.",
+        "Review Falcon and later-CPU extensions separately before expanding target CPU or runtime metadata."
       ]
     },
     {

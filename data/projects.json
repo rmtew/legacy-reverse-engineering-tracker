@@ -6158,7 +6158,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-09",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": null,
@@ -6184,7 +6184,7 @@
       "Game Boy Advance",
       "Another World"
     ],
-    "notes": "Active comparative archaeology of Another World releases, with checksum provenance, extractors and bytecode disassemblies. Includes the original Amiga lineage. Original game fixtures are expected from a separate sibling archive; do not infer that every release has been completely decoded.",
+    "notes": "Active comparative archaeology of Another World releases, with checksum provenance, extractors and bytecode disassemblies. Includes the original Amiga lineage. Original game fixtures are expected from a separate sibling archive; do not infer that every release has been completely decoded. The CPU fields are intentionally not applicable: the cross-port comparison currently disassembles the game's virtual-machine bytecode and produces research artifacts, rather than reconstructing a native host instruction set.",
     "github": {
       "repository": "ArqueologiaDigital/another-world-archaeology",
       "created_at": "2026-05-01",
@@ -6258,7 +6258,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-09",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": true,
@@ -6279,7 +6279,7 @@
       "Game Boy Advance",
       "Another World"
     ],
-    "notes": "Active work toward one conditional source tree for multiple release lineages, including Chahi’s 1991 Amiga bytecode. README says phase-one bytecode matching exists; non-bytecode resources and bank/ADF packaging remain planned. Do not read the repository tagline as evidence of full executable byte-exact builds. Depends on sibling archaeology and external VMTools.",
+    "notes": "Active work toward one conditional source tree for multiple release lineages, including Chahi's 1991 Amiga bytecode. README and PLAN document byte-identical round trips for 29 levels across five ports. Current outputs are Another World VM bytecode resources: engine binary reconstruction and whole-port packaging are explicitly outside the present scope, so native source and target CPUs are not applicable. Depends on sibling archaeology and external VMTools.",
     "github": {
       "repository": "ArqueologiaDigital/another-world-source-reconstruction",
       "created_at": "2026-05-01",
@@ -10866,7 +10866,7 @@
     ],
     "re_started": null,
     "last_activity": "2022-04-23",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": null,
@@ -10887,7 +10887,7 @@
       "DOS",
       "cross-platform"
     ],
-    "notes": "Rewritten engine for Blues Brothers, Jukebox Adventure and Prehistorik 2. The Blues Brothers path accepts original Amiga or DOS data; the other two documented data paths require DOS files. README distinguishes gameplay changes from the original DOS executables.",
+    "notes": "Rewritten engine for Blues Brothers, Jukebox Adventure and Prehistorik 2. The Blues Brothers path accepts original Amiga or DOS data; the other two documented data paths require DOS files. README distinguishes gameplay changes from the original DOS executables. Source CPU is not applicable because the rewrite consumes game data and reimplements behavior rather than translating or reconstructing native executable instructions.",
     "github": {
       "repository": "cyxx/blues",
       "created_at": "2020-07-08",
@@ -14260,7 +14260,9 @@
     "target_platforms": [
       "Amiga"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "Z80"
+    ],
     "source_language": [
       "arcade machine code"
     ],
@@ -14274,7 +14276,7 @@
     ],
     "re_started": null,
     "last_activity": null,
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": null,
@@ -21196,7 +21198,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-25",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-26",
     "status": "in progress",
     "build": {
       "compilable": true,
@@ -21205,8 +21207,11 @@
       "byte_exact": false
     },
     "ai": {
-      "usage": null,
-      "tools": []
+      "usage": true,
+      "tools": [],
+      "evidence": [
+        "AGENTS.md contains explicit operating rules for coding agents and requires their WinUAE diagnostics to run in an isolated agent-owned test environment."
+      ]
     },
     "techniques": [
       "source adaptation",
@@ -21221,7 +21226,7 @@
       "Atari ST",
       "native port"
     ],
-    "notes": "Independent native Amiga version developed from the corrected Atari ST source tree, with native bitplanes, Amiga input, Paula sound/music and AmigaDOS file handling. The documented stock baseline remains PAL OCS/MC68000 with 512 KB Chip + 512 KB expansion RAM and Kickstart 1.3; an explicit 68020-only build is also supported. Current development is adding optional gameplay/presentation extensions including flyable ships and seeded planet surfaces. Runtime verification is extensive under WinUAE, while real hardware and physical mouse/joystick testing remain unvalidated.",
+    "notes": "Independent native Amiga version developed from the corrected Atari ST source tree, with native bitplanes, Amiga input, Paula sound/music and AmigaDOS file handling. The documented stock baseline remains PAL OCS/MC68000 with 512 KB Chip + 512 KB expansion RAM and Kickstart 1.3; an explicit 68020-only build is also supported. Version 1.81 refreshes cockpit instruments on both screen buffers after reset/relaunch, backed by native launch, hyperspace and galactic-jump regression cases. Runtime verification is extensive under WinUAE, while real hardware and physical mouse/joystick testing remain unvalidated.",
     "github": {
       "repository": "ataribaby42/elite-source-code-atarist",
       "created_at": "2026-09-10",
@@ -23379,7 +23384,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-25",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-26",
     "status": "active",
     "build": {
       "compilable": true,
@@ -23406,7 +23411,8 @@
       "source-locked runtime verification",
       "instrumented Mednafen capture",
       "Backup RAM format analysis",
-      "CD track provenance verification"
+      "CD track provenance verification",
+      "source-frame byte comparison"
     ],
     "tags": [
       "game engine",
@@ -23415,7 +23421,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Current project status marks Dungeon Master 1 on PC DOS 3.4 as playable/source-locked; Chaos Strikes Back and Dungeon Master II have verified bounded real-media routes; Nexus remains active real-data bring-up. Theron's Quest has a verified bounded Japanese runtime route and verified US routes, including an authentic Continue-to-dungeon-2 native route, while later campaign progression, presentation and end-to-end gameplay remain open. User-supplied media stays source-locked and full parity is not claimed across the suite.",
+    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Current project status marks Dungeon Master 1 on PC DOS 3.4 as playable/source-locked; Chaos Strikes Back and Dungeon Master II have verified bounded real-media routes, now including direct FM Towns CSB save resume plus authentic Amiga and French DOS DM2 runtime regressions. Nexus remains active real-data bring-up. Theron's Quest has bounded Japanese and US routes; one authenticated US Akutuba viewport now matches an operator-local original-emulator frame byte-for-byte, explicitly proving only that captured screen and not gameplay semantics or campaign completion. User-supplied media stays source-locked and full parity is not claimed across the suite.",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-09-25",
@@ -25621,7 +25627,9 @@
     "target_platforms": [
       "Amiga"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "6809"
+    ],
     "source_language": [
       "arcade machine code"
     ],
@@ -25635,7 +25643,7 @@
     ],
     "re_started": null,
     "last_activity": null,
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": null,
@@ -36474,7 +36482,9 @@
     "target_platforms": [
       "Amiga"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "6809"
+    ],
     "source_language": [
       "arcade machine code"
     ],
@@ -36488,7 +36498,7 @@
     ],
     "re_started": null,
     "last_activity": null,
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": null,
@@ -54825,8 +54835,12 @@
     "target_platforms": [
       "Atari ST"
     ],
-    "source_cpu": [],
-    "target_cpu": [],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "STOS BASIC original assembly sources"
     ],
@@ -54846,7 +54860,7 @@
     ],
     "re_started": null,
     "last_activity": null,
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-26",
     "status": null,
     "build": {
       "compilable": null,
@@ -54868,7 +54882,7 @@
       "STOS",
       "BASIC"
     ],
-    "notes": "Mixed archive of historical STOS BASIC interpreter/compiler, extension and project assembly sources, including an orig tree and adapted src/compiler trees. Catalogued as a preserved development system; the repository does not establish binary-derived reconstruction or a verified end-to-end modern build.",
+    "notes": "Mixed archive of historical STOS BASIC interpreter/compiler, extension and project assembly sources, including an orig tree and adapted src/compiler trees. Core STOS and compiler sources are explicitly 68000-oriented and emit/run native Atari ST code. Specialized Falcon and later-CPU extensions remain component-specific and do not change the core 68000 classification. The repository does not yet establish a verified end-to-end modern build or a single minimum runtime profile.",
     "github": {
       "repository": "th-otto/STOS",
       "created_at": "2022-03-17",
