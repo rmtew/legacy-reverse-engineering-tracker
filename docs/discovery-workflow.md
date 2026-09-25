@@ -42,6 +42,14 @@ For a decision-only pass, a batch can look like this after replacing the example
 
 `excluded` means this specific candidate does not warrant an independent catalogue record. `duplicate` points to a tracked equivalent, `deferred` needs more evidence, and `promoted` references one or more tracked project IDs. Preserve the predecessor's identity in the reason instead of implying that the underlying research has no value.
 
+### Decide at the demonstrated scope
+
+Include a distinct project when its public artifacts establish concrete work on historical software or directly relevant development/recovery tooling. A disassembly, parser, unpacker, patcher, research script, experimental port, or documented distributed tool can qualify without a playable game, complete format support, detailed README, bundled original data, or published source for a binary tool. Describe the part that actually exists and leave build, runtime, provenance, and byte matching unknown unless verified. Historical original-source archives qualify as development tooling when they provide a substantive period system, but do not label them binary-derived reconstructions without evidence.
+
+Assign the source platform from the binary, media, or data actually analyzed. A historical release on another platform, a palette setting, or a new port's target platform does not establish analysis of that platform's original version. When a repository mixes copied templates and project-specific work, inspect the files and promote the verified part at its actual platform and stage. Do not infer a working port from a ROM listing or a copied makefile.
+
+Use `duplicate` for a continuation or mirror already represented by the same research lineage; link the existing project. Use `excluded` when a candidate contains only unanalysed binaries/assets, merely converts somebody else's analysis, or is an ordinary port unrelated to the catalogue's recovery and tooling scope. Use `deferred` only when a specific unresolved fact would change whether or how a distinct record can be made. Name the file or missing evidence and the next check in the reason. For collections, decide separately for each reviewed component and defer only the components still unexamined. Lack of a complete README or playability by itself is not a deferral reason.
+
 ## Preview and apply
 
 ```sh
