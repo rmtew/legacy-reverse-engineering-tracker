@@ -10,7 +10,9 @@
 | https://github.com/slaapliedje/OpenUA | Active cross-68K reconstruction |
 | https://github.com/HoraceAndTheSpider/Bloodwych-68k | Active Amiga 68K reconstruction/tooling |
 | https://github.com/geogeo28/atari_reverse | Reusable Atari ST reconstruction framework; watch for new RE targets |
-| https://github.com/sarnau | Atari ST and Atari 8-bit software archaeology plus CPC application reverse engineering; current Atari 8-bit work includes Jumpman, The Goonies and Fighter Pilot |
+| https://github.com/sarnau | Atari ST game reconstruction, copy-protection and ROM analysis, alongside Atari 8-bit and CPC software archaeology |
+| https://github.com/mnemo70 | Amiga intro/demo ReSource disassemblies and SonicArranger format conversion |
+| https://github.com/felipesanches/AnotherWorld_VMTools | Amiga-inclusive Another World VM disassembly, resource extraction and bytecode reassembly |
 | https://github.com/mwenge | Llamasoft Source Project and adjacent reconstructions (C64/VIC-20/C16/Atari 8-bit/Jaguar), plus Uridium and related software-archaeology work |
 | https://github.com/dpt | Spectrum Chase H.Q./Great Escape work |
 | https://github.com/nzeemin/skoolkit-game-revs | Multi-title Spectrum reverse-engineering collection |
@@ -112,7 +114,7 @@
 ### Amiga / Atari ST
 
 - Continue auditing `jotd666` repositories not yet promoted, especially candidates with missing or template/copied READMEs; require project-specific evidence before adding them.
-- Continue mining `hitchhikr` beyond the eight promoted Amiga/ST disassemblies and follow its credited tool/predecessor links.
+- Finish the `sarnau` Atari ST profile inventory and resolve the documented Starflight/STTRANS deferrals; distinguish original-source publications from independent reconstruction work.
 - Continue mining Tetracorp external references and the Pyrdacor/Amber predecessor graph.
 - Continue watching `geogeo28/atari_reverse` for newly added reverse-engineering targets.
 - **BLACK ICE remains excluded** because its own documentation identifies it as an original game built from knowledge gained during RE work rather than an RE project itself.
