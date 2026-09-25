@@ -163,6 +163,12 @@ In addition to direct searches, mine:
 
 Graph-style discovery is intentional: many of the strongest finds were adjacent references rather than keyword-search hits.
 
+### Fresh-search passes
+
+Alongside existing-source follow-ups, rotate platform and work-kind combinations through independent repository/README searches, targeted code searches, and off-GitHub project/forum searches. Screen results against canonical project URLs and prior decisions; a matching keyword, recent push or star count is not evidence of qualifying work. Follow author and citation links from newly found sources, verify each candidate against its own project files, and keep title-specific records separate when a collection spans different platforms or completion states. Record exact queries, inspected candidates, duplicates, exclusions and unexamined leads so later passes can change the search rather than repeat it. Pace code-search calls when GitHub returns a secondary search limit.
+
+The first measured trial and its concrete results are in [the 26 September 2026 fresh-search pilot](docs/fresh-search-pilot-2026-09-26.md).
+
 ## Promotion rule
 
 A lead becomes a record in `data/projects.json` once there is a concrete source and enough evidence to say what the project actually is. Reverse engineering, reconstruction, preservation, ports, substantial original homebrew/fan conversions, and directly relevant development tooling are all within the broader Retro Development Project Tracker scope. Core emulators, debuggers, reassemblers, reconstructed toolchains and archival development tooling may qualify when directly useful to retro development or software archaeology. Ordinary source mirrors or routine open-source maintenance alone normally remain discovery nodes rather than catalogue records. Unknown metadata is acceptable; invented metadata is not.

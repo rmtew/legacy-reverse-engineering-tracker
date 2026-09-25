@@ -64274,5 +64274,645 @@
         "Lua"
       ]
     }
+  },
+  {
+    "id": "gfa-detokenizer-atari-st",
+    "title": "GFA Detokenizer",
+    "upstream_name": "GFA Detokenizer",
+    "display_title": "GFA Detokenizer — Atari ST GFA-BASIC source recovery",
+    "subjects": [],
+    "repo": "https://github.com/NeHeGL/GFA-Detokenizer",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "tokenized GFA-BASIC .gfa"
+    ],
+    "reconstructed_languages": [
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "language-tooling"
+    ],
+    "types": [
+      "GFA-BASIC detokenizer"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "binary format parsing",
+      "token decoding",
+      "real editor corpus comparison"
+    ],
+    "tags": [
+      "Atari ST",
+      "GFA-BASIC"
+    ],
+    "notes": "Decodes tokenized GFA-BASIC 3.x .gfa files into readable .lst source; validates selected output against independent editor/compiler fixtures. Builds on Peter Backes' gfalist format research but is a separate Python parser with version detection and source formatting. Does not handle GFA-BASIC 1.x/2.x or protected PSAVE files."
+  },
+  {
+    "id": "gfa-tokenizer-atari-st",
+    "title": "GFA Tokenizer",
+    "upstream_name": "GFA Tokenizer",
+    "display_title": "GFA Tokenizer — Atari ST GFA-BASIC source encoder",
+    "subjects": [],
+    "repo": "https://github.com/NeHeGL/GFA-Tokenizer",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "Atari ST"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "GFA-BASIC .lst source"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "tokenized GFA-BASIC .gfa"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "language-tooling"
+    ],
+    "types": [
+      "GFA-BASIC tokenizer"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "token encoding",
+      "editor/compiler verification",
+      "round-trip comparison"
+    ],
+    "tags": [
+      "Atari ST",
+      "GFA-BASIC"
+    ],
+    "notes": "Companion to GFA Detokenizer: encodes readable .lst programs as tokenized .gfa files accepted by historical GFA-BASIC editor/compiler. Author reports all 423 statement keywords and a ~5,900-line corpus verified with the real editor under Hatari. This is a source authoring/round-trip tool, not a disassembly of the editor."
+  },
+  {
+    "id": "ghidra-retro-machines",
+    "title": "ghidra-retro-machines",
+    "upstream_name": "ghidra-retro-machines",
+    "display_title": "Ghidra Retro Machines — bank-aware C64, C128, PET and NES loaders",
+    "subjects": [],
+    "repo": "https://github.com/CBongo/ghidra-retro-machines",
+    "source_platforms": [
+      "Commodore 64",
+      "Commodore 128",
+      "Commodore PET",
+      "NES"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [
+      "6502",
+      "6510",
+      "8502"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "6502-family binaries",
+      "PRG",
+      "iNES ROM"
+    ],
+    "reconstructed_languages": [
+      "Java",
+      "YAML"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis"
+    ],
+    "tool_kinds": [
+      "binary-analysis",
+      "static-analysis"
+    ],
+    "types": [
+      "Ghidra machine-aware loaders"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "machine descriptors",
+      "bank-state analysis",
+      "hardware register symbols"
+    ],
+    "tags": [
+      "Ghidra",
+      "Commodore 64",
+      "Commodore 128",
+      "PET",
+      "NES"
+    ],
+    "notes": "Ghidra extension configures system memory maps, ROMs, hardware registers and symbols from per-machine descriptors. Primary README says C64/C128/PET PRG and NES iNES loader pipeline works, with supported discrete and protocol mappers; advanced mapper coverage is still developing."
+  },
+  {
+    "id": "z80-smart-disassembler-cormacj",
+    "title": "z80-smart-disassembler",
+    "upstream_name": "z80-smart-disassembler",
+    "display_title": "Z80 Smart Disassembler — CPC ROM analysis and assembler output",
+    "subjects": [],
+    "repo": "https://github.com/cormacj/z80-smart-disassembler",
+    "source_platforms": [
+      "Amstrad CPC",
+      "Z80 systems"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "Z80 assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis"
+    ],
+    "types": [
+      "Z80 disassembler"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "code/data separation",
+      "template-guided labels",
+      "cross references"
+    ],
+    "tags": [
+      "Amstrad CPC",
+      "Z80"
+    ],
+    "notes": "Python Z80 disassembler developed to analyse Amstrad CPC ROMs; heuristically identifies strings/data and supports template and label files, cross references, and assembly output for several assemblers. The README documents a usable command-line interface, not a verified byte-exact source reconstruction."
+  },
+  {
+    "id": "nesrecomp-static-recompiler",
+    "title": "NESRecomp",
+    "upstream_name": "NESRecomp",
+    "display_title": "NESRecomp — 6502-to-C static recompilation framework",
+    "subjects": [],
+    "repo": "https://github.com/mstan/nesrecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "automation"
+    ],
+    "types": [
+      "static recompiler"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "static recompilation",
+      "generated C",
+      "NES hardware runner"
+    ],
+    "tags": [
+      "NES",
+      "6502"
+    ],
+    "notes": "Translates NES ROM 6502 machine code into C for native compilation and provides a PPU/APU/mapper runner; generated C compilation does not itself produce a playable game. README describes Windows x64 as mature, macOS as experimental and Linux as not fully tested. Individual game projects need per-title integration."
+  },
+  {
+    "id": "metroid-nes-mstan-recomp",
+    "title": "MetroidNESRecomp",
+    "upstream_name": "MetroidNESRecomp",
+    "display_title": "Metroid — NES-to-PC static recompilation",
+    "subjects": [
+      "Metroid"
+    ],
+    "repo": "https://github.com/mstan/MetroidNESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reverse-engineering-derived-port",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "nesrecomp",
+      "ROM checksum gating",
+      "emulator state comparison"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "Metroid"
+    ],
+    "notes": "Uses NESRecomp on Metroid (USA) to translate original 6502 code to native x64 C and run against simulated NES hardware. README reports boot, start-area movement/combat and prolonged runtime, while later areas and behavioral parity remain incomplete. Distinct lineage and output from tracked nmikstas Metroid ROM disassembly; user supplies ROM."
+  },
+  {
+    "id": "batman-return-joker-gb-mixup",
+    "title": "Batman: Return of the Joker",
+    "upstream_name": "Batman: Return of the Joker",
+    "display_title": "Batman: Return of the Joker — Game Boy JavaScript reconstruction",
+    "subjects": [
+      "Batman: Return of the Joker"
+    ],
+    "repo": "https://github.com/Fabulu/Mixup",
+    "source_platforms": [
+      "Game Boy"
+    ],
+    "target_platforms": [
+      "web browser"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "game ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "JavaScript"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port",
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "disassembly-guided port"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "hand translation",
+      "frame-by-frame emulator differential testing",
+      "asset extraction"
+    ],
+    "tags": [
+      "Game Boy",
+      "NES",
+      "Arcade"
+    ],
+    "notes": "Mixup hand-translates the Game Boy ROM disassembly into JavaScript and reports complete title-to-credits behavior checked frame by frame against PyBoy. Behavioral bit-exactness is not identical original-platform binary output.",
+    "project_url": "https://github.com/Fabulu/Mixup/tree/main/games/batman",
+    "github_path": "games/batman"
+  },
+  {
+    "id": "gradius-nes-mixup",
+    "title": "Gradius",
+    "upstream_name": "Gradius",
+    "display_title": "Gradius — NES JavaScript reconstruction",
+    "subjects": [
+      "Gradius"
+    ],
+    "repo": "https://github.com/Fabulu/Mixup",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "web browser"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "game ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "JavaScript"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port",
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "disassembly-guided port"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "hand translation",
+      "frame-by-frame emulator differential testing",
+      "asset extraction"
+    ],
+    "tags": [
+      "Game Boy",
+      "NES",
+      "Arcade"
+    ],
+    "notes": "Mixup translates NES Gradius ROM routines to JavaScript. The current root README reports all seven stages playable and game end/loop, checked against Mesen; its game.json retains an older stage-one blurb. No identical rebuilt NES ROM is claimed.",
+    "project_url": "https://github.com/Fabulu/Mixup/tree/main/games/gradius",
+    "github_path": "games/gradius"
+  },
+  {
+    "id": "dodonpachi-daioujou-arcade-mixup",
+    "title": "DoDonPachi DaiOuJou",
+    "upstream_name": "DoDonPachi DaiOuJou",
+    "display_title": "DoDonPachi DaiOuJou — arcade JavaScript reconstruction",
+    "subjects": [
+      "DoDonPachi DaiOuJou"
+    ],
+    "repo": "https://github.com/Fabulu/Mixup",
+    "source_platforms": [
+      "Arcade"
+    ],
+    "target_platforms": [
+      "web browser"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "game ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "JavaScript"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port",
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "disassembly-guided port"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "hand translation",
+      "frame-by-frame emulator differential testing",
+      "asset extraction"
+    ],
+    "tags": [
+      "Game Boy",
+      "NES",
+      "Arcade"
+    ],
+    "notes": "Mixup translates IGS PGM Black Label Version-B ROM code into JavaScript and compares against MAME. Current README describes five-stage static preflight and ongoing round-two progression, while game.json retains older W179 stage coverage. End-to-end playability is not established.",
+    "project_url": "https://github.com/Fabulu/Mixup/tree/main/games/ddpdoj",
+    "github_path": "games/ddpdoj"
+  },
+  {
+    "id": "action-replay-5-amiga",
+    "title": "Action Replay 5",
+    "upstream_name": "Action Replay 5",
+    "display_title": "Action Replay 5 — Amiga debugger reconstruction",
+    "subjects": [
+      "Action Replay III",
+      "Action Replay IV"
+    ],
+    "repo": "https://github.com/dmcoles/ActionReplay5",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [
+      "m68000"
+    ],
+    "source_language": [
+      "Amiga debugger ROM/software machine code"
+    ],
+    "reconstructed_languages": [
+      "68000 assembly"
+    ],
+    "record_class": "hybrid",
+    "target_kinds": [
+      "development-tool"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction",
+      "reimplementation"
+    ],
+    "tool_kinds": [
+      "debugger",
+      "binary-analysis"
+    ],
+    "types": [
+      "debugger reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "68000 disassembly",
+      "vasm",
+      "ROM debugger expansion"
+    ],
+    "tags": [
+      "Amiga",
+      "68000",
+      "Action Replay"
+    ],
+    "notes": "Builds an expanded Amiga Action Replay debugger from Action Replay III and reverse-engineered ARIV/Action Replay IV material, combining original and newly authored code. README documents DeMoN cartridge, WinUAE, original cartridge and software modes; makefile assembles 68000 sources with vasm. A vasm build recipe is present, but a successful current build, output/runtime variants and binary equality have not been verified."
   }
 ]
