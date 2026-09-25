@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T04:18:24Z",
+  "updated_at": "2026-09-25T04:37:11Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -623,6 +623,67 @@
         "software archaeology"
       ],
       "notes": "Work-in-progress disassembly of multiple released and unreleased Acorn MOS versions for the 8-bit Master family and derivatives. The shared source is intended to be modifiable and builds original ROM variants that are checked against the reference ROMs; the project also produces experimental refreshed MOS variants.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "adf-reader-writer-js": {
+      "id": "adf-reader-writer-js",
+      "title": "ADF reader/writer",
+      "upstream_name": "ADF reader/writer",
+      "display_title": "ADF reader/writer — Amiga OFS/FFS image inspector",
+      "subjects": [],
+      "repo": "https://github.com/steffest/ADF-reader-writer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga OFS/FFS filesystem and ADF/HDF images"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "disk image library"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "filesystem parsing",
+        "raw sector extraction",
+        "damaged disk recovery"
+      ],
+      "tags": [
+        "Amiga",
+        "ADF",
+        "HDF"
+      ],
+      "notes": "Plain JavaScript OFS/FFS reader/writer for ADF and HDF images, with extraction and raw-sector access useful for recovering files from damaged images. Multi-partition HDFs are not supported.",
       "ai": {
         "usage": null,
         "tools": []
@@ -3068,6 +3129,69 @@
         "tools": []
       }
     },
+    "amigainfo-icon-tool": {
+      "id": "amigainfo-icon-tool",
+      "title": "amigainfo",
+      "upstream_name": "amigainfo",
+      "display_title": "amigainfo — Amiga .info icon parser and converter",
+      "subjects": [],
+      "repo": "https://github.com/bitplane/amigainfo",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga .info icon formats"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "icon parser"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "icon decoding",
+        "metadata inspection",
+        "Pillow conversion"
+      ],
+      "tags": [
+        "Amiga",
+        "Workbench",
+        "icons"
+      ],
+      "notes": "Python library and CLI reads, modifies and writes classic, NewIcons, GlowIcons, ARGB and PowerIcons files; exposes tooltypes and icon metadata for preservation/inspection.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "amigaos-kickstart-rcs-history-restoration": {
       "id": "amigaos-kickstart-rcs-history-restoration",
       "title": "AmigaOS Kickstart — RCS source-history restoration",
@@ -3194,6 +3318,99 @@
       "notes": "Recovers Central Coast Software Quarterback backups from ADF images, including damaged or catalogless sets. README documents v4.x through v6.x, compressed markers, catalog layout and format research checked against original GPL Quarterback source. Host-side recovery tool, not an Amiga executable.",
       "ai": {
         "usage": null,
+        "tools": []
+      }
+    },
+    "amiquake-c2p-reconstruction": {
+      "id": "amiquake-c2p-reconstruction",
+      "title": "AmiQuake GCC Port",
+      "upstream_name": "AmiQuake GCC Port",
+      "display_title": "AmiQuake — Quake port with recovered C2P routine",
+      "subjects": [
+        "AmiQuake",
+        "Quake",
+        "AmiQuake C2P routine"
+      ],
+      "repo": "https://github.com/terriblefire/amiquake",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68040"
+      ],
+      "target_cpu": [
+        "m68040",
+        "m68060"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "GCC port",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68040",
+          "notes": "68040 or 68060 with FPU; no minimum RAM established.",
+          "evidence": [
+            {
+              "source": "README",
+              "url": "https://github.com/terriblefire/amiquake",
+              "excerpt": "Amiga with 68040/68060 CPU + FPU"
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "m68k machine code",
+        "C source"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game",
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game port",
+        "C2P source recovery"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra",
+        "objdump",
+        "self-modifying code analysis",
+        "vasm"
+      ],
+      "tags": [
+        "Amiga",
+        "Quake",
+        "68040",
+        "68060"
+      ],
+      "notes": "GCC port of AmiQuake based on awinquake 0.9. An 842-byte NovaCoder chunky-to-planar routine was extracted from AmiQuake 1.36 and rewritten as readable 68k assembly; the author reports working console, palette and viewport tests. AI assistance is asserted without naming a model/tool.",
+      "ai": {
+        "usage": true,
         "tools": []
       }
     },
@@ -4582,6 +4799,70 @@
         "debugger"
       ],
       "notes": "Extension bundles a cross-toolchain and Hatari for ST/TT/Falcon development, with live CPU, memory, hardware and graphics inspection through cppdbg/GDB. README notes TRAP step-over and GEMDOS filename limitations; this is development and analysis tooling, not a reconstructed historic program.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "atari-st-floppy-toolkit-gem": {
+      "id": "atari-st-floppy-toolkit-gem",
+      "title": "Atari ST Floppy Image Toolkit GEM",
+      "upstream_name": "Atari ST Floppy Image Toolkit GEM",
+      "display_title": "Atari ST Floppy Image Toolkit — disk and sector inspector",
+      "subjects": [],
+      "repo": "https://github.com/flindholm-lab/Atari-ST-Floppy-Image-Toolkit-GEM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ST/MSA floppy images and file formats"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "TypeScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "disk image browser",
+        "sector editor"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "FAT12 inspection",
+        "sector editing",
+        "MSA decompression"
+      ],
+      "tags": [
+        "Atari ST",
+        "ST image",
+        "MSA"
+      ],
+      "notes": "Browser-style GEM workbench claims ST/MSA floppy browsing, FAT12 extraction and sector editing. This entry records those published capabilities without asserting the broader README's emulator and packer features have been independently tested.",
       "ai": {
         "usage": null,
         "tools": []
@@ -8043,6 +8324,78 @@
         "tools": []
       }
     },
+    "cdtv-os-235-patch": {
+      "id": "cdtv-os-235-patch",
+      "title": "CDTV OS 2.35 patch",
+      "upstream_name": "CDTV OS 2.35 patch",
+      "display_title": "CDTV OS 2.35 — reconstructed firmware patch",
+      "subjects": [
+        "Commodore CDTV Extended ROM 2.30",
+        "CDTV OS 2.35"
+      ],
+      "repo": "https://github.com/C4ptFuture/cdtv-os235patch",
+      "project_url": "https://github.com/C4ptFuture/cdtv-os235patch/blob/master/README-faq.md",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga CDTV"
+      ],
+      "target_platforms": [
+        "Amiga CDTV",
+        "Amiga A570",
+        "Amiga A690"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "system-software"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "ROM patch",
+        "firmware reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra",
+        "vasm",
+        "binary comparison",
+        "bsdiff"
+      ],
+      "tags": [
+        "CDTV",
+        "Extended ROM",
+        "68030"
+      ],
+      "notes": "Public bsdiff patch transforms a user-supplied Commodore 2.30 Extended ROM into unofficial 2.35 images. Author says original modules were reconstructed as byte-matching assembly after Ghidra/vasm analysis; that source and complete ROM images are not published, so exactness is an upstream claim rather than independently verified here.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "amiga-cdtv-u62-firmware": {
       "id": "amiga-cdtv-u62-firmware",
       "title": "CDTV U62 — front-panel controller firmware analysis",
@@ -8907,6 +9260,76 @@
         "tools": []
       }
     },
+    "chzpart-atari-disk": {
+      "id": "chzpart-atari-disk",
+      "title": "CHZ Atari Disk Partitioning Tool",
+      "upstream_name": "CHZ Atari Disk Partitioning Tool",
+      "display_title": "CHZPART — Atari disk image partitioning",
+      "subjects": [],
+      "repo": "https://github.com/czietz/chzpart",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST",
+        "Atari STE",
+        "Atari TT",
+        "Atari Falcon"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari STE",
+        "Atari TT",
+        "Atari Falcon",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "Atari-compatible partition layout and FAT16"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "partitioning utility"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "XHDI partitioning",
+        "disk image creation"
+      ],
+      "tags": [
+        "Atari ST",
+        "disk images",
+        "FAT16"
+      ],
+      "notes": "Partitions Atari-compatible disks on hardware with XHDI or prepares disk-image files on other systems. Supports TOS-era layouts and FAT16 initialization; this is original modern tooling rather than a reverse-engineered historical utility.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "classic-mac-rom-source-reconstruction": {
       "id": "classic-mac-rom-source-reconstruction",
       "title": "Classic Macintosh ROM source reconstruction",
@@ -9237,6 +9660,89 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "compunet-amiga-client": {
+      "id": "compunet-amiga-client",
+      "title": "Compunet Amiga client",
+      "upstream_name": "Compunet Amiga client",
+      "display_title": "Compunet — recovered Amiga client reconstruction",
+      "subjects": [
+        "Compunet Amiga client"
+      ],
+      "repo": "https://github.com/tgreaves/compunet-reborn",
+      "project_url": "https://github.com/tgreaves/compunet-reborn/blob/main/docs/amiga-client.md",
+      "github_path": "client/amiga",
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Compunet Reborn TCP/IP client",
+          "platform": "Amiga",
+          "os": "Kickstart 2.04 or later; bsdsocket-compatible TCP/IP stack",
+          "evidence": [
+            {
+              "source": "README and Amiga client analysis",
+              "url": "https://github.com/tgreaves/compunet-reborn/blob/main/docs/amiga-client.md",
+              "excerpt": "The reconstructed client runs online with a bsdsocket TCP/IP stack on Kickstart 2.04+."
+            }
+          ]
+        }
+      ],
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "client reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "binary analysis",
+        "transport replacement",
+        "vbcc build"
+      ],
+      "tags": [
+        "Amiga",
+        "networking",
+        "Compunet"
+      ],
+      "notes": "Recovered 1989 native client reconstructed as vbcc C; modem/cnet.device communication replaced with TCP/IP. The repository also hosts C64/server clients; this record tracks the Amiga directory only.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "contact-sam-cruise-spectrum": {
@@ -15742,6 +16248,72 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "greaseweazle-floppy-workbench": {
+      "id": "greaseweazle-floppy-workbench",
+      "title": "Greaseweazle Floppy Disk Workbench",
+      "upstream_name": "Greaseweazle Floppy Disk Workbench",
+      "display_title": "Floppy Disk Workbench — Amiga/Atari flux recovery",
+      "subjects": [],
+      "repo": "https://github.com/JYewman/Greaseweazle-Floppy-Disk-Restorer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "floppy flux and disk images"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis",
+        "copy-protection-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "flux recovery workbench"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "flux visualization",
+        "weak-bit detection",
+        "multi-capture recovery"
+      ],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "Greaseweazle",
+        "preservation"
+      ],
+      "notes": "Python/PyQt Greaseweazle workbench for flux inspection, image writing and recovery; README lists Amiga DD/HD and Atari ST MFM formats. Hardware recovery claims are taken from project documentation, with no local device test.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "green-beret-c64-cadaver": {
@@ -36622,6 +37194,77 @@
         "tools": []
       }
     },
+    "unified-floppy-tool": {
+      "id": "unified-floppy-tool",
+      "title": "UnifiedFloppyTool",
+      "upstream_name": "UnifiedFloppyTool",
+      "display_title": "UnifiedFloppyTool — Amiga/Atari disk preservation",
+      "subjects": [],
+      "repo": "https://github.com/Axel051171/UnifiedFloppyTool",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Atari ST",
+        "Atari 8-bit"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "floppy disk formats and flux data"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis",
+        "copy-protection-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "disk imaging",
+        "flux analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "format parsing",
+        "flux analysis",
+        "copy-protection inspection"
+      ],
+      "tags": [
+        "Amiga",
+        "Atari ST",
+        "floppy",
+        "preservation"
+      ],
+      "notes": "Forensic floppy toolkit advertises Amiga ADF/ADZ/DMS/HDF/IPF and Atari ST/STX/MSA plus flux analysis. Upstream says most formats have synthetic/spec validation, and no hardware controller has a documented real-hardware bench pass for v4.1.6.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "united-forces-intro-amiga": {
       "id": "united-forces-intro-amiga",
       "title": "United Forces intro",
@@ -38356,6 +38999,67 @@
         "tooling"
       ],
       "notes": "Canonical Aminet XFD system for detecting and decompressing single packed files, including executables and data. Release 1.38/39.15 was listed in October 2003; the later AmigaOS 4.1 C port is related but not counted as a separate original research subject.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "xpack-linux-xpk": {
+      "id": "xpack-linux-xpk",
+      "title": "xPack — Linux port",
+      "upstream_name": "xPack — Linux port",
+      "display_title": "xPack — Amiga XPK unpacker for Linux",
+      "subjects": [],
+      "repo": "https://github.com/luca-viola/xPack",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga XPK files"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "compression tool",
+        "format decoder"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "XPK container parsing",
+        "NUKE/DUKE decoding"
+      ],
+      "tags": [
+        "Amiga",
+        "XPK",
+        "compressed archives"
+      ],
+      "notes": "Linux port of historical xPack 1.5, with bundled XPK format implementation and NUKE/DUKE decompression. It reads XPK files and packs with the NONE method; not a reconstruction of the original xPack binary.",
       "ai": {
         "usage": null,
         "tools": []
