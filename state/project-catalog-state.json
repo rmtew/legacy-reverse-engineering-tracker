@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T03:12:22Z",
+  "updated_at": "2026-09-25T03:23:08Z",
   "projects": {
     "180-spectrum": {
       "id": "180-spectrum",
@@ -1804,6 +1804,67 @@
         "jotd666"
       ],
       "notes": "1:1 Amiga 500 port in 68k assembly preserving original visuals, sounds, intro and 50 fps target.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "amidisk-classic-amiga-preservation": {
+      "id": "amidisk-classic-amiga-preservation",
+      "title": "AmiDisk — classic Amiga disk preservation",
+      "upstream_name": "AmiDisk — classic Amiga disk preservation",
+      "display_title": "AmiDisk — classic Amiga disk preservation",
+      "subjects": [
+        "AmiDisk"
+      ],
+      "repo": "https://github.com/Ploos-AS/AmiDisk",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga trackdisk.device",
+        "ADF disk images"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "disk imaging and inspection"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "disk imaging"
+      ],
+      "tags": [
+        "Amiga",
+        "floppy",
+        "tool"
+      ],
+      "notes": "Native AmigaOS 2.04+ disk imaging and copying project with trackdisk.device and ADF baseline. README distinguishes planned recovery, bootblock and filesystem features from current M0 baseline.",
       "ai": {
         "usage": null,
         "tools": []
@@ -5369,6 +5430,69 @@
         "tools": []
       }
     },
+    "rkplay-battlesquadron-music": {
+      "id": "rkplay-battlesquadron-music",
+      "title": "Battle Squadron music replay — rkplay",
+      "upstream_name": "Battle Squadron music replay — rkplay",
+      "display_title": "Battle Squadron music replay — rkplay",
+      "subjects": [
+        "Battle Squadron music replay"
+      ],
+      "repo": "https://github.com/benjihan/rkplay",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Battle Squadron Amiga music and replay routine"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "music player reimplementation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "audio player reverse engineering",
+        "format decoding"
+      ],
+      "tags": [
+        "Amiga",
+        "game audio"
+      ],
+      "notes": "README describes a reverse engineered replayer for Ron Klaren’s Battle Squadron Amiga music, with WAV/raw PCM output. C source, Makefile and song format module present; fidelity to original routine unverified.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "battletech-c64-static-recomp": {
       "id": "battletech-c64-static-recomp",
       "title": "BattleTech: The Crescent Hawk's Inception — C64 static recompilation",
@@ -6045,6 +6169,138 @@
         "tools": []
       }
     },
+    "boing-amicus-amiga-reconstruction": {
+      "id": "boing-amicus-amiga-reconstruction",
+      "title": "Boing Ball AMICUS — Amiga demo reconstruction",
+      "upstream_name": "Boing Ball AMICUS — Amiga demo reconstruction",
+      "display_title": "Boing Ball AMICUS — Amiga demo reconstruction",
+      "subjects": [
+        "Boing Ball AMICUS"
+      ],
+      "repo": "https://github.com/mbackschat/amiga-boing",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "AMICUS Disk 9 demo disassembly"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "disassembly",
+        "source annotation",
+        "assembly"
+      ],
+      "tags": [
+        "Amiga",
+        "demo",
+        "68k"
+      ],
+      "notes": "Source reconstructs the AMICUS Disk 9 variant from Harry Sintonen’s disassembly. README describes working vasm/vlink and FS-UAE path requiring separately supplied ROM, OS headers and mathtrans.library. Two deliberate deviations mean resulting build is not strictly byte-identical.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "boing-amicus-browser-port": {
+      "id": "boing-amicus-browser-port",
+      "title": "Boing Ball AMICUS — browser port",
+      "upstream_name": "Boing Ball AMICUS — browser port",
+      "display_title": "Boing Ball AMICUS — browser port",
+      "subjects": [
+        "Boing Ball AMICUS"
+      ],
+      "repo": "https://github.com/mbackschat/amiga-boing-web",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "AMICUS Disk 9 m68k disassembly"
+      ],
+      "reconstructed_languages": [
+        "TypeScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "browser port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "source-derived behavioral reconstruction",
+        "audio and graphics analysis"
+      ],
+      "tags": [
+        "Amiga",
+        "demo",
+        "Web"
+      ],
+      "notes": "Standalone browser port derived from the separate mbackschat/amiga-boing analyzed AMICUS assembly. Uses Canvas2D and WebAudio; live demo and npm build documented. Distinct implementation from the Amiga source reconstruction.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "bomber-apple2-6502disassembly": {
       "id": "bomber-apple2-6502disassembly",
       "title": "Bomber",
@@ -6170,6 +6426,68 @@
         "SkoolKit"
       ],
       "notes": "Pobtastic annotated ZX Spectrum disassembly created with SkoolKit.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "borland-hlp-atari-st-converter": {
+      "id": "borland-hlp-atari-st-converter",
+      "title": "Borland HLP — Atari ST format converter",
+      "upstream_name": "Borland HLP — Atari ST format converter",
+      "display_title": "Borland HLP — Atari ST format converter",
+      "subjects": [
+        "Borland HLP"
+      ],
+      "repo": "https://github.com/mbackschat/atari-st-hlp-convert",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Pure C / Turbo C .HLP files"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "format decoder",
+        "documentation converter"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "binary format decoding",
+        "nibble decompression"
+      ],
+      "tags": [
+        "Atari ST",
+        "HLP",
+        "tool"
+      ],
+      "notes": "Independent Python converter and byte-level specification for Borland Help System 2.0 .HLP files, outputting HTML, Markdown or text. Related th-otto/pc_help reconstructs original compiler tools; this is a separate decoder implementation.",
       "ai": {
         "usage": null,
         "tools": []
@@ -6769,6 +7087,74 @@
         "tooling"
       ],
       "notes": "CD32/IDE loader for WHDLoad slaves. README reports selected A600 installs with 1 MB chip RAM and testing on real CD32 and A1200; this is game dependent, not a universal 1 MB minimum.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "amiga-cdtv-u62-firmware": {
+      "id": "amiga-cdtv-u62-firmware",
+      "title": "CDTV U62 — front-panel controller firmware analysis",
+      "upstream_name": "CDTV U62 — front-panel controller firmware analysis",
+      "display_title": "CDTV U62 — front-panel controller firmware analysis",
+      "subjects": [
+        "CDTV U62"
+      ],
+      "repo": "https://github.com/Korinel/Amiga-CDTV-U62",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga CDTV"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "Sanyo LC6554H"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "LC6554H controller ROM"
+      ],
+      "reconstructed_languages": [
+        "LC6500 assembly",
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "disassembler"
+      ],
+      "types": [
+        "annotated firmware listing",
+        "instruction decoder"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "recursive-descent tracing",
+        "ROM memory mapping"
+      ],
+      "tags": [
+        "Amiga",
+        "CDTV",
+        "firmware"
+      ],
+      "notes": "Annotated LC6554H U62 controller ROM listing with address/raw bytes and a Python disassembler. Covers CDTV front panel, remote-control link and CD-drive behavior. Listing is expressly for reading, not assembling; one BANK interpretation remains unproven.",
       "ai": {
         "usage": null,
         "tools": []
@@ -14647,6 +15033,72 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "hdbackup-atari-st-recovery": {
+      "id": "hdbackup-atari-st-recovery",
+      "title": "Harddisk Utility backup — Atari ST recovery tools",
+      "upstream_name": "Harddisk Utility backup — Atari ST recovery tools",
+      "display_title": "Harddisk Utility backup — Atari ST recovery tools",
+      "subjects": [
+        "Harddisk Utility backup"
+      ],
+      "repo": "https://github.com/mbackschat/atari-st-hdbackup-recover",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ASH Harddisk Utility backup disk images"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "backup recovery",
+        "format decoder"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "fragment reconstruction",
+        "RLE decompression",
+        "file carving"
+      ],
+      "tags": [
+        "Atari ST",
+        "backup",
+        "tool"
+      ],
+      "notes": "Reverse engineered older ASH Harddisk Utility backup stream with missing catalogue disk; pipeline carves .st images, reassembles fragments, recognizes file types and converts DEGAS assets. README explicitly credits Claude Code-assisted analysis and tooling.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "harrier-attack-spectrum": {
@@ -25113,6 +25565,74 @@
         ]
       }
     },
+    "pure-c-help-atari-st-source-reconstruction": {
+      "id": "pure-c-help-atari-st-source-reconstruction",
+      "title": "Pure C/Pascal help tools — Atari ST reconstruction",
+      "upstream_name": "Pure C/Pascal help tools — Atari ST reconstruction",
+      "display_title": "Pure C/Pascal help tools — Atari ST reconstruction",
+      "subjects": [
+        "Pure C/Pascal help tools"
+      ],
+      "repo": "https://github.com/th-otto/pc_help",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "analysis host"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Pure C/Pascal help compiler and viewer executables"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "m68k assembly"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "compiler and viewer reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "decompilation",
+        "format analysis"
+      ],
+      "tags": [
+        "Atari ST",
+        "help compiler",
+        "source reconstruction"
+      ],
+      "notes": "Compiler and viewer sources reconstructed from Pure C and Pure Pascal executables. An orig branch can compile to almost identical originals; master improves functionality. The decompiler is mostly based on a contemporary published article and should not be presented as binary-derived.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "py8dis-zornslemma": {
       "id": "py8dis-zornslemma",
       "title": "py8dis",
@@ -27406,6 +27926,71 @@
         "binary analysis"
       ],
       "notes": "Title-specific C64 binary-analysis state for 8-Bit Analysers. The Sanxion directory contains an Analysis.json annotation database (71 KiB), saved analysis state (40 KiB), emulator save state and project configuration. Tracked as an analysis-state project, not as a reconstructed source tree.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sbasic-atari-st-source-analysis": {
+      "id": "sbasic-atari-st-source-analysis",
+      "title": "SBasic — Atari ST source analysis",
+      "upstream_name": "SBasic — Atari ST source analysis",
+      "display_title": "SBasic — Atari ST source analysis",
+      "subjects": [
+        "SBasic"
+      ],
+      "repo": "https://github.com/mbackschat/atari-st-sbasic",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "original m68k assembly source"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated source",
+        "technical analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "source annotation",
+        "language documentation"
+      ],
+      "tags": [
+        "Atari ST",
+        "BASIC",
+        "68k"
+      ],
+      "notes": "Original programmer publishes his 1987/88 FBasic/SBasic assembly, annotated source and reconstructed documentation, along with a PRG and as68/link68 commands. Source provenance is original source, not binary-only recovery.",
       "ai": {
         "usage": null,
         "tools": []
@@ -31979,6 +32564,70 @@
         "tools": []
       }
     },
+    "threesystem-horror-89-disassembly": {
+      "id": "threesystem-horror-89-disassembly",
+      "title": "Three System Horror 89 — Amiga intro disassembly",
+      "upstream_name": "Three System Horror 89 — Amiga intro disassembly",
+      "display_title": "Three System Horror 89 — Amiga intro disassembly",
+      "subjects": [
+        "Three System Horror 89"
+      ],
+      "repo": "https://github.com/Ozzyboshi/ThreeSystem-Horror-89",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga intro executable"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reassembled disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "disassembly",
+        "asset extraction"
+      ],
+      "tags": [
+        "Amiga",
+        "intro",
+        "68k"
+      ],
+      "notes": "Repository includes large disassembly, original executable, reassembled file, work/horror.s, work/Makefile and extracted music and graphics. File names suggest a reassembly, but byte identity and runtime were not verified here.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "through-trap-door-spectrum": {
       "id": "through-trap-door-spectrum",
       "title": "Through the Trap Door",
@@ -33154,6 +33803,69 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "unhunker-amiga-re-tools": {
+      "id": "unhunker-amiga-re-tools",
+      "title": "UnHunker — Amiga reverse engineering tools",
+      "upstream_name": "UnHunker — Amiga reverse engineering tools",
+      "display_title": "UnHunker — Amiga reverse engineering tools",
+      "subjects": [
+        "UnHunker"
+      ],
+      "repo": "https://github.com/the1stArchyx/amiga-re-tools",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "Amiga HUNK executables"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis"
+      ],
+      "types": [
+        "HUNK relocation tool"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "HUNK loading emulation",
+        "relocation"
+      ],
+      "tags": [
+        "Amiga",
+        "HUNK",
+        "tool"
+      ],
+      "notes": "README.org describes functional UnHunker, which applies HUNK_CODE and HUNK_RELOC32 loading to produce a statically addressed dump for Ghidra. ADF extraction is proposed work, not a completed feature.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "united-forces-intro-amiga": {
@@ -34830,6 +35542,68 @@
         "tooling"
       ],
       "notes": "Canonical Aminet XFD system for detecting and decompressing single packed files, including executables and data. Release 1.38/39.15 was listed in October 2003; the later AmigaOS 4.1 C port is related but not counted as a separate original research subject.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "xpk-nuke-duke-decompressor": {
+      "id": "xpk-nuke-duke-decompressor",
+      "title": "XPK NUKE/DUKE — Amiga decompressor",
+      "upstream_name": "XPK NUKE/DUKE — Amiga decompressor",
+      "display_title": "XPK NUKE/DUKE — Amiga decompressor",
+      "subjects": [
+        "XPK NUKE/DUKE"
+      ],
+      "repo": "https://github.com/mbackschat/amiga-xpk-decompress-skill",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "XPK NUKE/DUKE compressed Amiga files"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "automation"
+      ],
+      "types": [
+        "decompression tool"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "XPK decompression",
+        "checksum validation"
+      ],
+      "tags": [
+        "Amiga",
+        "XPK",
+        "tool"
+      ],
+      "notes": "Agent-facing Python decompressor for Amiga XPK NUKE and DUKE archives. README identifies codec as a port from temisu/ancient, not an independent reverse engineering of the original compressor; includes recursive file discovery and validation.",
       "ai": {
         "usage": null,
         "tools": []
