@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T06:11:08Z",
+  "updated_at": "2026-09-25T06:40:33Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -10973,6 +10973,71 @@
         "tools": []
       }
     },
+    "dos-cosmore": {
+      "id": "dos-cosmore",
+      "title": "Cosmore",
+      "upstream_name": "Cosmore",
+      "display_title": "Cosmo's Cosmic Adventure — source reconstruction",
+      "subjects": [
+        "Cosmo's Cosmic Adventure"
+      ],
+      "repo": "https://github.com/smitelli/cosmore",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "compiler matching",
+        "binary comparison"
+      ],
+      "tags": [
+        "DOS",
+        "Cosmo",
+        "Apogee"
+      ],
+      "notes": "Reconstructs v1.20 using Turbo C 2.0 and TASM 1.0. Author reports 96.30% identical load-image bytes after excluding EXE headers/relocations; remaining mismatch includes uninitialized data, so do not mark byte-exact.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "crossroads2-c64-markrdgox": {
       "id": "crossroads2-c64-markrdgox",
       "title": "crossroads-2-disassembly",
@@ -11995,6 +12060,77 @@
         "tools": []
       }
     },
+    "dos-zeliard-decomp-awkto": {
+      "id": "dos-zeliard-decomp-awkto",
+      "title": "decomp-zel",
+      "upstream_name": "decomp-zel",
+      "display_title": "Zeliard — independent DOS analysis and SDL port",
+      "subjects": [
+        "Zeliard"
+      ],
+      "repo": "https://github.com/awkto/zeliard-decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code",
+        "SAR archives"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "data-format-analysis",
+        "reimplementation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game analysis",
+        "SDL port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SAR extraction",
+        "RLE decompression",
+        "DOSBox comparisons",
+        "Ghidra-assisted decompilation"
+      ],
+      "tags": [
+        "DOS",
+        "Zeliard"
+      ],
+      "notes": "Independent repository with SAR/resource tools, original-binary disassembly scripts, documented town/fight systems, SDL port and author-described playthrough. CI tests without game files; parity/playthrough checks need original files. Separate from nolanvenhola's bit-perfect MASM reconstruction.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "delirium-liberation-cracktro": {
       "id": "delirium-liberation-cracktro",
       "title": "Delirium Liberation intro",
@@ -12184,6 +12320,73 @@
         "6502"
       ],
       "notes": "D64 extractor and decruncher for BoozeLoader trackmo chains using ByteBoozer 1.1/2.0, created during Uncensored disassembly. Author verified Uncensored and part of Remains against VICE dumps; separate program.py disassembler handles BASIC tokens and simple traces but is experimental.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-dethrace": {
+      "id": "dos-dethrace",
+      "title": "Dethrace",
+      "upstream_name": "Dethrace",
+      "display_title": "Carmageddon — incremental DOS executable reconstruction",
+      "subjects": [
+        "Carmageddon"
+      ],
+      "repo": "https://github.com/dethrace-labs/dethrace",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "function-by-function replacement",
+        "symbol analysis"
+      ],
+      "tags": [
+        "DOS",
+        "Carmageddon"
+      ],
+      "notes": "Buildable native Carmageddon reimplementation that replaces original assembly with C function by function. Historical Watcom symbols exist but README says they do not match released code positions. Completeness and playable parity remain unverified.",
       "ai": {
         "usage": null,
         "tools": []
@@ -13291,6 +13494,72 @@
         "tools": []
       }
     },
+    "dos-dr-riptide-dissected": {
+      "id": "dos-dr-riptide-dissected",
+      "title": "Dr. Riptide Dissected",
+      "upstream_name": "Dr. Riptide Dissected",
+      "display_title": "In Search of Dr. Riptide — DAT viewer and editor",
+      "subjects": [
+        "In Search of Dr. Riptide"
+      ],
+      "repo": "https://github.com/movAX13h/DrRiptideDissected",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "DAT archives",
+        "map and sprite formats"
+      ],
+      "reconstructed_languages": [
+        "C#"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "DOS game asset research"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "map format decoding",
+        "sprite and music extraction",
+        "DAT editing"
+      ],
+      "tags": [
+        "DOS",
+        "In Search of Dr. Riptide",
+        "asset editor"
+      ],
+      "notes": "Viewer/editor for original DAT resources, maps, sprites, images, music, sound, text and triggers. Credits srtuss for the map format and joint research; game executable remains original.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "dragon-warrior-nes-nmikstas": {
       "id": "dragon-warrior-nes-nmikstas",
       "title": "dragon-warrior-disassembly",
@@ -13642,6 +13911,72 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "dos-duke2-reconstructed": {
+      "id": "dos-duke2-reconstructed",
+      "title": "Duke2Reconstructed",
+      "upstream_name": "Duke2Reconstructed",
+      "display_title": "Duke Nukem II — byte-exact DOS source reconstruction",
+      "subjects": [
+        "Duke Nukem II"
+      ],
+      "repo": "https://github.com/lethal-guitar/Duke2Reconstructed",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [
+        "IDA disassembly",
+        "original-toolchain recompilation",
+        "binary comparison"
+      ],
+      "tags": [
+        "DOS",
+        "Duke Nukem II",
+        "Apogee"
+      ],
+      "notes": "Author reports the reconstructed executable is byte-for-byte identical for the documented LZEXE shareware and registered builds. Separate from the same author's modern RigelEngine port; shares historical engine lineage with Cosmore.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "dun-darach-spectrum": {
@@ -16041,6 +16376,71 @@
         "tools": []
       }
     },
+    "dos-f15se2-re": {
+      "id": "dos-f15se2-re",
+      "title": "F-15 Strike Eagle 2 source code reconstruction",
+      "upstream_name": "F-15 Strike Eagle 2 source code reconstruction",
+      "display_title": "F-15 Strike Eagle II — DOS executable reconstruction",
+      "subjects": [
+        "F-15 Strike Eagle II"
+      ],
+      "repo": "https://github.com/neuviemeporte/f15se2-re",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "compiler matching",
+        "executable analysis"
+      ],
+      "tags": [
+        "DOS",
+        "F-15 Strike Eagle II",
+        "MicroProse"
+      ],
+      "notes": "Reconstructs v451.03 game C code and most related executables with a functionally equivalent loader. C routines can match original instructions when compiled with Microsoft C 5.1, but executable layout differences and remaining assembly mean no whole-binary exactness claim. Modern port is a separate derivative.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "fairlight-spectrum-krumlinde": {
       "id": "fairlight-spectrum-krumlinde",
       "title": "Fairlight",
@@ -17531,6 +17931,72 @@
         "demo"
       ],
       "notes": "Documented 1:1 Amiga conversion of the Atari ST FujiBoink demo with scripts regenerating animation and color data and Amiga assembly source. It is a new native implementation; no binary-derived disassembly or byte-exact port claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-fuzzy-golf-analysis": {
+      "id": "dos-fuzzy-golf-analysis",
+      "title": "Fuzzy's World of Miniature Space Golf Decomp",
+      "upstream_name": "Fuzzy's World of Miniature Space Golf Decomp",
+      "display_title": "Fuzzy's Space Golf — partial DOS resource decoding",
+      "subjects": [
+        "Fuzzy's World of Miniature Space Golf"
+      ],
+      "repo": "https://github.com/mills32/Fuzzy-s-World-of-Miniature-Space-Golf-Decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "analysis host"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "DOS resource files",
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "data-format-analysis",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "partial DOS game research"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "resource extraction",
+        "animation decoding",
+        "tracker conversion"
+      ],
+      "tags": [
+        "DOS",
+        "Fuzzy's Space Golf"
+      ],
+      "notes": "README calls a full Ghidra-derived reimplementation a goal; current UTILS contain music player/converter, resource extractor and graphics format work. Do not report a completed decompilation or playable port.",
       "ai": {
         "usage": null,
         "tools": []
@@ -29451,6 +29917,136 @@
         ]
       }
     },
+    "dos-opencrystalcaves": {
+      "id": "dos-opencrystalcaves",
+      "title": "OpenCrystalCaves",
+      "upstream_name": "OpenCrystalCaves",
+      "display_title": "Crystal Caves — original-data engine reimplementation",
+      "subjects": [
+        "Crystal Caves"
+      ],
+      "repo": "https://github.com/OpenCrystalCaves/OpenCrystalCaves",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "DOS game data"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game engine reimplementation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original asset compatibility",
+        "engine reimplementation"
+      ],
+      "tags": [
+        "DOS",
+        "Crystal Caves"
+      ],
+      "notes": "Unofficial modern engine using original game data; README states episode 1 is playable while episodes 2/3, saving and some audio/UI behavior remain incomplete. CPU of original binary not independently established.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-openprototype": {
+      "id": "dos-openprototype",
+      "title": "OpenPrototype",
+      "upstream_name": "OpenPrototype",
+      "display_title": "Prototype (1995) — DOS CD game reverse-engineered port",
+      "subjects": [
+        "Prototype"
+      ],
+      "repo": "https://github.com/openprototype-game/openprototype",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "DOS CD game data"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "data-format-analysis",
+        "reimplementation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra study",
+        "disc and asset format decoding",
+        "behavioral reimplementation"
+      ],
+      "tags": [
+        "DOS",
+        "Prototype"
+      ],
+      "notes": "From-scratch port of the 1995 DOS shooter; README reports all seven levels and ending playable using original disc image. Documents original programmer's format notes, manual Ghidra analysis, later AI-assisted implementation; modern code is not source-level decompilation.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "GitHub Copilot"
+        ]
+      }
+    },
     "openua": {
       "id": "openua",
       "title": "OpenUA / Forgotten Realms: Unlimited Adventures",
@@ -29918,6 +30514,70 @@
       "notes": "Windows-hosted executable packer for Atari ST, X68000 and Nintendo DS, primarily intended for 64K intros; compression support is not a claim of reverse-engineered game source.",
       "ai": {
         "usage": null,
+        "tools": []
+      }
+    },
+    "dos-pacwars-decomp": {
+      "id": "dos-pacwars-decomp",
+      "title": "pacwars_decomp",
+      "upstream_name": "pacwars_decomp",
+      "display_title": "Pacwars — debug-symbol-assisted DOS C decompilation",
+      "subjects": [
+        "Pacwars"
+      ],
+      "repo": "https://github.com/yuv422/pacwars_decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS C decompilation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "debug-symbol analysis",
+        "Ghidra decompilation"
+      ],
+      "tags": [
+        "DOS",
+        "Pacwars",
+        "IPX"
+      ],
+      "notes": "Version 1.6 debug symbols informed an author-reported Ghidra/AI decompilation; Borland C++ 3.x build produces PACWARS.EXE, with DOSBox IPX launch scripts. No binary identity or complete gameplay parity established.",
+      "ai": {
+        "usage": true,
         "tools": []
       }
     },
@@ -33275,6 +33935,70 @@
         "tools": []
       }
     },
+    "dos-rayman-disasm": {
+      "id": "dos-rayman-disasm",
+      "title": "rayman_disasm",
+      "upstream_name": "rayman_disasm",
+      "display_title": "Rayman — DOS protected-mode executable disassembly",
+      "subjects": [
+        "Rayman"
+      ],
+      "repo": "https://github.com/neodyme60/rayman_disasm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS executable disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "PMODE/W unpacking",
+        "linear executable analysis"
+      ],
+      "tags": [
+        "DOS",
+        "Rayman",
+        "protected mode"
+      ],
+      "notes": "README documents stripping a 16-bit DOS extender around a 32-bit game and the gog/ tree contains a large rayman_disasm.S listing. Research output is an analysis/disassembly, not a working port.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "rdos-apple2-6502disassembly": {
       "id": "rdos-apple2-6502disassembly",
       "title": "RDOS",
@@ -33337,6 +34061,73 @@
         "software archaeology"
       ],
       "notes": "Disassembly of SSI's compact RDOS 3.3 disk operating system, with SourceGen project files/binaries and documentation of its filesystem and Applesoft ampersand-command interface. The author notes an earlier full RDOS 2.1 disassembly was used to develop ProDOS RDOS.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-clyde-re": {
+      "id": "dos-clyde-re",
+      "title": "reclyde",
+      "upstream_name": "reclyde",
+      "display_title": "Clyde's Adventure — DOS executable and asset analysis",
+      "subjects": [
+        "Clyde's Adventure"
+      ],
+      "repo": "https://github.com/GeorgeDewar/reclyde",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code",
+        "EGA game data"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "RLE analysis",
+        "EGA extraction",
+        "castle map decoding"
+      ],
+      "tags": [
+        "DOS",
+        "Clyde's Adventure",
+        "EGA"
+      ],
+      "notes": "Partial executable disassembly and tools for RLE, EGA images and castle layouts; extractors recover some volumes and first six castles. Runnable refers to the analysis extractors, not a playable game reconstruction.",
       "ai": {
         "usage": null,
         "tools": []
@@ -33635,6 +34426,76 @@
         "xa"
       ],
       "notes": "Disassembly and reassembly of Repton 2's main BBC Micro executable. py8dis scripts generate annotated assembly, a fix-up pass targets xa, and the bundled binary folds initialization behaviour from the original D.REPA loader into a directly launchable form; because that output is intentionally transformed, the tracker does not mark it byte-exact.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-shortline-resl": {
+      "id": "dos-shortline-resl",
+      "title": "reSL",
+      "upstream_name": "reSL",
+      "display_title": "ShortLine v1.1 — offset-annotated reconstructed port",
+      "subjects": [
+        "ShortLine"
+      ],
+      "repo": "https://github.com/konovalov-aleks/reSL",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS",
+        "Android",
+        "iOS",
+        "Web"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "binary-offset mapping",
+        "decompiler comparison"
+      ],
+      "tags": [
+        "DOS",
+        "ShortLine"
+      ],
+      "notes": "The original branch preserves per-function offsets into the v1.1 DOS binary; main has an SDL2 C/C++ port with touch controls and changes. Do not treat the modern executable as a byte-exact DOS reassembly.",
       "ai": {
         "usage": null,
         "tools": []
@@ -34243,6 +35104,73 @@
         "Flashback"
       ],
       "notes": "Browser-side extraction of Flashback Amiga install disks into the DATA layout of the author’s Atari ST REminiscence port. Decodes IPF/ADF/ADZ and OFS/FFS; converts 21 MOD tracks to YM register streams. Requires user-supplied disks.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-rigelengine": {
+      "id": "dos-rigelengine",
+      "title": "RigelEngine",
+      "upstream_name": "RigelEngine",
+      "display_title": "Duke Nukem II — modern reverse-engineered engine",
+      "subjects": [
+        "Duke Nukem II"
+      ],
+      "repo": "https://github.com/lethal-guitar/RigelEngine",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code",
+        "game data"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game engine"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original DOS binary disassembly",
+        "original-data compatibility"
+      ],
+      "tags": [
+        "DOS",
+        "Duke Nukem II",
+        "game engine"
+      ],
+      "notes": "Separate from Duke2Reconstructed: modern C++ engine informed by original DOS disassembly; reads original game data and supports all four episodes. README directs readers to the same author's byte-exact reconstruction for historically faithful DOS code.",
       "ai": {
         "usage": null,
         "tools": []
@@ -35493,6 +36421,68 @@
         "tools": []
       }
     },
+    "dos-ericoakford-sci-archive": {
+      "id": "dos-ericoakford-sci-archive",
+      "title": "SCI Decompilation Archive",
+      "upstream_name": "SCI Decompilation Archive",
+      "display_title": "Sierra SCI games — older decompiled and tested script corpus",
+      "subjects": [
+        "Sierra SCI games"
+      ],
+      "repo": "https://github.com/EricOakford/SCI-Decompilation-Archive",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS",
+        "Amiga"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "SCI bytecode"
+      ],
+      "reconstructed_languages": [
+        "SCI script"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "SCI game script corpus"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SCI Companion project recovery",
+        "script repair"
+      ],
+      "tags": [
+        "DOS",
+        "SCI",
+        "Sierra"
+      ],
+      "notes": "Earlier independent SCI Companion project corpus with title-specific game.ini, decompiled script source and occasional gameplay fixes; King's Quest I README reports completion testing but a moveButterfly caveat. Overlaps subjects with sluicebox/sci-scripts yet differs in versions, tooling history and human edits; no blanket script-build claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "sierra-sci-tools-sluicebox": {
       "id": "sierra-sci-tools-sluicebox",
       "title": "SCI Tools — decompiler and parsers",
@@ -35768,6 +36758,71 @@
         "AGOS and game archive formats"
       ],
       "notes": "Project tool collection includes extract_agos for packed Amiga/ST Elvira 1/2, Waxworks and Simon the Sorcerer 1 files, plus Cinematique and other archive extractors. Entry indexes the collection and its documented Amiga/ST scope, not a claim that every tool supports both platforms.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dos-sdlpop": {
+      "id": "dos-sdlpop",
+      "title": "SDLPoP",
+      "upstream_name": "SDLPoP",
+      "display_title": "Prince of Persia — DOS-disassembly-derived SDL port",
+      "subjects": [
+        "Prince of Persia"
+      ],
+      "repo": "https://github.com/NagyD/SDLPoP",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "DOS executable disassembly",
+        "SDL porting"
+      ],
+      "tags": [
+        "DOS",
+        "Prince of Persia"
+      ],
+      "notes": "Port of DOS Prince of Persia 1.0 based on the author's separately published IDA disassembly, with later-version features and modern extensions. The Apple II original source is cited as supporting evidence, not the DOS code being catalogued.",
       "ai": {
         "usage": null,
         "tools": []
@@ -39326,6 +40381,70 @@
         "tools": []
       }
     },
+    "dos-supaplex-binary-patches": {
+      "id": "dos-supaplex-binary-patches",
+      "title": "Supaplex",
+      "upstream_name": "Supaplex",
+      "display_title": "Supaplex — assembly-level DOS binary patches",
+      "subjects": [
+        "Supaplex"
+      ],
+      "repo": "https://github.com/eigenco/Supaplex",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS executable patch"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "incbin binary patching",
+        "timer and sound routine analysis"
+      ],
+      "tags": [
+        "DOS",
+        "Supaplex",
+        "assembly"
+      ],
+      "notes": "Assembly files patch portions of the original DOS executable via incbin; fixes include smooth scrolling, copy-protection bypass, input and sound changes. This is not a full game disassembly or reconstructed source tree.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "jotd-super-bagman-amiga": {
       "id": "jotd-super-bagman-amiga",
       "title": "Super Bagman — Amiga arcade transcode",
@@ -41001,6 +42120,70 @@
         "tools": []
       }
     },
+    "dos-magic-candle-analysis": {
+      "id": "dos-magic-candle-analysis",
+      "title": "The Magic Candle 1 reverse engineering",
+      "upstream_name": "The Magic Candle 1 reverse engineering",
+      "display_title": "The Magic Candle — DOS save and tile format analysis",
+      "subjects": [
+        "The Magic Candle"
+      ],
+      "repo": "https://github.com/lglearn/magic-candle-1-reverse-eng",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "DOS save data",
+        "tile files"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game data analysis"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "save XOR/offset decoding",
+        "tile extraction"
+      ],
+      "tags": [
+        "DOS",
+        "The Magic Candle",
+        "save format"
+      ],
+      "notes": "Python save decoder/editor and tile decoder derived by modifying and inspecting game data. Author describes map decoding as unfinished and not published; there is no reconstructed gameplay source.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "the-pawn-atari-st-protection": {
       "id": "the-pawn-atari-st-protection",
       "title": "The Pawn — Atari ST disk and loader analysis",
@@ -42460,6 +43643,75 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "dos-tube-reconstruction": {
+      "id": "dos-tube-reconstruction",
+      "title": "tube-game-dos",
+      "upstream_name": "tube-game-dos",
+      "display_title": "Tube — reconstructed DOS Bullfrog game port",
+      "subjects": [
+        "Tube"
+      ],
+      "repo": "https://github.com/rep-stosw/tube-game-dos",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "Windows",
+        "Linux",
+        "Web"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS game reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "IDA disassembly",
+        "Hex-Rays decompilation",
+        "SDL2 port"
+      ],
+      "tags": [
+        "DOS",
+        "Tube",
+        "Bullfrog"
+      ],
+      "notes": "Author reports a recreated Tube source tree compiled with OpenWatcom for DOS DPMI, plus 32-bit Windows/Linux and Emscripten. README cautions the port does not run as a 64-bit program; no byte-exact claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "turbo-st-source-analysis": {
@@ -45156,6 +46408,81 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "dos-zeliard-masm": {
+      "id": "dos-zeliard-masm",
+      "title": "Zeliard",
+      "upstream_name": "Zeliard",
+      "display_title": "Zeliard — bit-perfect MASM reconstruction and web port",
+      "subjects": [
+        "Zeliard"
+      ],
+      "repo": "https://github.com/nolanvenhola/zeliard",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "Web"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "x86 machine code",
+        "SAR resources"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly",
+        "C",
+        "WebAssembly",
+        "TypeScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "reverse-engineering-derived-port",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "DOS executable reconstruction",
+        "browser port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [
+        "MASM reassembly",
+        "SAR repacking",
+        "behavioral tests"
+      ],
+      "tags": [
+        "DOS",
+        "Zeliard",
+        "x86"
+      ],
+      "notes": "Author reports release builds reproduce original DOS binaries and all three SAR archives bit for bit via build_masm.py --verify; the C/WebAssembly port is playable to the ending. Separate from awkto's independent Zeliard study and SDL port.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "zippy-race-amiga-ocs-lantus": {
