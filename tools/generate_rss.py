@@ -212,7 +212,9 @@ def change_description(event, project):
         bits.append("<p><strong>Last 90 days:</strong> " + str(context["commits_90d"]) +
                     " commits across " + str(context.get("active_days_90d", 0)) + " active days</p>")
     elif event.get("type") in ("project_added", "project_restored"):
-        bits.append("<p>Initial activity scan pending.</p>")
+        repo = project.get("repo") or ""
+        status = "Initial activity scan pending." if "github.com/" in repo else "Repository activity unavailable."
+        bits.append("<p>" + status + "</p>")
     changes = event.get("changes") or []
     if changes:
         bits.append("<p><strong>Changed:</strong> " + html.escape(", ".join(field.replace("_", " ") for field in changes)) + "</p>")

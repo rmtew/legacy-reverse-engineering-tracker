@@ -54,6 +54,18 @@ class ActivityHistoryTest(unittest.TestCase):
         project["github"]["latest_release"]["tag"] = "v2"
         self.assertEqual(addition["activity_context"]["latest_release"]["tag"], "v1")
 
+    def test_scan_before_event_counts_only_when_project_was_scanned(self):
+        now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+        addition = {"type": "project_added", "date": "2026-10-01T00:02:00Z", "project_id": "p"}
+        project = {"id": "p", "github": {"repository": "a/b"}}
+        state = {"last_deep_scan": "2026-10-01T00:01:00Z", "last_deep_scan_project_ids": ["p"]}
+        freeze_addition_context([addition], [project], {"a/b": state}, now)
+        self.assertIn("activity_context", addition)
+        addition.pop("activity_context")
+        state["last_deep_scan_project_ids"] = ["other"]
+        freeze_addition_context([addition], [project], {"a/b": state}, now)
+        self.assertNotIn("activity_context", addition)
+
 
 if __name__ == "__main__":
     unittest.main()

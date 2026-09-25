@@ -973,7 +973,8 @@ function additionContextHtml(event, project) {
     const days=context.active_days_90d||0;
     lines.push(entry("Last 90 days",count+" commit"+(count===1?"":"s")+" across "+days+" active day"+(days===1?"":"s")));
   }else{
-    lines.push(entry("Activity", "Initial scan pending"));
+    const githubRepo=project?.github?.repository || /^https?:\/\/(?:www\.)?github\.com\//i.test(project?.repo||"");
+    lines.push(entry("Activity", githubRepo?"Initial scan pending":"Repository activity unavailable"));
   }
   return lines.join("");
 }

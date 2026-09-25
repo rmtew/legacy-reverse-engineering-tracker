@@ -489,6 +489,7 @@ def main():
 
         if full_success:
             rs["last_deep_scan"] = NOW_ISO
+            rs["last_deep_scan_project_ids"] = sorted(p["id"] for p in repo_projects)
             rs["scan_requested"] = False
             rs.pop("scan_reason", None)
             rs.pop("last_error", None)

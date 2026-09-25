@@ -12,7 +12,7 @@ import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from activity_history import write_activity
+from activity_history import freeze_addition_context, write_activity
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
@@ -320,6 +320,11 @@ def main():
         ),
         reverse=True,
     )
+
+    # The initial repository scan runs before this step in the refresh job.
+    poll_state = ROOT / "state" / "github-poll-state.json"
+    repositories = json.loads(poll_state.read_text(encoding="utf-8")).get("repositories", {}) if poll_state.exists() else {}
+    freeze_addition_context(retained, projects, repositories, NOW)
 
     activity["generated_at"] = NOW_ISO
     activity["window_days"] = DAYS

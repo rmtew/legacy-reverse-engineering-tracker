@@ -83,9 +83,19 @@ def freeze_addition_context(events, projects, repositories, now):
             continue
         project = by_id.get(event["project_id"])
         repository = (project.get("github") or {}).get("repository") if project else None
-        scanned_at = (repositories.get(repository) or {}).get("last_deep_scan") if repository else None
-        if not project or not scanned_at or parse_time(scanned_at) < parse_time(event["date"]):
+        state = repositories.get(repository) or {}
+        scanned_at = state.get("last_deep_scan") if repository else None
+        if not project or not scanned_at:
             continue
+        if parse_time(scanned_at) < parse_time(event["date"]):
+            scanned_ids = state.get("last_deep_scan_project_ids") or []
+            # One-time migration for additions recorded just after their scan,
+            # before the collector began recording scanned project IDs.
+            legacy_same_run = (event["date"] <= "2026-09-25T21:57:35Z"
+                               and event["project_id"] in (state.get("project_ids") or [])
+                               and parse_time(event["date"]) - parse_time(scanned_at) <= timedelta(minutes=10))
+            if event["project_id"] not in scanned_ids and not legacy_same_run:
+                continue
         github = project.get("github") or {}
         event["activity_context"] = {
             "as_of": now.isoformat(timespec="seconds").replace("+00:00", "Z"),
