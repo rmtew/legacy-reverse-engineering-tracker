@@ -35,4 +35,8 @@ The apparent Batman: The Movie Amiga, Head Over Heels CPC, TOS 1.4 UK, C64 Bubbl
 5. Review monorepo components separately when their platform, work or completion state differs. Keep one shared source node, but give qualifying titles their own project URL and `github_path`.
 6. Record each future pass's exact queries, date, route, inspected candidates, canonical matches, decisions, promotions and unexamined leads. Compare unique qualifying additions per *actually reviewed* candidate, not per raw search hit. Preserve follow-up tasks for mstan's other NES game projects and the original Crossroads research.
 
+## Publication check
+
+The discovery commit passed the full local data validator and deployed through Pages. During the ensuing push-triggered metadata refresh, a daylight-saving alternate scheduled run took the same concurrency group. Although that scheduled run intentionally skipped its refresh steps, its `cancel-in-progress: true` setting cancelled the active push refresh. The workflow now uses `cancel-in-progress: false` so an alternate schedule cannot discard an active catalogue refresh; queued work still uses the same single concurrency group. Verify the follow-up refresh completes and publishes its activity/catalogue metadata before treating this as resolved.
+
 This pilot changed the catalogue and research indexes using the existing validated discovery batch workflow. It did not change the schedule or add an unattended search scraper.

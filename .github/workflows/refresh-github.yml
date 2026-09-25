@@ -30,7 +30,8 @@ permissions:
 
 concurrency:
   group: refresh-github-metadata
-  cancel-in-progress: true
+  # A DST-alternate schedule run may intentionally skip; never let it cancel an active refresh.
+  cancel-in-progress: false
 
 jobs:
   refresh:
