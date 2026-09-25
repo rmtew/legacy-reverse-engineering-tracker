@@ -82,3 +82,26 @@ test("facet results equal family membership across the live catalogue", () => {
     assert.equal(actual, expected, value);
   }
 });
+
+test("platform and CPU must belong to the same side or verified runtime profile", () => {
+  vm.runInContext('projectFilterState.platform = new Set(["Amiga"]); projectFilterState.cpu = new Set(["68000 family"]);', context);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["Z80"]}), false);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["68020"]}), true);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],runtime_profiles:[{platform:"Amiga",min_cpu:"68000"}]}), true);
+  vm.runInContext('projectFilterState.side="source";', context);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["68020"]}), false);
+  vm.runInContext('projectFilterState.platform = new Set(["Atari ST"]);', context);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["Z80"]}), true);
+  vm.runInContext('projectFilterState.side="either"; projectFilterState.platform.clear(); projectFilterState.cpu.clear();', context);
+});
+
+test("port route keeps both sides distinct and same-family needs evidence on both", () => {
+  vm.runInContext('projectFilterState.directionMode="route"; projectFilterState.sourcePlatform=new Set(["Atari ST"]); projectFilterState.targetPlatform=new Set(["Amiga"]); projectFilterState.sameFamily=true;', context);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["68020"]}), true);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["Z80"]}), false);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:[]}), false);
+  assert.equal(matches({source_platforms:["Amiga"],source_cpu:["68000"],target_platforms:["Atari ST"],target_cpu:["68000"]}), false);
+  vm.runInContext('projectFilterState.sameFamily=false; projectFilterState.sourceCpu=new Set(["Z80"]);', context);
+  assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["68020"]}), false);
+  vm.runInContext('projectFilterState.directionMode="quick"; projectFilterState.sourcePlatform.clear(); projectFilterState.targetPlatform.clear(); projectFilterState.sourceCpu.clear();', context);
+});

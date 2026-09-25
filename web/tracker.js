@@ -103,6 +103,8 @@ const cpuFamilyValues = record => [...new Set([
   ...arr(record?.source_cpu),...arr(record?.target_cpu),
   ...runtimeProfiles(record).flatMap(profile=>[profile.cpu_family,profile.min_cpu])
 ].map(cpuFamily).filter(Boolean))];
+const sourceCpuFamilies = record => [...new Set(arr(record?.source_cpu).map(cpuFamily).filter(Boolean))];
+const targetCpuFamilies = record => [...new Set(arr(record?.target_cpu).map(cpuFamily).filter(Boolean))];
 
 const cpuRank = value => {
   const cpu=String(value??"").toUpperCase().replaceAll(" ","").replace(/^M(?=680)/,"");
@@ -173,6 +175,8 @@ const classificationSortValue = record => [
 const projectFilterState = {
   projectType:new Set(), platform:new Set(), targetKind:new Set(), workKind:new Set(),
   toolKind:new Set(), cpu:new Set(), language:new Set(),
+  directionMode:"quick", side:"either", sourcePlatform:new Set(), sourceCpu:new Set(),
+  targetPlatform:new Set(), targetCpu:new Set(), sameFamily:false,
   runsOnCpu:"", runsOnRam:"", runsOnChipset:"",
   ai:"", compilable:"", playable:"", exact:""
 };
@@ -186,6 +190,26 @@ const sortedUnique = (values,labeler=value=>value) =>
     String(labeler(a)).localeCompare(String(labeler(b)),undefined,{numeric:true,sensitivity:"base"})
   );
 const facetMatch = (selected,values) => !selected.size || arr(values).some(value=>selected.has(value));
+const projectSideMatch = (record,side,platform,cpu) =>
+  facetMatch(platform,record[side+"_platforms"])
+  && facetMatch(cpu,side==="source"?sourceCpuFamilies(record):targetCpuFamilies(record));
+function projectDirectionMatch(record){
+  const state=projectFilterState;
+  if(state.directionMode==="route"){
+    const source=sourceCpuFamilies(record),target=targetCpuFamilies(record);
+    return projectSideMatch(record,"source",state.sourcePlatform,state.sourceCpu)
+      && projectSideMatch(record,"target",state.targetPlatform,state.targetCpu)
+      && (!state.sameFamily || source.some(value=>target.includes(value)));
+  }
+  if(!state.platform.size && !state.cpu.size) return true;
+  if(state.side==="source" || state.side==="target") return projectSideMatch(record,state.side,state.platform,state.cpu);
+  if(!state.platform.size) return facetMatch(state.cpu,cpuFamilyValues(record));
+  if(!state.cpu.size) return facetMatch(state.platform,platformValues(record));
+  return projectSideMatch(record,"source",state.platform,state.cpu)
+    || projectSideMatch(record,"target",state.platform,state.cpu)
+    || runtimeProfiles(record).some(profile=>state.platform.has(profile.platform)
+      && [profile.cpu_family,profile.min_cpu].some(value=>state.cpu.has(cpuFamily(value))));
+}
 
 function bindFacet(containerId,values,selected,labeler,onChange){
   const container=$(containerId);
@@ -199,6 +223,98 @@ function bindFacet(containerId,values,selected,labeler,onChange){
     button.setAttribute("aria-pressed",selected.has(value)?"true":"false");
     onChange();
   }));
+}
+
+const directionPickerKeys={
+  quickPlatform:"platform",quickCpu:"cpu",sourcePlatform:"sourcePlatform",
+  sourceCpu:"sourceCpu",targetPlatform:"targetPlatform",targetCpu:"targetCpu"
+};
+function updatePickerSummary(id){
+  const picker=$(id),selected=projectFilterState[directionPickerKeys[id]];
+  const values=[...selected].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+  const summary=picker.querySelector("summary");
+  summary.textContent=values.length===0?picker.dataset.empty:values.length===1?values[0]:`${values[0]} +${values.length-1}`;
+  summary.title=values.length?values.join(", "):picker.dataset.empty;
+  summary.setAttribute("aria-label",`${picker.dataset.label}: ${values.length?values.join(", "):picker.dataset.empty}`);
+  picker.classList.toggle("has-selection",values.length>0);
+}
+function initFacetPicker(id,values){
+  const picker=$(id),selected=projectFilterState[directionPickerKeys[id]];
+  const options=picker.querySelector(".picker-options");
+  options.innerHTML=sortedUnique(values).map(value=>
+    '<label><input type="checkbox" value="'+esc(value)+'"><span>'+esc(value)+'</span></label>'
+  ).join("");
+  options.addEventListener("change",event=>{
+    if(event.target.tagName!=="INPUT") return;
+    if(event.target.checked) selected.add(event.target.value); else selected.delete(event.target.value);
+    updatePickerSummary(id);
+    updateClearButtons();render();
+  });
+  picker.querySelector(".picker-search").addEventListener("input",event=>{
+    const query=event.target.value.trim().toLowerCase();
+    options.querySelectorAll("label").forEach(label=>{label.hidden=!label.textContent.toLowerCase().includes(query);});
+  });
+  picker.addEventListener("toggle",()=>{
+    if(!picker.open) return;
+    document.querySelectorAll(".facet-picker[open]").forEach(other=>{if(other!==picker) other.open=false;});
+    picker.querySelector(".picker-search").focus();
+  });
+  picker.addEventListener("keydown",event=>{
+    if(event.key==="Escape") {picker.open=false;picker.querySelector("summary").focus();}
+  });
+  updatePickerSummary(id);
+}
+function resetDirectionPickers(){
+  for(const id of Object.keys(directionPickerKeys)){
+    projectFilterState[directionPickerKeys[id]].clear();
+    const picker=$(id);
+    picker.open=false;
+    picker.querySelectorAll('input[type="checkbox"]').forEach(input=>{input.checked=false;});
+    const search=picker.querySelector(".picker-search");
+    search.value="";
+    picker.querySelectorAll(".picker-options label").forEach(label=>{label.hidden=false;});
+    updatePickerSummary(id);
+  }
+  projectFilterState.sameFamily=false;
+  $("sameCpuFamily").checked=false;
+}
+function updateDirectionMode(){
+  const route=projectFilterState.directionMode==="route";
+  $("quickDirection").hidden=route;
+  $("routeDirection").hidden=!route;
+  const toggle=$("directionToggle");
+  toggle.textContent=route?"Single side":"From → To";
+  toggle.setAttribute("aria-pressed",route?"true":"false");
+}
+function initDirectionFilters(){
+  const allPlatform=projects.flatMap(platformValues);
+  const allCpu=projects.flatMap(cpuFamilyValues);
+  for(const [id,values] of [
+    ["quickPlatform",allPlatform],["quickCpu",allCpu],
+    ["sourcePlatform",projects.flatMap(record=>arr(record.source_platforms))],
+    ["sourceCpu",projects.flatMap(sourceCpuFamilies)],
+    ["targetPlatform",projects.flatMap(record=>arr(record.target_platforms))],
+    ["targetCpu",projects.flatMap(targetCpuFamilies)]
+  ]) initFacetPicker(id,values);
+  $("directionSide").addEventListener("change",event=>{
+    projectFilterState.side=event.target.value;
+    updateClearButtons();render();
+  });
+  $("directionToggle").addEventListener("click",()=>{
+    resetDirectionPickers();
+    projectFilterState.directionMode=projectFilterState.directionMode==="quick"?"route":"quick";
+    projectFilterState.side="either";
+    $("directionSide").value="either";
+    updateDirectionMode();updateClearButtons();render();
+  });
+  $("sameCpuFamily").addEventListener("change",event=>{
+    projectFilterState.sameFamily=event.target.checked;
+    updateClearButtons();render();
+  });
+  document.addEventListener("click",event=>{
+    if(!event.target.closest(".facet-picker")) document.querySelectorAll(".facet-picker[open]").forEach(picker=>{picker.open=false;});
+  });
+  updateDirectionMode();
 }
 
 function bindChoiceFacet(containerId,values,state,key,labeler,onChange){
@@ -237,7 +353,10 @@ function resetSegment(containerId,value=""){
   container.querySelectorAll("button").forEach(button=>button.classList.toggle("selected",button.dataset.value===value));
 }
 function projectFiltersActive(){
-  return $("q").value.trim() || ["projectType","platform","targetKind","workKind","toolKind","cpu","language"].some(key=>projectFilterState[key].size)
+  const directional=projectFilterState.directionMode==="route"
+    ? ["sourcePlatform","sourceCpu","targetPlatform","targetCpu"].some(key=>projectFilterState[key].size)||projectFilterState.sameFamily
+    : projectFilterState.platform.size||projectFilterState.cpu.size;
+  return $("q").value.trim() || directional || ["projectType","targetKind","workKind","toolKind","language"].some(key=>projectFilterState[key].size)
     || ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
 }
 function activityFiltersActive(){
@@ -300,8 +419,10 @@ function matches(record) {
 
   const profiles=runtimeProfiles(record);
   const runtimeRequested=projectFilterState.runsOnCpu||projectFilterState.runsOnRam||projectFilterState.runsOnChipset;
+  const runtimePlatform=projectFilterState.directionMode==="route"?projectFilterState.targetPlatform
+    :projectFilterState.side==="target"?projectFilterState.platform:new Set();
   const runtimeMatch=!runtimeRequested || profiles.some(profile=>
-    (!projectFilterState.platform.size || projectFilterState.platform.has(profile.platform))
+    (!runtimePlatform.size || runtimePlatform.has(profile.platform))
     && (!projectFilterState.runsOnCpu || (profile.min_cpu && cpuCompatible(profile.min_cpu,projectFilterState.runsOnCpu)))
     && (!projectFilterState.runsOnRam || (Number.isFinite(profile.min_ram_kib) && profile.min_ram_kib<=Number(projectFilterState.runsOnRam)))
     && (!projectFilterState.runsOnChipset || arr(profile.chipsets).includes(projectFilterState.runsOnChipset))
@@ -309,8 +430,7 @@ function matches(record) {
 
   return (!query || haystack.includes(query))
     && facetMatch(projectFilterState.projectType,projectTypeValues(record))
-    && facetMatch(projectFilterState.platform,platformValues(record))
-    && facetMatch(projectFilterState.cpu,cpuFamilyValues(record))
+    && projectDirectionMatch(record)
     && facetMatch(projectFilterState.targetKind,record.target_kinds)
     && facetMatch(projectFilterState.workKind,record.work_kinds)
     && facetMatch(projectFilterState.toolKind,record.tool_kinds)
@@ -511,8 +631,7 @@ function initCompatibilityFilters(){
 
 function init() {
   bindFacet("projectTypeFacet",["software","tools"],projectFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();render();});
-  bindFacet("platformFacet",projects.flatMap(platformValues),projectFilterState.platform,value=>value,()=>{updateClearButtons();render();});
-  bindFacet("cpuFacet",projects.flatMap(cpuFamilyValues),projectFilterState.cpu,value=>value,()=>{updateClearButtons();render();});
+  initDirectionFilters();
   bindFacet("targetKindFacet",projects.flatMap(record=>arr(record.target_kinds)),projectFilterState.targetKind,classificationLabel,()=>{updateClearButtons();render();});
   bindFacet("workKindFacet",projects.flatMap(record=>arr(record.work_kinds)),projectFilterState.workKind,classificationLabel,()=>{updateClearButtons();render();});
   bindFacet("toolKindFacet",projects.flatMap(record=>arr(record.tool_kinds)),projectFilterState.toolKind,classificationLabel,()=>{updateClearButtons();render();});
@@ -532,7 +651,12 @@ function init() {
 $("q").addEventListener("input",()=>{updateClearButtons();render();});
 $("clear").addEventListener("click", () => {
   $("q").value = "";
-  for(const key of ["projectType","platform","targetKind","workKind","toolKind","cpu","language"]) clearFacetSet(projectFilterState[key]);
+  for(const key of ["projectType","targetKind","workKind","toolKind","language"]) clearFacetSet(projectFilterState[key]);
+  resetDirectionPickers();
+  projectFilterState.side="either";
+  projectFilterState.directionMode="quick";
+  $("directionSide").value="either";
+  updateDirectionMode();
   for(const key of ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"]) projectFilterState[key]="";
   clearFacetButtons($("projects"));
   for(const id of ["runsOnCpuFacet","runsOnRamFacet","runsOnChipsetFacet"]) {

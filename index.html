@@ -54,13 +54,26 @@
       <div class="facet-label">Project type</div>
       <div id="projectTypeFacet" class="facet-values"></div>
     </div>
-    <div class="facet-group">
-      <div class="facet-label">Platform</div>
-      <div id="platformFacet" class="facet-values"></div>
-    </div>
-    <div class="facet-group">
-      <div class="facet-label">CPU</div>
-      <div id="cpuFacet" class="facet-values"></div>
+    <div class="direction-filter">
+      <div class="direction-heading"><span>Platform &amp; CPU</span><button id="directionToggle" type="button" aria-pressed="false">From → To</button></div>
+      <div id="quickDirection" class="direction-grid">
+        <div class="direction-field"><span>Platform</span><details id="quickPlatform" class="facet-picker" data-label="Platform" data-empty="Any platform"><summary>Any platform</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search platforms" placeholder="Search platforms…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>CPU family</span><details id="quickCpu" class="facet-picker" data-label="CPU family" data-empty="Any CPU"><summary>Any CPU</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search CPU families" placeholder="Search CPU families…"><div class="picker-options"></div></div></details></div>
+        <label class="direction-field"><span>Matching side</span><select id="directionSide" title="When both Platform and CPU are selected, they match on the same side"><option value="either">Either</option><option value="source">Original</option><option value="target">Result</option></select></label>
+      </div>
+      <div id="routeDirection" class="route-fields" hidden>
+        <div class="route-row">
+          <strong>From</strong>
+          <div class="direction-field"><span>Platform</span><details id="sourcePlatform" class="facet-picker" data-label="From platform" data-empty="Any platform"><summary>Any platform</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search original platforms" placeholder="Search original platforms…"><div class="picker-options"></div></div></details></div>
+          <div class="direction-field"><span>CPU family</span><details id="sourceCpu" class="facet-picker" data-label="From CPU family" data-empty="Any CPU"><summary>Any CPU</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search original CPUs" placeholder="Search original CPUs…"><div class="picker-options"></div></div></details></div>
+        </div>
+        <div class="route-row">
+          <strong>To</strong>
+          <div class="direction-field"><span>Platform</span><details id="targetPlatform" class="facet-picker" data-label="To platform" data-empty="Any platform"><summary>Any platform</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search result platforms" placeholder="Search result platforms…"><div class="picker-options"></div></div></details></div>
+          <div class="direction-field"><span>CPU family</span><details id="targetCpu" class="facet-picker" data-label="To CPU family" data-empty="Any CPU"><summary>Any CPU</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search result CPUs" placeholder="Search result CPUs…"><div class="picker-options"></div></div></details></div>
+        </div>
+        <label class="same-family"><input id="sameCpuFamily" type="checkbox"> Same CPU family on both sides <span>(verified values only)</span></label>
+      </div>
     </div>
     <div class="facet-group">
       <div class="facet-label">Software type</div>
