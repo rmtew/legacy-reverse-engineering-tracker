@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-25T12:07:02Z",
+  "updated_at": "2026-09-25T17:21:46Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -2990,8 +2990,13 @@
         "macOS",
         "Windows"
       ],
-      "source_cpu": [],
-      "target_cpu": [],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "x86-64",
+        "arm64"
+      ],
       "runtime_profiles": null,
       "source_language": [
         "original Amiga LZX compressor binary",
@@ -6688,6 +6693,78 @@
         "SkoolKit"
       ],
       "notes": "Complete maintained RAM disassembly; changelog records first public release in 2001.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "backgammon-fds-to-nes-g0me3": {
+      "id": "backgammon-fds-to-nes-g0me3",
+      "title": "Backgammon",
+      "upstream_name": "backgammon_fds",
+      "display_title": "Backgammon — FDS-to-NES cartridge conversion",
+      "subjects": [
+        "Backgammon"
+      ],
+      "repo": "https://github.com/g0me3/backgammon_fds",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Famicom Disk System"
+      ],
+      "target_platforms": [
+        "NES"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "reverse-engineering-derived-port",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "source reconstruction",
+        "fan conversion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "banked 6502 source reconstruction",
+        "FDS-to-cartridge conversion",
+        "DASM image build"
+      ],
+      "tags": [
+        "Famicom Disk System",
+        "NES",
+        "6502",
+        "fan conversion"
+      ],
+      "notes": "Assembly reconstruction and conversion of Nintendo's FDS Backgammon into a NES cartridge image. The repository separates demo, final, main, game, computer-player and sound modules and includes a build path; commit history records reaching a fully working conversion, but this audit did not independently execute it. The cartridge output is not a byte-identical FDS rebuild.",
       "ai": {
         "usage": null,
         "tools": []
@@ -19317,6 +19394,78 @@
         "tools": []
       }
     },
+    "green-beret-fds-to-nes-g0me3": {
+      "id": "green-beret-fds-to-nes-g0me3",
+      "title": "Green Beret",
+      "upstream_name": "greenberret_fds",
+      "display_title": "Green Beret — FDS-to-UNROM NES conversion",
+      "subjects": [
+        "Green Beret"
+      ],
+      "repo": "https://github.com/g0me3/greenberret_fds",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Famicom Disk System"
+      ],
+      "target_platforms": [
+        "NES"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "reverse-engineering-derived-port",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "source reconstruction",
+        "fan conversion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": false
+      },
+      "techniques": [
+        "banked 6502 source reconstruction",
+        "FDS-to-UNROM conversion",
+        "DASM image build"
+      ],
+      "tags": [
+        "Famicom Disk System",
+        "NES",
+        "6502",
+        "fan conversion"
+      ],
+      "notes": "Project-specific assembly and build scripts convert the Famicom Disk System release into a UNROM NES cartridge image. The source tree includes all program banks, maps and detailed fix notes, including language selection and conversion-specific fixes. Modified cartridge output is intentionally not byte-identical to the FDS original; playability was not independently tested.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "green-beret-c64-cadaver": {
       "id": "green-beret-c64-cadaver",
       "title": "greenberet-disassembly",
@@ -21655,6 +21804,95 @@
         "reverse engineering"
       ],
       "notes": "IDA loader for Atari ST GEMDOS executables: maps TEXT/DATA/BSS, relocates data and imports global DRI/GST symbols, including extended names. README reports testing with IDA Pro 7.2 on macOS; other hosts are an upstream expectation rather than verified here.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "ida-stuff-retro-loaders-g0me3": {
+      "id": "ida-stuff-retro-loaders-g0me3",
+      "title": "ida_stuff",
+      "upstream_name": "ida_stuff",
+      "display_title": "ida_stuff — retro-console IDA loaders and analysis scripts",
+      "subjects": [
+        "NES/Famicom ROMs",
+        "Game Boy ROMs",
+        "Master System ROMs",
+        "SNES ROMs",
+        "Sega Genesis ROMs"
+      ],
+      "repo": "https://github.com/g0me3/ida_stuff",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES",
+        "Famicom Disk System",
+        "Game Boy",
+        "Master System",
+        "SNES",
+        "Sega Genesis",
+        "Dreamcast"
+      ],
+      "target_platforms": [
+        "IDA Pro"
+      ],
+      "source_cpu": [
+        "6502",
+        "65816",
+        "m68000",
+        "SH-4"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "console ROM images",
+        "code/data logs"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "IDC"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "static-analysis",
+        "disassembler",
+        "automation"
+      ],
+      "types": [
+        "IDA loaders",
+        "analysis scripts",
+        "code/data log tooling"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ROM bank mapping",
+        "CDL import",
+        "automatic code/data classification",
+        "game-specific analysis scripting"
+      ],
+      "tags": [
+        "IDA Pro",
+        "NES",
+        "Game Boy",
+        "SNES",
+        "Sega Genesis",
+        "reverse-engineering tooling"
+      ],
+      "notes": "Multi-console IDA toolkit containing C++ loaders for iNES/FDS, Game Boy and Master System images, source and prebuilt loader binaries, CDL import/autorun scripts for NES, Game Boy, SNES and Genesis, and numerous title-specific analysis scripts. The source also includes 65816, m68000 and SH-4-oriented helpers. Visual Studio project files establish a source build path, but supported IDA/Windows versions were not documented.",
       "ai": {
         "usage": null,
         "tools": []
@@ -24415,7 +24653,9 @@
         "Atari ST"
       ],
       "source_cpu": [],
-      "target_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "source_language": [
         "Amiga HUNK and Atari executable formats"
@@ -33245,7 +33485,9 @@
       "target_platforms": [
         "Web"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "x86"
+      ],
       "target_cpu": [],
       "runtime_profiles": null,
       "source_language": [
@@ -33615,6 +33857,72 @@
         "jotd666"
       ],
       "notes": "Namco Rally-X Amiga port with explicit Z80 reverse engineering, 68000 transcode and graphics/sound conversion.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rambo-nes-g0me3": {
+      "id": "rambo-nes-g0me3",
+      "title": "Rambo",
+      "upstream_name": "bfs_nes_rambo",
+      "display_title": "Rambo (NES) — Back From Source reconstruction",
+      "subjects": [
+        "Rambo"
+      ],
+      "repo": "https://github.com/g0me3/bfs_nes_rambo",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "NES"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "banked 6502 disassembly",
+        "DASM image build",
+        "level and script analysis"
+      ],
+      "tags": [
+        "NES",
+        "6502",
+        "software archaeology"
+      ],
+      "notes": "The repository describes itself as Rambo (NES) Back From Source and contains reconstructed bank assembly, game data, levels, scripts, music/player material and build scripts. A NES image build path is present; runtime and byte identity remain unverified.",
       "ai": {
         "usage": null,
         "tools": []
@@ -35505,6 +35813,72 @@
         "binary analysis"
       ],
       "notes": "Title-specific ZX Spectrum binary-analysis state for 8-Bit Analysers. The Robocop directory contains an approximately 518 KiB Analysis.json annotation database; tracked as analysis-state work rather than a reconstructed-source claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "robocop-3-nes-g0me3": {
+      "id": "robocop-3-nes-g0me3",
+      "title": "RoboCop 3",
+      "upstream_name": "bfs_nes_rc3",
+      "display_title": "RoboCop 3 (NES) — Back From Source reconstruction",
+      "subjects": [
+        "RoboCop 3"
+      ],
+      "repo": "https://github.com/g0me3/bfs_nes_rc3",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "NES"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse engineering",
+        "source reconstruction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "banked 6502 disassembly",
+        "DASM image build",
+        "game-state analysis"
+      ],
+      "tags": [
+        "NES",
+        "6502",
+        "software archaeology"
+      ],
+      "notes": "The repository identifies itself as a RoboCop 3 NES Back From Source project and contains large annotated bank files, RAM/sound/sprite definitions, research notes and DASM build scripts. Reassembly is documented, but successful execution, playability and byte identity were not independently verified.",
       "ai": {
         "usage": null,
         "tools": []
@@ -43138,6 +43512,75 @@
         "Z80"
       ],
       "notes": "Project-specific Tiger Heli Z80 listing and ROM bytes exist. README describes Jail Break and the Amiga scaffold labels Commando while its makefile identifies Dig Dug 2; no completed Tiger Heli Amiga port is inferred.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tilemapper-g0me3": {
+      "id": "tilemapper-g0me3",
+      "title": "TileMapper",
+      "upstream_name": "TileMapper",
+      "display_title": "TileMapper — multi-console ROM tile-map viewer",
+      "subjects": [
+        "ROM graphics and tile maps"
+      ],
+      "repo": "https://github.com/g0me3/TileMapper",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES",
+        "Game Boy",
+        "Sega Genesis",
+        "raw ROM images"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ROM graphics and tile-map data"
+      ],
+      "reconstructed_languages": [
+        "Object Pascal"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "ROM graphics viewer",
+        "tile-map tool"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "direct ROM visualization",
+        "tile format decoding",
+        "tile-map arrangement"
+      ],
+      "tags": [
+        "NES",
+        "Game Boy",
+        "Sega Genesis",
+        "graphics",
+        "tooling"
+      ],
+      "notes": "Desktop tool for drawing maps directly from NES, Game Boy, Genesis or arbitrary raw ROM files. The README documents 1bpp, NES/Famicom, Game Boy and Genesis tile formats plus separate pattern/tile-map inputs, and says the initial commit derives from the author's original Borland Delphi 3 source. Build and runtime compatibility were not independently verified.",
       "ai": {
         "usage": null,
         "tools": []
