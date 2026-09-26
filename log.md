@@ -1,5 +1,16 @@
 # Search / Report Log
 
+
+## 2026-09-26 — Amiga/Atari format audit and Elite root scope
+
+Read primary repository READMEs for sixteen tracked disk-image, archive, graphics, level-data and recovery tools. Their source and target CPU audit areas now say **not applicable** to the data-format operation; host language and an Amiga/Atari input format are not a minimum CPU claim. Initial identity/classification checks were recorded where previously unreviewed, while build, AI and relationship areas remain open when not verified. Relevant READMEs document boundaries such as Adf7z's extraction-only behavior, retro-io's planned Atari XL support, fluxfox's initial Amiga/ST support, and xdms-rs's mode-specific test coverage.
+
+The `vschwaberow/amiga_reconstructed` inventory was also completed: all fourteen present component directories and their source headers were checked. Three were already catalogued; eleven distinct historical intros, trainer menus and tools were added with original author attribution and build/runtime/byte-match status left unverified. The corresponding discovery task is closed, and the source index preserves the qualification scope.
+
+Two Atari ST demo audits were also tightened. **Mono Mental** has an explicit 68000, 1 MB, TOS 1.04+, hard-drive and high-resolution monochrome requirement; its unsupported negative AI usage field was reset to unknown. **TCB Star-Wars Scroller** documents vasm reassembly but leaves one effect partly unanalysed and changes the extracted quit path, so neither byte identity nor a runtime floor is inferred.
+
+The ataribaby42 Elite root README and `src_atari`/`src_orig` documentation identify independent enhanced Atari ST, native Amiga, and preserved-original Atari ST builds. The formerly Amiga-only enhanced entry now points to the repository root and covers both enhanced targets and their separate runtime profiles. The preserved `src_orig` catalogue entry stays at its distinct source tree. Its stable existing ID preserves research and activity references; visible classification, title and tracking path reflect the new scope.
+
 ## 2026-09-23 — baseline
 
 Scope expanded to **Amiga, Atari ST, ZX Spectrum, C64 and Amstrad CPC**.

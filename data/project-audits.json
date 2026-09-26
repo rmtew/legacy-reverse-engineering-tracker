@@ -4369,13 +4369,13 @@
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Current src_amiga documentation continues to describe the Elite Amiga port derived from the corrected Atari ST source tree."
+          "checked_at": "2026-09-26",
+          "note": "Root README identifies three independent build trees: enhanced ST src_atari, native Amiga src_amiga, preserved original src_orig. This record tracks the enhanced pair at root; the existing src_orig record remains distinct."
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Still a native source adaptation/port, not a fresh binary reconstruction of the Amiga commercial release."
+          "checked_at": "2026-09-26",
+          "note": "Enhanced Atari ST historical-source adaptation and derived native Amiga port; neither is claimed as a byte-exact commercial-binary reconstruction."
         },
         "source_cpu": {
           "state": "reviewed",
@@ -4384,8 +4384,8 @@
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Current documentation retains the stock MC68000 path and explicit MC68020-only build."
+          "checked_at": "2026-09-26",
+          "note": "Root README explicitly describes MC68000 sources for the enhanced Atari and Amiga trees; src_amiga README also documents optional 68020-only build."
         },
         "build": {
           "state": "reviewed",
@@ -4394,8 +4394,8 @@
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Rechecked the stock OCS/68000 and 68020-only profiles; recent gameplay/planet changes do not alter the documented minimum compatibility floors."
+          "checked_at": "2026-09-26",
+          "note": "Root README establishes an Atari ST MC68000 build but no RAM minimum; src_amiga README supports separate stock OCS/68000 and 68020-only profiles."
         },
         "ai": {
           "state": "reviewed",
@@ -10471,7 +10471,7 @@
     },
     {
       "project_id": "mono-mental",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -10489,20 +10489,23 @@
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-23"
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README explicitly selects Motorola 68000 in Devpac and -m68000 for vasm."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README Specifications explicitly require at least 1 MB RAM, TOS 1.04, hard drive and high-resolution monochrome monitor."
         },
         "ai": {
-          "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "README describes original-binary disassembly and later variants without explicit AI-use evidence; usage remains unknown rather than false."
         },
         "relationships": {
           "state": "needs-research",
@@ -10510,7 +10513,6 @@
         }
       },
       "next_actions": [
-        "Check primary documentation for minimum runnable hardware",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -14020,7 +14022,7 @@
     },
     {
       "project_id": "tcb-star-wars-scroller",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -14030,8 +14032,8 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-23",
-          "note": "Seeded from record_class and structured kind fields."
+          "checked_at": "2026-09-26",
+          "note": "Primary README describes a mostly analysed demo part and explicitly leaves the distorted scroller only partly reversed."
         },
         "source_cpu": {
           "state": "reviewed",
@@ -14043,7 +14045,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-09-26",
+          "note": "README says Easy Rider disassembly was reassembled with vasm and a changed quit path; no byte-identical rebuilt output or full runtime verification is claimed."
         },
         "runtime_profiles": {
           "state": "needs-research",
@@ -14055,8 +14058,9 @@
           "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Author identifies TCB original and Dbug 3D Doc analysis as a methodological predecessor; separately created 2020 STE demo is not the disassembly subject."
         }
       },
       "next_actions": [
@@ -22977,7 +22981,7 @@
     },
     {
       "project_id": "borland-hlp-atari-st-converter",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -22989,12 +22993,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mbackschat/atari-st-hlp-convert/blob/main/README.md: Python decoder of Atari ST Pure C/Turbo C HLP data; README links an independent format analysis. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mbackschat/atari-st-hlp-convert/blob/main/README.md: Python decoder of Atari ST Pure C/Turbo C HLP data; README links an independent format analysis. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "needs-research",
@@ -23019,7 +23025,7 @@
     },
     {
       "project_id": "hdbackup-atari-st-recovery",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -23031,12 +23037,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mbackschat/atari-st-hdbackup-recover/blob/main/README.md: Recover files from Atari ST Harddisk Utility backup streams; README describes fragment carving and decompression. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mbackschat/atari-st-hdbackup-recover/blob/main/README.md: Recover files from Atari ST Harddisk Utility backup streams; README describes fragment carving and decompression. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "needs-research",
@@ -23271,7 +23279,7 @@
     },
     {
       "project_id": "xpk-nuke-duke-decompressor",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -23283,12 +23291,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mbackschat/amiga-xpk-decompress-skill/blob/main/README.md: Python NUKE/DUKE compressed-file decoder; README credits an ancient codec port. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mbackschat/amiga-xpk-decompress-skill/blob/main/README.md: Python NUKE/DUKE compressed-file decoder; README credits an ancient codec port. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "needs-research",
@@ -23523,7 +23533,7 @@
     },
     {
       "project_id": "lemmings-amiga-html5-editor",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -23535,12 +23545,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/HoraceAndTheSpider/Lemmings-Editor/blob/master/README.md: Browser editor of original Amiga Lemmings level and disk data, with bounded byte-match claims for resources. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/HoraceAndTheSpider/Lemmings-Editor/blob/master/README.md: Browser editor of original Amiga Lemmings level and disk data, with bounded byte-match claims for resources. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "reviewed",
@@ -23733,7 +23745,7 @@
     },
     {
       "project_id": "gfalist-gfa-basic-decoder",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -23745,12 +23757,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/th-otto/gfalist/blob/master/README.md: Tokenized GFA BASIC source-file lister and historical tool fork; README provides Git textconv example. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/th-otto/gfalist/blob/master/README.md: Tokenized GFA BASIC source-file lister and historical tool fork; README provides Git textconv example. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "needs-research",
@@ -26084,7 +26098,7 @@
     },
     {
       "project_id": "msa-to-st-converter-rust",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -26096,12 +26110,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/slippyex/msa-to-st-converter/blob/main/README.md: Rust MSA-to-ST floppy image format converter; README describes data conversion for emulators. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/slippyex/msa-to-st-converter/blob/main/README.md: Rust MSA-to-ST floppy image format converter; README describes data conversion for emulators. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "needs-research",
@@ -26171,32 +26187,37 @@
     },
     {
       "project_id": "ipf-flux-native-decoder",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/ipf-flux/blob/main/README.md: IPF magnetic-cell data and timing decoder; README documents corpus comparison, not a reconstructed CPU program."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/ipf-flux/blob/main/README.md: IPF magnetic-cell data and timing decoder; README documents corpus comparison, not a reconstructed CPU program."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/ipf-flux/blob/main/README.md: IPF magnetic-cell data and timing decoder; README documents corpus comparison, not a reconstructed CPU program. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/ipf-flux/blob/main/README.md: IPF magnetic-cell data and timing decoder; README documents corpus comparison, not a reconstructed CPU program. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26208,37 +26229,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "xdms-rs-amiga-dms",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/xdms-rs/blob/master/README.md: DMS archive-to-ADF decoder; README distinguishes reference C port and compression-mode test coverage."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/xdms-rs/blob/master/README.md: DMS archive-to-ADF decoder; README distinguishes reference C port and compression-mode test coverage."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/xdms-rs/blob/master/README.md: DMS archive-to-ADF decoder; README distinguishes reference C port and compression-mode test coverage. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/mlund/xdms-rs/blob/master/README.md: DMS archive-to-ADF decoder; README distinguishes reference C port and compression-mode test coverage. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26250,37 +26276,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "fluxfox-amiga-atari-disk",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/dbalsom/fluxfox/blob/main/README.md: Disk-image library; README describes initial Amiga/ST support and partial image-format coverage."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/dbalsom/fluxfox/blob/main/README.md: Disk-image library; README describes initial Amiga/ST support and partial image-format coverage."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/dbalsom/fluxfox/blob/main/README.md: Disk-image library; README describes initial Amiga/ST support and partial image-format coverage. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/dbalsom/fluxfox/blob/main/README.md: Disk-image library; README describes initial Amiga/ST support and partial image-format coverage. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26292,37 +26323,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "retro-io-amiga-atari-extractor",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/marcelschoen/retro-io/blob/master/README.md: Java image extraction API for ST/MSA/ADF/D64; README says Atari XL and tape support are planned."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/marcelschoen/retro-io/blob/master/README.md: Java image extraction API for ST/MSA/ADF/D64; README says Atari XL and tape support are planned."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/marcelschoen/retro-io/blob/master/README.md: Java image extraction API for ST/MSA/ADF/D64; README says Atari XL and tape support are planned. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/marcelschoen/retro-io/blob/master/README.md: Java image extraction API for ST/MSA/ADF/D64; README says Atari XL and tape support are planned. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26334,37 +26370,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "diskflashback-amiga-atari",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/RobSmithDev/DiskFlashback/blob/master/README.md: Windows disk/image mount and extraction tool; README specifies Amiga and Atari filesystems and read-only formats."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/RobSmithDev/DiskFlashback/blob/master/README.md: Windows disk/image mount and extraction tool; README specifies Amiga and Atari filesystems and read-only formats."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/RobSmithDev/DiskFlashback/blob/master/README.md: Windows disk/image mount and extraction tool; README specifies Amiga and Atari filesystems and read-only formats. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/RobSmithDev/DiskFlashback/blob/master/README.md: Windows disk/image mount and extraction tool; README specifies Amiga and Atari filesystems and read-only formats. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26376,7 +26417,7 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
@@ -26591,32 +26632,37 @@
     },
     {
       "project_id": "newtua-amiga-archive-decoders",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/new-the-unarchiver/newtua-formats/blob/main/README.md: Rust legacy archive decoders ported from XADMaster, including Amiga formats; no original CPU target."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/new-the-unarchiver/newtua-formats/blob/main/README.md: Rust legacy archive decoders ported from XADMaster, including Amiga formats; no original CPU target."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/new-the-unarchiver/newtua-formats/blob/main/README.md: Rust legacy archive decoders ported from XADMaster, including Amiga formats; no original CPU target. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/new-the-unarchiver/newtua-formats/blob/main/README.md: Rust legacy archive decoders ported from XADMaster, including Amiga formats; no original CPU target. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26628,37 +26674,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "adf7z-amiga-filesystem",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/tillenius/Adf7z/blob/main/README.md: 7-Zip ADF/OFS/FFS extraction plugin; README explicitly excludes creation/modification and links."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/tillenius/Adf7z/blob/main/README.md: 7-Zip ADF/OFS/FFS extraction plugin; README explicitly excludes creation/modification and links."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/tillenius/Adf7z/blob/main/README.md: 7-Zip ADF/OFS/FFS extraction plugin; README explicitly excludes creation/modification and links. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/tillenius/Adf7z/blob/main/README.md: 7-Zip ADF/OFS/FFS extraction plugin; README explicitly excludes creation/modification and links. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26670,37 +26721,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "gadf-amiga-bootable-images",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/sphair/gadf/blob/main/README.md: Host Go tool writes bootable AmigaDOS OFS images; arbitrary input executables do not establish a CPU minimum for this tool."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/sphair/gadf/blob/main/README.md: Host Go tool writes bootable AmigaDOS OFS images; arbitrary input executables do not establish a CPU minimum for this tool."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/sphair/gadf/blob/main/README.md: Host Go tool writes bootable AmigaDOS OFS images; arbitrary input executables do not establish a CPU minimum for this tool. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/sphair/gadf/blob/main/README.md: Host Go tool writes bootable AmigaDOS OFS images; arbitrary input executables do not establish a CPU minimum for this tool. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26712,37 +26768,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "coco-image-viewer-atari-tiny",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/reyco2000/CoCo-Image-Viewer/blob/main/README.md: Python graphics/disk-format viewer; README explicitly lists Atari ST Tiny and CoCo formats."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/reyco2000/CoCo-Image-Viewer/blob/main/README.md: Python graphics/disk-format viewer; README explicitly lists Atari ST Tiny and CoCo formats."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/reyco2000/CoCo-Image-Viewer/blob/main/README.md: Python graphics/disk-format viewer; README explicitly lists Atari ST Tiny and CoCo formats. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/reyco2000/CoCo-Image-Viewer/blob/main/README.md: Python graphics/disk-format viewer; README explicitly lists Atari ST Tiny and CoCo formats. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26754,37 +26815,42 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
       "project_id": "dpaint-js-amiga-st-graphics",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/steffest/DPaint-js/blob/master/README.md: Browser image editor for IFF/ILBM/ANIM and Atari ST graphics; README names format support, not original code analysis."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/steffest/DPaint-js/blob/master/README.md: Browser image editor for IFF/ILBM/ANIM and Atari ST graphics; README names format support, not original code analysis."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/steffest/DPaint-js/blob/master/README.md: Browser image editor for IFF/ILBM/ANIM and Atari ST graphics; README names format support, not original code analysis. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "Primary README https://github.com/steffest/DPaint-js/blob/master/README.md: Browser image editor for IFF/ILBM/ANIM and Atari ST graphics; README names format support, not original code analysis. CPU is not a meaningful facet of this data-format operation; no CPU is inferred from the host language or supported platform."
         },
         "build": {
           "state": "unreviewed",
           "checked_at": null
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "No original-machine runtime profile for this hosted data-format tool. Host prerequisites and input-format limits are separate."
         },
         "ai": {
           "state": "unreviewed",
@@ -26796,7 +26862,7 @@
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review build claims, AI evidence and project relationships from primary sources as applicable"
       ]
     },
     {
@@ -31527,6 +31593,556 @@
       },
       "next_actions": [
         "Check explicit minimum hardware/runtime requirements and exact build claims where undocumented."
+      ]
+    },
+    {
+      "project_id": "beneath-steel-sky-delirium-cracktro",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/Delirium-BeneathSteelSky/Delirium-Beneath.s: File header credits Wayne Mendoza and identifies Volker Schwaberow's reconstruction; annotated Exec and custom-chip offsets follow."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Wayne Mendoza / Delirium; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "king-of-chicago-hqc-intro",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/HQC-KingOfChicago/hqc-king.s: File header identifies a reconstructed Amiga intro for The King of Chicago; annotated startup and hardware routines follow."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as HQC; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "rick-dangerous-oracle-trainer",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/Oracle-RickDangerous/Oracle-TrRickDangerous.s: File header names Weetibix/Oracle and the reconstruction; labelled game patch addresses and Amiga OS/hardware calls are present."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Weetibix / Oracle; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "turrican-trsi-trainer-intro",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/TRSI-CrTrTurrican/TRSI-CrTrTurrican.asm: File header names the original TRANSFORMER/TRSI work, reconstructed 68000 assembly, and a vasm HUNK output command."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as TRANSFORMER / TRSI; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "robocod-trsi-trainer",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/TRSI-Robocod-Trainer/TRSI-TrRobocod.s: File header identifies the reconstructed Robocod trainer; assembly plus a separate music binary and assets are present."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as TRSI; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "sidewinder-champs-intro",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/TheChamps-Sidewinder/thechamps_sidewinder_intro.s: File header identifies a reconstructed intro and gives a vasm -m68000 binary build command; bitplane files are included."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File gives an explicit vasm -m68000 assembly invocation; hardware minimum remains unknown."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Dr. Pablo / The Champs; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "emetic-skimmer-movers-cracktro",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Intros_Trainermenus/TheMovers-Cracktro_Es/intro.s: File header dates the cracktro to 1988 and identifies reconstructed annotated vasm source with a HUNK assembler command."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as The Movers; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "tetrapack-amiga-reconstructed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Tools/Antiaction-Tetrapack/antiaction-tetrapack.s: File header identifies reconstructed Tetrapack v2.2; assembly contains labelled RLE/LZ77 packing routines."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Antiaction / Defjam; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "rsi-cruncher-14-reconstructed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Tools/RSI-Cruncher_1_4/RSI-Cruncher1.4.s: File header credits Flash/Red Sector Inc. and Volker Schwaberow's reconstruction; annotated I/O and compression routines follow."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Flash / Red Sector Inc.; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "beermon-045-reconstructed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Tools/TRSI-BeerMon-v0.45/Moni.s: File header explicitly credits original Carnivore/BeerMacht/TRSI and reverse engineering by Volker Schwaberow; documents hardware-level monitor operation."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "File says 680x0; inspect original binary CPU and opcode requirements before narrowing to a particular 68k variant."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Carnivore / BeerMacht / TRSI; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+      ]
+    },
+    {
+      "project_id": "tristar-double-action-reconstructed",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Collection README and component file https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Tools/Tristar-Double_Action/trs-da_v1.s: File header credits Vince/Tristar and describes a fully reconstructed packer by Volker Schwaberow; labelled file and disk operations follow."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
+        },
+        "target_cpu": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "An assembler line or source file alone does not prove a successful or byte-identical build; compare output with identified original when available."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": "2026-09-26",
+          "note": "No verified minimum RAM, Kickstart or chipset profile for this component."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "No specific AI tool or usage is claimed by the reviewed collection README or component header; absence is not evidence of non-use."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Historical author/group credited as Vince / Tristar; current reconstruction by Volker Schwaberow."
+        }
+      },
+      "next_actions": [
+        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
       ]
     }
   ]
