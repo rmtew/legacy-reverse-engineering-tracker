@@ -7825,6 +7825,97 @@
     }
   },
   {
+    "id": "arkanoid-msx-disassembly-mcolom",
+    "title": "Arkanoid",
+    "upstream_name": "Arkanoid MSX disassembly",
+    "display_title": "Arkanoid — byte-exact annotated MSX disassembly",
+    "subjects": [
+      "Arkanoid"
+    ],
+    "repo": "https://github.com/mcolom/arkanoid_msx_disasm",
+    "source_platforms": [
+      "MSX"
+    ],
+    "target_platforms": [
+      "MSX"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated game disassembly",
+      "ROM reconstruction"
+    ],
+    "re_started": "2026",
+    "last_activity": "2026-03-23",
+    "last_checked": "2026-09-27",
+    "status": "manually annotated disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "manual annotation",
+      "z80dasm",
+      "z80asm",
+      "SHA-1 verification"
+    ],
+    "tags": [
+      "MSX",
+      "Z80",
+      "Arkanoid"
+    ],
+    "notes": "Manually annotated disassembly of Taito's MSX Arkanoid. The source header documents its z80dasm origin, z80asm rebuild command and the SHA-1 expected from the rebuilt ROM.",
+    "github": {
+      "repository": "mcolom/arkanoid_msx_disasm",
+      "checked_at": "2026-09-26",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "created_at": "2024-10-27",
+      "pushed_at": "2026-03-23",
+      "updated_at": "2026-08-17",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "20f5b7ba8e3d4ee04e0cfc051a3dfd98dbed233e",
+        "date": "2026-03-23",
+        "message": "unused_or_unknown.asm -> unused_sprite_patterns.asm",
+        "url": "https://github.com/mcolom/arkanoid_msx_disasm/commit/20f5b7ba8e3d4ee04e0cfc051a3dfd98dbed233e"
+      }
+    }
+  },
+  {
     "id": "armalyte-c64-analyser",
     "title": "Armalyte",
     "upstream_name": "Armalyte",
@@ -7979,6 +8070,114 @@
       "software archaeology"
     ],
     "notes": "SourceGen reconstruction of Asteroids rev 4 based on earlier Computer Archeology/Nick Mikstas analysis, covering the 6502 program and vector-generator command ROM. The project adds a DVG disassembler, project files/binaries and binary-construction instructions."
+  },
+  {
+    "id": "atari-osb-ntsc-source-restoration",
+    "title": "Atari 8-bit OS-B NTSC ROM",
+    "upstream_name": "Atari 8-bit OSB NTSC ROM",
+    "display_title": "Atari OS-B NTSC — paper-source restoration and verified ROM build",
+    "subjects": [
+      "Atari 400/800 Operating System Revision B NTSC ROM"
+    ],
+    "repo": "https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM",
+    "source_platforms": [
+      "Atari 400",
+      "Atari 800"
+    ],
+    "target_platforms": [
+      "Atari 400",
+      "Atari 800"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OS-B NTSC ROM",
+        "platform": "Atari 400/800",
+        "cpu_family": "6502",
+        "notes": "The primary README identifies this 10 KiB OS-B NTSC ROM for Atari 400 and 800 machines; no RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM/blob/master/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "Atari paper 6500 assembly listing"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "operating-system",
+      "firmware-rom"
+    ],
+    "work_kinds": [
+      "source-restoration"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "paper-source restoration",
+      "ROM reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2017-03-04",
+    "last_checked": "2026-09-27",
+    "status": "restored",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "document scanning",
+      "OCR",
+      "manual proofreading",
+      "ca65 conversion",
+      "ROM comparison"
+    ],
+    "tags": [
+      "Atari 8-bit",
+      "6502",
+      "OS ROM",
+      "source preservation"
+    ],
+    "notes": "Restores Atari's published OS-B source listing by scanning, OCR and proofreading, then converts it to ca65 syntax. The Makefile compares the generated listing bytes with the paper-derived path and checks the result against the included 10 KiB ROM.",
+    "github": {
+      "repository": "sidneycadot/Atari8bit_OSB-NTSC-ROM",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2013-11-17",
+      "pushed_at": "2017-03-04",
+      "updated_at": "2026-09-21",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "dormant",
+      "languages": [
+        "Python",
+        "TeX",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "10272c5e558457423e37f1e126e940c3d4cc6a2f",
+        "date": "2017-03-04",
+        "message": "Updated .gitignore.",
+        "url": "https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM/commit/10272c5e558457423e37f1e126e940c3d4cc6a2f"
+      }
+    }
   },
   {
     "id": "atari-file-forge-workbench",
@@ -13495,6 +13694,92 @@
       "reverse-engineering-derived-port"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "bruce-lee-atari8-disassembly",
+    "title": "Bruce Lee",
+    "upstream_name": "blck-game-engine",
+    "display_title": "Bruce Lee — annotated Atari 8-bit disassembly",
+    "subjects": [
+      "Bruce Lee"
+    ],
+    "repo": "https://github.com/fa8ntomas/blck-game-engine",
+    "source_platforms": [
+      "Atari 8-bit"
+    ],
+    "target_platforms": [
+      "Atari 8-bit"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "6502 machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated game disassembly"
+    ],
+    "re_started": null,
+    "last_activity": "2020-01-16",
+    "last_checked": "2026-09-27",
+    "status": "partial annotation",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "static disassembly",
+      "routine annotation",
+      "Atari hardware register analysis"
+    ],
+    "tags": [
+      "Atari 8-bit",
+      "6502",
+      "Bruce Lee"
+    ],
+    "notes": "Sparse repository documentation, but the primary engine.asm is a substantial annotated 6502 listing that names Bruce/Yamo/Ninja state, Atari display-list, POKEY audio and player/missile register behavior. No reproducible build or exact-output claim was found.",
+    "github": {
+      "repository": "fa8ntomas/blck-game-engine",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2019-10-10",
+      "pushed_at": "2020-01-16",
+      "updated_at": "2025-12-21",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "ae5ad344f074902d33ac52f7b54f56abe7d8b9c7",
+        "date": "2020-01-16",
+        "message": "Add two files after acidental deletion",
+        "url": "https://github.com/fa8ntomas/blck-game-engine/commit/ae5ad344f074902d33ac52f7b54f56abe7d8b9c7"
+      }
+    }
   },
   {
     "id": "bruce-lee-spectrum",
@@ -39200,6 +39485,104 @@
     }
   },
   {
+    "id": "lime-juice-mes-tooling",
+    "title": "lime-juice",
+    "upstream_name": "lime-juice",
+    "display_title": "lime-juice — PC-98 MES compiler/decompiler and image toolkit",
+    "subjects": [],
+    "repo": "https://github.com/FuzionCD/lime-juice",
+    "source_platforms": [
+      "NEC PC-98"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "MES bytecode",
+      "GP4/GPC/GPA image formats"
+    ],
+    "reconstructed_languages": [
+      "C++",
+      "RKT"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "language-tooling",
+      "asset-tool",
+      "binary-analysis"
+    ],
+    "types": [
+      "bytecode compiler/decompiler",
+      "image format tooling"
+    ],
+    "re_started": "2026",
+    "last_activity": "2026-07-12",
+    "last_checked": "2026-09-27",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "bytecode decompilation",
+      "bytecode recompilation",
+      "format round-tripping",
+      "character-set reconstruction"
+    ],
+    "tags": [
+      "PC-98",
+      "visual novel",
+      "MES",
+      "translation tooling"
+    ],
+    "notes": "C++ port and expansion of tomyun's Juice tool. It decompiles MES scripts to readable RKT and compiles them back, while juice-img round-trips GP4, GPC and GPA images; unresolved opcodes remain explicit raw commands rather than guessed semantics.",
+    "github": {
+      "repository": "FuzionCD/lime-juice",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2026-02-26",
+      "pushed_at": "2026-07-12",
+      "updated_at": "2026-09-05",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "active",
+      "latest_release": {
+        "tag": "v0.2.3",
+        "name": "v0.2.3: minor improvements",
+        "published_at": "2026-04-20",
+        "url": "https://github.com/FuzionCD/lime-juice/releases/tag/v0.2.3"
+      },
+      "languages": [
+        "C++",
+        "Shell",
+        "Python",
+        "CMake",
+        "C"
+      ],
+      "latest_commit": {
+        "sha": "dc00362a0d7e9f52931040119080b1435d26724a",
+        "date": "2026-07-12",
+        "message": "remove tests from CMakeLists - don't you know we test in prod here?",
+        "url": "https://github.com/FuzionCD/lime-juice/commit/dc00362a0d7e9f52931040119080b1435d26724a"
+      }
+    }
+  },
+  {
     "id": "little-computer-people-st-analysis",
     "title": "Little Computer People",
     "upstream_name": "Little Computer People",
@@ -42534,6 +42917,95 @@
     }
   },
   {
+    "id": "metal-gear-msx2-guillianseed",
+    "title": "Metal Gear",
+    "upstream_name": "Metal Gear (RC750, MSX2)",
+    "display_title": "Metal Gear — annotated MSX2 ROM reconstruction",
+    "subjects": [
+      "Metal Gear"
+    ],
+    "repo": "https://github.com/GuillianSeed/MetalGear",
+    "source_platforms": [
+      "MSX2"
+    ],
+    "target_platforms": [
+      "MSX2"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated game disassembly",
+      "ROM reconstruction"
+    ],
+    "re_started": "2017",
+    "last_activity": "2022-01-15",
+    "last_checked": "2026-09-27",
+    "status": "complete annotated disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "manual annotation",
+      "Sjasm reassembly",
+      "dual-region ROM reconstruction"
+    ],
+    "tags": [
+      "MSX2",
+      "Z80",
+      "Metal Gear"
+    ],
+    "notes": "Fully annotated disassembly of Konami's 1987 RC750 MSX2 release. The README documents Sjasm builds for the Japanese and English ROMs and gives their expected CRC32 values.",
+    "github": {
+      "repository": "GuillianSeed/MetalGear",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2018-10-05",
+      "pushed_at": "2022-01-15",
+      "updated_at": "2026-09-23",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "30d1b940bede10fdabbaf9767ad4f0ad8dd33291",
+        "date": "2022-01-15",
+        "message": "Removed \"struc\" keyword at the end of some structure headers",
+        "url": "https://github.com/GuillianSeed/MetalGear/commit/30d1b940bede10fdabbaf9767ad4f0ad8dd33291"
+      }
+    }
+  },
+  {
     "id": "metroid-nes-nmikstas",
     "title": "metroid-disassembly",
     "upstream_name": "metroid-disassembly",
@@ -44558,6 +45030,111 @@
       "disassembly"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "np2debug-pc98-debugger",
+    "title": "Neko Project II - Debug Edition",
+    "upstream_name": "Neko Project II - Debug Edition",
+    "display_title": "Neko Project II Debug Edition — PC-98 binary debugger",
+    "subjects": [],
+    "repo": "https://github.com/nmlgc/np2debug",
+    "source_platforms": [
+      "NEC PC-98"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux"
+    ],
+    "source_cpu": [
+      "x86"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "PC-98 x86 machine code",
+      "PC-98 hardware behavior"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "C++",
+      "Assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "binary-analysis"
+    ],
+    "types": [
+      "emulator fork",
+      "development debugger"
+    ],
+    "re_started": null,
+    "last_activity": "2015-11-17",
+    "last_checked": "2026-09-27",
+    "status": "historical",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "single stepping",
+      "code and memory breakpoints",
+      "register and stack inspection",
+      "Shift-JIS memory display",
+      "host-directory mounting"
+    ],
+    "tags": [
+      "PC-98",
+      "emulator",
+      "debugger",
+      "Touhou"
+    ],
+    "notes": "Neko Project II fork designed to make modification of PC-98 binaries practical. It adds stepping, code and memory breakpoints, searching/modification, stack inspection and Shift-JIS display, and was tested specifically against Touhou 1–5 for translation-patch development.",
+    "github": {
+      "repository": "nmlgc/np2debug",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2013-01-20",
+      "pushed_at": "2017-01-09",
+      "updated_at": "2026-08-15",
+      "tracking_path": null,
+      "archived": false,
+      "fork": true,
+      "primary_language": "C",
+      "activity_state": "dormant",
+      "latest_release": {
+        "tag": "2015-11-12",
+        "name": "2015-11-12",
+        "published_at": "2015-11-12",
+        "url": "https://github.com/nmlgc/np2debug/releases/tag/2015-11-12"
+      },
+      "languages": [
+        "C",
+        "C++",
+        "MAXScript",
+        "Assembly",
+        "Java",
+        "Objective-C",
+        "Makefile",
+        "M4",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "fd715a005f8f5f3c84724900914ebe41121d0045",
+        "date": "2015-11-17",
+        "message": "adds cast",
+        "url": "https://github.com/nmlgc/np2debug/commit/fd715a005f8f5f3c84724900914ebe41121d0045"
+      }
+    }
   },
   {
     "id": "neost-atari-emulator",
@@ -47617,6 +48194,116 @@
         "date": "2025-02-26",
         "message": "Update launch.json",
         "url": "https://github.com/mnemo70/paranoimia-vector-logo/commit/05bc0cafa927c6b58ee0113029a29df492b49d02"
+      }
+    }
+  },
+  {
+    "id": "pc98-vn-research-valleybell",
+    "title": "PC-98 Visual Novel/ADV engine research",
+    "upstream_name": "PC-98 Visual Novel/ADV engine research",
+    "display_title": "PC-98 Visual Novel Research — engine disassembly and format toolkit",
+    "subjects": [
+      "AGS",
+      "Adv98V",
+      "DIANA",
+      "MAX",
+      "System-98",
+      "Dragoon Armor for Adult",
+      "MIME"
+    ],
+    "repo": "https://github.com/ValleyBell/PC98VNResearch",
+    "source_platforms": [
+      "NEC PC-98"
+    ],
+    "target_platforms": [
+      "NEC PC-98",
+      "analysis host"
+    ],
+    "source_cpu": [
+      "x86"
+    ],
+    "target_cpu": [
+      "x86"
+    ],
+    "source_language": [
+      "16-bit x86 machine code",
+      "visual-novel data formats"
+    ],
+    "reconstructed_languages": [
+      "16-bit x86 assembly",
+      "Python"
+    ],
+    "record_class": "hybrid",
+    "target_kinds": [
+      "game-engine",
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis",
+      "data-format-analysis",
+      "patching"
+    ],
+    "tool_kinds": [
+      "binary-analysis",
+      "asset-tool"
+    ],
+    "types": [
+      "engine research collection",
+      "format toolkit"
+    ],
+    "re_started": null,
+    "last_activity": "2026-07-09",
+    "last_checked": "2026-09-27",
+    "status": "active research collection",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "IDA disassembly",
+      "rendered assembly",
+      "unpacking",
+      "decoding and encoding",
+      "binary patching"
+    ],
+    "tags": [
+      "PC-98",
+      "visual novel",
+      "engine research",
+      "16-bit x86"
+    ],
+    "notes": "Research collection covering PC-98 visual-novel engines and individual games with format documentation, unpack/decode tools, IDA databases and rendered assembly. Several primary assembly artifacts explicitly target 16-bit 80186 code and rebuild patched COM/EXE files.",
+    "github": {
+      "repository": "ValleyBell/PC98VNResearch",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2022-10-31",
+      "pushed_at": "2026-07-09",
+      "updated_at": "2026-07-09",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "active",
+      "languages": [
+        "Assembly",
+        "Python",
+        "Batchfile",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "1849ff224f6e896a1c65d10feebf5590c94f4335",
+        "date": "2026-07-09",
+        "message": "font-write.py: fix reading UTF-8 encoded files",
+        "url": "https://github.com/ValleyBell/PC98VNResearch/commit/1849ff224f6e896a1c65d10feebf5590c94f4335"
       }
     }
   },
@@ -52039,6 +52726,120 @@
       "software archaeology"
     ],
     "notes": "Disassembly of SSI's compact RDOS 3.3 disk operating system, with SourceGen project files/binaries and documentation of its filesystem and Applesoft ampersand-command interface. The author notes an earlier full RDOS 2.1 disassembly was used to develop ProDOS RDOS."
+  },
+  {
+    "id": "rec98-touhou-pc98",
+    "title": "ReC98",
+    "upstream_name": "The Touhou PC-98 Restoration Project (ReC98)",
+    "display_title": "ReC98 — bit-perfect Touhou PC-98 source reconstruction",
+    "subjects": [
+      "Highly Responsive to Prayers",
+      "Story of Eastern Wonderland",
+      "Phantasmagoria of Dim.Dream",
+      "Lotus Land Story",
+      "Mystic Square"
+    ],
+    "repo": "https://github.com/nmlgc/ReC98",
+    "project_url": "https://rec98.nmlgc.net/",
+    "source_platforms": [
+      "NEC PC-9801"
+    ],
+    "target_platforms": [
+      "NEC PC-9801"
+    ],
+    "source_cpu": [
+      "x86"
+    ],
+    "target_cpu": [
+      "x86"
+    ],
+    "source_language": [
+      "16-bit x86 machine code"
+    ],
+    "reconstructed_languages": [
+      "C++",
+      "C",
+      "16-bit x86 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "decompilation",
+      "disassembly",
+      "source-reconstruction",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "multi-game source reconstruction",
+      "bit-perfect rebuild"
+    ],
+    "re_started": null,
+    "last_activity": "2026-03-16",
+    "last_checked": "2026-09-27",
+    "status": "TH01 complete; TH02–TH05 ongoing",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "decompilation",
+      "assembly reconstruction",
+      "deterministic binary comparison",
+      "position-independence analysis"
+    ],
+    "tags": [
+      "PC-98",
+      "Touhou",
+      "16-bit x86",
+      "bit-perfect"
+    ],
+    "notes": "Reconstructs the first five Touhou games for NEC PC-9801 from their binaries. Upstream states that every commit builds executables indistinguishable from the originals; TH01 is complete while the remaining games continue to be reverse engineered and finalized.",
+    "github": {
+      "repository": "nmlgc/ReC98",
+      "checked_at": "2026-09-26",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "created_at": "2014-06-27",
+      "pushed_at": "2026-03-16",
+      "updated_at": "2026-09-25",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "latest_release": {
+        "tag": "P0335",
+        "name": "P0335",
+        "published_at": "2026-03-16",
+        "url": "https://github.com/nmlgc/ReC98/releases/tag/P0335"
+      },
+      "languages": [
+        "Assembly",
+        "C++",
+        "C",
+        "Batchfile",
+        "Lua",
+        "BitBake",
+        "Pawn",
+        "PHP",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "b6ba5b0a529edbb31efdf8c0e939263804f8ee47",
+        "date": "2026-03-16",
+        "message": "[Research] [th03] Discover the score reduction and extend glitches",
+        "url": "https://github.com/nmlgc/ReC98/commit/b6ba5b0a529edbb31efdf8c0e939263804f8ee47"
+      }
+    }
   },
   {
     "id": "dos-clyde-re",
@@ -71477,627 +72278,6 @@
         "message": "Wally, Zynaps & Ranarama",
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
       }
-    }
-  },
-  {
-    "id": "metal-gear-msx2-guillianseed",
-    "title": "Metal Gear",
-    "upstream_name": "Metal Gear (RC750, MSX2)",
-    "display_title": "Metal Gear — annotated MSX2 ROM reconstruction",
-    "subjects": [
-      "Metal Gear"
-    ],
-    "repo": "https://github.com/GuillianSeed/MetalGear",
-    "source_platforms": [
-      "MSX2"
-    ],
-    "target_platforms": [
-      "MSX2"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "annotated game disassembly",
-      "ROM reconstruction"
-    ],
-    "re_started": "2017",
-    "last_activity": "2022-01-15",
-    "last_checked": "2026-09-27",
-    "status": "complete annotated disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "manual annotation",
-      "Sjasm reassembly",
-      "dual-region ROM reconstruction"
-    ],
-    "tags": [
-      "MSX2",
-      "Z80",
-      "Metal Gear"
-    ],
-    "notes": "Fully annotated disassembly of Konami's 1987 RC750 MSX2 release. The README documents Sjasm builds for the Japanese and English ROMs and gives their expected CRC32 values.",
-    "github": {
-      "repository": "GuillianSeed/MetalGear",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
-    }
-  },
-  {
-    "id": "arkanoid-msx-disassembly-mcolom",
-    "title": "Arkanoid",
-    "upstream_name": "Arkanoid MSX disassembly",
-    "display_title": "Arkanoid — byte-exact annotated MSX disassembly",
-    "subjects": [
-      "Arkanoid"
-    ],
-    "repo": "https://github.com/mcolom/arkanoid_msx_disasm",
-    "source_platforms": [
-      "MSX"
-    ],
-    "target_platforms": [
-      "MSX"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "annotated game disassembly",
-      "ROM reconstruction"
-    ],
-    "re_started": "2026",
-    "last_activity": "2026-03-23",
-    "last_checked": "2026-09-27",
-    "status": "manually annotated disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "manual annotation",
-      "z80dasm",
-      "z80asm",
-      "SHA-1 verification"
-    ],
-    "tags": [
-      "MSX",
-      "Z80",
-      "Arkanoid"
-    ],
-    "notes": "Manually annotated disassembly of Taito's MSX Arkanoid. The source header documents its z80dasm origin, z80asm rebuild command and the SHA-1 expected from the rebuilt ROM.",
-    "github": {
-      "repository": "mcolom/arkanoid_msx_disasm",
-      "checked_at": "2026-09-27",
-      "default_branch": "main",
-      "tracking_branch": "main"
-    }
-  },
-  {
-    "id": "pc98-vn-research-valleybell",
-    "title": "PC-98 Visual Novel/ADV engine research",
-    "upstream_name": "PC-98 Visual Novel/ADV engine research",
-    "display_title": "PC-98 Visual Novel Research — engine disassembly and format toolkit",
-    "subjects": [
-      "AGS",
-      "Adv98V",
-      "DIANA",
-      "MAX",
-      "System-98",
-      "Dragoon Armor for Adult",
-      "MIME"
-    ],
-    "repo": "https://github.com/ValleyBell/PC98VNResearch",
-    "source_platforms": [
-      "NEC PC-98"
-    ],
-    "target_platforms": [
-      "NEC PC-98",
-      "analysis host"
-    ],
-    "source_cpu": [
-      "x86"
-    ],
-    "target_cpu": [
-      "x86"
-    ],
-    "source_language": [
-      "16-bit x86 machine code",
-      "visual-novel data formats"
-    ],
-    "reconstructed_languages": [
-      "16-bit x86 assembly",
-      "Python"
-    ],
-    "record_class": "hybrid",
-    "target_kinds": [
-      "game-engine",
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "binary-analysis",
-      "data-format-analysis",
-      "patching"
-    ],
-    "tool_kinds": [
-      "binary-analysis",
-      "asset-tool"
-    ],
-    "types": [
-      "engine research collection",
-      "format toolkit"
-    ],
-    "re_started": null,
-    "last_activity": "2026-07-09",
-    "last_checked": "2026-09-27",
-    "status": "active research collection",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "IDA disassembly",
-      "rendered assembly",
-      "unpacking",
-      "decoding and encoding",
-      "binary patching"
-    ],
-    "tags": [
-      "PC-98",
-      "visual novel",
-      "engine research",
-      "16-bit x86"
-    ],
-    "notes": "Research collection covering PC-98 visual-novel engines and individual games with format documentation, unpack/decode tools, IDA databases and rendered assembly. Several primary assembly artifacts explicitly target 16-bit 80186 code and rebuild patched COM/EXE files.",
-    "github": {
-      "repository": "ValleyBell/PC98VNResearch",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
-    }
-  },
-  {
-    "id": "lime-juice-mes-tooling",
-    "title": "lime-juice",
-    "upstream_name": "lime-juice",
-    "display_title": "lime-juice — PC-98 MES compiler/decompiler and image toolkit",
-    "subjects": [],
-    "repo": "https://github.com/FuzionCD/lime-juice",
-    "source_platforms": [
-      "NEC PC-98"
-    ],
-    "target_platforms": [
-      "Windows",
-      "Linux",
-      "macOS"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "source_language": [
-      "MES bytecode",
-      "GP4/GPC/GPA image formats"
-    ],
-    "reconstructed_languages": [
-      "C++",
-      "RKT"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "language-tooling",
-      "asset-tool",
-      "binary-analysis"
-    ],
-    "types": [
-      "bytecode compiler/decompiler",
-      "image format tooling"
-    ],
-    "re_started": "2026",
-    "last_activity": "2026-07-12",
-    "last_checked": "2026-09-27",
-    "status": "active",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "bytecode decompilation",
-      "bytecode recompilation",
-      "format round-tripping",
-      "character-set reconstruction"
-    ],
-    "tags": [
-      "PC-98",
-      "visual novel",
-      "MES",
-      "translation tooling"
-    ],
-    "notes": "C++ port and expansion of tomyun's Juice tool. It decompiles MES scripts to readable RKT and compiles them back, while juice-img round-trips GP4, GPC and GPA images; unresolved opcodes remain explicit raw commands rather than guessed semantics.",
-    "github": {
-      "repository": "FuzionCD/lime-juice",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
-    }
-  },
-  {
-    "id": "rec98-touhou-pc98",
-    "title": "ReC98",
-    "upstream_name": "The Touhou PC-98 Restoration Project (ReC98)",
-    "display_title": "ReC98 — bit-perfect Touhou PC-98 source reconstruction",
-    "subjects": [
-      "Highly Responsive to Prayers",
-      "Story of Eastern Wonderland",
-      "Phantasmagoria of Dim.Dream",
-      "Lotus Land Story",
-      "Mystic Square"
-    ],
-    "repo": "https://github.com/nmlgc/ReC98",
-    "project_url": "https://rec98.nmlgc.net/",
-    "source_platforms": [
-      "NEC PC-9801"
-    ],
-    "target_platforms": [
-      "NEC PC-9801"
-    ],
-    "source_cpu": [
-      "x86"
-    ],
-    "target_cpu": [
-      "x86"
-    ],
-    "source_language": [
-      "16-bit x86 machine code"
-    ],
-    "reconstructed_languages": [
-      "C++",
-      "C",
-      "16-bit x86 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "decompilation",
-      "disassembly",
-      "source-reconstruction",
-      "binary-analysis"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "multi-game source reconstruction",
-      "bit-perfect rebuild"
-    ],
-    "re_started": null,
-    "last_activity": "2026-03-16",
-    "last_checked": "2026-09-27",
-    "status": "TH01 complete; TH02–TH05 ongoing",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "decompilation",
-      "assembly reconstruction",
-      "deterministic binary comparison",
-      "position-independence analysis"
-    ],
-    "tags": [
-      "PC-98",
-      "Touhou",
-      "16-bit x86",
-      "bit-perfect"
-    ],
-    "notes": "Reconstructs the first five Touhou games for NEC PC-9801 from their binaries. Upstream states that every commit builds executables indistinguishable from the originals; TH01 is complete while the remaining games continue to be reverse engineered and finalized.",
-    "github": {
-      "repository": "nmlgc/ReC98",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
-    }
-  },
-  {
-    "id": "np2debug-pc98-debugger",
-    "title": "Neko Project II - Debug Edition",
-    "upstream_name": "Neko Project II - Debug Edition",
-    "display_title": "Neko Project II Debug Edition — PC-98 binary debugger",
-    "subjects": [],
-    "repo": "https://github.com/nmlgc/np2debug",
-    "source_platforms": [
-      "NEC PC-98"
-    ],
-    "target_platforms": [
-      "Windows",
-      "Linux"
-    ],
-    "source_cpu": [
-      "x86"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "PC-98 x86 machine code",
-      "PC-98 hardware behavior"
-    ],
-    "reconstructed_languages": [
-      "C",
-      "C++",
-      "Assembly"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "binary-analysis"
-    ],
-    "types": [
-      "emulator fork",
-      "development debugger"
-    ],
-    "re_started": null,
-    "last_activity": "2015-11-17",
-    "last_checked": "2026-09-27",
-    "status": "historical",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "single stepping",
-      "code and memory breakpoints",
-      "register and stack inspection",
-      "Shift-JIS memory display",
-      "host-directory mounting"
-    ],
-    "tags": [
-      "PC-98",
-      "emulator",
-      "debugger",
-      "Touhou"
-    ],
-    "notes": "Neko Project II fork designed to make modification of PC-98 binaries practical. It adds stepping, code and memory breakpoints, searching/modification, stack inspection and Shift-JIS display, and was tested specifically against Touhou 1–5 for translation-patch development.",
-    "github": {
-      "repository": "nmlgc/np2debug",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
-    }
-  },
-  {
-    "id": "atari-osb-ntsc-source-restoration",
-    "title": "Atari 8-bit OS-B NTSC ROM",
-    "upstream_name": "Atari 8-bit OSB NTSC ROM",
-    "display_title": "Atari OS-B NTSC — paper-source restoration and verified ROM build",
-    "subjects": [
-      "Atari 400/800 Operating System Revision B NTSC ROM"
-    ],
-    "repo": "https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM",
-    "source_platforms": [
-      "Atari 400",
-      "Atari 800"
-    ],
-    "target_platforms": [
-      "Atari 400",
-      "Atari 800"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "OS-B NTSC ROM",
-        "platform": "Atari 400/800",
-        "cpu_family": "6502",
-        "notes": "The primary README identifies this 10 KiB OS-B NTSC ROM for Atari 400 and 800 machines; no RAM minimum is stated.",
-        "evidence": [
-          "https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM/blob/master/README.md"
-        ]
-      }
-    ],
-    "source_language": [
-      "Atari paper 6500 assembly listing"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly",
-      "Python"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "operating-system",
-      "firmware-rom"
-    ],
-    "work_kinds": [
-      "source-restoration"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "paper-source restoration",
-      "ROM reconstruction"
-    ],
-    "re_started": null,
-    "last_activity": "2017-03-04",
-    "last_checked": "2026-09-27",
-    "status": "restored",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "document scanning",
-      "OCR",
-      "manual proofreading",
-      "ca65 conversion",
-      "ROM comparison"
-    ],
-    "tags": [
-      "Atari 8-bit",
-      "6502",
-      "OS ROM",
-      "source preservation"
-    ],
-    "notes": "Restores Atari's published OS-B source listing by scanning, OCR and proofreading, then converts it to ca65 syntax. The Makefile compares the generated listing bytes with the paper-derived path and checks the result against the included 10 KiB ROM.",
-    "github": {
-      "repository": "sidneycadot/Atari8bit_OSB-NTSC-ROM",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
-    }
-  },
-  {
-    "id": "bruce-lee-atari8-disassembly",
-    "title": "Bruce Lee",
-    "upstream_name": "blck-game-engine",
-    "display_title": "Bruce Lee — annotated Atari 8-bit disassembly",
-    "subjects": [
-      "Bruce Lee"
-    ],
-    "repo": "https://github.com/fa8ntomas/blck-game-engine",
-    "source_platforms": [
-      "Atari 8-bit"
-    ],
-    "target_platforms": [
-      "Atari 8-bit"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "6502 machine code"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "binary-analysis"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "annotated game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-09-27",
-    "status": "partial annotation",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "static disassembly",
-      "routine annotation",
-      "Atari hardware register analysis"
-    ],
-    "tags": [
-      "Atari 8-bit",
-      "6502",
-      "Bruce Lee"
-    ],
-    "notes": "Sparse repository documentation, but the primary engine.asm is a substantial annotated 6502 listing that names Bruce/Yamo/Ninja state, Atari display-list, POKEY audio and player/missile register behavior. No reproducible build or exact-output claim was found.",
-    "github": {
-      "repository": "fa8ntomas/blck-game-engine",
-      "checked_at": "2026-09-27",
-      "default_branch": "master",
-      "tracking_branch": "master"
     }
   }
 ]
