@@ -548,6 +548,10 @@ def main():
             }
             items_by_project.setdefault(event.get("project_id"), []).append(fake)
     for project_id, items in items_by_project.items():
+        # The rolling baseline moves on every refresh. Recomputing evidence
+        # when no commits were fetched changes counts/examples on an idle run.
+        if project_id not in newest:
+            continue
         project = project_by_id.get(project_id)
         if project:
             detect_ai(project, items)

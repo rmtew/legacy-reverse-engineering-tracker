@@ -452,8 +452,15 @@ def fill_missing_latest_commits(repos, state, request=get_json):
     return checked, found, unavailable
 
 def main():
+    global RATE_LIMIT, RATE_REMAINING, RATE_RESET
     records = json.loads(PROJECTS.read_text(encoding="utf-8"))
     state = load_state()
+    previous_rate = (state.get("rate") or {}).get("probe") or {}
+    reset = parse_time(previous_rate.get("reset_at"))
+    if reset and reset > RUN_AT and previous_rate.get("remaining") is not None:
+        RATE_LIMIT = previous_rate.get("limit")
+        RATE_REMAINING = previous_rate["remaining"]
+        RATE_RESET = int(reset.timestamp())
     repos = {}
     for record in records:
         repo = github_repo(record.get("repo"))

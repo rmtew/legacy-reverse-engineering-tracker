@@ -147,6 +147,30 @@ class ProbeCadenceTest(unittest.TestCase):
         self.assertEqual(state["repositories"]["owner/repo"]["probe_interval_minutes"], 15)
         self.assertEqual(state["repositories"]["owner/repo"]["next_probe_due_at"], "2026-09-26T04:15:00Z")
 
+    def test_idle_activity_run_preserves_existing_ai_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            projects = Path(directory) / "projects.json"
+            activity = Path(directory) / "activity.json"
+            state_path = Path(directory) / "state.json"
+            evidence = "Claude co-author trailer observed in recent tracked commits: 9 in this scan (example abc)"
+            projects.write_text(json.dumps([{
+                "id": "known", "repo": "https://github.com/owner/repo",
+                "title": "Known", "github": {"tracking_branch": "main"},
+                "ai": {"usage": True, "tools": ["Claude"], "evidence": [evidence]},
+            }]))
+            activity.write_text(json.dumps({"generated_at": "2026-09-26T01:00:00Z", "events": [{
+                "type": "commit", "project_id": "known", "repository": "owner/repo",
+                "sha": "abc", "date": "2026-09-26T02:00:00Z", "branches": ["main"],
+                "title": "Work", "message": "Work\nCo-authored-by: Claude <bot@example.com>",
+            }]}))
+            state_path.write_text(json.dumps({"repositories": {"owner/repo": {"scan_requested": False}}}))
+            now = datetime(2026, 9, 26, 4, 0, tzinfo=timezone.utc)
+            with patch.multiple(collect_activity, PROJECTS=projects, ACTIVITY=activity, STATE=state_path,
+                                NOW=now, NOW_ISO="2026-09-26T04:00:00Z",
+                                CUTOFF=now - timedelta(days=180)):
+                collect_activity.main()
+            self.assertEqual(json.loads(projects.read_text())[0]["ai"]["evidence"], [evidence])
+
 
 if __name__ == "__main__":
     unittest.main()
