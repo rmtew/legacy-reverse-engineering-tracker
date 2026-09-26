@@ -1,0 +1,73 @@
+name: Collect discovery intake
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/discovery-intake.yml"
+      - "tools/discovery_intake.py"
+      - "config/discovery-intake.json"
+  schedule:
+    # Local-time schedule, away from the metadata refresh slots.
+    - cron: "13 5 * * *"
+      timezone: "Pacific/Auckland"
+  workflow_dispatch:
+    inputs:
+      candidate_urls:
+        description: Optional newline-separated URLs to add to the intake queue
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discovery-intake
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Collect and screen discovery leads
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INTAKE_URLS: ${{ inputs.candidate_urls }}
+        shell: bash
+        run: |
+          if [ -n "$INTAKE_URLS" ]; then
+            printf '%s\n' "$INTAKE_URLS" | python tools/discovery_intake.py --input -
+          else
+            python tools/discovery_intake.py
+          fi
+          cp state/discovery-intake.json /tmp/discovery-intake-result.json
+          python tools/discovery_intake.py --list 20 >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Validate intake
+        run: python -m unittest discover -s tools -p 'test_discovery_intake.py'
+
+      - name: Commit review queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python tools/discovery_intake.py --merge-state /tmp/discovery-intake-result.json
+            if git diff --quiet -- state/discovery-intake.json &&
+               [ -z "$(git ls-files --others --exclude-standard state/discovery-intake.json)" ]; then
+              echo "No intake changes"
+              exit 0
+            fi
+            git add state/discovery-intake.json
+            git commit -m "Update discovery intake queue"
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1

@@ -20,6 +20,9 @@ The tracker has two views:
 - `data/research-activity.json` — append-only history of discovery/audit work and when it was performed
 - `tools/apply_discovery_batch.py` — preview and apply one validated cross-file research batch
 - `tools/screen_discovery_candidates.py` — local, read-only early URL screening for discovery results
+- `tools/discovery_intake.py` — bounded searches, source mining, URL screening and ranked review queue
+- `config/discovery-intake.json` — rotating GitHub search recipes and per-run collection limits
+- `state/discovery-intake.json` — persistent candidate queue, provenance, source check dates and run statistics
 - `state/github-poll-state.json` — persistent per-repository polling and branch state
 - `index.html`, `web/tracker.js`, `web/tracker.css` — framework-free interactive UI
 - `tools/refresh_github.py` — adaptive conditional repository probes, metadata refresh and scan scheduling
@@ -45,6 +48,8 @@ Project classification is deliberately multi-axis rather than a flat tag pile: `
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
 
 ## Discovery passes
+
+The daily `discovery-intake.yml` workflow rotates GitHub repository/README and code searches, lists repositories under selected source profiles, checks selected repository READMEs and title directories, and mines GitHub links from selected source websites. It screens hits locally and writes a ranked review queue to `state/discovery-intake.json`, retaining query/source provenance and per-route counts. `python tools/discovery_intake.py --list 30` shows its highest-ranked leads; `python tools/discovery_intake.py` runs the same intake locally with `GITHUB_TOKEN`. `workflow_dispatch` runs it on demand and accepts optional newline-separated candidate URLs. External web *search* still needs an interactive search provider; this job follows curated website sources but does not scrape a search engine. The intake queue never changes project or research decisions.
 
 Screen search-result URLs before opening candidate pages: `python tools/screen_discovery_candidates.py --input candidates.txt --route 'web search'`. The input can be one URL per line or a JSON array of URLs / `{ "url": "...", "route": "..." }` objects; use `--input -` for stdin or `--json` for structured results and per-route counts. It combines current projects, source nodes and reviewed decisions without making GitHub API calls. A known profile or repository can still contain new projects; inspect `known_repository_path` hits and unreviewed/deferred matches rather than discarding them. Redirected/renamed URLs can be recorded as duplicate decisions linked to the current project ID, giving future searches an exact alias match.
 

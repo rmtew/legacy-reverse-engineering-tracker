@@ -4,6 +4,10 @@ Keep a research pass together. Screen candidate URLs, review primary project pag
 
 ## Screen search results
 
+Start with `python tools/discovery_intake.py --list 30` to review the saved queue. A daily Action and manually dispatched runs collect bounded GitHub searches and revisit known profiles, repositories and website sources. Each queued URL includes its route and query/source of origin, first/last sighting and a cheap relevance score. A candidate already promoted or excluded is removed on the next run; deferred decisions remain for follow-up. The ranked queue is a work list, not a project recommendation or a claim of qualification. Search recipes and budgets live in `config/discovery-intake.json`; run outcomes live in `state/discovery-intake.json`.
+
+For a chat-triggered pass, run the intake command locally or dispatch `discovery-intake.yml` from GitHub Actions; `--input candidate_urls.json --offline` adds externally discovered hits without network calls. The Action's optional `candidate_urls` input accepts newline-separated links and also runs the saved recipes. New web search queries still require a search provider or manual search, then URL import. Neither the CI refresh of tracked repositories nor this intake collector evaluates whether a new project belongs in the catalogue.
+
 Pass an entire result page to the local index before requesting each README or another GitHub API lookup:
 
 ```sh
