@@ -1,5 +1,9 @@
 # GitHub polling capacity study (26 September 2026)
 
+**Implementation update:** The staged 15-minute/1-hour/4-hour/12-hour probe schedule, live-quota reserve for all probes, bounded request history, negative language cache, independent release checks, and material-change Pages gate have now been implemented. The measurements and whole-catalogue estimates below describe the previous twice-daily baseline. Newly added projects bypass the tier deadline in both direct catalogue pushes and dispatched discovery landings; manual dispatch can request a full sweep explicitly. Monitor actual quota and publication latency after the new schedule has run for a day before shortening a tier.
+
+Discovery integration: direct chat-authored catalogue commits trigger the push refresh and defer Pages until it completes. When the new adaptive probe has no further metadata to write, Pages still recognizes the original catalogue push and deploys it. Scheduled discovery branches use the landing workflow's explicit refresh dispatch; the refresh merges pending projects, probes new IDs immediately, records additions, and dispatches Pages when done. Normal scheduled polling does not spend quota on an unnecessary full sweep after each discovery landing.
+
 ## Present behaviour
 
 The `Refresh GitHub metadata` workflow selects two runs per Auckland day, around 06:30 and 18:30. It also runs on certain human-authored catalogue pushes and explicit dispatch. Every run probes **every distinct tracked repository** with `GET /repos/{owner}/{repo}`. The adaptive 1/3/7/14/30/56-day intervals apply to *deep branch/commit scans*, not to these repository probes. A changed `pushed_at` queues an immediate deep scan. The collector skips commit queries on branches whose tip SHA has not changed. Each refresh persists probe timestamps/ETags, and a successful workflow run triggers a Pages deployment.

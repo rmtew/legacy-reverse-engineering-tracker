@@ -33,10 +33,6 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: github-pages
-  cancel-in-progress: true
-
 jobs:
   gate:
     runs-on: ubuntu-latest
@@ -44,7 +40,7 @@ jobs:
       deploy: ${{ steps.decision.outputs.deploy }}
     steps:
       - name: Checkout history for push inspection
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' || github.event_name == 'workflow_run'
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
@@ -53,6 +49,50 @@ jobs:
         id: decision
         shell: bash
         run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
+            # State and refresh timestamps change even without new public data.
+            # Compare material data with the commit that started the workflow.
+            base='${{ github.event.workflow_run.head_sha }}'
+            if ! git cat-file -e "$base^{commit}"; then
+              echo "deploy=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            # A chat-driven catalogue push is intentionally held until the
+            # refresh finishes. Include that original push even if the new
+            # adaptive cadence does not change its records again.
+            if [ '${{ github.event.workflow_run.event }}' = 'push' ] &&
+               git rev-parse "$base^" >/dev/null 2>&1 &&
+               git diff --name-only "$base^" "$base" -- data/projects.json | grep -Fxq 'data/projects.json'; then
+              echo "deploy=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            python - "$base" <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          import subprocess
+          import sys
+
+          base = sys.argv[1]
+          paths = ('data/projects.json', 'data/activity.json', 'data/project-audits.json')
+
+          def material(revision, path):
+              try:
+                  raw = subprocess.check_output(['git', 'show', f'{revision}:{path}'])
+              except subprocess.CalledProcessError:
+                  return None
+              value = json.loads(raw)
+              if path == 'data/projects.json':
+                  for project in value:
+                      (project.get('github') or {}).pop('checked_at', None)
+              elif path == 'data/activity.json':
+                  value.pop('generated_at', None)
+              return value
+
+          changed = any(material(base, path) != material('HEAD', path) for path in paths)
+          print('deploy=' + str(changed).lower())
+          PY
+            exit 0
+          fi
+
           if [ "$GITHUB_EVENT_NAME" != "push" ]; then
             echo "deploy=true" >> "$GITHUB_OUTPUT"
             exit 0
@@ -73,6 +113,9 @@ jobs:
   deploy:
     needs: gate
     if: needs.gate.outputs.deploy == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    concurrency:
+      group: github-pages
+      cancel-in-progress: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

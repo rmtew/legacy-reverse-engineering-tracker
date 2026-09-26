@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Adaptive GitHub repository polling and metadata refresh.
 
-Every unique repository gets a cheap conditional probe. Expensive metadata and
-activity work is scheduled per repository based on recent activity, and a
-changed pushed_at timestamp always requests an immediate deep activity scan.
+Repository probes have a separate cadence from deep activity scans. Recently
+active projects are probed frequently; quiet projects are checked less often.
+A changed pushed_at timestamp always requests an immediate deep activity scan.
 """
 from __future__ import annotations
 
@@ -34,9 +34,13 @@ MAX_HTTP_REQUESTS = int(os.environ.get("GITHUB_HTTP_SAFETY_CAP", "4000"))
 REQUEST_DELAY = float(os.environ.get("GITHUB_REQUEST_DELAY", "0.10"))
 REQUESTS = 0
 NOT_MODIFIED = 0
+CONDITIONAL_REQUESTS = 0
+STATUS_COUNTS = {}
 RATE_LIMIT = None
 RATE_REMAINING = None
 RATE_RESET = None
+RATE_START_REMAINING = None
+FORCE_FULL_PROBE = os.environ.get("GITHUB_FORCE_FULL_PROBE", "").lower() == "true"
 
 AI_CONFIG = {
     "claude.md": "Claude",
@@ -58,7 +62,7 @@ def effective_reserve():
     return min(MAX_RESERVE, max(floor, proportional))
 
 def update_rate(headers):
-    global RATE_LIMIT, RATE_REMAINING, RATE_RESET
+    global RATE_LIMIT, RATE_REMAINING, RATE_RESET, RATE_START_REMAINING
     if not headers:
         return
     try:
@@ -66,6 +70,8 @@ def update_rate(headers):
             RATE_LIMIT = int(headers["X-RateLimit-Limit"])
         if headers.get("X-RateLimit-Remaining") is not None:
             RATE_REMAINING = int(headers["X-RateLimit-Remaining"])
+            if RATE_START_REMAINING is None:
+                RATE_START_REMAINING = RATE_REMAINING
         if headers.get("X-RateLimit-Reset") is not None:
             RATE_RESET = int(headers["X-RateLimit-Reset"])
     except (TypeError, ValueError):
@@ -79,8 +85,16 @@ def rate_snapshot():
         "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "http_requests": REQUESTS,
         "not_modified": NOT_MODIFIED,
+        "conditional_requests": CONDITIONAL_REQUESTS,
+        "statuses": dict(STATUS_COUNTS),
         "limit": RATE_LIMIT,
+        "remaining_after_first_request": RATE_START_REMAINING,
         "remaining": RATE_REMAINING,
+        "quota_delta_after_first_request": (
+            RATE_START_REMAINING - RATE_REMAINING
+            if RATE_START_REMAINING is not None and RATE_REMAINING is not None else None
+        ),
+        "duration_seconds": round((datetime.now(timezone.utc) - RUN_AT).total_seconds()),
         "reserve": effective_reserve(),
         "reset_at": reset_at,
     }
@@ -97,12 +111,17 @@ def append_summary(label):
         handle.write(
             f"### {label}\n"
             f"- HTTP requests: **{snap['http_requests']}**"
-            f" ({snap['not_modified']} conditional 304 responses)\n"
+            f" ({snap['not_modified']} / {snap['conditional_requests']} conditional 304 responses)\n"
             f"- Primary REST quota: **{snap['remaining'] if snap['remaining'] is not None else '?'}"
             f" / {snap['limit'] if snap['limit'] is not None else '?'}** remaining"
             f"; dynamic reserve **{snap['reserve']}**\n"
+            f"- Quota after first response: **{snap['remaining_after_first_request']}**;"
+            f" change since then: **{snap['quota_delta_after_first_request']}**;"
+            f" statuses: **{snap['statuses']}**; elapsed: **{snap['duration_seconds']} s**\n"
             f"- Rate reset: **{snap['reset_at'] or '?'}**\n\n"
         )
+        if CONDITIONAL_REQUESTS >= 20 and NOT_MODIFIED / CONDITIONAL_REQUESTS < 0.25:
+            handle.write("- ETag diagnostic: fewer than 25% of conditional probes returned 304; do not budget probes as free.\n\n")
 
 def load_state():
     if not STATE.exists():
@@ -130,6 +149,12 @@ def iso_date(value):
 def parse_day(value):
     try:
         return datetime.strptime(value[:10], "%Y-%m-%d").date() if value else None
+    except (TypeError, ValueError):
+        return None
+
+def parse_time(value):
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00")) if value else None
     except (TypeError, ValueError):
         return None
 
@@ -163,6 +188,38 @@ def interval_days(last_activity, archived=False):
         return 14
     return 30
 
+def probe_interval_minutes(last_activity, archived=False):
+    if archived:
+        return 720
+    day = parse_day(last_activity)
+    if not day:
+        return 720
+    age = max(0, (TODAY - day).days)
+    if age <= 14:
+        return 15
+    if age <= 60:
+        return 60
+    if age <= 180:
+        return 240
+    return 720
+
+def probe_due(repo, rs, interval):
+    """Spread the first migration pass across slots, then honour actual elapsed time."""
+    next_due = parse_time(rs.get("next_probe_due_at"))
+    if next_due:
+        return RUN_AT >= next_due
+    last = parse_time(rs.get("last_probe_at"))
+    if not last:
+        last_day = parse_day(rs.get("last_probe"))
+        last = datetime.combine(last_day, datetime.min.time(), timezone.utc) if last_day else None
+    if not last:
+        return True
+    slots = max(1, interval // 15)
+    # A one-time transition from the old whole-catalogue schedule. Every repo
+    # is first revisited within its maximum interval, with stable stagger.
+    first_offset = min(interval, 15 * (1 + bucket(repo, slots)))
+    return RUN_AT >= last + timedelta(minutes=first_offset)
+
 def bucket(repo, interval):
     digest = hashlib.sha256(repo.encode("utf-8")).digest()
     return int.from_bytes(digest[:4], "big") % interval
@@ -179,16 +236,20 @@ def probe_order(repositories, state):
         return (last, repo.casefold())
     return sorted(repositories, key=key)
 
-def api(path, *, etag=None, allow_404=False, allow_empty_repo=False, conditional_probe=False):
-    global REQUESTS, NOT_MODIFIED
+def api(path, *, etag=None, allow_404=False, allow_empty_repo=False):
+    global REQUESTS, NOT_MODIFIED, CONDITIONAL_REQUESTS
     if REQUESTS >= MAX_HTTP_REQUESTS:
         raise RateStop(f"HTTP safety cap reached ({MAX_HTTP_REQUESTS})")
-    if not conditional_probe and not primary_available():
+    # A conditional request only saves quota when it actually returns 304.
+    # Repository probes have returned 200 in every sampled production run.
+    if not primary_available():
         raise PrimaryReserve(
             f"primary rate reserve reached ({RATE_REMAINING} remaining; reserve {effective_reserve()})"
         )
 
     REQUESTS += 1
+    if etag:
+        CONDITIONAL_REQUESTS += 1
     headers = {
         "Accept": "application/vnd.github+json",
         "User-Agent": "legacy-reverse-engineering-tracker",
@@ -203,12 +264,14 @@ def api(path, *, etag=None, allow_404=False, allow_empty_repo=False, conditional
         with urlopen(Request(API + path, headers=headers), timeout=30) as response:
             response_headers = dict(response.headers)
             update_rate(response_headers)
+            STATUS_COUNTS[response.status] = STATUS_COUNTS.get(response.status, 0) + 1
             body = json.load(response)
             time.sleep(REQUEST_DELAY)
             return response.status, body, response_headers
     except HTTPError as exc:
         response_headers = dict(exc.headers) if exc.headers else {}
         update_rate(response_headers)
+        STATUS_COUNTS[exc.code] = STATUS_COUNTS.get(exc.code, 0) + 1
         if exc.code == 304:
             NOT_MODIFIED += 1
             time.sleep(REQUEST_DELAY)
@@ -272,6 +335,25 @@ def update_basic_info(repo, info, repo_projects):
             "activity_state": activity_state(record.get("last_activity")),
         })
 
+def update_latest_release(repo_projects, release):
+    for record in repo_projects:
+        if record.get("github_path"):
+            continue
+        gh = record.setdefault("github", {})
+        if release:
+            gh["latest_release"] = {
+                "tag": release.get("tag_name"),
+                "name": release.get("name"),
+                "published_at": iso_date(release.get("published_at")),
+                "url": release.get("html_url"),
+            }
+        else:
+            gh.pop("latest_release", None)
+
+def check_latest_release(repo, repo_projects):
+    release, _, _ = get_json(f"/repos/{repo}/releases/latest", allow_404=True)
+    update_latest_release(repo_projects, release)
+
 def enrich_changed_repo(repo, info, repo_projects):
     branch = info.get("default_branch") or "main"
     languages, _, _ = get_json(f"/repos/{repo}/languages")
@@ -286,11 +368,8 @@ def enrich_changed_repo(repo, info, repo_projects):
 
     update_ai_config(repo_projects, root_entries, github_entries)
 
-    release = None
     if any(not p.get("github_path") for p in repo_projects):
-        release, _, status = get_json(f"/repos/{repo}/releases/latest", allow_404=True)
-        if status == 404:
-            release = None
+        check_latest_release(repo, repo_projects)
 
     ordered_languages = [
         name for name, _ in sorted((languages or {}).items(), key=lambda item: item[1], reverse=True)
@@ -298,16 +377,7 @@ def enrich_changed_repo(repo, info, repo_projects):
     for record in repo_projects:
         gh = record.setdefault("github", {})
         gh["languages"] = ordered_languages
-        if not record.get("github_path"):
-            if release:
-                gh["latest_release"] = {
-                    "tag": release.get("tag_name"),
-                    "name": release.get("name"),
-                    "published_at": iso_date(release.get("published_at")),
-                    "url": release.get("html_url"),
-                }
-            else:
-                gh.pop("latest_release", None)
+    return not bool(languages)
 
 
 def fill_missing_latest_commits(repos, state, request=get_json):
@@ -390,7 +460,7 @@ def main():
         if repo:
             repos.setdefault(repo, []).append(record)
 
-    probed = changed_count = requested = 0
+    probed = changed_count = requested = skipped = 0
     stopped = None
     bootstrap_state = not bool(state["repositories"])
 
@@ -405,6 +475,7 @@ def main():
             rs["scan_reason"] = "new"
 
         previous_project_ids = rs.get("project_ids")
+        added_projects = []
         rs["project_ids"] = project_ids
         if previous_project_ids is not None:
             added_projects = sorted(set(project_ids) - set(previous_project_ids))
@@ -412,6 +483,17 @@ def main():
                 rs["scan_requested"] = True
                 if rs.get("scan_reason") != "changed":
                     rs["scan_reason"] = "new-project"
+        latest = max(
+            (parse_day(p.get("last_activity")) for p in repo_projects if parse_day(p.get("last_activity"))),
+            default=None,
+        )
+        latest_day = latest.isoformat() if latest else None
+        archived = bool(next((p.get("github", {}).get("archived") for p in repo_projects if p.get("github")), False))
+        probe_minutes = probe_interval_minutes(latest_day, archived)
+        rs["probe_interval_minutes"] = probe_minutes
+        if not (FORCE_FULL_PROBE or new_repo or added_projects or probe_due(repo, rs, probe_minutes)):
+            skipped += 1
+            continue
         prior_pushed = rs.get("last_seen_pushed_at")
         if not prior_pushed:
             prior_pushed = next(
@@ -420,9 +502,7 @@ def main():
             )
 
         try:
-            info, headers, status = get_json(
-                f"/repos/{repo}", etag=rs.get("etag"), conditional_probe=True
-            )
+            info, headers, status = get_json(f"/repos/{repo}", etag=rs.get("etag"))
         except RateStop as exc:
             stopped = str(exc)
             print(f"RATE STOP before {repo}: {exc}", file=sys.stderr)
@@ -431,20 +511,22 @@ def main():
             rs["last_error"] = str(exc)[:400]
             rs["last_probe"] = TODAY.isoformat()
             rs["last_probe_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
+            rs["next_probe_due_at"] = (RUN_AT + timedelta(minutes=probe_minutes)).isoformat(timespec="seconds").replace("+00:00", "Z")
             print(f"WARNING: probe {repo}: {exc}", file=sys.stderr)
             continue
 
         probed += 1
         rs["last_probe"] = TODAY.isoformat()
         rs["last_probe_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
+        rs["next_probe_due_at"] = (RUN_AT + timedelta(minutes=probe_minutes)).isoformat(timespec="seconds").replace("+00:00", "Z")
         rs.pop("last_error", None)
         if headers.get("ETag"):
             rs["etag"] = headers["ETag"]
 
         info_changed = status == 200
         pushed_changed = False
-        archived = bool(next((p.get("github", {}).get("archived") for p in repo_projects if p.get("github")), False))
         default_branch = next((p.get("github", {}).get("default_branch") for p in repo_projects if p.get("github")), "main")
+        enriched = False
 
         if info_changed and info:
             current_pushed = info.get("pushed_at")
@@ -463,10 +545,21 @@ def main():
                 rs["last_change_detected"] = TODAY.isoformat()
                 rs["last_change_detected_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
                 changed_count += 1
-            missing_heavy = any(not p.get("github", {}).get("languages") for p in repo_projects)
+            empty_checked = parse_day(rs.get("empty_languages_checked_at"))
+            retry_empty = not empty_checked or TODAY - empty_checked >= timedelta(days=30)
+            missing_heavy = any(not p.get("github", {}).get("languages") for p in repo_projects) and (
+                new_repo or bool(added_projects) or retry_empty
+            )
             if pushed_changed or missing_heavy:
                 try:
-                    enrich_changed_repo(repo, info, repo_projects)
+                    empty_languages = enrich_changed_repo(repo, info, repo_projects)
+                    enriched = True
+                    if empty_languages:
+                        rs["empty_languages_checked_at"] = TODAY.isoformat()
+                    else:
+                        rs.pop("empty_languages_checked_at", None)
+                    if any(not p.get("github_path") for p in repo_projects):
+                        rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
                 except PrimaryReserve as exc:
                     print(f"RATE RESERVE: skipping optional metadata for {repo}: {exc}", file=sys.stderr)
                 except RateStop as exc:
@@ -475,11 +568,24 @@ def main():
                 except Exception as exc:
                     print(f"WARNING: metadata {repo}: {exc}", file=sys.stderr)
 
-        latest = max(
-            (parse_day(p.get("last_activity")) for p in repo_projects if parse_day(p.get("last_activity"))),
-            default=None,
-        )
+        if not enriched and any(not p.get("github_path") for p in repo_projects):
+            checked = parse_time(rs.get("last_release_check_at"))
+            release_hours = 6 if probe_minutes == 15 else 24
+            if not checked or RUN_AT - checked >= timedelta(hours=release_hours):
+                try:
+                    check_latest_release(repo, repo_projects)
+                    rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
+                except PrimaryReserve as exc:
+                    print(f"RATE RESERVE: skipping release for {repo}: {exc}", file=sys.stderr)
+                except RateStop as exc:
+                    stopped = str(exc)
+                    print(f"RATE STOP while checking release for {repo}: {exc}", file=sys.stderr)
+                except Exception as exc:
+                    print(f"WARNING: release {repo}: {exc}", file=sys.stderr)
+
         interval = interval_days(latest.isoformat() if latest else None, archived)
+        rs["probe_interval_minutes"] = probe_interval_minutes(latest_day, archived)
+        rs["next_probe_due_at"] = (RUN_AT + timedelta(minutes=rs["probe_interval_minutes"])).isoformat(timespec="seconds").replace("+00:00", "Z")
         rs["interval_days"] = interval
         rs["default_branch"] = default_branch
         due = scheduled_today(repo, interval)
@@ -496,13 +602,18 @@ def main():
             break
 
     history_checked, history_found, history_unavailable = fill_missing_latest_commits(repos, state)
-    state.setdefault("rate", {})["probe"] = rate_snapshot()
+    snapshot = rate_snapshot()
+    snapshot.update({"probed": probed, "skipped_not_due": skipped})
+    rate_state = state.setdefault("rate", {})
+    rate_state["probe"] = snapshot
+    rate_state["probe_history"] = (rate_state.get("probe_history") or [])[-95:] + [snapshot]
     save_state(state)
     append_summary("GitHub repository probe phase")
     records.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
     PROJECTS.write_text(json.dumps(records, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(
-        f"Probed {probed}/{len(repos)} repositories; detected {changed_count} pushed changes; "
+        f"Probed {probed}/{len(repos)} repositories ({skipped} deferred by cadence); "
+        f"detected {changed_count} pushed changes; "
         f"requested {requested} deep scans; made {REQUESTS} HTTP requests "
         f"({NOT_MODIFIED} returned 304); checked {history_checked} missing historical heads "
         f"({history_found} project dates found, {history_unavailable} unavailable); primary remaining "

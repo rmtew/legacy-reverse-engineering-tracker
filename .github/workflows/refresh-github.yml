@@ -1,17 +1,18 @@
-# Fair adaptive polling: oldest probes first; changed/oldest queued scans first.
+# Fair adaptive polling: oldest due probes first; changed/oldest queued scans first.
 # Discovery landings explicitly dispatch this workflow because GITHUB_TOKEN ref updates do not emit downstream push workflows.
 # workflow_dispatch is allowed from github-actions[bot]; bot-authored pushes remain blocked to prevent recursion.
 name: Refresh GitHub metadata
 
 on:
   schedule:
-    # Two NZ-local refresh windows. Both NZST/NZDT UTC variants are scheduled;
-    # the first step selects the correct pair for the current Auckland offset.
-    - cron: "30 5 * * *"
-    - cron: "30 6 * * *"
-    - cron: "30 17 * * *"
-    - cron: "30 18 * * *"
+    # Fifteen-minute probe slots, away from the top of each hour.
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
+    inputs:
+      full_probe:
+        description: Probe every tracked repository in this run
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths:
@@ -31,7 +32,7 @@ permissions:
 
 concurrency:
   group: refresh-github-metadata
-  # A DST-alternate schedule run may intentionally skip; never let it cancel an active refresh.
+  # Keep queued runs and discovery dispatches; never cancel a running refresh.
   cancel-in-progress: false
 
 jobs:
@@ -44,7 +45,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Select Auckland refresh window
+      - name: Select refresh window
         id: window
         shell: bash
         run: |
@@ -53,18 +54,7 @@ jobs:
             exit 0
           fi
 
-          offset="$(TZ=Pacific/Auckland date +%z)"
-          schedule='${{ github.event.schedule }}'
-          case "$offset:$schedule" in
-            "+1300:30 5 * * *"|"+1300:30 17 * * *"|"+1200:30 6 * * *"|"+1200:30 18 * * *")
-              echo "run=true" >> "$GITHUB_OUTPUT"
-              echo "Selected $schedule for Auckland offset $offset."
-              ;;
-            *)
-              echo "run=false" >> "$GITHUB_OUTPUT"
-              echo "Skipping DST-alternate schedule $schedule for Auckland offset $offset."
-              ;;
-          esac
+          echo "run=true" >> "$GITHUB_OUTPUT"
 
       - name: Merge pending discoveries
         if: steps.window.outputs.run == 'true'
@@ -79,6 +69,7 @@ jobs:
           GITHUB_RATE_RESERVE_FRACTION: "0.15"
           GITHUB_HTTP_SAFETY_CAP: "4000"
           GITHUB_REQUEST_DELAY: "0.10"
+          GITHUB_FORCE_FULL_PROBE: ${{ inputs.full_probe || false }}
         run: python tools/refresh_github.py
 
       - name: Collect due activity incrementally
