@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-27 — Arcade, VM and media CPU audit plus active upstream review
+
+Resolved twelve queued CPU audit areas from primary source. **Berzerk** is confirmed as a Z80 disassembly with no native output target; its source header also explicitly discloses Deepseek V4 AI. **Marble Madness II** now records the M68000 arcade original and the unfinished Amiga loader's explicit 68020/AGA target without presenting its declared memory as a verified runnable profile. **Super Pac-Man** now records its actual in-progress Amiga m68000/m68020 outputs and explicit Claude-assisted reverse-engineering commit while retaining open build/runtime questions. Another World's analysed VM bytecode and DrawBridge/STM32 floppy media are no longer treated as architecture-bearing inputs; STM32 USB Floppy Tracer records the explicit ARM Cortex-M firmware target, while DrawBridge's unnamed Arduino MCU remains **no evidence found**.
+
+Active-upstream review also recorded **Copperline 1.0.0-rc.1** and its supported release/build paths, **Firestaff**'s bounded authenticated-media Atari ST, Amiga and FM Towns menu/runtime handoffs, and **Bosconian**'s explicit Claude-assisted Z80 reverse-engineering pass. None of the bounded startup tests or unfinished translations were promoted to complete gameplay claims.
+
+
 ## 2026-09-26 — Arcade CPU evidence and active upstream maintenance
 
 Resolved ten queued CPU audit areas with primary evidence. MAME's current hardware drivers establish Z80 originals for Amidar, Pac-Man, Ms. Pac-Man and Scramble, HD6309 for Double Dragon, and 6502 for U.S. Championship V'Ball. BeerMon's source documents the m68k family and explicitly selects `mc68030` for the reconstruction output; this does not claim a minimum runnable Amiga. Prehistorik's reviewed tree does not name its original executable CPU, while REminiscence consumes multi-platform resource data rather than native executable code, so those cases now record **no evidence found** and **not applicable** instead of platform-derived guesses.

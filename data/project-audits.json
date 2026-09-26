@@ -3108,7 +3108,7 @@
     },
     {
       "project_id": "copperline-amiga-emulator",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-27",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -3131,7 +3131,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-09-27",
+          "note": "The 1.0.0-rc.1 release and current README provide macOS Homebrew, Linux AppImage and cargo --release installation/build paths: https://github.com/CopperlineHQ/Copperline/releases/tag/v1.0.0-rc.1"
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -5471,7 +5472,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-09-27",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5496,8 +5497,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-26",
-          "note": "Post-review commits verify direct authenticated US/JP Theron Track 02 startup and movement while limiting the claim to exercised early routes, fix a source-shaped DM1 fresh-start C37 save round-trip without claiming original-media resume, and document why Atari v1.0 save resume must remain fail-closed: https://github.com/yeager/firestaff/commit/b8d343298c7a2ebfae4f4a11d82c90a7eb5c4b5b, https://github.com/yeager/firestaff/commit/20adc090341d51b0fa7b1398c92d494f890c5d29 and https://github.com/yeager/firestaff/commit/2c41944c56fcfd87ec19725b0fd5fa57e8987290."
+          "checked_at": "2026-09-27",
+          "note": "Post-review commits verify authenticated US/JP Theron Track 02 early runtime and movement, a source-shaped DM1 fresh-start C37 save round-trip without claiming original-media resume, and bounded authenticated-media DM1 Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs. These are exercised routes rather than complete campaign parity; Atari v1.0 save resume remains fail-closed: https://github.com/yeager/firestaff/commit/b8d343298c7a2ebfae4f4a11d82c90a7eb5c4b5b, https://github.com/yeager/firestaff/commit/20adc090341d51b0fa7b1398c92d494f890c5d29, https://github.com/yeager/firestaff/commit/5d373dff968e4d1ece9b3a5d7b31749123231787 and https://github.com/yeager/firestaff/commit/d95126353a5e3694db8a9f3a6593496b28e0456d"
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -20609,7 +20610,7 @@
     },
     {
       "project_id": "bosconian-amiga-jotd",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-27",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -20637,8 +20638,9 @@
           "checked_at": null
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-25"
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Commit 2eb76e12958e explicitly credits Claude and changes only src/bosconian_z80.asm: https://github.com/jotd666/bosconian/commit/2eb76e12958e9d20ecf15a6b9f2e07808605391d"
         },
         "relationships": {
           "state": "needs-research",
@@ -20738,45 +20740,51 @@
     },
     {
       "project_id": "berzerk-arcade-scott-tunstall",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary listing identifies Berzerk (Stern Electronics, 1980) and Scott Tunstall's reverse-engineering authorship."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "berzerk.asm is an annotated original arcade disassembly/binary-analysis work, not an Amiga port."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The listing is Z80 assembly; MAME's primary Berzerk driver configures Z80 as the main CPU: https://github.com/mamedev/mame/blob/master/src/mame/stern/berzerk.cpp"
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The repository publishes analysis/listing output and does not claim a native port target."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "Repository root contains the listing and PDF but no assembler recipe, checksum or byte-identical rebuild claim."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "No runnable reconstructed target is claimed."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The berzerk.asm header explicitly names Deepseek V4 AI among the tools used: https://github.com/ScottTunstall/Berzerk/blob/main/berzerk.asm"
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The primary header documents its Frenzy 8085-to-Z80 comparison and names JOTD's copy separately; no independent Amiga output is claimed."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "shirazmcp-hatari-debugger",
@@ -26435,45 +26443,51 @@
     },
     {
       "project_id": "drawbridge-amiga-floppy",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary readme identifies DrawBridge/Arduino Powered Floppy Disk Reader and Writer."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Raw-MFM acquisition, disk-image read/write and emulator bridging are evidenced preservation/tooling functions."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "Raw tracks and ADF/IPF/SCP/ST image data are media inputs; no source executable CPU applies."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "Primary readme, firmware tree and build files were checked; they identify Arduino firmware but do not name the exact MCU/CPU target. No CPU is inferred from the Arduino label."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README identifies the Arduino sketch, Visual Studio 2019 host applications and supplied Linux makefile with Raspberry Pi OS testing."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The project is controller/host tooling; no legacy title runtime profile applies."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README and current repository tree checked; no explicit AI-assistance evidence found."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README documents WinUAE/Amiberry integration, kollokollo's Linux decoding scripts and jtsiomb's separate AVR port."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "lxa-linux-amiga-layer",
@@ -26561,45 +26575,51 @@
     },
     {
       "project_id": "stm32-usbfloppytracer-amiga-st",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README identifies STM32-USBFloppyTracer firmware plus Rust CLI/GUI for physical disk preservation."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Physical-media imaging, protection handling and write verification are evidenced; this is preservation tooling, not a reconstructed title."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "ADF/ST/IPF/STX and raw magnetic tracks are data/media inputs and do not carry one applicable source CPU."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README names STM32F407 and firmware/.cargo/config.toml selects thumbv7em-none-eabihf for Cortex-M4F/M7F; ARM is recorded as the firmware output CPU."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README gives submodule, nightly Rust, thumbv7em-none-eabihf, cargo-embed and separate CLI/GUI build commands."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The documented STM32F4 boards are controller hardware rather than a legacy software runtime minimum."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README, build configuration and current source tree checked; no explicit AI-assistance evidence found."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README identifies the author's SlamySTM32Floppy predecessor and compares Greaseweazle/Kryoflux explicitly."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "flashfloppy-amiga-st",
@@ -27242,45 +27262,51 @@
     },
     {
       "project_id": "exploring-another-world-dos",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README identifies a Haskell exploration of Eric Chahi's Another World implementation and DOS resources."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Scope is MEMLIST/BANK parsing, VM-bytecode disassembly and data research; no reconstructed game is claimed."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The analysed executable content is Another World's platform-neutral virtual-machine bytecode and resource data, not native CPU instructions."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The repository produces host-side analysis output and no legacy executable target."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README shows make/scripts build and runnable Haskell examples that parse 147 MEMLIST entries and compare VM disassembly."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "This is host analysis tooling, not a runnable legacy software target."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README, source tree and current commit history checked; no explicit AI-assistance evidence found."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README directly credits and compares Fabien Sanglard's interpreter and Gregory Montoir's rawgl disassembler."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "rockford-hidden-level-patcher",
@@ -27502,44 +27528,53 @@
     },
     {
       "project_id": "super-pacman-arcade-disassembly",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The repository contains Super Pac-Man-specific 6809 source and makefile outputs despite a stale Mappy README/template residue."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Current tree substantiates an arcade disassembly and in-progress reverse-engineering-derived Amiga translation; a completed playable port is not claimed."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "src/super_pacman_6809.asm and the project decode tooling explicitly identify the original 6809 code."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "makefile.am explicitly assembles OCS/ECS objects with -m68000 and AGA objects with -m68020: https://github.com/jotd666/super_pacman/blob/main/makefile.am"
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-27",
+          "note": "The makefile defines Super Pac-Man outputs, but stale Mappy loader names and absent generated inputs prevent treating the public checkout as a verified successful build."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-27",
+          "note": "The README's A500/A1200 claims describe Mappy and cannot safely establish Super Pac-Man hardware minima."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Commit 73d56b0bcd66 explicitly says 'added RE fixes by Claude': https://github.com/jotd666/super_pacman/commit/73d56b0bcd6612ae6548b6c73d9785f61f914f64"
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-27",
+          "note": "Template residue shows a Mappy-derived scaffold, but the exact reusable-code relationship and current independent completion boundary need clarification."
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Verify a complete public-checkout build and distinguish retained Mappy scaffold code from finished Super Pac-Man translation",
+        "Verify Super Pac-Man-specific A500/A1200 runtime requirements before adding profiles"
       ]
     },
     {
@@ -27628,44 +27663,52 @@
     },
     {
       "project_id": "marble-madness-ii-arcade-render-study",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary README and source tree identify an attempt to port the Marble Madness II arcade prototype."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The current evidence covers arcade video-memory analysis, a host renderer and an incomplete Amiga loader."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "MAME's primary marblmd2 driver configures M68000 as the arcade main CPU: https://github.com/mamedev/mame/blob/master/src/mame/atari/marblmd2.cpp"
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "src/amiga/MarbleMadness2HD.s explicitly sets WHDLF_Req68020 for the Amiga loader: https://github.com/jotd666/marble_madness_2/blob/main/src/amiga/MarbleMadness2HD.s"
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-27",
+          "note": "The host mm2render.c documents a direct cc build, but TODO still says ROM patching, tiles and sprites are unfinished and no complete Amiga build is evidenced."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-27",
+          "note": "The loader declares AGA, 68020, 2 MiB Chip and 2 MiB expansion memory, but an actually runnable build is not yet established, so no runtime profile is promoted."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Commit 129a0e5e8d7b explicitly says 'added Claude renderer': https://github.com/jotd666/marble_madness_2/commit/129a0e5e8d7ba9c71fabccb8a0fb0b064d2a1b79"
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Renderer comments explicitly derive the hardware map from MAME's marblmd2/atarivad/atarimo sources."
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Verify a complete Amiga assembly/link and runnable output before promoting the declared AGA/68020 memory values to a runtime profile"
       ]
     },
     {
