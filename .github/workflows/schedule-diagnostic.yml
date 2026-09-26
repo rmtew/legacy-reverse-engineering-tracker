@@ -1,0 +1,19 @@
+name: Schedule delivery diagnostic
+
+on:
+  schedule:
+    - cron: '17,22,27,32 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  receipt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Record scheduling receipt
+        run: |
+          echo "Event: $GITHUB_EVENT_NAME"
+          echo "Expected cron: ${{ github.event.schedule }}"
+          date -u
