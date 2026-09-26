@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-26 — Arcade CPU evidence and active upstream maintenance
+
+Resolved ten queued CPU audit areas with primary evidence. MAME's current hardware drivers establish Z80 originals for Amidar, Pac-Man, Ms. Pac-Man and Scramble, HD6309 for Double Dragon, and 6502 for U.S. Championship V'Ball. BeerMon's source documents the m68k family and explicitly selects `mc68030` for the reconstruction output; this does not claim a minimum runnable Amiga. Prehistorik's reviewed tree does not name its original executable CPU, while REminiscence consumes multi-platform resource data rather than native executable code, so those cases now record **no evidence found** and **not applicable** instead of platform-derived guesses.
+
+Material upstream work was also incorporated. **NESRecomp** now records its opt-in cycle-accurate compiler/runtime, bounded interpreter fallback, validation boundaries and rollback netplay. **STDL** now records its documented cross-build, runnable TOS examples, target byte-comparison tests, per-step YM effects and 50/60 Hz timing fix; no universal minimum hardware profile is inferred. **Firestaff** now distinguishes authenticated US/JP Theron Track 02 early-runtime boots and a bounded fresh-start DM1 save round-trip from still-unverified campaign parity and Atari v1.0 save resume.
+
+
 ## 2026-09-26 — Amiga/Atari format audit and Elite root scope
 
 Read primary repository READMEs for sixteen tracked disk-image, archive, graphics, level-data and recovery tools. Their source and target CPU audit areas now say **not applicable** to the data-format operation; host language and an Amiga/Atari input format are not a minimum CPU claim. Initial identity/classification checks were recorded where previously unreviewed, while build, AI and relationship areas remain open when not verified. Relevant READMEs document boundaries such as Adf7z's extraction-only behavior, retro-io's planned Atari XL support, fluxfox's initial Amiga/ST support, and xdms-rs's mode-specific test coverage.

@@ -5497,7 +5497,7 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-26",
-          "note": "Recent primary commits add passing authentic Amiga/French-DOS DM2 runtime regressions, direct FM Towns CSB save resume, and an exact US Theron source-frame comparison; upstream explicitly limits the latter to one captured frame, not gameplay parity."
+          "note": "Post-review commits verify direct authenticated US/JP Theron Track 02 startup and movement while limiting the claim to exercised early routes, fix a source-shaped DM1 fresh-start C37 save round-trip without claiming original-media resume, and document why Atari v1.0 save resume must remain fail-closed: https://github.com/yeager/firestaff/commit/b8d343298c7a2ebfae4f4a11d82c90a7eb5c4b5b, https://github.com/yeager/firestaff/commit/20adc090341d51b0fa7b1398c92d494f890c5d29 and https://github.com/yeager/firestaff/commit/2c41944c56fcfd87ec19725b0fd5fa57e8987290."
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -5515,7 +5515,8 @@
         }
       },
       "next_actions": [
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
+        "Check predecessors, successors, forks and credited source/disassembly relationships",
+        "Verify an authenticated Atari v1.0 save tail, champions and runtime queues before claiming resume support"
       ]
     },
     {
@@ -7514,7 +7515,7 @@
     },
     {
       "project_id": "jotd-amidar-amiga",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -7528,8 +7529,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "MAME's current Scramble-family driver registers Amidar through the Scramble machine configuration, whose main CPU is explicitly Z80: https://github.com/mamedev/mame/blob/master/src/mame/galaxian/scramble.cpp."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -7554,7 +7556,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -7889,7 +7890,7 @@
     },
     {
       "project_id": "jotd-double-dragon-amiga",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -7903,8 +7904,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The current MAME Double Dragon driver identifies the original main CPU as HD63C09EP/HD6309E; the port repository also carries an m6809 trace decoder: https://github.com/mamedev/mame/blob/master/src/mame/technos/ddragon.cpp."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -7930,7 +7932,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8452,7 +8453,7 @@
     },
     {
       "project_id": "jotd-ms-pacman-amiga",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -8466,8 +8467,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "MAME's current Pac-Man driver registers Ms. Pac-Man with the mspacman machine configuration derived from the explicit Z80 Pac-Man hardware configuration: https://github.com/mamedev/mame/blob/master/src/mame/pacman/pacman.cpp."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -8492,7 +8494,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8546,7 +8547,7 @@
     },
     {
       "project_id": "jotd-pacman-amiga",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -8560,8 +8561,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "MAME's current Pac-Man driver explicitly configures the original main CPU as Z80: https://github.com/mamedev/mame/blob/master/src/mame/pacman/pacman.cpp."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -8586,7 +8588,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8830,7 +8831,7 @@
     },
     {
       "project_id": "jotd-scramble-amiga",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -8844,8 +8845,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "MAME's current Scramble machine configuration explicitly uses a Z80 main CPU; JOTD's repository includes the credited arcade listing: https://github.com/mamedev/mame/blob/master/src/mame/galaxian/scramble.cpp."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -8870,7 +8872,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8971,7 +8972,7 @@
     },
     {
       "project_id": "jotd-us-championship-vball-amiga",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -8985,8 +8986,9 @@
           "note": "Seeded from record_class and structured kind fields."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "The port contains us_champ_vball_6502.asm and MAME's current V'Ball driver explicitly configures an M6502 main CPU: https://github.com/jotd666/us_championship_vball/blob/master/src/us_champ_vball_6502.asm and https://github.com/mamedev/mame/blob/master/src/mame/technos/vball.cpp."
         },
         "target_cpu": {
           "state": "reviewed",
@@ -9012,7 +9014,6 @@
         }
       },
       "next_actions": [
-        "Verify original/source CPU from primary documentation",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -22309,7 +22310,7 @@
     },
     {
       "project_id": "reminiscence-flashback-engine",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -22321,8 +22322,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "README.txt and the complete primary tree show a C++ engine consuming original multi-platform game data through resource/format decoders; it does not execute or transcode an original native binary, so a single source CPU is not applicable: https://github.com/cyxx/REminiscence/blob/main/README.txt."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -22346,12 +22348,12 @@
         }
       },
       "next_actions": [
-        "Check running/build behavior and remaining platform-specific evidence against primary releases"
+        "Verify minimum host/runtime requirements if upstream documents them."
       ]
     },
     {
       "project_id": "prehistorik-amiga-demo-browser-rewrite",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-26",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -22363,8 +22365,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "Checked the primary README and complete repository tree, including the C rewrite and conversion tools. Upstream identifies an Amiga ADF demo but does not state the original executable CPU; no architecture is inferred from platform or disk format: https://github.com/cyxx/prehistorik_js."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -22388,7 +22391,7 @@
         }
       },
       "next_actions": [
-        "Check running/build behavior and remaining platform-specific evidence against primary releases"
+        "Verify minimum browser/runtime requirements if upstream documents them."
       ]
     },
     {
@@ -24299,8 +24302,8 @@
     },
     {
       "project_id": "stdl-atari-st-porting-library",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-26",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -24311,33 +24314,35 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-26",
+          "note": "STDL consumes portable SDL 1.2 source and assets rather than an original native binary, so source CPU is not applicable; Atari output remains explicitly m68000."
         },
         "target_cpu": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Primary README gives the m68k-atari-mint-gcc/stcmd build and Hatari launch commands, lists runnable TOS examples, and documents target byte-comparison/performance tests: https://github.com/neilrackett/atarist-stdl/blob/main/README.md."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "README documents measurements on stock 8 MHz ST and 16 MHz Mega STE configurations, but does not state one complete minimum CPU/RAM/ROM profile for all library features; no minimum is inferred."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-25"
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "README explicitly ships and documents a Claude Code porting skill, matching the existing project AI evidence: https://github.com/neilrackett/atarist-stdl/blob/main/README.md#porting-with-an-llm."
         },
         "relationships": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify build and representative original data with primary release or test evidence; fill CPU/runtime facts where applicable."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "lotus-ste-enhancement",
@@ -31049,7 +31054,7 @@
     {
       "project_id": "nesrecomp-static-recompiler",
       "last_reviewed": "2026-09-26",
-      "overall_state": "partial",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -31069,24 +31074,25 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-26",
+          "note": "The 26 September cycle-accurate merge reports Windows/Linux builds, 144/144 AccuracyCoin at alignment 0, multi-alignment trace checks, long stress/gameplay routes and verifier regressions while explicitly documenting remaining alignment/hardware limits: https://github.com/mstan/nesrecomp/commit/792fd43613a2a7232740003d0ac2244c3868f4ab."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-26",
+          "note": "Primary README distinguishes mature Windows x64, experimental macOS and less-tested Linux support, but states no complete minimum host CPU/RAM profile; none is inferred."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-26"
+          "state": "reviewed",
+          "checked_at": "2026-09-26",
+          "note": "Repository has explicit Claude project instructions and multiple recent commits with Claude co-author trailers; existing project AI attribution is evidence-backed."
         },
         "relationships": {
           "state": "reviewed",
           "checked_at": "2026-09-26"
         }
       },
-      "next_actions": [
-        "Check explicit AI evidence, release/runtime support and related projects without inferring unknown fields."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "metroid-nes-mstan-recomp",
@@ -32061,14 +32067,14 @@
           "note": "A reconstructed historical program in its own source directory; not a disassembly of the named host game itself."
         },
         "source_cpu": {
-          "state": "needs-research",
+          "state": "reviewed",
           "checked_at": "2026-09-26",
-          "note": "File says 680x0; inspect original binary CPU and opcode requirements before narrowing to a particular 68k variant."
+          "note": "Moni.s describes a 680x0 monitor, selects mc68030 for reconstruction and contains guarded 68040/FPU paths: https://github.com/vschwaberow/amiga_reconstructed/blob/master/src/Tools/TRSI-BeerMon-v0.45/Moni.s. Source CPU is recorded at the explicit m68k family level because the reviewed source does not establish one minimum original CPU."
         },
         "target_cpu": {
-          "state": "needs-research",
+          "state": "reviewed",
           "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "note": "The reconstructed assembly explicitly uses the mc68030 assembler mode and 68030 control-register path. This identifies the output ISA; build success and minimum compatible hardware remain separate open areas."
         },
         "build": {
           "state": "needs-research",
@@ -32092,7 +32098,7 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify build, byte comparison and minimum runtime requirements."
       ]
     },
     {
