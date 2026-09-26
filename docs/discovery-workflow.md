@@ -1,6 +1,19 @@
 # Discovery batch workflow
 
-Keep a research pass together. Review primary project pages first, then create one JSON batch. Do not mark unknown build, AI, CPU or runtime facts false. Record non-promotions in `data/discovery-decisions.json` so the same lead need not be reassessed from scratch.
+Keep a research pass together. Screen candidate URLs, review primary project pages, then create one JSON batch. Do not mark unknown build, AI, CPU or runtime facts false. Record non-promotions in `data/discovery-decisions.json` so the same lead need not be reassessed from scratch.
+
+## Screen search results
+
+Pass an entire result page to the local index before requesting each README or another GitHub API lookup:
+
+```sh
+python tools/screen_discovery_candidates.py --input candidates.txt --route 'repository search'
+python tools/screen_discovery_candidates.py --input candidates.json --json
+```
+
+Input is one URL per line, or a JSON array of URL strings and/or `{ "url": "...", "route": "web search" }` entries. Positional URLs and `--input -` (stdin) also work. The output identifies exact tracked projects, reviewed decisions (including their decision type and linked project URLs), known sources, known repositories and paths within them, new URLs, and repeated hits in this input. JSON output includes counts by route. Compare new and reviewed hits across search routes before repeating broad queries.
+
+The index removes fragments and tracking parameters, normalizes GitHub owner/repository spelling and routine slash/scheme differences, and keeps paths and meaningful query parameters distinct. It makes no network requests: a previously unseen redirect cannot be detected until investigated. Record confirmed old/redirecting URLs as `duplicate` decisions linked to their current project IDs; subsequent searches then resolve them locally. A known source/profile can point to new repositories. A known repository can contain new title-specific directories. Deferred decisions and unreviewed sources still need follow-up. Only use an exact project or resolved exclusion/duplicate decision to avoid repeating the same research.
 
 ## Batch input
 

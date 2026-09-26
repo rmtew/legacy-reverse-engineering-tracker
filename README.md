@@ -19,6 +19,7 @@ The tracker has two views:
 - `data/project-audits.json` — field-by-field research coverage for every tracked project
 - `data/research-activity.json` — append-only history of discovery/audit work and when it was performed
 - `tools/apply_discovery_batch.py` — preview and apply one validated cross-file research batch
+- `tools/screen_discovery_candidates.py` — local, read-only early URL screening for discovery results
 - `state/github-poll-state.json` — persistent per-repository polling and branch state
 - `index.html`, `web/tracker.js`, `web/tracker.css` — framework-free interactive UI
 - `tools/refresh_github.py` — adaptive conditional repository probes, metadata refresh and scan scheduling
@@ -44,6 +45,8 @@ Project classification is deliberately multi-axis rather than a flat tag pile: `
 Unknown facts stay **unknown**. In particular, absence of evidence does not become “No” for AI use, byte exactness, buildability or dates.
 
 ## Discovery passes
+
+Screen search-result URLs before opening candidate pages: `python tools/screen_discovery_candidates.py --input candidates.txt --route 'web search'`. The input can be one URL per line or a JSON array of URLs / `{ "url": "...", "route": "..." }` objects; use `--input -` for stdin or `--json` for structured results and per-route counts. It combines current projects, source nodes and reviewed decisions without making GitHub API calls. A known profile or repository can still contain new projects; inspect `known_repository_path` hits and unreviewed/deferred matches rather than discarding them. Redirected/renamed URLs can be recorded as duplicate decisions linked to the current project ID, giving future searches an exact alias match.
 
 Prepare one JSON batch containing a date, unique research-event ID, summary and the reviewed additions/updates. Use `python tools/apply_discovery_batch.py batch.json` to preview; add `--write` only after reviewing the summary. The tool links projects to source nodes, creates an unreviewed audit when an explicit audit is not supplied, inserts a newest-first research event and validates the complete proposed tracker before writing any file. It rejects duplicate IDs and repeated project URLs unless a shared URL is explicitly acknowledged. Batch format and a runnable example are in [the discovery workflow guide](docs/discovery-workflow.md).
 
