@@ -25,8 +25,11 @@ from screen_discovery_candidates import CandidateIndex, ROOT, canonical_url, git
 
 CONFIG = ROOT / "config" / "discovery-intake.json"
 STATE = ROOT / "state" / "discovery-intake.json"
-WORDS = re.compile(r"\b(disassembl\w*|decompil\w*|reassembl\w*|reverse.engineer\w*|"
-                   r"reconstruct\w*|debugg\w*|emulat\w*|asset.extract\w*|68000|z80|6502)\b", re.I)
+WORK_TERMS = re.compile(r"\b(disassembl\w*|decompil\w*|reassembl\w*|reverse.engineer\w*|"
+                        r"reconstruct\w*|debugg\w*|emulat\w*|asset.extract\w*|reimplement\w*)\b", re.I)
+PLATFORM_TERMS = re.compile(r"\b(amiga|m68k|68k|68000|\.adf|adf|ocs|ecs|aga|atari[ -]st|"
+                            r"tos|commodore[ -]64|c64|amstrad|cpc|zx[ -]spectrum|bbc[ -]micro|"
+                            r"acorn|electron|6502|z80)\b", re.I)
 GH_LINK = re.compile(r"https?://(?:www\.)?github\.com/[\w.-]+/[\w.-]+(?:/[^\s<>\])}\"']*)?", re.I)
 DIRECTORIES = {"games", "projects", "disassemblies", "disassembly", "ports", "targets"}
 
@@ -229,13 +232,17 @@ def rank_queue(state: dict, index: CandidateIndex) -> dict:
             resolved.append(key)
             continue
         entry["status"] = status
+        title_and_description = entry.get("title", "") + " " + entry.get("description", "")
+        work = bool(WORK_TERMS.search(title_and_description))
+        platform = bool(PLATFORM_TERMS.search(title_and_description))
         route_bonus = 12 if any(o["route"] == "github-code" for o in entry["origins"]) else 0
         route_bonus += 8 if any(o["route"] == "source-github-repository" for o in entry["origins"]) else 0
         entry["score"] = ({"new": 100, "known_repository_path": 78,
                            "known_repository": 70, "reviewed_decision": 45}[status]
-                          + min(15, 3 * len(WORDS.findall(entry.get("title", "") + " " + entry.get("description", ""))))
+                          + (12 if work else 0) + (8 if platform else 0)
                           + min(12, 4 * len(entry["origins"])) + route_bonus
                           - (18 if not entry.get("description") else 0)
+                          - (20 if not work and not platform else 0)
                           - (15 if urlsplit(key).path.lower().endswith("-releases") else 0))
     for key in resolved:
         del state["queue"][key]
