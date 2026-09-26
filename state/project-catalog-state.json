@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-26T00:20:00Z",
+  "updated_at": "2026-09-26T00:53:37Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -1629,6 +1629,72 @@
         "tools": []
       }
     },
+    "alien-breed-3d-source-derived-pc-port": {
+      "id": "alien-breed-3d-source-derived-pc-port",
+      "title": "Alien Breed 3D I",
+      "upstream_name": "Alien Breed 3D I",
+      "display_title": "Alien Breed 3D — Amiga source-derived C port",
+      "subjects": [
+        "Alien Breed 3D"
+      ],
+      "repo": "https://github.com/retro-foundry/Alien-Breed-HD",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows",
+        "Web"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "original Amiga 68000 assembly"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "source-derived game port"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "assembly-to-C translation",
+        "Amiga asset format reuse",
+        "SDL2 rendering"
+      ],
+      "tags": [
+        "Amiga",
+        "Alien Breed 3D"
+      ],
+      "notes": "Native C reimplementation of the original Amiga game's gameplay and renderer, using the historical 68000 assembly source as reference and preserving Amiga data formats. SDL2 desktop and Emscripten builds are documented. This is source-derived porting, not a disassembly of an Amiga binary; no Amiga executable is run by the port.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "alien-breed-amiga-hitchhikr": {
       "id": "alien-breed-amiga-hitchhikr",
       "title": "Alien Breed — Amiga disassembly",
@@ -2920,6 +2986,74 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "amiga-file-forge-workbench": {
+      "id": "amiga-file-forge-workbench",
+      "title": "Amiga File Forge",
+      "upstream_name": "Amiga File Forge",
+      "display_title": "Amiga File Forge — disk, ROM and Hunk analysis workbench",
+      "subjects": [
+        "Amiga media and executables"
+      ],
+      "repo": "https://github.com/peteclarke-del/AmigaFileForge",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ADF/HDF/ROM and Amiga 68k binaries"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "binary-analysis",
+        "disassembler",
+        "rom-tool"
+      ],
+      "types": [
+        "Amiga media workbench"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "filesystem parsing",
+        "Hunk analysis",
+        "annotated 68000 disassembly",
+        "exact-hash patching"
+      ],
+      "tags": [
+        "Amiga",
+        "Amiga media and executables"
+      ],
+      "notes": "Web and Linux workbench for Amiga floppy, hard-drive, archive and ROM images. Current release documents RDB partition work, Amiga filesystems, resident modules, Hunk analysis, annotated 68k disassembly and exact-hash guarded patches. It is host-side tooling, not software running on an Amiga; some historical-media and emulator-dependent tasks require user-supplied inputs.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "amigaghidra-scripts-caddy666": {
@@ -5122,6 +5256,74 @@
         "software archaeology"
       ],
       "notes": "SourceGen reconstruction of Asteroids rev 4 based on earlier Computer Archeology/Nick Mikstas analysis, covering the 6502 program and vector-generator command ROM. The project adds a DVG disassembler, project files/binaries and binary-construction instructions.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "atari-file-forge-workbench": {
+      "id": "atari-file-forge-workbench",
+      "title": "Atari File Forge",
+      "upstream_name": "Atari File Forge",
+      "display_title": "Atari File Forge — ST disk and ROM analysis workbench",
+      "subjects": [
+        "Atari ST media and executables"
+      ],
+      "repo": "https://github.com/peteclarke-del/AtariFileForge",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "source_language": [
+        "ST floppy, hard-drive, ROM and 68000 binaries"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "binary-analysis",
+        "disassembler",
+        "rom-tool"
+      ],
+      "types": [
+        "Atari ST media workbench"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "GEMDOS filesystem parsing",
+        "STX protection analysis",
+        "ROM inspection",
+        "annotated 68000 disassembly"
+      ],
+      "tags": [
+        "Atari ST",
+        "Atari ST media and executables"
+      ],
+      "notes": "Web and Linux workbench for Atari ST through Falcon floppy, hard-drive, archive and ROM images. Current release documents GEMDOS editing, AHDI/ICD partitions, STX protection reports, flux containers and 68000 analysis. It is host-side tooling, not a native Atari ST application; the Amiga File Forge sibling handles a different platform and formats.",
       "ai": {
         "usage": null,
         "tools": []
@@ -7379,6 +7581,79 @@
         "68k"
       ],
       "notes": "Extensive reconstruction covering all five levels plus loader, boot, graphics, sound and support components.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "battle-squadron-amiga-recomp-crownpark": {
+      "id": "battle-squadron-amiga-recomp-crownpark",
+      "title": "Battle Squadron",
+      "upstream_name": "Battle Squadron",
+      "display_title": "Battle Squadron — Amiga overlay disassembly and recompilation",
+      "subjects": [
+        "Battle Squadron: The Destruction of the Barrax Empire"
+      ],
+      "repo": "https://github.com/CrownParkComputing/BattleSquadron-Amiga",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "68000 WHDLoad game and overlays"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly",
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game disassembly",
+        "native recompilation research"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "overlay depacking",
+        "byte-exact overlay reassembly",
+        "oracle checkpoints",
+        "native code translation"
+      ],
+      "tags": [
+        "Amiga",
+        "Battle Squadron: The Destruction of the Barrax Empire"
+      ],
+      "notes": "Analyzes a user-supplied Amiga WHDLoad install, its BOND-compressed overlays and three partially decoded 68000 modules that reassemble byte-for-byte. A playable Musashi/OCS host still executes original game code; a separate native no-Musashi translation has progressed into live combat but is not a finished whole-game recompilation. Distinct from the tracked Battle Squadron music replayer.",
       "ai": {
         "usage": null,
         "tools": []
@@ -10510,6 +10785,78 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "chuchu-rocket-atari-st-reforged": {
+      "id": "chuchu-rocket-atari-st-reforged",
+      "title": "Chu Chu Rocket",
+      "upstream_name": "Chu Chu Rocket",
+      "display_title": "Chu Chu Rocket — Atari ST byte-matched disassembly",
+      "subjects": [
+        "ChuChu Rocket! Atari ST 1.18 LITE"
+      ],
+      "repo": "https://github.com/stephane-perez/chuchu-rocket-reforged",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari STE"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "68000 executable and LINK asset bundle"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated game disassembly",
+        "optimized rebuilt variant"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [
+        "byte-identical reassembly",
+        "asset format recovery",
+        "differential testing",
+        "hardware validation"
+      ],
+      "tags": [
+        "Atari ST",
+        "ChuChu Rocket! Atari ST 1.18 LITE"
+      ],
+      "notes": "Complete, named 68000 source for Reservoir Gods' Atari ST Chu Chu Rocket 1.18 LITE. Default build reproduces CHUCHU.TOS and CHUCHU.LNK byte-identically; optional Reforged optimizations and fixes deliberately differ. README reports tests in Hatari and on a real Mega STe and explicitly credits Claude assistance. This is distinct from the original game's development source.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "chzpart-atari-disk": {
@@ -23101,6 +23448,76 @@
         "tools": []
       }
     },
+    "ik-plus-atari-st-reforged": {
+      "id": "ik-plus-atari-st-reforged",
+      "title": "IK+ Reforged",
+      "upstream_name": "IK+ Reforged",
+      "display_title": "IK+ — Atari ST compatibility and three-player patches",
+      "subjects": [
+        "International Karate +"
+      ],
+      "repo": "https://github.com/stephane-perez/ik-plus-reforged",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari STE"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "Atari ST 68000 game executable"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game compatibility patch",
+        "three-player enhancement"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "68000 binary patching",
+        "new loader",
+        "hardware compatibility analysis"
+      ],
+      "tags": [
+        "Atari ST",
+        "International Karate +"
+      ],
+      "notes": "Builds a new loader, version-guarded patches for the Ator-cracked ST game, a simultaneous third-player mode and a joystick test utility. Fixes TOS 2.06/STE/Mega STE compatibility and requires the user's exact original input file; the game itself is not distributed or built by CI. Patched output is not an original byte-match.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "image-rider-stx": {
       "id": "image-rider-stx",
       "title": "image-rider",
@@ -25190,6 +25607,73 @@
         "tetracorp"
       ],
       "notes": "Heavily annotated disassembly of the v2.000 main executable; README documents reassembly with vasm and use with the original game files.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "k240-amiga-bugfix-disassembly": {
+      "id": "k240-amiga-bugfix-disassembly",
+      "title": "K240 Bugfix",
+      "upstream_name": "K240 Bugfix",
+      "display_title": "K240 — Amiga disassembly and gameplay repairs",
+      "subjects": [
+        "K240"
+      ],
+      "repo": "https://github.com/drDragonSmoke/K240-Bugfix",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "68000 game executable"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly",
+        "gameplay bug fixes"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "annotated disassembly",
+        "reassembly",
+        "binary patching"
+      ],
+      "tags": [
+        "Amiga",
+        "K240"
+      ],
+      "notes": "Independent, heavily annotated disassembly of K240's play executable, reassembled with vasm as a drop-in replacement for the original game files. Repairs ship, fleet, economy and UI bugs and credits tetracorp's separate K240 analysis for assistance. The patched output is deliberately different from the original, so no original byte-match is asserted.",
       "ai": {
         "usage": null,
         "tools": []
@@ -41015,6 +41499,75 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "stage-swaptro-amiga-disassembly": {
+      "id": "stage-swaptro-amiga-disassembly",
+      "title": "Stage-Swaptro",
+      "upstream_name": "Stage-Swaptro",
+      "display_title": "Stage-Swaptro — Amiga demo disassembly and variants",
+      "subjects": [
+        "Stage Swaptro"
+      ],
+      "repo": "https://github.com/Ozzyboshi/Stage-Swaptro",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "source_language": [
+        "packed Amiga 68000 demo executable"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "demo disassembly",
+        "reassembled variants"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ByteKiller depacking",
+        "IRA/Aira Force disassembly",
+        "vasm reassembly",
+        "patch stacks"
+      ],
+      "tags": [
+        "Amiga",
+        "Stage Swaptro"
+      ],
+      "notes": "Reverse engineers the packed Stage swaptro extracted from Sanity's Velveteen 18 disk, documents its load address and memory map, and provides buildable 68000 source plus several patch-based visual/music variants. README includes a Makefile workflow for applying patches, assembling and making a floppy; game playability is not applicable to a demo.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "amisc-amiga": {
