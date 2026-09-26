@@ -30,6 +30,15 @@ WORK_TERMS = re.compile(r"\b(disassembl\w*|decompil\w*|reassembl\w*|reverse.engi
 PLATFORM_TERMS = re.compile(r"\b(amiga|m68k|68k|68000|\.adf|adf|ocs|ecs|aga|atari[ -]st|"
                             r"tos|commodore[ -]64|c64|amstrad|cpc|zx[ -]spectrum|bbc[ -]micro|"
                             r"acorn|electron|6502|z80)\b", re.I)
+# Search-in-README can return a project whose own title/description concerns a
+# different platform. This is only a ranking hint; never discard such a lead.
+QUERY_PLATFORM_TERMS = {
+    "amiga-": re.compile(r"\b(amiga|uae|m68k|68k|68000|adf|ocs|ecs|aga)\b", re.I),
+    "atari-st-": re.compile(r"\b(atari[ -]st|ste|tos|gem|m68k|68k|68000)\b", re.I),
+    "c64-": re.compile(r"\b(c64|commodore[ -]64|6510)\b", re.I),
+    "cpc-": re.compile(r"\b(cpc|amstrad)\b", re.I),
+    "acorn-": re.compile(r"\b(bbc[ -]micro|acorn|beeb|electron)\b", re.I),
+}
 GH_LINK = re.compile(r"https?://(?:www\.)?github\.com/[\w.-]+/[\w.-]+(?:/[^\s<>\])}\"']*)?", re.I)
 DIRECTORIES = {"games", "projects", "disassemblies", "disassembly", "ports", "targets"}
 
@@ -237,10 +246,15 @@ def rank_queue(state: dict, index: CandidateIndex) -> dict:
         platform = bool(PLATFORM_TERMS.search(title_and_description))
         route_bonus = 12 if any(o["route"] == "github-code" for o in entry["origins"]) else 0
         route_bonus += 8 if any(o["route"] == "source-github-repository" for o in entry["origins"]) else 0
+        query_matches = [bool(pattern.search(title_and_description))
+                         for origin in entry["origins"] if origin["route"] == "github-repositories"
+                         for prefix, pattern in QUERY_PLATFORM_TERMS.items()
+                         if origin["origin"].startswith(prefix)]
+        query_bonus = 8 if any(query_matches) else (-10 if query_matches else 0)
         entry["score"] = ({"new": 100, "known_repository_path": 78,
                            "known_repository": 70, "reviewed_decision": 45}[status]
                           + (12 if work else 0) + (8 if platform else 0)
-                          + min(12, 4 * len(entry["origins"])) + route_bonus
+                          + min(12, 4 * len(entry["origins"])) + route_bonus + query_bonus
                           - (18 if not entry.get("description") else 0)
                           - (20 if not work and not platform else 0)
                           - (15 if urlsplit(key).path.lower().endswith("-releases") else 0))

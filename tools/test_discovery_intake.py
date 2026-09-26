@@ -100,6 +100,21 @@ class IntakeTests(unittest.TestCase):
         self.index.add("https://github.com/author/new-reassembly", {"kind": "project", "id": "added"})
         self.assertEqual(rank_queue(state, self.index)["resolved"], 1)
 
+    def test_readme_search_platform_mismatch_changes_rank_without_dropping_lead(self):
+        state = empty_state()
+        add_hits(state, self.index, [
+            {"url": "https://github.com/author/atari-st-emulator", "route": "github-repositories",
+             "origin": "atari-st-disassembly", "description": "Atari ST emulator and debugger"},
+            {"url": "https://github.com/author/generic-debugger", "route": "github-repositories",
+             "origin": "atari-st-disassembly", "description": "Generic debugger for modern programs"},
+            {"url": "https://github.com/author/atari-2600-emulator", "route": "github-repositories",
+             "origin": "atari-st-disassembly", "description": "Atari 2600 emulator and debugger"},
+        ], "2026-09-27T00:00:00Z")
+        self.assertEqual(rank_queue(state, self.index)["open"], 3)
+        self.assertEqual(next(iter(state["queue"])), "https://github.com/author/atari-st-emulator")
+        self.assertLess(state["queue"]["https://github.com/author/atari-2600-emulator"]["score"],
+                        state["queue"]["https://github.com/author/atari-st-emulator"]["score"])
+
     def test_rotate_queries_and_merge_after_concurrent_push(self):
         config = {"queries": [
             {"kind": "repositories", "id": "first", "q": "first"},
