@@ -86,7 +86,8 @@ def release_events(projects):
         tag = release.get("tag") or release.get("name") or "release"
         events.append({
             "type": "release",
-            "date": published + "T12:00:00Z",
+            # The catalogue stores the release day, without a time of day.
+            "date": published,
             "project_id": project.get("id"),
             "repository": (project.get("github") or {}).get("repository"),
             "tag": tag,

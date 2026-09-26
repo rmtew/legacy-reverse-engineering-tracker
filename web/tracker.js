@@ -735,7 +735,8 @@ function combinedActivityEvents() {
     seen.add(key);
     events.push({
       type:"release",
-      date:release.published_at+"T12:00:00Z",
+      // The catalogue records a calendar date, not a release timestamp.
+      date:release.published_at,
       project_id:project.id,
       repository:project.github?.repository||"",
       tag,
@@ -779,7 +780,7 @@ function initActivityFilters() {
 function activityMatches(event,map,cutoff,q) {
   const project=projectForEvent(event,map);
   if(!project) return false;
-  if(new Date(event.date).getTime()<cutoff) return false;
+  if(activityEventTime(event.date)<cutoff) return false;
   if(q){
     const hay=[
       event.type,event.title,event.latest_title,event.message,event.repository,event.tag,
@@ -1029,6 +1030,7 @@ function projectChangeHtml(event, project) {
 }
 
 function localDayKey(value) {
+  if(/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
   const date=new Date(value);
   if(Number.isNaN(date.getTime())) return String(value||"").slice(0,10);
   return [
@@ -1036,6 +1038,14 @@ function localDayKey(value) {
     String(date.getMonth()+1).padStart(2,"0"),
     String(date.getDate()).padStart(2,"0")
   ].join("-");
+}
+
+function activityEventTime(value) {
+  if(/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [year,month,day]=value.split("-").map(Number);
+    return new Date(year,month-1,day).getTime();
+  }
+  return new Date(value).getTime();
 }
 
 function localDayLabel(day) {
@@ -1051,7 +1061,7 @@ function renderActivity() {
   const map=projectById();
   const cutoff=Date.now()-Number(activityFilterState.days||30)*86400000;
   const query=$("activityQ").value.trim().toLowerCase();
-  const events=combinedActivityEvents().filter(event=>activityMatches(event,map,cutoff,query)).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const events=combinedActivityEvents().filter(event=>activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
   $("activityCount").textContent=events.length;
   $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
   const shown=Math.min(activityVisibleCount,events.length);
@@ -1075,13 +1085,15 @@ function renderActivity() {
   $("activityFeed").innerHTML=[...days.entries()].map(([day,byProject])=>{
     const dateLabel=localDayLabel(day);
     const projectsHtml=[...byProject.entries()].sort((a,b)=>{
-      const ad=Math.max(...a[1].map(e=>new Date(e.date).getTime()));
-      const bd=Math.max(...b[1].map(e=>new Date(e.date).getTime()));
+      const ad=Math.max(...a[1].map(e=>activityEventTime(e.date)));
+      const bd=Math.max(...b[1].map(e=>activityEventTime(e.date)));
       return bd-ad;
     }).map(([projectId,commits])=>{
       const project=map.get(projectId) || commits.find(event=>event.project)?.project;
-      const commitHtml=commits.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(event=>{
-        const time=new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
+      const commitHtml=commits.sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date)).map(event=>{
+        const time=event.type==="release"&&/^\d{4}-\d{2}-\d{2}$/.test(event.date)
+          ? '<span title="Release time not recorded">—</span>'
+          : new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
         const summary=event.type==="daily_commits";
         const title=summary?(event.count+" commit"+(event.count===1?"":"s")):(event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title));
         const identity=event.type==="release"?(event.tag?esc(event.tag):"release"):(event.sha?esc(event.sha.slice(0,8)):"");

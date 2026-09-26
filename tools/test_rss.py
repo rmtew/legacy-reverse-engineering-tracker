@@ -4,10 +4,15 @@ import unittest
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from generate_rss import generate
+from generate_rss import generate, release_events
 
 
 class RssTest(unittest.TestCase):
+    def test_release_keeps_calendar_date_without_inventing_noon_utc(self):
+        project = {"id": "p", "github": {"latest_release": {
+            "tag": "v1", "published_at": "2026-09-26"}}}
+        self.assertEqual(release_events([project])[0]["date"], "2026-09-26")
+
     def test_settled_days_and_project_addition_context(self):
         activity = {"generated_at": "2026-09-28T20:00:00Z", "events": [
             {"type": "project_added", "date": "2026-09-27T00:00:00Z", "project_id": "p",
