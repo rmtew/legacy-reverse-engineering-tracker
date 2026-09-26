@@ -533,3 +533,16 @@ Resolved ten further queued CPU audit areas across seven projects. **Another Wor
 The initial **STOS BASIC — Atari ST compiler and interpreter source** audit now records the core historical interpreter/compiler as 68000 source and output, while keeping specialized Falcon/later-CPU extensions and a reproducible modern build as separate open research. Project-local primary listings identify **Commando — Amiga arcade transcode** as Z80-derived and **Ghosts'N'Goblins** plus **Mappy** as 6809-derived.
 
 Reviewed two upstream changes since the preceding maintenance pass. **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** added authentic Amiga and French-DOS DM2 runtime receipts, direct FM Towns CSB save resume, and a byte-identical Theron's Quest US source-frame comparison whose documentation explicitly limits the claim to one captured screen. **Elite — native Amiga port (ataribaby42)** advanced to its 1.81 dual-buffer instrument-reset fix with native transition regression tests; its explicit `AGENTS.md` workflow also corrects the earlier AI evidence state without guessing a particular agent product.
+
+
+## 2026-09-27 — MSX, PC-98 and Atari fresh-search pass
+
+Ran the rotating fresh-search slice across Atari 8-bit, MSX and PC-98 using repository/README search, scoped source search and web GitHub-index queries, while continuing the high-priority RetroRE queue.
+
+Promoted eight independently evidenced projects: **Metal Gear — annotated MSX2 ROM reconstruction**, **Arkanoid — byte-exact annotated MSX disassembly**, **PC-98 Visual Novel Research — engine disassembly and format toolkit**, **lime-juice — PC-98 MES compiler/decompiler and image toolkit**, **ReC98 — bit-perfect Touhou PC-98 source reconstruction**, **Neko Project II Debug Edition — PC-98 binary debugger**, **Atari OS-B NTSC — paper-source restoration and verified ROM build**, and **Bruce Lee — annotated Atari 8-bit disassembly**.
+
+Recorded the original Racket `tomyun/juice` as the predecessor lineage represented by lime-juice. The `milnak/atari-vcs-disassembly` root remains a discovery node because it aggregates credited sources and submodules; a new task will review its canonical components individually. `MSXDUMPTOOLS` remains a redistribution/ecosystem node rather than an independently authored project.
+
+The separate CPU lane resolved eleven queued areas across seven existing records. DoDonPachi DaiOuJou now records its README's explicit 68000 evidence; Batman, Gradius, ALIS, PowerPacker and RNC ProPack retain empty CPU fields with precise no-evidence-found audit states instead of platform guesses; AmigaQB_extract is explicitly CPU-not-applicable as backup-data recovery tooling. The unresolved CPU queue falls from 164 to 157 projects.
+
+This pass adds **8 projects**, taking the catalogue from 755 to **763**.

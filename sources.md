@@ -203,3 +203,12 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 
 | https://github.com/Dave-Agent/monty-on-the-run | Byte-perfect and refactored C64 Monty on the Run reconstruction with Ghidra/KickAssembler methodology |
 | https://github.com/g0me3 | NES/Famicom Back From Source reconstructions, FDS-to-cartridge conversions, multi-console IDA loaders/scripts and ROM graphics tooling |
+
+| https://github.com/GuillianSeed/MetalGear | Fully annotated MSX2 Metal Gear disassembly with verified Japanese and English ROM builds |
+| https://github.com/mcolom/arkanoid_msx_disasm | Manually annotated Arkanoid MSX disassembly with z80asm/SHA-1 rebuild verification |
+| https://github.com/ValleyBell/PC98VNResearch | PC-98 visual-novel engine disassemblies, format research, patches and translation tooling |
+| https://github.com/FuzionCD/lime-juice | MES bytecode compiler/decompiler and GP4/GPC/GPA round-trip tooling for PC-98 games |
+| https://github.com/nmlgc/ReC98 | Bit-perfect source reconstruction of the first five Touhou PC-98 games |
+| https://github.com/nmlgc/np2debug | Neko Project II debugging fork for PC-98 binary modification and Touhou translation work |
+| https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM | Atari 400/800 OS-B paper-source restoration with ca65 conversion and ROM checks |
+| https://github.com/fa8ntomas/blck-game-engine | Annotated Atari 8-bit Bruce Lee 6502 disassembly; build and provenance remain open |
