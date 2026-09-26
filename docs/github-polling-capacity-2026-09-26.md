@@ -4,9 +4,9 @@
 
 ## Schedule verification (26 September 2026)
 
-**The configured quarter-hour CI cadence is not verified and the previous GitHub schedule had multi-hour delivery delays.** The original `7,22,37,52 * * * *` cron was committed at 03:48 UTC and rewritten as four separate valid entries at 05:42 UTC. Both syntaxes are valid under GitHub's documented POSIX cron rules. Through 06:15 UTC, every refresh run after 03:48 was a `push` run; no new `schedule` run was created. The 04:09 UTC refresh completed at 04:11 UTC but was triggered by a push. A temporary diagnostic workflow succeeded on push and queried GitHub's workflow API using `GITHUB_TOKEN`: the refresh workflow state is **active**, with workflow ID 364772732. The diagnostic file was removed afterward.
+**The configured quarter-hour CI cadence is not verified and the previous GitHub schedule had multi-hour delivery delays.** The original `7,22,37,52 * * * *` cron was committed at 03:48 UTC and rewritten as four separate valid entries at 05:42 UTC. Both syntaxes are valid under GitHub's documented POSIX cron rules. Through 06:17 UTC, every refresh run after 03:48 was a `push` run; no new `schedule` run was created. The 04:09 UTC refresh completed at 04:11 UTC but was triggered by a push. A temporary diagnostic workflow succeeded on push and queried GitHub's workflow API using `GITHUB_TOKEN`: the refresh workflow state is **active**, with workflow ID 364772732. The diagnostic file was removed afterward.
 
-The earlier twice-daily schedule's own logs contain `github.event.schedule`. Comparing that intended cron slot with the Actions run creation time exposes substantial delays (UTC throughout):
+The earlier twice-daily schedule's own logs contain `github.event.schedule`. Assuming each run corresponds to the latest preceding occurrence of its matching cron slot, comparison with Actions creation time gives **minimum** delays (UTC throughout):
 
 | Intended cron slot | Actual run created | Delay | Result |
 | --- | --- | --- | --- |
