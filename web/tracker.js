@@ -128,6 +128,26 @@ const classificationValueTags = value => {
 const classificationChip = (value,kind,prefix) =>
   '<span class="classification-chip '+kind+'-chip" title="'+esc(prefix+': '+classificationLabel(value))+'">'+esc(classificationLabel(value))+'</span>';
 
+const executionLabels = {
+  "game-specific-emulation":"Game-specific emulation",
+  "native-translation":"Native translation"
+};
+const executionLabel = value => executionLabels[value] || String(value ?? "");
+const executionPaths = record => arr(record?.execution_paths).filter(path=>path?.method);
+const executionMethods = record => [...new Set(executionPaths(record).map(path=>path.method))];
+const executionBadges = record => executionPaths(record).map(path=>{
+  const label=executionLabel(path.method)+(path.status==="partial"?": partial":"");
+  const hint=[path.name,path.status,path.notes].filter(Boolean).join(" · ");
+  return '<span class="execution-badge" title="'+esc(hint||label)+'">'+esc(label)+'</span>';
+}).join("");
+const executionPathsHtml = record => executionPaths(record).length
+  ? '<ul class="execution-paths">'+executionPaths(record).map(path=>{
+      const sources=arr(path.evidence).map(url=>'<a href="'+esc(url)+'" target="_blank" rel="noopener">Source</a>').join(" · ");
+      return '<li><strong>'+esc(path.name)+'</strong> · '+esc(executionLabel(path.method))
+        +' · '+esc(path.status)+(path.notes?'<br>'+esc(path.notes):"")
+        +(sources?'<br>'+sources:"")+'</li>';
+    }).join("")+'</ul>' : "?";
+
 const compactToolKinds = record => {
   const values=arr(record.tool_kinds);
   const priority=[
@@ -173,7 +193,7 @@ const classificationSortValue = record => [
 ].filter(Boolean).join(" ");
 
 const projectFilterState = {
-  projectType:new Set(), platform:new Set(), targetKind:new Set(), workKind:new Set(),
+  projectType:new Set(), platform:new Set(), targetKind:new Set(), workKind:new Set(), execution:new Set(),
   toolKind:new Set(), cpu:new Set(), language:new Set(),
   directionMode:"quick", side:"either", sourcePlatform:new Set(), sourceCpu:new Set(),
   targetPlatform:new Set(), targetCpu:new Set(), sameFamily:false,
@@ -359,7 +379,7 @@ function projectFiltersActive(){
   const directional=projectFilterState.directionMode==="route"
     ? ["sourcePlatform","sourceCpu","targetPlatform","targetCpu"].some(key=>projectFilterState[key].size)||projectFilterState.sameFamily
     : projectFilterState.platform.size||projectFilterState.cpu.size;
-  return $("q").value.trim() || directional || ["projectType","targetKind","workKind","toolKind","language"].some(key=>projectFilterState[key].size)
+  return $("q").value.trim() || directional || ["projectType","targetKind","workKind","toolKind","language","execution"].some(key=>projectFilterState[key].size)
     || ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
 }
 function activityFiltersActive(){
@@ -413,6 +433,7 @@ function matches(record) {
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
     ...projectTypeValues(record).map(projectTypeLabel),
     ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
+    ...executionPaths(record).flatMap(path=>[executionLabel(path.method),path.name,path.status,path.notes]),
     ...platformValues(record),...cpuFamilyValues(record),
     ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
     ...runtimeProfiles(record).flatMap(profile=>[
@@ -436,6 +457,7 @@ function matches(record) {
     && projectDirectionMatch(record)
     && facetMatch(projectFilterState.targetKind,record.target_kinds)
     && facetMatch(projectFilterState.workKind,record.work_kinds)
+    && facetMatch(projectFilterState.execution,executionMethods(record))
     && facetMatch(projectFilterState.toolKind,record.tool_kinds)
     && facetMatch(projectFilterState.language,record.reconstructed_languages)
     && runtimeMatch
@@ -476,7 +498,7 @@ function render() {
     const started = record.re_started ?? (record.github?.created_at ? record.github.created_at.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row" data-id="' + esc(record.id) + '">'
-      + "<td>" + projectCell(record) + "</td>"
+      + "<td>" + projectCell(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + "<td>" + tags(record.source_platforms) + "</td>"
       + "<td>" + tags(record.target_platforms) + "</td>"
       + "<td>" + tags(record.reconstructed_languages) + "</td>"
@@ -582,6 +604,7 @@ function showDetails(record) {
     + line("Project type", tags(projectTypeValues(record).map(projectTypeLabel)))
     + line("Software type", classificationValueTags(record.target_kinds))
     + line("Work", classificationValueTags(record.work_kinds))
+    + (executionPaths(record).length ? line("Execution paths", executionPathsHtml(record)) : "")
     + line("Development tool", classificationValueTags(record.tool_kinds))
     + line("Legacy type descriptors", tags(record.types))
     + line("Started", esc(record.re_started ?? "?"))
@@ -637,6 +660,7 @@ function init() {
   initDirectionFilters();
   bindFacet("targetKindFacet",projects.flatMap(record=>arr(record.target_kinds)),projectFilterState.targetKind,classificationLabel,()=>{updateClearButtons();render();});
   bindFacet("workKindFacet",projects.flatMap(record=>arr(record.work_kinds)),projectFilterState.workKind,classificationLabel,()=>{updateClearButtons();render();});
+  bindFacet("executionFacet",projects.flatMap(executionMethods),projectFilterState.execution,executionLabel,()=>{updateClearButtons();render();});
   bindFacet("toolKindFacet",projects.flatMap(record=>arr(record.tool_kinds)),projectFilterState.toolKind,classificationLabel,()=>{updateClearButtons();render();});
   bindFacet("languageFacet",projects.flatMap(record=>arr(record.reconstructed_languages)),projectFilterState.language,value=>value,()=>{updateClearButtons();render();});
   bindSegment("aiSegment",projectFilterState,"ai",()=>{updateClearButtons();render();});
@@ -654,7 +678,7 @@ function init() {
 $("q").addEventListener("input",()=>{updateClearButtons();if(projectUiReady) render();});
 $("clear").addEventListener("click", () => {
   $("q").value = "";
-  for(const key of ["projectType","targetKind","workKind","toolKind","language"]) clearFacetSet(projectFilterState[key]);
+  for(const key of ["projectType","targetKind","workKind","toolKind","language","execution"]) clearFacetSet(projectFilterState[key]);
   resetDirectionPickers();
   projectFilterState.side="either";
   projectFilterState.directionMode="quick";
@@ -794,7 +818,8 @@ function activityPlatformTags(project) {
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(projectTitle(project))+'</a>':esc(projectTitle(project));
-  return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true});
+  return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+    +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 
 const activityFieldLabels={
@@ -813,6 +838,7 @@ const activityFieldLabels={
   reconstructed_languages:"Output language",
   target_cpu:"Target CPU",
   runtime_profiles:"Runtime compatibility",
+  execution_paths:"Execution paths",
   record_class:"Project type",
   target_kinds:"Target kind",
   work_kinds:"Work kind",
@@ -930,6 +956,10 @@ function humanizeProjectChange(detail) {
 
   if(field==="runtime_profiles"){
     return [{label:"Runtime compatibility updated",value:""}];
+  }
+  if(field==="execution_paths"){
+    const names=arr(after).map(path=>executionLabel(path.method)+(path.status==="partial"?" (partial)":""));
+    return [{label:"Execution paths updated",value:names.join(", ")||"Unknown"}];
   }
   if(field==="record_class"){
     const toTypes=value=>value==="hybrid"?["Retro software","Development tools"]:

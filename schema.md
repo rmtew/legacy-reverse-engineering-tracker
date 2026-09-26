@@ -13,6 +13,7 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 - `source_cpu` describes the original CPU architecture(s). The UI groups related variants into broad discovery families such as **6502 family** and **68000 family** without discarding the exact stored CPU.
 - `target_cpu` optionally records CPU architecture(s) produced or directly targeted by a port/reimplementation. Do not infer this merely from a host language or modern build environment.
 - `runtime_profiles` optionally records verified minimum hardware requirements for runnable outputs/build variants. A profile may contain `name`, required `platform`, optional `cpu_family`, `min_cpu`, `min_ram_kib`, `min_chip_ram_kib`, `min_fast_ram_kib`, `chipsets`, `os`, `notes`, and source `evidence`. Only populate these from explicit primary evidence; never infer a runnable minimum from source CPU or platform alone.
+- `execution_paths` optionally records how each documented output executes the historical program. Each path has a `name`, `method` (`game-specific-emulation` or `native-translation`), `status` (`playable`, `runnable`, `partial`, or `unknown`), optional `notes`, and primary source `evidence` URLs. The game-specific method means original guest instructions execute in an embedded CPU core with a purpose-built compatibility runtime; native translation means the path runs translated host code without a guest CPU interpreter. Multiple paths can coexist. Omission means unclassified, not native. These describe architecture rather than AI usage or quality.
 - `source_language` describes the material being reverse engineered, usually machine code.
 - `reconstructed_languages` describes the human-maintained source/output produced by the project.
 - `record_class` separates reverse-engineered/reimplemented **subjects** from modern supporting **tooling**; `hybrid` is reserved for projects that are materially both (for example a reconstructed historical tool that is also actively useful for archaeology).
@@ -28,7 +29,7 @@ The canonical database is `data/projects.json`, a JSON array of project records.
 
 ## Record fields
 
-`id`, legacy `title`, `upstream_name`, `display_title`, `subjects`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, optional `target_cpu`, optional `runtime_profiles`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
+`id`, legacy `title`, `upstream_name`, `display_title`, `subjects`, `repo`, optional `project_url`, `source_platforms`, `target_platforms`, `source_cpu`, optional `target_cpu`, optional `runtime_profiles`, optional `execution_paths`, `source_language`, `reconstructed_languages`, `record_class`, `target_kinds`, `work_kinds`, `tool_kinds`, `types`, `re_started`, `last_activity`, `last_checked`, `status`, `build`, `ai`, `techniques`, `tags`, `notes`.
 
 ### Structured classification vocabulary
 

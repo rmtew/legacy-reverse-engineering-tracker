@@ -105,3 +105,23 @@ test("port route keeps both sides distinct and same-family needs evidence on bot
   assert.equal(matches({source_platforms:["Atari ST"],source_cpu:["68000"],target_platforms:["Amiga"],target_cpu:["68020"]}), false);
   vm.runInContext('projectFilterState.directionMode="quick"; projectFilterState.sourcePlatform.clear(); projectFilterState.targetPlatform.clear(); projectFilterState.sourceCpu.clear();', context);
 });
+
+test("execution filter includes mixed projects while leaving unclassified records visible by default", () => {
+  const battle = catalogue.find(record => record.id === "battle-squadron-amiga-recomp-crownpark");
+  const moonstone = catalogue.find(record => record.id === "moonstone-amiga-windows-undine1");
+  const unknown = catalogue.find(record => !record.execution_paths);
+  assert.ok(battle && moonstone && unknown);
+  assert.equal(matches(unknown), true);
+  vm.runInContext('projectFilterState.execution = new Set(["game-specific-emulation"]);', context);
+  assert.equal(matches(battle), true);
+  assert.equal(matches(moonstone), true);
+  assert.equal(matches(unknown), false);
+  vm.runInContext('projectFilterState.execution = new Set(["native-translation"]);', context);
+  assert.equal(matches(battle), true);
+  assert.equal(matches(moonstone), false);
+  context.testRecord = battle;
+  const badges = vm.runInContext('executionBadges(testRecord)', context);
+  assert.match(badges, /Game-specific emulation/);
+  assert.match(badges, /Native translation: partial/);
+  vm.runInContext('projectFilterState.execution.clear();', context);
+});

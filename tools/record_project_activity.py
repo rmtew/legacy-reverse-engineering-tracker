@@ -38,6 +38,7 @@ MATERIAL_FIELDS = (
     "source_cpu",
     "target_cpu",
     "runtime_profiles",
+    "execution_paths",
     "source_language",
     "reconstructed_languages",
     "record_class",

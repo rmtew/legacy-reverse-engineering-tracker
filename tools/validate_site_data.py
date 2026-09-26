@@ -285,6 +285,32 @@ def validate(projects_path, activity_path, rss_path=None):
                     evidence = profile.get("evidence")
                     if evidence is not None and not isinstance(evidence, list):
                         fail(f"project {index} runtime profile {profile_index} evidence must be an array when present", errors)
+        execution_paths = project.get("execution_paths")
+        if execution_paths is not None:
+            if not isinstance(execution_paths, list) or not execution_paths:
+                fail(f"project {index} execution_paths must be a non-empty array when present", errors)
+            else:
+                names = set()
+                for path_index, path in enumerate(execution_paths):
+                    label = f"project {index} execution path {path_index}"
+                    if not isinstance(path, dict):
+                        fail(f"{label} must be an object", errors)
+                        continue
+                    name = path.get("name")
+                    if not isinstance(name, str) or not name.strip():
+                        fail(f"{label} needs a name", errors)
+                    elif name in names:
+                        fail(f"{label} duplicates name {name!r}", errors)
+                    names.add(name)
+                    if path.get("method") not in {"game-specific-emulation", "native-translation"}:
+                        fail(f"{label} has invalid method", errors)
+                    if path.get("status") not in {"playable", "runnable", "partial", "unknown"}:
+                        fail(f"{label} has invalid status", errors)
+                    if path.get("notes") is not None and not isinstance(path["notes"], str):
+                        fail(f"{label} notes must be text", errors)
+                    evidence = path.get("evidence")
+                    if not isinstance(evidence, list) or not evidence or any(not isinstance(url, str) or not url.startswith("https://") for url in evidence):
+                        fail(f"{label} needs primary source evidence URLs", errors)
         if not isinstance(subjects, list):
             fail(f"project {index} field subjects must be an array", errors)
         elif any(not isinstance(value, str) or not value.strip() for value in subjects):

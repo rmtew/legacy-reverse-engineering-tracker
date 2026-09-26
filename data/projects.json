@@ -10699,6 +10699,26 @@
     "target_cpu": [
       "m68000"
     ],
+    "execution_paths": [
+      {
+        "name": "Playable reference runner",
+        "method": "game-specific-emulation",
+        "status": "playable",
+        "notes": "Runs original 68000 loader and game code in Musashi with a Battle Squadron-focused OCS compatibility host.",
+        "evidence": [
+          "https://github.com/CrownParkComputing/BattleSquadron-Amiga/blob/master/README.md"
+        ]
+      },
+      {
+        "name": "No-Musashi recompilation preview",
+        "method": "native-translation",
+        "status": "partial",
+        "notes": "Runs translated code through live combat without a guest CPU interpreter; full audio sequencing and unreached paths remain unfinished.",
+        "evidence": [
+          "https://github.com/CrownParkComputing/BattleSquadron-Amiga/blob/master/README.md"
+        ]
+      }
+    ],
     "source_language": [
       "68000 WHDLoad game and overlays"
     ],
@@ -69502,5 +69522,94 @@
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
       }
     }
+  },
+  {
+    "id": "moonstone-amiga-windows-undine1",
+    "title": "Moonstone 2026",
+    "upstream_name": "Moonstone 2026",
+    "display_title": "Moonstone — Amiga game-specific Windows adaptation",
+    "subjects": [
+      "Moonstone: A Hard Days Knight"
+    ],
+    "repo": "https://github.com/Undine1/Moonstone-A-Hard-Days-Knight-2026",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Windows"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Windows release",
+        "platform": "Windows",
+        "cpu_family": "x86",
+        "min_cpu": "x86-64",
+        "os": "64-bit Windows",
+        "evidence": [
+          "https://github.com/Undine1/Moonstone-A-Hard-Days-Knight-2026/blob/main/README.md"
+        ]
+      }
+    ],
+    "execution_paths": [
+      {
+        "name": "Windows release",
+        "method": "game-specific-emulation",
+        "status": "playable",
+        "notes": "Executes original Amiga 68000 code through embedded Musashi, a custom OCS implementation and game-address-specific host hooks; a Windows executable alone does not imply translated game logic.",
+        "evidence": [
+          "https://github.com/Undine1/Moonstone-A-Hard-Days-Knight-2026/blob/main/recomp/build.sh",
+          "https://github.com/Undine1/Moonstone-A-Hard-Days-Knight-2026/blob/main/recomp/src/moon.c"
+        ]
+      }
+    ],
+    "source_language": [
+      "68000 Amiga game binary"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "Amiga game-specific Windows adaptation"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-09-26",
+    "status": "Windows x64 release; multiplayer not functional in current release",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "embedded 68000 execution",
+      "custom OCS runtime",
+      "game-specific host hooks"
+    ],
+    "tags": [
+      "Amiga",
+      "Moonstone: A Hard Days Knight"
+    ],
+    "notes": "Uses player-supplied Amiga disk images. The Windows build links Musashi, SDL and a custom Amiga OCS implementation; game-specific hooks adapt input, rendering and known bugs. The README documents a playable single-player release and absent multiplayer. This is a native host executable running original 68000 game code, not a translated native game-code recompilation."
   }
 ]
