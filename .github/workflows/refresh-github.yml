@@ -6,7 +6,10 @@ name: Refresh GitHub metadata
 on:
   schedule:
     # Fifteen-minute probe slots, away from the top of each hour.
-    - cron: "7,22,37,52 * * * *"
+    - cron: "7 * * * *"
+    - cron: "22 * * * *"
+    - cron: "37 * * * *"
+    - cron: "52 * * * *"
   workflow_dispatch:
     inputs:
       full_probe:
