@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-26T18:06:17Z",
+  "updated_at": "2026-09-26T18:14:51Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -9169,10 +9169,12 @@
         "Z80",
         "Berzerk"
       ],
-      "notes": "Scott Tunstall's annotated original arcade Berzerk Z80 reverse engineering; the listing credits MAME debugger and documents shared logic found by translating recovered Frenzy 8085 source to Z80. JOTD's repository carries a copy and no independently evidenced Amiga conversion. Build identity remains unverified.",
+      "notes": "Scott Tunstall's annotated original arcade Berzerk Z80 reverse engineering; the listing credits MAME debugger and Deepseek V4 AI and documents shared logic found by translating recovered Frenzy 8085 source to Z80. JOTD's repository carries a copy and no independently evidenced Amiga conversion. No assembler recipe or byte-identical rebuild claim was found.",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "DeepSeek"
+        ]
       }
     },
     "betrayal-at-krondor-dos-byte-match": {
@@ -9976,10 +9978,12 @@
         "68k",
         "game"
       ],
-      "notes": "Project-specific Bosconian Z80 listing and 76 KB Amiga driver contain a named Bosconian core/high-score path. README and driver retain Rally-X template text; this is real in-progress source work, but successful assembly and playable output remain unverified.",
+      "notes": "Project-specific Bosconian Z80 listing and Amiga 68000 driver contain a named Bosconian core/high-score path. The 26 September reverse-engineering pass explicitly credits Claude and substantially rewrites the Z80 listing. README and driver retain Rally-X template text; successful assembly and playable output remain unverified.",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "bruce-lee-atari8-disassembly": {
@@ -12834,7 +12838,7 @@
         "AI-assisted",
         "retro development"
       ],
-      "notes": "Cycle-driven OCS/ECS/AGA Amiga emulator in Rust with reverse stepping, GDB/DAP source debugging, profiling, headless automation and direct WHDLoad/executable launching. Tracked as adjacent reverse-engineering/development tooling.",
+      "notes": "Cycle-driven OCS/ECS/AGA Amiga emulator in Rust with reverse stepping, GDB/DAP source debugging, profiling, headless automation and direct WHDLoad/executable launching. Copperline 1.0.0-rc.1 was published on 26 September 2026 as the first 1.0 release candidate, with desktop three/four-player netplay and expanded debugger/device tracing. Tracked as adjacent reverse-engineering/development tooling.",
       "ai": {
         "usage": true,
         "tools": [
@@ -16061,7 +16065,7 @@
         "DrawBridge",
         "flux"
       ],
-      "notes": "Arduino firmware and host applications for raw floppy-track capture and Amiga DD reading/writing, integrated with WinUAE and Amiberry. The README mentions Atari ST as a raw-track/third-party format path; bundled host applications specifically target Amiga DD disks. Some IPF/SCP writing and accurate flux capture remain experimental.",
+      "notes": "Arduino firmware and host applications acquire raw MFM tracks and provide Amiga DD imaging plus WinUAE/Amiberry integration. Atari ST is documented as a raw-track/third-party decoding path. Primary repository documentation does not name the exact Arduino MCU target, so target CPU remains unknown rather than inferred from the Arduino label. Some IPF/SCP writing and accurate flux capture remain experimental.",
       "ai": {
         "usage": null,
         "tools": []
@@ -18792,7 +18796,7 @@
         "Another World",
         "virtual machine"
       ],
-      "notes": "Haskell research into Another World PC/DOS data layout and virtual-machine resources, with concrete MEMLIST and BANK parsing. An Amiga ADF is cited as background, not as proof of Amiga-media decoding; no full game rebuild is claimed.",
+      "notes": "Haskell research into Another World PC/DOS MEMLIST/BANK resources and the game's virtual-machine bytecode, with concrete parsing and comparison against rawgl's VM disassembler. The analysed code is VM bytecode rather than a native CPU executable, and the repository produces host-side analysis output rather than a legacy target.",
       "ai": {
         "usage": null,
         "tools": []
@@ -19656,7 +19660,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime and scripted movement plus bounded in-memory title-audio handling, explicitly not complete parity. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full suite parity is not claimed.",
+      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; current authenticated-media regression coverage also verifies bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime and scripted movement plus bounded in-memory title-audio handling, explicitly not complete parity. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full suite parity is not claimed.",
       "ai": {
         "usage": true,
         "tools": [
@@ -30220,9 +30224,15 @@
       "source_platforms": [
         "Arcade"
       ],
-      "target_platforms": [],
-      "source_cpu": [],
-      "target_cpu": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": [
+        "m68020"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -30264,10 +30274,12 @@
         "Marble Madness II",
         "Amiga port research"
       ],
-      "notes": "Contains a 27 KB C renderer for a Marble Madness II prototype RAM dump and MAME graphics sheets, a graphics-generation script, and an early Amiga loader. Its TODO says ROM patching, tiles and sprites are unfinished; the record covers arcade video-data analysis, not a playable Amiga port. The explanatory markdown contains apparent generated drafting text, so independently verify individual claims in source before treating them as original research.",
+      "notes": "Contains a host C renderer for a Marble Madness II prototype RAM dump and MAME graphics sheets plus an early Amiga loader. MAME's primary driver identifies the arcade main CPU as M68000; the loader explicitly requires AGA and 68020 and declares 2 MiB Chip plus 2 MiB expansion memory. TODO still says ROM patching, tiles and sprites are unfinished, so those declarations are not treated as a runnable Amiga build or minimum runtime profile. The renderer was explicitly added with Claude assistance.",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "vs-sr-cd32-marvinsmarvellousadventure": {
@@ -45097,7 +45109,9 @@
         "Windows"
       ],
       "source_cpu": [],
-      "target_cpu": [],
+      "target_cpu": [
+        "ARM"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -45139,7 +45153,7 @@
         "IPF",
         "preservation"
       ],
-      "notes": "STM32F407 firmware plus Rust host CLI/GUI reads ADF and ST and writes ADF, IPF, ST and experimental patched STX. Verifies written tracks. Weak-bit and some other protections remain experimental; README lists STX cases it cannot support and requires nightly Rust and external IPF parser.",
+      "notes": "STM32F407 firmware plus Rust host CLI/GUI reads ADF and ST and writes ADF, IPF, ST and experimental patched STX. The firmware configuration explicitly selects Rust's thumbv7em-none-eabihf target for Cortex-M4F/M7F; the documented working board is STM32F407, so ARM is recorded as an output CPU without assigning CPUs to the disk-image inputs. Written tracks are verified; weak-bit and some STX protections remain experimental.",
       "ai": {
         "usage": null,
         "tools": []
@@ -45901,11 +45915,16 @@
       "source_platforms": [
         "Arcade"
       ],
-      "target_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
       "source_cpu": [
         "6809"
       ],
-      "target_cpu": [],
+      "target_cpu": [
+        "m68000",
+        "m68020"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -45920,11 +45939,13 @@
       ],
       "work_kinds": [
         "disassembly",
-        "binary-analysis"
+        "binary-analysis",
+        "reverse-engineering-derived-port"
       ],
       "tool_kinds": [],
       "types": [
-        "arcade disassembly"
+        "arcade disassembly",
+        "reverse-engineering-derived-port"
       ],
       "re_started": null,
       "status": null,
@@ -45936,14 +45957,15 @@
       },
       "techniques": [
         "6809 code annotation",
-        "hardware register mapping"
+        "hardware register mapping",
+        "68000 transcode"
       ],
       "tags": [
         "Arcade",
         "Super Pac-Man",
         "6809"
       ],
-      "notes": "Project-specific Super Pac-Man 6809 listing and ROM-byte extraction exist. README still describes Mappy and the Amiga build references a missing super_pacman.68k; no completed Amiga game port or working build is inferred.",
+      "notes": "Project-specific Super Pac-Man 6809 listing, ROM-byte extraction and in-progress Amiga translation. The makefile explicitly emits m68000 OCS/ECS objects and m68020 AGA objects, but README and loader names still describe Mappy and required generated inputs are not all present; no successful build, playable output or minimum hardware profile is inferred. The latest reverse-engineering fixes explicitly credit Claude.",
       "ai": {
         "usage": true,
         "tools": [
