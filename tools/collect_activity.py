@@ -20,6 +20,7 @@ from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 from activity_history import compact_history, freeze_addition_context, write_activity
+from refresh_github import probe_interval_minutes
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
@@ -364,6 +365,24 @@ def repair_project_latest(project, event):
     }
     gh["activity_state"] = activity_state(day)
 
+def advance_probe_deadlines(by_repo, state, now=NOW):
+    """Promote newly scanned projects to a faster probe tier immediately."""
+    for repo, projects in by_repo.items():
+        rs = state["repositories"].get(repo)
+        if not rs:
+            continue
+        newest = max((parse_time(p.get("last_activity")) for p in projects if parse_time(p.get("last_activity"))), default=None)
+        archived = any((p.get("github") or {}).get("archived") for p in projects)
+        interval = probe_interval_minutes(newest.date().isoformat() if newest else None, archived)
+        prior = rs.get("probe_interval_minutes")
+        if prior is not None and interval >= prior:
+            continue
+        rs["probe_interval_minutes"] = interval
+        due = now + timedelta(minutes=interval)
+        old_due = parse_time(rs.get("next_probe_due_at"))
+        if old_due is None or due < old_due:
+            rs["next_probe_due_at"] = due.isoformat(timespec="seconds").replace("+00:00", "Z")
+
 def main():
     projects = load_json(PROJECTS, [])
     payload = load_json(ACTIVITY, {"generated_at": None, "window_days": DAYS, "events": []})
@@ -501,6 +520,8 @@ def main():
         project = project_by_id.get(project_id)
         if project:
             update_project_latest(project, item)
+
+    advance_probe_deadlines(by_repo, state)
 
     if repair_latest_ids:
         latest_valid = {}

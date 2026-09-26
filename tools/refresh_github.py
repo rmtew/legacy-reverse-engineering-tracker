@@ -571,7 +571,7 @@ def main():
         if not enriched and any(not p.get("github_path") for p in repo_projects):
             checked = parse_time(rs.get("last_release_check_at"))
             release_hours = 6 if probe_minutes == 15 else 24
-            if not checked or RUN_AT - checked >= timedelta(hours=release_hours):
+            if new_repo or added_projects or not checked or RUN_AT - checked >= timedelta(hours=release_hours):
                 try:
                     check_latest_release(repo, repo_projects)
                     rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")

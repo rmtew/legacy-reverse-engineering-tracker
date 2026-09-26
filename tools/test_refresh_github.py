@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import refresh_github
+import collect_activity
 
 
 class HistoricalLatestCommitTest(unittest.TestCase):
@@ -133,6 +134,18 @@ class ProbeCadenceTest(unittest.TestCase):
             result = json.loads(projects.read_text())[0]
             self.assertEqual(result["github"]["latest_release"]["tag"], "v2")
             self.assertEqual(result["github"]["latest_release"]["published_at"], "2026-09-26")
+
+    def test_new_project_scan_promotes_the_next_probe(self):
+        state = {"repositories": {"owner/repo": {
+            "probe_interval_minutes": 720,
+            "next_probe_due_at": "2026-09-26T16:00:00Z",
+        }}}
+        projects = {"owner/repo": [{"id": "new", "last_activity": "2026-09-26", "github": {}}]}
+        now = datetime(2026, 9, 26, 4, 0, tzinfo=timezone.utc)
+        with patch.object(refresh_github, "TODAY", date(2026, 9, 26)):
+            collect_activity.advance_probe_deadlines(projects, state, now)
+        self.assertEqual(state["repositories"]["owner/repo"]["probe_interval_minutes"], 15)
+        self.assertEqual(state["repositories"]["owner/repo"]["next_probe_due_at"], "2026-09-26T04:15:00Z")
 
 
 if __name__ == "__main__":
