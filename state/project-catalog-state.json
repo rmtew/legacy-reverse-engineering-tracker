@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-26T06:39:06Z",
+  "updated_at": "2026-09-26T07:12:49Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -2761,7 +2761,9 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "Z80"
+      ],
       "target_cpu": [
         "m68000"
       ],
@@ -8840,8 +8842,12 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
-      "target_cpu": [],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68030"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -8879,7 +8885,7 @@
         "reconstructed source",
         "historical tool"
       ],
-      "notes": "Carnivore / BeerMacht / TRSI is credited for the historical BeerMon v0.45 monitor and debugger. Volker Schwaberow's collection presents reconstructed assembly; File header explicitly credits original Carnivore/BeerMacht/TRSI and reverse engineering by Volker Schwaberow; documents hardware-level monitor operation. No original-binary comparison, successful build or runtime test is established for this component.",
+      "notes": "Carnivore / BeerMacht / TRSI is credited for the historical BeerMon v0.45 monitor and debugger. Volker Schwaberow's reconstructed Moni.s explicitly selects mc68030, uses the 68020/68030 MSP/CACR/CAAR control-register path, and contains guarded 68040 and FPU probes. The source is therefore recorded at the explicitly documented m68k family level while m68030 records the reconstruction/output assembler mode, not a claimed minimum runnable Amiga. No original-binary comparison, successful build or runtime test is established.",
       "ai": {
         "usage": null,
         "tools": []
@@ -15424,7 +15430,9 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "HD6309"
+      ],
       "target_cpu": [
         "m68000"
       ],
@@ -19414,7 +19422,9 @@
         "instrumented Mednafen capture",
         "Backup RAM format analysis",
         "CD track provenance verification",
-        "source-frame byte comparison"
+        "source-frame byte comparison",
+        "native save-format analysis",
+        "bounded in-memory media decoding"
       ],
       "tags": [
         "game engine",
@@ -19423,7 +19433,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Current project status marks Dungeon Master 1 on PC DOS 3.4 as playable/source-locked; Chaos Strikes Back and Dungeon Master II have verified bounded real-media routes, now including direct FM Towns CSB save resume plus authentic Amiga and French DOS DM2 runtime regressions. Nexus remains active real-data bring-up. Theron's Quest has bounded Japanese and US routes; one authenticated US Akutuba viewport now matches an operator-local original-emulator frame byte-for-byte, explicitly proving only that captured screen and not gameplay semantics or campaign completion. User-supplied media stays source-locked and full parity is not claimed across the suite.",
+      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime and scripted movement plus bounded in-memory title-audio handling, explicitly not complete parity. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full suite parity is not claimed.",
       "ai": {
         "usage": true,
         "tools": [
@@ -32185,7 +32195,9 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "Z80"
+      ],
       "target_cpu": [
         "m68000"
       ],
@@ -32663,13 +32675,17 @@
       "techniques": [
         "static recompilation",
         "generated C",
-        "NES hardware runner"
+        "NES hardware runner",
+        "cycle-accurate recompilation",
+        "bounded interpreter fallback",
+        "deterministic trace verification",
+        "rollback netplay"
       ],
       "tags": [
         "NES",
         "6502"
       ],
-      "notes": "Translates NES ROM 6502 machine code into C for native compilation and provides a PPU/APU/mapper runner; generated C compilation does not itself produce a playable game. README describes Windows x64 as mature, macOS as experimental and Linux as not fully tested. Individual game projects need per-title integration.",
+      "notes": "Translates NES ROM 6502 machine code into C and provides a PPU/APU/mapper runner; generated C alone is not a playable game. The 26 September master merge adds an opt-in cycle-accurate compiler/runtime with bounded interpreter fallback, trace-parity verification and documented nonzero-alignment limits; the same day's netplay merge adds rollback, multi-seat lobbies and deterministic state validation. README describes Windows x64 as mature, macOS as experimental and Linux as not fully tested; no minimum host CPU/RAM is stated.",
       "ai": {
         "usage": true,
         "tools": [
@@ -34044,7 +34060,9 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "Z80"
+      ],
       "target_cpu": [
         "m68000"
       ],
@@ -36402,7 +36420,7 @@
         "game",
         "browser"
       ],
-      "notes": "Rewrites only the first-level playable Amiga Prehistorik demo from its ADF; author README links a browser version. This is not a full-game reconstruction or a DOS data port.",
+      "notes": "Rewrites only the first-level playable Amiga Prehistorik demo from its ADF; the author README links a browser version. The reviewed README and complete source/tool tree do not identify the original executable CPU, so none is inferred from the Amiga/ADF label. This is not a full-game reconstruction or a DOS data port.",
       "ai": {
         "usage": null,
         "tools": []
@@ -38337,7 +38355,7 @@
         "game engine",
         "cross-platform"
       ],
-      "notes": "Reimplements the Flashback engine. README explicitly requires original DOS, Amiga, Macintosh or PC-98 files and documents Amiga module music as an alternative; no claim that DOS-only versions determine Amiga behavior. Primary README is for release 0.5.6.",
+      "notes": "Reimplements the Flashback engine and consumes original DOS, Amiga, Macintosh or PC-98 data files. The reviewed tree contains format/resource decoders rather than a native-instruction translator or executable loader, so a single source CPU is not applicable. Primary README is for release 0.5.6.",
       "ai": {
         "usage": null,
         "tools": []
@@ -40983,7 +41001,9 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "Z80"
+      ],
       "target_cpu": [
         "m68000"
       ],
@@ -44304,18 +44324,22 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "planar-native rendering",
+        "offline asset conversion",
+        "on-target byte comparison"
+      ],
       "tags": [
         "Atari ST",
         "Atari STE",
         "SDL"
       ],
-      "notes": "Planar-native compatibility layer and converter for porting SDL 1.2 games to ST/STE, used by the Flashback port. README describes DEGAS, sprite, sound and planar asset conversion; it is development infrastructure rather than recovered game source.",
+      "notes": "Planar-native compatibility layer and converter for porting SDL 1.2 games to ST/STE, used by several ports. The README documents cross-compilation with m68k-atari-mint-gcc, runnable TOS examples under Hatari, byte-identical BLiTTER/CPU checks on target, and measured stock-ST/Mega-STE behavior. The 26 September update adds per-step YM tone/noise effects and preserves their millisecond timing at both 50 and 60 Hz. SDL source/assets are inputs to the porting library, so source CPU is not applicable.",
       "ai": {
         "usage": true,
         "tools": [
@@ -48888,7 +48912,9 @@
       "target_platforms": [
         "Amiga"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "6502"
+      ],
       "target_cpu": [
         "m68000"
       ],
