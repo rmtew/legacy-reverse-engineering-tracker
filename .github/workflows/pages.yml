@@ -102,6 +102,21 @@ jobs:
           cp index.html _site/
           cp -R web _site/
           cp -R data _site/
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import re
+
+          index = Path('_site/index.html')
+          html = index.read_text(encoding='utf-8')
+          for asset in ('tracker.css', 'tracker.js'):
+              path = 'web/' + asset
+              digest = sha256((Path('_site') / path).read_bytes()).hexdigest()[:12]
+              html, count = re.subn(re.escape(path) + r'(?:\?v=[^"\s]*)?', path + '?v=' + digest, html)
+              if count != 1:
+                  raise ValueError(f'Expected one reference to {path}, found {count}')
+          index.write_text(html, encoding='utf-8')
+          PY
           touch _site/.nojekyll
 
       - name: Generate activity RSS

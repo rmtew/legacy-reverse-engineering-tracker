@@ -125,3 +125,21 @@ test("execution filter includes mixed projects while leaving unclassified record
   assert.match(badges, /Native translation: partial/);
   vm.runInContext('projectFilterState.execution.clear();', context);
 });
+
+test("activity describes execution paths and displays their badges", () => {
+  const battle = catalogue.find(record => record.id === "battle-squadron-amiga-recomp-crownpark");
+  const moonstone = catalogue.find(record => record.id === "moonstone-amiga-windows-undine1");
+  context.testEvent = {
+    type: "project_updated",
+    change_details: [{ field: "execution_paths", before: null, after: battle.execution_paths }]
+  };
+  context.testRecord = battle;
+  const change = vm.runInContext("projectChangeHtml(testEvent, testRecord)", context);
+  assert.match(change, /Execution paths updated/);
+  assert.match(change, /Game-specific emulation/);
+  assert.match(change, /Native translation \(partial\)/);
+  assert.doesNotMatch(change, /\[object Object\]/);
+  assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /Game-specific emulation/);
+  context.testRecord = moonstone;
+  assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /Game-specific emulation/);
+});
