@@ -23,6 +23,7 @@ SOURCE_EXT = {".asm", ".s", ".6502", ".c", ".cpp", ".go", ".py", ".ts", ".js", "
 BINARY_EXT = {".rom", ".bin", ".adf", ".dsk", ".prg", ".tos", ".jed", ".ssd", ".uef", ".exe", ".vsix"}
 RELEASE_EXT = {".ssd", ".uef", ".exe", ".vsix"}
 DESIGN_EXT = {".kicad_sch", ".kicad_pcb", ".lib", ".pld"}
+WORKBOOK_EXT = {".xlsm", ".xlsx", ".ods"}
 BUILD_NAMES = {"makefile", "cmakelists.txt", "build.sh", "build.bat", "package.json"}
 
 
@@ -31,7 +32,11 @@ def inventory(items: list[dict]) -> dict:
     names = [item["name"] for item in items if item.get("type") in {"file", "dir"} and item.get("name")]
     files = [item["name"] for item in items if item.get("type") == "file" and item.get("name")]
     dirs = [item["name"] for item in items if item.get("type") == "dir" and item.get("name")]
-    readme = next((name for name in files if re.match(r"^readme(?:\.[^.]+)?$", name, re.I)), None)
+    readmes = [name for name in files if re.match(r"^readme(?:\.[^.]+){0,2}$", name, re.I)]
+    # A translated README may sort before the English root README in GitHub's listing.
+    readme = min(readmes, key=lambda name: (0 if name.casefold() == "readme.md" else
+                                            1 if name.casefold() == "readme.en.md" else 2,
+                                            name.casefold())) if readmes else None
     return {
         "root_names": names,
         "readme_path": readme,
@@ -41,6 +46,7 @@ def inventory(items: list[dict]) -> dict:
             "binary_files": any(Path(name).suffix.casefold() in BINARY_EXT for name in files),
             "release_artifacts": [name for name in files if Path(name).suffix.casefold() in RELEASE_EXT],
             "hardware_design_files": any(Path(name).suffix.casefold() in DESIGN_EXT for name in files),
+            "analysis_workbooks": [name for name in files if Path(name).suffix.casefold() in WORKBOOK_EXT],
             "build_files": any(name.casefold() in BUILD_NAMES for name in files),
             "source_directories": [name for name in dirs if name.casefold() in
                                    {"src", "source", "sources", "1-source-files", "original-sources"}],

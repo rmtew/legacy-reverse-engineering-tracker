@@ -23,6 +23,16 @@ class Client:
 
 
 class TriageTests(unittest.TestCase):
+    def test_prefers_english_readme_and_surfaces_workbooks(self):
+        row = inventory([{'name': n, 'type': 'file'} for n in
+                         ('README.de.md', 'README.md', 'a2-hires-lab.xlsm')])
+        self.assertEqual(row['readme_path'], 'README.md')
+        self.assertEqual(row['root_signals']['analysis_workbooks'], ['a2-hires-lab.xlsm'])
+        self.assertFalse(row['root_signals']['binary_files'])
+        translated = inventory([{'name': n, 'type': 'file'} for n in
+                                ('README.de.md', 'README.en.md')])
+        self.assertEqual(translated['readme_path'], 'README.en.md')
+
     def test_index_only_site_exposes_bounded_github_links(self):
         class SiteClient:
             def __init__(self):

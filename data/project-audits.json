@@ -37221,6 +37221,198 @@
         "Independently build the demos and test Commodore 128 hardware.",
         "Confirm the exact native CPU variant and development provenance."
       ]
+    },
+    {
+      "project_id": "a2-hires-lab-apple2-lode-runner",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README analyzes the Apple II 6502 sprite shift routine."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "Host workbook is not a port of the original game's executable."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Workbook opens in Windows Excel 365/2024; pytest shift-table tests are documented, no independent Excel run."
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README gives Excel version, Windows and macro requirements."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "HISTORY describes LLM sessions and correction of Gemini-written 6502 examples."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README credits XekriRedmane/lode_runner_reveng data and distinguishes separate fschuhi/a2-lode-runner."
+        }
+      },
+      "next_actions": [
+        "Independently run the workbook's sprite controls in compatible Excel and check direct-table calculations against original disassembly."
+      ]
+    },
+    {
+      "project_id": "datapoint2200-os-manual-source-bread80",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary README and OS source identify the Datapoint 2200 serial processor; Intel 8008 comparison is not a CPU identity claim."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "This is an original-platform source transcription, not a CPU port."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "OS README describes a manual assembly order, and the directory includes binaries; independent reproducible build not checked."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "No minimum memory or operating configuration verified."
+        },
+        "ai": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "No explicit development provenance found in inspected primary files."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "OS README attributes listing to August 1971 Datapoint manual; hardware schematics are a separate part of the parent repo."
+        }
+      },
+      "next_actions": [
+        "Check whether all six OS modules rebuild against the period manual and identify precise assembler and runtime requirements."
+      ]
+    },
+    {
+      "project_id": "rc2014-512k-norflash-writer-bread80",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README and NORFlash.asm explicitly identify Z80 execution on RC2014."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "No historical binary is being ported to a different CPU."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README names RASM and bundled outputs; no independent build."
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README limits tested target to RC2014 official 512K ROM/RAM with SST39SF040."
+        },
+        "ai": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "No explicit development provenance found."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README credits Mike Sutton and indicates RC2014 board-specific implementation; other modules untested."
+        }
+      },
+      "next_actions": [
+        "Independently assemble with RASM and confirm erase/write routines on the specified RC2014 module."
+      ]
+    },
+    {
+      "project_id": "cadaver-c64loader-v3",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Loader and drive-source files target C64 6510 and drive-side 6502 family."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "Related loader implementation for the same C64/drive family, not a port to another CPU."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "README documents DASM conditional-assembly integration but no independent build."
+        },
+        "runtime_profiles": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "Drive support listed; exact memory and model requirements not independently checked."
+        },
+        "ai": {
+          "state": "needs-research",
+          "checked_at": null,
+          "note": "No explicit AI authorship found in reviewed documentation."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README and loader.txt state v3 is derived from c64gameframework/MW ULTRA with smaller resident runtime and different save/configuration limits."
+        }
+      },
+      "next_actions": [
+        "Build an example using DASM and check one documented drive path; compare the v3 module surface with c64gameframework."
+      ]
     }
   ]
 }
