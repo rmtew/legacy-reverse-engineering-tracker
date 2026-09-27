@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-27T04:23:34Z",
+  "updated_at": "2026-09-27T05:26:33Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -2079,6 +2079,65 @@
         "SkoolKit"
       ],
       "notes": "Pobtastic annotated ZX Spectrum disassembly created with SkoolKit.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "aha-arm-thumb-superoptimiser-dpt": {
+      "id": "aha-arm-thumb-superoptimiser-dpt",
+      "title": "Aha!",
+      "upstream_name": "Aha!",
+      "display_title": "Aha! — ARM/Thumb superoptimiser adaptation",
+      "subjects": [],
+      "repo": "https://github.com/dpt/Aha",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ARM"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "ARM",
+        "Thumb"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "ARM/Thumb instruction fragments"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain"
+      ],
+      "types": [
+        "superoptimiser"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "instruction synthesis",
+        "Make"
+      ],
+      "tags": [
+        "ARM",
+        "Thumb",
+        "code generation"
+      ],
+      "notes": "Adaptation of Henry S. Warren's Aha! instruction superoptimiser. README identifies added ARM/Thumb-oriented BIC and RSB handling and preserves original source on the distrib branch; Makefile synthesizes short sequences from sample C fragments. Not an original Warren source claim or analysis of a particular RISC OS program.",
       "ai": {
         "usage": null,
         "tools": []
@@ -6241,6 +6300,64 @@
         "Another World"
       ],
       "notes": "Active work toward one conditional source tree for multiple release lineages, including Chahi's 1991 Amiga bytecode. README and PLAN document byte-identical round trips for 29 levels across five ports. Current outputs are Another World VM bytecode resources: engine binary reconstruction and whole-port packaging are explicitly outside the present scope, so native source and target CPUs are not applicable. Depends on sibling archaeology and external VMTools.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "appengine-riscos-desktop-library-dpt": {
+      "id": "appengine-riscos-desktop-library-dpt",
+      "title": "AppEngine",
+      "upstream_name": "AppEngine",
+      "display_title": "AppEngine — RISC OS desktop C library",
+      "subjects": [],
+      "repo": "https://github.com/dpt/PrivateEye",
+      "project_url": "https://github.com/dpt/PrivateEye/tree/master/libs/appengine",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "RISC OS"
+      ],
+      "target_platforms": [
+        "RISC OS"
+      ],
+      "source_cpu": [],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "RISC OS desktop and graphics APIs"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "RISC OS application framework"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "GCCSDK",
+        "CMake",
+        "Wimp"
+      ],
+      "tags": [
+        "RISC OS",
+        "desktop framework"
+      ],
+      "notes": "Reusable RISC OS desktop application C library under libs/appengine in the PrivateEye repository. README distinguishes AppEngine from the PrivateEye image viewer and TagCloud demo; source directories include Wimp, VDU, dialogues, gadgets, graphics, I/O and networking, with CMake build integration. The viewer is an application consumer, not a reconstructed target.",
       "ai": {
         "usage": null,
         "tools": []
@@ -18115,6 +18232,71 @@
         "tools": []
       }
     },
+    "flashback-dpoly-js-cutscene-player": {
+      "id": "flashback-dpoly-js-cutscene-player",
+      "title": "dpoly.js",
+      "upstream_name": "dpoly.js",
+      "display_title": "Flashback — HTML5 cutscene player",
+      "subjects": [
+        "Flashback"
+      ],
+      "repo": "https://github.com/cyxx/dpoly_js",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "m68000"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Flashback polygon cutscene data"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "cutscene player",
+        "browser adaptation"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Flashback cutscene opcode interpreter",
+        "HTML5 canvas"
+      ],
+      "tags": [
+        "Flashback",
+        "m68000",
+        "cutscenes",
+        "Web"
+      ],
+      "notes": "Browser-only player for Flashback polygon cutscenes and MOD-based audio. index.html credits Cyxx's existing REminiscence engine rewrite as the code predecessor and contrasts the original 68000 software rendering with canvas/audio playback. JS includes decompression and polygon command handling. This is a distinct cutscene-only Web output, not a second full game engine; the particular original data edition (.cmp/.set) remains unverified.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "dos-dr-riptide-dissected": {
       "id": "dos-dr-riptide-dissected",
       "title": "Dr. Riptide Dissected",
@@ -21707,6 +21889,66 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "flashback-genesis-asset-extractor-cyxx": {
+      "id": "flashback-genesis-asset-extractor-cyxx",
+      "title": "fb_dump_genesis",
+      "upstream_name": "fb_dump_genesis",
+      "display_title": "Flashback — Genesis ROM asset extractor",
+      "subjects": [],
+      "repo": "https://github.com/cyxx/extract_fb_genesis",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Genesis"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Flashback Sega Genesis ROM"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "rom-tool"
+      ],
+      "types": [
+        "ROM asset extractor"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "room decoding",
+        "bitmap conversion"
+      ],
+      "tags": [
+        "Sega Genesis",
+        "Flashback",
+        "ROM extraction"
+      ],
+      "notes": "Python entry point and C decoders extract and convert Flashback room and graphics data from Sega Genesis ROMs. README enumerates Europe, Japan, USA and September 1992 prototype variants. The tool analyzes ROM-contained assets; it does not claim to reconstruct 68000 executable code or the full game.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "feud-spectrum-analyser": {
@@ -27185,6 +27427,142 @@
         "tools": []
       }
     },
+    "hugo-delire-hugo-js-cyxx": {
+      "id": "hugo-delire-hugo-js-cyxx",
+      "title": "hugo.js",
+      "upstream_name": "hugo.js",
+      "display_title": "Hugo Délire — HTML5 train-game player",
+      "subjects": [
+        "Hugo Délire"
+      ],
+      "repo": "https://github.com/cyxx/hugo_js",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Hugo Délire game resource/animation files"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "JavaScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "mini-game player",
+        "resource conversion"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "resource unpacking",
+        "animation conversion"
+      ],
+      "tags": [
+        "Hugo Délire",
+        "resource extraction",
+        "Web"
+      ],
+      "notes": "Small HTML5 player for the Hugo Délire train mini-game, plus C resource-directory, animation unpack and BMP conversion tools. README documents the playable Web train sequence and root Makefile builds extract_dir and convert_ani. Scope is one mini-game and resource pipeline, not a complete Hugo Délire reimplementation; original executable architecture and resource edition are not established.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "hulabee-sauce-vm-cyxx": {
+      "id": "hulabee-sauce-vm-cyxx",
+      "title": "Hulabee Sauce VM",
+      "upstream_name": "Hulabee Sauce VM",
+      "display_title": "Hulabee Sauce — VM and asset tools",
+      "subjects": [
+        "Hulabee Sauce engine"
+      ],
+      "repo": "https://github.com/cyxx/hulabee",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "modern desktop"
+      ],
+      "source_cpu": [],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Sauce bytecode and .pan/.gg game data"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "data-format-analysis",
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "debugger"
+      ],
+      "types": [
+        "engine rewrite",
+        "virtual machine",
+        "asset extraction"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "VM opcode tracing",
+        "asset decoding",
+        "SDL2"
+      ],
+      "tags": [
+        "Hulabee",
+        "Sauce VM",
+        "game data"
+      ],
+      "notes": "SDL2 rewrite of the proprietary Hulabee Sauce VM with .pan/.gg asset decoders and whisk.dll opcode tracing. vm/README.md names Moop and Dreadly and Ollo as supported games, requires original .pan files, and lists missing captions and VM garbage collection. Documentation examines embedded Sauce source/bytecode; supported status and builds are upstream claims, not independently tested.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "hunchback-c64-mark": {
       "id": "hunchback-c64-mark",
       "title": "Hunchback",
@@ -27977,6 +28355,73 @@
         "graphics"
       ],
       "notes": "Python/PyGame viewer decodes Amiga ILBM including EHB, HAM6/8 and deep-color modes; also writes 24-bit and HAM IFF from modern images. Author notes PyGame can load IFF directly but this code implements decoding.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "igor-objetivo-uikokahonia-interpreter-cyxx": {
+      "id": "igor-objetivo-uikokahonia-interpreter-cyxx",
+      "title": "Igor interpreter",
+      "upstream_name": "Igor interpreter",
+      "display_title": "Igor: Objetivo Uikokahonia — x86 interpreter",
+      "subjects": [
+        "Igor: Objetivo Uikokahonia"
+      ],
+      "repo": "https://github.com/cyxx/igor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC"
+      ],
+      "target_platforms": [
+        "modern desktop",
+        "Android"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Spanish CD release IGOR.EXE and IGOR.DAT"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game-engine"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game-specific interpreter",
+        "executable decoder"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "executable decoding",
+        "trap reimplementation"
+      ],
+      "tags": [
+        "Igor",
+        "x86",
+        "game interpreter"
+      ],
+      "notes": "Proof-of-concept interpreter for Igor's Spanish CD release: README requires IGOR.DAT and IGOR.EXE, explains that hardcoded logic and assets reside in the original executable, and describes an x86 decoder/interpreter with rewritten palette, display and input traps. Missing original save/load screen is explicitly listed. Android and SDL front ends are present; no full-playability or binary-equality claim.",
       "ai": {
         "usage": null,
         "tools": []
@@ -47153,6 +47598,74 @@
         "tools": []
       }
     },
+    "slopay-spectrum-cpc-ay-player-dpt": {
+      "id": "slopay-spectrum-cpc-ay-player-dpt",
+      "title": "SlopAY & MIDIAY",
+      "upstream_name": "SlopAY & MIDIAY",
+      "display_title": "SlopAY — Spectrum/CPC AY analysis player",
+      "subjects": [],
+      "repo": "https://github.com/dpt/SlopAY",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum",
+        "Amstrad CPC"
+      ],
+      "target_platforms": [
+        "macOS",
+        "POSIX"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "AY music files with Z80 player code"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "emulator",
+        "asset-tool"
+      ],
+      "types": [
+        "AY music player",
+        "MIDI/WAV export"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Z80 emulation",
+        "AY playback",
+        "audio export"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Amstrad CPC",
+        "Z80",
+        "AY sound"
+      ],
+      "notes": "AY file player with embedded Z80 and AY chip emulation, Spectrum 48K beeper, Spectrum 128K and CPC timing profiles, real-time audio on macOS, headless WAV/MIDI export elsewhere, and per-frame piano-roll output. Companion MIDIAY controls an AY chip from MIDI on macOS. README says most new code was vibe-coded; no model specified. Reported format support is upstream documentation, not independently tested.",
+      "ai": {
+        "usage": true,
+        "tools": []
+      }
+    },
     "smallest-gridrunner-st": {
       "id": "smallest-gridrunner-st",
       "title": "Smallest Gridrunner — 256 KiB ST adaptation",
@@ -57417,6 +57930,62 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "zerotape-great-escape-serialization-dpt": {
+      "id": "zerotape-great-escape-serialization-dpt",
+      "title": "zerotape",
+      "upstream_name": "zerotape",
+      "display_title": "zerotape — Great Escape state serializer",
+      "subjects": [],
+      "repo": "https://github.com/dpt/zerotape",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "The Great Escape C model state"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "serialization library"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Lemon parser",
+        "save-state modeling"
+      ],
+      "tags": [
+        "The Great Escape",
+        "state serialization",
+        "C library"
+      ],
+      "notes": "Structured-text C serializer built for saving and loading state in the tracked The Great Escape in C reconstruction. Uses ZT field macros and a Lemon-generated grammar; README documents integer-focused syntax and limitations. General-purpose library serving that project, not an original Spectrum tape format parser or binary-derived reconstruction.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "zippy-race-amiga-ocs-lantus": {
