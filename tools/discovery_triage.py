@@ -18,8 +18,9 @@ from urllib.parse import quote, urlsplit
 from discovery_intake import HTTPClient, STATE
 
 
-SOURCE_EXT = {".asm", ".s", ".c", ".cpp", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
-BINARY_EXT = {".rom", ".bin", ".adf", ".dsk", ".prg", ".tos", ".jed"}
+SOURCE_EXT = {".asm", ".s", ".6502", ".c", ".cpp", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
+BINARY_EXT = {".rom", ".bin", ".adf", ".dsk", ".prg", ".tos", ".jed", ".ssd", ".uef", ".exe", ".vsix"}
+RELEASE_EXT = {".ssd", ".uef", ".exe", ".vsix"}
 DESIGN_EXT = {".kicad_sch", ".kicad_pcb", ".lib", ".pld"}
 BUILD_NAMES = {"makefile", "cmakelists.txt", "build.sh", "build.bat", "package.json"}
 
@@ -36,6 +37,7 @@ def inventory(items: list[dict]) -> dict:
         "root_signals": {
             "source_files": any(Path(name).suffix.casefold() in SOURCE_EXT for name in files),
             "binary_files": any(Path(name).suffix.casefold() in BINARY_EXT for name in files),
+            "release_artifacts": [name for name in files if Path(name).suffix.casefold() in RELEASE_EXT],
             "hardware_design_files": any(Path(name).suffix.casefold() in DESIGN_EXT for name in files),
             "build_files": any(name.casefold() in BUILD_NAMES for name in files),
             "source_directories": [name for name in dirs if name.casefold() in

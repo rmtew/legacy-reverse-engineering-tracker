@@ -39,6 +39,11 @@ QUERY_PLATFORM_TERMS = {
     "cpc-": re.compile(r"\b(cpc|amstrad)\b", re.I),
     "acorn-": re.compile(r"\b(bbc[ -]micro|acorn|beeb|electron)\b", re.I),
 }
+CODE_QUERY_PLATFORM_TERMS = {
+    "amiga-code": QUERY_PLATFORM_TERMS["amiga-"],
+    "atari-code": QUERY_PLATFORM_TERMS["atari-st-"],
+    "cpc-code": QUERY_PLATFORM_TERMS["cpc-"],
+}
 GH_LINK = re.compile(r"https?://(?:www\.)?github\.com/[\w.-]+/[\w.-]+(?:/[^\s<>\])}\"']*)?", re.I)
 DIRECTORIES = {"games", "projects", "disassemblies", "disassembly", "ports", "targets"}
 
@@ -244,7 +249,12 @@ def rank_queue(state: dict, index: CandidateIndex) -> dict:
         title_and_description = entry.get("title", "") + " " + entry.get("description", "")
         work = bool(WORK_TERMS.search(title_and_description))
         platform = bool(PLATFORM_TERMS.search(title_and_description))
-        route_bonus = 12 if any(o["route"] == "github-code" for o in entry["origins"]) else 0
+        code_origins = [CODE_QUERY_PLATFORM_TERMS[o["origin"]].search(title_and_description)
+                        for o in entry["origins"] if o["route"] == "github-code"
+                        and o["origin"] in CODE_QUERY_PLATFORM_TERMS]
+        # A code-search hit may occur only in a README of an unrelated repo.
+        # Preserve the hit, but reward an independently described platform match.
+        route_bonus = 12 if any(code_origins) else (-10 if code_origins else 0)
         route_bonus += 8 if any(o["route"] == "source-github-repository" for o in entry["origins"]) else 0
         query_matches = [bool(pattern.search(title_and_description))
                          for origin in entry["origins"] if origin["route"] == "github-repositories"

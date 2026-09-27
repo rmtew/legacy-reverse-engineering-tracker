@@ -4,7 +4,7 @@ from __future__ import annotations
 import base64
 import unittest
 
-from discovery_triage import triage
+from discovery_triage import inventory, triage
 
 
 class Client:
@@ -23,6 +23,15 @@ class Client:
 
 
 class TriageTests(unittest.TestCase):
+    def test_release_artifacts_keep_tool_and_source_visible(self):
+        row = inventory([{'name': n, 'type': 'file'} for n in
+                         ('README.md', 'MAD-example.6502', 'machine-auto-detect.ssd',
+                          'machine-auto-detect.uef', 'max65.vsix')])
+        self.assertTrue(row['root_signals']['source_files'])
+        self.assertTrue(row['root_signals']['binary_files'])
+        self.assertEqual(len(row['root_signals']['release_artifacts']), 3)
+        self.assertNotIn('decision', row)
+
     def test_case_insensitive_readme_and_bounded_root_signals(self):
         client = Client()
         report = triage([("https://github.com/example/repo", {"origins": []})], client, 1)

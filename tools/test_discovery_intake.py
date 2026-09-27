@@ -115,6 +115,18 @@ class IntakeTests(unittest.TestCase):
         self.assertLess(state["queue"]["https://github.com/author/atari-2600-emulator"]["score"],
                         state["queue"]["https://github.com/author/atari-st-emulator"]["score"])
 
+    def test_code_search_bonus_requires_described_platform_match(self):
+        state = empty_state()
+        add_hits(state, self.index, [
+            {"url": "https://github.com/author/atari-st", "route": "github-code",
+             "origin": "atari-code", "description": "Atari ST debugger"},
+            {"url": "https://github.com/author/generic", "route": "github-code",
+             "origin": "atari-code", "description": "Archive recovery for generic files"},
+        ], "2026-09-27T00:00:00Z")
+        self.assertEqual(rank_queue(state, self.index)["open"], 2)
+        self.assertGreater(state["queue"]["https://github.com/author/atari-st"]["score"],
+                           state["queue"]["https://github.com/author/generic"]["score"])
+
     def test_rotate_queries_and_merge_after_concurrent_push(self):
         config = {"queries": [
             {"kind": "repositories", "id": "first", "q": "first"},
