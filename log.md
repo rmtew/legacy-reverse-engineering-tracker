@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-28 — Format-tool CPU audit and active upstream review
+
+Resolved twelve queued CPU audit areas across **AmbermoonSourceror — Ghidra-to-Amiga assembly converter**, both **AmigaHunkParser** implementations, **Amiga Imploder — decompiled compressor**, **MapTapper — Amiga graphics and map ripper**, **raw2iff — Amiga/ST graphics converter**, **STTRANS — Atari STBook transfer protocol research**, and **UnifiedFloppyTool — Amiga/Atari disk preservation**. Generic HUNK containers, savestates, raw graphics, disk images and flux streams are now explicitly CPU-not-applicable instead of inheriting architecture from their platform label. AmbermoonSourceror's output is tied to its explicit `-m68000` assembler flag while the original input CPU remains no-evidence-found; the checked-in STTRANS.PRG primary artifact identifies as Atari ST M68K. The C HUNK parser also built cleanly with GCC and ran its usage path locally.
+
+Material upstream review records **UnifiedFloppyTool**'s 570/570-tested ring-position validation and the still-unresolved G71 bridge gap, **Rolling Thunder — Amiga 68k translation** reaching working 16x16 tiles/mirroring while multi-CPU synchronisation remains explicitly broken, and **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** adding bounded authentic-media door and inventory regressions. Firestaff's new checks remain narrowly described: they verify fail-closed doors and source-record-preserving item transactions, not original door, T900/UI, quest-item or complete campaign semantics.
+
+
 ## 2026-09-28 — Atari VCS homebrew graph, DOS tooling and CPU audit
 
 Completed the canonical `milnak/atari-vcs-disassembly` submodule review. Added five distinct, source-backed Atari 2600 homebrew projects at their demonstrated scope: **Grizzards — Atari 2600 turn-based RPG**, **Climber 5 — Atari 2600 homebrew adaptation**, **Pacman4K — 4 KiB Atari 2600 Pac-Man homebrew**, **2048 — Atari 2600 homebrew port**, and **Atomchess — 1 KiB Atari 2600 chess port**. These are explicitly classified as original homebrew, behavioral adaptations or source ports—not reverse-engineered binaries. The book, lesson-code and small-demo aggregate repositories remain discovery references rather than single project records.
