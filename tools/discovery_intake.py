@@ -275,6 +275,19 @@ def rank_queue(state: dict, index: CandidateIndex) -> dict:
     return {"open": len(state["queue"]), "resolved": len(resolved)}
 
 
+def format_review_entry(key: str, entry: dict, index: CandidateIndex) -> str:
+    """Show local project coverage for a known repository without network calls."""
+    line = (f"{entry['score']:3} {entry['status']:22} {entry['url']}  "
+            f"[{', '.join(x['origin'] for x in entry['origins'])}]")
+    if entry['status'] in {'known_repository', 'known_repository_path'}:
+        repo_key = github_repository_key(canonical_url(key))
+        ids = sorted({m['id'] for m in index.repositories.get(repo_key, []) if m['kind'] == 'project'})
+        if ids:
+            suffix = f", +{len(ids) - 3} more" if len(ids) > 3 else ""
+            line += f"  [tracked: {', '.join(ids[:3])}{suffix}]"
+    return line
+
+
 def review_entries(queue: dict, limit: int, max_per_profile: int | None = None) -> list[tuple[str, dict]]:
     """Show a representative review slice without changing stored queue order.
 
@@ -364,8 +377,7 @@ def main() -> None:
     if args.list is not None:
         rank_queue(state, index)
         for key, entry in review_entries(state["queue"], args.list, args.max_per_profile):
-            print(f"{entry['score']:3} {entry['status']:22} {entry['url']}  "
-                  f"[{', '.join(x['origin'] for x in entry['origins'])}]")
+            print(format_review_entry(key, entry, index))
         return
     if args.merge_state:
         state = merge_state(state, read_state(args.merge_state))

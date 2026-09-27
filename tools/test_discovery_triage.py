@@ -23,6 +23,28 @@ class Client:
 
 
 class TriageTests(unittest.TestCase):
+    def test_index_only_site_exposes_bounded_github_links(self):
+        class SiteClient:
+            def __init__(self):
+                self.count, self.max_requests = 0, 2
+
+            def get(self, url):
+                self.count += 1
+                if url.endswith('/contents'):
+                    return [{'name': 'index.html', 'type': 'file'}]
+                self_url = 'https://github.com/example/first'
+                html = (f'<a href="{self_url}">one</a><a href="{self_url}/tree/main/src">repeat</a>'
+                        '<a href="https://github.com/other/second">two</a>')
+                return {'content': base64.b64encode(html.encode()).decode(), 'html_url': url}
+
+        report = triage([('https://github.com/example/site', {})], SiteClient(), 1)
+        lead = report['leads'][0]
+        self.assertEqual(report['requests'], 2)
+        self.assertIsNone(lead['readme_path'])
+        self.assertEqual(lead['outbound_repository_count'], 2)
+        self.assertEqual(lead['outbound_repositories'],
+                         ['https://github.com/example/first', 'https://github.com/other/second'])
+
     def test_release_artifacts_keep_tool_and_source_visible(self):
         row = inventory([{'name': n, 'type': 'file'} for n in
                          ('README.md', 'MAD-example.6502', 'machine-auto-detect.ssd',

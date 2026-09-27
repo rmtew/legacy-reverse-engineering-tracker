@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from discovery_intake import (add_hits, collect_query, collect_source, empty_state, github_candidate,
+from discovery_intake import (add_hits, collect_query, collect_source, empty_state, format_review_entry, github_candidate,
                               merge_state, rank_queue, review_entries, run)
 from screen_discovery_candidates import CandidateIndex
 
@@ -27,6 +27,15 @@ class FakeClient:
 
 
 class IntakeTests(unittest.TestCase):
+    def test_known_repository_review_line_shows_tracked_project(self):
+        entry = {'score': 92, 'status': 'known_repository',
+                 'url': 'https://github.com/old/collection',
+                 'origins': [{'origin': 'source-profile'}]}
+        line = format_review_entry(entry['url'], entry, self.index)
+        self.assertIn('[tracked: old]', line)
+        entry['status'] = 'new'
+        self.assertNotIn('[tracked:', format_review_entry(entry['url'], entry, self.index))
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

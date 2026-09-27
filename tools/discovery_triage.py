@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect cheap root inventory and README hints for queued GitHub leads.
+"""Collect cheap root inventory, README or landing-page hints for queued GitHub leads.
 
 This read-only preflight makes no qualification, build or provenance decision.
 It uses at most two GitHub API calls per candidate and preserves queue order.
@@ -15,7 +15,8 @@ from pathlib import Path
 import re
 from urllib.parse import quote, urlsplit
 
-from discovery_intake import HTTPClient, STATE
+from discovery_intake import HTTPClient, LinkParser, STATE, github_candidate
+from screen_discovery_candidates import github_repository_key
 
 
 SOURCE_EXT = {".asm", ".s", ".6502", ".c", ".cpp", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
@@ -34,6 +35,7 @@ def inventory(items: list[dict]) -> dict:
     return {
         "root_names": names,
         "readme_path": readme,
+        "landing_page_path": next((name for name in files if name.casefold() == "index.html"), None) if not readme else None,
         "root_signals": {
             "source_files": any(Path(name).suffix.casefold() in SOURCE_EXT for name in files),
             "binary_files": any(Path(name).suffix.casefold() in BINARY_EXT for name in files),
@@ -63,11 +65,21 @@ def triage(queue: list, client: HTTPClient, limit: int) -> dict:
             if not isinstance(items, list):
                 raise ValueError("Repository root is not a directory listing")
             row.update(inventory(items))
+            page_path = row["readme_path"] or row["landing_page_path"]
+            if page_path:
+                page = client.get(endpoint + "/" + quote(page_path))
+                body = base64.b64decode(page["content"]).decode("utf-8", errors="replace")
             if row["readme_path"]:
-                readme = client.get(endpoint + "/" + quote(row["readme_path"]))
-                body = base64.b64decode(readme["content"]).decode("utf-8", errors="replace")
                 row["readme_intro"] = body.lstrip()[:1000]
-                row["readme_url"] = readme.get("html_url")
+                row["readme_url"] = page.get("html_url")
+            elif row["landing_page_path"]:
+                parser = LinkParser()
+                parser.feed(body)
+                repositories = list(dict.fromkeys(filter(None, (github_repository_key(github_candidate(link) or "")
+                                                           for link in parser.links))))
+                row["landing_page_url"] = page.get("html_url")
+                row["outbound_repository_count"] = len(repositories)
+                row["outbound_repositories"] = repositories[:50]
         except (RuntimeError, ValueError, KeyError, UnicodeError) as exc:
             row["error"] = str(exc)
             if client.count >= client.max_requests:
