@@ -23,6 +23,31 @@ class Client:
 
 
 class TriageTests(unittest.TestCase):
+    def test_nested_tree_directory_uses_two_ref_pinned_requests(self):
+        class DirectoryClient(Client):
+            def __init__(self):
+                super().__init__()
+                self.urls = []
+
+            def get(self, url):
+                self.urls.append(url)
+                if url.endswith('/contents/Amiga/Tools?ref=master'):
+                    self.count += 1
+                    return [{'name': 'readme.md', 'type': 'file'},
+                            {'name': 'ADFinder', 'type': 'dir'}]
+                return super().get(url)
+
+        client = DirectoryClient()
+        url = 'https://github.com/example/repo/tree/master/Amiga/Tools'
+        lead = triage([(url, {})], client, 1)['leads'][0]
+        self.assertEqual(client.count, 2)
+        self.assertEqual(client.urls, [
+            'https://api.github.com/repos/example/repo/contents/Amiga/Tools?ref=master',
+            'https://api.github.com/repos/example/repo/contents/Amiga/Tools/readme.md?ref=master'])
+        self.assertEqual(lead['directory_path'], 'Amiga/Tools')
+        self.assertEqual(lead['ref'], 'master')
+        self.assertEqual(lead['root_names'], ['readme.md', 'ADFinder'])
+
     def test_readme_surfaces_related_repositories_without_extra_requests(self):
         class RelatedClient(Client):
             def get(self, url):

@@ -147,6 +147,29 @@ def collect_source(client, source: dict, max_links: int) -> list[dict]:
                              "description": repo.get("description") or ""})
     elif kind == "github-repository" and parsed.hostname == "github.com" and len(path) >= 2:
         owner, repo = path[:2]
+        if len(path) >= 5 and path[2] == "tree" and all(path[3:]):
+            branch, directory = path[3], path[4:]
+            api = (f"https://api.github.com/repos/{quote(owner)}/{quote(repo)}/contents/"
+                   + "/".join(map(quote, directory)) + "?ref=" + quote(branch))
+            children = client.get(api)
+            if not isinstance(children, list):
+                return []
+            for child in children:
+                if child.get("type") == "dir" and child.get("html_url"):
+                    hits.append({"url": child["html_url"], "title": child["name"],
+                                 "evidence_url": source_url})
+            readme = next((child for child in children if child.get("type") == "file"
+                           and child.get("name", "").casefold() in {"readme.md", "readme.txt"}), None)
+            if readme:
+                page = client.get(readme["url"] + ("&" if "?" in readme["url"] else "?")
+                                  + "ref=" + quote(branch))
+                body = base64.b64decode(page["content"]).decode("utf-8", errors="replace")
+                for link in GH_LINK.findall(body):
+                    candidate = github_candidate(link.rstrip(".,;"))
+                    if candidate:
+                        hits.append({"url": candidate, "evidence_url": page.get("html_url", source_url)})
+            return [{**hit, "route": f"source-{kind}", "origin": source["id"]}
+                    for hit in hits[:max_links]]
         api = f"https://api.github.com/repos/{quote(owner)}/{quote(repo)}/readme"
         try:
             readme = client.get(api)

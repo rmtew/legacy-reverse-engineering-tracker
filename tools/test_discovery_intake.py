@@ -27,6 +27,23 @@ class FakeClient:
 
 
 class IntakeTests(unittest.TestCase):
+    def test_nested_repository_source_collects_direct_children_with_two_requests(self):
+        source = {'id': 'tools', 'kind': 'github-repository',
+                  'source': 'https://github.com/owner/collection/tree/master/Amiga/Tools'}
+        api = 'https://api.github.com/repos/owner/collection/contents/Amiga/Tools'
+        readme = base64.b64encode(b'See https://github.com/other/engine').decode()
+        client = FakeClient({
+            api + '?ref=master': [
+                {'name': 'ADFinder', 'type': 'dir',
+                 'html_url': source['source'] + '/ADFinder'},
+                {'name': 'readme.md', 'type': 'file', 'url': api + '/readme.md'}],
+            api + '/readme.md?ref=master': {'content': readme, 'html_url': source['source'] + '/readme.md'},
+        })
+        leads = collect_source(client, source, 25)
+        self.assertEqual(client.count, 2)
+        self.assertEqual([lead['url'] for lead in leads], [
+            source['source'] + '/ADFinder', 'https://github.com/other/engine'])
+
     def test_known_repository_review_line_shows_tracked_project(self):
         entry = {'score': 92, 'status': 'known_repository',
                  'url': 'https://github.com/old/collection',

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect cheap root inventory, README or landing-page hints for queued GitHub leads.
+"""Collect cheap directory inventory, README or landing-page hints for queued GitHub leads.
 
 This read-only preflight makes no qualification, build or provenance decision.
 It uses at most two GitHub API calls per candidate and preserves queue order.
@@ -61,20 +61,28 @@ def triage(queue: list, client: HTTPClient, limit: int) -> dict:
         parsed = urlsplit(url)
         parts = parsed.path.strip("/").split("/")
         row = {"url": url, "score": entry.get("score"), "origins": entry.get("origins", [])}
-        if parsed.hostname != "github.com" or len(parts) != 2:
-            row["error"] = "Only GitHub repository root URLs support this preflight"
+        nested = len(parts) >= 5 and parts[2] == "tree" and bool(parts[3]) and all(parts[4:])
+        if parsed.hostname != "github.com" or not (len(parts) == 2 or nested):
+            row["error"] = "Only GitHub repository roots or tree/branch/directory URLs support this preflight"
             leads.append(row)
             continue
-        owner, repo = map(quote, parts)
+        owner, repo = map(quote, parts[:2])
+        directory = "/".join(parts[4:]) if nested else ""
+        branch = parts[3] if nested else None
         endpoint = f"https://api.github.com/repos/{owner}/{repo}/contents"
+        if directory:
+            endpoint += "/" + "/".join(map(quote, parts[4:]))
+            row["directory_path"] = directory
+            row["ref"] = branch
+        suffix = "?ref=" + quote(branch) if branch else ""
         try:
-            items = client.get(endpoint)
+            items = client.get(endpoint + suffix)
             if not isinstance(items, list):
                 raise ValueError("Repository root is not a directory listing")
             row.update(inventory(items))
             page_path = row["readme_path"] or row["landing_page_path"]
             if page_path:
-                page = client.get(endpoint + "/" + quote(page_path))
+                page = client.get(endpoint + "/" + quote(page_path) + suffix)
                 body = base64.b64decode(page["content"]).decode("utf-8", errors="replace")
             if row["readme_path"]:
                 row["readme_intro"] = body.lstrip()[:1000]
@@ -104,7 +112,7 @@ def triage(queue: list, client: HTTPClient, limit: int) -> dict:
                 break
         leads.append(row)
     return {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "scope": "Repository root only; signals are observations, not catalogue decisions",
+            "scope": "Repository root or tree directory; signals are observations, not catalogue decisions",
             "requests": client.count, "leads": leads}
 
 
