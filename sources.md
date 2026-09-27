@@ -212,3 +212,11 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/nmlgc/np2debug | Neko Project II debugging fork for PC-98 binary modification and Touhou translation work |
 | https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM | Atari 400/800 OS-B paper-source restoration with ca65 conversion and ROM checks |
 | https://github.com/fa8ntomas/blck-game-engine | Annotated Atari 8-bit Bruce Lee 6502 disassembly; build and provenance remain open |
+
+| https://github.com/milnak/atari-vcs-disassembly | Reviewed Atari VCS source/disassembly and homebrew submodule index; the aggregate remains a discovery node rather than a single project |
+| https://github.com/brpocock/Grizzards | Original Atari 2600 turn-based RPG with reproducible multi-region builds, save-device variants and real-hardware testing |
+| https://github.com/DNSDEBRO/Climber5 | Dennis Debro's source release for the Atari 2600 Climber 5 homebrew adaptation |
+| https://github.com/DNSDEBRO/Pacman4K | Source and design notes for the 4 KiB Atari 2600 Pac-Man homebrew |
+| https://github.com/chesterbr/2048-2600 | Buildable Atari 2600 2048 port with documented PAL and hardware/emulator execution |
+| https://github.com/nanochess/Atomchess-6502 | Oscar Toledo's documented 1 KiB x86-to-6502 Atomchess port for Atari 2600 |
+| https://github.com/fonic/wcdatool | Watcom-aware DOS executable disassembly workbench with hint-driven code/data analysis and debug-symbol module reconstruction |

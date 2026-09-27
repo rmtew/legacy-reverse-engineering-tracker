@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-09-28 — Atari VCS homebrew graph, DOS tooling and CPU audit
+
+Completed the canonical `milnak/atari-vcs-disassembly` submodule review. Added five distinct, source-backed Atari 2600 homebrew projects at their demonstrated scope: **Grizzards — Atari 2600 turn-based RPG**, **Climber 5 — Atari 2600 homebrew adaptation**, **Pacman4K — 4 KiB Atari 2600 Pac-Man homebrew**, **2048 — Atari 2600 homebrew port**, and **Atomchess — 1 KiB Atari 2600 chess port**. These are explicitly classified as original homebrew, behavioral adaptations or source ports—not reverse-engineered binaries. The book, lesson-code and small-demo aggregate repositories remain discovery references rather than single project records.
+
+The rotated CPC, DOS and Intellivision searches also added **wcdatool — Watcom DOS executable disassembly workbench**. Existing CPC results deduplicated to tracked records; Intellivision searches produced no new qualifying candidate. A sparse but implemented DOSBox Staging VS Code extension remains deferred for source-level capability verification.
+
+Separately resolved twelve queued CPU audit areas across **Jr. Pac-Man — Amiga maze and sprite conversion script**, **Rockford — DOS hidden-level recovery and patcher**, **Tearaway Thomas — Amiga DHp2 unpacking research**, **lxa — Linux Amiga executable runtime**, **NiteCrawl — Atari ST C++ decompilation**, and **image-rider — exploratory Atari ST STX parser**. Data/media-only inputs are now explicitly CPU-not-applicable, undocumented executable architectures are recorded as no evidence found, lxa's 68000 guest is primary-source verified, and NiteCrawl's m68k output follows its actual cross-toolchain rather than the platform label.
+
+
 ## 2026-09-27 — Firmware/arcade CPU audit and active upstream maintenance
 
 Resolved ten queued CPU audit areas across six projects. **FlashFloppy** now records its explicit ARM Cortex-M3/M4 Gotek firmware variants and documented MCU RAM floors without assigning CPUs to disk-image inputs. **RetroGhidra** records the processor IDs selected by its loaders. **RExtract** is explicitly CPU-not-applicable on both sides because it converts disk/music data rather than native code. **Jungle King** and **Tiger Heli** now have reviewed Z80 source evidence and no invented native output; Tiger Heli's copied/mismatched Amiga scaffold remains outside the tracked arcade-disassembly claim. **AmiXcom** closes its target-CPU gap with the documented 68020+/AGA, Kickstart 3.0+ and approximately 50 MB Fast-RAM profile.
