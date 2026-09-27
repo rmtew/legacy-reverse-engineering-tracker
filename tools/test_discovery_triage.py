@@ -23,6 +23,23 @@ class Client:
 
 
 class TriageTests(unittest.TestCase):
+    def test_readme_surfaces_related_repositories_without_extra_requests(self):
+        class RelatedClient(Client):
+            def get(self, url):
+                if url.endswith('/contents'):
+                    return super().get(url)
+                self.count += 1
+                page = ('Based on https://github.com/parent/original/blob/main/readme.md and '
+                        'https://github.com/PARENT/ORIGINAL/tree/main/src; '
+                        'CI https://github.com/example/repo/actions')
+                return {'content': base64.b64encode(page.encode()).decode(), 'html_url': url}
+
+        report = triage([('https://github.com/example/repo', {})], RelatedClient(), 1)
+        self.assertEqual(report['requests'], 2)
+        self.assertEqual(report['leads'][0]['related_repositories'],
+                         ['https://github.com/parent/original'])
+        self.assertEqual(report['leads'][0]['related_repository_count'], 1)
+
     def test_prefers_english_readme_and_surfaces_workbooks(self):
         row = inventory([{'name': n, 'type': 'file'} for n in
                          ('README.de.md', 'README.md', 'a2-hires-lab.xlsm')])

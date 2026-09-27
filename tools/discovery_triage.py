@@ -25,6 +25,7 @@ RELEASE_EXT = {".ssd", ".uef", ".exe", ".vsix"}
 DESIGN_EXT = {".kicad_sch", ".kicad_pcb", ".lib", ".pld"}
 WORKBOOK_EXT = {".xlsm", ".xlsx", ".ods"}
 BUILD_NAMES = {"makefile", "cmakelists.txt", "build.sh", "build.bat", "package.json"}
+GITHUB_REPO_URL = re.compile(r"https?://(?:www\.)?github\.com/[\w.-]+/[\w.-]+", re.I)
 
 
 def inventory(items: list[dict]) -> dict:
@@ -78,6 +79,16 @@ def triage(queue: list, client: HTTPClient, limit: int) -> dict:
             if row["readme_path"]:
                 row["readme_intro"] = body.lstrip()[:1000]
                 row["readme_url"] = page.get("html_url")
+                own_repo = github_repository_key(url)
+                related = []
+                seen = {own_repo.casefold()}
+                for link in GITHUB_REPO_URL.findall(body):
+                    root = github_repository_key(github_candidate(link.rstrip(".,;:!?")) or "")
+                    if root and root.casefold() not in seen:
+                        related.append(root)
+                        seen.add(root.casefold())
+                row["related_repository_count"] = len(related)
+                row["related_repositories"] = related[:20]
             elif row["landing_page_path"]:
                 parser = LinkParser()
                 parser.feed(body)
