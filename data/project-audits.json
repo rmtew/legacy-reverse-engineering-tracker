@@ -1075,49 +1075,50 @@
     },
     {
       "project_id": "amixcom-amiga",
-      "last_reviewed": "2026-09-23",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-23",
-          "note": "Seeded from curated upstream_name/display_title/subjects."
+          "checked_at": "2026-09-27",
+          "note": "README identifies AmiXcom 0.9.14 as the classic-Amiga OpenXcom port covering UFO and TFTD rulesets."
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-23",
-          "note": "Seeded from record_class and structured kind fields."
+          "checked_at": "2026-09-27",
+          "note": "It remains a native Amiga port of an open-source reimplementation, not a newly reverse-engineered X-COM binary."
         },
         "source_cpu": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README and build flags explicitly require 68020+ and compile with -mcpu=68020: https://github.com/angree/AmiXcom/blob/main/README.md"
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-09-27",
+          "note": "0.9.14 release documentation says the whole game runs and records hours of testing while explicitly stopping short of end-to-end completion; the release adds AdLib conversion and AmiXcomPrefs."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Captured only the explicit AGA 68020+, Kickstart 3.0+, no-FPU and ~50 MB Fast-RAM floor; the less-tested RTG build has no inferred minimum."
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-09-27",
+          "note": "README explicitly states the port was made with Claude Code and current commits carry Claude co-author/session evidence."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README explicitly identifies OpenXcom as upstream and the author's OpenTTD 68k port as the source of the platform layer."
         }
       },
-      "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "ancient-legacy-decompressor",
@@ -16935,7 +16936,7 @@
     },
     {
       "project_id": "zx-spectrum-disassemblies-jonsole",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-27",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -16960,8 +16961,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "README states completed builds reassemble and compare against original media; Ant Attack specifically verifies 41,984 bytes byte-for-byte."
+          "checked_at": "2026-09-27",
+          "note": "Current README documents Knight Lore at 40,696/40,696 bytes with all 844 entries described, and documents the original-table room editor plus generated animation/sound/how-it-works pages: https://github.com/jonsole/zx-spectrum-disassemblies/blob/master/README.md"
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -24146,8 +24147,8 @@
     },
     {
       "project_id": "flashback-rextract-amiga-to-st",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -24158,20 +24159,24 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "README states that the browser reads IPF/ADF/ADZ, AmigaDOS filesystems and MOD data; no source executable is translated."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "Outputs are extracted DATA files plus unchanged MODs and YM register streams, not native Atari ST executables."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README documents pnpm build/test/typecheck commands and fixture-gated end-to-end checks, including byte comparison of all 21 music conversions against the sibling Python tools: https://github.com/neilrackett/web-rextract#building-it"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The documented runtime is a browser-hosted data converter and no legacy minimum hardware profile applies."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -24182,9 +24187,7 @@
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify build and representative original data with primary release or test evidence; fill CPU/runtime facts where applicable."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "kickoff2-tactical-editor",
@@ -24230,8 +24233,8 @@
     },
     {
       "project_id": "retroghidra-atari-st-loader",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -24242,16 +24245,18 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary loader code explicitly selects 6502 for the catalogued Apple II/Atari 8-bit/Commodore inputs and 68000 for the catalogued Atari ST/Classic Mac inputs; these are analysed-binary CPUs, not host requirements: https://github.com/hippietrail/RetroGhidra/blob/main/src/main/java/retro/Apple2Loader.java and https://github.com/hippietrail/RetroGhidra/blob/main/data/languages/retro.opinion"
         },
         "target_cpu": {
           "state": "not-applicable",
           "checked_at": "2026-09-25"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README and v0.0.1 release establish distributed extension output, but no representative successful source-build receipt was found in this pass."
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -24262,13 +24267,12 @@
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README and the reviewed loader/opinion sources do not document a predecessor or successor project relationship."
         }
       },
-      "next_actions": [
-        "Verify build and representative original data with primary release or test evidence; fill CPU/runtime facts where applicable."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "flashback-atari-st-reminiscence",
@@ -26623,44 +26627,52 @@
     },
     {
       "project_id": "flashfloppy-amiga-st",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README identifies FlashFloppy as Gotek and Gotek-compatible floppy-drive-emulator firmware."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The project is embedded drive-emulation tooling, not a reconstructed Amiga or Atari program."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "Reviewed README and supported image-format scope: ADF, ST and HFE inputs are disk data, so no source CPU is assigned."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "README explicitly identifies Cortex-M3 STM32F105/AT32F415 and Cortex-M4 AT32F435 firmware targets: https://github.com/keirf/flashfloppy/blob/master/README"
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README documents downloadable firmware files and update paths, but this pass found no explicit successful source-build claim to curate."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Captured the three explicitly documented MCU/RAM variants without treating host-computer architecture as a firmware requirement."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README and reviewed primary source material contain no explicit AI-use evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-09-27",
+          "note": "Gotek firmware predecessor/successor relationships were not fully reviewed in this pass."
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Review predecessor and alternative-firmware relationships around Gotek hardware."
       ]
     },
     {
@@ -27486,45 +27498,51 @@
     },
     {
       "project_id": "jungle-king-arcade-disassembly",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The sole subject listing is src/jungleking_z80.asm in the Jungle King repository."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Repository contains an arcade disassembly and post-processing tooling, with no Amiga output tree."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary source is explicitly named jungleking_z80.asm: https://github.com/jotd666/jungle_king/blob/main/src/jungleking_z80.asm"
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "No reconstructed native port/output is present; this record covers the arcade disassembly."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "The reviewed root contains the listing and a post-processing tool but no documented successful reassembly claim."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "A disassembly listing has no separate minimum runtime profile."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Commit c6422b4492e3 explicitly says the reverse-engineering comments and labels were improved with Claude."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "No README or explicit predecessor/successor credit was present in the reviewed repository root."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "super-pacman-arcade-disassembly",
@@ -27579,45 +27597,51 @@
     },
     {
       "project_id": "tiger-heli-arcade-disassembly",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-27",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "src/tiger_heli_z80.asm is the project-specific Tiger Heli subject source."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "The tracked record remains arcade analysis: the README is copied Jail Break text and the Amiga makefile still names Dig Dug 2, so neither is treated as a Tiger Heli port claim."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-27",
+          "note": "Primary source is explicitly named tiger_heli_z80.asm: https://github.com/jotd666/tiger_heli/blob/main/src/tiger_heli_z80.asm"
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "The unrelated/template Amiga scaffold is not evidence of a Tiger Heli output; no target CPU is assigned to this arcade-disassembly record."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "Generic copied rebuild instructions and a mismatched makefile do not establish a successful Tiger Heli disassembly rebuild or port."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-27",
+          "note": "No evidenced Tiger Heli runnable output exists in the reviewed primary tree."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "README, source inventory and reviewed build files contain no explicit AI-use evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-27",
+          "note": "The copied README does not provide reliable Tiger Heli project lineage or credits."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "jrpacman500-maze-converter",
@@ -31104,7 +31128,7 @@
     },
     {
       "project_id": "nesrecomp-static-recompiler",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-09-27",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31125,8 +31149,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-26",
-          "note": "The 26 September cycle-accurate merge reports Windows/Linux builds, 144/144 AccuracyCoin at alignment 0, multi-alignment trace checks, long stress/gameplay routes and verifier regressions while explicitly documenting remaining alignment/hardware limits: https://github.com/mstan/nesrecomp/commit/792fd43613a2a7232740003d0ac2244c3868f4ab."
+          "checked_at": "2026-09-27",
+          "note": "The generated mapper catalog reports 57/458 IDs and 6,682/10,632 known dumps, with contract/fixture checks for each supported mapper and explicitly bounded owner-title routes rather than exhaustive validation: https://github.com/mstan/nesrecomp/blob/master/runner/cyc/MAPPER_CATALOG.md"
         },
         "runtime_profiles": {
           "state": "no-evidence-found",

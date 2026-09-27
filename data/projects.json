@@ -31657,7 +31657,9 @@
     ],
     "target_platforms": [],
     "source_cpu": [],
-    "target_cpu": [],
+    "target_cpu": [
+      "ARM"
+    ],
     "source_language": [
       "ADF disk images",
       "ST disk images",
@@ -31705,7 +31707,7 @@
       "ADF",
       "ST"
     ],
-    "notes": "Open firmware for Gotek hardware exposes USB disk images as a floppy drive to Amiga and Atari ST hosts. Official documentation lists ADF and ST support. This is drive emulation rather than a title reconstruction; compatibility with protection/extended formats varies and should not be inferred from ordinary ADF/ST support.",
+    "notes": "Open firmware for Gotek hardware exposes USB disk images as a floppy drive to Amiga and Atari ST hosts. Official documentation lists ADF and ST support. This is drive emulation rather than a title reconstruction; compatibility with protection/extended formats varies and should not be inferred from ordinary ADF/ST support. Firmware is built for explicit ARM Cortex-M3 and Cortex-M4 Gotek-class microcontrollers; these are firmware output CPUs, not properties of the ADF/ST/HFE inputs.",
     "github": {
       "repository": "keirf/flashfloppy",
       "created_at": "2014-10-20",
@@ -31738,7 +31740,54 @@
         "message": "Update description for Radstone PME 68-12 system",
         "url": "https://github.com/keirf/flashfloppy/commit/483077a26651a9b8a19959e84900577ff5b0c2c6"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "STM32F105 Gotek firmware",
+        "platform": "Gotek-compatible hardware",
+        "cpu_family": "ARM",
+        "min_cpu": "Cortex-M3",
+        "min_ram_kib": 64,
+        "notes": "Upstream lists STM32F105 with a 72 MHz Cortex-M3, 128 KiB flash and 64 KiB RAM.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/keirf/flashfloppy/blob/master/README",
+            "excerpt": "STM32F105 ... 72MHz Cortex-M3, 128kB Flash, 64kB RAM"
+          }
+        ]
+      },
+      {
+        "name": "AT32F415 Gotek firmware",
+        "platform": "Gotek-compatible hardware",
+        "cpu_family": "ARM",
+        "min_cpu": "Cortex-M3",
+        "min_ram_kib": 32,
+        "notes": "Upstream identifies AT32F415 as an STM32F105-compatible target with 32 KiB RAM.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/keirf/flashfloppy/blob/master/README",
+            "excerpt": "STM32F105 (and the compatible AT32F415) ... AT32F415: 32kB RAM"
+          }
+        ]
+      },
+      {
+        "name": "AT32F435 Gotek firmware",
+        "platform": "Gotek-compatible hardware",
+        "cpu_family": "ARM",
+        "min_cpu": "Cortex-M4",
+        "min_ram_kib": 384,
+        "notes": "Upstream lists AT32F435 with a 288 MHz Cortex-M4, 256 KiB flash and 384 KiB RAM.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/keirf/flashfloppy/blob/master/README",
+            "excerpt": "AT32F435 ... 288MHz Cortex-M4, 256kB Flash, 384kB RAM"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "fluxfox-amiga-atari-disk",
@@ -51629,7 +51678,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-27",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-09-27",
     "status": null,
     "build": {
       "compilable": true,
@@ -51654,13 +51703,16 @@
       "cycle-accurate recompilation",
       "bounded interpreter fallback",
       "deterministic trace verification",
-      "rollback netplay"
+      "rollback netplay",
+      "mapper-contract testing",
+      "generated mapper catalog",
+      "bounded owner-ROM validation"
     ],
     "tags": [
       "NES",
       "6502"
     ],
-    "notes": "Translates NES ROM 6502 machine code into C and provides a PPU/APU/mapper runner; generated C alone is not a playable game. The 26 September master merge adds an opt-in cycle-accurate compiler/runtime with bounded interpreter fallback, trace-parity verification and documented nonzero-alignment limits; the same day's netplay merge adds rollback, multi-seat lobbies and deterministic state validation. README describes Windows x64 as mature, macOS as experimental and Linux as not fully tested; no minimum host CPU/RAM is stated.",
+    "notes": "Translates NES ROM 6502 machine code into C and provides a PPU/APU/mapper runner; generated C alone is not a playable game. The opt-in cycle-accurate compiler/runtime uses bounded interpreter fallback and trace-parity verification. Its 27 September generated catalog reports 57 of 458 known mapper IDs supported, covering 6,682 of 10,632 known dumps; every supported mapper has contract/fixture checks, while title validation is explicitly bounded rather than exhaustive. README describes Windows x64 as mature, macOS as experimental and Linux as less tested; no minimum host CPU/RAM is stated.",
     "github": {
       "repository": "mstan/nesrecomp",
       "created_at": "2026-03-14",
@@ -53262,7 +53314,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-27",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-27",
     "status": "alpha",
     "build": {
       "compilable": true,
@@ -53286,7 +53338,9 @@
       "OpenXcom porting",
       "SDL shim replacement",
       "fixed-point conversion",
-      "native AGA/RTG audio-video layer"
+      "native AGA/RTG audio-video layer",
+      "YM3812/AdLib music conversion",
+      "native GadTools preferences utility"
     ],
     "tags": [
       "game",
@@ -53295,7 +53349,7 @@
       "X-COM",
       "AI-assisted"
     ],
-    "notes": "Native classic-Amiga port of OpenXcom, the open-source X-COM reimplementation. The whole game runs on AmigaOS; the README explicitly credits Claude Code for development.",
+    "notes": "Native classic-Amiga port of OpenXcom, the open-source X-COM reimplementation. Version 0.9.14 runs both UFO and TFTD rulesets as an alpha on 68020+/AGA hardware, adds ADLIB.CAT music through OpenXcom's YM3812 emulator and an AmiXcomPrefs configuration utility, and explicitly credits Claude Code. Upstream reports hours of testing but not an end-to-end campaign completion.",
     "github": {
       "repository": "angree/AmiXcom",
       "created_at": "2026-08-16",
@@ -53358,7 +53412,31 @@
     "work_kinds": [
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "AGA classic-hardware build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68020",
+        "min_fast_ram_kib": 51200,
+        "chipsets": [
+          "AGA"
+        ],
+        "os": "Kickstart 3.0+ / AmigaOS 3.x",
+        "notes": "README says no FPU is required, about 50 MB of Fast RAM is required and 32 MB systems still exhaust memory. This profile covers the documented AGA build; RTG remains less tested and no broader minimum is inferred.",
+        "evidence": [
+          {
+            "source": "README",
+            "url": "https://github.com/angree/AmiXcom/blob/main/README.md",
+            "excerpt": "Requirements: 68020 or better (no FPU needed or used), AGA, Kickstart 3.0+, lots of fast RAM ... ~50 MB of fast RAM required"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "opus-challenger-rom-seddon",
@@ -61267,7 +61345,10 @@
     "target_platforms": [
       "analysis host"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "6502",
+      "m68000"
+    ],
     "target_cpu": [],
     "source_language": [
       "Atari ST executable",
@@ -61864,8 +61945,8 @@
     "last_checked": "2026-09-25",
     "status": null,
     "build": {
-      "compilable": null,
-      "runnable": null,
+      "compilable": true,
+      "runnable": true,
       "playable": null,
       "byte_exact": null
     },
@@ -81070,7 +81151,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-27",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-27",
     "status": "active",
     "build": {
       "compilable": true,
@@ -81096,7 +81177,9 @@
       "source-level debugging",
       "sprite and data-format measurement",
       "MCP/DAP-assisted debugging",
-      "behavior-preserving source patch validation"
+      "behavior-preserving source patch validation",
+      "program-driven animation and sound capture",
+      "original-table room repacking"
     ],
     "tags": [
       "ZX Spectrum",
@@ -81111,7 +81194,7 @@
       "AI-assisted",
       "Ant Attack"
     ],
-    "notes": "Independent reproducible disassemblies of six ZX Spectrum games: Atic Atac, Manic Miner, Fairlight, Knight Lore, The Hobbit and Ant Attack. Build scripts take user-supplied original media, generate commented/source-level-debuggable disassemblies and snapshots, and verify reassembly against the original bytes. Ant Attack is documented as 100% covered (41,984/41,984 bytes), with every routine named and every instruction but three observed to execute; its build reassembles byte-for-byte. The Hobbit also has an optional verified-source fast-draw patch whose 22 pictures are compared against the original run with whole-memory equality checks.",
+    "notes": "Independent reproducible disassemblies of six ZX Spectrum games. Four are now documented as 100% covered: Atic Atac, Knight Lore, The Hobbit and Ant Attack; Knight Lore accounts for all 40,696 bytes and all 844 entries. Build scripts use owner-supplied media, generate source-level-debuggable snapshots and byte-compare reassembly. Knight Lore now also has an original-table room editor plus pages and generated media produced by running its own drawing, animation, sound, depth-sort and collision code.",
     "record_class": "subject",
     "target_kinds": [
       "game"

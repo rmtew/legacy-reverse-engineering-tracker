@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-27 — Firmware/arcade CPU audit and active upstream maintenance
+
+Resolved ten queued CPU audit areas across six projects. **FlashFloppy** now records its explicit ARM Cortex-M3/M4 Gotek firmware variants and documented MCU RAM floors without assigning CPUs to disk-image inputs. **RetroGhidra** records the processor IDs selected by its loaders. **RExtract** is explicitly CPU-not-applicable on both sides because it converts disk/music data rather than native code. **Jungle King** and **Tiger Heli** now have reviewed Z80 source evidence and no invented native output; Tiger Heli's copied/mismatched Amiga scaffold remains outside the tracked arcade-disassembly claim. **AmiXcom** closes its target-CPU gap with the documented 68020+/AGA, Kickstart 3.0+ and approximately 50 MB Fast-RAM profile.
+
+Material upstream review records **AmiXcom 0.9.14** and its AdLib/AmiXcomPrefs work, **NESRecomp**'s generated catalog of 57 supported mapper IDs covering 6,682 known dumps with bounded validation language, and **ZX Spectrum game disassemblies** reaching complete 40,696-byte Knight Lore coverage with original-table room editing and game-code-driven animation, sound and behavior pages.
+
+
 ## 2026-09-27 — Arcade, VM and media CPU audit plus active upstream review
 
 Resolved twelve queued CPU audit areas from primary source. **Berzerk** is confirmed as a Z80 disassembly with no native output target; its source header also explicitly discloses Deepseek V4 AI. **Marble Madness II** now records the M68000 arcade original and the unfinished Amiga loader's explicit 68020/AGA target without presenting its declared memory as a verified runnable profile. **Super Pac-Man** now records its actual in-progress Amiga m68000/m68020 outputs and explicit Claude-assisted reverse-engineering commit while retaining open build/runtime questions. Another World's analysed VM bytecode and DrawBridge/STM32 floppy media are no longer treated as architecture-bearing inputs; STM32 USB Floppy Tracer records the explicit ARM Cortex-M firmware target, while DrawBridge's unnamed Arduino MCU remains **no evidence found**.
