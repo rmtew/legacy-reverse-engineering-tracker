@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 from discovery_intake import (add_hits, collect_query, collect_source, empty_state, github_candidate,
-                              merge_state, rank_queue, run)
+                              merge_state, rank_queue, review_entries, run)
 from screen_discovery_candidates import CandidateIndex
 
 
@@ -133,6 +133,19 @@ class IntakeTests(unittest.TestCase):
         self.assertEqual(len(merged["queue"]), 2)
         self.assertEqual(merged["query_cursor"], 1)
         self.assertEqual(len(merged["runs"]), 1)
+
+    def test_review_slice_diversifies_profile_without_losing_or_reordering_queue(self):
+        queue = {f"https://github.com/owner/repo{i}": {
+            "origins": [{"route": "source-github-profile", "origin": "owner"}]}
+            for i in range(6)}
+        queue.update({f"https://github.com/other/repo{i}": {
+            "origins": [{"route": "github-repositories", "origin": "amiga-disassembly"}]}
+            for i in range(2)})
+        chosen = [key for key, _ in review_entries(queue, 4, max_per_profile=2)]
+        self.assertEqual(chosen, ["https://github.com/owner/repo0", "https://github.com/owner/repo1",
+                                  "https://github.com/other/repo0", "https://github.com/other/repo1"])
+        self.assertEqual(len(review_entries(queue, 8, max_per_profile=2)), 8)
+        self.assertEqual(len(queue), 8)
 
 
 if __name__ == "__main__":

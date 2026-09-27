@@ -265,6 +265,30 @@ def rank_queue(state: dict, index: CandidateIndex) -> dict:
     return {"open": len(state["queue"]), "resolved": len(resolved)}
 
 
+def review_entries(queue: dict, limit: int, max_per_profile: int | None = None) -> list[tuple[str, dict]]:
+    """Show a representative review slice without changing stored queue order.
+
+    A profile can yield many sibling repositories at once. Prefer other leads
+    after its cap, then fill any spare slots from the skipped siblings.
+    """
+    chosen, skipped, counts = [], [], Counter()
+    for key, entry in queue.items():
+        profiles = [o["origin"] for o in entry.get("origins", [])
+                    if o["route"] == "source-github-profile"]
+        profile = profiles[0] if profiles else None
+        if max_per_profile is not None and profile and counts[profile] >= max_per_profile:
+            skipped.append((key, entry))
+            continue
+        chosen.append((key, entry))
+        if profile:
+            counts[profile] += 1
+        if len(chosen) >= limit:
+            break
+    if len(chosen) < limit:
+        chosen.extend(skipped[:limit - len(chosen)])
+    return chosen[:limit]
+
+
 def run(root: Path, client, config: dict, state: dict, *, max_queries: int | None = None,
         input_hits: list[dict] | None = None, offline: bool = False, when: str | None = None) -> dict:
     when = when or now_utc()
@@ -317,15 +341,19 @@ def main() -> None:
     parser.add_argument("--offline", action="store_true", help="Only import input/reconcile state; no network")
     parser.add_argument("--max-queries", type=int, help="Queries to rotate through in this run")
     parser.add_argument("--list", type=int, metavar="N", help="Show N highest-ranked queued leads without collecting")
+    parser.add_argument("--max-per-profile", type=int, metavar="N",
+                        help="With --list, diversify source-profile siblings; fill unused slots in rank order")
     parser.add_argument("--merge-state", type=Path, help="Merge a completed run after main advances")
     parser.add_argument("--output", type=Path, help="Write state to this path (default: state/discovery-intake.json)")
     args = parser.parse_args()
+    if args.max_per_profile is not None and (args.list is None or args.max_per_profile < 1):
+        parser.error("--max-per-profile requires --list and a positive limit")
     path = args.root / "state" / "discovery-intake.json"
     state = read_state(path)
     index = CandidateIndex(args.root / "data")
     if args.list is not None:
         rank_queue(state, index)
-        for key, entry in list(state["queue"].items())[:args.list]:
+        for key, entry in review_entries(state["queue"], args.list, args.max_per_profile):
             print(f"{entry['score']:3} {entry['status']:22} {entry['url']}  "
                   f"[{', '.join(x['origin'] for x in entry['origins'])}]")
         return
