@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-27T16:19:45Z",
+  "updated_at": "2026-09-27T18:18:14Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -3588,7 +3588,9 @@
         "analysis host"
       ],
       "source_cpu": [],
-      "target_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -3631,7 +3633,7 @@
         "Ghidra",
         "reverse engineering"
       ],
-      "notes": "Work-in-progress CLI tool that converts Ghidra ASCII exports of Ambermoon AM2_CPU/AM2_BLIT into valid Amiga assembler source.",
+      "notes": "Work-in-progress CLI tool that converts Ghidra ASCII exports of Ambermoon AM2_CPU/AM2_BLIT into Amiga assembler. Its compile script explicitly invokes vasmm68k_mot with -m68000 and emits a HUNK executable; upstream documents no successful or byte-identical rebuild, and does not separately state the CPU of the analysed original input.",
       "ai": {
         "usage": null,
         "tools": []
@@ -4560,7 +4562,7 @@
       ],
       "target_platforms": [],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -4597,7 +4599,7 @@
         "Amiga",
         "source reconstruction"
       ],
-      "notes": "Dr. MefistO describes the Imploder compression algorithm as decompiled and fully restored; repository contains implode/explode C and a Lazarus GUI. Hitchhikr credits its reversed routines as a basis for the separately tracked imploder executable packer. No byte-identical legacy binary rebuild is claimed.",
+      "notes": "Dr. MefistO describes the Imploder compression algorithm as decompiled and fully restored; the repository contains portable C implode/explode routines and a Windows DLL/Lazarus GUI release. The exact CPU of the legacy implementation is not stated, and the host-side restoration does not constitute a native target-CPU port. Hitchhikr credits these routines as the basis for the separately tracked imploder packer.",
       "ai": {
         "usage": null,
         "tools": []
@@ -4981,7 +4983,7 @@
         "HUNK",
         "Rust"
       ],
-      "notes": "Separate Rust crate by same author parses Amiga HUNK executables. Repository has Cargo.toml and src; capabilities and fidelity beyond parsing are not asserted.",
+      "notes": "Separate Rust crate by the same author for parsing generic Amiga HUNK executables. Cargo.toml and source are present, but the short README asserts no completeness or fidelity result; a Rust toolchain was unavailable in this audit environment, so build success remains an explicit research gap.",
       "ai": {
         "usage": null,
         "tools": []
@@ -5320,8 +5322,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -5333,7 +5335,7 @@
         "HUNK",
         "C"
       ],
-      "notes": "C library and headers parse Amiga HUNK executables; Makefile and sample test program present. Separate from the author’s Rust crate, with no runtime or completeness claims from its short README.",
+      "notes": "C library and command-line test program for generic Amiga HUNK executables. The supplied Makefile built cleanly with GCC during this audit and the resulting ahp program displayed its expected input-file usage; this establishes a host parser, not a CPU claim for every HUNK input or a fidelity comparison against historical tools.",
       "ai": {
         "usage": null,
         "tools": []
@@ -23123,7 +23125,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; current authenticated-media regression coverage also verifies bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime and scripted movement plus bounded in-memory title-audio handling, explicitly not complete parity. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full suite parity is not claimed.",
+      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regression coverage verifies bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime, scripted movement and bounded in-memory title-audio handling. New authentic regressions verify 93 approachable closed doors per region remain fail-closed and 22 representable Akutuba item TAKE/DROP transactions per region preserve exact source occurrence and property records. They do not prove original door, T900 pickup/UI, quest-item or complete campaign semantics; six type-zero items per region remain outside the compact-inventory test. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
       "ai": {
         "usage": true,
         "tools": [
@@ -34760,8 +34762,22 @@
         "Windows"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Official Windows v0.8.4 build",
+          "platform": "Windows",
+          "os": "Successfully tested on Windows XP, Windows 7 and Windows 10",
+          "notes": "The official page reports successful testing on these Windows releases. It gives no CPU or RAM minimum, so none is inferred.",
+          "evidence": [
+            {
+              "source": "Maptapper project page",
+              "url": "https://codetapper.com/amiga/maptapper/",
+              "excerpt": "Maptapper has been successfully tested on Windows 10, Windows 7 and Windows XP."
+            }
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [],
@@ -34783,7 +34799,7 @@
       "status": null,
       "build": {
         "compilable": null,
-        "runnable": null,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -44077,7 +44093,7 @@
         "Windows"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -44112,7 +44128,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Plugin-based raw graphics to IFF ILBM converter, with explicit Atari ST interleaved input and Amiga planar/bitplane options. Author supplies Windows and Amiga executables and documents palette/offset/stride controls; this is asset extraction tooling rather than a game disassembly.",
+      "notes": "Plugin-based raw graphics-to-IFF ILBM converter with explicit Atari ST interleaved input and Amiga planar/bitplane options. Upstream provides Windows and Amiga executables and documents palette, offset and stride controls; the raw picture inputs carry no CPU, while the exact CPUs and minimum requirements of the supplied executables are not stated.",
       "ai": {
         "usage": null,
         "tools": []
@@ -46393,7 +46409,7 @@
         "68k",
         "game"
       ],
-      "notes": "Original dual-6809 and MCU listings, a game-specific 157 KB Amiga assembly driver and RollingThunderHD slave show substantial Namco System 86 to Amiga work. README still describes Jail Break, so its controls/completion claims are not attributed to this project. TODO documents sprite and interrupt problems; build and playability are unverified.",
+      "notes": "Substantial Namco System 86 to Amiga work with original dual-6809/MCU listings, a game-specific Amiga assembly driver and WHDLoad slave. Recent commits report 16x16 tiles and mirroring working and explicitly describe AI-assisted multi-CPU task switching, but the following commits still say CPU synchronisation is not working. The copied Jail Break README is not used for controls, build, completion, or hardware claims.",
       "ai": {
         "usage": true,
         "tools": [
@@ -51715,7 +51731,9 @@
       "target_platforms": [
         "Atari ST"
       ],
-      "source_cpu": [],
+      "source_cpu": [
+        "m68k"
+      ],
       "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
@@ -51755,7 +51773,7 @@
         "STBook",
         "serial"
       ],
-      "notes": "Research repository includes original STTRANS.PRG, its Ghidra analysis project and an 8.9 KB Python serial transfer companion implementing command, path and block/checksum handling. The public README has no detailed findings and no reconstructed STTRANS executable; this record describes the protocol/tooling work only.",
+      "notes": "Research repository containing the original STTRANS.PRG, its Ghidra project and an 8.9 KB Python serial companion implementing command, path, block and checksum handling. The checked-in primary binary identifies as an Atari ST M68K contiguous executable; the Python companion is host-side protocol tooling and emits no translated native target. No reconstructed STTRANS executable or hardware minimum is claimed.",
       "ai": {
         "usage": null,
         "tools": []
@@ -56600,7 +56618,9 @@
       "techniques": [
         "format parsing",
         "flux analysis",
-        "copy-protection inspection"
+        "copy-protection inspection",
+        "ring-position validation",
+        "independent GCR measurement"
       ],
       "tags": [
         "Amiga",
@@ -56608,7 +56628,7 @@
         "floppy",
         "preservation"
       ],
-      "notes": "Forensic floppy toolkit advertises Amiga ADF/ADZ/DMS/HDF/IPF and Atari ST/STX/MSA plus flux analysis. Upstream says most formats have synthetic/spec validation, and no hardware controller has a documented real-hardware bench pass for v4.1.6.",
+      "notes": "Forensic floppy toolkit covering Amiga, Atari and other disk/flux formats. Current work added measured ring-position validation, FIELD_ORDER and DAM_FAR checks with a 570/570 upstream test pass. A separate independent G71 measurement found 1,604 readable sector headers that the current bridge still exposes as zero because the plugin lacks an explicit bit length; no producer yet supplies the new rev_bits value. Upstream still states that no controller has a documented real-hardware bench pass for the current release.",
       "ai": {
         "usage": true,
         "tools": [
