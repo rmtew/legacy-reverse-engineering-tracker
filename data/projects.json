@@ -4498,7 +4498,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-08-08",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -4516,7 +4516,7 @@
       "Amberstar",
       "Hippel-CoSo"
     ],
-    "notes": "Rust decoder/playback for original Amiga Amberstar containers, text, graphics, maps and Hippel-CoSo music; scripts and items only partially decoded. Credits Pyrdacor format documentation and related playback work; requires user-supplied data.",
+    "notes": "Rust decoder/playback for original Amiga Amberstar containers, text, graphics, maps and Hippel-CoSo music; scripts and items are only partially decoded. Credits Pyrdacor format documentation and related playback work; requires user-supplied data. The project consumes data containers rather than original executable code, so an original/source CPU does not apply.",
     "github": {
       "repository": "creichen/amber-remix",
       "created_at": "2022-07-10",
@@ -5137,7 +5137,7 @@
     ],
     "re_started": null,
     "last_activity": "2019-06-20",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": "historical",
     "build": {
       "compilable": null,
@@ -5160,7 +5160,7 @@
       "Albion",
       "reverse engineering"
     ],
-    "notes": "Oliver Gantert's long-running Amberworld project. Its site documents extraction/conversion tools and source releases for Amberstar, Ambermoon and Albion, extensive reverse-engineered file formats, and a later return to disassembled game-code analysis."
+    "notes": "Oliver Gantert's long-running Amberworld project. Its site documents extraction/conversion tools and source releases for Amberstar, Ambermoon and Albion, extensive reverse-engineered file formats, and a later return to disassembled game-code analysis. The homepage, both format pages and SourceForge file index do not identify the exact CPU architecture of that disassembled code."
   },
   {
     "id": "amiberry-mcp-server",
@@ -7107,9 +7107,11 @@
       "Amiga"
     ],
     "target_platforms": [
-      "Amiga"
+      "Windows"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "m68k"
+    ],
     "source_language": [],
     "reconstructed_languages": [
       "C++"
@@ -7120,7 +7122,7 @@
     ],
     "re_started": null,
     "last_activity": "2017-05-26",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -7137,7 +7139,7 @@
       "Amiga",
       "tooling"
     ],
-    "notes": "IDA Pro AmigaOS debugger plugin designed to work with Amitools. This is a distinct live/debugging integration, not the Ghidra hunk loader.",
+    "notes": "Windows IDA Pro 6.8/6.95 debugger plugin for AmigaOS through Amitools. Primary source requires IDA's m68k processor module (`PLFM_68K` / `m68k`) and exposes 68k registers; the Visual Studio project defines 32- and 64-bit Windows plugin configurations. This is a distinct live-debugging integration, not the author's IDA or Ghidra Hunk loader.",
     "github": {
       "repository": "lab313ru/amigadbg",
       "checked_at": "2026-09-28",
@@ -7169,7 +7171,8 @@
     ],
     "tool_kinds": [
       "debugger"
-    ]
+    ],
+    "target_cpu": []
   },
   {
     "id": "amigadx-total-commander-disk-plugin",
@@ -20871,7 +20874,7 @@
       "Commodore 64"
     ],
     "source_cpu": [],
-    "target_cpu": null,
+    "target_cpu": [],
     "source_language": [
       "QBasic"
     ],
@@ -20889,7 +20892,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-02-11",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -20905,7 +20908,7 @@
     "tags": [
       "DOS"
     ],
-    "notes": "QBasic Gorillas recreated in C64 BASIC with changed graphics/sound; repository includes authored BASIC source, not a disassembly of the DOS binary.",
+    "notes": "QBasic Gorillas recreated in C64 BASIC with changed graphics and sound; the repository includes authored BASIC source plus PRG/D64 outputs, not a disassembly of the DOS binary. Because the port is based on the QBasic program at language level, an original binary CPU does not apply.",
     "github": {
       "repository": "albank1/Commodore-64-Gorillas",
       "created_at": "2026-01-25",
@@ -32691,7 +32694,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regression coverage verifies bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime, scripted movement and bounded in-memory title-audio handling. New authentic regressions verify 93 approachable closed doors per region remain fail-closed and 22 representable Akutuba item TAKE/DROP transactions per region preserve exact source occurrence and property records. They do not prove original door, T900 pickup/UI, quest-item or complete campaign semantics; six type-zero items per region remain outside the compact-inventory test. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
+    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime, scripted movement and bounded in-memory title-audio handling. Its registered Theron selection passes 71/71 tests on the documented authentic-media host, with eight optional media/capture tests skipped. Authentic regressions verify 93 approachable closed doors per region remain fail-closed and 71 Akutuba item transactions per region, including all six type-zero records, preserve exact source occurrence and property records. They do not prove original door, T900 pickup/UI, quest-item or complete campaign semantics. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-09-28",
@@ -32814,7 +32817,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-27",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -32832,7 +32835,7 @@
       "Atari ST",
       "Flashback"
     ],
-    "notes": "Ports the REminiscence Flashback engine to Atari ST using original Amiga installation data and STDL. README states 2 MB minimum (4 MB recommended), hard disk, STE-only sound effects; the work is a derivative port of the already tracked engine.",
+    "notes": "Ports the REminiscence Flashback engine to Atari ST using original Amiga installation data and STDL. README says the game is nearly feature complete, builds FLASHBAK.TOS with the Atari toolkit, and requires at least 2.5 MB RAM (4 MB recommended) plus 3.5 MB hard-disk space. The port source explicitly targets m68000, but the exact architecture of the original game disassembly translated by REminiscence is not stated.",
     "github": {
       "repository": "neilrackett/atarist-reminiscence",
       "created_at": "2026-08-19",
@@ -32865,7 +32868,22 @@
         "message": "Updated README.md hero",
         "url": "https://github.com/neilrackett/atarist-reminiscence/commit/5fae4d64972dbbbf788a20285426c8f9c0cd4f9d"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Atari ST release",
+        "platform": "Atari ST",
+        "min_ram_kib": 2560,
+        "notes": "README requires at least 2.5 MB RAM (4 MB recommended) and 3.5 MB of hard-disk space. It documents YM sound on any ST and original Amiga samples/score on STE-class hardware; no minimum CPU model is inferred.",
+        "evidence": [
+          {
+            "source": "project README",
+            "url": "https://github.com/neilrackett/atarist-reminiscence/blob/main/README.md",
+            "excerpt": "Needs an ST with at least 2.5MB RAM (4MB recommended). 3.5MB of hard disk space."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "flashfloppy-amiga-st",
@@ -35692,7 +35710,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-28",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -35713,7 +35731,9 @@
     "techniques": [
       "machine descriptors",
       "bank-state analysis",
-      "hardware register symbols"
+      "hardware register symbols",
+      "constant-pointer indirect-jump resolution",
+      "jump-table bound analysis"
     ],
     "tags": [
       "Ghidra",
@@ -35722,7 +35742,7 @@
       "PET",
       "NES"
     ],
-    "notes": "Ghidra extension configures system memory maps, ROMs, hardware registers and symbols from per-machine descriptors. Primary README says C64/C128/PET PRG and NES iNES loader pipeline works, with supported discrete and protocol mappers; advanced mapper coverage is still developing.",
+    "notes": "Ghidra extension configures banked memory maps, ROMs, hardware registers and symbols for C64/C128/PET PRG and NES iNES analysis. Current NES work resolves proven constant-pointer indirect jumps and bounds table-after-code jump tables by their switch window; Mega Man and Life Force rows were re-blessed, while Contra, Final Fantasy and TMNT changes remain held for owner review. Build/real-ROM gates therefore demonstrate bounded progress rather than universal mapper or analysis correctness.",
     "github": {
       "repository": "CBongo/ghidra-retro-machines",
       "created_at": "2026-07-03",
@@ -40237,7 +40257,7 @@
       "virtual machine",
       "asset extraction"
     ],
-    "notes": "SDL2 rewrite of the proprietary Hulabee Sauce VM with .pan/.gg asset decoders and whisk.dll opcode tracing. vm/README.md names Moop and Dreadly and Ollo as supported games, requires original .pan files, and lists missing captions and VM garbage collection. Documentation examines embedded Sauce source/bytecode; supported status and builds are upstream claims, not independently tested.",
+    "notes": "SDL2 rewrite of the proprietary Hulabee Sauce VM with .pan/.gg asset decoders and whisk.dll opcode tracing. vm/README.md names Moop and Dreadly and Ollo as supported games, requires original .pan files, and lists missing captions and VM garbage collection. The inspected tree establishes architecture-neutral Sauce bytecode but does not state the architecture of the original Windows tracing DLL or executable.",
     "tags": [
       "Hulabee",
       "Sauce VM",
@@ -40255,10 +40275,10 @@
     ],
     "upstream_name": "Hulabee Sauce VM",
     "repo": "https://github.com/cyxx/hulabee",
-    "target_cpu": null,
+    "target_cpu": [],
     "re_started": null,
     "last_activity": "2024-10-20",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": true,
@@ -40863,9 +40883,11 @@
       "Amiga"
     ],
     "target_platforms": [
-      "Amiga"
+      "analysis host"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "m68040"
+    ],
     "source_language": [],
     "reconstructed_languages": [
       "Python"
@@ -40876,7 +40898,7 @@
     ],
     "re_started": null,
     "last_activity": "2019-04-04",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -40893,7 +40915,7 @@
       "Amiga",
       "tooling"
     ],
-    "notes": "IDA Pro loader for Amiga Hunk executables; the repository contains the Python loader and a relocation fix. Distinct from the same author’s separately tracked Ghidra Amiga loader.",
+    "notes": "Python IDA Pro loader for Amiga Hunk executables. Its primary loader source returns and selects IDA processor `68040` for imported inputs and implements Hunk parsing/relocation; this is loader-selected analysis architecture, not a claim that the generic Hunk container encodes a CPU. Distinct from the same author's separately tracked Ghidra loader.",
     "github": {
       "repository": "lab313ru/amiga_hunk_loader",
       "checked_at": "2026-09-28",
@@ -40924,7 +40946,8 @@
     ],
     "tool_kinds": [
       "binary-analysis"
-    ]
+    ],
+    "target_cpu": []
   },
   {
     "id": "ida-atari-st-gemdos-loader",
@@ -66623,8 +66646,10 @@
       "Linux",
       "Windows"
     ],
-    "source_cpu": [],
-    "target_cpu": null,
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [],
     "source_language": [],
     "reconstructed_languages": [
       "C"
@@ -66640,7 +66665,7 @@
     "types": [
       "C port of C64 speech synthesizer"
     ],
-    "notes": "C adaptation of Don't Ask Software's 1982 C64 Software Automatic Mouth, including reciter text-to-phoneme and speech rendering routines in src/. README documents WAV and SDL output. Treat as an algorithm port, not as a verified binary reconstruction.",
+    "notes": "Portable C adaptation of Don't Ask Software's 1982 C64 Software Automatic Mouth. The README documents semi-automatic conversion of each assembler opcode followed by manual rewriting; its linked original reverse source builds the assembly with cl65 and writes the C64 SID registers. Treat as a 6502-source algorithm port, not a verified binary reconstruction.",
     "tags": [
       "Commodore 64"
     ],
@@ -69076,7 +69101,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-30",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": null,
     "build": {
       "compilable": null,
@@ -69095,7 +69120,7 @@
       "Amiga",
       "Atari ST"
     ],
-    "notes": "More than 300 SCI game versions have decompiled and annotated scripts. Coverage is of the platform-shared SCI bytecode, not the native Amiga or ST interpreter; compilation depends on SCI Companion and game/version.",
+    "notes": "More than 300 SCI game versions have decompiled and annotated scripts. Coverage is of platform-shared SCI virtual-machine bytecode, not native Amiga, Atari ST, DOS or Macintosh interpreter machine code; compilation depends on SCI Companion and game/version. An original hardware CPU is therefore not applicable to this corpus.",
     "github": {
       "repository": "sluicebox/sci-scripts",
       "created_at": "2023-07-02",
@@ -78240,7 +78265,9 @@
     "target_platforms": [
       "analysis host"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "MIPS R3000"
+    ],
     "target_cpu": [],
     "source_language": [
       "PlayStation game binaries"
@@ -78260,7 +78287,7 @@
     ],
     "re_started": null,
     "last_activity": "2023-10-18",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-28",
     "status": "historical",
     "build": {
       "compilable": null,
@@ -78282,7 +78309,7 @@
       "Ghidra",
       "reverse engineering"
     ],
-    "notes": "Tetracorp's analysis of the 1995 Japanese PlayStation game using Ghidra to reverse engineer the original game binaries, with methods and findings published on the project website. The author notes that active updates stopped in 2023.",
+    "notes": "Tetracorp's Ghidra analysis of the 1995 Japanese PlayStation game. The project's own reverse-engineering guide identifies the PSX CPU as R3000 and the imported program as 32-bit little-endian MIPS, while the README notes that active updates stopped in 2023.",
     "github": {
       "repository": "tetracorp/tokimeki-memorial",
       "created_at": "2021-01-26",
@@ -80413,7 +80440,7 @@
       "floppy",
       "preservation"
     ],
-    "notes": "Forensic floppy toolkit covering Amiga, Atari and other disk/flux formats. Current work added measured ring-position validation, FIELD_ORDER and DAM_FAR checks with a 570/570 upstream test pass. A separate independent G71 measurement found 1,604 readable sector headers that the current bridge still exposes as zero because the plugin lacks an explicit bit length; no producer yet supplies the new rev_bits value. Upstream still states that no controller has a documented real-hardware bench pass for the current release.",
+    "notes": "Forensic floppy toolkit covering Amiga, Atari and other disk/flux formats. Current work raises A2R from T2 to T1 with real A2R2/STRM and A2R3/RWCP captures, fixes Apple 5.25-inch sector discovery across the track seam and reports failed checksums as unreadable rather than zero-filled success, and reconciles PC 360K/FM profile rates. The earlier G71 bridge gap remains: measured headers are still hidden because no producer supplies the explicit bit length. Upstream still states that current controller support lacks a documented real-hardware bench pass.",
     "github": {
       "repository": "Axel051171/UnifiedFloppyTool",
       "created_at": "2025-12-22",

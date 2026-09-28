@@ -901,8 +901,8 @@
     },
     {
       "project_id": "amberworld-research",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-28",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -913,8 +913,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "Checked the Amberworld homepage, both linked Ambermoon format pages and the SourceForge file index. They name disassembled code and Amiga-style data/code hunks but do not state an exact executable CPU; no platform-derived CPU was added."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -937,9 +938,7 @@
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify original/source CPU from primary documentation"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "amigta-amiga",
@@ -5506,12 +5505,12 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-28",
-          "note": "Earlier post-review commits verify authenticated US/JP Theron Track 02 early runtime and movement, a source-shaped DM1 fresh-start C37 save round-trip without claiming original-media resume, and bounded authenticated-media DM1 Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs (b8d3432, 20adc09, 5d373df and d951263). New authentic-media tests cover closed-door fail-closed behavior and source-record-preserving inventory transactions; commits d4bc5ac and ebe115d explicitly exclude original door/T900/UI/quest semantics and campaign parity."
+          "note": "Commit 2c429d8 records 71/71 registered Theron CTests passing on authentic media with eight optional inputs skipped; a0869e7 expands each US/JP inventory regression to 71 transactions including six type-zero records. These remain bounded upstream tests, not complete original gameplay proof."
         },
         "runtime_profiles": {
           "state": "reviewed",
           "checked_at": "2026-09-28",
-          "note": "The existing Apple Silicon host smoke remains the only explicit CPU profile; current Theron test evidence adds no general minimum CPU/RAM requirement."
+          "note": "The existing Apple Silicon host smoke remains the only explicit CPU profile; the new authentic-media Theron tests add no general minimum CPU/RAM requirement."
         },
         "ai": {
           "state": "reviewed",
@@ -5525,7 +5524,7 @@
         }
       },
       "next_actions": [
-        "Verify original Theron door-opening and T900 pickup/UI/quest-item semantics before widening gameplay claims",
+        "Verify original Theron T900 pickup/UI and quest-item semantics before widening gameplay claims",
         "Verify an authenticated Atari v1.0 save tail, champions and runtime queues before claiming resume support",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
@@ -14622,8 +14621,8 @@
     },
     {
       "project_id": "tokimeki-memorial-ps1-tetracorp",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-28",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -14634,8 +14633,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "Primary project guide `decompiling-psx-games.md` explicitly identifies the PSX CPU as R3000 and Ghidra language as MIPS default 32-bit little-endian."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -14658,9 +14658,7 @@
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify original/source CPU from primary documentation"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "tos3x-atari-tos-rom-reconstruction",
@@ -20027,8 +20025,8 @@
     },
     {
       "project_id": "ida-amiga-debugger-lab313ru",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-28",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -20039,39 +20037,42 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "IDA plugin source rejects non-PLFM_68K databases, requires processor name `m68k`, and maps the 68k register set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-28",
+          "note": "The project is a host debugger plugin and does not emit or port a native retro binary."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "Visual Studio project configurations for IDA 6.8/6.95 x86/x64 are present, but the one-line README, repository history and files provide no successful build or release receipt."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "No minimum host CPU/RAM or supported Amitools/Amiga hardware profile is stated."
         },
         "ai": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-28",
+          "note": "The complete 2017 single-commit repository and project files contain no explicit AI-use evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "README explicitly names Amitools; repository scope and code distinguish this debugger from the same author's IDA and Ghidra Hunk loaders."
         }
       },
-      "next_actions": [
-        "Verify build and runtime claims from a primary release or build log",
-        "Check exact original CPU/platform and upstream relationships before adding hardware claims"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "ida-amiga-hunk-loader-lab313ru",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-28",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -20082,34 +20083,37 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "Primary amiga_hunk.py returns processor `68040` from accept_file and calls idaapi.set_processor_type('68040', SETPROC_LOADER)."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-28",
+          "note": "The loader configures an IDA analysis database and does not emit or port a native retro binary."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-28",
+          "note": "Repository is a single Python IDA loader rather than a compiled build; no execution/compatibility result is inferred."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "README and source do not state a supported IDA version or minimum host CPU/RAM."
         },
         "ai": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-28",
+          "note": "The complete 2018–2019 repository contains no explicit AI-use evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "Repository is the author's IDA Python loader and is distinct from the separately tracked Ghidra loader and live debugger plugin."
         }
       },
-      "next_actions": [
-        "Verify build and runtime claims from a primary release or build log",
-        "Check exact original CPU/platform and upstream relationships before adding hardware claims"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "raw2iff-amiga-st-hitchhikr",
@@ -24029,7 +24033,7 @@
     },
     {
       "project_id": "sierra-sci-decompiled-scripts",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-28",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -24041,8 +24045,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-28",
+          "note": "README explicitly says the inputs are Sierra's proprietary scripts compiled to SCI bytecode and generated by the author's decompiler; native platform interpreters are outside this repository's scope."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -24066,7 +24071,7 @@
         }
       },
       "next_actions": [
-        "Verify build and representative original data with primary release or test evidence; fill CPU/runtime facts where applicable."
+        "Verify compilation of a representative supported game/version with SCI Companion while preserving the README's game-specific caveat"
       ]
     },
     {
@@ -24155,7 +24160,7 @@
     },
     {
       "project_id": "amber-remix-amiga-amberstar",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-28",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -24167,8 +24172,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-28",
+          "note": "README limits the input to Amberstar data containers, text, graphics, maps and music; it does not analyse an original executable architecture."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -24192,7 +24198,7 @@
         }
       },
       "next_actions": [
-        "Verify build and representative original data with primary release or test evidence; fill CPU/runtime facts where applicable."
+        "Build the documented Cargo targets against representative user-supplied Amberstar data and record the observed feature boundaries"
       ]
     },
     {
@@ -24326,8 +24332,8 @@
     },
     {
       "project_id": "flashback-atari-st-reminiscence",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-28",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -24338,20 +24344,23 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "README and source search distinguish original Amiga data, DOS-specific disassembly notes and a translated game disassembly but do not identify one exact original executable CPU. The m68000 cross-toolchain is output evidence only."
         },
         "target_cpu": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "README documents the atarist-toolkit-docker build (`stcmd make`) and names the produced dist/FLASHBAK.TOS; this is an upstream build path, not a local build result."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "README explicitly requires at least 2.5 MB RAM and 3.5 MB hard-disk space, recommends 4 MB, and distinguishes ST/STE sound. It does not state a minimum CPU model."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -24362,9 +24371,7 @@
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify build and representative original data with primary release or test evidence; fill CPU/runtime facts where applicable."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "stdl-atari-st-porting-library",
@@ -25500,7 +25507,7 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-28",
-          "note": "Commit 5bf22e1 reports a full 570/570 CTest pass for the ring-position change; this is upstream evidence, not a local hardware run."
+          "note": "Upstream commits d4187ec and 73c957f report focused Apple GCR suites (including seam/checksum mutations) and both real A2R container layouts; A2R advances T2→T1. Real captures are local-only where documented, and this audit did not rerun hardware tests."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -31126,45 +31133,51 @@
     },
     {
       "project_id": "ghidra-retro-machines",
-      "last_reviewed": "2026-09-26",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-28",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-28",
+          "note": "Current README and commits retain the catalogued C64, C128, PET and NES Ghidra-extension scope."
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-28",
+          "note": "Machine-aware loader and static-analysis tooling; no reconstructed game output is claimed."
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-28",
+          "note": "Machine descriptors and current NES/Commodore analysis continue to explicitly cover 6502, 6510 and 8502-family inputs."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-28",
+          "note": "Ghidra analysis output is not a translated native retro binary."
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-28",
+          "note": "Commit 1f09986 reports build-and-test green and bounded real-ROM results; 37d9181 re-blesses two table-after-code cases but explicitly holds Contra, Final Fantasy and TMNT for review."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "README/build files and current commits do not state a minimum host CPU or RAM profile for the Ghidra extension."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-26"
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "Current commits explicitly include Claude co-author trailers and Claude session links; repository project-agent instructions also remain present."
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-28",
+          "note": "README and source describe a distinct Ghidra extension and its per-machine descriptors; current commits do not establish a new predecessor, successor or fork identity."
         }
       },
-      "next_actions": [
-        "Check explicit AI evidence, release/runtime support and related projects without inferring unknown fields."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "z80-smart-disassembler-cormacj",
@@ -34687,7 +34700,7 @@
     },
     {
       "project_id": "gorillas-c64-basic-port",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-09-28",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -34699,8 +34712,9 @@
           "checked_at": "2026-09-27"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "not-applicable",
+          "checked_at": "2026-09-28",
+          "note": "README calls this a QBasic-to-C64-BASIC port and the source file says it is based on QBasic Gorillas; no original machine-code binary is analysed."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -34724,7 +34738,7 @@
         }
       },
       "next_actions": [
-        "Check build/AI/runtime evidence and source relationships beyond the initial README review"
+        "Check the released PRG/D64 on a representative C64 runtime and review explicit AI and lineage evidence beyond the README"
       ]
     },
     {
@@ -37661,7 +37675,7 @@
     },
     {
       "project_id": "hulabee-sauce-vm-cyxx",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-09-28",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -37673,9 +37687,9 @@
           "checked_at": "2026-09-27"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Windows executable is mentioned, but exact original executable architecture was not checked."
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-28",
+          "note": "Searched README, VM documentation and source for CPU/processor declarations. They document proprietary Sauce bytecode and a Windows tracing DLL but no exact original native architecture."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -37703,7 +37717,7 @@
         }
       },
       "next_actions": [
-        "Build VM with documented dependencies and check each named game's supported screens and missing behaviors."
+        "Build the VM with documented dependencies, check both named games, and review explicit AI evidence"
       ]
     },
     {
@@ -39858,14 +39872,14 @@
           "note": "Subject scope follows primary artifacts."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "C64 source software is credited, but underlying original 6502 code lineage was not audited."
+          "state": "reviewed",
+          "checked_at": "2026-09-28",
+          "note": "Project README links the original C64 SAM reverse source; that primary archive assembles with cl65 and contains 6502-family instructions and C64 SID register addresses before the semi-automatic C conversion."
         },
         "target_cpu": {
           "state": "not-applicable",
-          "checked_at": null,
-          "note": "No single modern host minimum CPU established or applicable."
+          "checked_at": "2026-09-28",
+          "note": "Portable C host program has no single native output CPU or minimum host CPU established."
         },
         "build": {
           "state": "needs-research",
@@ -39889,7 +39903,7 @@
         }
       },
       "next_actions": [
-        "Verify a representative build or format and check stated compatibility on real input."
+        "Build the documented SDL and WAV-output paths and compare representative output with the original C64 reverse source"
       ]
     },
     {

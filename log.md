@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-28 — VM/data CPU boundaries and active upstream review
+
+Resolved twelve queued CPU audit areas across **Amber Remix — Amiga Amberstar data decoder**, **Amberworld — Amber trilogy format & code reverse engineering**, **Flashback — Atari ST REminiscence port**, **Gorillas — DOS QBasic to C64 BASIC port**, **Hulabee Sauce — VM and asset tools**, the two Lab 313 IDA Amiga tools, **SAM — C port of C64 speech synthesizer**, **Sierra SCI scripts — decompiled corpus**, and **Tokimeki Memorial: Forever With You — PlayStation Ghidra analysis**. Data containers, language-level ports and SCI/Sauce bytecode are now explicitly CPU-not-applicable or no-evidence-found. Source declarations establish only the IDA tools' m68k/68040 analysis selections, SAM's 6502 reverse-source lineage and Tokimeki's MIPS R3000 input. Flashback also gains the README's exact 2.5 MB RAM floor, 4 MB recommendation and 3.5 MB disk requirement without inventing a minimum CPU.
+
+Material upstream review records **UnifiedFloppyTool** raising A2R to T1 with both real container layouts and fixing Apple GCR seam/checksum handling; **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** passing 71 registered Theron tests and covering all type-zero inventory records while retaining its T900/campaign caveats; and **Ghidra Retro Machines — bank-aware C64, C128, PET and NES loaders** adding constant-pointer and table-after-code analysis while leaving three NES rows explicitly held for owner review.
+
+
 ## 2026-09-28 — Format-tool CPU audit and active upstream review
 
 Resolved twelve queued CPU audit areas across **AmbermoonSourceror — Ghidra-to-Amiga assembly converter**, both **AmigaHunkParser** implementations, **Amiga Imploder — decompiled compressor**, **MapTapper — Amiga graphics and map ripper**, **raw2iff — Amiga/ST graphics converter**, **STTRANS — Atari STBook transfer protocol research**, and **UnifiedFloppyTool — Amiga/Atari disk preservation**. Generic HUNK containers, savestates, raw graphics, disk images and flux streams are now explicitly CPU-not-applicable instead of inheriting architecture from their platform label. AmbermoonSourceror's output is tied to its explicit `-m68000` assembler flag while the original input CPU remains no-evidence-found; the checked-in STTRANS.PRG primary artifact identifies as Atari ST M68K. The C HUNK parser also built cleanly with GCC and ran its usage path locally.
