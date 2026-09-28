@@ -83,6 +83,8 @@ A preflight root listing may report `canonical_repository_url` and its local `ca
 
 For a queued `tree/branch/path` returning 404, preflight can suggest an `alternative_branch_url` when the repository is already tracked with exactly one different default branch. Inspect the suggested directory before deciding that it is a duplicate. The [thirteenth 30 review](discovery-intake-thirteenth-30-2026-09-29.md) records this case, binary-only Electron ports, PET core succession and broad-search false positives.
 
+Repository search recipes now request `fork:false`, in addition to discarding any fork flag found in returned metadata. This keeps fork-heavy first pages from consuming the result budget. If an external search adapter returns repository names without descriptions, enrich eligible hits with primary repository descriptions before ranking. The [fourteenth 30 review](discovery-intake-fourteenth-30-2026-09-29.md) compares fork-heavy searches and records site mirrors, predecessor attribution and a genuine MSX project returned by a Spectrum query.
+
 ## Preview and apply
 
 ```sh
