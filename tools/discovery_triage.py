@@ -25,6 +25,7 @@ RELEASE_EXT = {".ssd", ".uef", ".exe", ".vsix"}
 DESIGN_EXT = {".kicad_sch", ".kicad_pcb", ".lib", ".pld"}
 WORKBOOK_EXT = {".xlsm", ".xlsx", ".ods"}
 BUILD_NAMES = {"makefile", "cmakelists.txt", "build.sh", "build.bat", "package.json"}
+REVIEW_DIRECTORY = re.compile(r"(?:^|[^a-z0-9])(?:disassembl\w*|reverse|tools?|roms?|software|drivers?|sources?)(?:$|[^a-z0-9])", re.I)
 GITHUB_REPO_URL = re.compile(r"https?://(?:www\.)?github\.com/[\w.-]+/[\w.-]+", re.I)
 
 
@@ -51,6 +52,7 @@ def inventory(items: list[dict]) -> dict:
             "build_files": any(name.casefold() in BUILD_NAMES for name in files),
             "source_directories": [name for name in dirs if name.casefold() in
                                    {"src", "source", "sources", "1-source-files", "original-sources"}],
+            "review_directories": [name for name in dirs if REVIEW_DIRECTORY.search(name)][:12],
         },
     }
 

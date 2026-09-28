@@ -75,6 +75,12 @@ class TriageTests(unittest.TestCase):
                                 ('README.de.md', 'README.en.md')])
         self.assertEqual(translated['readme_path'], 'README.en.md')
 
+    def test_nested_research_hints_use_the_existing_directory_listing(self):
+        row = inventory([{'name': name, 'type': 'dir'} for name in
+                         ('Kernal ROM Disassembly', 'tools', 'Software', 'screenshots', 'readme')])
+        self.assertEqual(row['root_signals']['review_directories'],
+                         ['Kernal ROM Disassembly', 'tools', 'Software'])
+
     def test_index_only_site_exposes_bounded_github_links(self):
         class SiteClient:
             def __init__(self):
