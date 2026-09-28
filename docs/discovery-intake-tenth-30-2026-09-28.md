@@ -2,6 +2,8 @@
 
 Reviewed the fixed next 30 ranked URLs on 2026-09-28. Existing project coverage was screened locally; repository metadata, READMEs, source paths and lineage statements were checked for the selected scope. Upstream build and byte-identity claims were not independently tested.
 
+**Scope correction (later on 2026-09-28):** GreaseGUI now links to the full hardware-and-software repository, with `gui/` retained as source evidence.
+
 **Result:** 13 distinct projects, two reference sources, two distribution duplicates, 13 exclusions. All 30 reviewed URLs left the saved queue; six linked projects entered follow-up. The previous Tempest 2000 follow-up task is complete.
 
 | Rank | Candidate | Outcome | Evidence and scope |
@@ -23,7 +25,7 @@ Reviewed the fixed next 30 ranked URLs on 2026-09-28. Existing project coverage 
 | 20 | markmoxon/elite-compendium-bbc-master | Project | BBC Master Elite disc integration, menu and DSD/SSD build around branch-pinned program submodules; individual Elite versions remain separately represented. |
 | 21 | oisee/antique-toy | Source | ZX Spectrum/Z80 technique book and examples. README discloses LLM assistance; descriptions are reference leads, not independently verified hardware claims. |
 | 22 | AmiBlitz/AmiBlitz3 | Project | Native Amiga compiler and IDE with source, libraries and examples. README states the **IDE** requires 68020 and 8 MB; compiled programs have separate requirements. |
-| 23 | ifilot/greaseweazle | Project | GreaseGUI Qt application for Greaseweazle disk imaging, including Amiga ADF and Atari ST, with distinct GUI source; original Keir Fraser hardware and firmware credited. |
+| 23 | ifilot/greaseweazle | Project | Repository-level Greaseweazle hardware derivative with GreaseGUI disk imaging for Amiga ADF and Atari ST; `gui/` holds source, and Keir Fraser’s original hardware and firmware are credited. |
 | 24 | johnjoeallen/bascal | Project | Structured BASIC compiler emitting classic BASIC, C and JVM code. |
 | 25–26 | KermitProject/ckermit; OpenKermit/ckermit | Excluded | Portable Unix/VMS communications software; the newer version is a continuation, but neither review established focused historical-software recovery scope. |
 | 27–29 | ravikiranj/twitter-sentiment-analyzer; sergev/LiteBSD; wireshark/wireshark | Excluded | Twitter API scripts, PIC32MZ OS and general network analyzer surfaced by broad code searches. |

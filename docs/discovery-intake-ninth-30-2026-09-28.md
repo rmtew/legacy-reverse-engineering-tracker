@@ -2,6 +2,8 @@
 
 Reviewed the fixed next 30 ranked URLs on 2026-09-28. Local index screening found 30 new candidates; inspected repository metadata, root inventories, READMEs, selected nested source, fork parents and author commits. A project classification describes observed code and stated upstream behavior, not a successful independent build.
 
+**Scope correction (later on 2026-09-28):** Virus History and The Phantom now link to their repository roots. Their tools and credited ROM listing remain evidence within coherent parent projects.
+
 **Result:** 15 distinct project records, three reference sources, 12 exclusions. All 30 URLs leave the saved queue. The Llamasoft index supplied one new follow-up lead, Tempest 2000.
 
 | Rank | Candidate | Outcome | Evidence and scope |
@@ -17,12 +19,12 @@ Reviewed the fixed next 30 ranked URLs on 2026-09-28. Local index screening foun
 | 13 | BartmanAbyss/WinUAE | Project | Fork of tracked tonioni/WinUAE has author commits adding GDB server, register and profiling support for vscode-amiga-debug; credit predecessor and distinguish debugger integration. |
 | 14 | mhxion/awesome-discord-communities | Excluded | Broad developer chat directory. |
 | 15 | robhagemans/monobit | Project | Python bitmap font parser and converter with historical machine formats. |
-| 16 | SnorreFagerland/virushistory | Project | Promoted the nested `tools/` directory: an Amiga bootblock checksum analyzer and a 68000 copy/XOR-loop decoder were inspected; the root malware archive is the source, not a second software project. |
+| 16 | SnorreFagerland/virushistory | Project | The repository-level historical malware archive includes analysis tools under `tools/`; an Amiga bootblock checker and 68000 copy/XOR-loop decoder were inspected. The archive and tools form one project. |
 | 17 | vschwaberow/awesome-retro-dev | Source | Curated Atari ST, C64, Amiga and other retro developer-tool links. |
 | 18 | zpqrtbnk/xrick | Project | C game reimplementation explicitly based on reverse engineering PC and Atari Rick Dangerous versions. |
 | 19 | AmigaPorts/m68k-amigaos-gcc | Project | Continued Amiga cross compiler/toolchain with packaging and CI activity; README credits bebbo and upstream fork lineage. |
 | 20 | bbbradsmith/binxelview | Project | Binary grid and tile image explorer for reverse engineering game data. |
-| 21 | COREi64/The-Phantom | Project | Nested `Kernal ROM Disassembly/ph.asm`, a labeled Phantom Kernal overlay listing explicitly credited to Thomas Salzlechner; root hardware reproduction remains source context. |
+| 21 | COREi64/The-Phantom | Project | The Phantom hardware and firmware preservation repository includes `Kernal ROM Disassembly/ph.asm`, a labeled overlay listing explicitly credited to Thomas Salzlechner. |
 | 22 | CrateOrg/crate-ctf | Excluded | Modern security CTF exercise archive. |
 | 23 | gmegidish/glimsci-sci-drivers | Project | Sierra SCI DOS VGA drivers with alternate palettes and display modes; Amiga and Atari are palette inspirations, not analyzed binaries. Credits FOSS SCI Drivers. |
 | 24 | jotego/jtopl | Source | YM3526 hardware Verilog recreation, useful chip reference beyond current software scope. |
