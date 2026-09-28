@@ -17,7 +17,7 @@ import re
 from urllib.parse import quote, urlsplit
 
 from discovery_intake import HTTPClient, LinkParser, STATE, github_candidate
-from screen_discovery_candidates import CandidateIndex, github_repository_key
+from screen_discovery_candidates import CandidateIndex, canonical_url, github_repository_key
 
 
 SOURCE_EXT = {".asm", ".s", ".6502", ".c", ".cpp", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
@@ -130,6 +130,18 @@ def triage(queue: list, client: HTTPClient, limit: int, index: CandidateIndex | 
                 screen_links(row, repositories, index, "outbound")
         except (RuntimeError, ValueError, KeyError, UnicodeError) as exc:
             row["error"] = str(exc)
+            if nested and index is not None and "HTTP 404" in str(exc):
+                root = github_repository_key(canonical_url(url))
+                branches = getattr(index, "repository_branches", {}).get(root, set())
+                if len(branches) == 1:
+                    known_branch = next(iter(branches))
+                    if known_branch != branch:
+                        row["alternative_branch_url"] = (
+                            f"https://github.com/{parts[0]}/{parts[1]}/tree/{known_branch}/"
+                            + "/".join(parts[4:]))
+                        row["alternative_branch_reason"] = (
+                            "This repository's tracked default branch differs from the queued branch; "
+                            "the directory still needs inspection.")
             if client.count >= client.max_requests:
                 leads.append(row)
                 break

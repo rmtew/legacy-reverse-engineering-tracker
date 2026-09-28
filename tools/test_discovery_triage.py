@@ -104,6 +104,23 @@ class TriageTests(unittest.TestCase):
         self.assertEqual(lead["canonical_repository_url"], "https://github.com/new-owner/new-repo")
         self.assertEqual(lead["canonical_status"], "tracked_project")
 
+    def test_stale_branch_path_suggests_tracked_default_without_extra_request(self):
+        class MissingBranch(Client):
+            def get(self, url):
+                self.count += 1
+                raise RuntimeError("HTTP 404 for /repos/owner/repo/contents/issues (rate remaining: 50)")
+
+        class Index:
+            repository_branches = {"https://github.com/owner/repo": {"main"}}
+
+        client = MissingBranch()
+        url = "https://github.com/owner/repo/tree/master/issues"
+        lead = triage([(url, {})], client, 1, Index())["leads"][0]
+        self.assertEqual(client.count, 1)
+        self.assertEqual(lead["alternative_branch_url"],
+                         "https://github.com/owner/repo/tree/main/issues")
+        self.assertIn("still needs inspection", lead["alternative_branch_reason"])
+
     def test_prefers_english_readme_and_surfaces_workbooks(self):
         row = inventory([{'name': n, 'type': 'file'} for n in
                          ('README.de.md', 'README.md', 'a2-hires-lab.xlsm')])

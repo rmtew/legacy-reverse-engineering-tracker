@@ -65,6 +65,7 @@ class CandidateIndex:
     def __init__(self, data_dir: Path):
         self.exact = defaultdict(list)
         self.repositories = defaultdict(list)
+        self.repository_branches = defaultdict(set)
         self.project_urls = {}
         projects = json.loads((data_dir / "projects.json").read_text(encoding="utf-8"))
         discovery = json.loads((data_dir / "discovery-sources.json").read_text(encoding="utf-8"))
@@ -80,6 +81,9 @@ class CandidateIndex:
                 key = github_repository_key(canonical_url(repo))
                 if key:
                     self.repositories[key].append({"kind": "project", "id": project["id"], "url": repo})
+                    branch = (project.get("github") or {}).get("default_branch")
+                    if branch:
+                        self.repository_branches[key].add(branch)
         for source in discovery["sources"]:
             url = source["source"]
             # Some source nodes are names or descriptions rather than URLs.

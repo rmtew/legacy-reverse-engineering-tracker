@@ -81,6 +81,8 @@ For linked README dependency lists, `python tools/discovery_intake.py --list 30 
 
 A preflight root listing may report `canonical_repository_url` and its local `canonical_status` when GitHub redirects an old owner or repository name. Inspect that canonical identity before opening another README; record the old URL as a duplicate or redirect once verified. This detection reuses the existing directory response and cannot resolve an empty or inaccessible repository without a further request.
 
+For a queued `tree/branch/path` returning 404, preflight can suggest an `alternative_branch_url` when the repository is already tracked with exactly one different default branch. Inspect the suggested directory before deciding that it is a duplicate. The [thirteenth 30 review](discovery-intake-thirteenth-30-2026-09-29.md) records this case, binary-only Electron ports, PET core succession and broad-search false positives.
+
 ## Preview and apply
 
 ```sh
