@@ -92,6 +92,15 @@ def triage(queue: list, client: HTTPClient, limit: int, index: CandidateIndex | 
             if not isinstance(items, list):
                 raise ValueError("Repository root is not a directory listing")
             row.update(inventory(items))
+            # GitHub content entries carry the current owner/repository even when
+            # the requested URL is an old owner or renamed repository. urllib
+            # follows the redirect, so this uses the already-fetched inventory.
+            canonical = next((key for item in items
+                              if (key := github_repository_key(item.get("html_url", "")))), None)
+            if canonical and canonical.casefold() != github_repository_key(url).casefold():
+                row["canonical_repository_url"] = canonical
+                if index is not None:
+                    row["canonical_status"] = index.screen(canonical)["status"]
             page_path = row["readme_path"] or row["landing_page_path"]
             if page_path:
                 page = client.get(endpoint + "/" + quote(page_path) + suffix)

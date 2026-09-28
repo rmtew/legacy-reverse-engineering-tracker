@@ -86,6 +86,24 @@ class TriageTests(unittest.TestCase):
         self.assertEqual(lead['related_status_counts'], {'new': 1, 'tracked_project': 21})
         self.assertEqual(lead['related_new_repositories'], ['https://github.com/example/project21'])
 
+    def test_redirected_repository_is_screened_from_existing_inventory(self):
+        class RedirectedClient(Client):
+            def get(self, url):
+                self.count += 1
+                return [{"name": "source.asm", "type": "file",
+                         "html_url": "https://github.com/new-owner/new-repo/blob/main/source.asm"}]
+
+        class Index:
+            def screen(self, url):
+                self_url = "https://github.com/new-owner/new-repo"
+                return {"status": "tracked_project" if url == self_url else "new"}
+
+        client = RedirectedClient()
+        lead = triage([("https://github.com/old-owner/old-repo", {})], client, 1, Index())["leads"][0]
+        self.assertEqual(client.count, 1)
+        self.assertEqual(lead["canonical_repository_url"], "https://github.com/new-owner/new-repo")
+        self.assertEqual(lead["canonical_status"], "tracked_project")
+
     def test_prefers_english_readme_and_surfaces_workbooks(self):
         row = inventory([{'name': n, 'type': 'file'} for n in
                          ('README.de.md', 'README.md', 'a2-hires-lab.xlsm')])
