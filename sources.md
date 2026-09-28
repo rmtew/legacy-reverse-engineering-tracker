@@ -4,6 +4,14 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/markmoxon/elite-source-code-apple-ii | Five documented Apple II Elite source variants with reproducible BeebAsm builds and verification |
+| https://github.com/markmoxon/elite-source-code-bbc-micro-cassette | Three documented BBC Micro cassette Elite source variants with SSD/UEF builds |
+| https://github.com/markmoxon/elite-compendium-bbc-micro | BBC Micro Elite collection with source-built menu, variant submodules and explicit 16 KiB sideways-RAM requirement |
+| https://github.com/andyv/level1 | Annotated Z80 disassembly of the TRS-80 Model I Level I 4 KiB ROM |
+| https://github.com/eriktier/RomT102Disassembly | Canonical documented TRS-80 Model 102 ROM reconstruction and fork root |
+| https://github.com/MP2E/Dracula_X68K_15KHz | Disassembly-derived Akumajou Dracula X68000 15 kHz fan conversion tested on real hardware |
+| https://github.com/tdaede/x68k-xvi-ipl-ghidra | Ghidra project for Sharp X68000 XVI IPL ROM analysis |
+| https://github.com/ValleyBell/ExtractorsDecoders | Multi-platform archive, executable-decryption and resource-extraction tool suite |
 | https://github.com/tetracorp | Multiple Amiga reverse-engineering projects plus external RE references |
 | https://github.com/Pyrdacor | Amber ecosystem and links to earlier research |
 | https://github.com/kermitfrog | Ambermoon binary-analysis work |

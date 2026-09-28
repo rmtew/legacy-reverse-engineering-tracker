@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-09-29 — Elite version graph, TRS-80/X68000 search and CPU audit
+
+Completed the queued Elite library-version review and added three distinct source-backed projects: **Elite — Apple II documented original sources**, **Elite — BBC Micro cassette documented original sources**, and **Elite Compendium — BBC Micro 16K sideways-RAM collection**. Each has an independent primary repository and build scope; the BBC Micro collection is kept separate from the already tracked BBC Master Compendium.
+
+The rotated TRS-80, Apple IIgs and X68000 searches added **TRS-80 Level I ROM — annotated Z80 disassembly**, **TRS-80 Model 102 ROM — documented source reconstruction**, **Akumajou Dracula — X68000 15 kHz display hack**, **Sharp X68000 XVI IPL — Ghidra analysis**, and **Extractors and Decoders — multi-platform game archive tools**. Two Model 102 forks were recorded as duplicates and a README-only TRSDOS repository was excluded. Apple IIgs and X68000 source-reconstruction searches yielded no further candidates. The Dracula work is explicitly a disassembly-derived fan hack, while the Model 102 identity build remains a goal rather than a claimed verified result.
+
+Separately resolved eight queued target-CPU audit areas across **Alien (1984) — Python remake and disassembly**, **Ambermoon Advanced**, **Ambermoon.net — Ambermoon engine reimplementation**, **Grand Theft Auto — AmiGTA**, **BattleTech: The Crescent Hawk's Inception — C64 static recompilation**, **CDTV OS 2.35 — reconstructed firmware patch**, **Chase H.Q.**, and **DolphinDOS 2 — C64 KERNAL ROM source and modification**. Exact native targets and runtime floors follow primary assembly/build documentation; portable Python and undocumented host minima remain not-applicable or no-evidence-found rather than inferred.
+
+
 ## 2026-09-28 — VM/data CPU boundaries and active upstream review
 
 Resolved twelve queued CPU audit areas across **Amber Remix — Amiga Amberstar data decoder**, **Amberworld — Amber trilogy format & code reverse engineering**, **Flashback — Atari ST REminiscence port**, **Gorillas — DOS QBasic to C64 BASIC port**, **Hulabee Sauce — VM and asset tools**, the two Lab 313 IDA Amiga tools, **SAM — C port of C64 speech synthesizer**, **Sierra SCI scripts — decompiled corpus**, and **Tokimeki Memorial: Forever With You — PlayStation Ghidra analysis**. Data containers, language-level ports and SCI/Sauce bytecode are now explicitly CPU-not-applicable or no-evidence-found. Source declarations establish only the IDA tools' m68k/68040 analysis selections, SAM's 6502 reverse-source lineage and Tokimeki's MIPS R3000 input. Flashback also gains the README's exact 2.5 MB RAM floor, 4 MB recommendation and 3.5 MB disk requirement without inventing a minimum CPU.

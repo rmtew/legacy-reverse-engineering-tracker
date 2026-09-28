@@ -3946,7 +3946,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-13",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-09-29",
     "status": "active",
     "build": {
       "compilable": true,
@@ -3972,7 +3972,7 @@
       "faithful remake",
       "software archaeology"
     ],
-    "notes": "Playable Python reimplementation of the 1984 C64 Alien built from a complete disassembly of the original disk. The repository also includes alientools for NIB/G64/D64 decoding, CBM-DOS reconstruction, program extraction and disassembly, plus annotated RE documentation and an ORIGINAL mode intended to reproduce observed disk behaviour.",
+    "notes": "Playable Python reimplementation of the 1984 C64 Alien built from a complete disassembly of the original disk. The repository also includes alientools for NIB/G64/D64 decoding, CBM-DOS reconstruction, program extraction and disassembly, plus annotated RE documentation and an ORIGINAL mode intended to reproduce observed disk behaviour. The maintained output is a portable Python 3.12+ program rather than a fixed native CPU target; the reviewed README gives no minimum CPU or RAM requirement.",
     "github": {
       "repository": "OuijaGhost/alien-remake",
       "checked_at": "2026-09-28",
@@ -4028,7 +4028,8 @@
         "re_started": [],
         "ci": []
       }
-    }
+    },
+    "target_cpu": []
   },
   {
     "id": "alien8-tcdev-spectrum",
@@ -4686,7 +4687,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-19",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": "active",
     "build": {
       "compilable": null,
@@ -4706,7 +4707,7 @@
       "amber",
       "extension"
     ],
-    "notes": "Unofficial Ambermoon extension. Track only changes that exercise or expose reverse-engineered knowledge of the original engine/formats.",
+    "notes": "Unofficial Ambermoon extension. Track only changes that exercise or expose reverse-engineered knowledge of the original engine/formats. AM2_CPU.s explicitly distinguishes 68020+ execution from its 68000 fallback, establishing the native output floor without implying a RAM or chipset minimum.",
     "github": {
       "repository": "Pyrdacor/Ambermoon-Advanced",
       "created_at": "2021-08-29",
@@ -4739,7 +4740,22 @@
     "work_kinds": [
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Amiga build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68000",
+        "notes": "The source explicitly detects 68020+ processors while retaining a 68000 fallback; no minimum RAM or chipset was stated in the reviewed source.",
+        "evidence": [
+          "https://github.com/Pyrdacor/Ambermoon-Advanced/blob/main/AM2_CPU.s"
+        ]
+      }
+    ]
   },
   {
     "id": "ambermoon-re-tooling",
@@ -4863,7 +4879,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-19",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -4884,7 +4900,7 @@
       "amber",
       "cross-platform"
     ],
-    "notes": "Modern reimplementation substantially informed by reverse engineering of original Ambermoon behaviour and data.",
+    "notes": "Modern reimplementation substantially informed by reverse engineering of original Ambermoon behaviour and data. The publish profiles explicitly name win-x86, win-x64, linux-x64, linux-arm64, osx-x64 and osx-arm64 outputs; no minimum host CPU or RAM was found in the reviewed project files.",
     "github": {
       "repository": "Pyrdacor/Ambermoon.net",
       "created_at": "2020-06-19",
@@ -4927,7 +4943,12 @@
       "reimplementation",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "x86",
+      "x86-64",
+      "arm64"
+    ]
   },
   {
     "id": "ambermoon-sourceror",
@@ -14708,7 +14729,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-27",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-09-29",
     "status": "active",
     "build": {
       "compilable": true,
@@ -14734,7 +14755,7 @@
       "static recompilation",
       "Windows"
     ],
-    "notes": "Native Windows static recompilation of BattleTech: The Crescent Hawk's Inception. The original executable paths were analysed into a fixed generated C catalog of 21,637 exact blocks; the production runtime executes only admitted blocks and supplies game-specific C64 memory, VIC-II, CIA, SID and 1541/IEC/GCR behaviour without an emulator fallback.",
+    "notes": "Native Windows static recompilation of BattleTech: The Crescent Hawk's Inception. The original executable paths were analysed into a fixed generated C catalog of 21,637 exact blocks; the production runtime executes only admitted blocks and supplies game-specific C64 memory, VIC-II, CIA, SID and 1541/IEC/GCR behaviour without an emulator fallback. The documented release target is a native x86-64 Windows launcher requiring Windows 10 or later.",
     "github": {
       "repository": "Junior-Jones/BattleTech-C64-Static-Recomp",
       "checked_at": "2026-09-28",
@@ -14789,7 +14810,23 @@
           }
         ]
       }
-    }
+    },
+    "target_cpu": [
+      "x86-64"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Windows native launcher",
+        "platform": "Windows",
+        "cpu_family": "x86 family",
+        "min_cpu": "x86-64",
+        "os": "Windows 10 or later",
+        "notes": "The README requires 64-bit Windows 10+ and distributes a native Launcher.exe; no minimum RAM is stated.",
+        "evidence": [
+          "https://github.com/Junior-Jones/BattleTech-C64-Static-Recomp/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "battlezone-arcade-6502disassembly",
@@ -18469,7 +18506,12 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000",
+      "m68010",
+      "m68020",
+      "m68030"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -18493,7 +18535,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-06",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -18516,7 +18558,7 @@
       "Extended ROM",
       "68030"
     ],
-    "notes": "Public bsdiff patch transforms a user-supplied Commodore 2.30 Extended ROM into unofficial 2.35 images. Author says original modules were reconstructed as byte-matching assembly after Ghidra/vasm analysis; that source and complete ROM images are not published, so exactness is an upstream claim rather than independently verified here.",
+    "notes": "Public bsdiff patch transforms a user-supplied Commodore 2.30 Extended ROM into unofficial 2.35 images. Author says original modules were reconstructed as byte-matching assembly after Ghidra/vasm analysis; that source and complete ROM images are not published, so exactness is an upstream claim rather than independently verified here. The FAQ explicitly covers 68000/68010/68020 timing and tested 68030 accelerators; it leaves 68040/68060 compatibility unknown.",
     "project_url": "https://github.com/C4ptFuture/cdtv-os235patch/blob/master/README-faq.md",
     "github": {
       "repository": "C4ptFuture/cdtv-os235patch",
@@ -18542,7 +18584,29 @@
         "message": "add eprom burning jedec/non-jedec to faq",
         "url": "https://github.com/C4ptFuture/cdtv-os235patch/commit/05c4dd869369140093c0bacf82fdf725daa8c616"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "CDTV/A570 patched ROM",
+        "platform": "Amiga CDTV / A570",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68000",
+        "notes": "The FAQ says timing was checked for 68000, 68010 and 68020. It does not state a minimum RAM figure.",
+        "evidence": [
+          "https://github.com/C4ptFuture/cdtv-os235patch/blob/master/README-faq.md"
+        ]
+      },
+      {
+        "name": "Tested 68030 accelerator configurations",
+        "platform": "Amiga CDTV / A570",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68030",
+        "notes": "The FAQ reports TF536 and Viper 530 testing; 68040/68060 remain unknown, and one A570 setup needs its 2 MB expansion disabled.",
+        "evidence": [
+          "https://github.com/C4ptFuture/cdtv-os235patch/blob/master/README-faq.md"
+        ]
+      }
+    ]
   },
   {
     "id": "amiga-cdtv-u62-firmware",
@@ -19263,7 +19327,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-23",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": "active",
     "build": {
       "compilable": true,
@@ -19290,7 +19354,7 @@
       "z80",
       "cross-platform"
     ],
-    "notes": "Function-by-function readable C reconstruction developed alongside the Spectrum disassembly.",
+    "notes": "Function-by-function readable C reconstruction developed alongside the Spectrum disassembly. The SkoolKit path rebuilds a Z80 TAP for real Spectrum hardware; the portable SDL, WebAssembly and RISC OS host builds do not establish a single additional native CPU target or minimum host specification.",
     "github": {
       "repository": "dpt/ChaseHQ",
       "created_at": "2023-03-15",
@@ -19332,7 +19396,10 @@
       "decompilation",
       "reimplementation"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "Z80"
+    ]
   },
   {
     "id": "chase-hq-spectrum-analyser",
@@ -25962,7 +26029,9 @@
     "source_cpu": [
       "6502"
     ],
-    "target_cpu": null,
+    "target_cpu": [
+      "6502"
+    ],
     "source_language": [
       "C64 and 1541 DolphinDOS ROM binaries"
     ],
@@ -25983,7 +26052,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-04",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -26000,7 +26069,7 @@
       "Commodore 64",
       "Commodore 1541"
     ],
-    "notes": "Includes ACME-assemblable C64 KERNAL source and release ROMs for C64/1541; README distinguishes the untouched original v1 ROM release. No evidence here of published 1541 source or binary-exact reproduction.",
+    "notes": "Includes ACME-assemblable C64 KERNAL source and release ROMs for C64/1541; README distinguishes the untouched original v1 ROM release. No evidence here of published 1541 source or binary-exact reproduction. kernal.asm explicitly selects the 6502 CPU and the README documents the ACME-built 8 KiB KERNAL ROM plus its companion 1541 ROM and hardware link.",
     "github": {
       "repository": "donnchawp/DolphinDOS2",
       "created_at": "2019-08-13",
@@ -26030,7 +26099,20 @@
         "message": "Merge pull request #8 from UffeJakobsen/master_readme_typo_fix",
         "url": "https://github.com/donnchawp/DolphinDOS2/commit/bdff6b3e626b969ac807e59264401dd543d422b2"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "DolphinDOS 2 ROM pair",
+        "platform": "Commodore 64 / 1541",
+        "cpu_family": "6502 family",
+        "min_cpu": "6502",
+        "notes": "The source builds an 8 KiB C64 KERNAL ROM and is used with the companion 1541 ROM, parallel cable and the drive's DolphinDOS extra RAM. No total host RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/donnchawp/DolphinDOS2/blob/master/README.md",
+          "https://github.com/donnchawp/DolphinDOS2/blob/master/kernal.asm"
+        ]
+      }
+    ]
   },
   {
     "id": "jotd-donkey-kong-amiga",
@@ -36842,7 +36924,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-26",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": "in progress",
     "build": {
       "compilable": true,
@@ -36867,7 +36949,7 @@
       "clean-room reimplementation",
       "GTA"
     ],
-    "notes": "Native AmigaOS 68k reimplementation of Grand Theft Auto's engine, written from scratch and driven by the original game's behaviour/data as specification. Liberty City's first missions are playable; later missions and sound remain incomplete.",
+    "notes": "Native AmigaOS 68k reimplementation of Grand Theft Auto's engine, written from scratch and driven by the original game's behaviour/data as specification. Liberty City's first missions are playable; later missions and sound remain incomplete. The primary README documents native 68020 code, an 8 MB Fast-RAM floor, AGA-or-RTG graphics and no FPU requirement.",
     "github": {
       "repository": "angree/AmiGTA1",
       "created_at": "2026-08-28",
@@ -36931,7 +37013,27 @@
       "reverse-engineering-derived-port",
       "data-format-analysis"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Native Amiga build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68020",
+        "min_fast_ram_kib": 8192,
+        "chipsets": [
+          "AGA",
+          "RTG"
+        ],
+        "notes": "Requires a 68020+, about 8 MB Fast RAM and either AGA or RTG; the normal build uses -mcpu=68020 -msoft-float and does not require an FPU.",
+        "evidence": [
+          "https://github.com/angree/AmiGTA1/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "jotd-gravitar-amiga",
@@ -85881,5 +85983,557 @@
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
       }
     }
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "complete documented source",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "line-by-line source documentation",
+      "variant checksum verification"
+    ],
+    "tags": [
+      "game",
+      "Apple II",
+      "6502",
+      "original source"
+    ],
+    "id": "elite-apple-ii-original-source-moxon",
+    "title": "Elite — Apple II documented original sources",
+    "upstream_name": "Apple II Elite",
+    "display_title": "Elite — Apple II documented original sources",
+    "subjects": [
+      "Elite"
+    ],
+    "repo": "https://github.com/markmoxon/elite-source-code-apple-ii",
+    "source_platforms": [
+      "Apple II"
+    ],
+    "target_platforms": [
+      "Apple II"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "original 6502 assembly"
+    ],
+    "reconstructed_languages": [
+      "documented 6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-restoration"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "documented original source",
+      "reproducible build"
+    ],
+    "last_activity": "2026-09-22",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "notes": "Fully documented original 6502 source for five Apple II Elite variants. The BeebAsm-based Windows/macOS/Linux build produces disk images, runs checksum verification against supplied reference binaries and supports real Apple II hardware or emulators; the record does not generalize variant verification into a single blanket byte-exact claim."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "complete documented source",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "line-by-line source documentation",
+      "variant checksum verification"
+    ],
+    "tags": [
+      "game",
+      "BBC Micro",
+      "6502",
+      "cassette",
+      "original source"
+    ],
+    "id": "elite-bbc-micro-cassette-moxon",
+    "title": "Elite — BBC Micro cassette documented original sources",
+    "upstream_name": "BBC Micro cassette Elite",
+    "display_title": "Elite — BBC Micro cassette documented original sources",
+    "subjects": [
+      "Elite"
+    ],
+    "repo": "https://github.com/markmoxon/elite-source-code-bbc-micro-cassette",
+    "source_platforms": [
+      "BBC Micro"
+    ],
+    "target_platforms": [
+      "BBC Micro"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "original 6502 assembly"
+    ],
+    "reconstructed_languages": [
+      "documented 6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-restoration"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "documented original source",
+      "reproducible build"
+    ],
+    "last_activity": "2026-09-22",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "notes": "Fully documented original source for three BBC Micro cassette editions of Elite. The BeebAsm build emits SSD and UEF images, verifies variants against reference binaries and supports real BBC Micro hardware or emulators without asserting an undocumented minimum machine profile."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "complete",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "multi-variant source integration",
+      "disc-image assembly"
+    ],
+    "tags": [
+      "game",
+      "BBC Micro",
+      "6502",
+      "sideways RAM"
+    ],
+    "id": "elite-compendium-bbc-micro",
+    "title": "Elite Compendium — BBC Micro 16K sideways-RAM collection",
+    "upstream_name": "Elite Compendium for the BBC Micro",
+    "display_title": "Elite Compendium — BBC Micro 16K sideways-RAM collection",
+    "subjects": [
+      "Elite"
+    ],
+    "repo": "https://github.com/markmoxon/elite-compendium-bbc-micro",
+    "source_platforms": [
+      "BBC Micro"
+    ],
+    "target_platforms": [
+      "BBC Micro"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Elite Compendium disc",
+        "platform": "BBC Micro",
+        "cpu_family": "6502 family",
+        "min_cpu": "6502",
+        "notes": "Requires 16 KiB of sideways RAM; the README does not state a total system-RAM minimum.",
+        "evidence": [
+          "https://github.com/markmoxon/elite-compendium-bbc-micro/blob/main/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "6502 assembly",
+      "documented Elite source variants"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "BeebAsm build scripts"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-restoration",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source collection",
+      "enhanced distribution"
+    ],
+    "last_activity": "2026-09-21",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "notes": "Buildable BBC Micro collection integrating documented Elite variants behind a source-built menu. It emits DSD/SSD images and explicitly requires 16 KiB sideways RAM; it is separate from the BBC Master Elite Compendium already tracked."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "dormant",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "manual annotation",
+      "ROM cross-reference analysis"
+    ],
+    "tags": [
+      "TRS-80",
+      "Z80",
+      "ROM",
+      "BASIC"
+    ],
+    "id": "trs80-level1-rom-disassembly",
+    "title": "TRS-80 Level I ROM — annotated Z80 disassembly",
+    "upstream_name": "TRS-80 Level I ROM Disassembly",
+    "display_title": "TRS-80 Level I ROM — annotated Z80 disassembly",
+    "subjects": [
+      "TRS-80 Level I BASIC ROM"
+    ],
+    "repo": "https://github.com/andyv/level1",
+    "source_platforms": [
+      "TRS-80 Model I"
+    ],
+    "target_platforms": [],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Z80 machine code",
+      "4 KiB ROM"
+    ],
+    "reconstructed_languages": [
+      "annotated Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "annotated ROM disassembly"
+    ],
+    "last_activity": "2018-02-23",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "notes": "Annotated disassembly of the TRS-80 Model I Level I 4 KiB ROM. The README and source identify Z80 code; no reassembly or byte-identity claim was found."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "in progress",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "ROM disassembly",
+      "symbol and comment reconstruction",
+      "emulator and hardware testing"
+    ],
+    "tags": [
+      "TRS-80",
+      "Model 102",
+      "ROM",
+      "VirtualT"
+    ],
+    "id": "trs80-model102-rom-disassembly",
+    "title": "TRS-80 Model 102 ROM — documented source reconstruction",
+    "upstream_name": "RomT102Disassembly",
+    "display_title": "TRS-80 Model 102 ROM — documented source reconstruction",
+    "subjects": [
+      "TRS-80 Model 102 system ROM"
+    ],
+    "repo": "https://github.com/eriktier/RomT102Disassembly",
+    "source_platforms": [
+      "TRS-80 Model 102"
+    ],
+    "target_platforms": [
+      "TRS-80 Model 102"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "system ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "documented assembly",
+      "Intel HEX"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom",
+      "system-software"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "ROM source reconstruction"
+    ],
+    "last_activity": "2026-02-09",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "notes": "Documented reconstruction of the TRS-80 Model 102 system ROM, with assembly, listing and Intel HEX artifacts. The stated goal is an identical assembled OS ROM tested in VirtualT and on real Model 102/REX hardware; the checked documentation does not establish that identity has been achieved or explicitly name the processor architecture."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "playable fan hack",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "disassembly-derived patching",
+      "video timing modification",
+      "real-hardware testing"
+    ],
+    "tags": [
+      "game",
+      "Sharp X68000",
+      "68000",
+      "15 kHz",
+      "fan hack"
+    ],
+    "id": "akumajou-dracula-x68000-15khz",
+    "title": "Akumajou Dracula — X68000 15 kHz display hack",
+    "upstream_name": "Dracula_X68K_15KHz",
+    "display_title": "Akumajou Dracula — X68000 15 kHz display hack",
+    "subjects": [
+      "Akumajou Dracula"
+    ],
+    "repo": "https://github.com/MP2E/Dracula_X68K_15KHz",
+    "source_platforms": [
+      "Sharp X68000"
+    ],
+    "target_platforms": [
+      "Sharp X68000"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "15 kHz X68000 build",
+        "platform": "Sharp X68000",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68000",
+        "notes": "Requires the original game files; tested on a real Sharp X68000 Compact with 15 kHz output. No RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/MP2E/Dracula_X68K_15KHz/blob/master/README.md",
+          "https://github.com/MP2E/Dracula_X68K_15KHz/blob/master/DRA.s"
+        ]
+      }
+    ],
+    "source_language": [
+      "m68000 machine code"
+    ],
+    "reconstructed_languages": [
+      "m68000 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "fan conversion",
+      "display-mode hack"
+    ],
+    "last_activity": "2026-07-27",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": false
+    },
+    "notes": "Fan-made 15 kHz display conversion for the original X68000 Akumajou Dracula, generated from a source disassembly and built with the documented run68x assembler/linker flow. It requires user-supplied original game files and has been tested on real X68000 Compact hardware; it is not described as an original-source restoration."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "dormant",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Ghidra analysis",
+      "ROM annotation"
+    ],
+    "tags": [
+      "Sharp X68000",
+      "IPL",
+      "ROM",
+      "Ghidra"
+    ],
+    "id": "x68000-xvi-ipl-ghidra",
+    "title": "Sharp X68000 XVI IPL — Ghidra analysis",
+    "upstream_name": "x68k-xvi-ipl-ghidra",
+    "display_title": "Sharp X68000 XVI IPL — Ghidra analysis",
+    "subjects": [
+      "Sharp X68000 XVI IPL ROM"
+    ],
+    "repo": "https://github.com/tdaede/x68k-xvi-ipl-ghidra",
+    "source_platforms": [
+      "Sharp X68000 XVI"
+    ],
+    "target_platforms": [],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "IPL ROM binary"
+    ],
+    "reconstructed_languages": [
+      "Ghidra project",
+      "analysis database"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "disassembly"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "firmware analysis"
+    ],
+    "last_activity": "2020-09-11",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "notes": "Ghidra project and ROM data for analysis of the Sharp X68000 XVI IPL. The README identifies the firmware and public-domain publication context but does not explicitly state an exact processor architecture, so none is inferred from the platform name."
+  },
+  {
+    "re_started": null,
+    "last_checked": "2026-09-29",
+    "status": "active",
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "archive parsing",
+      "executable decryption",
+      "LZSS decompression",
+      "resource extraction"
+    ],
+    "tags": [
+      "PC-98",
+      "DOS",
+      "FM Towns",
+      "Sharp X68000",
+      "game data"
+    ],
+    "id": "extractors-decoders-valleybell",
+    "title": "Extractors and Decoders — multi-platform game archive tools",
+    "upstream_name": "ExtractorsDecoders",
+    "display_title": "Extractors and Decoders — multi-platform game archive tools",
+    "subjects": [],
+    "repo": "https://github.com/ValleyBell/ExtractorsDecoders",
+    "source_platforms": [
+      "PC-98",
+      "DOS",
+      "FM Towns",
+      "Sharp X68000",
+      "J2ME"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "game archives",
+      "compressed data",
+      "encrypted executables"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "CMake"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "binary-analysis",
+      "asset-tool"
+    ],
+    "types": [
+      "archive extractor",
+      "decoder",
+      "format analysis tools"
+    ],
+    "last_activity": "2026-05-03",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "notes": "Coherent C/CMake suite for extracting, decoding and decrypting game-specific archives and executables across PC-98, DOS, FM Towns, Sharp X68000, Korean PC and J2ME titles. The exact input executable CPUs and minimum host hardware are not stated consistently enough to infer CPU metadata."
   }
 ]
