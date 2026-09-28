@@ -1,0 +1,44 @@
+# Fifteenth discovery intake: next 30 leads
+
+Reviewed the next fixed 30 entries in the saved ranked queue on 2026-09-29. Checked repository metadata, READMEs, root inventories, selected source files and existing catalogue coverage. The results include six reference/source leads and one direct parent repository not among the original 30. No binary, build, hardware protocol or runtime claim was independently reproduced.
+
+**Result:** 20 projects from the queue and one related core emulator project, six reviewed reference sources, one known-project duplicate and three exclusions. All 30 URLs leave the queue; the queue count at this point should be reconciled again after the scheduled collector runs.
+
+| Rank | Lead | Outcome | Evidence and boundary |
+| ---: | --- | --- | --- |
+| 1–2 | [Monty Mole](https://github.com/Ritchie333/monty); [Exolon](https://github.com/rusarh/exolon-esl) | Two projects | Spectrum game disassemblies with assembly/build artifacts. Exolon credits Sergey Erokhin’s earlier Bitbucket work; no claim that this mirror originated it. |
+| 3 | [Athena Next](https://github.com/rygelda16th/athena-next) | Project | Original 128K game reassembled from user-supplied data and enhanced for Spectrum Next with a recorded playthrough oracle; E7 progress and unchanged logic are upstream reports. |
+| 4 | [Castle Master II](https://github.com/santiontanon/castlemaster2-disassembly) | Project | ZX Spectrum original and annotated Freescape game and loader listings, with MDL-assisted loader analysis; not a CPC disassembly. |
+| 5 | [Deathchase Go](https://github.com/SeamusWaldron/deathchase) | Project | Engine source and frontend derived from credited Ritchie Swann disassembly; README calls it pre-development and credits Claude. Source inspection found a substantive engine, but fidelity remains unverified. |
+| 6 | [Spectrum ROM](https://github.com/skoolkid/rom) | Project | SkoolKit 48K ROM source and generated assembly/HTML, distinct from the tracked SkoolKit tool suite. |
+| 7 | [Sim City Z80](https://github.com/suborb/simcity_z80) | Project | Work-in-progress Spectrum disassembly examining UI/simulation split; original Z88 porting goal remains unproven. |
+| 8 | [inSpeccytor](https://github.com/Willowrod/inSpeccytor) | Project | Swift/macOS Spectrum memory disassembler with Z80 decoder, UI and file-format source despite sparse README. |
+| 9 | [Chronos music engine](https://github.com/ZoomTen/chronos-zxbeeper) | Project | ZX beeper subsystem disassembly, assembly build and song data; scope is engine, not whole game. |
+| 10 | [ZX Spectrum Vault ROM listings](https://github.com/ZXSpectrumVault/rom-disassemblies) | Source | Credited compilation of third-party Sinclair ROM disassemblies across ZX80/ZX81/Spectrum models; useful reference, not its own newly performed analysis. |
+| 11 | [C64 magazine type-ins](https://github.com/xopowoparvo/C64-type-in-programs) | Project | OCR restoration of MLX and BASIC listings with JavaScript checksum checking, output variants and VICE test notes. |
+| 12–13 | [CDTV Brick](https://github.com/Korinel/Amiga-CDTV-Brick); [BLE continuation](https://github.com/Korinel/Amiga-CDTV-Brick-BLE) | Two sources | Pico recreations of CDTV IR joystick input, the second adding experimental mouse support. Useful hardware references tied to tracked U75 firmware research; no software target category forced. |
+| 14–15 | [CDTV IR keyboard](https://github.com/Korinel/Amiga-CDTV-IR-Keyboard); [PS/2 trackball](https://github.com/Korinel/Amiga-CDTV-IR-Trackball) | Project; source | Keyboard protocol framing was found by U75 ROM analysis and has a separate transmitter demo. The trackball is an IR hardware adapter without separate ROM analysis. |
+| 16–17 | [AtariStudio](https://github.com/atariki/AtariStudio); [Star Raiders](https://github.com/sidneycadot/Atari8bit_StarRaiders) | Two projects | Atari **8-bit** XEX/6502 analysis toolkit and a separate Atari 8-bit game listing; both surfaced under an Atari ST query. |
+| 18 | [SimCoupe](https://github.com/simonowen/simcoupe) | Project | SAM Coupé emulator, derived from Allan Skillman’s earlier version; CPC was only the code-search route. |
+| 19–20 | [6502.Net](https://github.com/informedcitizenry/6502.Net); [z88dk](https://github.com/z88dk/z88dk) | Two projects | Multi-CPU macro assembler and Z80-family development kit respectively; no particular CPC game is analyzed. |
+| 21 | [Ritchie333/wally](https://github.com/Ritchie333/wally) | Duplicate | Already tracked as Everyone’s A Wally Spectrum; its preferred project URL is the published disassembly site. |
+| 22 | [kyz/adventofcode](https://github.com/kyz/adventofcode) | Excluded | Advent of Code solutions, unrelated to the tracker scope. |
+| 23 | [lha.js](https://github.com/kyz/lha.js) | Project | Browser LhA/LZH unpacker with a format API and fixture; README explicitly identifies the format’s Aminet/Amiga use. |
+| 24 | [libmspack](https://github.com/kyz/libmspack) | Excluded | CAB/CHM/HLP and other Microsoft compression formats, not the Amiga LhA decoder. |
+| 25 | [Tetracorp research site](https://github.com/tetracorp/tetracorp.github.io) | Source | Articles and tool index on classic-game research. A specific FS-UAE Lua patch is already tracked from this repository. |
+| 26 | [Crunch-Mania fixtures](https://github.com/bitplane/crunch-mania-test-data) | Source | Sample corpus for the separately tracked Crunch-Mania format library. |
+| 27 | [Level9](https://github.com/DavidKinder/Level9) | Project | Level 9 A-Code interpreter and historical file scanner, including Spectrum snapshots and graphics variants; credits Glen Summers and contributors. |
+| 28 | [chips-test](https://github.com/floooh/chips-test) | Project; linked core | Runnable example emulators and validation for [floooh/chips](https://github.com/floooh/chips), an untracked C-header chip/system emulator library. Added the latter as a separate core project. |
+| 29 | [Gargoyle](https://github.com/garglk/garglk) | Project | Multi-format interactive-fiction player bundling established interpreters and UI/release tooling. |
+| 30 | [kaxap/arl](https://github.com/kaxap/arl) | Excluded | General programming-language popular-repository lists. |
+
+## Programmatic observations
+
+| Observation | Next bounded technique | Limit |
+| --- | --- | --- |
+| Three code/search results named CPC or Atari ST but concerned SAM Coupé, generic assemblers, or Atari 8-bit binaries. | Retain inexpensive query/title relevance only for ranking, then extract analyzed platform from repository README/source cues and flag disagreements. | Do not discard mismatches: AtariStudio and SimCoupe are valuable projects on their actual systems. |
+| The `chips-test` README names a separate core library; Crunch-Mania fixtures likewise point to an existing parser. | Screen outgoing repository roots against the catalogue during README intake and queue untracked, clearly described core repositories; classify data-only companions as sources. | A linked dependency is not automatically a project; inspect actual implementation and relationship. |
+| A site with multiple research posts already has one narrowly tracked tool, while a multi-ROM source repository compiles older authors’ work. | Distinguish reference/source coverage from new project work by root inventory and original-author credits. Attach valuable source nodes without duplicating a project record. | Original contribution can live in a subset; collection labels alone do not settle ownership. |
+| Four CDTV repositories from one profile are related but implement joystick, BLE mouse, keyboard and PS/2 trackball functions. | Compare shared protocol, predecessor attribution and distinct source/behavior. Record the U75-ROM-derived keyboard research as a project and the three hardware-only adapters as reviewed sources. The existing `--max-per-source` view can diversify a preview without dropping siblings. | Same owner and platform do not make implementation duplicates. A future hardware-interface catalogue category would need its own explicit scope and UI; hardware operation was reported upstream only. |
+| A terse README concealed a full Swift disassembler, while a detailed Deathchase README called itself pre-development despite substantial Go engine code. | Use root inventory and bounded source-file checks before assigning depth or exclusion; descriptions are routing hints. | File size alone does not establish correctness or completion. |
+| Platform-wide ROM disassemblies, a game music engine and an OCR type-in collection span very different outputs. | Capture artifact kind and provenance before CPU/category assignment; a subsystem and printed-listing restoration deserve explicit scope. | Do not infer runnable whole games from component source or exactness from the presence of a build script. |

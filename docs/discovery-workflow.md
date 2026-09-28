@@ -85,6 +85,8 @@ For a queued `tree/branch/path` returning 404, preflight can suggest an `alterna
 
 Repository search recipes now request `fork:false`, in addition to discarding any fork flag found in returned metadata. This keeps fork-heavy first pages from consuming the result budget. If an external search adapter returns repository names without descriptions, enrich eligible hits with primary repository descriptions before ranking. The [fourteenth 30 review](discovery-intake-fourteenth-30-2026-09-29.md) compares fork-heavy searches and records site mirrors, predecessor attribution and a genuine MSX project returned by a Spectrum query.
 
+The [fifteenth 30 review](discovery-intake-fifteenth-30-2026-09-29.md) records Atari 8-bit and SAM Coupé projects surfaced by other-platform searches, and the relationship among a core emulator library, runnable examples, and test fixtures. Screen linked parent repositories and inspect their implementation before deciding whether to add a project, a source, or a duplicate.
+
 ## Preview and apply
 
 ```sh
