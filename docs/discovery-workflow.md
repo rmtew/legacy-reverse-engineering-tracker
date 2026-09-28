@@ -77,6 +77,8 @@ Assign the source platform from the binary, media, or data actually analyzed. A 
 
 Use `duplicate` for a continuation or mirror already represented by the same research lineage; link the existing project. Use `excluded` when a candidate contains only unanalysed binaries/assets, merely converts somebody else's analysis, or is an ordinary port unrelated to the catalogue's recovery and tooling scope. Use `deferred` only when a specific unresolved fact would change whether or how a distinct record can be made. Name the file or missing evidence and the next check in the reason. For collections, decide separately for each reviewed component and defer only the components still unexamined. Lack of a complete README or playability by itself is not a deferral reason.
 
+For linked README dependency lists, `python tools/discovery_intake.py --list 30 --max-per-source 4` caps the number displayed from one source (profile or repository), then fills spare slots in rank order. It keeps every skipped URL in the saved queue and makes no eligibility decision. The [eleventh 30 review](discovery-intake-eleventh-30-2026-09-29.md) records the motivating case.
+
 ## Preview and apply
 
 ```sh

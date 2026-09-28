@@ -311,23 +311,31 @@ def format_review_entry(key: str, entry: dict, index: CandidateIndex) -> str:
     return line
 
 
-def review_entries(queue: dict, limit: int, max_per_profile: int | None = None) -> list[tuple[str, dict]]:
+def review_entries(queue: dict, limit: int, max_per_profile: int | None = None,
+                   max_per_source: int | None = None) -> list[tuple[str, dict]]:
     """Show a representative review slice without changing stored queue order.
 
     A profile can yield many sibling repositories at once. Prefer other leads
     after its cap, then fill any spare slots from the skipped siblings.
     """
-    chosen, skipped, counts = [], [], Counter()
+    chosen, skipped, counts, source_counts = [], [], Counter(), Counter()
     for key, entry in queue.items():
         profiles = [o["origin"] for o in entry.get("origins", [])
                     if o["route"] == "source-github-profile"]
         profile = profiles[0] if profiles else None
-        if max_per_profile is not None and profile and counts[profile] >= max_per_profile:
+        sources = [o["origin"] for o in entry.get("origins", [])
+                   if o["route"].startswith("source-")]
+        available = next((s for s in sources if source_counts[s] < max_per_source), None) \
+            if max_per_source is not None else None
+        if (max_per_profile is not None and profile and counts[profile] >= max_per_profile or
+                max_per_source is not None and sources and available is None):
             skipped.append((key, entry))
             continue
         chosen.append((key, entry))
         if profile:
             counts[profile] += 1
+        if available:
+            source_counts[available] += 1
         if len(chosen) >= limit:
             break
     if len(chosen) < limit:
@@ -389,17 +397,21 @@ def main() -> None:
     parser.add_argument("--list", type=int, metavar="N", help="Show N highest-ranked queued leads without collecting")
     parser.add_argument("--max-per-profile", type=int, metavar="N",
                         help="With --list, diversify source-profile siblings; fill unused slots in rank order")
+    parser.add_argument("--max-per-source", type=int, metavar="N",
+                        help="With --list, cap leads per linked source (including profiles); fill unused slots in rank order")
     parser.add_argument("--merge-state", type=Path, help="Merge a completed run after main advances")
     parser.add_argument("--output", type=Path, help="Write state to this path (default: state/discovery-intake.json)")
     args = parser.parse_args()
     if args.max_per_profile is not None and (args.list is None or args.max_per_profile < 1):
         parser.error("--max-per-profile requires --list and a positive limit")
+    if args.max_per_source is not None and (args.list is None or args.max_per_source < 1):
+        parser.error("--max-per-source requires --list and a positive limit")
     path = args.root / "state" / "discovery-intake.json"
     state = read_state(path)
     index = CandidateIndex(args.root / "data")
     if args.list is not None:
         rank_queue(state, index)
-        for key, entry in review_entries(state["queue"], args.list, args.max_per_profile):
+        for key, entry in review_entries(state["queue"], args.list, args.max_per_profile, args.max_per_source):
             print(format_review_entry(key, entry, index))
         return
     if args.merge_state:

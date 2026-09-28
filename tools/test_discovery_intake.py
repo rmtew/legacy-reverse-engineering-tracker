@@ -185,6 +185,21 @@ class IntakeTests(unittest.TestCase):
         self.assertEqual(len(review_entries(queue, 8, max_per_profile=2)), 8)
         self.assertEqual(len(queue), 8)
 
+    def test_review_slice_caps_linked_repository_source_and_fills_spare_slots(self):
+        queue = {f"https://github.com/dependency/repo{i}": {
+            "origins": [{"route": "source-github-repository", "origin": "tool-readme"}]}
+            for i in range(5)}
+        queue.update({f"https://github.com/independent/repo{i}": {
+            "origins": [{"route": "github-repositories", "origin": "amiga-tools"}]}
+            for i in range(2)})
+        selected = [key for key, _ in review_entries(queue, 4, max_per_source=2)]
+        self.assertEqual(selected, ["https://github.com/dependency/repo0",
+                                    "https://github.com/dependency/repo1",
+                                    "https://github.com/independent/repo0",
+                                    "https://github.com/independent/repo1"])
+        self.assertEqual(len(review_entries(queue, 7, max_per_source=2)), 7)
+        self.assertEqual(len(queue), 7)
+
 
 if __name__ == "__main__":
     unittest.main()
