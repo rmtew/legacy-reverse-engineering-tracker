@@ -65,6 +65,27 @@ class TriageTests(unittest.TestCase):
                          ['https://github.com/parent/original'])
         self.assertEqual(report['leads'][0]['related_repository_count'], 1)
 
+    def test_readme_screens_all_links_locally_beyond_display_cap(self):
+        class ManyLinksClient(Client):
+            def get(self, url):
+                if url.endswith('/contents'):
+                    return super().get(url)
+                self.count += 1
+                body = ' '.join(f'https://github.com/example/project{i}' for i in range(22))
+                return {'content': base64.b64encode(body.encode()).decode(), 'html_url': url}
+
+        class Index:
+            def screen(self, url):
+                return {'status': 'new' if url.endswith('project21') else 'tracked_project'}
+
+        report = triage([('https://github.com/example/repo', {})], ManyLinksClient(), 1, Index())
+        lead = report['leads'][0]
+        self.assertEqual(report['requests'], 2)
+        self.assertEqual(len(lead['related_repositories']), 20)
+        self.assertEqual(lead['related_repository_count'], 22)
+        self.assertEqual(lead['related_status_counts'], {'new': 1, 'tracked_project': 21})
+        self.assertEqual(lead['related_new_repositories'], ['https://github.com/example/project21'])
+
     def test_prefers_english_readme_and_surfaces_workbooks(self):
         row = inventory([{'name': n, 'type': 'file'} for n in
                          ('README.de.md', 'README.md', 'a2-hires-lab.xlsm')])

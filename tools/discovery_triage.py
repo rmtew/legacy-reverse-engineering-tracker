@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+from collections import Counter
 from datetime import datetime, timezone
 import json
 import os
@@ -16,7 +17,7 @@ import re
 from urllib.parse import quote, urlsplit
 
 from discovery_intake import HTTPClient, LinkParser, STATE, github_candidate
-from screen_discovery_candidates import github_repository_key
+from screen_discovery_candidates import CandidateIndex, github_repository_key
 
 
 SOURCE_EXT = {".asm", ".s", ".6502", ".c", ".cpp", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
@@ -57,7 +58,16 @@ def inventory(items: list[dict]) -> dict:
     }
 
 
-def triage(queue: list, client: HTTPClient, limit: int) -> dict:
+def screen_links(row: dict, links: list[str], index: CandidateIndex | None, prefix: str) -> None:
+    """Screen every observed repository locally, including links beyond the display cap."""
+    if index is None:
+        return
+    results = [(link, index.screen(link)["status"]) for link in links]
+    row[prefix + "_status_counts"] = dict(sorted(Counter(status for _, status in results).items()))
+    row[prefix + "_new_repositories"] = [link for link, status in results if status == "new"][:20]
+
+
+def triage(queue: list, client: HTTPClient, limit: int, index: CandidateIndex | None = None) -> dict:
     leads = []
     for url, entry in queue[:limit]:
         parsed = urlsplit(url)
@@ -99,6 +109,7 @@ def triage(queue: list, client: HTTPClient, limit: int) -> dict:
                         seen.add(root.casefold())
                 row["related_repository_count"] = len(related)
                 row["related_repositories"] = related[:20]
+                screen_links(row, related, index, "related")
             elif row["landing_page_path"]:
                 parser = LinkParser()
                 parser.feed(body)
@@ -107,6 +118,7 @@ def triage(queue: list, client: HTTPClient, limit: int) -> dict:
                 row["landing_page_url"] = page.get("html_url")
                 row["outbound_repository_count"] = len(repositories)
                 row["outbound_repositories"] = repositories[:50]
+                screen_links(row, repositories, index, "outbound")
         except (RuntimeError, ValueError, KeyError, UnicodeError) as exc:
             row["error"] = str(exc)
             if client.count >= client.max_requests:
@@ -130,7 +142,7 @@ def main() -> None:
     data = json.loads(args.input.read_text(encoding="utf-8"))
     queue = list(data["queue"].items()) if isinstance(data, dict) else data
     client = HTTPClient(os.environ.get("GITHUB_TOKEN", ""), delay=0.5, max_requests=2 * args.limit)
-    report = triage(queue, client, args.limit)
+    report = triage(queue, client, args.limit, CandidateIndex(Path(__file__).resolve().parents[1] / "data"))
     content = json.dumps(report, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
