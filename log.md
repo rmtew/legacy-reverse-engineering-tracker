@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-29 — Native-output CPU audit and active upstream review
+
+Resolved ten queued CPU areas from primary READMEs, source declarations and build scripts. **xrick — Rick Dangerous reimplementation** now records its explicit IBM PC x86 and Atari ST 68k inputs plus current Windows x64/WebAssembly outputs. **Atari ST BIOS ROM comparative listings**, **Elite Compendium — BBC Master disc integration**, **Fuzzy's Space Golf — partial DOS resource decoding**, **ShortLine v1.1 — offset-annotated reconstructed port**, **Tube — reconstructed DOS Bullfrog game port**, **Zeliard — bit-perfect MASM reconstruction and web port**, and **Frontier: Elite II — Amiga renderer/audio reconstruction** now distinguish directly evidenced native/wasm outputs from undocumented portable-host architectures. Clyde and Rayman remain analysis/disassembly outputs, so their native target CPU is explicitly not applicable rather than guessed. Fuzzy's mixed original-game and planned-port hardware discussion remains a bounded needs-research item.
+
+Primary Amiga package documentation also establishes Frontier's 68040+, 8 MB, RTG and AmigaOS 3.x/AROS floor. **NESRecomp — 6502-to-C static recompilation framework** now records merged Famicom Disk System LLE/HLE support and its bounded synthetic-BIOS, multi-side and owner-ROM testing. **ZX Spectrum game disassemblies — reproducible SkoolKit archaeology** now spans nine subjects; Pentagram, Alien 8 and Nightshade bring the documented fully covered, byte-exact set to seven. xrick's linked knowledge base and Tube's linked Tube64 successor are retained as explicit discovery tasks pending independent-scope review.
+
+
 ## 2026-09-29 — Elite version graph, TRS-80/X68000 search and CPU audit
 
 Completed the queued Elite library-version review and added three distinct source-backed projects: **Elite — Apple II documented original sources**, **Elite — BBC Micro cassette documented original sources**, and **Elite Compendium — BBC Micro 16K sideways-RAM collection**. Each has an independent primary repository and build scope; the BBC Micro collection is kept separate from the already tracked BBC Master Compendium.

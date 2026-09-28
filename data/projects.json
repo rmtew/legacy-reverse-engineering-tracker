@@ -10830,12 +10830,19 @@
       "Atari STBook"
     ],
     "target_platforms": [
+      "Atari ST",
+      "Atari TT",
+      "Atari STBook",
       "analysis host"
     ],
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000",
+      "m68020",
+      "m68030"
+    ],
     "source_language": [
       "m68k binary"
     ],
@@ -10859,10 +10866,10 @@
     ],
     "re_started": null,
     "last_activity": "2021-07-30",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": null,
       "playable": null,
       "byte_exact": null
@@ -10878,7 +10885,7 @@
       "Atari STBook",
       "reverse engineering"
     ],
-    "notes": "Comparative annotated BIOS/XBIOS assembly listings for TOS 2.06, TOS 3.06 and the STBook ROM, plus STBook ROM disk and POWER.PRG analysis. The README says the listings integrate comments from available original source; they should not be mistaken for a wholly new byte-exact ROM reconstruction.",
+    "notes": "Comparative annotated BIOS/XBIOS assembly for TOS 2.06, TOS 3.06 and STBook ROM variants. The README says one source can compile all three variants, and the assembly explicitly identifies 68000, 68020 and 68030 execution paths; this is not presented as a wholly new byte-exact ROM reconstruction.",
     "github": {
       "repository": "sarnau/AtariSTRomListings",
       "created_at": "2017-05-23",
@@ -28987,7 +28994,9 @@
     "source_cpu": [
       "6502"
     ],
-    "target_cpu": null,
+    "target_cpu": [
+      "6502"
+    ],
     "source_language": [
       "6502 assembly"
     ],
@@ -29008,7 +29017,7 @@
     "types": [
       "BBC Master disc integration"
     ],
-    "notes": "A new BBC Master Elite compilation with menu and BeebAsm/oaknut disc build producing DSD and SSD images. Individual Elite programs are imported as branch-pinned submodules and largely tracked separately; menu-files includes a BBC BASIC menu. Credit Ian Bell, David Braben, Mark Moxon and upstream disassembly contributors, without multiplying the subprojects.",
+    "notes": "BBC Master Elite collection with a menu and BeebAsm/oaknut build producing DSD and SSD images. The repository explicitly integrates 6502 Second Processor and other 6502-family Elite programs as branch-pinned submodules; the exact BBC Master processor/RAM floor is not inferred from the platform name.",
     "tags": [
       "BBC Micro",
       "BBC Master"
@@ -29019,10 +29028,10 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-21",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": null,
       "playable": null,
       "byte_exact": null
@@ -34197,7 +34206,8 @@
     ],
     "target_platforms": [
       "Amiga RTG",
-      "SDL"
+      "SDL",
+      "Web"
     ],
     "source_cpu": [
       "m68000"
@@ -34214,7 +34224,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-01-05",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -34236,7 +34246,7 @@
       "renderer",
       "audio"
     ],
-    "notes": "C reconstruction of Frontier's renderer/audio plus model compiler/decompiler tooling; not a full-game reconstruction.",
+    "notes": "C reconstruction of Frontier's renderer/audio plus model compiler/decompiler tooling; not a full-game reconstruction. Amiga scripts explicitly compile for 68040, the Amiga package documents an 8 MB/RTG/AmigaOS 3.x floor, and a separate script emits wasm32.",
     "github": {
       "repository": "watsonmw/fe2-intro",
       "created_at": "2020-05-15",
@@ -34279,7 +34289,29 @@
       "subsystem-reconstruction",
       "reimplementation"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68040",
+      "WebAssembly"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Amiga RTG intro player",
+        "platform": "Amiga RTG",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68040",
+        "min_ram_kib": 8192,
+        "chipsets": [
+          "RTG 640x360x8"
+        ],
+        "os": "AmigaOS 3.x or AROS",
+        "notes": "Primary Amiga readme requires 68040 or better and warns that a real 68040 is too slow; tested in FS-UAE/WinUAE and on Vampire V4, with V1200 also reported working.",
+        "evidence": [
+          "https://github.com/watsonmw/fe2-intro/blob/master/scripts/amiga/readme.txt",
+          "https://github.com/watsonmw/fe2-intro/blob/master/scripts/build-amiga-gcc.sh"
+        ]
+      }
+    ]
   },
   {
     "id": "frontier-amiga-face-editor",
@@ -34661,7 +34693,9 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86"
+    ],
     "source_language": [
       "DOS resource files",
       "x86 machine code"
@@ -34683,7 +34717,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-03-21",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -34704,7 +34738,7 @@
       "DOS",
       "Fuzzy's Space Golf"
     ],
-    "notes": "README calls a full Ghidra-derived reimplementation a goal; current UTILS contain music player/converter, resource extractor and graphics format work. Do not report a completed decompilation or playable port.",
+    "notes": "Current scope is resource decoding and DOS utilities, not a completed decompilation or playable port. The checked-in DOS resource reader explicitly selects .286; README hardware discussion mixes original-executable findings with an unfinished reconstruction plan, so it is not promoted to a current-build runtime profile.",
     "github": {
       "repository": "mills32/Fuzzy-s-World-of-Miniature-Space-Golf-Decomp",
       "created_at": "2026-03-03",
@@ -54642,7 +54676,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-28",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -54670,19 +54704,22 @@
       "rollback netplay",
       "mapper-contract testing",
       "generated mapper catalog",
-      "bounded owner-ROM validation"
+      "bounded owner-ROM validation",
+      "Famicom Disk System cycle backend",
+      "FDS LLE BIOS execution",
+      "opt-in FDS HLE disk services"
     ],
     "tags": [
       "NES",
       "6502"
     ],
-    "notes": "Translates NES ROM 6502 machine code into C and provides a PPU/APU/mapper runner; generated C alone is not a playable game. The opt-in cycle-accurate compiler/runtime uses bounded interpreter fallback and trace-parity verification. Its 27 September generated catalog reports 57 of 458 known mapper IDs supported, covering 6,682 of 10,632 known dumps; every supported mapper has contract/fixture checks, while title validation is explicitly bounded rather than exhaustive. README describes Windows x64 as mature, macOS as experimental and Linux as less tested; no minimum host CPU/RAM is stated.",
+    "notes": "Translates NES/Famicom 6502 ROM code into C with a hardware runner. The cycle backend now supports Famicom Disk System images through LLE BIOS execution and an opt-in HLE tier for disk-ID requests, side changes and fast loading; synthetic-BIOS/multi-side tests and owner-ROM traces bound those claims. Generated C alone is not a playable game, and unsupported BIOS/disk routes may still fail closed.",
     "github": {
       "repository": "mstan/nesrecomp",
       "created_at": "2026-03-14",
       "pushed_at": "2026-09-28",
       "updated_at": "2026-09-28",
-      "checked_at": "2026-09-28",
+      "checked_at": "2026-09-29",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -63311,7 +63348,7 @@
     ],
     "re_started": null,
     "last_activity": "2019-07-29",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -63671,7 +63708,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-12-07",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -64232,7 +64269,10 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86-64",
+      "WebAssembly"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -64255,7 +64295,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-08",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -64275,7 +64315,7 @@
       "DOS",
       "ShortLine"
     ],
-    "notes": "The original branch preserves per-function offsets into the v1.1 DOS binary; main has an SDL2 C/C++ port with touch controls and changes. Do not treat the modern executable as a byte-exact DOS reassembly.",
+    "notes": "The original branch preserves per-function offsets into the v1.1 DOS binary; main is a playable SDL2 C/C++ port rather than a byte-exact DOS reassembly. Primary build instructions explicitly use Visual Studio's x64 tools and Emscripten/WebAssembly; other portable hosts are not assigned CPUs without output-specific evidence.",
     "github": {
       "repository": "konovalov-aleks/reSL",
       "created_at": "2024-04-28",
@@ -80058,12 +80098,19 @@
       "DOS",
       "Windows",
       "Linux",
-      "Web"
+      "Web",
+      "Allwinner V3s",
+      "TMS320C6745 DSP"
     ],
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86",
+      "WebAssembly",
+      "ARM Cortex-A7",
+      "TMS320C6745"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -80085,7 +80132,7 @@
     ],
     "re_started": null,
     "last_activity": "2021-08-28",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -80107,7 +80154,7 @@
       "Tube",
       "Bullfrog"
     ],
-    "notes": "Author reports a recreated Tube source tree compiled with OpenWatcom for DOS DPMI, plus 32-bit Windows/Linux and Emscripten. README cautions the port does not run as a 64-bit program; no byte-exact claim.",
+    "notes": "Recreated Tube source compiled for 32-bit DOS/Windows/Linux, Emscripten, ARM Cortex-A7/Allwinner V3s and TI TMS320C6745. README explicitly excludes 64-bit execution because of pointer/type assumptions and links Tube64 as the successor rewrite; no byte-exact claim.",
     "github": {
       "repository": "rep-stosw/tube-game-dos",
       "created_at": "2021-08-10",
@@ -85376,10 +85423,17 @@
     "target_platforms": [
       "Windows",
       "Linux",
-      "Amiga"
+      "Amiga",
+      "Web"
     ],
-    "source_cpu": [],
-    "target_cpu": null,
+    "source_cpu": [
+      "x86",
+      "m68k"
+    ],
+    "target_cpu": [
+      "x86-64",
+      "WebAssembly"
+    ],
     "source_language": [
       "machine-specific game binaries"
     ],
@@ -85397,22 +85451,23 @@
     "types": [
       "Rick Dangerous reimplementation"
     ],
-    "notes": "README says the PC and Atari versions of Rick Dangerous were carefully reverse engineered and recoded in C. Later SDL2/Emscripten maintenance does not alter the provenance; no byte-exact rebuild or specific original CPU is asserted.",
+    "notes": "README identifies the original IBM PC x86 and Atari ST 68k executables as the reverse-engineering inputs for the C reimplementation. The current build script produces Windows x64 and WebAssembly builds and runs PC/ST test paths; no byte-exact reconstruction or minimum host RAM is claimed.",
     "tags": [
       "DOS",
       "Atari ST"
     ],
     "techniques": [
-      "reimplementation"
+      "reimplementation",
+      "PC/ST behavioral parity testing"
     ],
     "re_started": null,
     "last_activity": "2026-09-28",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
       "byte_exact": null
     },
     "ai": {
@@ -85429,7 +85484,7 @@
       "created_at": "2015-09-30",
       "pushed_at": "2026-09-28",
       "updated_at": "2026-09-28",
-      "checked_at": "2026-09-28",
+      "checked_at": "2026-09-29",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -85729,7 +85784,10 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86",
+      "WebAssembly"
+    ],
     "source_language": [
       "x86 machine code",
       "SAR resources"
@@ -85757,7 +85815,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-20",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": true,
@@ -86209,6 +86267,9 @@
       "Manic Miner",
       "Fairlight",
       "Knight Lore",
+      "Pentagram",
+      "Alien 8",
+      "Nightshade",
       "The Hobbit",
       "Ant Attack"
     ],
@@ -86238,7 +86299,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-28",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-09-29",
     "status": "active",
     "build": {
       "compilable": true,
@@ -86266,7 +86327,8 @@
       "MCP/DAP-assisted debugging",
       "behavior-preserving source patch validation",
       "program-driven animation and sound capture",
-      "original-table room repacking"
+      "original-table room repacking",
+      "cross-title original-table room editing"
     ],
     "tags": [
       "ZX Spectrum",
@@ -86279,9 +86341,12 @@
       "The Hobbit",
       "Claude",
       "AI-assisted",
-      "Ant Attack"
+      "Ant Attack",
+      "Pentagram",
+      "Alien 8",
+      "Nightshade"
     ],
-    "notes": "Independent reproducible disassemblies of six ZX Spectrum games. Four are now documented as 100% covered: Atic Atac, Knight Lore, The Hobbit and Ant Attack; Knight Lore accounts for all 40,696 bytes and all 844 entries. Build scripts use owner-supplied media, generate source-level-debuggable snapshots and byte-compare reassembly. Knight Lore now also has an original-table room editor plus pages and generated media produced by running its own drawing, animation, sound, depth-sort and collision code.",
+    "notes": "Independent reproducible disassemblies of nine ZX Spectrum games. Seven are documented as 100% covered and byte-exactly reassembled: Atic Atac, Knight Lore, Pentagram, Alien 8, Nightshade, The Hobbit and Ant Attack. Builds require owner-supplied media; the original-table room editor now covers Knight Lore, Pentagram and Alien 8, while generated pages/media run the games' own routines.",
     "record_class": "subject",
     "target_kinds": [
       "game"
@@ -86299,7 +86364,7 @@
       "created_at": "2026-09-01",
       "pushed_at": "2026-09-28",
       "updated_at": "2026-09-28",
-      "checked_at": "2026-09-28",
+      "checked_at": "2026-09-29",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,

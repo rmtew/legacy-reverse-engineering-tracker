@@ -5617,8 +5617,8 @@
     },
     {
       "project_id": "frontier-renderer-amiga",
-      "last_reviewed": "2026-09-23",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -5635,16 +5635,18 @@
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Primary Amiga build scripts use -m68040/-cpu=68040 and the web build explicitly targets wasm32."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Amiga package readme explicitly requires AmigaOS 3.x or AROS, 68040+, 8 MB RAM and 640x360x8 RTG; it cautions that a real 68040 is too slow."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -5652,15 +5654,12 @@
           "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README identifies this as a partial renderer/audio reconstruction consuming the official Frontier executable, not a full-game port."
         }
       },
-      "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "frontier-vm-atari-st",
@@ -16939,23 +16938,23 @@
     },
     {
       "project_id": "zx-spectrum-disassemblies-jonsole",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-09-29",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Current README lists six games; Ant Attack was added to subjects and tags."
+          "checked_at": "2026-09-29",
+          "note": "Current README lists nine distinct game disassemblies; Pentagram, Alien 8 and Nightshade are added to subjects."
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Repository remains a multi-title disassembly/source-reconstruction/software-archaeology project."
+          "checked_at": "2026-09-29",
+          "note": "Repository remains a multi-title reproducible disassembly, source-reconstruction and software-archaeology project."
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "All six documented subjects are ZX Spectrum Z80 programs."
+          "checked_at": "2026-09-29",
+          "note": "All nine documented subjects are ZX Spectrum Z80 programs."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -16964,13 +16963,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "Current README documents Knight Lore at 40,696/40,696 bytes with all 844 entries described, and documents the original-table room editor plus generated animation/sound/how-it-works pages: https://github.com/jonsole/zx-spectrum-disassemblies/blob/master/README.md"
+          "checked_at": "2026-09-29",
+          "note": "README documents Pentagram, Alien 8 and Nightshade at full byte coverage with byte-exact reassembly, bringing the documented fully covered set to seven titles."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-25",
-          "note": "README requires a 48K ROM for the build/debug workflow, but does not state a minimum runnable hardware profile that can safely be applied across all six games."
+          "checked_at": "2026-09-29",
+          "note": "Build/debug documentation names required media and tools but no safe common minimum hardware profile across all nine games."
         },
         "ai": {
           "state": "reviewed",
@@ -16979,8 +16978,8 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "README explicitly credits Pobtastic for Atic Atac graphics/technique and tcdev plus Michael R. Cook for the Knight Lore code map; the Hobbit VS Code extension also cites Wilderland."
+          "checked_at": "2026-09-29",
+          "note": "README preserves title-specific credits and now applies the original-table room editor across Knight Lore, Pentagram and Alien 8."
         }
       },
       "next_actions": []
@@ -21721,8 +21720,8 @@
     },
     {
       "project_id": "atari-st-rom-listings-sarnau",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -21737,30 +21736,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "The shared ROM source explicitly identifies 68000, 68020 and 68030 CPU paths while selecting TOS 2.06, TOS 3.06 and STBook builds."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README says the shared source can compile into three TOS ROM variants; no byte-identity claim is inferred."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Reviewed README and assembly do not state a complete minimum RAM/ROM profile for each generated variant."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README states that comments from available original sources are incorporated into the comparative listings."
         }
       },
-      "next_actions": [
-        "Verify specific target hardware and build status from executable evidence",
-        "Check upstream source and disassembly provenance"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "ida-atari-st-gemdos-loader",
@@ -30047,8 +30047,8 @@
     },
     {
       "project_id": "dos-zeliard-masm",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -30063,29 +30063,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README explicitly documents bit-perfect MASM DOS binaries and a C engine compiled to WebAssembly."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Primary documentation states DOS and browser outputs but no minimum runnable CPU/RAM profile."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Repository contains explicit Claude project instructions already represented in the project AI metadata."
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-09-29",
+          "note": "README distinguishes the canonical MASM reconstruction from its derived portable C/WebAssembly engine; the separate awkto study remains independently tracked."
         }
       },
-      "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "dos-pacwars-decomp",
@@ -30131,8 +30133,8 @@
     },
     {
       "project_id": "dos-shortline-resl",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -30147,29 +30149,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README explicitly documents an x64 Visual Studio build and an Emscripten/WebAssembly build."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Primary build documentation states tool prerequisites but no minimum runnable host CPU or RAM."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "No explicit AI-use evidence was found in the reviewed primary files."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README distinguishes the offset-annotated original branch from the changed cross-platform main branch."
         }
       },
-      "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "dos-supaplex-binary-patches",
@@ -30215,8 +30219,8 @@
     },
     {
       "project_id": "dos-rayman-disasm",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -30231,34 +30235,37 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-29",
+          "note": "The repository's output is an unpacked/annotated disassembly and analysis tree, not a native rebuilt executable or port."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Reviewed README/tree does not claim a working reassembly or reconstructed executable."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-29",
+          "note": "No runnable reconstructed program is currently claimed, so a minimum output-hardware profile is not applicable."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "No explicit AI-use evidence was found in the reviewed primary files."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Primary documentation presents this as a standalone PMODE/W-unpacking and Rayman executable-disassembly effort."
         }
       },
-      "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "dos-clyde-re",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -30273,29 +30280,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-29",
+          "note": "Current outputs are an executable disassembly and Python/C analysis extractors, not a native reconstructed game or fixed-CPU port."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Reviewed repository does not state minimum host hardware for the analysis utilities."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "No explicit AI-use evidence was found in the reviewed primary files."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Repository is a standalone partial analysis of Clyde's Adventure; no predecessor/successor project is claimed in its primary documentation."
         }
       },
-      "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "dos-magic-candle-analysis",
@@ -30341,7 +30350,7 @@
     },
     {
       "project_id": "dos-fuzzy-golf-analysis",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-09-29",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -30357,8 +30366,9 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "The current UTILS/readres_.asm DOS utility explicitly selects the 80286 instruction set with .286."
         },
         "build": {
           "state": "reviewed",
@@ -30366,19 +30376,22 @@
         },
         "runtime_profiles": {
           "state": "needs-research",
-          "checked_at": null
+          "checked_at": "2026-09-29",
+          "note": "README mentions 286/386 and 2/4 MB configurations while discussing the original executable and unfinished reconstruction; applicability to a current output is ambiguous."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "No explicit AI-use evidence was found in the reviewed primary files."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Primary README describes this repository's own Ghidra/resource-decoding work and does not identify a separate predecessor port."
         }
       },
       "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+        "Clarify which documented 286/386 and RAM requirements apply to a currently runnable reconstructed output rather than the original executable or planned port."
       ]
     },
     {
@@ -30593,8 +30606,8 @@
     },
     {
       "project_id": "dos-tube-reconstruction",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -30609,29 +30622,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README explicitly lists 32-bit MinGW/GCC/OpenWatcom, Emscripten, Cortex-A7 Allwinner V3s and TI C6x TMS320C6745 toolchains."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "The 32-bit-only restriction is explicit, but no complete minimum CPU/RAM profile is stated for the runnable builds."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "No explicit AI-use evidence was found in the reviewed primary files."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README explicitly identifies rep-stosw/tube64 as the 64-bit successor; it is queued as a separate candidate."
         }
       },
-      "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "dos-rigelengine",
@@ -31218,7 +31233,7 @@
     },
     {
       "project_id": "nesrecomp-static-recompiler",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-09-29",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31239,13 +31254,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "The generated mapper catalog reports 57/458 IDs and 6,682/10,632 known dumps, with contract/fixture checks for each supported mapper and explicitly bounded owner-title routes rather than exhaustive validation: https://github.com/mstan/nesrecomp/blob/master/runner/cyc/MAPPER_CATALOG.md"
+          "checked_at": "2026-09-29",
+          "note": "Merged FDS support includes cycle-backend LLE BIOS execution, opt-in HLE disk services and synthetic-BIOS/multi-side regression tests; validation remains bounded rather than exhaustive."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-26",
-          "note": "Primary README distinguishes mature Windows x64, experimental macOS and less-tested Linux support, but states no complete minimum host CPU/RAM profile; none is inferred."
+          "checked_at": "2026-09-29",
+          "note": "Current primary documentation still gives no complete minimum host CPU/RAM profile."
         },
         "ai": {
           "state": "reviewed",
@@ -31254,7 +31269,8 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-09-29",
+          "note": "FDS support is integrated into NESRecomp's existing compiler/runner rather than treated as a separate project."
         }
       },
       "next_actions": []
@@ -39356,8 +39372,8 @@
     },
     {
       "project_id": "xrick-rick-dangerous-reimplementation",
-      "last_reviewed": "2026-09-28",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -39370,39 +39386,37 @@
           "note": "Subject classification follows the inspected scope."
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "README names PC and Atari game versions but exact original executable CPU not audited."
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Current README explicitly names the IBM PC x86 and Atari ST 68k originals."
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": null,
-          "note": "No verified minimum runnable CPU for the contemporary host/tool."
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Current build.sh produces Windows x64 and wasm32/WebAssembly outputs."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Source and upstream instructions observed; no independent build or run."
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Primary build script and recent commits document one-command Windows x64/Web builds and PC/ST test paths; no independent local build was claimed."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Representative formats, hardware models and media revisions need independent checks."
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Primary README/build documentation gives no minimum host CPU or RAM for a complete runtime profile."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established from inspected source."
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "Current commits retain explicit Claude co-author evidence recorded by the activity scan."
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Distinct scope evidenced in README and relevant files; no copied upstream program analysis claimed."
+          "checked_at": "2026-09-29",
+          "note": "README links the separate xrick-kb knowledge base; its independent catalogue scope remains queued for review."
         }
       },
-      "next_actions": [
-        "Verify one representative sample and document supported version and output."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "amigaports-m68k-amigaos-gcc",
@@ -40056,8 +40070,8 @@
     },
     {
       "project_id": "elite-compendium-bbc-master",
-      "last_reviewed": "2026-09-28",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-29",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -40075,34 +40089,32 @@
           "note": "Original CPU is explicit in the inspected listing, source layout or emulator CPU code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Specific original hardware CPU minimum was not independently verified."
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README and menu/source files explicitly identify integrated 6502 programs and 6502 Second Processor output."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No independent build or byte/ROM comparison in this batch."
+          "state": "reviewed",
+          "checked_at": "2026-09-29",
+          "note": "README documents BeebAsm/oaknut generation of one DSD and two SSD images from the pinned component sources."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Representative media and host variants need verification."
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "Primary repository identifies BBC Master 128 scope but does not state a complete minimum CPU/RAM profile; none is inferred from that machine name."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established for the reviewed software."
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-29",
+          "note": "No explicit AI-use evidence was found in the reviewed primary README/source material."
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Original build/menu and disc integration around branch-pinned Elite submodules; credit the already tracked individual programs and authors."
+          "checked_at": "2026-09-29",
+          "note": "README enumerates the branch-pinned Elite subprojects and distinguishes reconstructed, preserved-source and original menu/conversion components."
         }
       },
-      "next_actions": [
-        "Verify a representative build or format and check stated compatibility on real input."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "amiblitz3-amiga-basic-compiler",
