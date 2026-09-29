@@ -26756,7 +26756,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-30",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -26784,7 +26784,7 @@
       "created_at": "2026-07-05",
       "pushed_at": "2026-08-30",
       "updated_at": "2026-09-18",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -27175,7 +27175,11 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86",
+      "x86-64",
+      "arm64"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -27198,7 +27202,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-07",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -27218,13 +27222,13 @@
       "DOS",
       "Carmageddon"
     ],
-    "notes": "Buildable native Carmageddon reimplementation that replaces original assembly with C function by function. Historical Watcom symbols exist but README says they do not match released code positions. Completeness and playable parity remain unverified.",
+    "notes": "Buildable native Carmageddon reimplementation that replaces original assembly with C function by function. Historical Watcom symbols exist but do not match released-code positions. Current CI builds and tests Windows x86/x64, Linux x64/arm64 and macOS x86_64/arm64 variants; no minimum host hardware is documented. Completeness and playable parity remain unverified.",
     "github": {
       "repository": "dethrace-labs/dethrace",
       "created_at": "2019-10-29",
       "pushed_at": "2026-09-07",
       "updated_at": "2026-09-29",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -33091,7 +33095,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": "complete",
     "build": {
       "compilable": true,
@@ -33114,13 +33118,13 @@
       "software archaeology",
       "Mark Moxon"
     ],
-    "notes": "Hand-reconstructed BBC Master Elite source with checksum/reference verification; the documented default build reports all compiled binaries matching the original SNG47 variant.",
+    "notes": "Hand-reconstructed BBC Master Elite source with checksum/reference verification. The build now produces both the SNG47 SSD and Master Compact ADFS image; all five compiled binaries in each documented variant match their original checksums and sizes. Primary documentation does not state an exact minimum BBC Master CPU/RAM profile.",
     "github": {
       "repository": "markmoxon/elite-source-code-bbc-master",
       "created_at": "2021-02-12",
       "pushed_at": "2026-09-29",
       "updated_at": "2026-09-29",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -33197,7 +33201,10 @@
       "disassembly",
       "source-reconstruction"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "6502"
+    ]
   },
   {
     "re_started": null,
@@ -35857,7 +35864,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-09-30",
     "status": "active",
     "build": {
       "compilable": null,
@@ -35866,14 +35873,20 @@
       "byte_exact": null
     },
     "ai": {
-      "usage": null,
-      "tools": []
+      "usage": true,
+      "tools": [
+        "ChatGPT"
+      ],
+      "evidence": [
+        "analysis/room_format.md explicitly attributes the E1-E6 flag interpretation to ChatGPT."
+      ]
     },
     "techniques": [
       "data-structure reconstruction",
       "room-format analysis",
       "object-state analysis",
-      "behaviour analysis"
+      "behaviour analysis",
+      "room-bytecode opcode reconstruction"
     ],
     "tags": [
       "Fairlight II",
@@ -35882,7 +35895,7 @@
       "game analysis",
       "completion bug"
     ],
-    "notes": "Active investigation of the ZX Spectrum 48K version of Fairlight II, focused on documenting its data structures and behaviour to determine why the game appears impossible to complete and whether a plausible fix can be recovered from the original design. Current work documents room and dynamic-object formats.",
+    "notes": "Active investigation of the ZX Spectrum 48K Fairlight II completion bug. Current work maps the C0-FF room-bytecode opcode table, direct and lookup-based operand encodings, room-renderer flags and dynamic-object formats. The E1-E6 flag interpretation is explicitly attributed to ChatGPT in the analysis and remains documented as such rather than silently treated as established original intent.",
     "record_class": "subject",
     "target_kinds": [
       "game"
@@ -35897,7 +35910,7 @@
       "created_at": "2026-09-18",
       "pushed_at": "2026-09-29",
       "updated_at": "2026-09-23",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -37955,7 +37968,7 @@
     ],
     "re_started": 2004,
     "last_activity": "2019-04-05",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": "historical",
     "build": {
       "compilable": true,
@@ -37975,13 +37988,13 @@
       "68k",
       "historical"
     ],
-    "notes": "Historical Atari ST decompilation intended to remove OS/hardware dependencies and make Frontier portable.",
+    "notes": "Historical Atari ST decompilation intended to remove OS/hardware dependencies and make Frontier portable. The README, makefile and Visual C++ helper do not identify a precise host output architecture or minimum runnable hardware, so neither is inferred.",
     "github": {
       "repository": "neozeed/frontvm-20040517",
       "created_at": "2022-12-20",
       "pushed_at": "2022-12-20",
       "updated_at": "2026-06-11",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "archived": false,
       "fork": false,
@@ -38011,7 +38024,8 @@
       "decompilation",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": []
   },
   {
     "id": "frontier-renderer-amiga",
@@ -38335,7 +38349,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "FujiBoink Atari ST demo design"
     ],
@@ -38356,7 +38372,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-09-29",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -38378,13 +38394,13 @@
       "Amiga",
       "demo"
     ],
-    "notes": "Documented 1:1 Amiga conversion of the Atari ST FujiBoink demo with scripts regenerating animation and color data and Amiga assembly source. It is a new native implementation; no binary-derived disassembly or byte-exact port claim.",
+    "notes": "Documented 1:1 Amiga conversion of Michael Park/Xanth's 1986 Atari ST FujiBoink demo, with the historical Atari assembly retained and new Amiga assembly plus scripts that regenerate animation and colour data. The checked-in Amiga build explicitly selects vasm -m68000. This is a new native conversion, not a binary-derived disassembly or a byte-exact executable claim.",
     "github": {
       "repository": "mnemo70/fujiboink",
       "created_at": "2024-09-29",
       "pushed_at": "2025-07-30",
       "updated_at": "2025-07-30",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -45051,7 +45067,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-20",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-30",
     "status": "in progress",
     "build": {
       "compilable": true,
@@ -45074,13 +45090,13 @@
       "Amiga",
       "Atari ST"
     ],
-    "notes": "Native Amiga conversion of Hlípa built from reconstruction of the original Atari ST program; the repository retains the supplied historical disassembly as read-only reference and adds native AmigaOS graphics, sound and input.",
+    "notes": "Native Amiga conversion of Hlípa built from reconstruction of the original Atari ST program. Both low-resolution and monochrome HIRES LACE variants use one -m68000 code base and require OCS+, Kickstart 1.3+, 1 MB total RAM and 512 KB Chip RAM; the HI variant also needs a suitable interlaced display mode. WinUAE coverage spans 68000, 68020 and 68060 configurations, while physical hardware remains untested.",
     "github": {
       "repository": "ataribaby42/hlipa-source-code-amiga",
       "created_at": "2026-09-16",
       "pushed_at": "2026-09-20",
       "updated_at": "2026-09-20",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -45114,7 +45130,52 @@
       "source-reconstruction",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Low-resolution colour build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "min_chip_ram_kib": 512,
+        "chipsets": [
+          "OCS"
+        ],
+        "os": "Kickstart 1.3 or newer",
+        "notes": "The README requires at least 1 MB total RAM, including 512 KB Chip RAM. Workbench launch can require more free memory than booting from ADF.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/ataribaby42/hlipa-source-code-amiga/blob/main/README.md",
+            "excerpt": "MC68000 or newer, OCS or newer, Kickstart 1.3 or newer, and at least 1 MB RAM with 512 KB Chip RAM."
+          }
+        ]
+      },
+      {
+        "name": "Monochrome HIRES LACE build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "min_ram_kib": 1024,
+        "min_chip_ram_kib": 512,
+        "chipsets": [
+          "OCS"
+        ],
+        "os": "Kickstart 1.3 or newer",
+        "notes": "Also requires a display device supporting Amiga HIRES LACE: PAL 640x512 or NTSC 640x400. ECS and AGA are explicitly unnecessary.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/ataribaby42/hlipa-source-code-amiga/blob/main/README.md",
+            "excerpt": "The HI version uses the same 68000/OCS/1 MB baseline and requires an Amiga HIRES LACE PAL 640x512 or NTSC 640x400 display."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "hlipa-zx-ataribaby42",
@@ -45147,7 +45208,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-30",
     "status": "in progress",
     "build": {
       "compilable": true,
@@ -45171,13 +45232,13 @@
       "ZX Spectrum",
       "Z80"
     ],
-    "notes": "Reconstructs and relocates the PMD version's game logic for a native ZX Spectrum 48K port. Extensive execution/regression tests cover gameplay through victory; some original presentation/audio features remain unported.",
+    "notes": "Reconstructs and relocates the PMD 85 game logic as native Z80 code for ZX Spectrum 48K. Version 1.3 builds Czech and English TAP/SNA variants; the English variant translates menus, instructions, statistics and ending screens while sharing game logic and data. Extensive simulator regressions cover loading and gameplay through victory, but physical hardware remains untested.",
     "github": {
       "repository": "ataribaby42/hlipa-source-code-zx-spectrum",
       "created_at": "2026-09-20",
       "pushed_at": "2026-09-29",
       "updated_at": "2026-09-29",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -45211,7 +45272,28 @@
       "source-reconstruction",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Czech and English builds",
+        "platform": "ZX Spectrum 48K",
+        "cpu_family": "Z80",
+        "min_cpu": "Z80",
+        "min_ram_kib": 48,
+        "os": "Standard ZX Spectrum ROM",
+        "notes": "Runs at the normal model speed and needs neither extra memory nor AY sound. Upstream has simulator coverage for 48K and the original 128K ROM, but no physical-hardware test yet.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/ataribaby42/hlipa-source-code-zx-spectrum/blob/main/README.md",
+            "excerpt": "Native Z80 code for ZX Spectrum 48K using the standard ROM; only 48K memory is used and neither extra memory nor AY is required."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "hode-heart-of-darkness",
@@ -56616,7 +56698,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": "in progress",
     "build": {
       "compilable": true,
@@ -56646,13 +56728,13 @@
       "Master of Magic",
       "ReMoM"
     ],
-    "notes": "Native AmigaOS 68k port of jbalcomb/ReMoM, explicitly described as a C reconstruction of Master of Magic's source. The Amiga port applies mechanical endian/platform patches and uses the original game data.",
+    "notes": "Native AmigaOS 68k port of jbalcomb/ReMoM, pinned to predecessor commit a9cc082 and applying mechanical endian/platform patches while retaining original game-data use. Release 0.5.3 fixes wizard-name shadows, movement-mode byte ordering affecting flying, swimming, sailing, forester and mountaineer units, and the Build button's stale action when no stack is selected.",
     "github": {
       "repository": "angree/Amiga-68K-ReMoM",
       "created_at": "2026-09-22",
       "pushed_at": "2026-09-29",
       "updated_at": "2026-09-29",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -68197,7 +68279,8 @@
     "target_platforms": [
       "Windows",
       "Linux",
-      "macOS"
+      "macOS",
+      "iPadOS"
     ],
     "source_cpu": [],
     "source_language": [],
@@ -68209,11 +68292,11 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": "active",
     "build": {
-      "compilable": null,
-      "runnable": null,
+      "compilable": true,
+      "runnable": true,
       "playable": null,
       "byte_exact": null
     },
@@ -68221,19 +68304,24 @@
       "usage": null,
       "tools": []
     },
-    "techniques": [],
+    "techniques": [
+      "hash-bound original-media admission",
+      "typed runtime reconstruction",
+      "trace-guided validation",
+      "bounded native-driver reconstruction"
+    ],
     "tags": [
       "Windows",
       "Linux",
       "macOS",
       "subject"
     ],
-    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Recovery paths depend on verified original media evidence; source platforms and runtime fidelity vary by game/version, and a fully playable campaign is a goal rather than a verified claim.",
+    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Verified release packaging covers Linux/Windows x86-64 plus macOS and iPadOS arm64. The current Millennium DOS runtime models a hash-bound video-driver load session through explicit DOS open/seek/allocate/read/close steps and validates EGA640/MCGA leaves, but selector and DOS results remain synthetic observations and no INT 91h dispatch or complete campaign is claimed.",
     "github": {
       "repository": "yeager/project-eon",
       "created_at": "2026-08-27",
       "pushed_at": "2026-09-29",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -68250,10 +68338,10 @@
         "Inno Setup"
       ],
       "latest_commit": {
-        "sha": "dd9127e9ec3d48bcc5e6d2efdd742d808c51cfd6",
+        "sha": "725dd73350229ada007c640791c73c8b5d1ed9a4",
         "date": "2026-09-29",
-        "message": "Correct mode-four DX trace instruction address",
-        "url": "https://github.com/yeager/project-eon/commit/dd9127e9ec3d48bcc5e6d2efdd742d808c51cfd6"
+        "message": "Connect Millennium DOS video loader to runtime",
+        "url": "https://github.com/yeager/project-eon/commit/725dd73350229ada007c640791c73c8b5d1ed9a4"
       },
       "latest_release": {
         "tag": "v0.1.0",
@@ -68270,7 +68358,11 @@
       "reimplementation",
       "data-format-analysis"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "x86-64",
+      "arm64"
+    ]
   },
   {
     "id": "propulse-amiga-protracker-module-editor",
@@ -73342,7 +73434,11 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86-64",
+      "ARMv6",
+      "WebAssembly"
+    ],
     "source_language": [
       "x86 machine code",
       "game data"
@@ -73364,7 +73460,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-28",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -73385,13 +73481,13 @@
       "Duke Nukem II",
       "game engine"
     ],
-    "notes": "Separate from Duke2Reconstructed: modern C++ engine informed by original DOS disassembly; reads original game data and supports all four episodes. README directs readers to the same author's byte-exact reconstruction for historically faithful DOS code.",
+    "notes": "Separate from Duke2Reconstructed: modern C++ engine informed by original DOS disassembly, reading original game data and supporting all four episodes. Primary build files produce x86-64 and WebAssembly outputs, while the README documents operation on a 700 MHz ARMv6 Raspberry Pi 1. The advertised web build is currently unavailable.",
     "github": {
       "repository": "lethal-guitar/RigelEngine",
       "created_at": "2016-10-01",
       "pushed_at": "2026-09-28",
       "updated_at": "2026-09-28",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -73418,7 +73514,23 @@
         "message": "Update README.md",
         "url": "https://github.com/lethal-guitar/RigelEngine/commit/30afeff8f0b105eac77ee0a2fbd54b06e1a49b60"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Low-end Linux SBC",
+        "platform": "Linux",
+        "cpu_family": "ARM",
+        "min_cpu": "single-core ARMv6 at 700 MHz",
+        "notes": "The README says the engine needs less than 64 MB RAM, which is a usage bound rather than an exact minimum and is therefore not stored as min_ram_kib. OpenGL 3.0 or OpenGL ES 2.0 is required.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/lethal-guitar/RigelEngine/blob/master/README.md",
+            "excerpt": "Runs on a single-core ARMv6 CPU at 700 MHz, needs less than 64 MB RAM, and requires OpenGL 3.0 or OpenGL ES 2.0."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "rip-and-tear-c64-demo-analysis",
@@ -76514,7 +76626,10 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86",
+      "x86-64"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -76535,7 +76650,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-12-24",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -76555,13 +76670,13 @@
       "DOS",
       "Prince of Persia"
     ],
-    "notes": "Port of DOS Prince of Persia 1.0 based on the author's separately published IDA disassembly, with later-version features and modern extensions. The Apple II original source is cited as supporting evidence, not the DOS code being catalogued.",
+    "notes": "Port of DOS Prince of Persia 1.0 based on the author's separately published IDA disassembly, with later-version features and modern extensions. Windows build instructions explicitly support both x86 and x64 toolchains; other host architectures and minimum runtime hardware are not stated. The Apple II original source is supporting evidence, not the DOS code being catalogued.",
     "github": {
       "repository": "NagyD/SDLPoP",
       "created_at": "2015-05-02",
       "pushed_at": "2025-12-24",
       "updated_at": "2026-09-28",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -85853,7 +85968,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-01-22",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -85872,13 +85987,13 @@
       "game",
       "z80"
     ],
-    "notes": "Annotated, reassemblable Spectrum reverse engineering with a separate C reimplementation effort.",
+    "notes": "Annotated SkoolKit reverse engineering of the 48K ZX Spectrum game, producing an exact assembly image plus loadable TAP/Z80 outputs; the regular assembly listing can also be passed to Pasmo. The separate dpt/The-Great-Escape-in-C reimplementation is tracked as its own project.",
     "github": {
       "repository": "dpt/The-Great-Escape",
       "created_at": "2013-01-14",
       "pushed_at": "2024-01-22",
       "updated_at": "2026-09-15",
-      "checked_at": "2026-09-29",
+      "checked_at": "2026-09-30",
       "default_branch": "master",
       "archived": false,
       "fork": false,
@@ -85909,7 +86024,27 @@
       "disassembly",
       "reimplementation"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Reassembled game",
+        "platform": "ZX Spectrum 48K",
+        "cpu_family": "Z80",
+        "min_cpu": "Z80",
+        "min_ram_kib": 48,
+        "notes": "The primary README identifies the original and rebuilt TAP/Z80 outputs as a 48K ZX Spectrum game; the C reimplementation is a separately tracked repository and has no host minimum inferred here.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/dpt/The-Great-Escape/blob/master/README.md",
+            "excerpt": "Reverse engineers the classic 48K ZX Spectrum game and reassembles it to loadable .TAP and .Z80 images."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "great-escape-browser-a-taylor",

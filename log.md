@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-30 — Portable/native CPU audit and active upstream review
+
+Resolved eleven queued source/output CPU areas across **Carmageddon — incremental DOS executable reconstruction**, **Duke Nukem II — RigelEngine modern reimplementation**, **Prince of Persia — DOS-disassembly-derived SDL port**, **Zeliard — independent DOS analysis and SDL port**, **Frontier: Elite II — Atari ST VM/reimplementation**, **FujiBoink! — Atari ST demo converted to Amiga**, **The Great Escape**, both **Hlípa** ports and **Project Eon — multi-game preservation and native reimplementation**. Primary workflows and build files establish only exact x86/x86-64/arm64, ARMv6, WebAssembly, 68000 and Z80 outputs; Zeliard and FrontierVM remain explicitly **no evidence found** for portable-host CPU. Exact Hlípa, RigelEngine and Great Escape runtime statements are retained without converting vague usage or platform labels into invented minima.
+
+Active review records **Fairlight II — ZX Spectrum completion-bug reverse engineering** explicitly attributing its E1–E6 room-flag interpretation to ChatGPT, **Hlípa — PMD 85 to ZX Spectrum reconstruction/port** v1.3 producing Czech and English TAP/SNA variants, **Elite — BBC Master reconstruction** adding byte-matching Master Compact ADFS output, **Project Eon** connecting a bounded Millennium DOS video-driver load session, and **Master of Magic — ReMoM Amiga port** 0.5.3 fixing movement-mode byte ordering and stale Build-button state. Project Eon's synthetic selector/DOS observations and absent INT 91h dispatch remain stated boundaries, not gameplay-parity claims.
+
+
 ## 2026-09-30 — NESRecomp title graph, multi-system archaeology and CPU audit
 
 Promoted thirteen primary-source-backed projects from two queued graph reviews and a rotated SG-1000/SC-3000/ColecoVision search. **game-music-extraction — multi-system music sequence archaeology** is retained as one coherent cross-system extractor and analysis project. The NESRecomp root yielded nine independently runnable title projects: **Super Mario Bros. — NES-to-PC static recompilation**, **Duck Hunt — NES-to-PC static recompilation**, **Dr. Mario — NES-to-PC static recompilation**, **The Legend of Zelda — NES-to-PC static recompilation**, **Faxanadu — NES-to-PC static recompilation**, **Yoshi — NES-to-PC static recompilation**, **Yoshi's Cookie — NES-to-PC static recompilation**, **Mega Man 3 — NES-to-PC static recompilation**, and **Gumshoe — NES-to-PC static recompilation**. Their status claims remain title-specific and bounded to each repository's documented testing rather than inherited from the framework.
