@@ -4,6 +4,19 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/CBongo/game-music-extraction | Coherent multi-system music-sequence extraction and code-analysis project spanning arcade, C64, NES, PlayStation, SNES and Wii inputs |
+| https://github.com/ajoneil/morepork | Cross-emulator execution-trace capture, query, comparison and visualization for Game Boy, Atari VCS, SG-1000/SC-3000, ColecoVision and MSX1 |
+| https://github.com/amypurple/AmyStudio | Browser-based ColecoVision development environment with Z80-oriented language, compiler, assembler, runtime, examples and an embedded debugging core |
+| https://github.com/plasticbugs/mrdoarcade | Source-backed ColecoVision Mr. Do arcade-style fan conversion built from a documented Captain Cosmos disassembly |
+| https://github.com/mstan/SuperMarioBrosNESRecomp | Independently runnable Super Mario Bros. NESRecomp title port with documented complete-world coverage |
+| https://github.com/mstan/DuckHuntNESRecomp | Independently runnable Duck Hunt NESRecomp title port with mouse-backed Zapper support |
+| https://github.com/mstan/DrMarioNesRecomp | Independently runnable Dr. Mario NESRecomp title port with documented one-player validation |
+| https://github.com/mstan/LegendOfZeldaNESRecomp | Independently runnable Legend of Zelda NESRecomp title port with bounded end-to-end validation |
+| https://github.com/mstan/FaxanaduRecomp | Independently runnable Faxanadu NESRecomp title port tested from title screen through credits |
+| https://github.com/mstan/YoshiNESRecomp | Independently runnable Yoshi NESRecomp title port with one-player, two-player and demo coverage |
+| https://github.com/mstan/YoshisCookieRecomp | Independently runnable Yoshi's Cookie NESRecomp title port with oracle comparison against Nestopia |
+| https://github.com/mstan/Megaman3NESRecomp | Work-in-progress Mega Man 3 NESRecomp title port with explicitly bounded early-stage coverage |
+| https://github.com/mstan/GumshoeNESRecomp | Independently runnable Gumshoe NESRecomp title port with end-to-end coverage and mouse-backed Zapper support |
 | https://github.com/markmoxon/elite-source-code-apple-ii | Five documented Apple II Elite source variants with reproducible BeebAsm builds and verification |
 | https://github.com/markmoxon/elite-source-code-bbc-micro-cassette | Three documented BBC Micro cassette Elite source variants with SSD/UEF builds |
 | https://github.com/markmoxon/elite-compendium-bbc-micro | BBC Micro Elite collection with source-built menu, variant submodules and explicit 16 KiB sideways-RAM requirement |

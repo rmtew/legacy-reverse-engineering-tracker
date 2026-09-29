@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-09-30 — NESRecomp title graph, multi-system archaeology and CPU audit
+
+Promoted thirteen primary-source-backed projects from two queued graph reviews and a rotated SG-1000/SC-3000/ColecoVision search. **game-music-extraction — multi-system music sequence archaeology** is retained as one coherent cross-system extractor and analysis project. The NESRecomp root yielded nine independently runnable title projects: **Super Mario Bros. — NES-to-PC static recompilation**, **Duck Hunt — NES-to-PC static recompilation**, **Dr. Mario — NES-to-PC static recompilation**, **The Legend of Zelda — NES-to-PC static recompilation**, **Faxanadu — NES-to-PC static recompilation**, **Yoshi — NES-to-PC static recompilation**, **Yoshi's Cookie — NES-to-PC static recompilation**, **Mega Man 3 — NES-to-PC static recompilation**, and **Gumshoe — NES-to-PC static recompilation**. Their status claims remain title-specific and bounded to each repository's documented testing rather than inherited from the framework.
+
+The fresh-search slice added **morepork — multi-system emulator trace capture and comparison**, **Amy Studio — browser-based ColecoVision development environment**, and **Mr. Do! — arcade-style ColecoVision fan conversion**. The exact repository/code searches and reviewed outcomes are retained in research state; Gearsystem, Gearcoleco and MEKA were deduplicated against existing records. Amy Studio is classified as original development tooling, and Mr. Do! as a disassembly-based fan conversion rather than reverse-engineering work in its own right.
+
+Separately resolved eight queued target-CPU areas across **Jail Break — Amiga arcade transcode**, **Karate Champ — Amiga arcade transcode**, **Lock 'n' Chase — Amiga arcade transcode**, **Nibbler — Amiga arcade transcode**, **Pengo — Amiga arcade transcode**, **Phoenix — Amiga arcade transcode**, **Pooyan — Amiga arcade transcode**, and **Rally-X — Amiga arcade transcode**. Checked-in build files distinguish m68000 and m68020 variants; stated Chip-RAM floors are captured only for Jail Break and Karate Champ, Pengo's Neo Geo output is now explicit, and Nibbler's aspirational 512 KB goal is not presented as current compatibility.
+
+
 ## 2026-09-29 — Amiga arcade output CPUs and bounded runtime evidence
 
 Resolved ten queued target-CPU areas from project READMEs and checked-in build files. **Bad Dudes vs. DragonNinja — Amiga arcade port**, **Bagman — Amiga arcade transcode**, **BurgerTime — Amiga arcade transcode**, **Dig Dug II — Amiga arcade transcode**, **Donkey Kong — Amiga arcade transcode**, **Elevator Action — Amiga arcade port**, **Galaga — Amiga arcade transcode**, **Gravitar — Amiga arcade transcode**, **Gyruss — Amiga arcade transcode**, and **Hyper Sports — Amiga arcade transcode** now distinguish explicit 68000, 68020 or broad m68k output evidence. Variant-specific OCS/ECS/AGA, Chip-RAM, total-RAM and WHDLoad statements are recorded only where primary documentation states them; model names and vague Fast-RAM requirements were not converted into invented numeric minima.

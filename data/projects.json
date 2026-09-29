@@ -48335,7 +48335,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-07-01",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": "beta",
     "build": {
       "compilable": null,
@@ -48360,7 +48360,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "Beta Amiga Jail Break remake; README credits reverse engineering, 68000 transcode and graphics/sound conversion.",
+    "notes": "Beta Amiga Jail Break remake; README credits reverse engineering, 68000 transcode and graphics/sound conversion. Checked-in build targets distinct m68000 ECS and m68020 AGA executables; README bounds the ECS variants at 1 MB or 2 MB Chip RAM.",
     "github": {
       "repository": "jotd666/jailbreak",
       "created_at": "2025-07-15",
@@ -48396,7 +48396,57 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "ECS 32-colour build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "min_chip_ram_kib": 2048,
+        "chipsets": [
+          "ECS"
+        ],
+        "notes": "The README explicitly requires 2 MB Chip RAM for the 32-colour ECS build; the checked-in build selects the m68000 output for ECS.",
+        "evidence": [
+          "https://github.com/jotd666/jailbreak/blob/main/README.md",
+          "https://github.com/jotd666/jailbreak/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "ECS 16-colour build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "min_chip_ram_kib": 1024,
+        "chipsets": [
+          "ECS"
+        ],
+        "notes": "The README explicitly requires 1 MB Chip RAM for the 16-colour ECS build; the checked-in build selects the m68000 output for this non-AGA variant.",
+        "evidence": [
+          "https://github.com/jotd666/jailbreak/blob/main/README.md",
+          "https://github.com/jotd666/jailbreak/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "AGA build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "The build assembles the AGA executable with -m68020. The README reports 50 fps on a stock A1200 but does not state a numeric RAM minimum.",
+        "evidence": [
+          "https://github.com/jotd666/jailbreak/blob/main/README.md",
+          "https://github.com/jotd666/jailbreak/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "vs-sr-cd32-jamespond2",
@@ -50084,7 +50134,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-28",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -50109,7 +50159,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "Original arcade Z80→68k transcode. README explicitly credits jotd with Z80 reverse engineering, Z80→68k transcode and Amiga code/assets.",
+    "notes": "Original arcade Z80→68k transcode. README explicitly credits jotd with Z80 reverse engineering, Z80→68k transcode and Amiga code/assets, and states that the game requires any OCS Amiga with 1 MB of memory.",
     "github": {
       "repository": "jotd666/karatechamp500",
       "created_at": "2022-03-02",
@@ -50145,7 +50195,27 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "min_ram_kib": 1024,
+        "chipsets": [
+          "OCS"
+        ],
+        "notes": "The README states that the game runs on any OCS Amiga with 1 MB of memory; the main game objects are assembled for m68000.",
+        "evidence": [
+          "https://github.com/jotd666/karatechamp500/blob/transcode/README.md",
+          "https://github.com/jotd666/karatechamp500/blob/transcode/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "kcide-vscode-cpc-c64-assembly-ide",
@@ -53406,7 +53476,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-01-09",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -53431,7 +53501,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "Lock 'n' Chase arcade transcode for Amiga; README explicitly credits reverse engineering and 6502→68000 conversion while retaining the original game code/sound/graphics.",
+    "notes": "Lock 'n' Chase arcade transcode for Amiga; README explicitly credits reverse engineering and 6502→68000 conversion while retaining the original game code/sound/graphics. The build emits separate m68000 and m68020 executables, and the README reports 50 fps on A500.",
     "github": {
       "repository": "jotd666/lock_and_chase",
       "created_at": "2025-07-20",
@@ -53466,7 +53536,34 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "68000 build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "notes": "The makefile emits a dedicated _000 executable; the README reports 50 fps on an A500 without stating a RAM minimum.",
+        "evidence": [
+          "https://github.com/jotd666/lock_and_chase/blob/main/README.md",
+          "https://github.com/jotd666/lock_and_chase/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "68020 build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "notes": "The makefile emits a dedicated _020 executable assembled with -m68020.",
+        "evidence": [
+          "https://github.com/jotd666/lock_and_chase/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "lode-runner-c64",
@@ -60692,7 +60789,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-18",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -60717,7 +60814,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "OCS Amiga Nibbler remake; README credits reverse engineering, 68000 transcode and graphics/sound conversion.",
+    "notes": "OCS Amiga Nibbler remake; README credits reverse engineering, 68000 transcode and graphics/sound conversion. The build emits separate m68000 and m68020 executables. Its README says the current floppy build locks on an unexpanded A500 and describes 512 KB support only as a future goal, so no minimum-memory profile is asserted.",
     "github": {
       "repository": "jotd666/nibbler",
       "created_at": "2026-07-28",
@@ -60752,7 +60849,12 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": null
   },
   {
     "id": "night-world-bbc-zornslemma",
@@ -63971,7 +64073,8 @@
       "Arcade"
     ],
     "target_platforms": [
-      "Amiga"
+      "Amiga",
+      "Neo Geo"
     ],
     "source_cpu": [
       "Z80"
@@ -63989,10 +64092,10 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-29",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": true,
       "playable": true,
       "byte_exact": false
@@ -64014,7 +64117,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "Original Pengo Z80 arcade game transcoded to 68k assembly; README credits Z80 reverse engineering and Z80→68k transcode.",
+    "notes": "Original Pengo Z80 arcade game transcoded to 68k assembly. Primary documentation records fully playable Amiga output and tested/playable MVS and Neo Geo CDZ output in MAME; both checked-in build routes explicitly target m68000. No minimum hardware requirement is stated.",
     "github": {
       "repository": "jotd666/pengo500",
       "created_at": "2023-05-25",
@@ -64051,7 +64154,11 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": null
   },
   {
     "id": "penny-arcade-apple2-6502disassembly",
@@ -64912,7 +65019,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-04",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -64937,7 +65044,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "ECS/AGA Phoenix remake using reverse engineering and transcode work; README notes that the original code was transcoded while documenting a remaining behavioural discrepancy.",
+    "notes": "ECS/AGA Phoenix remake using reverse engineering and transcode work; README notes that the original code was transcoded while documenting a remaining behavioural discrepancy. Checked-in builds distinguish an m68000 non-AGA executable and an m68020/AGA executable.",
     "github": {
       "repository": "jotd666/phoenix",
       "created_at": "2024-02-18",
@@ -64972,7 +65079,42 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS/ECS build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "chipsets": [
+          "OCS",
+          "ECS"
+        ],
+        "notes": "The non-AGA executable is assembled with -m68000; the project README identifies the non-AGA family as ECS without a numeric RAM floor.",
+        "evidence": [
+          "https://github.com/jotd666/phoenix/blob/main/README.md",
+          "https://github.com/jotd666/phoenix/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "AGA build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "The AGA executable is assembled with -m68020 and its WHDLoad slave explicitly requests both 68020 and AGA.",
+        "evidence": [
+          "https://github.com/jotd666/phoenix/blob/main/makefile.am",
+          "https://github.com/jotd666/phoenix/blob/main/src/amiga/PhoenixAGAHD.s"
+        ]
+      }
+    ]
   },
   {
     "id": "phoenixbasic-gfa-basic-atari-st",
@@ -65999,7 +66141,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-26",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -66024,7 +66166,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "Pooyan arcade port for Amiga; README credits reverse engineering, 68000 transcode and graphics/sound conversion.",
+    "notes": "Pooyan arcade port for Amiga; README credits reverse engineering, 68000 transcode and graphics/sound conversion and documents OCS/ECS/AGA PAL support. The primary game output is m68000.",
     "github": {
       "repository": "jotd666/pooyan",
       "created_at": "2024-10-19",
@@ -66059,7 +66201,28 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS/ECS/AGA PAL build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "chipsets": [
+          "OCS",
+          "ECS",
+          "AGA"
+        ],
+        "notes": "The README explicitly documents a 60 Hz / 50 fps PAL build for OCS, ECS and AGA Amigas; the primary game objects are assembled for m68000. No RAM floor is stated.",
+        "evidence": [
+          "https://github.com/jotd666/pooyan/blob/main/README.md",
+          "https://github.com/jotd666/pooyan/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "populous-amiga",
@@ -69009,7 +69172,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-27",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -69034,7 +69197,7 @@
       "68k",
       "jotd666"
     ],
-    "notes": "Namco Rally-X Amiga port with explicit Z80 reverse engineering, 68000 transcode and graphics/sound conversion.",
+    "notes": "Namco Rally-X Amiga port with explicit Z80 reverse engineering, 68000 transcode and graphics/sound conversion. The repository builds distinct m68000 ECS and m68020 AGA outputs.",
     "github": {
       "repository": "jotd666/rally-x",
       "created_at": "2025-08-08",
@@ -69069,7 +69232,41 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "ECS build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "chipsets": [
+          "ECS"
+        ],
+        "notes": "The checked-in ECS executable is assembled with -m68000. No RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/jotd666/rally-x/blob/main/README.md",
+          "https://github.com/jotd666/rally-x/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "AGA build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "The checked-in AGA executable is assembled with -m68020. No RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/jotd666/rally-x/blob/main/README.md",
+          "https://github.com/jotd666/rally-x/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "rambo-nes-g0me3",
@@ -95201,5 +95398,1045 @@
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
       }
     }
+  },
+  {
+    "id": "cbongo-game-music-extraction",
+    "title": "game-music-extraction",
+    "upstream_name": "game-music-extraction",
+    "display_title": "game-music-extraction — multi-system music sequence archaeology",
+    "subjects": [],
+    "repo": "https://github.com/CBongo/game-music-extraction",
+    "source_platforms": [
+      "Arcade",
+      "C64",
+      "NES",
+      "PlayStation",
+      "SNES",
+      "Wii"
+    ],
+    "target_platforms": [],
+    "source_cpu": [],
+    "target_cpu": null,
+    "source_language": [
+      "ROM and disk music-sequence data"
+    ],
+    "reconstructed_languages": [
+      "Perl",
+      "Python",
+      "Lua"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "binary-analysis",
+      "asset-tool",
+      "automation"
+    ],
+    "types": [
+      "music extractor",
+      "sequence-data analysis"
+    ],
+    "re_started": null,
+    "last_activity": "2026-08-02",
+    "last_checked": "2026-09-30",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude",
+        "Codex"
+      ],
+      "evidence": [
+        "Repository contains explicit Claude and Codex project configuration/instructions."
+      ]
+    },
+    "techniques": [
+      "ROM and disk extraction",
+      "MIDI reconstruction",
+      "disassembly-style sequence output",
+      "game-code analysis notes",
+      "AKAO format decoding"
+    ],
+    "tags": [
+      "game music",
+      "MIDI",
+      "AKAO",
+      "C64",
+      "NES",
+      "SNES",
+      "PlayStation"
+    ],
+    "notes": "Coherent root project organized by system. Primary README documents scripts that read user-supplied ROM or disk images, produce General MIDI and disassembly-style sequence listings, and preserve code-analysis notes; system directories cover arcade, C64, NES, PlayStation, SNES and Wii work. Individual directories are implementations within the shared extractor rather than independent projects."
+  },
+  {
+    "id": "morepork-emulator-trace-comparison",
+    "title": "morepork",
+    "upstream_name": "morepork",
+    "display_title": "morepork — multi-system emulator trace capture and comparison",
+    "subjects": [],
+    "repo": "https://github.com/ajoneil/morepork",
+    "source_platforms": [
+      "Game Boy",
+      "Game Boy Color",
+      "Atari 2600",
+      "SG-1000",
+      "SC-3000",
+      "ColecoVision",
+      "MSX"
+    ],
+    "target_platforms": [],
+    "source_cpu": [],
+    "target_cpu": null,
+    "source_language": [
+      "emulator execution state"
+    ],
+    "reconstructed_languages": [
+      "Rust",
+      "C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "debugger",
+      "profiler",
+      "cycle-analysis",
+      "binary-analysis",
+      "automation"
+    ],
+    "types": [
+      "trace comparison",
+      "emulator validation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-24",
+    "last_checked": "2026-09-30",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "instruction trace capture",
+      "cross-emulator differential comparison",
+      "register and hardware-state queries",
+      "frame rendering",
+      "shared trace schema"
+    ],
+    "tags": [
+      "SM83",
+      "6507",
+      "Z80",
+      "TMS9918A",
+      "emulator accuracy"
+    ],
+    "notes": "Shared binary trace format and CLI for capturing, querying, rendering and comparing execution across independently implemented emulators. Primary README explicitly lists Game Boy, Atari VCS, SG-1000/SC-3000, ColecoVision and MSX1 adapters and documents cargo/make builds."
+  },
+  {
+    "id": "amy-studio-colecovision-development-environment",
+    "title": "Amy Studio",
+    "upstream_name": "Amy Studio",
+    "display_title": "Amy Studio — browser-based ColecoVision development environment",
+    "subjects": [],
+    "repo": "https://github.com/amypurple/AmyStudio",
+    "source_platforms": [],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "Amy language source"
+    ],
+    "reconstructed_languages": [
+      "JavaScript",
+      "Z80 assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "ide",
+      "compiler-toolchain",
+      "assembler-toolchain",
+      "language-tooling",
+      "development-environment",
+      "debugger",
+      "emulator"
+    ],
+    "types": [
+      "browser IDE",
+      "ColecoVision toolchain"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-29",
+    "last_checked": "2026-09-30",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude",
+        "Codex"
+      ],
+      "evidence": [
+        "Primary README explicitly credits Claude and OpenAI Codex development contributions."
+      ]
+    },
+    "techniques": [
+      "Amy-to-Z80 compilation",
+      "in-browser assembly",
+      "ROM generation",
+      "source breakpoints",
+      "instruction stepping",
+      "CPU/VDP/RAM/VRAM inspection",
+      "cycle profiling"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "homebrew",
+      "browser development"
+    ],
+    "notes": "Runnable browser development environment containing the Amy compiler/transpiler/optimizer, Z80 runtime and assembler, compression codecs, examples and a self-hosted GearColeco test/debug core. It is substantial original development tooling, not a reverse-engineered subject."
+  },
+  {
+    "id": "mr-do-arcade-colecovision-rom-hack",
+    "title": "Mr. Do Arcade ColecoVision Rom Hack",
+    "upstream_name": "Mr. Do Arcade ColecoVision Rom Hack",
+    "display_title": "Mr. Do! — arcade-style ColecoVision fan conversion",
+    "subjects": [
+      "Mr. Do!"
+    ],
+    "repo": "https://github.com/plasticbugs/mrdoarcade",
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "ColecoVision Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-reconstruction",
+      "reverse-engineering-derived-port",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "fan conversion",
+      "ROM hack"
+    ],
+    "re_started": null,
+    "last_activity": "2026-06-28",
+    "last_checked": "2026-09-30",
+    "status": "playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": false
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "disassembly-derived assembly",
+      "source-built ROM variants",
+      "graphics and music replacement",
+      "gameplay patching"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Mr. Do!",
+      "fan conversion"
+    ],
+    "notes": "ColecoVision ROM hack/fan conversion based on Captain Cosmos's disassembly. The repository contains the full shared Z80 assembly, documented tniASM builds and several ROM variants; changes intentionally add arcade-style presentation, music and gameplay fixes, so it is not byte-identical to the original."
+  },
+  {
+    "id": "super-mario-bros-nes-mstan-recomp",
+    "title": "SuperMarioBrosRecomp",
+    "upstream_name": "SuperMarioBrosRecomp",
+    "display_title": "Super Mario Bros. — NES-to-PC static recompilation",
+    "subjects": [
+      "Super Mario Bros."
+    ],
+    "repo": "https://github.com/mstan/SuperMarioBrosNESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-25",
+    "last_checked": "2026-09-30",
+    "status": "fully playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Super Mario Bros."
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. All worlds and levels are believed completable; README notes a title-demo timing inconsistency. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/SuperMarioBrosNESRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "duck-hunt-nes-mstan-recomp",
+    "title": "DuckHuntNESRecomp",
+    "upstream_name": "DuckHuntNESRecomp",
+    "display_title": "Duck Hunt — NES-to-PC static recompilation",
+    "subjects": [
+      "Duck Hunt"
+    ],
+    "repo": "https://github.com/mstan/DuckHuntNESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Duck Hunt"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. Title, mode selection and Zapper gameplay work with mouse-based light-gun simulation. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/DuckHuntNESRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dr-mario-nes-mstan-recomp",
+    "title": "DrMarioNesRecomp",
+    "upstream_name": "DrMarioNesRecomp",
+    "display_title": "Dr. Mario — NES-to-PC static recompilation",
+    "subjects": [
+      "Dr. Mario"
+    ],
+    "repo": "https://github.com/mstan/DrMarioNesRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-24",
+    "last_checked": "2026-09-30",
+    "status": "playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Dr. Mario"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. Title, options and one-player gameplay through virus clearing are documented; USA and EU builds are separate. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/DrMarioNesRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "legend-of-zelda-nes-mstan-recomp",
+    "title": "LegendOfZeldaNESRecomp",
+    "upstream_name": "LegendOfZeldaNESRecomp",
+    "display_title": "The Legend of Zelda — NES-to-PC static recompilation",
+    "subjects": [
+      "The Legend of Zelda"
+    ],
+    "repo": "https://github.com/mstan/LegendOfZeldaNESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "believed fully playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "The Legend of Zelda"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. README reports testing through the overworld and dungeon 7 with no remaining dispatch misses. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/LegendOfZeldaNESRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "faxanadu-nes-mstan-recomp",
+    "title": "FaxanaduRecomp",
+    "upstream_name": "FaxanaduRecomp",
+    "display_title": "Faxanadu — NES-to-PC static recompilation",
+    "subjects": [
+      "Faxanadu"
+    ],
+    "repo": "https://github.com/mstan/FaxanaduRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Faxanadu"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. README reports normal gameplay from title through credits, while explicitly noting it is not exhaustively playtested. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/FaxanaduRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "yoshi-nes-mstan-recomp",
+    "title": "YoshiNESRecomp",
+    "upstream_name": "YoshiNESRecomp",
+    "display_title": "Yoshi — NES-to-PC static recompilation",
+    "subjects": [
+      "Yoshi"
+    ],
+    "repo": "https://github.com/mstan/YoshiNESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "believed fully playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Yoshi"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. Single-player, two-player and demo paths are documented as running end-to-end. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/YoshiNESRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "yoshis-cookie-nes-mstan-recomp",
+    "title": "YoshisCookieRecomp",
+    "upstream_name": "YoshisCookieRecomp",
+    "display_title": "Yoshi's Cookie — NES-to-PC static recompilation",
+    "subjects": [
+      "Yoshi's Cookie"
+    ],
+    "repo": "https://github.com/mstan/YoshisCookieRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "believed fully playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Yoshi's Cookie"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. README reports full 1P and VS play with zero oracle divergence against Nestopia. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/YoshisCookieRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mega-man-3-nes-mstan-recomp",
+    "title": "Megaman3NESRecomp",
+    "upstream_name": "Megaman3NESRecomp",
+    "display_title": "Mega Man 3 — NES-to-PC static recompilation",
+    "subjects": [
+      "Mega Man 3"
+    ],
+    "repo": "https://github.com/mstan/Megaman3NESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "work in progress",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Mega Man 3"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. Title, stage select and early-stage gameplay work; bosses, passwords and special weapons remain untested. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "partial",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/Megaman3NESRecomp"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gumshoe-nes-mstan-recomp",
+    "title": "GumshoeNESRecomp",
+    "upstream_name": "GumshoeNESRecomp",
+    "display_title": "Gumshoe — NES-to-PC static recompilation",
+    "subjects": [
+      "Gumshoe"
+    ],
+    "repo": "https://github.com/mstan/GumshoeNESRecomp",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "source_language": [
+      "NES 6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "generated C",
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "binary-analysis",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "static recompilation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-09",
+    "last_checked": "2026-09-30",
+    "status": "playable",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "NESRecomp",
+      "6502-to-C static recompilation",
+      "ROM checksum gating",
+      "Nestopia oracle comparison",
+      "generated native code"
+    ],
+    "tags": [
+      "NES",
+      "6502",
+      "x86-64",
+      "Gumshoe"
+    ],
+    "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. README reports end-to-end mouse-Zapper gameplay with one known cosmetic HUD rendering defect. User supplies the matching ROM; no ROM is distributed.",
+    "execution_paths": [
+      {
+        "name": "native PC build",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+        "evidence": [
+          "https://github.com/mstan/GumshoeNESRecomp"
+        ]
+      }
+    ]
   }
 ]
