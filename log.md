@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-29 — Amiga arcade output CPUs and bounded runtime evidence
+
+Resolved ten queued target-CPU areas from project READMEs and checked-in build files. **Bad Dudes vs. DragonNinja — Amiga arcade port**, **Bagman — Amiga arcade transcode**, **BurgerTime — Amiga arcade transcode**, **Dig Dug II — Amiga arcade transcode**, **Donkey Kong — Amiga arcade transcode**, **Elevator Action — Amiga arcade port**, **Galaga — Amiga arcade transcode**, **Gravitar — Amiga arcade transcode**, **Gyruss — Amiga arcade transcode**, and **Hyper Sports — Amiga arcade transcode** now distinguish explicit 68000, 68020 or broad m68k output evidence. Variant-specific OCS/ECS/AGA, Chip-RAM, total-RAM and WHDLoad statements are recorded only where primary documentation states them; model names and vague Fast-RAM requirements were not converted into invented numeric minima.
+
+Material upstream review records **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** requiring authenticated Atari ST, Amiga and FM Towns CSB routes to produce a nonzero source-rendered viewport hash and promoting DM2 Amiga from a fail-closed frame to a real-GDAT launcher-to-runtime receipt, while retaining its input/save/display/audio/dungeon limits. **Ghidra Retro Machines — bank-aware loaders and retro CPU languages** now includes its explicit SNES SPC700/65C816 language scope and records the single named 65C816 E1.E oracle defect, the 500 PASS / 8 N/A / 4 FAIL baseline and tripwires that fail if the excluded case starts passing or disappears. Its credited **game-music-extraction** parent is indexed as a separate lead for coherent-scope review rather than prematurely split into directory records.
+
+
 ## 2026-09-29 — Native-output CPU audit and active upstream review
 
 Resolved ten queued CPU areas from primary READMEs, source declarations and build scripts. **xrick — Rick Dangerous reimplementation** now records its explicit IBM PC x86 and Atari ST 68k inputs plus current Windows x64/WebAssembly outputs. **Atari ST BIOS ROM comparative listings**, **Elite Compendium — BBC Master disc integration**, **Fuzzy's Space Golf — partial DOS resource decoding**, **ShortLine v1.1 — offset-annotated reconstructed port**, **Tube — reconstructed DOS Bullfrog game port**, **Zeliard — bit-perfect MASM reconstruction and web port**, and **Frontier: Elite II — Amiga renderer/audio reconstruction** now distinguish directly evidenced native/wasm outputs from undocumented portable-host architectures. Clyde and Rayman remain analysis/disassembly outputs, so their native target CPU is explicitly not applicable rather than guessed. Fuzzy's mixed original-game and planned-port hardware discussion remains a bounded needs-research item.

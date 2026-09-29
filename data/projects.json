@@ -14411,7 +14411,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-24",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -14470,7 +14470,27 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "AGA release",
+        "platform": "Amiga AGA",
+        "chipsets": [
+          "AGA"
+        ],
+        "os": "WHDLoad",
+        "notes": "README requires a PAL A1200 or A4000 with Fast RAM, but gives no exact RAM or minimum CPU figure.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/baddudes/blob/main/README.md",
+            "quote": "PAL A1200/A4000 with fast memory; whdload installed"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "jotd-bagman-amiga",
@@ -14503,10 +14523,10 @@
     ],
     "re_started": null,
     "last_activity": "2026-02-28",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": true,
       "playable": true,
       "byte_exact": false
@@ -14565,7 +14585,39 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "2019 Amiga version",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68020",
+        "notes": "README says the older 2019 Amiga version needs 68020+ and Fast RAM; no exact RAM amount is stated.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/bagman/blob/transcode/README.md",
+            "quote": "2019: Amiga version (needs 68020+ and fastmem, still slow)"
+          }
+        ]
+      },
+      {
+        "name": "2023 68000 transcode",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68000",
+        "notes": "README says the 2023 version uses transcoded 68000 game code and should run on an A500; no RAM minimum is stated.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/bagman/blob/transcode/README.md",
+            "quote": "2023: Amiga version using real game code transcoded to 68000 (should run on A500)"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "balloon-fight-nes-luigiblood",
@@ -19240,7 +19292,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-28",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -19299,7 +19351,26 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "68000 Amiga build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68000",
+        "notes": "README identifies 68000/020 output and reports 25 fps on A500; no RAM minimum is stated.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/burger_time/blob/main/README.md",
+            "quote": "transcode ... for 68000/020 amiga machines; 25fps on A500"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "c64-character-rom-glyph-listing",
@@ -27373,7 +27444,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-17",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -27434,7 +27505,41 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "AGA version",
+        "platform": "Amiga 1200",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README says the AGA version runs on a vanilla A1200; it does not state an exact CPU/RAM floor.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/digdug2/blob/main/README.md",
+            "quote": "AGA version runs on vanilla A1200"
+          }
+        ]
+      },
+      {
+        "name": "ECS/OCS versions",
+        "platform": "Amiga",
+        "chipsets": [
+          "ECS",
+          "OCS"
+        ],
+        "notes": "README documents ECS and OCS variants but gives no complete minimum CPU/RAM profile.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/digdug2/blob/main/README.md",
+            "quote": "ECS version runs on any ECS amiga ... OCS version is the same as ECS but without the in-game music"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "dig-dug-amiga-jotd",
@@ -28576,7 +28681,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-26",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -28637,7 +28742,26 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "A500 release",
+        "platform": "Amiga 500",
+        "cpu_family": "68000 family",
+        "min_cpu": "m68000",
+        "min_ram_kib": 1024,
+        "notes": "README reports 50 fps on an A500/68000 with 1 MB RAM.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/donkey_kong/blob/main/README.md",
+            "quote": "50fps on A500/68000 1MB"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "c64-vic20-doswedge-disassembly",
@@ -30645,7 +30769,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-29",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -30706,7 +30830,55 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS version",
+        "platform": "Amiga OCS",
+        "chipsets": [
+          "OCS"
+        ],
+        "notes": "README requires an OCS Amiga with 512 KB expansion; it does not state how that expansion is divided between Chip and Fast RAM.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/elevator_action/blob/main/README.md",
+            "quote": "OCS version runs on any OCS amiga with 512k expansion"
+          }
+        ]
+      },
+      {
+        "name": "ECS version",
+        "platform": "Amiga ECS",
+        "min_chip_ram_kib": 1024,
+        "chipsets": [
+          "ECS"
+        ],
+        "notes": "README requires a 1 MB Chip-RAM ECS Amiga.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/elevator_action/blob/main/README.md",
+            "quote": "ECS version runs on any 1MB chip amiga"
+          }
+        ]
+      },
+      {
+        "name": "AGA version",
+        "platform": "Amiga 1200",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README says the AGA version runs on a vanilla A1200; no exact CPU/RAM minimum is stated.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/elevator_action/blob/main/README.md",
+            "quote": "AGA version runs on vanilla A1200"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "bartman-elf2hunk",
@@ -36335,7 +36507,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-29",
     "status": "active",
     "build": {
       "compilable": true,
@@ -36374,7 +36546,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB and DM2 retain bounded verified real-media routes. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime, scripted movement and bounded in-memory title-audio handling. Its registered Theron selection passes 71/71 tests on the documented authentic-media host, with eight optional media/capture tests skipped. Authentic regressions verify 93 approachable closed doors per region remain fail-closed and 71 Akutuba item transactions per region, including all six type-zero records, preserve exact source occurrence and property records. They do not prove original door, T900 pickup/UI, quest-item or complete campaign semantics. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
+    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB now requires a nonzero source-rendered viewport hash after authenticated Atari ST, Amiga and FM Towns menu handoff; this proves the viewport renderer ran, not pixel parity, native display or audible output. DM2 Amiga now reaches its initial real-GDAT M11 frame through the normal launcher with zero core fallbacks and source movement, while broader input, save, native display/audio and dungeon parity remain open. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime, scripted movement and bounded in-memory title-audio handling. Its registered Theron selection passes 71/71 tests on the documented authentic-media host, with eight optional media/capture tests skipped. Authentic regressions verify 93 approachable closed doors per region remain fail-closed and 71 Akutuba item transactions per region, including all six type-zero records, preserve exact source occurrence and property records. They do not prove original door, T900 pickup/UI, quest-item or complete campaign semantics. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-09-29",
@@ -38153,10 +38325,10 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-17",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": true,
       "playable": true,
       "byte_exact": false
@@ -38218,7 +38390,10 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68k"
+    ]
   },
   {
     "id": "galaxian-68k-jotd",
@@ -39964,14 +40139,15 @@
     "id": "ghidra-retro-machines",
     "title": "ghidra-retro-machines",
     "upstream_name": "ghidra-retro-machines",
-    "display_title": "Ghidra Retro Machines — bank-aware C64, C128, PET and NES loaders",
+    "display_title": "Ghidra Retro Machines — bank-aware loaders and retro CPU languages",
     "subjects": [],
     "repo": "https://github.com/CBongo/ghidra-retro-machines",
     "source_platforms": [
       "Commodore 64",
       "Commodore 128",
       "Commodore PET",
-      "NES"
+      "NES",
+      "SNES"
     ],
     "target_platforms": [
       "analysis host"
@@ -39979,13 +40155,17 @@
     "source_cpu": [
       "6502",
       "6510",
-      "8502"
+      "8502",
+      "SPC700",
+      "65C816"
     ],
     "target_cpu": [],
     "source_language": [
       "6502-family binaries",
       "PRG",
-      "iNES ROM"
+      "iNES ROM",
+      "SPC700 machine code",
+      "65C816 machine code"
     ],
     "reconstructed_languages": [
       "Java",
@@ -40005,7 +40185,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-29",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -40028,16 +40208,21 @@
       "bank-state analysis",
       "hardware register symbols",
       "constant-pointer indirect-jump resolution",
-      "jump-table bound analysis"
+      "jump-table bound analysis",
+      "single-case oracle defect quarantine",
+      "exhaustive CPU-vector verification"
     ],
     "tags": [
       "Ghidra",
       "Commodore 64",
       "Commodore 128",
       "PET",
-      "NES"
+      "NES",
+      "SNES",
+      "SPC700",
+      "65C816"
     ],
-    "notes": "Ghidra extension configures banked memory maps, ROMs, hardware registers and symbols for C64/C128/PET PRG and NES iNES analysis. Current NES work resolves proven constant-pointer indirect jumps and bounds table-after-code jump tables by their switch window; Mega Man and Life Force rows were re-blessed, while Contra, Final Fantasy and TMNT changes remain held for owner review. Build/real-ROM gates therefore demonstrate bounded progress rather than universal mapper or analysis correctness.",
+    "notes": "Ghidra extension configures banked memory maps, ROMs, hardware registers and symbols for C64/C128/PET PRG and NES iNES analysis, and bundles explicit SPC700 and 65C816 language variants for SNES code. The SPC700 language is decode-capable with p-code still under rewrite; the 65C816 language is disassembly-oriented while its p-code is verified against exhaustive vectors. Current NES work resolves proven constant-pointer indirect jumps and bounds table-after-code jump tables by their switch window; Mega Man and Life Force rows were re-blessed, while Contra, Final Fantasy and TMNT changes remain held for owner review. Its exhaustive 65C816 vector baseline now reports 500 PASS, 8 N/A and 4 FAIL rows after isolating one named SBC (dp,X) test-vector oracle defect. The exception is guarded by tripwires that fail if the case starts passing or disappears, so it cannot mask wider regressions. Build and real-ROM gates therefore demonstrate bounded progress rather than universal correctness claims.",
     "github": {
       "repository": "CBongo/ghidra-retro-machines",
       "created_at": "2026-07-03",
@@ -41302,7 +41487,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-23",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -41368,7 +41553,10 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ]
   },
   {
     "id": "greasegui-amiga-atari-floppy-imaging",
@@ -42413,7 +42601,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-17",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
       "compilable": null,
@@ -42476,7 +42664,42 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS full version",
+        "platform": "Amiga OCS",
+        "min_ram_kib": 1536,
+        "chipsets": [
+          "OCS"
+        ],
+        "notes": "README requires 1.5 MB RAM for the full music version.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/gyruss/blob/main/README.md",
+            "quote": "Any OCS amiga with 1.5 MB RAM to run full version with music"
+          }
+        ]
+      },
+      {
+        "name": "ECS cut-down version",
+        "platform": "Amiga ECS",
+        "min_ram_kib": 1024,
+        "chipsets": [
+          "ECS"
+        ],
+        "notes": "README requires 1 MB RAM for the sound-effects-only version.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/gyruss/blob/main/README.md",
+            "quote": "ECS 1MB RAM to run cut-down version with sfx only"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "hansmanns-lode-runner-c64",
@@ -45442,10 +45665,10 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-17",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-29",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": true,
       "playable": true,
       "byte_exact": false
@@ -45503,7 +45726,42 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68k"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "ECS version",
+        "platform": "Amiga ECS",
+        "min_chip_ram_kib": 1024,
+        "chipsets": [
+          "ECS"
+        ],
+        "os": "WHDLoad",
+        "notes": "README requires 1 MB Chip RAM and some additional Fast RAM, but does not quantify the Fast-RAM amount.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/hyper_sports/blob/main/README.md",
+            "quote": "ECS version needs whdload, 1MB chip and some fast"
+          }
+        ]
+      },
+      {
+        "name": "AGA version",
+        "platform": "Amiga AGA",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README documents bootable-floppy and WHDLoad AGA variants without a CPU/RAM minimum.",
+        "evidence": [
+          {
+            "url": "https://github.com/jotd666/hyper_sports/blob/main/README.md",
+            "quote": "AGA comes in bootable floppy or whdload"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "ida-amiga-hunk-loader-lab313ru",
