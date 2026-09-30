@@ -49929,6 +49929,2302 @@
       "next_actions": [
         "Audit minimum hardware separately for the remaining platform variants if finer runtime profiles are needed."
       ]
+    },
+    {
+      "project_id": "dice-nx-amiga-compiler",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantial restoration and continued development of the original DICE compiler suite, with an implemented 68k code generator, native assembly helpers, assembler, linker and runtime source. Qualifies as historical development-tool preservation and directly relevant native toolchain work."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README identifies the 68000-based Amiga DICE lineage; period src/dc1/gen.a contains native 68k compiler assembly, with 1992–1997 copyright headers."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly targets Amiga and embedded 68000 systems. src/dc1/asm1.c implements emitted assembly and machine.h defines data/address register allocation. No target CPU is inferred from the bootstrap host."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Welcome to DICE-nx.guide STATUS explicitly reports generated working Amiga binaries and restored native operation on real AmigaOS 3.2 hardware. Makefile shows stage1 bootstrap; later stages are self-hosted. Flags reflect upstream evidence, not a local reproduction."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "README, user guide and CLAUDE.md were checked. The guide documents testing on AmigaOS 3.2 while CLAUDE.md describes a 1.3 compatibility floor; no verified minimum CPU/RAM profile is asserted."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "CLAUDE.md expressly addresses Claude Code; latest commit 8574873f0eaf2a0193f3cfdf880c56d6f379cfb5 also has a Claude co-author trailer. AI evidence concerns modern development."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README names DICE as the original code base and Richard Downer as DICE-nx maintainer, distinguishing it from Matt Dillon's original project. Compiler and companion tools form one suite."
+        }
+      },
+      "next_actions": [
+        "Reproduce the documented bootstrap and Amiga self-hosting stages if verified current build outputs are needed."
+      ]
+    },
+    {
+      "project_id": "parcade-amiga-demo-source",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator-published, substantial native 68000 Amiga intro implementation with multiple effects, hardware takeover/restore, music integration and assembly instructions. Track the complete intro rather than separate effect files."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly identifies 68000 assembler; Source/IntroWrapper_1.2.s contains 68k register/instruction code and direct Amiga Exec/custom-chip calls."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The same 68000 assembly is the native intro output. Source/IntroWrapper_1.2.s calls the hardware effects and controls VBlank/DMA."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README and Source/_ReadMe_Assembling.txt say tested with Devpac 3.18 and ASMOne 1.20 and describe assembly. Runtime and byte matching were not independently established. No build executed locally."
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author README explicitly supplies 512 KB RAM and OCS requirements. Build memory is larger but unspecified; numeric CPU minimum is intentionally omitted."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Root README credits Jonathan Bennett/Antiriad for code and music. Intro wrapper assembles the component effects into one production; these are not independently catalogued."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "petscii-robots-amiga-native-port",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantial native fan conversion with first-person development notes, translated C++ game logic and Amiga-specific assembly/rendering. Source translation, not embedded guest-CPU emulation."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly identifies PETROBOTS.ASM and BACKGROUND_TASKS.ASM as 6502 PET source translated line by line. petrobots.cpp credits the original author and porter."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly supports classic Motorola 680x0 Amigas, including 68000 optimization discussion; PlatformAmigaAssembler.s implements native m68k map rendering and controller routines."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README includes smake variants and documents completed joystick playability plus installation/troubleshooting. Runnable/playable reflect upstream reporting. A current clean source compilation and byte identity have not been verified."
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README's explicit any-classic-680x0 and 512 kB Chip requirement supports the recorded baseline; feature reductions and Kickstart 3.0/Add44k caveat retained. No inferred total RAM."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Code credits David Murray (original game) and Vesa Halttunen (port). The repository metadata is not marked fork, but ownership is not attributed to the porter. Several variants share the same source and are kept in one record."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "phantom-fighter-original-source-recreation",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator-published recovery of substantial original 1988 Amiga game code plus concrete source-based native Python/JavaScript recreations. The modern paths implement game logic directly and do not use game-specific CPU pseudo-emulation."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original-author README explicitly identifies Lattice C plus 68000 assembly and says the game was developed on 68000. NTSC main.c embeds direct 68k/Amiga initialization. Modern DESIGN.md's contradictory 68010 label is retained as a caveat, not adopted as a minimum."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Archived Amiga target retains the 68000 source/build path. Pygame and browser paths use high-level host game logic; no exact modern host CPU is asserted."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original makefile references historical header: and library assigns, Lattice tools and KOS processing. Python setup and browser implementation are present, but neither original rebuild nor modern runtime was tested in this pass; flags remain unknown."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed original-author README, DESIGN.md and Python setup. Development-machine RAM is not runtime evidence, and 68000/68010 documentation conflicts preclude a verified minimum profile."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly calls Python recreation Claude-generated. Latest commit 5023b854b1a6260a1d027c0574a73d47ebd20dfd is co-authored by Claude Opus 4.6. This does not attribute the 1988 code to AI."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original source, recovered assets and modern recreations all concern Phantom Fighter and remain one repository record. Python update_gameplay/run and JS Game.updateGameplay directly perform gameplay; requirements list Pygame/Pillow/numpy rather than a guest CPU core. Incidental KnightLore directory is outside this Phantom Fighter assessment."
+        }
+      },
+      "next_actions": [
+        "Verify the original Lattice/KOS build dependencies and clarify the contradictory 68010 note before adding a numeric runtime CPU minimum."
+      ]
+    },
+    {
+      "project_id": "devils-temple-amiga-native-game",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantial creator-attributed native Amiga homebrew/spin-off implementation, corroborated by the creator's released-game page. Actual game source extends far beyond a copied loader/template."
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Original native game development inspired by Kung-Fu Master; no original arcade executable analysis or source CPU is claimed."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "system.asm explicitly implements the 68000 path (zero VBR), guards 68010+ MOVEC access, and uses Amiga Exec/custom-chip code. Game tree contains substantive native assembly; generic slave.asm is only a loader."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator page lists released ADF/HD/WHD/CD32 outputs, gameplay and known compatibility issues, supporting runnable/playable. build/kfm.bat copies assets from absolute creator-local locations; public repository compilation remains unknown."
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator page explicitly states A500 plus 0.5 MB slow RAM. Stored as a descriptive profile without inventing total RAM, Chip RAM, CPU minimum or universal 68060 support. slave.asm allocations are separately described."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator itch page credits Graeme (McGeezer) Cowie; slave metadata credits 2022 Geezer Games and McGeezer, and repository description calls it 2022 game source. The generic JOTD/Wepl loader is not mistaken for the game implementation."
+        }
+      },
+      "next_actions": [
+        "Inventory the creator-local assets and tools required by build/kfm.bat before asserting a clean source build."
+      ]
+    },
+    {
+      "project_id": "alpha-waves-atari-original-source",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive original Atari ST game source and assets, with author/date headers and concrete 68k game/polygon implementation. Historical preservation qualifies independently of unknown buildability; not labelled a binary-derived disassembly."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Alpha-Waves/cube.s is the original 68k game implementation with VERSION_ST=1, 68k instructions/registers and ST system includes. Alpha-Waves/st/fill.s implements ST polygon rendering."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The preserved source is native 68000-family ST assembly. Exact runnable CPU minimum is not inferred, and the conditional VERSION_AM branch is not claimed as a complete target."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly warns the expanded Git source is damaged and points to Alpha-Waves.zip for reproducing a reported community build. A second-hand build report and historical artifacts are insufficient to certify this checkout; all flags unknown."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "README and game/rendering source were reviewed; no reliable explicit minimum CPU/RAM runtime profile was found."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README attributes the original to Christophe de Dinechin and links his original archive; cube.s confirms the author and 1990 project. This archival repository and its component sources form one record."
+        }
+      },
+      "next_actions": [
+        "Compare the expanded tree with the preserved ZIP and reproduce the linked community build recipe."
+      ]
+    },
+    {
+      "project_id": "hard-drivin-source-linux-restoration",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete historical game-source restoration with substantial game logic and modified C build scaffolding. Actual x86/DOS code overrides the misleading ST repository label. Missing runtime stubs limit completeness but do not negate the existing archival/restoration work."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "src/system.asm uses 16-bit x86 segmented far procedures and int 33h; src/setup.asm programs PC interrupt vectors and PIT ports 40h/43h. src/ibm.c retains commented DOS headers. README and inherited comments saying ST conflict with those artifacts; only verified x86 is recorded."
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Makefile selects generic host GCC and has no architecture target flag. Linux is the stated restoration target, but exact host CPU is unknown; no m68k output path was established."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README says C was modified to compile on Linux and supplies make; src/missing.h visibly replaces essential graphics/input/math routines with warning/no-op stubs. No local build or runtime test was done, and the proposed SDL2 port is not established as playable. All flags remain unknown."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "The incomplete host-side restoration supplies no verified minimum hardware/runtime profile. Historical ST label is not used to invent one."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "This is a modified source-restoration repository, not a pure source dump. README calls the input leaked source without a verifiable author-release link; the record preserves that provenance limitation. No existing Hard Drivin' project was found in local subject screening."
+        }
+      },
+      "next_actions": [
+        "Resolve the ST-labelled source's DOS/x86 lineage and complete the stubbed runtime before claiming a playable SDL2 port."
+      ]
+    },
+    {
+      "project_id": "alice-personal-pascal-source-restoration",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantial period programming environment with preserved Atari ST/Unix source, interpreter, editor, debugger and actual portability scaffolding. Qualifies as historical development-tool preservation, not a tutorial or unrelated modern application."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Atari source at atari/src/interp.s uses native 68k registers/instructions; atari/src/makefile explicitly identifies 520ST Alice. README identifies DOS-derived Unix provenance, but exact CPU for that C branch was not established and is not invented."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "atari/src/makefile builds alice.prg and native ST assembly. unix/src/Makefile uses generic cc/ncurses without host CPU flags. Only the verified ST architecture is represented by m68000; no exact modern host architecture is asserted."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README says Atari source was not fully cleaned up and needs work; Unix and Atari makefiles establish build inputs, not current successful output. Haiku is aspirational. All build flags remain unknown."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No verified minimum CPU/RAM profile found in README and inspected platform makefiles. The 520ST makefile name is not treated as a hardware minimum."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README credits Brad Templeton's Unix source release, explains the separate original Atari ST source, and includes MAD Library as a portability dependency. These are components of one Alice restoration effort."
+        }
+      },
+      "next_actions": [
+        "Reproduce the Unix build and inventory the Atari GEM/MAD dependencies before asserting runtime availability."
+      ]
+    },
+    {
+      "project_id": "stingray-amiga-game-patches",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Checked repository root, primary README or source headers, source tree and latest commit. The record uses the coherent repository scope."
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete binary-derived patch implementations, identified game offsets and documented compatibility defects. A small README is unnecessary: source comments and substantive assembly establish the work. Track the coherent patch collection at repository scope."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Patch files identify Amiga binaries, direct custom-chip/DOS interfaces and original 68k instruction encodings at specific offsets. Goal! includes a substantial annotated native boot/load routine."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Patch payloads and patch builders are native 68k assembly, using D/A registers and Amiga system calls. No unsupported host CPU or minimum accelerated CPU is inferred."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Goal! and Human Killing Machine INCBIN external disk.1 files; includes rely on SOURCES: paths. Amegas source explicitly limits trainer functionality to PAL, and its NTSC trainer is an RTS placeholder. Build/run/playability remain unknown."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Goal!'s fixed 1 MB Chip + 0.5 MB fake-Fast combination and WCLB's pre-V36 condition describe patch applicability, not universal minimum runtime hardware; no profile is asserted."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed README/source tree and latest commit for explicit AI evidence; none found in this bounded review. Non-use is not established."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "All reviewed sources credit StingRay and form the GamePatches collection. Separate fixes are kept together rather than multiplying records by game/file."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "ghost-town-c16-disassembly-c64-port",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantial annotated Ghost Town recovery includes original-platform logic, bug fixes, languages, graphics, SID music and native C64/C128 conversion. The two ports and supporting tools are one coherent repository-wide project.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The recovered original-platform logic in plus4/code/main.asm uses explicit !cpu 6502. This records the demonstrated instruction-set target without guessing the physical C16 CPU variant.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "plus4/code/main.asm explicitly declares !cpu 6502 and C64/code/main.asm declares !cpu 6510.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly says the game can be built with ACME/Exomizer, provides both commands and credits testing on real hardware. Compilation/running were not independently reproduced. Byte-exactness is not claimed.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "README identifies the Plus/4 version as 64k RAM and names C64/C128, but does not state a minimum CPU or an independently established minimum configuration; no runtime profile inferred.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README credits Udo Gertz's original game, Spider Jerusalem's disassembly/music help and translators/testers. C64 and Plus/4 directories are outputs of the same Ghost Town recovery.",
+          "evidence_urls": [
+            "https://github.com/Esshahn/Ghost-Town/blob/master/README.md",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/C64/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/plus4/code/main.asm",
+            "https://github.com/Esshahn/Ghost-Town/blob/master/.vscode/tasks.json"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "tomaszndt-c64-crack-intro-disassemblies",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Five source listings contain concrete C64 intro disassembly with origin links, labels and analysis of raster interrupts, scrolling, system calls and music. Lack of a README/build script does not negate the existing research; catalogue at whole-repository scope.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed recovered source contains recognizable 6502 instructions and addressing modes (LDA/STA, (zp),Y, raster IRQ/RTI code) tied to original C64 intro entries. The conservative 6502 ISA label is used rather than an inferred physical CPU variant.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The assembly listings use 6502 instruction syntax and C64 VIC/CIA/KERNAL addresses. No broader CPU or minimum-hardware claim is inferred.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Primary artifacts inspected; build and execution were not reproduced. Unknown build, playability and byte-matching values remain null.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed documentation and implementation do not establish minimum runnable CPU/RAM requirements; platform identity and code-generation settings are not promoted to a minimum.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "All five listings share the same repository-level C64 intro disassembly purpose and directly cite their individual historical intro origins; they are retained as one collection.",
+          "evidence_urls": [
+            "https://github.com/Tomaszndt/disassembly/blob/master/antirom-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ateam-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/bcs-01.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/esi-02.asm",
+            "https://github.com/Tomaszndt/disassembly/blob/master/ikari-28.asm"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "ivop-c64-atari-music-player-disassemblies",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete labelled disassembly and sequencer/pattern analysis of C64 International Karate SID and multiple Atari POKEY players, accompanied by Frida projects and source music files. This is subsystem research rather than full-game reconstruction and is kept as one coherent archive.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Disassembled source uses 6502 opcodes/addressing with SID registers for C64 and POKEY/Atari registers for Atari. This directly establishes the instruction family, without guessing physical 6510/6502 revisions.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Maintained output is 6502 assembly for the corresponding C64/Atari subsystem. No alternative host/native CPU output or runtime minimum is evidenced.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Primary artifacts inspected; build and execution were not reproduced. Unknown build, playability and byte-matching values remain null.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed documentation and implementation do not establish minimum runnable CPU/RAM requirements; platform identity and code-generation settings are not promoted to a minimum.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Source headers credit Ivo van Poorten and Frida, identify original SID/SAP inputs and retain the player research as one archive. International Karate's two platform versions are comparative work inside this collection.",
+          "evidence_urls": [
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik-c64.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik-c64/ik_pattern_format.txt",
+            "https://github.com/ivop/music-player-disasm/blob/master/ik/ik.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ballblazer/ballblazer.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/bluemax2k1/bluemax2k1.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/boulderdash/boulderdash.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/dimensionx/dimensionx.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/hardball/hardball.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/lastv8/lastv8.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mastersoftime/mastersoftime.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/mule/mule.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/ninja/ninja.asm",
+            "https://github.com/ivop/music-player-disasm/blob/master/zybex/zybex.asm"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "c64-ruby-cross-development-tools",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Implemented Ruby library provides VIC-II image conversion, 6502 assembly/byte generation, PRG merging, VICE snapshot injection and ca65/ld65/Exomizer build automation. It is directly relevant development tooling beyond its short library overview.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "This is authored host tooling consuming assets/PRG/snapshot formats, not a reconstruction of an original processor binary.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "lib/c64/codegen.rb and lib/c64/code.rb contain a concrete NMOS 6502 opcode/addressing/cycle table and emit corresponding assembly or byte sequences. Target CPU describes generated guest code, not the Ruby host.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README usage, gem dependencies, CLI scripts and build integration reviewed. First gem release remains TODO and scripts depend on external shared project files; no installed/tested build or end-to-end run was established.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed documentation and implementation do not establish minimum runnable CPU/RAM requirements; platform identity and code-generation settings are not promoted to a minimum.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Asset conversion, code generation and deployment scripts are part of the same c64-ruby toolkit; ca65/ld65, Exomizer and VICE are external dependencies rather than bundled independent projects.",
+          "evidence_urls": [
+            "https://github.com/lhz/c64-ruby/blob/master/README.md",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/codegen.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/code.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/image.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/lib/c64/rake.rb",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/vsfinject",
+            "https://github.com/lhz/c64-ruby/blob/master/bin/prgmerge",
+            "https://github.com/lhz/c64-ruby/blob/master/c64-ruby.gemspec"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "bitmapper-c64-koala-converter",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete Java/Swing cross-development tool converts images to C64 multicolor data and exports Koala files, with palette selection, per-cell color constraints, dithering and a GUI. The nested NetBeans project is the repository's single tool.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Input is image data and color palettes; no original processor instruction stream is being analyzed.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Output is VIC-II bitmap/color data, not CPU instructions. Java's bytecode target does not establish a native host CPU.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Primary artifacts inspected; build and execution were not reproduced. Unknown build, playability and byte-matching values remain null.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed documentation and implementation do not establish minimum runnable CPU/RAM requirements; platform identity and code-generation settings are not promoted to a minimum.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Bitmapper/ contains the sole substantive implementation and NetBeans build data; README identifies the repository-wide purpose. No folder-scoped record is needed.",
+          "evidence_urls": [
+            "https://github.com/maikmerten/c64-bitmap/blob/master/README.md",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/MulticolorBitmap.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/src/bitmapper/gui/GUI.java",
+            "https://github.com/maikmerten/c64-bitmap/blob/master/Bitmapper/nbproject/project.properties"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "oscar64nvim-c64-neovim-development",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Working implementation exists for project-aware Oscar64 compile commands, asynchronous process handling, Quickfix compiler diagnostics, assembly viewing and VICE/RetroDebugger launch. This is a distinct Neovim integration, not an independent compiler/emulator.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Authored editor integration; it does not analyze an original processor binary.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly says Oscar64 targets C64 and other 6502-based platforms, and code launches the external compiler to generate PRGs. The 6502 value describes the supported guest build target, not the Lua host.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Primary artifacts inspected; build and execution were not reproduced. Unknown build, playability and byte-matching values remain null.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed documentation and implementation do not establish minimum runnable CPU/RAM requirements; platform identity and code-generation settings are not promoted to a minimum.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README Authors lists Marcin Grzybowski and AI. AI usage is explicit, but no specific model/tool is named, so tools remains empty.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Oscar64, VICE and RetroDebugger are required external tools; the new project is the independently implemented editor orchestration layer, kept at repository scope.",
+          "evidence_urls": [
+            "https://github.com/grzybniak/oscar64nvim/blob/main/README.md",
+            "https://github.com/grzybniak/oscar64nvim/blob/main/lua/oscar64_core/init.lua"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "mutant-monty-amiga-scorpion-conversion",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator-published Scorpion source contains substantial Mutant Monty game logic, actors, 41 level maps, graphics and sound, with released Amiga ADF/WHDLoad builds linked from the creator page. It qualifies as a native fan conversion; original C64/CPC binary analysis is not claimed.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "This is an authored Scorpion fan conversion; neither README nor reviewed project data establishes original C64/CPC machine-code analysis. Source-game platform heritage is not converted into an original CPU assertion.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "A500_1MB_TD.uae explicitly selects cpu_type=68000 and cpu_model=68000; the project targets amiga_ocs_trackdisk. This records the documented test/output target without asserting a minimum.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator page provides v1.0.0 downloadable ADF/WHDLoad versions and playable-demo/release history. Runnable/playable follow creator evidence, not independent testing. Compilation and byte exactness remain unknown.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "A500 68000/1 MB emulator configuration is checked in, but test settings do not establish the game's minimum CPU/RAM. No runtime minimum profile is inferred.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator's itch.io page explicitly states 'No generative AI was used'; recorded as the author's non-use declaration.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README and creator itch.io page cross-link the same source/release project. Scorpion Engine is the external tool; C64/CPC identify the original game's heritage, not additional analyzed binaries.",
+          "evidence_urls": [
+            "https://github.com/cobour/mutant-monty/blob/main/README.md",
+            "https://github.com/cobour/mutant-monty/blob/main/mutant-monty.sproject",
+            "https://github.com/cobour/mutant-monty/blob/main/amiga_ocs.platformdata",
+            "https://github.com/cobour/mutant-monty/blob/main/A500_1MB_TD.uae",
+            "https://github.com/cobour/mutant-monty/blob/main/actors/enemy_common/code/enemy_update_common_codeblock.codeblock",
+            "https://cobour.itch.io/mutant-monty"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "mars-patrol-c64-creator-restoration",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator documents recovery of his unfinished 1985 C64 Moon Patrol conversion by disassembling and reassembling the old binary in 2024, then implementing substantial missing gameplay. Published PRG/D64 outputs and explicit PAL VICE play testing support a concrete restoration even though recovered source files are not published.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "source_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "README describes original monitor-programmed C64 machine code and later disassembly, but no processor identifier or public assembly is available in the complete repository tree. An exact CPU is not inferred solely from C64.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Published PRG/D64 artifacts target C64; the README and full tree do not supply processor-specific source or CPU declarations. No CPU/minimum inferred from platform.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator explicitly reports successful reassembly and gameplay testing in 50 Hz PAL VICE. Public tree contains binaries but no reconstructed source/build recipe; current compilability remains null. Byte matching not claimed.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Explicit testing is PAL VICE, and creator says this version was not tested on real C64. No minimum CPU/RAM or real-hardware compatibility profile established.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README establishes creator continuity between the 1985 homebrew and 2024 recovery; this is not an unanalysed third-party binary dump. Moon Patrol is the inspiration, not a separately disassembled arcade binary.",
+          "evidence_urls": [
+            "https://github.com/joeyc64/MarsPatrol/blob/main/README.md",
+            "https://github.com/joeyc64/MarsPatrol"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "lawn-job-c64-original-source-restoration",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Upstream repository and project-specific primary artifacts establish the identity and repository-wide scope.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Michael Buhidar republishes and verifies his own 1983/84 C64 BASIC game from the October 1984 Ahoy! type-in. Complete game listing and tokenized PRG are present, with original-author provenance, line-check verification and explicit VICE operation.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Restoration starts from the author's interpreted BASIC magazine source, not an original CPU binary.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "README and BASIC listing establish C64 interpreter and hardware-address dependence, but no CPU code-generation target or processor minimum. CPU left empty rather than inferred from the platform.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly reports VICE operation and provides petcat-tokenized PRG. No compiled native binary is claimed, so compilable remains null. Printed-line checks do not establish byte-exact original binary matching.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed documentation and implementation do not establish minimum runnable CPU/RAM requirements; platform identity and code-generation settings are not promoted to a minimum.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Reviewed available project documentation and selected source files; no explicit AI-use evidence found. Absence is not evidence of non-use.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README establishes original author Michael Buhidar's provenance, period Ahoy! publication and Bug Repellent validation. Linked checker is a separate dependency, not part of this record.",
+          "evidence_urls": [
+            "https://github.com/mbuhidar/LawnJob/blob/main/README.md",
+            "https://github.com/mbuhidar/LawnJob/blob/main/lawnjob.bas"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "knight-lore-cpc-sikorama",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "RAM-derived CPC Knight Lore reconstruction contains symbolic Z80 assembly, data extraction and detailed engine analysis, with original and experimental rendering branches. Primary main-branch documentation reports successful RASM assembly and standalone snapshot boot to the real menu. This does not establish full playability or complete byte matching; the browser component is described only as a room visualizer.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "RAM-derived CPC Knight Lore reconstruction contains symbolic Z80 assembly, data extraction and detailed engine analysis, with original and experimental rendering branches. Primary main-branch documentation reports successful RASM assembly and standalone snapshot boot to the real menu. This does not establish full playability or complete byte matching; the browser component is described only as a room visualizer.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "RAM-derived CPC Knight Lore reconstruction contains symbolic Z80 assembly, data extraction and detailed engine analysis, with original and experimental rendering branches. Primary main-branch documentation reports successful RASM assembly and standalone snapshot boot to the real menu. This does not establish full playability or complete byte matching; the browser component is described only as a room visualizer.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Main branch assembly documentation reports error-free RASM assembly and boot to the real menu. Neither full gameplay nor global byte identity was verified, so those flags stay unknown. Default branch is a separate VRAM experiment; main is pinned for reconstruction activity.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Actual Z80 disassembly and snapshot-generating assembly establish original and native target architecture; minimum runnable hardware is not inferred.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Actual Z80 disassembly and snapshot-generating assembly establish original and native target architecture; minimum runnable hardware is not inferred.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly discusses Claude Code in the reconstruction workflow.",
+          "evidence_urls": [
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/README.md",
+            "https://github.com/sikorama/cpc-games-disassembled/blob/main/knight-lore/asm/knight_lore.asm"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "fruity-frank-kotlin-tibi",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive Kotlin/LibGDX recreation of Fruity Frank with game-state, enemies, collision, scoring and desktop/Android launchers. It recreates CPC gameplay rather than documenting binary-derived reconstruction. Gradle pins old Kotlin/Android dependencies; no independent build or run was performed.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive Kotlin/LibGDX recreation of Fruity Frank with game-state, enemies, collision, scoring and desktop/Android launchers. It recreates CPC gameplay rather than documenting binary-derived reconstruction. Gradle pins old Kotlin/Android dependencies; no independent build or run was performed.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive Kotlin/LibGDX recreation of Fruity Frank with game-state, enemies, collision, scoring and desktop/Android launchers. It recreates CPC gameplay rather than documenting binary-derived reconstruction. Gradle pins old Kotlin/Android dependencies; no independent build or run was performed.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Game implementation and Gradle build inspected; no claimed reproducible modern build or verified runnable release established.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Source is a high-level gameplay recreation, not a recovered original CPU program. Gradle lists several Android native ABIs but does not establish a unique output CPU or runtime minimum; leave CPU fields unknown.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/Tibi/Fruity-Frank/blob/master/README.md",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/core/src/tibi/fruity/GameScreen.kt",
+            "https://github.com/Tibi/Fruity-Frank/blob/master/build.gradle"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "phantomas20-cpc",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-published 2018 CPC remake of the Dinamic game, with substantial native assembly, room data, audio and public English/Spanish CDT plus DSK releases. No binary-derived reconstruction or byte-equivalence claim is made.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-published 2018 CPC remake of the Dinamic game, with substantial native assembly, room data, audio and public English/Spanish CDT plus DSK releases. No binary-derived reconstruction or byte-equivalence claim is made.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-published 2018 CPC remake of the Dinamic game, with substantial native assembly, room data, audio and public English/Spanish CDT plus DSK releases. No binary-derived reconstruction or byte-equivalence claim is made.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator README documents gameplay, compatible emulators and real CPC loading; release 1.0.0 publishes two CDT images and a DSK. Source not independently assembled.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The main game entry uses Z80 registers/instructions and CPC ports. No source-binary CPU is asserted for this authored remake.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator README explicitly documents at least 64 KB for CPC; processor minimum unknown.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/README.md",
+            "https://github.com/santiontanon/phantomas20cpc/blob/master/src/main-en.asm",
+            "https://github.com/santiontanon/phantomas20cpc/releases/tag/1.0.0"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "airwolf-monogame-alaiing",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original C#/MonoGame re-creation of the CPC Airwolf gameplay with real level, enemy, helicopter, collision and UI code. Creator explicitly says it is not emulation, recreates only gameplay and may omit original features. This is a modern remake, not a native CPC port or a claimed disassembly.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original C#/MonoGame re-creation of the CPC Airwolf gameplay with real level, enemy, helicopter, collision and UI code. Creator explicitly says it is not emulation, recreates only gameplay and may omit original features. This is a modern remake, not a native CPC port or a claimed disassembly.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original C#/MonoGame re-creation of the CPC Airwolf gameplay with real level, enemy, helicopter, collision and UI code. Creator explicitly says it is not emulation, recreates only gameplay and may omit original features. This is a modern remake, not a native CPC port or a claimed disassembly.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Source and .NET 6/MonoGame project inspected; build, runnable release and gameplay completion were not verified.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No original machine-code analysis is claimed, and the .NET 6 DesktopGL project does not constrain a specific CPU. Source/target CPUs remain unknown.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/Alaiing/Airwolf2023/blob/main/README.md",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Airwolf2023.csproj",
+            "https://github.com/Alaiing/Airwolf2023/blob/main/Level.cs"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "cpctelera-framework",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive CPC C/assembly development framework, low-level hardware library, asset tools and reproducible-project build infrastructure. Inspected keyboard implementation directly programs the PPI/PSG; examples and content tools form the same coherent repository.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive CPC C/assembly development framework, low-level hardware library, asset tools and reproducible-project build infrastructure. Inspected keyboard implementation directly programs the PPI/PSG; examples and content tools form the same coherent repository.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Substantive CPC C/assembly development framework, low-level hardware library, asset tools and reproducible-project build infrastructure. Inspected keyboard implementation directly programs the PPI/PSG; examples and content tools form the same coherent repository.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Published build/install framework and actual native implementation inspected; no independent compilation or execution.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Native runtime library directly implements Z80 code for CPC. Host tools support Windows/macOS/Linux but host CPU minimums are not specified; Z80 describes generated/native runtime code, not the host toolchain.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/lronaldo/cpctelera/blob/master/README.md",
+            "https://github.com/lronaldo/cpctelera/blob/master/cpctelera/src/keyboard/cpct_scanKeyboard.s"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "rasm-z80-assembler",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-maintained C Z80 cross-assembler includes CPC cartridge/snapshot/disk/tape generation, integrated compression, patching support and debug symbols. Inspected actual assembler source, integrated API example and build files. Z80 is the output instruction set, not a claim that the host executable runs on Z80.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-maintained C Z80 cross-assembler includes CPC cartridge/snapshot/disk/tape generation, integrated compression, patching support and debug symbols. Inspected actual assembler source, integrated API example and build files. Z80 is the output instruction set, not a claim that the host executable runs on Z80.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-maintained C Z80 cross-assembler includes CPC cartridge/snapshot/disk/tape generation, integrated compression, patching support and debug symbols. Inspected actual assembler source, integrated API example and build files. Z80 is the output instruction set, not a claim that the host executable runs on Z80.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Build scripts and implementation inspected; README reports release tests, but this pass did not independently build/run them.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly supports Linux x64/ARM, Intel/ARM macOS and Windows 32/64-bit. Target CPU describes host x86/ARM families; no minimum architecture version or runnable hardware profile inferred.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/EdouardBERGE/rasm/blob/master/README.md",
+            "https://github.com/EdouardBERGE/rasm/blob/master/rasm.c",
+            "https://github.com/EdouardBERGE/rasm/blob/master/makefile"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "dams-cpc-seguy",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original author preserved and annotated the commercial 1985 CPC DAMS source, with a tokenized-source encoder/decoder and documented self-hosting rebuild procedure. Actual dams.dams assembly and C++ conversion tool establish substantive source restoration, not a binary-only distribution.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original author preserved and annotated the commercial 1985 CPC DAMS source, with a tokenized-source encoder/decoder and documented self-hosting rebuild procedure. Actual dams.dams assembly and C++ conversion tool establish substantive source restoration, not a binary-only distribution.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Original author preserved and annotated the commercial 1985 CPC DAMS source, with a tokenized-source encoder/decoder and documented self-hosting rebuild procedure. Actual dams.dams assembly and C++ conversion tool establish substantive source restoration, not a binary-only distribution.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README documents creating a development disk and rebuilding DAMS inside DAMS; source and recipe inspected, not independently executed.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Historical DAMS source and native rebuild are Z80; the C++ encoder is a host utility with no verified host CPU minimum.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Historical DAMS source and native rebuild are Z80; the C++ encoder is a host utility with no verified host CPU minimum.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/pseguy/dams/blob/master/README",
+            "https://github.com/pseguy/dams/blob/master/dams.dams",
+            "https://github.com/pseguy/dams/blob/master/damsdecode.cpp",
+            "https://github.com/pseguy/dams/blob/master/Makefile"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "hyperloader-cpc-llopis",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete fast CPC tape loader with adaptive pulse measurement, synchronization and native loading code, paired with a Python CDT generator. Source credits Mert Boru's TurboLoader as the basis; this repository adds an implemented paired workflow rather than a passive binary mirror.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete fast CPC tape loader with adaptive pulse measurement, synchronization and native loading code, paired with a Python CDT generator. Source credits Mert Boru's TurboLoader as the basis; this repository adds an implemented paired workflow rather than a passive binary mirror.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Concrete fast CPC tape loader with adaptive pulse measurement, synchronization and native loading code, paired with a Python CDT generator. Source credits Mert Boru's TurboLoader as the basis; this repository adds an implemented paired workflow rather than a passive binary mirror.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Loader and generator inspected; generator uses Python 2 syntax. No build/run verification performed.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Loader source uses native Z80 and CPC PPI ports. Python media generator has no documented host CPU requirement.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/llopis/HyperLoader/blob/main/README.md",
+            "https://github.com/llopis/HyperLoader/blob/main/HyperLoader/src/Main.asm",
+            "https://github.com/llopis/HyperLoader/blob/main/GenerateCDT/GenerateCDT.py"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "amstrad-diagnostics-llopis",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-maintained native diagnostic suite tests RAM, ROM, keyboard and CRTC behavior, with substantial hardware routines and distinct ROM, RAM, cartridge, disk and tape build variants. Companion ROM dump code supports retro system investigation.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-maintained native diagnostic suite tests RAM, ROM, keyboard and CRTC behavior, with substantial hardware routines and distinct ROM, RAM, cartridge, disk and tape build variants. Companion ROM dump code supports retro system investigation.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Author-maintained native diagnostic suite tests RAM, ROM, keyboard and CRTC behavior, with substantial hardware routines and distinct ROM, RAM, cartridge, disk and tape build variants. Companion ROM dump code supports retro system investigation.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Source and multi-format packaging script inspected; no independent build or diagnostic execution performed.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Inspected Z80 main program and sjasmplus build script establish native Z80 output. No minimum RAM is inferred from tests that deliberately access particular banks.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/README.md",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/src/Main.asm",
+            "https://github.com/llopis/amstrad-diagnostics/blob/main/build.sh"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
+    },
+    {
+      "project_id": "ninja-carnage-native-source",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator-published multi-platform native adventure game source, with substantial CPC/C64 C game code and Amiga assembly implementation plus asset/build tools. Track the common game once at repository scope; referenced Spectrum/ST ports are not claimed as present in this repository.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator-published multi-platform native adventure game source, with substantial CPC/C64 C game code and Amiga assembly implementation plus asset/build tools. Track the common game once at repository scope; referenced Spectrum/ST ports are not claimed as present in this repository.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator-published multi-platform native adventure game source, with substantial CPC/C64 C game code and Amiga assembly implementation plus asset/build tools. Track the common game once at repository scope; referenced Spectrum/ST ports are not claimed as present in this repository.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Creator README documents released CPC/C64 games. Amiga implementation exists, but README calls it coming soon; overall runnable/playable evidence applies to released CPC/C64 variants only. Build paths require external 8bit-Unity/LDOS tooling and were not reproduced.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "No original binary CPU analysis is claimed for this authored implementation; source CPU is not applicable.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Actual CPC Z80 routines, cc65 -t c64 native build and Amiga m68k assembly establish target families; no processor minimum is inferred.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "Primary documentation and build/source inspected; no explicit minimum hardware profile established.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "No explicit AI-use evidence in reviewed primary material; absence does not mean non-use.",
+          "evidence_urls": [
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/README.md",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/AmstradCPC/Game/src/readsdcc.s",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Commodore64/8bit-Unity/build/ninjacarnage-c64.bat",
+            "https://github.com/christopheKohler/NinjaCarnage/blob/master/Amiga/NinjaCarnage/src/NinjaCarnage.asm"
+          ]
+        }
+      },
+      "next_actions": [
+        "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
+      ]
     }
   ]
 }
