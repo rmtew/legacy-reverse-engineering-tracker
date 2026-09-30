@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-30T06:46:57Z",
+  "updated_at": "2026-09-30T06:53:48Z",
   "projects": {
     "dec0de-atari-st-deprotection": {
       "id": "dec0de-atari-st-deprotection",
@@ -8716,7 +8716,18 @@
         "m68000"
       ],
       "target_cpu": [],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "original diagnostic board firmware",
+          "platform": "Atari STBook / STylus",
+          "cpu_family": "m68000",
+          "min_cpu": "68HC000",
+          "notes": "The archived original diagnostic firmware runs from the version 0.65 diagnostic board attached to the computer's main board. The README identifies the CPU testpoint as a 68HC000CC and documents tests across the machine's devices; it does not state a rebuildable analysis output or a general RAM minimum.",
+          "evidence": [
+            "https://github.com/sarnau/Atari-STBook-STylus-Test-Cartridge/blob/master/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "m68k binary"
@@ -32013,8 +32024,17 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "released Plus/GX4000 builds",
+          "platform": "Amstrad Plus / GX4000",
+          "notes": "The primary release page distributes CPR cartridge, DSK disk and CDT cassette images and documents Plus hardware-sprite and GX4000-control features. It does not state an output CPU or RAM minimum.",
+          "evidence": [
+            "https://cp-soft.itch.io/harrier-attack-reloaded"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "Z80 machine code"
@@ -32054,9 +32074,9 @@
         "Amstrad CPC",
         "Amstrad Plus"
       ],
-      "notes": "CP Soft decompiled/disassembled the original Harrier Attack in WinAPE and rebuilt it as an enhanced Amstrad Plus/GX4000 edition.",
+      "notes": "CP Soft disassembled the original machine-code Harrier Attack and rebuilt it as an enhanced Amstrad Plus/GX4000 release. The primary page distributes CPR, DSK and CDT images and explicitly states that no generative AI was used; it does not name the rebuilt program's CPU or a RAM minimum.",
       "ai": {
-        "usage": null,
+        "usage": false,
         "tools": []
       }
     },
@@ -45877,8 +45897,17 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "released Plus builds",
+          "platform": "Amstrad Plus / GX4000",
+          "notes": "The author explicitly says this release requires Plus emulation and will crash on a normal CPC 464 or 6128. CDT, DSK and CPR images are distributed; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://cp-soft.itch.io/oh-mummy-resurrected"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "Z80 machine code"
@@ -45918,7 +45947,7 @@
         "Amstrad CPC",
         "Amstrad Plus"
       ],
-      "notes": "CP Soft disassembled the original Oh Mummy and developed an enhanced Plus/GX4000 adaptation. The project's itch.io page explicitly states that no generative AI was used.",
+      "notes": "CP Soft disassembled the original Oh Mummy and developed an enhanced Plus/GX4000 adaptation. The itch.io page distributes cassette, disk and cartridge images, explicitly requires Plus-capable hardware/emulation, and states that no generative AI was used; it does not name the output CPU.",
       "ai": {
         "usage": false,
         "tools": []
@@ -56611,39 +56640,57 @@
       "github_path": null,
       "github_branch": null,
       "source_platforms": [
-        "Amiga"
+        "Amiga",
+        "DOS"
       ],
       "target_platforms": [
-        "modern"
+        "Desktop",
+        "Web",
+        "Android",
+        "ARM handhelds"
       ],
       "source_cpu": [
-        "m68000"
+        "m68000",
+        "x86"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "ARM"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "ARM handheld target",
+          "platform": "ARM handhelds",
+          "cpu_family": "ARM",
+          "notes": "The README explicitly names ARM handhelds among the Godot 4/C# targets. It gives no ISA level, device model, RAM floor or operating-system minimum.",
+          "evidence": [
+            "https://github.com/angree/openswos/blob/main/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
-        "m68k machine code"
+        "m68k assembly",
+        "x86 machine code"
       ],
       "reconstructed_languages": [
-        "m68k assembly",
-        "C++"
+        "C#"
       ],
       "record_class": "subject",
       "target_kinds": [
         "game"
       ],
       "work_kinds": [
-        "source-reconstruction",
-        "reimplementation"
+        "reimplementation",
+        "binary-analysis",
+        "reverse-engineering-derived-port"
       ],
       "tool_kinds": [],
       "types": [
-        "source reconstruction",
-        "reimplementation"
+        "clean-room reimplementation",
+        "reverse-engineering-informed port"
       ],
       "re_started": null,
-      "status": null,
+      "status": "early work-in-progress",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -56651,14 +56698,17 @@
         "byte_exact": null
       },
       "techniques": [
-        "binary reconstruction"
+        "source comparison",
+        "Ghidra decompilation",
+        "ADF asset extraction",
+        "behavioural reimplementation"
       ],
       "tags": [
         "game",
         "68k",
         "cross-platform"
       ],
-      "notes": "Modern OpenSWOS work builds on reconstruction of the original Amiga SWOS binary.",
+      "notes": "Clean-room C#/Godot recreation of Sensible World of Soccer 96/97. Upstream says the match engine is about 99% recreated while menus and surrounding UI remain placeholders; it studies the C++ swos-port, the reconstructed Amiga 68k source and a Ghidra decompilation of the DOS4GW/Watcom PC binary without copying their code. Amiga ADFs are currently required for graphics; PC data is optional.",
       "ai": {
         "usage": true,
         "tools": [
@@ -56687,8 +56737,18 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "macOS Swift build",
+          "platform": "macOS",
+          "os": "macOS 14 or newer",
+          "notes": "Requires Swift 6.0+ through Xcode 16 or the standalone toolchain. The README states no CPU or RAM minimum, so no host architecture is inferred.",
+          "evidence": [
+            "https://github.com/duanefields/7cities/blob/main/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "6502 machine code",
@@ -60309,8 +60369,31 @@
       "source_cpu": [
         "x86"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "x86_64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Windows x64 build",
+          "platform": "Windows",
+          "cpu_family": "x86-64",
+          "min_cpu": "x86_64",
+          "notes": "Upstream says Windows x64 with Visual Studio 2022 Community Edition is the most likely build path, while warning that the checked-in build may currently be broken.",
+          "evidence": [
+            "https://github.com/canadacow/starflight-reverse/blob/master/README.md"
+          ]
+        },
+        {
+          "name": "Linux x64 build",
+          "platform": "Linux",
+          "cpu_family": "x86-64",
+          "min_cpu": "x86_64",
+          "notes": "Upstream names Linux x64 via CMake/Vcpkg but warns that the checked-in build may currently be broken. No RAM or OS-version minimum is stated.",
+          "evidence": [
+            "https://github.com/canadacow/starflight-reverse/blob/master/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "Forth threaded code",
@@ -61525,7 +61608,24 @@
         "m68000"
       ],
       "target_cpu": [],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "Linux build",
+          "platform": "Linux",
+          "notes": "Requires SDL2 development files, Meson and Ninja; GNU readline is needed only for the debugger. Running the game requires a user-supplied original 360K ST disk image. The renderer requires OpenGL ES 2+; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/laanwj/sundog/blob/main/README.md"
+          ]
+        },
+        {
+          "name": "macOS build",
+          "platform": "macOS",
+          "notes": "Upstream documents Mesa, Meson, Ninja, SDL2 and Chromium setup plus a user-supplied original disk image. It does not state a CPU, RAM or macOS-version minimum.",
+          "evidence": [
+            "https://github.com/laanwj/sundog/blob/main/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "UCSD Pascal p-code",
