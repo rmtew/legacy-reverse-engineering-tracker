@@ -17395,7 +17395,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -17416,7 +17418,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-04",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -24890,7 +24892,9 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -24912,7 +24916,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-10-23",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -24959,7 +24963,23 @@
         "message": "Freshen up the README",
         "url": "https://github.com/smitelli/cosmore/commit/80418d1ee9026594e4dcc8445ec801d374074d84"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Reconstructed DOS game",
+        "platform": "DOS",
+        "cpu_family": "x86",
+        "min_cpu": "80286",
+        "notes": "The reconstructed low-level module explicitly declares 80286 as the minimum supported in-game CPU. The README's approximately 630 KiB figure is a build-time conventional-memory requirement, not a runtime minimum, so it is not recorded here.",
+        "evidence": [
+          {
+            "source": "src/lowlevel.asm",
+            "url": "https://github.com/smitelli/cosmore/blob/master/src/lowlevel.asm",
+            "excerpt": "Subsequent instructions can use 80286 opcodes if desired, as that's the minimum supported CPU in-game."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "cadaver-c64loader-v3",
@@ -31220,7 +31240,9 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -31242,7 +31264,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-04-13",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -31289,7 +31311,23 @@
         "message": "Merge pull request #3 from BJNFNE/ida-uppercase",
         "url": "https://github.com/lethal-guitar/Duke2Reconstructed/commit/980cee990879fa5f9e53706ef63ad25df8e32d2d"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Reconstructed DOS game",
+        "platform": "DOS",
+        "cpu_family": "x86",
+        "min_cpu": "80286",
+        "notes": "The digital-sound module remains 8086-compatible, but upstream explicitly says the rest of the executable uses 80286-compatible instructions; the whole game therefore requires an 80286-class CPU.",
+        "evidence": [
+          {
+            "source": "SRC/DIGISND/README.md",
+            "url": "https://github.com/lethal-guitar/Duke2Reconstructed/blob/main/SRC/DIGISND/README.md",
+            "excerpt": "the code only uses 8088/8086-compatible instructions ... The rest of the executable uses 80286-compatible instructions"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "dun-darach-spectrum",
@@ -36689,7 +36727,9 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -36711,7 +36751,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-06",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -38089,7 +38129,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-30",
+    "last_checked": "2026-10-01",
     "status": "active",
     "build": {
       "compilable": true,
@@ -38128,7 +38168,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB requires a nonzero source-rendered viewport hash after authenticated handoff, proving renderer execution rather than pixel/audio parity. DM2 Amiga reaches its initial real-GDAT M11 frame with zero core fallbacks while broader input, save, display/audio and dungeon parity remain open. Theron's current labeled suite passes 53/53 tests, but public status was corrected to keep original presentation, stair/exit, pickup/use, combat and chapter-completion consumers explicitly open. Captured controller input was observed only in the System Card poll loop, not the title/menu route. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
+    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB requires a nonzero source-rendered viewport hash after authenticated handoff, proving renderer execution rather than pixel/audio parity. DM2 Amiga reaches its initial real-GDAT M11 frame with zero core fallbacks. v3.0.353 adds authenticated Macintosh retail AUTO selection, source-owned viewport/HUD and movement-path regressions plus Mac MIDI/SFX scheduling; native audible output, physical Retina presentation and same-state original visual parity remain explicitly unverified. Theron's current labeled suite passes 53/53 tests, but original presentation, stair/exit, pickup/use, combat and chapter-completion consumers remain open. Nexus remains active real-data bring-up.",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-09-30",
@@ -66330,7 +66370,9 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -66351,7 +66393,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-29",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -80746,7 +80788,9 @@
       "Web"
     ],
     "source_cpu": [],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "Atari ST ST/MSA disk images"
     ],
@@ -80768,7 +80812,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-31",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -80795,7 +80839,7 @@
       "SidecarTridge",
       "MSA"
     ],
-    "notes": "SidecarTridge Multi-device app serves a web UI for browsing ST images as folders, creating blank images and converting ST/MSA. Requires the SidecarTridge hardware; upstream calls its Booster loader alpha.",
+    "notes": "SidecarTridge Multi-device app serves a web UI for browsing ST images as folders, creating blank images and converting ST/MSA. The build produces an explicitly m68000 Atari-side BOOT.BIN plus RP2040 microfirmware; disk-image inputs themselves are CPU-independent. Requires the SidecarTridge hardware; upstream calls its Booster loader alpha.",
     "github": {
       "repository": "sidecartridge/md-browser",
       "created_at": "2025-07-22",
@@ -83905,7 +83949,7 @@
     ],
     "re_started": null,
     "last_activity": "2018-09-24",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -87163,7 +87207,7 @@
     ],
     "re_started": null,
     "last_activity": "2020-05-07",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -88613,7 +88657,7 @@
     ],
     "re_started": null,
     "last_activity": "2022-05-10",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,
@@ -88671,7 +88715,27 @@
       "translation",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "English translation",
+        "platform": "Amstrad CPC",
+        "cpu_family": "Z80",
+        "min_cpu": "Z80",
+        "min_ram_kib": 128,
+        "notes": "The patcher assembles Z80 patches and emits a CPC disk image and emulator snapshot. The README explicitly says the translated game requires 128 KB and does not work on a 64 KB CPC.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/Nicholas-Campbell/TheAbbeyOfCrime/blob/master/README.md",
+            "excerpt": "patch.py assembles modified Z80 source and writes the patched disk image and snapshot; The Abbey of Crime requires 128KB of memory and will not work on a 64KB Amstrad CPC."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "castles-dr-creep-c64",
@@ -98230,7 +98294,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-06",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": true,

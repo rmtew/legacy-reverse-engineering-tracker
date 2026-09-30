@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-10-01 — Firmware, CPC/DOS output CPU audit and Firestaff Macintosh review
+
+Resolved eleven CPU audit areas across ten projects. **SidecarTridge — Atari ST disk image browser** now distinguishes its CPU-independent ST/MSA inputs from its explicit m68000 Atari-side image and separately identified RP2040 firmware, without inferring another CPU family from the board name. **ST Recover — floppy imaging** and **SuperDiskIndex — Amiga/Atari flux-image analyzer** now mark sector/flux input CPUs not applicable, while **xPack — Amiga XPK unpacker for Linux** records no original-CPU evidence rather than inferring one from AmigaOS provenance.
+
+Primary build/source evidence now records Z80 output and the explicit 128 KiB floor for **The Abbey of Crime (English translation)**; m68000 output for **Beneath a Steel Sky — Delirium cracktro reconstruction**; and x86 DOS output for **Cosmo's Cosmic Adventure — source reconstruction**, **Duke Nukem II — byte-exact DOS source reconstruction**, **F-15 Strike Eagle II — DOS executable reconstruction**, and **Pacwars — debug-symbol-assisted DOS C decompilation**. Runtime profiles are limited to exact statements: Cosmore and Duke II have documented 80286 instruction floors, while F-15 and Pacwars retain unknown minimum hardware.
+
+Active review of **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** captures v3.0.353's authenticated Macintosh-retail AUTO selection, source-owned viewport/HUD and bounded movement/audio regressions. The record preserves upstream's limits: audible native output, physical Retina presentation and same-state visual comparison with the original remain unverified.
+
+
 ## 2026-10-01 — Successor reviews, Apple IIGS/Jaguar/Mega Drive search and CPU audit
 
 Closed both previously unreviewed successor tasks. **Tube64 — 64-bit Bullfrog Tube reconstruction port** is now represented separately from the pointer-sensitive 32-bit DOS reconstruction, while **xrick-kb — Rick Dangerous reverse-engineering knowledge base** records the independent Atari ST/DOS Ghidra, RAM-capture, format and Hatari-validation corpus rather than folding it into the runnable xrick port.

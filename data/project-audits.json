@@ -163,7 +163,7 @@
     },
     {
       "project_id": "abbey-of-crime-english-cpc",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -181,16 +181,18 @@
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "README states that patch.py assembles modified Z80 source and writes the patched CPC disk image and snapshot."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "README explicitly requires 128 KB and rejects 64 KB CPC systems; no other minimum was inferred."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -203,9 +205,7 @@
         }
       },
       "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
+        "Check predecessors, successors, forks and credited source/disassembly relationships."
       ]
     },
     {
@@ -5473,7 +5473,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-09-30",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5498,13 +5498,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "Current Theron documentation records a 53/53 labeled CTest run and corrects broad parity status: original presentation, stair/exit, pickup/use, combat and chapter-completion consumers remain open. Controller input was observed only in the System Card loop."
+          "checked_at": "2026-10-01",
+          "note": "Reviewed v3.0.353 change/status evidence: authenticated Macintosh retail media now drives AUTO selection, viewport/HUD ownership and bounded movement regressions; this is not a complete DM2 gameplay or visual-parity claim."
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "No new general CPU/RAM floor is stated; the existing Apple Silicon host smoke remains the only explicit CPU profile."
+          "checked_at": "2026-10-01",
+          "note": "v3.0.353 documents Mac real-media and Apple-host testing but no new general CPU/RAM minimum; existing arm64 host smoke remains the only explicit CPU profile."
         },
         "ai": {
           "state": "reviewed",
@@ -5518,10 +5518,11 @@
         }
       },
       "next_actions": [
-        "Verify broader DM2 Amiga input, save, native display/audio and dungeon-composition parity",
-        "Verify Theron original presentation, stair/exit, pickup/use, combat and chapter-completion consumers",
-        "Reach and capture a source-bound Theron title/menu route before widening input or gameplay claims",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
+        "Verify DM2 Macintosh audible output on hardware with a native audio/MIDI endpoint.",
+        "Compare a same-state Macintosh viewport capture with the original and inspect physical Retina presentation.",
+        "Verify broader DM2 Amiga input, save, native display/audio and dungeon-composition parity.",
+        "Verify Theron original presentation, stair/exit, pickup/use, combat and chapter-completion consumers.",
+        "Check predecessors, successors, forks and credited source/disassembly relationships."
       ]
     },
     {
@@ -25242,7 +25243,7 @@
     },
     {
       "project_id": "st-recover-floppy-imaging",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -25254,8 +25255,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-01",
+          "note": "Primary README and source describe physical floppy reads and .ST disk-image output; the analyzed input is sector/media data, not executable code tied to a source CPU."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -25281,7 +25283,7 @@
         }
       },
       "next_actions": [
-        "Check additional build, minimum hardware and predecessor evidence where applicable."
+        "Check minimum supported Windows and host hardware if primary documentation becomes more specific."
       ]
     },
     {
@@ -25599,7 +25601,7 @@
     },
     {
       "project_id": "xpack-linux-xpk",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -25611,8 +25613,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-01",
+          "note": "README and retained source establish an AmigaOS SAS/C source port, but do not state the original processor target; no CPU was inferred from the Amiga platform label."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -25638,7 +25641,8 @@
         }
       },
       "next_actions": [
-        "Review unverified CPU, runtime, build, and AI details if stronger primary evidence appears."
+        "Record an original CPU only if primary build metadata or historical documentation states it explicitly.",
+        "Review minimum Linux/runtime requirements if upstream publishes them."
       ]
     },
     {
@@ -26081,7 +26085,7 @@
     },
     {
       "project_id": "superdiskindex-flux",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -26093,8 +26097,9 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-01",
+          "note": "Primary README and implementation describe SCP flux, Amiga/IBM sectors and image export; the analyzed input is magnetic/media data, so source CPU is not applicable."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -26120,12 +26125,12 @@
         }
       },
       "next_actions": [
-        "Investigate unsupported build, binary-comparison, CPU and minimum-runtime claims if evidence emerges."
+        "Verify a current build and review explicit Linux/runtime requirements if upstream documents them."
       ]
     },
     {
       "project_id": "sidecartridge-md-browser",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -26137,12 +26142,14 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-01",
+          "note": "The reviewed ST/MSA disk-image inputs are filesystem/media data, not source executable code."
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "target/atarist/Makefile explicitly assembles the Atari-side image with VASM -m68000. The root project also builds Raspberry Pi Pico W/RP2040 firmware, but no additional CPU family is inferred from the board name."
         },
         "build": {
           "state": "reviewed",
@@ -26164,7 +26171,7 @@
         }
       },
       "next_actions": [
-        "Investigate unsupported build, binary-comparison, CPU and minimum-runtime claims if evidence emerges."
+        "Check exact supported Atari models, memory and ROM/TOS floors if upstream publishes a bounded compatibility table."
       ]
     },
     {
@@ -29923,7 +29930,7 @@
     },
     {
       "project_id": "dos-cosmore",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -29939,16 +29946,18 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Turbo C/TASM build and x86 assembly produce the reconstructed DOS executable; source explicitly selects 80286 instructions for the in-game floor."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "src/lowlevel.asm explicitly identifies 80286 as the minimum supported in-game CPU; build-time memory was kept separate."
         },
         "ai": {
           "state": "needs-research",
@@ -29960,12 +29969,13 @@
         }
       },
       "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+        "Verify the author-reported binary comparison independently and continue provenance/relationship research.",
+        "Review explicit AI-use evidence if it appears."
       ]
     },
     {
       "project_id": "dos-duke2-reconstructed",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -29981,16 +29991,18 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Primary build documentation identifies 8086-compatible sound-library code and 80286-compatible instructions in the remainder of the DOS executable."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The executable-wide instruction split establishes an 80286 floor; no RAM minimum was stated in the reviewed documentation."
         },
         "ai": {
           "state": "needs-research",
@@ -30002,12 +30014,13 @@
         }
       },
       "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+        "Verify the byte-identical build claim independently.",
+        "Review explicit AI-use evidence if it appears."
       ]
     },
     {
       "project_id": "dos-f15se2-re",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -30023,8 +30036,9 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The checked-in MASM sources use explicit .8086 directives and the build produces reconstructed DOS executables; this supports an x86 output classification but not a complete minimum-hardware claim."
         },
         "build": {
           "state": "reviewed",
@@ -30044,7 +30058,9 @@
         }
       },
       "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+        "Locate an explicit minimum runnable CPU/RAM statement before adding a runtime profile.",
+        "Verify executable/layout comparison claims independently and continue provenance research.",
+        "Review explicit AI-use evidence if it appears."
       ]
     },
     {
@@ -30093,7 +30109,7 @@
     },
     {
       "project_id": "dos-pacwars-decomp",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -30109,8 +30125,9 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "README requires Borland C++ 3.x and states that the build creates PACWARS.EXE for DOS; the output is explicitly a 16-bit x86 DOS executable, while no exact minimum CPU is stated."
         },
         "build": {
           "state": "reviewed",
@@ -30130,7 +30147,8 @@
         }
       },
       "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+        "Locate an explicit minimum runnable CPU/RAM statement before adding a runtime profile.",
+        "Verify build and gameplay parity independently and continue provenance research."
       ]
     },
     {
@@ -31791,7 +31809,7 @@
     },
     {
       "project_id": "beneath-steel-sky-delirium-cracktro",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -31810,9 +31828,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Component source explicitly handles a 68000/68010 path and gates VBR/cache-control sequences for 68020/68030/68040, establishing m68000-compatible program output without claiming a full runtime profile."
         },
         "build": {
           "state": "needs-research",
@@ -31836,7 +31854,7 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify successful assembly, byte comparison and full runtime requirements."
       ]
     },
     {
