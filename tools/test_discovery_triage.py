@@ -23,6 +23,17 @@ class Client:
 
 
 class TriageTests(unittest.TestCase):
+    def test_native_dams_and_managed_remake_sources_are_inventory_hints(self):
+        for name in ('dams.dams', 'Level.cs', 'GameScreen.kt', 'DAMS.DAMS'):
+            with self.subTest(name=name):
+                row = inventory([{'name': name, 'type': 'file'}])
+                self.assertTrue(row['root_signals']['source_files'])
+                self.assertFalse(row['root_signals']['binary_files'])
+                self.assertNotIn('decision', row)
+        row = inventory([{'name': 'dams.dams', 'type': 'dir'},
+                         {'name': 'game.kt.png', 'type': 'file'}])
+        self.assertFalse(row['root_signals']['source_files'])
+
     def test_nested_tree_directory_uses_two_ref_pinned_requests(self):
         class DirectoryClient(Client):
             def __init__(self):

@@ -20,7 +20,7 @@ from discovery_intake import HTTPClient, LinkParser, STATE, github_candidate
 from screen_discovery_candidates import CandidateIndex, canonical_url, github_repository_key
 
 
-SOURCE_EXT = {".asm", ".s", ".6502", ".c", ".cpp", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
+SOURCE_EXT = {".asm", ".s", ".6502", ".dams", ".c", ".cpp", ".cs", ".kt", ".go", ".py", ".ts", ".js", ".v", ".sv", ".vhd"}
 BINARY_EXT = {".rom", ".bin", ".adf", ".dsk", ".prg", ".tos", ".jed", ".ssd", ".uef", ".exe", ".vsix"}
 RELEASE_EXT = {".ssd", ".uef", ".exe", ".vsix"}
 DESIGN_EXT = {".kicad_sch", ".kicad_pcb", ".lib", ".pld"}

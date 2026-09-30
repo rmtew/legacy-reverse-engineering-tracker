@@ -108,3 +108,5 @@ For a batch that merits a branch review, `automation/discovery-*` triggers the e
 - [Sixteenth fixed batch of 30 (2026-09-30)](discovery-intake-sixteenth-30-2026-09-30.md)
 
 - [Thirty fresh Amiga/ST/CPC/C64 candidates (2026-09-30)](fresh-platform-discovery-30-2026-09-30.md)
+
+- [Follow-on platform discovery: 30 more candidates (2026-09-30)](follow-on-platform-discovery-30-2026-09-30.md)
