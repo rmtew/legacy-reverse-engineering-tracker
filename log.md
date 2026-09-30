@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-30 — Cross-platform output and ADF-input CPU audit
+
+Resolved ten queued CPU areas across **Harrier Attack Reloaded**, **Oh Mummy Resurrected**, **Seven Cities of Gold — reverse-engineered macOS remaster**, **Starflight — Vulkan remaster from recovered Forth/x86 runtime**, **Atari STBook/STylus diagnostic cartridge analysis**, **SunDog — Atari ST p-system runtime reconstruction**, **Sensible World of Soccer / OpenSWOS**, **ADF Opus 2025 — Amiga disk image workbench**, **ADF reader/writer — Amiga OFS/FFS image inspector**, and **ADFlib — Amiga OFS/FFS filesystem library**. Primary documentation establishes Starflight's x86-64 builds and OpenSWOS's explicit ARM-handheld target, while undocumented CPC, Swift/macOS and portable-C host architectures remain **no evidence found** rather than inferred from platform or language.
+
+The three ADF/OFS/FFS tools now classify their disk and filesystem inputs as CPU-not-applicable; ADFlib's historical MC68EC020 development machine is retained only as provenance. Exact Plus-emulation, macOS 14+/Swift 6, SDL/OpenGL and diagnostic-board execution contexts are recorded without inventing RAM or processor minima. OpenSWOS is also corrected to match its current primary README: a clean-room C#/Godot reimplementation informed by Amiga 68k source, DOS Ghidra analysis and `swos-port`, not a C++/assembly reconstruction output.
+
+
 ## 2026-09-30 — Amiga/Z80/MIDI CPU audit and active upstream review
 
 Resolved eleven queued CPU areas across **XFDMaster — Amiga packed file decruncher**, **Roc'n Rope — Amiga arcade transcode**, **Super Bagman — Amiga arcade transcode**, **Track & Field — Amiga arcade transcode**, **Vulgus — Amiga arcade transcode**, **Mercenary (ZX Spectrum disassembly / Next port)**, **MIDI-MAZE II — Atari ST title music and player reconstruction**, **MIDI Maze — browser port from reconstructed ST source**, and **MIDImaze — Atari ST reverse-compiled C**. Primary package metadata, assembly and build files establish m68k, m68000/m68020, Z80N and Intel x86-64 outputs. Packed/data inputs, browser bundles and music exports are explicitly CPU-not-applicable where appropriate; runtime notes preserve exact Node/Python/macOS and hardware evidence without inferring host CPUs or RAM from platform names.

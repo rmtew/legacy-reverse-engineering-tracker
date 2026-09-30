@@ -2795,7 +2795,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-09-19",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -2893,7 +2893,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-05-28",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -3253,7 +3253,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-15",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -12059,7 +12059,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-03-30",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -12102,7 +12102,19 @@
         "message": "Minor update",
         "url": "https://github.com/sarnau/Atari-STBook-STylus-Test-Cartridge/commit/2487d8716c39a0634b6a2618c99119c8b7e5f03e"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "original diagnostic board firmware",
+        "platform": "Atari STBook / STylus",
+        "cpu_family": "m68000",
+        "min_cpu": "68HC000",
+        "notes": "The archived original diagnostic firmware runs from the version 0.65 diagnostic board attached to the computer's main board. The README identifies the CPU testpoint as a 68HC000CC and documents tests across the machine's devices; it does not state a rebuildable analysis output or a general RAM minimum.",
+        "evidence": [
+          "https://github.com/sarnau/Atari-STBook-STylus-Test-Cartridge/blob/master/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "jotd-atari-tetris-amiga",
@@ -44300,7 +44312,7 @@
     ],
     "re_started": null,
     "last_activity": null,
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": "released",
     "build": {
       "compilable": null,
@@ -44309,8 +44321,11 @@
       "byte_exact": null
     },
     "ai": {
-      "usage": null,
-      "tools": []
+      "usage": false,
+      "tools": [],
+      "evidence": [
+        "The itch.io project metadata explicitly says no generative AI was used."
+      ]
     },
     "techniques": [
       "WinAPE disassembly",
@@ -44323,7 +44338,7 @@
       "Amstrad CPC",
       "Amstrad Plus"
     ],
-    "notes": "CP Soft decompiled/disassembled the original Harrier Attack in WinAPE and rebuilt it as an enhanced Amstrad Plus/GX4000 edition.",
+    "notes": "CP Soft disassembled the original machine-code Harrier Attack and rebuilt it as an enhanced Amstrad Plus/GX4000 release. The primary page distributes CPR, DSK and CDT images and explicitly states that no generative AI was used; it does not name the rebuilt program's CPU or a RAM minimum.",
     "record_class": "subject",
     "target_kinds": [
       "game"
@@ -44332,7 +44347,18 @@
       "reverse-engineering-derived-port",
       "source-reconstruction"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "released Plus/GX4000 builds",
+        "platform": "Amstrad Plus / GX4000",
+        "notes": "The primary release page distributes CPR cartridge, DSK disk and CDT cassette images and documents Plus hardware-sprite and GX4000-control features. It does not state an output CPU or RAM minimum.",
+        "evidence": [
+          "https://cp-soft.itch.io/harrier-attack-reloaded"
+        ]
+      }
+    ]
   },
   {
     "id": "hatari-atari-emulator-debugger",
@@ -63390,7 +63416,7 @@
     ],
     "re_started": null,
     "last_activity": null,
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": "released",
     "build": {
       "compilable": null,
@@ -63413,7 +63439,7 @@
       "Amstrad CPC",
       "Amstrad Plus"
     ],
-    "notes": "CP Soft disassembled the original Oh Mummy and developed an enhanced Plus/GX4000 adaptation. The project's itch.io page explicitly states that no generative AI was used.",
+    "notes": "CP Soft disassembled the original Oh Mummy and developed an enhanced Plus/GX4000 adaptation. The itch.io page distributes cassette, disk and cartridge images, explicitly requires Plus-capable hardware/emulation, and states that no generative AI was used; it does not name the output CPU.",
     "record_class": "subject",
     "target_kinds": [
       "game"
@@ -63422,7 +63448,18 @@
       "reverse-engineering-derived-port",
       "source-reconstruction"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "released Plus builds",
+        "platform": "Amstrad Plus / GX4000",
+        "notes": "The author explicitly says this release requires Plus emulation and will crash on a normal CPC 464 or 6128. CDT, DSK and CPR images are distributed; no CPU or RAM minimum is stated.",
+        "evidence": [
+          "https://cp-soft.itch.io/oh-mummy-resurrected"
+        ]
+      }
+    ]
   },
   {
     "id": "oktalyzer-amiga-hitchhikr",
@@ -78107,29 +78144,34 @@
     ],
     "repo": "https://github.com/angree/openswos",
     "source_platforms": [
-      "Amiga"
+      "Amiga",
+      "DOS"
     ],
     "target_platforms": [
-      "modern"
+      "Desktop",
+      "Web",
+      "Android",
+      "ARM handhelds"
     ],
     "source_cpu": [
-      "m68000"
+      "m68000",
+      "x86"
     ],
     "source_language": [
-      "m68k machine code"
+      "m68k assembly",
+      "x86 machine code"
     ],
     "reconstructed_languages": [
-      "m68k assembly",
-      "C++"
+      "C#"
     ],
     "types": [
-      "source reconstruction",
-      "reimplementation"
+      "clean-room reimplementation",
+      "reverse-engineering-informed port"
     ],
     "re_started": null,
     "last_activity": "2026-08-26",
-    "last_checked": "2026-09-23",
-    "status": null,
+    "last_checked": "2026-09-30",
+    "status": "early work-in-progress",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -78146,14 +78188,17 @@
       ]
     },
     "techniques": [
-      "binary reconstruction"
+      "source comparison",
+      "Ghidra decompilation",
+      "ADF asset extraction",
+      "behavioural reimplementation"
     ],
     "tags": [
       "game",
       "68k",
       "cross-platform"
     ],
-    "notes": "Modern OpenSWOS work builds on reconstruction of the original Amiga SWOS binary.",
+    "notes": "Clean-room C#/Godot recreation of Sensible World of Soccer 96/97. Upstream says the match engine is about 99% recreated while menus and surrounding UI remain placeholders; it studies the C++ swos-port, the reconstructed Amiga 68k source and a Ghidra decompilation of the DOS4GW/Watcom PC binary without copying their code. Amiga ADFs are currently required for graphics; PC data is optional.",
     "github": {
       "repository": "angree/openswos",
       "created_at": "2026-05-12",
@@ -78191,10 +78236,25 @@
       "game"
     ],
     "work_kinds": [
-      "source-reconstruction",
-      "reimplementation"
+      "reimplementation",
+      "binary-analysis",
+      "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "ARM"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "ARM handheld target",
+        "platform": "ARM handhelds",
+        "cpu_family": "ARM",
+        "notes": "The README explicitly names ARM handhelds among the Godot 4/C# targets. It gives no ISA level, device model, RAM floor or operating-system minimum.",
+        "evidence": [
+          "https://github.com/angree/openswos/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "seven-cities-of-gold-remaster",
@@ -78240,7 +78300,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-19",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-09-30",
     "status": "active",
     "build": {
       "compilable": true,
@@ -78361,7 +78421,19 @@
           "byte_exact": true
         }
       }
-    }
+    },
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "macOS Swift build",
+        "platform": "macOS",
+        "os": "macOS 14 or newer",
+        "notes": "Requires Swift 6.0+ through Xcode 16 or the standalone toolchain. The README states no CPU or RAM minimum, so no host architecture is inferred.",
+        "evidence": [
+          "https://github.com/duanefields/7cities/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "uae4all-sf2000-angree",
@@ -83367,7 +83439,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-07-02",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -83451,7 +83523,32 @@
         "re_started": [],
         "ci": []
       }
-    }
+    },
+    "target_cpu": [
+      "x86_64"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Windows x64 build",
+        "platform": "Windows",
+        "cpu_family": "x86-64",
+        "min_cpu": "x86_64",
+        "notes": "Upstream says Windows x64 with Visual Studio 2022 Community Edition is the most likely build path, while warning that the checked-in build may currently be broken.",
+        "evidence": [
+          "https://github.com/canadacow/starflight-reverse/blob/master/README.md"
+        ]
+      },
+      {
+        "name": "Linux x64 build",
+        "platform": "Linux",
+        "cpu_family": "x86-64",
+        "min_cpu": "x86_64",
+        "notes": "Upstream names Linux x64 via CMake/Vcpkg but warns that the checked-in build may currently be broken. No RAM or OS-version minimum is stated.",
+        "evidence": [
+          "https://github.com/canadacow/starflight-reverse/blob/master/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "starquake-spectrum",
@@ -84993,7 +85090,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-11-18",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -85050,7 +85147,25 @@
         "message": "Merge pull request #37 from laanwj/2025-ci",
         "url": "https://github.com/laanwj/sundog/commit/e56d8e2532134f0741a7f82b80f9357776779f27"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Linux build",
+        "platform": "Linux",
+        "notes": "Requires SDL2 development files, Meson and Ninja; GNU readline is needed only for the debugger. Running the game requires a user-supplied original 360K ST disk image. The renderer requires OpenGL ES 2+; no CPU or RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/laanwj/sundog/blob/main/README.md"
+        ]
+      },
+      {
+        "name": "macOS build",
+        "platform": "macOS",
+        "notes": "Upstream documents Mesa, Meson, Ninja, SDL2 and Chromium setup plus a user-supplied original disk image. It does not state a CPU, RAM or macOS-version minimum.",
+        "evidence": [
+          "https://github.com/laanwj/sundog/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "dos-supaplex-binary-patches",
