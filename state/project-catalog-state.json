@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-30T17:01:37Z",
+  "updated_at": "2026-09-30T17:47:02Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -864,6 +864,94 @@
         "ZX Spectrum"
       ],
       "notes": ".NET macro assembler with 6502 family, 6800/6809, Z80/8080 and 8086 targets, documentation, a disassembler and tests; representative systems listed, not a claim of an analyzed CPC binary.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sourcegen-6502bench": {
+      "id": "sourcegen-6502bench",
+      "title": "6502bench",
+      "upstream_name": "6502bench / SourceGen",
+      "display_title": "6502bench SourceGen — interactive 6502-family disassembly workbench",
+      "subjects": [],
+      "repo": "https://github.com/fadden/6502bench",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II",
+        "Apple IIgs",
+        "Commodore 64",
+        "NES",
+        "Atari 2600",
+        "Arcade"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "6502",
+        "65C02",
+        "65816"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "SourceGen desktop application",
+          "platform": "Windows",
+          "os": "Windows 7 SP1 or later with Microsoft .NET Framework 4.8.1",
+          "notes": "README also reports Wine 9+ operation; no minimum CPU or RAM is stated.",
+          "evidence": [
+            "https://github.com/fadden/6502bench/blob/master/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code",
+        "65C02 machine code",
+        "65816 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "65C02 assembly",
+        "65816 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disassembler",
+        "static-analysis",
+        "development-environment"
+      ],
+      "types": [
+        "interactive disassembly workbench"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "recursive code tracing",
+        "processor-state tracking",
+        "cross-assembler verification",
+        "inline visualization"
+      ],
+      "tags": [
+        "6502",
+        "65C02",
+        "65816",
+        "SourceGen",
+        "disassembler",
+        "static analysis"
+      ],
+      "notes": "Interactive SourceGen workbench for 6502-family binaries. It traces reachable code and processor flags, handles undocumented opcodes and 65816 register widths, emits source for multiple assemblers, invokes them for verification and stores shareable JSON project metadata without embedding original binary contents.",
       "ai": {
         "usage": null,
         "tools": []
@@ -3386,6 +3474,99 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "alien-soldier-mega-drive-source-reconstruction": {
+      "id": "alien-soldier-mega-drive-source-reconstruction",
+      "title": "alien_soldier_src",
+      "upstream_name": "Alien Soldier (J) Disassembly",
+      "display_title": "Alien Soldier — byte-identical Mega Drive source reconstruction",
+      "subjects": [
+        "Alien Soldier"
+      ],
+      "repo": "https://github.com/oranguthang/alien_soldier_src",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Mega Drive"
+      ],
+      "target_platforms": [
+        "Sega Mega Drive"
+      ],
+      "source_cpu": [
+        "m68000",
+        "Z80"
+      ],
+      "target_cpu": [
+        "m68000",
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Japanese ROM reconstruction",
+          "platform": "Sega Mega Drive",
+          "cpu_family": "m68000",
+          "notes": "Byte-identical Japanese cartridge includes reconstructed 68000 code and Z80 sound components and is validated through twelve emulator checkpoints; no minimum RAM is stated.",
+          "evidence": [
+            "https://github.com/oranguthang/alien_soldier_src/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "m68000 machine code",
+        "Z80 machine code",
+        "ROM data"
+      ],
+      "reconstructed_languages": [
+        "m68000 assembly",
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "byte-identical ROM reconstruction"
+      ],
+      "re_started": 2023,
+      "status": "complete",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [
+        "byte-identical reassembly",
+        "emulator state replay",
+        "binary tracing",
+        "procedure perturbation analysis",
+        "asset extraction",
+        "symbol and relocation verification"
+      ],
+      "tags": [
+        "Sega Mega Drive",
+        "Alien Soldier",
+        "68000",
+        "Z80",
+        "byte-exact",
+        "source reconstruction"
+      ],
+      "notes": "Source Reconstruction 1.0 for the Japanese cartridge. The AS-based build reproduces the canonical 2 MB ROM byte for byte, validates symbols/layout/assets, replays twelve emulator checkpoints, traces CPU behavior and preserves confidence/provenance boundaries.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "alis-silmarils-vm": {
@@ -27711,6 +27892,98 @@
         "tools": []
       }
     },
+    "flicky-mega-drive-source-reconstruction": {
+      "id": "flicky-mega-drive-source-reconstruction",
+      "title": "flicky_src",
+      "upstream_name": "Flicky (Sega Mega Drive) Disassembly",
+      "display_title": "Flicky — byte-identical Mega Drive source reconstruction",
+      "subjects": [
+        "Flicky"
+      ],
+      "repo": "https://github.com/oranguthang/flicky_src",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Mega Drive"
+      ],
+      "target_platforms": [
+        "Sega Mega Drive"
+      ],
+      "source_cpu": [
+        "m68000",
+        "Z80"
+      ],
+      "target_cpu": [
+        "m68000",
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Reference ROM reconstruction",
+          "platform": "Sega Mega Drive",
+          "cpu_family": "m68000",
+          "notes": "Byte-identical cartridge includes resident Z80 sound driver and is exercised through twelve emulator scenarios; no minimum alternate hardware or RAM is stated.",
+          "evidence": [
+            "https://github.com/oranguthang/flicky_src/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "m68000 machine code",
+        "Z80 machine code",
+        "ROM data"
+      ],
+      "reconstructed_languages": [
+        "m68000 assembly",
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "byte-identical ROM reconstruction"
+      ],
+      "re_started": 2024,
+      "status": "complete",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [
+        "byte-identical reassembly",
+        "emulator state replay",
+        "procedure perturbation analysis",
+        "Nemesis/Enigma codec reconstruction",
+        "symbol and relocation verification"
+      ],
+      "tags": [
+        "Sega Mega Drive",
+        "Flicky",
+        "68000",
+        "Z80",
+        "byte-exact",
+        "source reconstruction"
+      ],
+      "notes": "Address-ordered, semantically named reconstruction of the 1991 Mega Drive ROM. The permanent gate reproduces the cartridge byte for byte; Source Reconstruction 2.0 adds level, graphics and sound studios, format codecs, debugger symbols and twelve state-replay scenarios.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "fluxengine-disk-preservation": {
       "id": "fluxengine-disk-preservation",
       "title": "FluxEngine — floppy flux imaging and analysis",
@@ -36503,6 +36776,143 @@
         "software archaeology"
       ],
       "notes": "Full commented NES Jackal disassembly. The README states all code is completely disassembled and that ASM6n builds the source to the original Jackal ROM when the original graphical data is supplied.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "jagfx-atari-jaguar-graphics-tool": {
+      "id": "jagfx-atari-jaguar-graphics-tool",
+      "title": "jagfx",
+      "upstream_name": "jagfx",
+      "display_title": "jagfx — Atari Jaguar graphics extractor and ROM searcher",
+      "subjects": [],
+      "repo": "https://github.com/benbaker76/jagfx",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari Jaguar"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Atari Jaguar ROM graphics and compressed data"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "PNG",
+        "palette files"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "ROM graphics analysis tool"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "pixel-stride scanning",
+        "palette matching",
+        "compression-parameter search",
+        "pointer-table detection"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "ROM analysis",
+        "graphics extraction",
+        "compression analysis"
+      ],
+      "notes": "General Atari Jaguar ROM graphics workbench. It decodes Jaguar pixel formats, searches headerless ROM regions for image stride patterns, locates palettes, identifies parameterized compression codecs, sweeps packed streams and exports assets without hard-coding a game.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "cubanismo-jaguar-sdk": {
+      "id": "cubanismo-jaguar-sdk",
+      "title": "jaguar-sdk",
+      "upstream_name": "Jaguar SDK / Development Tools",
+      "display_title": "Jaguar SDK — restored Atari development toolchain",
+      "subjects": [],
+      "repo": "https://github.com/cubanismo/jaguar-sdk",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Atari Jaguar"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68000",
+        "Jaguar GPU/DSP"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "historical Atari Jaguar SDK sources and binary tools"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "m68k assembly",
+        "Jaguar GPU/DSP assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "assembler-toolchain",
+        "debugger",
+        "development-environment"
+      ],
+      "types": [
+        "restored historical development SDK"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "historical tool restoration",
+        "cross-toolchain integration",
+        "DOS-tool wrapping",
+        "Docker packaging"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "SDK",
+        "toolchain",
+        "GCC",
+        "GDB",
+        "rmac",
+        "rln"
+      ],
+      "notes": "Modernized, buildable restoration of the released Atari Jaguar development tools. It replaces unavailable tools, wraps surviving DOS binaries, builds source-available GCC/GDB/JRISC utilities, includes developer documentation and provides unified Makefiles, samples and Docker environment.",
       "ai": {
         "usage": null,
         "tools": []
@@ -66213,6 +66623,88 @@
         "tools": []
       }
     },
+    "transwarpgs-rom-18s-disassembly": {
+      "id": "transwarpgs-rom-18s-disassembly",
+      "title": "TransWarpGS-ROM",
+      "upstream_name": "TransWarpGS-ROM",
+      "display_title": "TransWarp GS ROM 1.8s — byte-identical Apple IIgs disassembly",
+      "subjects": [
+        "TransWarp GS ROM 1.8s"
+      ],
+      "repo": "https://github.com/digarok/TransWarpGS-ROM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple IIgs"
+      ],
+      "target_platforms": [
+        "Apple IIgs"
+      ],
+      "source_cpu": [
+        "65816"
+      ],
+      "target_cpu": [
+        "65816"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "TransWarp GS ROM 1.8s",
+          "platform": "Apple IIgs",
+          "cpu_family": "65816",
+          "notes": "Targets the TransWarp GS accelerator; no minimum Apple IIgs RAM is stated.",
+          "evidence": [
+            "https://github.com/digarok/TransWarpGS-ROM/blob/main/README.md",
+            "https://github.com/digarok/TransWarpGS-ROM/blob/main/src/twgs_1.8s/twgs.s"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "65816 machine code"
+      ],
+      "reconstructed_languages": [
+        "65816 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "ROM disassembly",
+        "byte-exact reassembly"
+      ],
+      "re_started": null,
+      "status": "complete",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "Merlin32 reassembly",
+        "binary parity verification",
+        "CI build verification"
+      ],
+      "tags": [
+        "Apple IIgs",
+        "TransWarp GS",
+        "65816",
+        "firmware ROM",
+        "byte-exact"
+      ],
+      "notes": "Complete disassembly of TransWarp GS ROM v1.8s. Merlin32 rebuilds the ROM and supplied build/CI checks assert 100% binary parity; source uses 65816-native register-width and long-address instructions.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "tranz-am-spectrum": {
       "id": "tranz-am-spectrum",
       "title": "Tranz Am",
@@ -66680,6 +67172,88 @@
         "Bullfrog"
       ],
       "notes": "Recreated Tube source compiled for 32-bit DOS/Windows/Linux, Emscripten, ARM Cortex-A7/Allwinner V3s and TI TMS320C6745. README explicitly excludes 64-bit execution because of pointer/type assumptions and links Tube64 as the successor rewrite; no byte-exact claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tube64-bullfrog-port": {
+      "id": "tube64-bullfrog-port",
+      "title": "Tube64",
+      "upstream_name": "Tube64",
+      "display_title": "Tube64 — 64-bit Bullfrog Tube reconstruction port",
+      "subjects": [
+        "Tube"
+      ],
+      "repo": "https://github.com/rep-stosw/tube64",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86-64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Tube64 desktop builds",
+          "platform": "Windows / Linux",
+          "cpu_family": "x86-64",
+          "notes": "Published Windows and Linux 64-bit binaries; no minimum CPU model or RAM is stated.",
+          "evidence": [
+            "https://github.com/rep-stosw/tube64/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "x86 machine code",
+        "reconstructed 32-bit C/C++ source"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "64-bit game reconstruction port"
+      ],
+      "re_started": null,
+      "status": "playable",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "64-bit pointer and type adaptation",
+        "SDL2 port"
+      ],
+      "tags": [
+        "DOS",
+        "Windows",
+        "Linux",
+        "x86-64",
+        "reverse-engineering-derived port"
+      ],
+      "notes": "Distinct 64-bit successor to rep-stosw's DOS Tube reconstruction. The repository contains a C/C++ implementation, Windows/Linux build scripts and published binaries; its README links the earlier reverse-engineered 32-bit project for detailed provenance.",
       "ai": {
         "usage": null,
         "tools": []
@@ -70832,6 +71406,85 @@
         "Atari ST"
       ],
       "notes": "README identifies the original IBM PC x86 and Atari ST 68k executables as the reverse-engineering inputs for the C reimplementation. The current build script produces Windows x64 and WebAssembly builds and runs PC/ST test paths; no byte-exact reconstruction or minimum host RAM is claimed.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "xrick-rick-dangerous-knowledge-base": {
+      "id": "xrick-rick-dangerous-knowledge-base",
+      "title": "xrick-kb",
+      "upstream_name": "xrick-kb",
+      "display_title": "xrick-kb — Rick Dangerous reverse-engineering knowledge base",
+      "subjects": [
+        "Rick Dangerous",
+        "Rick Dangerous II"
+      ],
+      "repo": "https://github.com/zpqrtbnk/xrick-kb",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS",
+        "Atari ST"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "x86",
+        "m68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "x86 machine code",
+        "m68k machine code",
+        "Atari ST RAM snapshots"
+      ],
+      "reconstructed_languages": [
+        "documented pseudocode",
+        "Python",
+        "Ghidra analysis"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "reverse-engineering knowledge base"
+      ],
+      "re_started": 2026,
+      "status": "in progress",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra disassembly",
+        "Hatari live validation",
+        "byte-identity auditing",
+        "RAM snapshot analysis",
+        "asset extraction"
+      ],
+      "tags": [
+        "Rick Dangerous",
+        "Rick Dangerous II",
+        "DOS",
+        "Atari ST",
+        "x86",
+        "68000"
+      ],
+      "notes": "Independent research corpus embedded alongside xrick as a submodule. The Rick Dangerous Atari ST knowledge base reports every function reversed, 47 rooms rendered and extensive byte-identity/live-Hatari audits; the separate Rick Dangerous II corpus documents game logic, formats, gaps and a verified SNDH sound artifact.",
       "ai": {
         "usage": true,
         "tools": [
