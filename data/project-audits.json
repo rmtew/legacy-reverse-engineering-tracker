@@ -5473,7 +5473,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-09-30",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5498,13 +5498,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Commit 75683e0 requires nonzero CSB viewport hashes for authenticated Atari ST, Amiga and FM Towns routes. Commit 362d875 documents DM2 Amiga reaching a real-GDAT M11 frame with zero core fallbacks. These are bounded runtime receipts, not complete gameplay or pixel/audio parity."
+          "checked_at": "2026-09-30",
+          "note": "Current Theron documentation records a 53/53 labeled CTest run and corrects broad parity status: original presentation, stair/exit, pickup/use, combat and chapter-completion consumers remain open. Controller input was observed only in the System Card loop."
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "The existing Apple Silicon host smoke remains the only explicit CPU profile; the new authentic-media Theron tests add no general minimum CPU/RAM requirement."
+          "checked_at": "2026-09-30",
+          "note": "No new general CPU/RAM floor is stated; the existing Apple Silicon host smoke remains the only explicit CPU profile."
         },
         "ai": {
           "state": "reviewed",
@@ -5519,8 +5519,8 @@
       },
       "next_actions": [
         "Verify broader DM2 Amiga input, save, native display/audio and dungeon-composition parity",
-        "Verify original Theron T900 pickup/UI and quest-item semantics before widening gameplay claims",
-        "Verify an authenticated Atari v1.0 save tail, champions and runtime queues before claiming resume support",
+        "Verify Theron original presentation, stair/exit, pickup/use, combat and chapter-completion consumers",
+        "Reach and capture a source-bound Theron title/menu route before widening input or gameplay claims",
         "Check predecessors, successors, forks and credited source/disassembly relationships"
       ]
     },
@@ -8771,8 +8771,8 @@
     },
     {
       "project_id": "jotd-rocn-rope-amiga",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -8790,16 +8790,18 @@
           "note": "Original arcade game logic is disassembled as 6809 in https://github.com/jotd666/rocnrope/blob/main/src/rocnrope_6809.asm; this does not classify auxiliary processors."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "makefile.am emits separate OCS -m68000 and AGA -m68020 executables."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly reports 25 fps on an unaccelerated 1 MB A500 and 50 fps on an unexpanded A1200; numeric A1200 RAM was not inferred."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -8807,15 +8809,12 @@
           "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README credits Konami's original, jotd's reverse engineering/transcode and the separate music/art contributors."
         }
       },
-      "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "jotd-scramble-amiga",
@@ -8865,8 +8864,8 @@
     },
     {
       "project_id": "jotd-super-bagman-amiga",
-      "last_reviewed": "2026-09-23",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -8883,16 +8882,18 @@
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The linked game and main objects are assembled with -m68000; the 68020-only VBR helper is conditionally called only on CPUs with a VBR."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README identifies the 68000/A500 intent; no verified general RAM floor is claimed."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -8900,20 +8901,17 @@
           "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README distinguishes the original Z80 game, prior reverse engineering and the Amiga transcode."
         }
       },
-      "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "jotd-track-field-amiga",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -8931,16 +8929,18 @@
           "note": "Original arcade game logic is disassembled as 6809 in https://github.com/jotd666/track_and_field/blob/main/src/trackfld_6809.asm; this does not classify auxiliary processors."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "makefile.am emits OCS -m68000 and AGA -m68020 executables."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README and build files distinguish OCS and AGA variants; no undocumented general RAM floor was added."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -8948,15 +8948,12 @@
           "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README credits the original Konami game and named transcode/graphics/sound contributors."
         }
       },
-      "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "jotd-us-championship-vball-amiga",
@@ -9007,8 +9004,8 @@
     },
     {
       "project_id": "jotd-vulgus-amiga",
-      "last_reviewed": "2026-09-23",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -9025,16 +9022,18 @@
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The linked main game, Amiga and VBR objects are assembled with -m68020; m68000 helper objects do not establish a separate runnable output."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README says AGA and the main output is m68020; build-specific WHDLoad allocations were not generalized into a universal RAM minimum."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -9042,15 +9041,12 @@
           "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly credits tcdev's Z80 reverse engineering and jotd's Amiga transcode."
         }
       },
-      "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "joust-atari-st",
@@ -19665,12 +19661,12 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-30",
-          "note": "Primary CI builds, packages and smoke-tests desktop and iPadOS artifacts; this establishes runnable launch paths, not complete gameplay."
+          "note": "Current primary docs bound MCGA callback work through a static IRET boundary, EGA640 through a near-return boundary, and recurring Deuteros Original-frame publication. They explicitly withhold dynamic/capture parity and gameplay claims."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-30",
-          "note": "README and packaging workflows were checked; they state package architectures and iPadOS deployment target but no general minimum runnable CPU/RAM profile."
+          "note": "No new general minimum host CPU/RAM profile is stated."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -20399,8 +20395,8 @@
     },
     {
       "project_id": "xfdmaster-amiga-decrunch",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -20411,34 +20407,36 @@
           "checked_at": "2026-09-25"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "XFDMaster accepts packed executables and data across many formats; the package does not define one original executable architecture."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Aminet explicitly classifies release 1.38/39.15 as m68k-amigaos."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-09-30",
+          "note": "The Aminet package and OS4 port notes were checked; no reproducible build claim for this original m68k release was found."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Aminet requires Kickstart V33+ but gives no exact 680x0 model or RAM minimum."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The OS4 C rewrite is documented as a related port which retains most decrunch slaves as 680x0."
         }
       },
-      "next_actions": [
-        "Check exact source/release lineage and reproducible build where original source is available",
-        "Do not infer physical hardware minima from target-format support"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "maptapper-amiga-graphics-ripper",
@@ -21617,8 +21615,8 @@
     },
     {
       "project_id": "midimaze-st-decompilation",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -21633,30 +21631,30 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly documents the working macOS build as 64-bit Intel; no Apple Silicon target was inferred."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README and Xcode project establish Intel 64-bit plus macOS 11.0 deployment; no RAM minimum is stated."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "This is the upstream reconstructed C source used by midi-maze-js; README keeps an original Atari ST rebuild hypothetical."
         }
       },
-      "next_actions": [
-        "Verify specific target hardware and build status from executable evidence",
-        "Check upstream source and disassembly provenance"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "the-pawn-atari-st-protection",
@@ -21833,8 +21831,8 @@
     },
     {
       "project_id": "midi-maze-2-title-music-reconstruction",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -21853,26 +21851,26 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Outputs are WAV/MIDI/SF2/DLS/RMID data produced by Python, not a translated native executable."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README requires Python 3 and makes NumPy optional when native-rate output is selected; it gives no host CPU/RAM minimum."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README identifies MIDI-MAZE II game files and the SMS Synthesizer module; this is distinct from the MIDI Maze I C reconstruction."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Recheck relationship to the separate MIDImaze I reverse-compiled C project",
-        "Confirm host runtime requirements and any independent output verification"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "infinite-dreams-amiga-disassembly",
@@ -25459,7 +25457,7 @@
     },
     {
       "project_id": "unified-floppy-tool",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-09-30",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -25484,18 +25482,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Upstream commits d4187ec and 73c957f report focused Apple GCR suites (including seam/checksum mutations) and both real A2R container layouts; A2R advances T2→T1. Real captures are local-only where documented, and this audit did not rerun hardware tests."
+          "checked_at": "2026-09-30",
+          "note": "MF-1616 pairs verification sectors by ID; MF-1619 carries effective retry count into SCP→D64; MF-1621 carries enabled non-default clock correction into SCP→ADF. Focused tests and mutation matrices are recorded upstream."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-28",
-          "note": "Primary documentation provides no minimum host CPU/RAM and explicitly says current controller support lacks a documented real-hardware bench pass."
+          "checked_at": "2026-09-30",
+          "note": "The new settings work adds no minimum host CPU/RAM or documented controller bench pass."
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Current commits include explicit Claude session links and the repository retains Claude project instructions."
+          "checked_at": "2026-09-30",
+          "note": "The reviewed commits retain explicit Claude session links."
         },
         "relationships": {
           "state": "reviewed",
@@ -26582,45 +26580,51 @@
     },
     {
       "project_id": "midimaze-browser-source-port",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README identifies midi-maze-js and its playable solo browser build."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "A line-by-line browser port derived from the reconstructed Atari ST C source, not an independent decompilation."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The cited predecessor reconstructs the original Atari ST 68000 program; source lineage is explicit."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-09-30",
+          "note": "Vite emits static HTML/JavaScript/CSS for a browser, not a native CPU-specific binary."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README documents Node 20+, build/test commands and a self-contained dist bundle."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "Primary docs require a browser and specify transport constraints but no native CPU/RAM minimum."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README explicitly credits Claude Code / Claude Opus 4.8 under hands-on direction."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "README links the sarnau reconstruction and md-MIDI2IP orchestrator and explains their roles."
         }
       },
-      "next_actions": [
-        "Perform initial project audit against primary sources"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "stm32-usbfloppytracer-amiga-st",
@@ -31227,7 +31231,7 @@
     },
     {
       "project_id": "nesrecomp-static-recompiler",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-09-30",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31248,13 +31252,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Merged FDS support includes cycle-backend LLE BIOS execution, opt-in HLE disk services and synthetic-BIOS/multi-side regression tests; validation remains bounded rather than exhaustive."
+          "checked_at": "2026-09-30",
+          "note": "Merged cycle-backend docs and tests cover opt-in mod hooks, isolated guest calls, mod save-state records, presented width and custom rendering; default/no-hook paths remain unchanged and documented refusal paths fail closed."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-29",
-          "note": "Current primary documentation still gives no complete minimum host CPU/RAM profile."
+          "checked_at": "2026-09-30",
+          "note": "Updated cycle-backend documentation still provides no complete minimum host CPU/RAM profile."
         },
         "ai": {
           "state": "reviewed",
@@ -31263,8 +31267,8 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "FDS support is integrated into NESRecomp's existing compiler/runner rather than treated as a separate project."
+          "checked_at": "2026-09-30",
+          "note": "The game-mod surface is integrated into NESRecomp's cycle backend and existing title projects rather than treated as a separate project."
         }
       },
       "next_actions": []
@@ -40761,8 +40765,8 @@
     },
     {
       "project_id": "mercenary-spectrum-disassembly-mikedailly",
-      "last_reviewed": "2026-09-28",
-      "overall_state": "partial",
+      "last_reviewed": "2026-09-30",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -40780,9 +40784,9 @@
           "note": "Source architecture documented for analyzed version."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-28",
-          "note": "Check target CPU instruction requirements from build files."
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "mercenary.asm explicitly selects ZXNEXT/Z80N mode and uses NextReg, 14 MHz and Layer 2."
         },
         "build": {
           "state": "reviewed",
@@ -40790,9 +40794,9 @@
           "note": "Public developer report or release supports stated status; otherwise unknown."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-28",
-          "note": "Do not infer minimum hardware from platform name."
+          "state": "reviewed",
+          "checked_at": "2026-09-30",
+          "note": "The V1.1 README reports load/save fixed on real ZX Spectrum Next hardware; no RAM minimum is stated."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -40805,9 +40809,7 @@
           "note": "Version and predecessor distinction documented in notes."
         }
       },
-      "next_actions": [
-        "Verify remaining build/runtime claims and cross-version lineage."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "beyond-dark-castle-mac-disassembly",

@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-09-30 — Amiga/Z80/MIDI CPU audit and active upstream review
+
+Resolved eleven queued CPU areas across **XFDMaster — Amiga packed file decruncher**, **Roc'n Rope — Amiga arcade transcode**, **Super Bagman — Amiga arcade transcode**, **Track & Field — Amiga arcade transcode**, **Vulgus — Amiga arcade transcode**, **Mercenary (ZX Spectrum disassembly / Next port)**, **MIDI-MAZE II — Atari ST title music and player reconstruction**, **MIDI Maze — browser port from reconstructed ST source**, and **MIDImaze — Atari ST reverse-compiled C**. Primary package metadata, assembly and build files establish m68k, m68000/m68020, Z80N and Intel x86-64 outputs. Packed/data inputs, browser bundles and music exports are explicitly CPU-not-applicable where appropriate; runtime notes preserve exact Node/Python/macOS and hardware evidence without inferring host CPUs or RAM from platform names.
+
+Active review records **NESRecomp — 6502-to-C static recompilation framework** adding opt-in cycle-backend game-mod hooks, isolated guest calls, mod save-state records and custom-width rendering; **UnifiedFloppyTool — Amiga/Atari disk preservation** wiring sector-ID verification, retry count and clock correction into measured conversion paths; **Project Eon** reaching bounded MCGA/EGA return paths and publishing recurring Deuteros Original frames without claiming capture parity; and **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** narrowing Theron status to its current 53/53 labeled test boundary while keeping original presentation and gameplay consumers open.
+
+
 ## 2026-09-30 — Portable/native CPU audit and active upstream review
 
 Resolved eleven queued source/output CPU areas across **Carmageddon — incremental DOS executable reconstruction**, **Duke Nukem II — RigelEngine modern reimplementation**, **Prince of Persia — DOS-disassembly-derived SDL port**, **Zeliard — independent DOS analysis and SDL port**, **Frontier: Elite II — Atari ST VM/reimplementation**, **FujiBoink! — Atari ST demo converted to Amiga**, **The Great Escape**, both **Hlípa** ports and **Project Eon — multi-game preservation and native reimplementation**. Primary workflows and build files establish only exact x86/x86-64/arm64, ARMv6, WebAssembly, 68000 and Z80 outputs; Zeliard and FrontierVM remain explicitly **no evidence found** for portable-host CPU. Exact Hlípa, RigelEngine and Great Escape runtime statements are retained without converting vague usage or platform labels into invented minima.

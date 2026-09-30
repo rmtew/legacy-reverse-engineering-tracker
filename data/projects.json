@@ -37222,7 +37222,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-09-30",
     "status": "active",
     "build": {
       "compilable": true,
@@ -37261,7 +37261,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB now requires a nonzero source-rendered viewport hash after authenticated Atari ST, Amiga and FM Towns menu handoff; this proves the viewport renderer ran, not pixel parity, native display or audible output. DM2 Amiga now reaches its initial real-GDAT M11 frame through the normal launcher with zero core fallbacks and source movement, while broader input, save, native display/audio and dungeon parity remain open. Current Theron evidence includes authenticated US and JP Track 02 boots with source-backed early runtime, scripted movement and bounded in-memory title-audio handling. Its registered Theron selection passes 71/71 tests on the documented authentic-media host, with eight optional media/capture tests skipped. Authentic regressions verify 93 approachable closed doors per region remain fail-closed and 71 Akutuba item transactions per region, including all six type-zero records, preserve exact source occurrence and property records. They do not prove original door, T900 pickup/UI, quest-item or complete campaign semantics. A fresh-start DM1 C37 save round-trip is verified, while authentic Atari v1.0 resume remains fail-closed pending an Atari-specific tail/champion/queue adapter. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
+    "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; authenticated-media regressions verify bounded Atari ST, Amiga and FM Towns startup/menu-to-runtime handoffs without claiming complete campaign parity. CSB requires a nonzero source-rendered viewport hash after authenticated handoff, proving renderer execution rather than pixel/audio parity. DM2 Amiga reaches its initial real-GDAT M11 frame with zero core fallbacks while broader input, save, display/audio and dungeon parity remain open. Theron's current labeled suite passes 53/53 tests, but public status was corrected to keep original presentation, stair/exit, pickup/use, combat and chapter-completion consumers explicitly open. Captured controller input was observed only in the System Card poll loop, not the title/menu route. Nexus remains active real-data bring-up and full-suite parity is not claimed.",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-09-30",
@@ -59329,10 +59329,12 @@
       "game"
     ],
     "tool_kinds": [],
-    "target_cpu": [],
+    "target_cpu": [
+      "Z80N"
+    ],
     "re_started": null,
     "last_activity": "2026-03-13",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-30",
     "status": "unknown",
     "ai": {
       "usage": null,
@@ -59364,7 +59366,7 @@
       "disassembly",
       "reverse-engineering-derived-port"
     ],
-    "notes": "Mike Dailly disassembled David Aubrey-Jones’s ZX Spectrum Mercenary using SkoolKit, then patched rendering and loading for ZX Spectrum Next. Repository contains mercenary.asm, SkoolKit files and patches; author publishes a V1.1 release. This is the original Mercenary, not the Atari ST/Amiga Damocles or Mercenary III binaries.",
+    "notes": "Mike Dailly disassembled David Aubrey-Jones’s ZX Spectrum Mercenary using SkoolKit, then patched rendering and loading for ZX Spectrum Next. The build explicitly selects Z80N mode, Next registers, 14 MHz and Layer 2; V1.1 fixes load/save on real hardware. This is the original Mercenary, not the Atari ST/Amiga Damocles or Mercenary III binaries.",
     "build": {
       "compilable": null,
       "runnable": true,
@@ -59395,7 +59397,20 @@
         "message": "+ Updated workspace",
         "url": "https://github.com/mikedailly/MercenaryDisassembly/commit/466758cfbeedff945afee1e3aedbc6e572e284cd"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "ZX Spectrum Next release",
+        "platform": "ZX Spectrum Next",
+        "cpu_family": "Z80 family",
+        "min_cpu": "Z80N",
+        "notes": "The primary assembly enables ZXNEXT/Z80N mode, uses NextReg and Layer 2, and switches the CPU to 14 MHz. The V1.1 README records load/save testing on real hardware.",
+        "evidence": [
+          "https://github.com/mikedailly/MercenaryDisassembly/blob/main/mercenary.asm",
+          "https://github.com/mikedailly/MercenaryDisassembly/blob/main/ReadMe.txt"
+        ]
+      }
+    ]
   },
   {
     "id": "metagalactic-llamas-vic20",
@@ -59988,7 +60003,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-28",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -60018,7 +60033,7 @@
       "browser",
       "MIDI"
     ],
-    "notes": "Playable solo browser recreation derived line by line from sarnau’s reconstructed Atari ST C source. Optional network ring uses md-MIDI2IP and is usually unavailable outside a live orchestrator; this is a distinct derivative port, not a second independent decompilation.",
+    "notes": "Playable solo browser recreation derived line by line from sarnau’s reconstructed Atari ST 68000 C source. Node 20+ builds a self-contained static HTML/JavaScript/CSS bundle, so there is no native output CPU to record. Optional network ring play uses md-MIDI2IP and is usually unavailable outside a live orchestrator; this is a derivative port, not a second independent decompilation.",
     "github": {
       "repository": "diegoparrilla/midi-maze-js",
       "created_at": "2026-06-19",
@@ -60045,7 +60060,18 @@
         "message": "Update link to md-MIDI2IP repository",
         "url": "https://github.com/diegoparrilla/midi-maze-js/commit/f6460af2db065e9b126f986e0ecfc2a1af1f5551"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Static browser build",
+        "platform": "Web",
+        "os": "Modern web browser",
+        "notes": "Node 20+ is required to build the self-contained HTML/JavaScript/CSS bundle. The delivered browser program has no native target CPU requirement in primary documentation.",
+        "evidence": [
+          "https://github.com/diegoparrilla/midi-maze-js/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "midi-maze-2-title-music-reconstruction",
@@ -60090,7 +60116,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-05",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -60132,7 +60158,17 @@
         "message": "Add MIT licence for the tools, NOTICE for the game-derived files",
         "url": "https://github.com/sarnau/MIDI-Maze-2-Title-Music/commit/2e27679128695a558ebcbce41c0333e2cebd8139"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Python analysis/rendering tools",
+        "platform": "analysis host",
+        "notes": "README requires Python 3. NumPy is needed only for 19.2 kHz to 44.1 kHz conversion; --rate 19200 avoids it. No host CPU/RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/sarnau/MIDI-Maze-2-Title-Music/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "midimaze-st-decompilation",
@@ -60152,7 +60188,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86_64"
+    ],
     "source_language": [
       "m68k binary"
     ],
@@ -60176,7 +60214,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-07",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -60228,7 +60266,21 @@
         "message": "Some work",
         "url": "https://github.com/sarnau/AtariST-MIDIMaze-Source/commit/a7e5c3974f0c4f5e9965e8b6c4d6f03ab05a3e41"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "documented macOS Intel build",
+        "platform": "macOS",
+        "cpu_family": "x86-64",
+        "min_cpu": "x86_64",
+        "os": "macOS 11.0 or newer",
+        "notes": "README documents a working 64-bit Intel Xcode build without MIDI; the Xcode project sets MACOSX_DEPLOYMENT_TARGET=11.0. No RAM minimum is stated, and no Apple Silicon output is inferred.",
+        "evidence": [
+          "https://github.com/sarnau/AtariST-MIDIMaze-Source/blob/main/README.md",
+          "https://github.com/sarnau/AtariST-MIDIMaze-Source/blob/main/MIDIMaze.xcodeproj/project.pbxproj"
+        ]
+      }
+    ]
   },
   {
     "id": "punchout-nes-nmikstas",
@@ -62483,7 +62535,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -62514,13 +62566,17 @@
       "bounded owner-ROM validation",
       "Famicom Disk System cycle backend",
       "FDS LLE BIOS execution",
-      "opt-in FDS HLE disk services"
+      "opt-in FDS HLE disk services",
+      "cycle-backend game-mod hooks",
+      "isolated guest-routine calls",
+      "mod-aware save states",
+      "game-owned custom rendering"
     ],
     "tags": [
       "NES",
       "6502"
     ],
-    "notes": "Translates NES/Famicom 6502 ROM code into C with a hardware runner. The cycle backend now supports Famicom Disk System images through LLE BIOS execution and an opt-in HLE tier for disk-ID requests, side changes and fast loading; synthetic-BIOS/multi-side tests and owner-ROM traces bound those claims. Generated C alone is not a playable game, and unsupported BIOS/disk routes may still fail closed.",
+    "notes": "Translates NES/Famicom 6502 ROM code into C with a hardware runner. Beyond its FDS LLE/HLE support, the cycle backend now exposes opt-in game-mod packages with instruction-boundary hooks, isolated guest-routine calls, mod save-state records, presented-width control and game-owned frame rendering. Generated C alone is not a playable game, hooks are disabled by default, and unsupported BIOS/disk or renderer routes still fail closed.",
     "github": {
       "repository": "mstan/nesrecomp",
       "created_at": "2026-03-14",
@@ -69287,7 +69343,7 @@
       "macOS",
       "subject"
     ],
-    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Verified release packaging covers Linux/Windows x86-64 plus macOS and iPadOS arm64. The current Millennium DOS runtime models a hash-bound video-driver load session through explicit DOS open/seek/allocate/read/close steps and validates EGA640/MCGA leaves, but selector and DOS results remain synthetic observations and no INT 91h dispatch or complete campaign is claimed.",
+    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Verified release packaging covers Linux/Windows x86-64 plus macOS and iPadOS arm64. Millennium DOS now models bounded MCGA callback register/palette work through a static IRET boundary and EGA640 multi-count plane clearing through a near-return boundary, without claiming captured dynamic driver completion, title output or gameplay. Deuteros' recovered native slice can publish recurring Original frames, while capture-backed display parity, input delivery and audio timing remain unverified.",
     "github": {
       "repository": "yeager/project-eon",
       "created_at": "2026-08-27",
@@ -75400,7 +75456,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-07-02",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -75462,7 +75518,42 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS/A500 build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "min_ram_kib": 1024,
+        "chipsets": [
+          "OCS"
+        ],
+        "notes": "README reports 25 fps on an unaccelerated 1 MB A500; the checked-in OCS executable is assembled with -m68000.",
+        "evidence": [
+          "https://github.com/jotd666/rocnrope/blob/main/README.md",
+          "https://github.com/jotd666/rocnrope/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "AGA/A1200 build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README reports 50 fps on an unexpanded A1200; the checked-in AGA executable is assembled with -m68020. No numeric RAM minimum is inferred from the machine model.",
+        "evidence": [
+          "https://github.com/jotd666/rocnrope/blob/main/README.md",
+          "https://github.com/jotd666/rocnrope/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "rocket-podule-arculator",
@@ -85077,7 +85168,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-07-07",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -85160,7 +85251,23 @@
         "re_started": [],
         "ci": []
       }
-    }
+    },
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "68000 Amiga build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "notes": "The main executable and game objects are assembled with -m68000. The README says it should run on an A500, but does not give a verified general RAM floor.",
+        "evidence": [
+          "https://github.com/jotd666/sbagman/blob/main/README.md",
+          "https://github.com/jotd666/sbagman/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "super-c-nes-vermiceli",
@@ -90090,7 +90197,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-18",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -90151,7 +90258,41 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68000",
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "OCS build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68000",
+        "chipsets": [
+          "OCS"
+        ],
+        "notes": "The checked-in OCS executable is assembled with -m68000. No general RAM minimum is stated in the README.",
+        "evidence": [
+          "https://github.com/jotd666/track_and_field/blob/main/README.md",
+          "https://github.com/jotd666/track_and_field/blob/main/makefile.am"
+        ]
+      },
+      {
+        "name": "AGA build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "The checked-in AGA executable is assembled with -m68020 and its WHDLoad slave requests AGA. No general RAM minimum is stated in the README.",
+        "evidence": [
+          "https://github.com/jotd666/track_and_field/blob/main/makefile.am",
+          "https://github.com/jotd666/track_and_field/blob/main/src/aga/track_and_fieldHD.s"
+        ]
+      }
+    ]
   },
   {
     "id": "tranz-am-spectrum",
@@ -92193,7 +92334,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": true,
@@ -92217,7 +92358,10 @@
       "flux analysis",
       "copy-protection inspection",
       "ring-position validation",
-      "independent GCR measurement"
+      "independent GCR measurement",
+      "sector-ID verification",
+      "flux cell-time correction",
+      "capability-gated conversion planning"
     ],
     "tags": [
       "Amiga",
@@ -92225,7 +92369,7 @@
       "floppy",
       "preservation"
     ],
-    "notes": "Forensic floppy toolkit covering Amiga, Atari and other disk/flux formats. Current work raises A2R from T2 to T1 with real A2R2/STRM and A2R3/RWCP captures, fixes Apple 5.25-inch sector discovery across the track seam and reports failed checksums as unreadable rather than zero-filled success, and reconciles PC 360K/FM profile rates. The earlier G71 bridge gap remains: measured headers are still hidden because no producer supplies the explicit bit length. Upstream still states that current controller support lacks a documented real-hardware bench pass.",
+    "notes": "Forensic floppy toolkit covering Amiga, Atari and other disk/flux formats. Current work raises A2R from T2 to T1, fixes Apple 5.25-inch seam/checksum handling, pairs verification sectors by ID, and wires effective settings into the conversion plan: retry count reaches SCP→D64 and clock correction reaches the SCP→ADF flux decoder only when advanced options are enabled. Encoding remains visibly unconnected because no live conversion path reads its carrier. The earlier G71 bridge and documented real-hardware bench gaps remain open.",
     "github": {
       "repository": "Axel051171/UnifiedFloppyTool",
       "created_at": "2025-12-22",
@@ -94212,7 +94356,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-06",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -94272,7 +94416,26 @@
       "binary-analysis",
       "reverse-engineering-derived-port"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "AGA build",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "min_cpu": "m68020",
+        "chipsets": [
+          "AGA"
+        ],
+        "notes": "README identifies the port as AGA; the linked main game, Amiga and VBR objects are assembled with -m68020. No complete RAM minimum is stated outside build-specific WHDLoad allocations.",
+        "evidence": [
+          "https://github.com/jotd666/vulgus/blob/main/README.md",
+          "https://github.com/jotd666/vulgus/blob/main/makefile.am"
+        ]
+      }
+    ]
   },
   {
     "id": "monty-mole-spectrum-ritchie",
@@ -96291,7 +96454,7 @@
     ],
     "re_started": null,
     "last_activity": "2003-10-18",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-09-30",
     "status": null,
     "build": {
       "compilable": null,
@@ -96309,7 +96472,7 @@
       "Amiga",
       "tooling"
     ],
-    "notes": "Canonical Aminet XFD system for detecting and decompressing single packed files, including executables and data. Release 1.38/39.15 was listed in October 2003; the later AmigaOS 4.1 C port is related but not counted as a separate original research subject.",
+    "notes": "Canonical Aminet XFD system for detecting and decompressing packed files, executables and data. Release 1.38/39.15 is an m68k-amigaos library for Kickstart V33+; the inputs span many packer formats and therefore do not have one source CPU. The later AmigaOS 4.1 C port retains most slaves as 680x0 and is related rather than a separate original research subject.",
     "record_class": "tooling",
     "target_kinds": [],
     "work_kinds": [
@@ -96318,6 +96481,21 @@
     "tool_kinds": [
       "asset-tool",
       "binary-analysis"
+    ],
+    "target_cpu": [
+      "m68k"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "m68k AmigaOS library",
+        "platform": "Amiga",
+        "cpu_family": "Motorola 68000 family",
+        "os": "Kickstart V33 or newer",
+        "notes": "Aminet classifies the package as m68k-amigaos and the package description requires Kickstart V33+. It gives no exact 680x0 model or RAM minimum.",
+        "evidence": [
+          "https://aminet.net/package/util/pack/xfdmaster"
+        ]
+      }
     ]
   },
   {
