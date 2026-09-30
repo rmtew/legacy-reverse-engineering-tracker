@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-10-01 — BBC/Acorn graph, HuC6280/Mac/Atari searches and CPU audit
+
+Added eight primary-source-backed projects. The changing Mark Moxon graph yielded **Elite Compendium — Acorn Electron 16K sideways-RAM collection**, **Elite Compendium — BBC Micro B+ / B+128 collection**, and **!EliteNet — Archimedes Elite Econet scoreboard application**. !EliteNet is explicitly recorded as original RISC OS homebrew/application work that leaves Archimedes Elite untouched, not as a reverse-engineered game. The two platform-specific Universe Editor repositories were deduplicated against the existing multi-platform editor record.
+
+Three rotated fresh-search slices added **huc6280disasm — code-flow-aware PC Engine disassembler**, **dis6280 — PCEAS-style HuC6280 disassembler**, **Etripator — PC Engine ROM/CD disassembler**, **resource_dasm — classic Mac resource and machine-code archaeology suite**, and **Alternate Reality: The Dungeon — Atari 8-bit byte-checked disassembly**. The search record preserves the exact GitHub/web queries and exact duplicates for the already tracked Macintosh ROM and Star Raiders projects. resource_dasm remains one coherent repository-root project rather than being over-split into its many related utilities.
+
+The separate CPU lane resolved ten queued source-CPU areas. AmigaFFH, amigainfo, atari-hd, CHZPART and Crunch-Mania now explicitly treat their file/disk/stream inputs as CPU-not-applicable. Atari ST Floppy Image Toolkit records the bundled m68000 emulator core, while Gearboy, Gearcoleco, Geargrafx and Gearsystem now record SM83, Z80, HuC6280 and Z80 guest CPUs from primary debugger/core documentation. No host CPU or minimum hardware was inferred from platform or language.
+
+
 ## 2026-09-30 — Cross-platform output and ADF-input CPU audit
 
 Resolved ten queued CPU areas across **Harrier Attack Reloaded**, **Oh Mummy Resurrected**, **Seven Cities of Gold — reverse-engineered macOS remaster**, **Starflight — Vulkan remaster from recovered Forth/x86 runtime**, **Atari STBook/STylus diagnostic cartridge analysis**, **SunDog — Atari ST p-system runtime reconstruction**, **Sensible World of Soccer / OpenSWOS**, **ADF Opus 2025 — Amiga disk image workbench**, **ADF reader/writer — Amiga OFS/FFS image inspector**, and **ADFlib — Amiga OFS/FFS filesystem library**. Primary documentation establishes Starflight's x86-64 builds and OpenSWOS's explicit ARM-handheld target, while undocumented CPC, Swift/macOS and portable-C host architectures remain **no evidence found** rather than inferred from platform or language.

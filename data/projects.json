@@ -11845,7 +11845,9 @@
     "target_platforms": [
       "Web"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "m68000"
+    ],
     "target_cpu": [],
     "source_language": [
       "ST/MSA floppy images and file formats"
@@ -11862,7 +11864,8 @@
     "tool_kinds": [
       "disk-filesystem-tool",
       "asset-tool",
-      "binary-analysis"
+      "binary-analysis",
+      "emulator"
     ],
     "types": [
       "disk image browser",
@@ -11892,7 +11895,7 @@
       "ST image",
       "MSA"
     ],
-    "notes": "Browser-style GEM workbench claims ST/MSA floppy browsing, FAT12 extraction and sector editing. This entry records those published capabilities without asserting the broader README's emulator and packer features have been independently tested.",
+    "notes": "Browser-style GEM workbench for ST/MSA floppy browsing, FAT12 extraction, sector editing, packer/virus inspection and an integrated estyJS Atari ST emulator. The m68000 source CPU is evidenced by the bundled 68000 core; broader published capabilities were not independently tested.",
     "github": {
       "repository": "flindholm-lab/Atari-ST-Floppy-Image-Toolkit-GEM",
       "created_at": "2026-06-16",
@@ -39624,7 +39627,9 @@
       "macOS",
       "BSD"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "SM83"
+    ],
     "target_cpu": null,
     "source_language": [
       "hardware/software behavior"
@@ -39728,7 +39733,9 @@
       "macOS",
       "BSD"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "Z80"
+    ],
     "target_cpu": null,
     "source_language": [
       "hardware/software behavior"
@@ -39827,7 +39834,9 @@
       "macOS",
       "BSD"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "HuC6280"
+    ],
     "target_cpu": null,
     "source_language": [
       "hardware/software behavior"
@@ -39934,7 +39943,9 @@
       "macOS",
       "BSD"
     ],
-    "source_cpu": [],
+    "source_cpu": [
+      "Z80"
+    ],
     "target_cpu": null,
     "source_language": [
       "hardware/software behavior"
@@ -98784,5 +98795,592 @@
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
       }
     }
+  },
+  {
+    "id": "elite-compendium-acorn-electron",
+    "title": "Elite Compendium for the Acorn Electron",
+    "upstream_name": "Elite Compendium for the Acorn Electron with 16K sideways RAM",
+    "display_title": "Elite Compendium — Acorn Electron 16K sideways-RAM collection",
+    "subjects": [
+      "Elite"
+    ],
+    "repo": "https://github.com/markmoxon/elite-compendium-acorn-electron",
+    "source_platforms": [
+      "Acorn Electron"
+    ],
+    "target_platforms": [
+      "Acorn Electron"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Elite Compendium disc",
+        "platform": "Acorn Electron",
+        "cpu_family": "6502 family",
+        "notes": "The README explicitly requires 16 KiB of sideways RAM; it does not state a total system-RAM minimum.",
+        "evidence": [
+          "https://github.com/markmoxon/elite-compendium-acorn-electron/blob/main/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "6502 machine code",
+      "documented Elite source variants"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "BeebAsm build scripts",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-reconstruction",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source collection",
+      "enhanced distribution"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-29",
+    "last_checked": "2026-10-01",
+    "status": "complete",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "multi-variant source integration",
+      "disc-image assembly"
+    ],
+    "tags": [
+      "Acorn Electron",
+      "6502",
+      "sideways RAM"
+    ],
+    "notes": "Buildable Acorn Electron collection integrating three documented Elite variants behind a source-built menu. BeebAsm and oaknut-disc produce SSD, DSD and ADF images; the project explicitly requires 16 KiB sideways RAM."
+  },
+  {
+    "id": "elite-compendium-bbc-micro-b-plus",
+    "title": "Elite Compendium for the BBC Micro B+",
+    "upstream_name": "Elite Compendium for the BBC Micro B+ and B+128",
+    "display_title": "Elite Compendium — BBC Micro B+ / B+128 collection",
+    "subjects": [
+      "Elite"
+    ],
+    "repo": "https://github.com/markmoxon/elite-compendium-bbc-micro-b-plus",
+    "source_platforms": [
+      "BBC Master",
+      "BBC Micro"
+    ],
+    "target_platforms": [
+      "BBC Micro B+",
+      "BBC Micro B+128"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Elite Compendium B+ disc",
+        "platform": "BBC Micro B+",
+        "cpu_family": "6502 family",
+        "notes": "The README explicitly targets the BBC Micro B+ and B+128; it does not state a lower-level CPU or RAM minimum.",
+        "evidence": [
+          "https://github.com/markmoxon/elite-compendium-bbc-micro-b-plus/blob/main/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "6502 machine code",
+      "documented BBC Master Elite source"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "BeebAsm build scripts"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-reconstruction",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source collection",
+      "enhanced distribution"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-19",
+    "last_checked": "2026-10-01",
+    "status": "complete",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "multi-variant source integration",
+      "disc-image assembly"
+    ],
+    "tags": [
+      "BBC Micro",
+      "BBC Micro B+",
+      "6502"
+    ],
+    "notes": "Buildable BBC Micro B+/B+128 collection integrating two BBC Master Elite branches behind a source-built menu. The Makefile uses BeebAsm to emit an SSD image; no exact RAM floor is inferred beyond the named machine variants."
+  },
+  {
+    "id": "elitenet-archimedes-econet",
+    "title": "!EliteNet",
+    "upstream_name": "!EliteNet: Elite over Econet for the Acorn Archimedes",
+    "display_title": "!EliteNet — Archimedes Elite Econet scoreboard application",
+    "subjects": [
+      "!EliteNet",
+      "EliteOverEconet",
+      "Archimedes Elite"
+    ],
+    "repo": "https://github.com/markmoxon/elite-over-econet-acorn-archimedes",
+    "source_platforms": [
+      "Acorn Archimedes"
+    ],
+    "target_platforms": [
+      "Acorn Archimedes",
+      "RISC OS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "ARM"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "!EliteNet application",
+        "platform": "Acorn Archimedes",
+        "cpu_family": "ARM",
+        "os": "RISC OS",
+        "notes": "Requires Econet and Archimedes Elite version 1.14; the README states no minimum ARM model or RAM requirement.",
+        "evidence": [
+          "https://github.com/markmoxon/elite-over-econet-acorn-archimedes/blob/main/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "original BBC BASIC and ARM assembly sources"
+    ],
+    "reconstructed_languages": [
+      "BBC BASIC",
+      "ARM assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "original RISC OS application",
+      "network scoreboard"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-22",
+    "last_checked": "2026-10-01",
+    "status": "complete",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "ARM module assembly",
+      "BBC BASIC tokenisation",
+      "CRC comparison"
+    ],
+    "tags": [
+      "Acorn Archimedes",
+      "RISC OS",
+      "ARM",
+      "Econet",
+      "original homebrew"
+    ],
+    "notes": "Original MIT-licensed RISC OS application and module that add Econet multiplayer scoreboards to Archimedes Elite 1.14 while leaving the game itself untouched. The cross-host build assembles the ARM module, provides Archimedes tokenisation steps, and compares compiled binaries against the released originals."
+  },
+  {
+    "id": "huc6280disasm-andlabs",
+    "title": "huc6280disasm",
+    "upstream_name": "huc6280disasm",
+    "display_title": "huc6280disasm — code-flow-aware PC Engine disassembler",
+    "subjects": [],
+    "repo": "https://github.com/andlabs/huc6280disasm",
+    "source_platforms": [
+      "PC Engine",
+      "TurboGrafx-16"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [
+      "HuC6280"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "HuC6280 machine code"
+    ],
+    "reconstructed_languages": [
+      "HuC6280 assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "static-analysis",
+      "binary-analysis"
+    ],
+    "types": [
+      "HuC6280 disassembler"
+    ],
+    "re_started": null,
+    "last_activity": "2013-06-01",
+    "last_checked": "2026-10-01",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "recursive code-flow analysis",
+      "stack tracking",
+      "A-register tracking"
+    ],
+    "tags": [
+      "PC Engine",
+      "TurboGrafx-16",
+      "HuC6280"
+    ],
+    "notes": "Go HuC6280 disassembler for flat boot ROMs and TurboGrafx-16-compatible ROM behavior. It follows code flow and attempts to track the stack and accumulator rather than performing only a linear sweep."
+  },
+  {
+    "id": "dis6280-kenta888",
+    "title": "dis6280",
+    "upstream_name": "dis6280",
+    "display_title": "dis6280 — PCEAS-style HuC6280 disassembler",
+    "subjects": [],
+    "repo": "https://github.com/kenta888/dis6280",
+    "source_platforms": [
+      "PC Engine",
+      "TurboGrafx-16"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [
+      "HuC6280"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "HuC6280 machine code"
+    ],
+    "reconstructed_languages": [
+      "HuC6280 assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly"
+    ],
+    "tool_kinds": [
+      "disassembler"
+    ],
+    "types": [
+      "HuC6280 disassembler"
+    ],
+    "re_started": null,
+    "last_activity": "2022-02-17",
+    "last_checked": "2026-10-01",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "PCEAS-compatible mnemonic output",
+      "offset and start-address control"
+    ],
+    "tags": [
+      "PC Engine",
+      "TurboGrafx-16",
+      "HuC6280",
+      "PCEAS"
+    ],
+    "notes": "Compact C++ HuC6280 disassembler that converts PC Engine ROM binary data to source-like output and deliberately follows PCEAS mnemonic conventions. Its README documents Borland C++ compilation and command-line offset/address controls."
+  },
+  {
+    "id": "etripator-pce-disassembler",
+    "title": "Etripator",
+    "upstream_name": "Etripator",
+    "display_title": "Etripator — PC Engine ROM/CD disassembler",
+    "subjects": [],
+    "repo": "https://github.com/pce-devel/Etripator",
+    "source_platforms": [
+      "PC Engine",
+      "TurboGrafx-16",
+      "PC Engine CD"
+    ],
+    "target_platforms": [
+      "analysis host"
+    ],
+    "source_cpu": [
+      "HuC6280"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "HuC6280 machine code",
+      "ROM images",
+      "CD-ROM tracks"
+    ],
+    "reconstructed_languages": [
+      "HuC6280 assembly",
+      "JSON analysis metadata"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis",
+      "static-analysis"
+    ],
+    "types": [
+      "HuC6280 disassembler"
+    ],
+    "re_started": null,
+    "last_activity": "2026-02-15",
+    "last_checked": "2026-10-01",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "IRQ-vector detection",
+      "section configuration",
+      "labels and comments",
+      "ROM/CD address mapping"
+    ],
+    "tags": [
+      "PC Engine",
+      "TurboGrafx-16",
+      "HuC6280",
+      "CD-ROM"
+    ],
+    "notes": "PC Engine disassembler for ROMs and CD-ROM track inputs. It supports automatic IRQ/opening-code detection, JSON code/data sections, MPR-aware addressing, labels/comments, and assembly-oriented output demonstrated across several games and system-card examples."
+  },
+  {
+    "id": "resource-dasm-classic-mac-toolkit",
+    "title": "resource_dasm",
+    "upstream_name": "resource_dasm",
+    "display_title": "resource_dasm — classic Mac resource and machine-code archaeology suite",
+    "subjects": [],
+    "repo": "https://github.com/fuzziqersoftware/resource_dasm",
+    "source_platforms": [
+      "Classic Mac OS",
+      "Nintendo GameCube"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68000",
+      "PowerPC",
+      "x86",
+      "SH-4"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "classic Mac resource forks",
+      "m68k machine code",
+      "PowerPC machine code",
+      "x86 machine code",
+      "SH-4 machine code"
+    ],
+    "reconstructed_languages": [
+      "C++",
+      "assembly listings",
+      "decoded assets"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis",
+      "debugger",
+      "emulator",
+      "asset-tool"
+    ],
+    "types": [
+      "resource-fork toolkit",
+      "multi-architecture disassembler",
+      "CPU debugger"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-20",
+    "last_checked": "2026-10-01",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "resource-fork parsing",
+      "format-specific decompression",
+      "multi-architecture disassembly",
+      "CPU emulation",
+      "asset rendering"
+    ],
+    "tags": [
+      "Classic Mac OS",
+      "m68000",
+      "PowerPC",
+      "resource forks",
+      "software archaeology"
+    ],
+    "notes": "Cohesive reverse-engineering suite centered on classic Mac OS resources, executable code and game data. It includes resource conversion, 68K/PowerPC/x86/SH-4 disassembly, a corresponding emulator/debugger, reverse-engineered resource decompression, archive/asset tools, and selected GameCube format utilities."
+  },
+  {
+    "id": "alternate-reality-dungeon-ardungeon",
+    "title": "ardungeon",
+    "upstream_name": "ardungeon",
+    "display_title": "Alternate Reality: The Dungeon — Atari 8-bit byte-checked disassembly",
+    "subjects": [
+      "Alternate Reality: The Dungeon"
+    ],
+    "repo": "https://github.com/jduerstock/ardungeon",
+    "source_platforms": [
+      "Atari 8-bit"
+    ],
+    "target_platforms": [
+      "Atari 8-bit"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 machine code",
+      "Atari disk images"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game disassembly",
+      "disk-image reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2020-02-23",
+    "last_checked": "2026-10-01",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "ca65/ld65 reassembly",
+      "encrypted-sector reconstruction",
+      "SHA-1 comparison"
+    ],
+    "tags": [
+      "Atari 8-bit",
+      "6502",
+      "Alternate Reality"
+    ],
+    "notes": "Atari 8-bit disassembly/reconstruction of Alternate Reality: The Dungeon. The Makefile assembles many sector fragments with ca65/ld65, recreates encrypted companions, concatenates five disk images, and checks individual binaries and final images against stored SHA-1 references."
   }
 ]

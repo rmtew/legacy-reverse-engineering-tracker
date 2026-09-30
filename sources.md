@@ -4,6 +4,14 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/markmoxon/elite-compendium-acorn-electron | Acorn Electron Elite Compendium with a source-built menu, branch-pinned reconstructed variants and 16 KiB sideways-RAM requirement |
+| https://github.com/markmoxon/elite-compendium-bbc-micro-b-plus | BBC Micro B+/B+128 Elite Compendium with branch-pinned BBC Master variants and a BeebAsm disc build |
+| https://github.com/markmoxon/elite-over-econet-acorn-archimedes | Original !EliteNet RISC OS application and ARM module for Econet scoreboard support alongside Archimedes Elite |
+| https://github.com/andlabs/huc6280disasm | Code-flow-aware HuC6280 disassembler with stack and accumulator tracking |
+| https://github.com/kenta888/dis6280 | Compact HuC6280 disassembler producing PCEAS-style source output |
+| https://github.com/pce-devel/Etripator | PC Engine ROM/CD disassembler with IRQ detection, configured sections, labels and MPR-aware addressing |
+| https://github.com/fuzziqersoftware/resource_dasm | Cohesive classic Mac resource, machine-code and game-data archaeology suite with multi-architecture disassembly/debugging |
+| https://github.com/jduerstock/ardungeon | Atari 8-bit Alternate Reality: The Dungeon disassembly with ca65 reassembly and SHA-1-checked disk images |
 | https://github.com/CBongo/game-music-extraction | Coherent multi-system music-sequence extraction and code-analysis project spanning arcade, C64, NES, PlayStation, SNES and Wii inputs |
 | https://github.com/ajoneil/morepork | Cross-emulator execution-trace capture, query, comparison and visualization for Game Boy, Atari VCS, SG-1000/SC-3000, ColecoVision and MSX1 |
 | https://github.com/amypurple/AmyStudio | Browser-based ColecoVision development environment with Z80-oriented language, compiler, assembler, runtime, examples and an embedded debugging core |
