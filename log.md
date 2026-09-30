@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-10-01 — Successor reviews, Apple IIGS/Jaguar/Mega Drive search and CPU audit
+
+Closed both previously unreviewed successor tasks. **Tube64 — 64-bit Bullfrog Tube reconstruction port** is now represented separately from the pointer-sensitive 32-bit DOS reconstruction, while **xrick-kb — Rick Dangerous reverse-engineering knowledge base** records the independent Atari ST/DOS Ghidra, RAM-capture, format and Hatari-validation corpus rather than folding it into the runnable xrick port.
+
+Three rotated fresh searches added **6502bench SourceGen — interactive 6502-family disassembly workbench**, **TransWarp GS ROM 1.8s — byte-identical Apple IIgs disassembly**, **Jaguar SDK — restored Atari development toolchain**, **jagfx — Atari Jaguar graphics extractor and ROM searcher**, **Flicky — byte-identical Mega Drive source reconstruction**, and **Alien Soldier — byte-identical Mega Drive source reconstruction**. Exact queries and reviewed URLs are retained in research state; Apple II DeskTop and SAM were recorded as exact catalogue duplicates. The Mega Drive records distinguish their 68000 program and Z80 sound components and preserve their explicit byte-identity/runtime evidence.
+
+The separate CPU lane resolved ten queued source-CPU areas for **Floppy Disk Workbench — Amiga/Atari flux recovery**, **iff2bpl — Amiga bitplane converter**, **IFFshow — Amiga ILBM inspector**, **Kick Off 2 — tactic file editor**, **AmigaIFFConverter — ILBM writer**, **rscview — GEM resource renderer**, **Rusty Backup — Amiga RDB and Atari AHDI image tooling**, **SCI Companion — Sierra game IDE**, **ScummVM Tools — Amiga/ST extractors**, and **SCI Tools — decompiler and parsers**. Their documented inputs are flux, disk, graphics, resource, tactic or virtual-machine data; source CPU is therefore explicitly not applicable rather than inferred from a platform label.
+
+
 ## 2026-10-01 — BBC/Acorn graph, HuC6280/Mac/Atari searches and CPU audit
 
 Added eight primary-source-backed projects. The changing Mark Moxon graph yielded **Elite Compendium — Acorn Electron 16K sideways-RAM collection**, **Elite Compendium — BBC Micro B+ / B+128 collection**, and **!EliteNet — Archimedes Elite Econet scoreboard application**. !EliteNet is explicitly recorded as original RISC OS homebrew/application work that leaves Archimedes Elite untouched, not as a reverse-engineered game. The two platform-specific Universe Editor repositories were deduplicated against the existing multi-platform editor record.

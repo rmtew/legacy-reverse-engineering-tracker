@@ -4,6 +4,14 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/rep-stosw/tube64 | Distinct 64-bit successor to the reverse-engineered DOS Tube reconstruction, with C/C++ source and Windows/Linux builds |
+| https://github.com/zpqrtbnk/xrick-kb | Rick Dangerous and Rick Dangerous II DOS/Atari ST reverse-engineering knowledge base with Ghidra, RAM-capture and Hatari validation artifacts |
+| https://github.com/fadden/6502bench | SourceGen interactive 6502/65C02/65816 disassembly, static-analysis and assembler-verification workbench |
+| https://github.com/digarok/TransWarpGS-ROM | Apple IIgs TransWarp GS ROM 1.8s disassembly with Merlin32 reassembly and CI-checked binary parity |
+| https://github.com/cubanismo/jaguar-sdk | Restored Atari Jaguar SDK/toolchain with source-available utilities, replacements, debugger support, samples and developer documentation |
+| https://github.com/benbaker76/jagfx | General Jaguar ROM graphics, palette and compression search/extraction tooling |
+| https://github.com/oranguthang/flicky_src | Byte-identical Flicky Mega Drive reconstruction with format codecs, authoring studios and emulator-state validation |
+| https://github.com/oranguthang/alien_soldier_src | Byte-identical Alien Soldier Mega Drive reconstruction with binary tracing and emulator validation |
 | https://github.com/markmoxon/elite-compendium-acorn-electron | Acorn Electron Elite Compendium with a source-built menu, branch-pinned reconstructed variants and 16 KiB sideways-RAM requirement |
 | https://github.com/markmoxon/elite-compendium-bbc-micro-b-plus | BBC Micro B+/B+128 Elite Compendium with branch-pinned BBC Master variants and a BeebAsm disc build |
 | https://github.com/markmoxon/elite-over-econet-acorn-archimedes | Original !EliteNet RISC OS application and ARM module for Econet scoreboard support alongside Archimedes Elite |
