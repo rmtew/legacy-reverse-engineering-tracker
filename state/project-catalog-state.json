@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-01T08:53:51Z",
+  "updated_at": "2026-10-01T16:16:53Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -293,10 +293,10 @@
         "Commodore 128"
       ],
       "target_platforms": [],
-      "source_cpu": [
+      "source_cpu": [],
+      "target_cpu": [
         "6502"
       ],
-      "target_cpu": null,
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -337,7 +337,7 @@
         "raycasting",
         "SDK"
       ],
-      "notes": "Standalone native Commodore 128 VIC-IIe 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, border FAST acceleration, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE x128 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0.",
+      "notes": "Standalone native Commodore 128 VIC-IIe 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, border FAST acceleration, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE x128 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0. The project is original Commodore 128 / VIC-IIe SDK/homebrew work, so source CPU is not applicable; its checked-in 6502-compatible assembly and 64tass build establish 6502 output without implying a narrower chip variant or RAM minimum.",
       "ai": {
         "usage": null,
         "tools": []
@@ -357,10 +357,10 @@
         "Commodore Plus/4"
       ],
       "target_platforms": [],
-      "source_cpu": [
+      "source_cpu": [],
+      "target_cpu": [
         "6502"
       ],
-      "target_cpu": null,
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -401,7 +401,7 @@
         "raycasting",
         "SDK"
       ],
-      "notes": "Standalone native Plus/4 TED 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE xplus4 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0.",
+      "notes": "Standalone native Plus/4 TED 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE xplus4 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0. The project is original Commodore Plus/4 / TED SDK/homebrew work, so source CPU is not applicable; its checked-in 6502-compatible assembly and 64tass build establish 6502 output without implying a narrower chip variant or RAM minimum.",
       "ai": {
         "usage": null,
         "tools": []
@@ -9690,6 +9690,71 @@
         "tools": []
       }
     },
+    "atarist-toolkit-docker": {
+      "id": "atarist-toolkit-docker",
+      "title": "Atari ST development toolkit Docker image",
+      "upstream_name": "atarist-toolkit-docker",
+      "display_title": "Atari ST development toolkit — reproducible cross-build container",
+      "subjects": [],
+      "repo": "https://github.com/sidecartridge/atarist-toolkit-docker",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Dockerfile",
+        "Shell"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "assembler-toolchain",
+        "development-environment"
+      ],
+      "types": [
+        "development environment",
+        "cross-toolchain"
+      ],
+      "re_started": 2022,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "containerized cross compilation",
+        "vasm/vlink",
+        "m68k-atari-mint GCC",
+        "AGT integration"
+      ],
+      "tags": [
+        "Atari ST",
+        "m68000",
+        "Docker",
+        "cross-development"
+      ],
+      "notes": "Dockerized Atari ST development environment bundling vasmm68k_mot, vlink, m68k-atari-mint-gcc, libcmini, Atari Game Tools and automation utilities. It explicitly produces 68000 assembly and C outputs for Atari ST; no minimum target-machine profile is stated.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "atari-st-floppy-toolkit-gem": {
       "id": "atari-st-floppy-toolkit-gem",
       "title": "Atari ST Floppy Image Toolkit GEM",
@@ -10834,11 +10899,42 @@
         "ZX Spectrum Next"
       ],
       "source_cpu": [
-        "Z80",
+        "Z80"
+      ],
+      "target_cpu": [
         "Z80N"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "Enhanced Next build",
+          "platform": "ZX Spectrum Next",
+          "cpu_family": "Z80 family",
+          "min_cpu": "Z80N",
+          "notes": "README builds athena.nex with sjasmplus and performs a Z80N assembly smoke test. No exact minimum RAM is stated for the standard enhanced build.",
+          "evidence": [
+            {
+              "source": "README.md",
+              "url": "https://github.com/rygelda16th/athena-next/blob/main/README.md",
+              "excerpt": "make doctor # versions, and a Z80N assembly smoke test; make nex # build/athena.nex"
+            }
+          ]
+        },
+        {
+          "name": "Arcade-assets Next build",
+          "platform": "ZX Spectrum Next",
+          "cpu_family": "Z80 family",
+          "min_cpu": "Z80N",
+          "min_ram_kib": 2048,
+          "notes": "Optional arcade-art/sound build explicitly requires a 2 MB Next.",
+          "evidence": [
+            {
+              "source": "README.md",
+              "url": "https://github.com/rygelda16th/athena-next/blob/main/README.md",
+              "excerpt": "make nex-arcade # build/athena-arcade.nex (needs a 2MB Next)"
+            }
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [],
@@ -23558,7 +23654,9 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -24689,6 +24787,79 @@
         "SkoolKit"
       ],
       "notes": "BadBeard's historical Dynamite Dan II disassembly, preserved in Michael Cook's source collection.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "earth-shaker-spectrum-bedazzle": {
+      "id": "earth-shaker-spectrum-bedazzle",
+      "title": "Earth Shaker",
+      "upstream_name": "Earth Shaker",
+      "display_title": "Earth Shaker — byte-exact ZX Spectrum disassembly",
+      "subjects": [
+        "Earth Shaker"
+      ],
+      "repo": "https://github.com/bedazzle/earth-shaker",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly",
+        "byte-exact source reconstruction"
+      ],
+      "re_started": 2021,
+      "status": "complete disassembly",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "SjASM+",
+        "M8XXX",
+        "binary diff verification",
+        "architecture documentation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "Earth Shaker",
+        "byte-exact"
+      ],
+      "notes": "Fully disassembled in July 2026 with every routine named, all data/graphics/music classified and a documented byte-exact rebuild comparison against EARTHSHA.bin. The repository includes architectural documentation and editor-related analysis.",
       "ai": {
         "usage": null,
         "tools": []
@@ -27583,6 +27754,75 @@
         "Commodore 64"
       ],
       "notes": "Dave McMurtrie disassembled the C64 loading code and dynamically uploaded 1541 drive code, modified the former to run at $C000 and shipped an educational D64. Explicitly partial and not byte-exact to the original cartridge.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "eric-and-floaters-spectrum-disassembly": {
+      "id": "eric-and-floaters-spectrum-disassembly",
+      "title": "Eric & the Floaters",
+      "upstream_name": "EATF",
+      "display_title": "Eric & the Floaters — ZX Spectrum disassembly",
+      "subjects": [
+        "Eric & the Floaters",
+        "Bomberman"
+      ],
+      "repo": "https://github.com/bedazzle/eatf",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly"
+      ],
+      "re_started": 2019,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SjASM+",
+        "code/data extraction"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "Eric & the Floaters",
+        "Bomberman"
+      ],
+      "notes": "Z80 disassembly of the ZX Spectrum Eric & the Floaters/Bomberman game. The repository publishes organized assembly/data and a SjASM+ compilation path; no explicit byte-for-byte comparison or runtime verification is documented.",
       "ai": {
         "usage": null,
         "tools": []
@@ -37511,6 +37751,68 @@
         "tools": []
       }
     },
+    "idsk-cpc-disk-image-tool": {
+      "id": "idsk-cpc-disk-image-tool",
+      "title": "iDSK",
+      "upstream_name": "iDSK",
+      "display_title": "iDSK — Amstrad CPC disk-image editor",
+      "subjects": [],
+      "repo": "https://github.com/cpcsdk/idsk",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [
+        "host computer"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Amstrad CPC DSK images",
+        "tokenized BASIC and DAMS source"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "development tool",
+        "disk-image editor"
+      ],
+      "re_started": 2017,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "DSK editing",
+        "AMSDOS header handling",
+        "tokenized source listing"
+      ],
+      "tags": [
+        "Amstrad CPC",
+        "DSK",
+        "CPCSDK"
+      ],
+      "notes": "CPCSDK command-line tool for adding, removing and listing files in Amstrad CPC DSK images. It manages AMSDOS headers and can render tokenized BASIC and DAMS source, making it directly useful for preservation and software archaeology.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "iff2bpl-amiga-bitplane-converter": {
       "id": "iff2bpl-amiga-bitplane-converter",
       "title": "iff2bpl — Amiga bitplane converter",
@@ -44665,6 +44967,76 @@
         "binary analysis"
       ],
       "notes": "Substantial title-specific ZX Spectrum analysis project. The ManicMiner directory contains a 1822 KiB Analysis.json annotation database and Skool source plus cavern viewer, formatter and globals scripts. Tracked as binary-analysis/analysis-state work; no byte-exact reconstruction claim is inferred.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "manic-miner-cpp-mrcook": {
+      "id": "manic-miner-cpp-mrcook",
+      "title": "Manic Miner: Retro!",
+      "upstream_name": "Manic Miner: Retro!",
+      "display_title": "Manic Miner: Retro! — Z80-to-C++ source-faithful port",
+      "subjects": [
+        "Manic Miner"
+      ],
+      "repo": "https://github.com/mrcook/manic-miner",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "source-faithful port",
+        "reimplementation"
+      ],
+      "re_started": 2016,
+      "status": "work-in-progress",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "manual Z80-to-C++ translation",
+        "original memory-map preservation",
+        "SDL rendering"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "C++",
+        "Manic Miner"
+      ],
+      "notes": "Experimental portable C++/SDL translation of the Manic Miner Z80 assembly from Richard Dymond's SkoolKit disassembly. It retains original memory addresses for pixel-faithful behavior and is documented as buildable, runnable and mostly playable, with sound and several polish items still missing.",
       "ai": {
         "usage": null,
         "tools": []
@@ -56917,6 +57289,76 @@
         "tools": []
       }
     },
+    "rebelstar-raiders-basic-source": {
+      "id": "rebelstar-raiders-basic-source",
+      "title": "Rebelstar Raiders",
+      "upstream_name": "Rebelstar Raiders game source code",
+      "display_title": "Rebelstar Raiders — recovered Spectrum BASIC/Z80 source",
+      "subjects": [
+        "Rebelstar Raiders"
+      ],
+      "repo": "https://github.com/mrcook/rebelstar-raiders-BASIC",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Sinclair BASIC",
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "Sinclair BASIC",
+        "Z80 assembly",
+        "Go",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "recovered source",
+        "media extraction"
+      ],
+      "re_started": 2023,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "TZX extraction",
+        "BASIC reconstruction",
+        "source annotation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "Sinclair BASIC",
+        "preservation"
+      ],
+      "notes": "Source and data for the 1984 game extracted from original TZX tapes with tzxcat plus a custom Go formatter, with comments added by the project author. The source includes Sinclair BASIC and small Z80 graphics/sound routines; no rebuilt tape or runnable-output claim is documented.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "rec98-touhou-pc98": {
       "id": "rec98-touhou-pc98",
       "title": "ReC98",
@@ -60782,6 +61224,66 @@
         "jotd666"
       ],
       "notes": "1:1 Amiga 500 port in 68k assembly, with original portrait layout, visuals, sounds and 50 fps target; README credits Scott Tunstall's arcade reverse-engineering work.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "scrconv-spectrum-image-converter": {
+      "id": "scrconv-spectrum-image-converter",
+      "title": "scrconv",
+      "upstream_name": "scrconv",
+      "display_title": "scrconv — ZX Spectrum SCR image converter",
+      "subjects": [],
+      "repo": "https://github.com/mrcook/scrconv",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "host computer"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "ZX Spectrum SCR image data"
+      ],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "development tool",
+        "graphics converter"
+      ],
+      "re_started": 2021,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SCR decoding",
+        "palette conversion",
+        "border-color detection"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "graphics",
+        "Go"
+      ],
+      "notes": "Host-side CLI converter from ZX Spectrum SCR screens to PNG, GIF or JPEG, with scaling, border rendering and experimental automatic border-color detection.",
       "ai": {
         "usage": null,
         "tools": []
@@ -64708,8 +65210,30 @@
       "source_cpu": [
         "x86"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68020"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Native AmigaOS build",
+          "platform": "Amiga",
+          "cpu_family": "68000 family",
+          "min_cpu": "68020",
+          "chipsets": [
+            "AGA",
+            "RTG / Picasso96"
+          ],
+          "os": "AmigaOS 3.0 or later",
+          "notes": "README states 68020 minimum with no FPU, AGA or RTG graphics, and enough memory for about 20 MB of sprite graphics plus sound samples. That working-set description is not treated as an exact total-RAM minimum; 68060 is recommended for AGA and a fast 68040 for RTG.",
+          "evidence": [
+            {
+              "source": "README.md",
+              "url": "https://github.com/angree/AmiSC/blob/main/README.md",
+              "excerpt": "AmigaOS 3.0 or later; 68020 minimum, no FPU required; AGA chipset, or a graphics card (RTG / Picasso96)."
+            }
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "game data"
@@ -66247,6 +66771,80 @@
         "tools": []
       }
     },
+    "sugarboxv2-cpc-emulator-debugger": {
+      "id": "sugarboxv2-cpc-emulator-debugger",
+      "title": "SugarboxV2",
+      "upstream_name": "SugarboxV2",
+      "display_title": "SugarboxV2 — CPC emulator and source debugger",
+      "subjects": [],
+      "repo": "https://github.com/Tom1975/SugarboxV2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC",
+        "Amstrad CPC+"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code",
+        "CPC media and snapshots"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "automation",
+        "development-environment"
+      ],
+      "types": [
+        "emulator",
+        "source debugger",
+        "development tool"
+      ],
+      "re_started": 2019,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "headless emulation",
+        "JSON debug protocol",
+        "DAP source debugging",
+        "hardware-state inspection"
+      ],
+      "tags": [
+        "Amstrad CPC",
+        "CPC+",
+        "Z80",
+        "emulator",
+        "debugger"
+      ],
+      "notes": "Cross-platform CPC 464/664/6128/CPC+ emulator with an integrated debugger and headless mode. Its JSON-over-TCP server supports register/memory access, stepping, breakpoints, labels, media control and CRTC/ASIC/Gate Array/PSG/PPI/FDC/tape state; a linked VS Code extension adds source-level DAP debugging.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "sundog-st-psystem": {
       "id": "sundog-st-psystem",
       "title": "SunDog: Frozen Legacy",
@@ -67752,7 +68350,9 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -71075,7 +71675,9 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": [],
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -71591,8 +72193,10 @@
       ],
       "notes": "Runs the firmware application from ultimate.elf or .ue2 unmodified while modeling board I/O; FPGA image itself does not run. Integrates tracked TRX64 as the C64 core behind a register interface. crates/ includes rv32, c64-bridge and ue2-mcp, the latter for automated emulator tests. README says macOS is the primary host; Linux/Windows are CI builds.",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "c64-dmakaitis-ultima1": {
