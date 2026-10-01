@@ -380,10 +380,10 @@
       "Commodore 128"
     ],
     "target_platforms": [],
-    "source_cpu": [
+    "source_cpu": [],
+    "target_cpu": [
       "6502"
     ],
-    "target_cpu": null,
     "source_language": [
       "6502-compatible assembly"
     ],
@@ -404,7 +404,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": true,
@@ -428,7 +428,7 @@
       "raycasting",
       "SDK"
     ],
-    "notes": "Standalone native Commodore 128 VIC-IIe 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, border FAST acceleration, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE x128 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0.",
+    "notes": "Standalone native Commodore 128 VIC-IIe 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, border FAST acceleration, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE x128 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0. The project is original Commodore 128 / VIC-IIe SDK/homebrew work, so source CPU is not applicable; its checked-in 6502-compatible assembly and 64tass build establish 6502 output without implying a narrower chip variant or RAM minimum.",
     "github": {
       "repository": "Librologica/2.5vibe128",
       "created_at": "2026-09-23",
@@ -471,10 +471,10 @@
       "Commodore Plus/4"
     ],
     "target_platforms": [],
-    "source_cpu": [
+    "source_cpu": [],
+    "target_cpu": [
       "6502"
     ],
-    "target_cpu": null,
     "source_language": [
       "6502-compatible assembly"
     ],
@@ -495,7 +495,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": true,
@@ -519,7 +519,7 @@
       "raycasting",
       "SDK"
     ],
-    "notes": "Standalone native Plus/4 TED 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE xplus4 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0.",
+    "notes": "Standalone native Plus/4 TED 2.5D SDK derived solely from the 3Dvibe64 2.5D pipeline, not its polygon engine. Python builder, native assembly, bitmap/double buffering and four original/optimized automatic/interactive demos. Assembly guide describes 6502-compatible instructions; exact native CPU variant merits follow-up. Upstream documents VICE xplus4 testing; physical hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0. The project is original Commodore Plus/4 / TED SDK/homebrew work, so source CPU is not applicable; its checked-in 6502-compatible assembly and 64tass build establish 6502 output without implying a narrower chip variant or RAM minimum.",
     "github": {
       "repository": "Librologica/2.5vibePlus4",
       "created_at": "2026-09-23",
@@ -11588,7 +11588,7 @@
     "target_cpu": null,
     "re_started": null,
     "last_activity": "2026-04-26",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -14923,10 +14923,11 @@
       "ZX Spectrum Next"
     ],
     "source_cpu": [
-      "Z80",
+      "Z80"
+    ],
+    "target_cpu": [
       "Z80N"
     ],
-    "target_cpu": null,
     "source_language": [],
     "reconstructed_languages": [],
     "record_class": "subject",
@@ -14944,7 +14945,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-17",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -14991,7 +14992,38 @@
         "message": "licence: the port's own code and the arcade mapping are POKE-list facts too",
         "url": "https://github.com/rygelda16th/athena-next/commit/38e82400debf37cd084c8512ac504bea41cf838e"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Enhanced Next build",
+        "platform": "ZX Spectrum Next",
+        "cpu_family": "Z80 family",
+        "min_cpu": "Z80N",
+        "notes": "README builds athena.nex with sjasmplus and performs a Z80N assembly smoke test. No exact minimum RAM is stated for the standard enhanced build.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/rygelda16th/athena-next/blob/main/README.md",
+            "excerpt": "make doctor # versions, and a Z80N assembly smoke test; make nex # build/athena.nex"
+          }
+        ]
+      },
+      {
+        "name": "Arcade-assets Next build",
+        "platform": "ZX Spectrum Next",
+        "cpu_family": "Z80 family",
+        "min_cpu": "Z80N",
+        "min_ram_kib": 2048,
+        "notes": "Optional arcade-art/sound build explicitly requires a 2 MB Next.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/rygelda16th/athena-next/blob/main/README.md",
+            "excerpt": "make nex-arcade # build/athena-arcade.nex (needs a 2MB Next)"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "atic-atac-pobtastic-spectrum",
@@ -32539,7 +32571,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -32560,7 +32594,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-05",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -89332,7 +89366,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-23",
+    "last_checked": "2026-10-02",
     "status": "alpha",
     "build": {
       "compilable": null,
@@ -89392,7 +89426,31 @@
       "reverse-engineering-derived-port",
       "reimplementation"
     ],
-    "tool_kinds": []
+    "tool_kinds": [],
+    "target_cpu": [
+      "m68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Native AmigaOS build",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68020",
+        "chipsets": [
+          "AGA",
+          "RTG / Picasso96"
+        ],
+        "os": "AmigaOS 3.0 or later",
+        "notes": "README states 68020 minimum with no FPU, AGA or RTG graphics, and enough memory for about 20 MB of sprite graphics plus sound samples. That working-set description is not treated as an exact total-RAM minimum; 68060 is recommended for AGA and a fast 68040 for RTG.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/angree/AmiSC/blob/main/README.md",
+            "excerpt": "AmigaOS 3.0 or later; 68020 minimum, no FPU required; AGA chipset, or a graphics card (RTG / Picasso96)."
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "stardust-msx-reassembly-antxiko",
@@ -93427,7 +93485,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -93448,7 +93508,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-03",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -97864,7 +97924,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -97885,7 +97947,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-11",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -105631,6 +105693,720 @@
         "date": "2024-11-01",
         "message": "Wally, Zynaps & Ranarama",
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
+      }
+    }
+  },
+  {
+    "id": "manic-miner-cpp-mrcook",
+    "title": "Manic Miner: Retro!",
+    "upstream_name": "Manic Miner: Retro!",
+    "display_title": "Manic Miner: Retro! — Z80-to-C++ source-faithful port",
+    "subjects": [
+      "Manic Miner"
+    ],
+    "repo": "https://github.com/mrcook/manic-miner",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS",
+      "Windows"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reverse-engineering-derived-port",
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source-faithful port",
+      "reimplementation"
+    ],
+    "re_started": 2016,
+    "last_activity": "2021-03-01",
+    "last_checked": "2026-10-02",
+    "status": "work-in-progress",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "manual Z80-to-C++ translation",
+      "original memory-map preservation",
+      "SDL rendering"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "Z80",
+      "C++",
+      "Manic Miner"
+    ],
+    "notes": "Experimental portable C++/SDL translation of the Manic Miner Z80 assembly from Richard Dymond's SkoolKit disassembly. It retains original memory addresses for pixel-faithful behavior and is documented as buildable, runnable and mostly playable, with sound and several polish items still missing.",
+    "github": {
+      "repository": "mrcook/manic-miner",
+      "created_at": "2016-12-29",
+      "pushed_at": "2021-03-01",
+      "updated_at": "2026-01-25",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "dormant",
+      "languages": [
+        "C++",
+        "CMake"
+      ],
+      "latest_commit": {
+        "sha": "f6f5265aaa67de3543b6ed22d1ed070f6bf81514",
+        "date": "2021-03-01",
+        "message": "README update and version bump",
+        "url": "https://github.com/mrcook/manic-miner/commit/f6f5265aaa67de3543b6ed22d1ed070f6bf81514"
+      }
+    }
+  },
+  {
+    "id": "rebelstar-raiders-basic-source",
+    "title": "Rebelstar Raiders",
+    "upstream_name": "Rebelstar Raiders game source code",
+    "display_title": "Rebelstar Raiders — recovered Spectrum BASIC/Z80 source",
+    "subjects": [
+      "Rebelstar Raiders"
+    ],
+    "repo": "https://github.com/mrcook/rebelstar-raiders-BASIC",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Sinclair BASIC",
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Sinclair BASIC",
+      "Z80 assembly",
+      "Go",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-restoration",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "recovered source",
+      "media extraction"
+    ],
+    "re_started": 2023,
+    "last_activity": "2023-08-13",
+    "last_checked": "2026-10-02",
+    "status": null,
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "TZX extraction",
+      "BASIC reconstruction",
+      "source annotation"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "Z80",
+      "Sinclair BASIC",
+      "preservation"
+    ],
+    "notes": "Source and data for the 1984 game extracted from original TZX tapes with tzxcat plus a custom Go formatter, with comments added by the project author. The source includes Sinclair BASIC and small Z80 graphics/sound routines; no rebuilt tape or runnable-output claim is documented.",
+    "github": {
+      "repository": "mrcook/rebelstar-raiders-BASIC",
+      "created_at": "2023-08-13",
+      "pushed_at": "2023-08-13",
+      "updated_at": "2026-07-25",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly",
+        "Go",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "7afae50c7314973ead49fcf7bdd70df35c0e2309",
+        "date": "2023-08-13",
+        "message": "Add README",
+        "url": "https://github.com/mrcook/rebelstar-raiders-BASIC/commit/7afae50c7314973ead49fcf7bdd70df35c0e2309"
+      }
+    }
+  },
+  {
+    "id": "scrconv-spectrum-image-converter",
+    "title": "scrconv",
+    "upstream_name": "scrconv",
+    "display_title": "scrconv — ZX Spectrum SCR image converter",
+    "subjects": [],
+    "repo": "https://github.com/mrcook/scrconv",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [
+      "host computer"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "ZX Spectrum SCR image data"
+    ],
+    "reconstructed_languages": [
+      "Go"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "asset-tool"
+    ],
+    "types": [
+      "development tool",
+      "graphics converter"
+    ],
+    "re_started": 2021,
+    "last_activity": "2023-12-27",
+    "last_checked": "2026-10-02",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "SCR decoding",
+      "palette conversion",
+      "border-color detection"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "graphics",
+      "Go"
+    ],
+    "notes": "Host-side CLI converter from ZX Spectrum SCR screens to PNG, GIF or JPEG, with scaling, border rendering and experimental automatic border-color detection.",
+    "github": {
+      "repository": "mrcook/scrconv",
+      "created_at": "2021-09-08",
+      "pushed_at": "2023-12-27",
+      "updated_at": "2024-04-20",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Go",
+      "activity_state": "dormant",
+      "languages": [
+        "Go"
+      ],
+      "latest_commit": {
+        "sha": "7732d8a353d80e208420163342eb628e0ef3ab24",
+        "date": "2023-12-27",
+        "message": "Update README to include auto-border option",
+        "url": "https://github.com/mrcook/scrconv/commit/7732d8a353d80e208420163342eb628e0ef3ab24"
+      }
+    }
+  },
+  {
+    "id": "earth-shaker-spectrum-bedazzle",
+    "title": "Earth Shaker",
+    "upstream_name": "Earth Shaker",
+    "display_title": "Earth Shaker — byte-exact ZX Spectrum disassembly",
+    "subjects": [
+      "Earth Shaker"
+    ],
+    "repo": "https://github.com/bedazzle/earth-shaker",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [
+      "ZX Spectrum"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "disassembly",
+      "byte-exact source reconstruction"
+    ],
+    "re_started": 2021,
+    "last_activity": "2026-07-09",
+    "last_checked": "2026-10-02",
+    "status": "complete disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "SjASM+",
+      "M8XXX",
+      "binary diff verification",
+      "architecture documentation"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "Z80",
+      "Earth Shaker",
+      "byte-exact"
+    ],
+    "notes": "Fully disassembled in July 2026 with every routine named, all data/graphics/music classified and a documented byte-exact rebuild comparison against EARTHSHA.bin. The repository includes architectural documentation and editor-related analysis.",
+    "github": {
+      "repository": "Bedazzle/Earth-shaker",
+      "created_at": "2022-10-13",
+      "pushed_at": "2026-07-09",
+      "updated_at": "2026-07-09",
+      "checked_at": "2026-10-02",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly",
+        "Python",
+        "Batchfile"
+      ],
+      "latest_commit": {
+        "sha": "19eccd22baac57623ae9810964d6601315fbf634",
+        "date": "2026-07-09",
+        "message": "Full disasm",
+        "url": "https://github.com/Bedazzle/Earth-shaker/commit/19eccd22baac57623ae9810964d6601315fbf634"
+      }
+    }
+  },
+  {
+    "id": "eric-and-floaters-spectrum-disassembly",
+    "title": "Eric & the Floaters",
+    "upstream_name": "EATF",
+    "display_title": "Eric & the Floaters — ZX Spectrum disassembly",
+    "subjects": [
+      "Eric & the Floaters",
+      "Bomberman"
+    ],
+    "repo": "https://github.com/bedazzle/eatf",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [
+      "ZX Spectrum"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "disassembly"
+    ],
+    "re_started": 2019,
+    "last_activity": "2026-05-13",
+    "last_checked": "2026-10-02",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "SjASM+",
+      "code/data extraction"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "Z80",
+      "Eric & the Floaters",
+      "Bomberman"
+    ],
+    "notes": "Z80 disassembly of the ZX Spectrum Eric & the Floaters/Bomberman game. The repository publishes organized assembly/data and a SjASM+ compilation path; no explicit byte-for-byte comparison or runtime verification is documented.",
+    "github": {
+      "repository": "Bedazzle/EATF",
+      "created_at": "2019-10-26",
+      "pushed_at": "2026-05-13",
+      "updated_at": "2026-05-13",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly",
+        "Batchfile"
+      ],
+      "latest_commit": {
+        "sha": "6e8c87b4f8b24e309a6244f01f6b3a5ea4cf0701",
+        "date": "2026-05-13",
+        "message": "Asm helpers added",
+        "url": "https://github.com/Bedazzle/EATF/commit/6e8c87b4f8b24e309a6244f01f6b3a5ea4cf0701"
+      }
+    }
+  },
+  {
+    "id": "idsk-cpc-disk-image-tool",
+    "title": "iDSK",
+    "upstream_name": "iDSK",
+    "display_title": "iDSK — Amstrad CPC disk-image editor",
+    "subjects": [],
+    "repo": "https://github.com/cpcsdk/idsk",
+    "source_platforms": [
+      "Amstrad CPC"
+    ],
+    "target_platforms": [
+      "host computer"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "Amstrad CPC DSK images",
+      "tokenized BASIC and DAMS source"
+    ],
+    "reconstructed_languages": [
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "disk-filesystem-tool",
+      "asset-tool"
+    ],
+    "types": [
+      "development tool",
+      "disk-image editor"
+    ],
+    "re_started": 2017,
+    "last_activity": "2025-01-29",
+    "last_checked": "2026-10-02",
+    "status": null,
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "DSK editing",
+      "AMSDOS header handling",
+      "tokenized source listing"
+    ],
+    "tags": [
+      "Amstrad CPC",
+      "DSK",
+      "CPCSDK"
+    ],
+    "notes": "CPCSDK command-line tool for adding, removing and listing files in Amstrad CPC DSK images. It manages AMSDOS headers and can render tokenized BASIC and DAMS source, making it directly useful for preservation and software archaeology.",
+    "github": {
+      "repository": "cpcsdk/idsk",
+      "created_at": "2017-04-09",
+      "pushed_at": "2025-01-29",
+      "updated_at": "2026-07-09",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "quiet",
+      "languages": [
+        "C++",
+        "CMake"
+      ],
+      "latest_commit": {
+        "sha": "bd620361720b2f45aafd9c100a1000c56957cb05",
+        "date": "2025-01-29",
+        "message": "Added build instructions for Linux and macOS (#22)",
+        "url": "https://github.com/cpcsdk/idsk/commit/bd620361720b2f45aafd9c100a1000c56957cb05"
+      }
+    }
+  },
+  {
+    "id": "sugarboxv2-cpc-emulator-debugger",
+    "title": "SugarboxV2",
+    "upstream_name": "SugarboxV2",
+    "display_title": "SugarboxV2 — CPC emulator and source debugger",
+    "subjects": [],
+    "repo": "https://github.com/Tom1975/SugarboxV2",
+    "source_platforms": [
+      "Amstrad CPC",
+      "Amstrad CPC+"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Z80 machine code",
+      "CPC media and snapshots"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "automation",
+      "development-environment"
+    ],
+    "types": [
+      "emulator",
+      "source debugger",
+      "development tool"
+    ],
+    "re_started": 2019,
+    "last_activity": "2026-09-18",
+    "last_checked": "2026-10-02",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "headless emulation",
+      "JSON debug protocol",
+      "DAP source debugging",
+      "hardware-state inspection"
+    ],
+    "tags": [
+      "Amstrad CPC",
+      "CPC+",
+      "Z80",
+      "emulator",
+      "debugger"
+    ],
+    "notes": "Cross-platform CPC 464/664/6128/CPC+ emulator with an integrated debugger and headless mode. Its JSON-over-TCP server supports register/memory access, stepping, breakpoints, labels, media control and CRTC/ASIC/Gate Array/PSG/PPI/FDC/tape state; a linked VS Code extension adds source-level DAP debugging.",
+    "github": {
+      "repository": "Tom1975/SugarboxV2",
+      "created_at": "2019-04-22",
+      "pushed_at": "2026-09-18",
+      "updated_at": "2026-09-18",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "languages": [
+        "C",
+        "C++",
+        "CMake"
+      ],
+      "latest_commit": {
+        "sha": "4fdb5b71003b684b721f05f68358cfd112b5d8f1",
+        "date": "2026-09-18",
+        "message": "Update",
+        "url": "https://github.com/Tom1975/SugarboxV2/commit/4fdb5b71003b684b721f05f68358cfd112b5d8f1"
+      }
+    }
+  },
+  {
+    "id": "atarist-toolkit-docker",
+    "title": "Atari ST development toolkit Docker image",
+    "upstream_name": "atarist-toolkit-docker",
+    "display_title": "Atari ST development toolkit — reproducible cross-build container",
+    "subjects": [],
+    "repo": "https://github.com/sidecartridge/atarist-toolkit-docker",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "Atari ST"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "Dockerfile",
+      "Shell"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "assembler-toolchain",
+      "development-environment"
+    ],
+    "types": [
+      "development environment",
+      "cross-toolchain"
+    ],
+    "re_started": 2022,
+    "last_activity": "2026-09-30",
+    "last_checked": "2026-10-02",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "containerized cross compilation",
+      "vasm/vlink",
+      "m68k-atari-mint GCC",
+      "AGT integration"
+    ],
+    "tags": [
+      "Atari ST",
+      "m68000",
+      "Docker",
+      "cross-development"
+    ],
+    "notes": "Dockerized Atari ST development environment bundling vasmm68k_mot, vlink, m68k-atari-mint-gcc, libcmini, Atari Game Tools and automation utilities. It explicitly produces 68000 assembly and C outputs for Atari ST; no minimum target-machine profile is stated.",
+    "github": {
+      "repository": "sidecartridge/atarist-toolkit-docker",
+      "created_at": "2022-12-26",
+      "pushed_at": "2026-09-30",
+      "updated_at": "2026-09-30",
+      "checked_at": "2026-10-02",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Shell",
+      "activity_state": "active",
+      "languages": [
+        "Shell",
+        "Dockerfile",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "ee2c9ec442a11a6bfd03fc42a14a96ac477e8de6",
+        "date": "2026-09-30",
+        "message": "Merge pull request #16 from sidecartridge/release/v1.4.0",
+        "url": "https://github.com/sidecartridge/atarist-toolkit-docker/commit/ee2c9ec442a11a6bfd03fc42a14a96ac477e8de6"
       }
     }
   }

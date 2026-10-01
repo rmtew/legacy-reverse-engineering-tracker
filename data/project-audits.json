@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-01",
+  "indexed_at": "2026-10-02",
   "area_names": [
     "identity",
     "classification",
@@ -985,7 +985,7 @@
     },
     {
       "project_id": "amisc-amiga",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -1003,16 +1003,18 @@
           "checked_at": "2026-09-23"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README explicitly states a native Amiga 68k engine with a 68020 minimum and no FPU requirement."
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-09-23"
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Captured the explicit AmigaOS 3.0+, 68020, AGA/RTG requirements and recommendations without converting the approximate sprite working set into a RAM minimum."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -1025,9 +1027,8 @@
         }
       },
       "next_actions": [
-        "Verify explicitly evidenced output/port CPU",
-        "Check primary documentation for minimum runnable hardware",
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
+        "Measure performance and total memory consumption across the documented 68020/AGA and 68040+/RTG configurations.",
+        "Continue feature-completeness and original-engine relationship research as upstream advances."
       ]
     },
     {
@@ -31971,7 +31972,7 @@
     },
     {
       "project_id": "turrican-trsi-trainer-intro",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -31990,9 +31991,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "The source header explicitly names Motorola 68000 and a vasmm68k_mot HUNK executable command; m68000 output is evidenced independently of any runtime-profile claim."
         },
         "build": {
           "state": "needs-research",
@@ -32016,7 +32017,8 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Independently assemble the reconstructed source and compare it with the identified original binary.",
+        "Establish minimum RAM, chipset and Kickstart requirements from primary evidence before adding a runtime profile."
       ]
     },
     {
@@ -32171,7 +32173,7 @@
     },
     {
       "project_id": "tetrapack-amiga-reconstructed",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32190,9 +32192,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "The reconstructed source declares Amiga CODE sections and uses only reviewed base 68000 instructions plus Exec/DOS calls; it therefore emits m68000 code, without establishing a successful build or runtime minimum."
         },
         "build": {
           "state": "needs-research",
@@ -32216,7 +32218,8 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Independently assemble the reconstructed source and compare it with the identified original binary.",
+        "Establish minimum RAM, chipset and Kickstart requirements from primary evidence before adding a runtime profile."
       ]
     },
     {
@@ -32321,7 +32324,7 @@
     },
     {
       "project_id": "tristar-double-action-reconstructed",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32340,9 +32343,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "The reconstructed packer is explicit Amiga 68000 assembly using base 68k instructions and AmigaOS/custom-chip interfaces; m68000 output is recorded without claiming byte identity or a hardware floor."
         },
         "build": {
           "state": "needs-research",
@@ -32366,7 +32369,8 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Independently assemble the reconstructed source and compare it with the identified original binary.",
+        "Establish minimum RAM, chipset and Kickstart requirements from primary evidence before adding a runtime profile."
       ]
     },
     {
@@ -37325,7 +37329,7 @@
     },
     {
       "project_id": "25vibeplus4-raycasting-sdk",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -37337,13 +37341,14 @@
           "checked_at": "2026-09-27"
         },
         "source_cpu": {
-          "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "Assembly guide describes documented 6502 instructions; exact native CPU variant remains to verify."
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Original Commodore Plus/4 / TED SDK/homebrew rather than reconstruction of a historical executable."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README and assembly documentation explicitly describe 6502-compatible assembly built with 64tass into native PRG demos; no narrower CPU variant was inferred from the platform name."
         },
         "build": {
           "state": "reviewed",
@@ -37351,8 +37356,9 @@
           "note": "README documents 64tass build and VICE xplus4 run; no independent build in this review."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02",
+          "note": "README documents native platform demos and PAL/NTSC emulator commands but does not state a minimum RAM configuration; no platform-derived RAM floor was added."
         },
         "ai": {
           "state": "needs-research",
@@ -37365,13 +37371,13 @@
         }
       },
       "next_actions": [
-        "Independently build the demos and test Plus/4 hardware.",
-        "Confirm the exact native CPU variant and development provenance."
+        "Test representative PRGs on real hardware; upstream currently states real hardware is untested.",
+        "Add a runtime profile only if a primary source states an exact minimum memory configuration."
       ]
     },
     {
       "project_id": "25vibe128-raycasting-sdk",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -37383,13 +37389,14 @@
           "checked_at": "2026-09-27"
         },
         "source_cpu": {
-          "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "Assembly guide describes documented 6502 instructions; exact native CPU variant remains to verify."
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Original Commodore 128 / VIC-IIe SDK/homebrew rather than reconstruction of a historical executable."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README and assembly documentation explicitly describe 6502-compatible assembly built with 64tass into native PRG demos; no narrower CPU variant was inferred from the platform name."
         },
         "build": {
           "state": "reviewed",
@@ -37397,8 +37404,9 @@
           "note": "README documents 64tass build and VICE x128 run; no independent build in this review."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02",
+          "note": "README documents native platform demos and PAL/NTSC emulator commands but does not state a minimum RAM configuration; no platform-derived RAM floor was added."
         },
         "ai": {
           "state": "needs-research",
@@ -37411,8 +37419,8 @@
         }
       },
       "next_actions": [
-        "Independently build the demos and test Commodore 128 hardware.",
-        "Confirm the exact native CPU variant and development provenance."
+        "Test representative PRGs on real hardware; upstream currently states real hardware is untested.",
+        "Add a runtime profile only if a primary source states an exact minimum memory configuration."
       ]
     },
     {
@@ -37888,7 +37896,7 @@
     },
     {
       "project_id": "appengine-riscos-desktop-library-dpt",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-02",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -37900,9 +37908,9 @@
           "checked_at": "2026-09-27"
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "RISC OS target is documented but no ARM version requirement was checked."
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "AppEngine is original C source for a RISC OS desktop library, not analysis or reconstruction of a fixed-CPU historical binary; the build targets RISC OS through GCCSDK without establishing an input CPU."
         },
         "target_cpu": {
           "state": "not-applicable",
@@ -37929,7 +37937,8 @@
         }
       },
       "next_actions": [
-        "Inspect AppEngine library API and RISC OS version/CPU requirements; build a small dependent application."
+        "Review the AppEngine subdirectory API/build surface and any predecessor relationship to DeskLib/Toolbox.",
+        "Record an exact RISC OS runtime floor only if primary documentation states one."
       ]
     },
     {
@@ -45299,8 +45308,8 @@
     },
     {
       "project_id": "athena-spectrum-next-reconstruction",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45314,13 +45323,13 @@
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Original instruction set or targeted chip named in inspected source."
+          "checked_at": "2026-10-02",
+          "note": "Original Athena input is explicitly the ZX Spectrum 128K Z80 game; Z80N belongs to the enhanced output and was removed from source_cpu."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README and build workflow explicitly target Z80N and produce athena.nex for ZX Spectrum Next."
         },
         "build": {
           "state": "needs-research",
@@ -45328,9 +45337,9 @@
           "note": "Upstream build/test claims reviewed; not independently rerun."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory, timing and compatibility not independently measured."
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Recorded the Z80N Next build and the explicit 2 MB requirement for the optional arcade-assets variant; no RAM floor was invented for the base build."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -45343,7 +45352,10 @@
           "note": "SkoolKit-derived byte reconstruction and staged Next enhancements using user-supplied original game and a 40-minute playthrough oracle. Upstream E7 report says logic preserved and port playable; binary inputs and replay were not run here."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Independently run the documented full-recording oracle checks for the enhanced build.",
+        "Keep the base-build RAM minimum unknown unless primary documentation states it."
+      ]
     },
     {
       "project_id": "castle-master-ii-spectrum-disassembly",
@@ -52248,6 +52260,362 @@
       "next_actions": [
         "Independently reproduce the documented build/output before upgrading unverified runtime or build claims."
       ]
+    },
+    {
+      "project_id": "manic-miner-cpp-mrcook",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README explicitly describes an experimental port of Z80 assembly to C++, derived from a named SkoolKit disassembly."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README explicitly identifies the translated source as Z80 assembly."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Portable C++/SDL host builds; no fixed output CPU is claimed."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README states it builds, runs and is mostly playable on Linux/macOS; Windows is an intended target."
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Host-side port, not a legacy-hardware runtime target."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README credits Richard Dymond's skoolkid/manicminer disassembly as its starting point."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "rebelstar-raiders-basic-source",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Recovered/source-restoration work, not a binary-derived full disassembly claim."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README and checked-in .asm files explicitly establish Z80 routines alongside Sinclair BASIC."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "The repository documents source extraction/formatting, not a generated native output."
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02",
+          "note": "Extraction command is documented; no rebuilt tape or program verification is claimed."
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README names tzxtools as an extraction dependency and attributes the historical game to Red Shift."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "scrconv-spectrum-image-converter",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Input is SCR image data, not executable code."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Portable host-side Go utility."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README documents `go install` and local installation."
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "earth-shaker-spectrum-bedazzle",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Primary assembly and Spectrum documentation establish Z80 input code."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "SjASM+/M8XXX source reconstructs the same Z80 program."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README documents assembler invocation and binary-diff verification; not independently executed."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02",
+          "note": "No exact Spectrum model/RAM floor was established from the inspected primary files."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "eric-and-floaters-spectrum-disassembly",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Checked-in Spectrum assembly is explicit Z80 source."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "SjASM+ reconstructs a Z80 program."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README and batch script document SjASM+ compilation; not independently executed."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "idsk-cpc-disk-image-tool",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Inputs are DSK files and tokenized source/data, not a fixed-CPU executable."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Host-side C++ utility."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README documents CMake builds for Linux and macOS; not independently built."
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02"
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README links the CPCSDK cross-development container."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sugarboxv2-cpc-emulator-debugger",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Core emulator/debugger qualifies as retro-development and archaeology tooling."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "CPC emulation/debug protocol explicitly exposes the Z80 execution state."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Cross-platform host emulator; no fixed host CPU target."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README provides CMake/Qt build paths on Windows, Linux and macOS plus protocol tests."
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Host application; no legacy-hardware minimum applies."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README distinguishes the core emulator/debug server from its linked amstrad-cpc-debug VS Code client."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "atarist-toolkit-docker",
+      "last_reviewed": "2026-10-02",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02"
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-02",
+          "note": "Original host-side development environment, not analysis of a historical executable."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README explicitly identifies vasmm68k_mot and m68k-atari-mint-gcc outputs for Atari ST and Motorola 68000."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "Dockerfile, Makefile, published-image workflow and demo are present; no local container build was run."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02",
+          "note": "No minimum Atari ST RAM/model requirement is stated for generated programs."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-02"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-02",
+          "note": "README enumerates bundled upstream toolchains/libraries and keeps the container as one cohesive project."
+        }
+      },
+      "next_actions": []
     }
   ]
 }

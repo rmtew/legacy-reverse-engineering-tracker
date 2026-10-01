@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-02 — Spectrum source graph, CPC/Atari tooling and output CPU audit
+
+Reviewed the old `mrcook`/SkoolKit graph plus fresh CPC, Archimedes and SG-1000 search routes. Added **Manic Miner: Retro! — Z80-to-C++ source-faithful port**, **Rebelstar Raiders — recovered Spectrum BASIC/Z80 source**, **scrconv — ZX Spectrum SCR image converter**, **Earth Shaker — byte-exact ZX Spectrum disassembly**, **Eric & the Floaters — ZX Spectrum disassembly**, **iDSK — Amstrad CPC disk-image editor**, **SugarboxV2 — CPC emulator and source debugger**, and **Atari ST development toolkit — reproducible cross-build container**. The search record retains exact queries and the already-indexed Acorn/SG-1000 duplicate outcomes.
+
+The separate CPU lane resolved eight queued areas across eight projects, reducing the unresolved queue from 103 to 95. Three reconstructed Amiga components now record evidenced m68000 outputs; AppEngine's original-library input CPU is explicitly not applicable; the two original 2.5vibe SDKs now distinguish source-CPU non-applicability from their explicit 6502 output; **StarCraft — AmiSC 68K** records its 68020/AmigaOS 3.0+/AGA-or-RTG floor without inventing a RAM minimum; and **Athena — Spectrum 128K to Next reconstructed port** now cleanly separates original Z80 input from Z80N output and records only the arcade variant's explicit 2 MiB requirement.
+
+
 ## 2026-10-01 — Reconstructed output CPUs, amimcp variants and unavailable Starflight source
 
 Resolved ten queued CPU areas across nine projects, reducing the unresolved-project queue from 112 to 103. **Supaplex — assembly-level DOS binary patches** now records its explicit x86 patched-executable output without turning a reported 386DX/40 working result into a minimum. **PET Frogger — recovered original source** records its checked-in 6502 PRG output, while its exact PET model and RAM floor remain open.

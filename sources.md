@@ -4,6 +4,14 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/mrcook/manic-miner | Disassembly-derived C++/SDL Manic Miner port retaining the original Spectrum memory-address model |
+| https://github.com/mrcook/rebelstar-raiders-BASIC | Recovered Rebelstar Raiders Sinclair BASIC/Z80 source with authored TZX extraction and formatting tools |
+| https://github.com/mrcook/scrconv | ZX Spectrum SCR-to-PNG/GIF/JPEG conversion tooling |
+| https://github.com/bedazzle/earth-shaker | Fully documented, byte-exactly recompilable Earth Shaker Z80 disassembly |
+| https://github.com/bedazzle/eatf | SjASM+-buildable Eric & the Floaters ZX Spectrum disassembly |
+| https://github.com/cpcsdk/idsk | CPCSDK DSK editor with AMSDOS and tokenized BASIC/DAMS source support |
+| https://github.com/Tom1975/SugarboxV2 | CPC/CPC+ emulator with headless control, hardware inspection and source-level debugging |
+| https://github.com/sidecartridge/atarist-toolkit-docker | Reproducible Atari ST 68000 assembly/C cross-development environment |
 | https://github.com/rep-stosw/tube64 | Distinct 64-bit successor to the reverse-engineered DOS Tube reconstruction, with C/C++ source and Windows/Linux builds |
 | https://github.com/zpqrtbnk/xrick-kb | Rick Dangerous and Rick Dangerous II DOS/Atari ST reverse-engineering knowledge base with Ghidra, RAM-capture and Hatari validation artifacts |
 | https://github.com/fadden/6502bench | SourceGen interactive 6502/65C02/65816 disassembly, static-analysis and assembler-verification workbench |
