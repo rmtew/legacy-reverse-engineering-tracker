@@ -22967,14 +22967,16 @@
       "Amiga CDTV"
     ],
     "target_platforms": [
-      "Raspberry Pi Pico"
+      "Raspberry Pi Pico 2 W"
     ],
     "source_cpu": [
       "6500/1"
     ],
     "target_cpu": null,
     "source_language": [],
-    "reconstructed_languages": [],
+    "reconstructed_languages": [
+      "C"
+    ],
     "record_class": "subject",
     "target_kinds": [
       "firmware-rom"
@@ -22989,7 +22991,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-03-25",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -23006,7 +23008,7 @@
       "Amiga CDTV",
       "Raspberry Pi Pico"
     ],
-    "notes": "Documents 40-bit wireless keyboard framing, qualifiers and timings discovered in the CDTV U75 controller ROM, with Pico C transmitter demo. Link the already tracked U75 analysis as predecessor; no claim that Commodore shipped the keyboard.",
+    "notes": "Documents 40-bit wireless keyboard framing, qualifiers and timings discovered in the CDTV U75 controller ROM, with a Pico SDK C transmitter demo currently pinned to the Pico 2 W board. The build does not pin Arm versus RISC-V output, so no target CPU is asserted. Link the already tracked U75 analysis as predecessor; no claim that Commodore shipped the keyboard.",
     "github": {
       "repository": "Korinel/Amiga-CDTV-IR-Keyboard",
       "created_at": "2026-03-24",
@@ -25693,7 +25695,9 @@
       "6502",
       "65C02"
     ],
-    "target_cpu": null,
+    "target_cpu": [
+      "65C02"
+    ],
     "source_language": [],
     "reconstructed_languages": [],
     "record_class": "subject",
@@ -25709,10 +25713,10 @@
     ],
     "re_started": null,
     "last_activity": "2024-01-01",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
-      "compilable": null,
+      "compilable": true,
       "runnable": null,
       "playable": null,
       "byte_exact": null
@@ -25727,7 +25731,7 @@
       "Commodore 128",
       "Commodore 64"
     ],
-    "notes": "Open assembly source for X16 BASIC, KERNAL, DOS and GEOS ROM; README says BASIC/KERNAL derive from C64 and GEOS from C64/C128, with additional X16 monitor and assembly editor. A new platform's derivative original-source system stack, not a disassembly of the predecessor ROMs.",
+    "notes": "Open assembly source for X16 BASIC, KERNAL, DOS and GEOS ROM; README says BASIC/KERNAL derive from C64 and GEOS from C64/C128, with additional X16 monitor and assembly editor. The documented cc65 build produces rom.bin and the current component sources explicitly select the 65C02 instruction set. A new platform's derivative original-source system stack, not a disassembly of the predecessor ROMs.",
     "github": {
       "repository": "commanderx16/x16-rom",
       "created_at": "2019-06-28",
@@ -29625,8 +29629,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-03-28",
-    "last_checked": "2026-09-29",
-    "status": null,
+    "last_checked": "2026-10-02",
+    "status": "pre-development",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -33074,7 +33078,7 @@
     ],
     "re_started": null,
     "last_activity": "2019-11-29",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -34385,7 +34389,9 @@
     "source_cpu": [
       "6502"
     ],
-    "target_cpu": null,
+    "target_cpu": [
+      "6502"
+    ],
     "source_language": [],
     "reconstructed_languages": [],
     "record_class": "subject",
@@ -34401,12 +34407,12 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-11",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
       "byte_exact": null
     },
     "ai": {
@@ -34452,7 +34458,19 @@
         "message": "Every load address is the host's: a second processor took the whole game",
         "url": "https://github.com/kieranhj/edge-beeb/commit/0000aec15742f68db94aa4d4da967d612f88f2a3"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "BBC Master build",
+        "platform": "BBC Master",
+        "cpu_family": "6502",
+        "min_cpu": "plain 6502 at 2 MHz",
+        "notes": "The README requires a BBC Master and explicitly uses shadow RAM, sideways RAM, ANDY and HAZEL. It does not state a standalone minimum-RAM figure.",
+        "evidence": [
+          "https://github.com/kieranhj/edge-beeb/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "electroniq-acorn-electron-emulator",
@@ -55200,7 +55218,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-12-15",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -57039,7 +57057,7 @@
     ],
     "re_started": null,
     "last_activity": "2024-07-22",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -60923,7 +60941,7 @@
     ],
     "re_started": null,
     "last_activity": "2021-08-11",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -69602,7 +69620,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-27",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": true,
@@ -69696,7 +69714,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-07-04",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": true,
@@ -71166,7 +71184,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-01",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-10-02",
     "status": "active",
     "build": {
       "compilable": false,
@@ -71182,9 +71200,12 @@
       "breakpoints",
       "execution tracing",
       "memory-access logging",
+      "memory-access hooks by kind",
+      "after-instruction hooks",
       "time-machine rewind",
       "call-flow graphs",
-      "scriptable headless analysis"
+      "scriptable headless analysis",
+      "dynamic-first analysis with static hole-filling"
     ],
     "tags": [
       "Apple II",
@@ -71193,7 +71214,7 @@
       "debugger",
       "reverse-engineering tooling"
     ],
-    "notes": "Small Apple II emulator deliberately built as a reverse-engineering/debugging instrument rather than a general player. It provides assembler/disassembler support, breakpoints/hooks, rewindable CPU/memory state, complete memory-access logging, execution maps, call-flow graphs and scriptable headless analysis; Robotron and Lode Runner are its primary research targets.",
+    "notes": "Small Apple II emulator deliberately built as a reverse-engineering/debugging instrument rather than a general player. Its ApplePy-derived core now has a completed rebuilt instrumentation layer (tag core-complete): memory access by kind, hook lists, after-instruction callbacks and method-attached experiments. The next phase is an IPython workbench using dynamic analysis first and static disassembly to fill unexecuted holes. Lode Runner's byte-identical XekriRedmane reconstruction is explicitly an external grading oracle, never an analysis input.",
     "github": {
       "repository": "fschuhi/papple2",
       "checked_at": "2026-10-01",
@@ -75550,7 +75571,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-01",
-    "last_checked": "2026-09-30",
+    "last_checked": "2026-10-02",
     "status": "active",
     "build": {
       "compilable": true,
@@ -75574,7 +75595,7 @@
       "macOS",
       "subject"
     ],
-    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Verified release packaging covers Linux/Windows x86-64 plus macOS and iPadOS arm64. Millennium DOS now models bounded MCGA callback register/palette work through a static IRET boundary and EGA640 multi-count plane clearing through a near-return boundary, without claiming captured dynamic driver completion, title output or gameplay. Deuteros' recovered native slice can publish recurring Original frames, while capture-backed display parity, input delivery and audio timing remain unverified.",
+    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Verified release packaging covers Linux/Windows x86-64 plus macOS and iPadOS arm64. Millennium DOS remains bounded to recovered driver transactions rather than gameplay. Deuteros' recovered Amiga path now supplies title and bootstrap surfaces to the Modern renderer, and the typed $217e4 CIA observation plus $217f2/$21926 return continuation are implemented; capture parity, complete opening flow and gameplay remain unverified.",
     "github": {
       "repository": "yeager/project-eon",
       "created_at": "2026-08-27",
@@ -82540,7 +82561,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-01",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-10-02",
     "status": "work in progress",
     "build": {
       "compilable": null,
@@ -82567,7 +82588,7 @@
       "68k",
       "game"
     ],
-    "notes": "Substantial Namco System 86 to Amiga work with original dual-6809/MCU listings, a game-specific Amiga assembly driver and WHDLoad slave. Recent commits report 16x16 tiles and mirroring working and explicitly describe AI-assisted multi-CPU task switching, but the following commits still say CPU synchronisation is not working. The copied Jail Break README is not used for controls, build, completion, or hardware claims.",
+    "notes": "Substantial Namco System 86 to Amiga work with original dual-6809/MCU listings, a game-specific Amiga assembly driver and WHDLoad slave. Current code adds a built hardware-tester image and moves MCU input decoding into the interrupt path for joypad/keyboard control, but the tracked TODO still lists scrolling, sprite, display and game-over lockup problems. The copied Jail Break README is not used for controls, build, completion, or hardware claims.",
     "github": {
       "repository": "jotd666/rolling_thunder",
       "checked_at": "2026-10-01",
@@ -84103,7 +84124,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-02-19",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,
@@ -95622,7 +95643,7 @@
     ],
     "re_started": null,
     "last_activity": "2015-04-08",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-02",
     "status": null,
     "build": {
       "compilable": null,

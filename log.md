@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-02 — Portable outputs, native 6502 targets and active upstream review
+
+Resolved twelve queued target-CPU areas with primary READMEs, repository trees, build files and source directives. **Commander X16 ROM — Commodore-derived system software** now records its explicit 65C02 output; **Edge Grinder — BBC Master 128 port** records the README's plain 2 MHz 6502 target and bounded Master hardware profile. Seven portable Go, .NET, Python, C++, Rust or SCI-VM outputs are explicitly not applicable to a fixed target CPU. **Jetpac — Acorn Electron conversion**, **Knight Lore — Acorn Electron prerelease** and **Lunar Jetman — BBC to Electron conversion** retain empty CPU metadata with `no-evidence-found` audits because their binary-only repositories do not state an output instruction set.
+
+The upstream-change lane reviewed **Project Eon**, **papple2 — Apple II reverse-engineering emulator/debugger** and **Rolling Thunder — Amiga 68k translation**. Project Eon's record now bounds its recovered Deuteros title/bootstrap rendering and CIA continuation without promoting that to complete opening or gameplay parity. papple2 now reflects its `core-complete` rebuilt instrumentation and explicit ApplePy/oracle/sibling relationships. Rolling Thunder records the new default hardware-tester build and MCU input path while preserving the remaining scrolling, sprite, timing and lockup gaps.
+
+
 ## 2026-10-02 — Spectrum source graph, CPC/Atari tooling and output CPU audit
 
 Reviewed the old `mrcook`/SkoolKit graph plus fresh CPC, Archimedes and SG-1000 search routes. Added **Manic Miner: Retro! — Z80-to-C++ source-faithful port**, **Rebelstar Raiders — recovered Spectrum BASIC/Z80 source**, **scrconv — ZX Spectrum SCR image converter**, **Earth Shaker — byte-exact ZX Spectrum disassembly**, **Eric & the Floaters — ZX Spectrum disassembly**, **iDSK — Amstrad CPC disk-image editor**, **SugarboxV2 — CPC emulator and source debugger**, and **Atari ST development toolkit — reproducible cross-build container**. The search record retains exact queries and the already-indexed Acorn/SG-1000 duplicate outcomes.
