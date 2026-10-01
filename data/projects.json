@@ -9406,13 +9406,13 @@
       "Amiga",
       "host computer"
     ],
-    "source_cpu": [
-      "m68000"
+    "source_cpu": [],
+    "target_cpu": [
+      "m68000",
+      "m68020",
+      "m68080"
     ],
-    "target_cpu": null,
-    "source_language": [
-      "historical executable/data or platform behavior"
-    ],
+    "source_language": [],
     "reconstructed_languages": [
       "C",
       "Python"
@@ -9429,7 +9429,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-27",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -9451,7 +9451,7 @@
     "tags": [
       "Amiga"
     ],
-    "notes": "Python MCP server and AmigaOS C daemon for remote shell, files, screenshots, ARexx and GUI interaction. README states AmigaOS 2.04 and bare 68000 for agent; AI integration is described, not an assertion about code authorship.",
+    "notes": "Original Python MCP server plus AmigaOS C agent for remote shell, files, screenshots, ARexx and GUI interaction. The agent has explicit 68000 baseline, 68020+ and Apollo 68080 builds; the baseline requires AmigaOS 2.04+ and bsdsocket.library. This is original development tooling, not a reconstruction of historical executable code.",
     "github": {
       "repository": "thomas-luebker/amimcp",
       "checked_at": "2026-10-01",
@@ -9484,7 +9484,54 @@
         "message": "README: bebbo's amiga-gcc builds the 68080 target too",
         "url": "https://github.com/thomas-luebker/amimcp/commit/f6151a4d57c283f05a76e8578d034d9ba33318be"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Baseline agent",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68000",
+        "os": "AmigaOS 2.04 or later; bsdsocket.library",
+        "notes": "README describes the baseline amiagent as approximately 85 KB and able to run on a bare 68000; that binary-size figure is not a RAM minimum.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/thomas-luebker/amimcp/blob/master/README.md",
+            "excerpt": "amiagent — a small C daemon on the Amiga. AmigaOS 2.04 and up, bare 68000, ~85 KB, needs nothing but bsdsocket.library."
+          }
+        ]
+      },
+      {
+        "name": "68020+ agent",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68020",
+        "os": "AmigaOS 2.04 or later; bsdsocket.library",
+        "notes": "README documents a separately built 68020+ agent; no separate RAM minimum is stated.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/thomas-luebker/amimcp/blob/master/README.md",
+            "excerpt": "cd agent && make CPU=68020      # 68020+ build"
+          }
+        ]
+      },
+      {
+        "name": "Apollo 68080 agent",
+        "platform": "Amiga",
+        "cpu_family": "68000 family",
+        "min_cpu": "68080",
+        "os": "AmigaOS 2.04 or later; bsdsocket.library",
+        "notes": "Speed-optimized Apollo 68080 build; upstream notes that bebbo's amiga-gcc supports the required -m68080 option. No RAM minimum is stated.",
+        "evidence": [
+          {
+            "source": "README.md",
+            "url": "https://github.com/thomas-luebker/amimcp/blob/master/README.md",
+            "excerpt": "cd agent && make CPU=68080      # Apollo 68080, speed-optimised"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "amiquake-c2p-reconstruction",
@@ -37530,7 +37577,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -37551,7 +37600,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-08-11",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -72126,7 +72175,9 @@
     "source_cpu": [
       "6502"
     ],
-    "target_cpu": null,
+    "target_cpu": [
+      "6502"
+    ],
     "source_language": [
       "6502 assembly"
     ],
@@ -72146,7 +72197,7 @@
     ],
     "re_started": null,
     "last_activity": "2020-01-04",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -80587,7 +80638,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -80608,7 +80661,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-03",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -81142,7 +81195,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -81163,7 +81218,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-08",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -82160,7 +82215,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -82181,7 +82238,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-05-31",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -87217,7 +87274,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-09-30",
-    "last_checked": "2026-09-30",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -89508,9 +89565,7 @@
       "Atari ST"
     ],
     "target_platforms": [],
-    "source_cpu": [
-      "m68000"
-    ],
+    "source_cpu": [],
     "target_cpu": [],
     "source_language": [
       "Starflight BTX/AGO/OMEGA data"
@@ -89532,7 +89587,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-04-02",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -89555,7 +89610,7 @@
       "Starflight",
       "assets"
     ],
-    "notes": "Atari ST Starflight research repository with a Ghidra project and Python BTX, AGO and OMEGA font/tile readers. The code demonstrates concrete format analysis; it does not establish a compiled or playable game reconstruction.",
+    "notes": "Indexed as an Atari ST Starflight research repository with a Ghidra project and Python BTX, AGO and OMEGA font/tile readers. The canonical GitHub URL returned 404 on 2026-10-01, so prior descriptive metadata is retained pending relocation but the formerly asserted m68000 source CPU has been removed rather than inferred from Atari ST.",
     "github": {
       "repository": "sarnau/AtariST-Starflight",
       "created_at": "2025-02-27",
@@ -91500,7 +91555,9 @@
     "source_cpu": [
       "x86"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "x86"
+    ],
     "source_language": [
       "x86 machine code"
     ],
@@ -91521,7 +91578,7 @@
     ],
     "re_started": null,
     "last_activity": "2022-12-22",
-    "last_checked": "2026-09-25",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -93097,14 +93154,20 @@
       "Atari Jaguar"
     ],
     "source_cpu": [
-      "m68k"
+      "m68000",
+      "Jaguar GPU"
     ],
-    "target_cpu": null,
+    "target_cpu": [
+      "m68000",
+      "Jaguar GPU"
+    ],
     "source_language": [
-      "m68k assembly"
+      "m68k assembly",
+      "Jaguar GPU assembly"
     ],
     "reconstructed_languages": [
-      "m68k assembly"
+      "m68k assembly",
+      "Jaguar GPU assembly"
     ],
     "record_class": "subject",
     "target_kinds": [
@@ -93117,7 +93180,7 @@
     "types": [
       "Jaguar original-source restoration"
     ],
-    "notes": "Jeff Minter's original 1994 Tempest 2000 assembler source is retained in orig/ and made buildable with rmac/rln from src/. The repository README claims make cartridge produces a byte-identical Jaguar ROM; no independent build or binary comparison was performed. Do not label original source as disassembled code.",
+    "notes": "Jeff Minter's original 1994 Tempest 2000 source is retained in orig/ and restored as a modern rmac/rln build. The Makefile assembles the main 68000 program plus multiple Jaguar GPU modules and links them into the Jaguar executable/ROM. Upstream's cartridge target checks a byte-identical ROM hash; no independent build or binary comparison was performed.",
     "tags": [
       "Atari Jaguar"
     ],
@@ -93126,7 +93189,7 @@
     ],
     "re_started": null,
     "last_activity": "2025-04-22",
-    "last_checked": "2026-09-28",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,
@@ -94461,7 +94524,9 @@
     "source_cpu": [
       "m68000"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
     "source_language": [
       "m68k machine code"
     ],
@@ -94482,7 +94547,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-06-01",
-    "last_checked": "2026-09-26",
+    "last_checked": "2026-10-01",
     "status": null,
     "build": {
       "compilable": null,

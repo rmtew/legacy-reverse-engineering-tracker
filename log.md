@@ -1,6 +1,17 @@
 # Search / Report Log
 
 
+## 2026-10-01 — Reconstructed output CPUs, amimcp variants and unavailable Starflight source
+
+Resolved ten queued CPU areas across nine projects, reducing the unresolved-project queue from 112 to 103. **Supaplex — assembly-level DOS binary patches** now records its explicit x86 patched-executable output without turning a reported 386DX/40 working result into a minimum. **PET Frogger — recovered original source** records its checked-in 6502 PRG output, while its exact PET model and RAM floor remain open.
+
+Five reconstructed Amiga components now record m68000 output from their reviewed source rather than leaving the target architecture unresearched: **Emetic Skimmer — The Movers cracktro reconstruction**, **The King of Chicago — HQC intro reconstruction**, **Rick Dangerous — Oracle trainer menu reconstruction**, **Robocod — TRSI trainer menu reconstruction**, and **RSI Cruncher v1.4 — reconstructed Amiga source**. Their assembly, binary comparison and full hardware compatibility remain separate unresolved areas.
+
+**Tempest 2000 — Jaguar original-source restoration** now records both its 68000 main program and linked Jaguar GPU modules. The documented hash-checked ROM build remains an upstream claim pending independent reproduction. **Starflight — Atari ST binary and asset analysis** was corrected in the opposite direction: its canonical repository now returns 404, so an inferred m68000 field was removed, native output marked not applicable and identity/relocation research left open.
+
+The active-upstream review corrects **amimcp** from a historical-source model to original development tooling with explicit 68000, 68020+ and Apollo 68080 agent outputs. Its AmigaOS 2.04+/`bsdsocket.library` baseline and three exact build variants are now represented without inventing RAM requirements. **SNES IDA loader and processor** now has a reviewed AI audit matching its two explicit Claude-attributed commits.
+
+
 ## 2026-10-01 — Firmware, CPC/DOS output CPU audit and Firestaff Macintosh review
 
 Resolved eleven CPU audit areas across ten projects. **SidecarTridge — Atari ST disk image browser** now distinguishes its CPU-independent ST/MSA inputs from its explicit m68000 Atari-side image and separately identified RP2040 firmware, without inferring another CPU family from the board name. **ST Recover — floppy imaging** and **SuperDiskIndex — Amiga/Atari flux-image analyzer** now mark sector/flux input CPUs not applicable, while **xPack — Amiga XPK unpacker for Linux** records no original-CPU evidence rather than inferring one from AmigaOS provenance.

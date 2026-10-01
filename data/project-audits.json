@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-09-30",
+  "indexed_at": "2026-10-01",
   "area_names": [
     "identity",
     "classification",
@@ -27025,44 +27025,53 @@
     },
     {
       "project_id": "starflight-st-asset-analysis",
-      "last_reviewed": null,
-      "overall_state": "unreviewed",
+      "last_reviewed": "2026-10-01",
+      "overall_state": "partial",
       "areas": {
         "identity": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-10-01",
+          "note": "https://github.com/sarnau/AtariST-Starflight returned 404 through both GitHub API and clone attempts on 2026-10-01; locate a rename, archive or successor."
         },
         "classification": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-10-01",
+          "note": "The retained record describes Ghidra and Python asset readers, but current primary repository contents are unavailable for re-verification."
         },
         "source_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-01",
+          "note": "Current primary source is unavailable and the retained description names BTX/AGO/OMEGA data, not an explicitly evidenced instruction-set target; m68000 was removed instead of inferred from Atari ST."
         },
         "target_cpu": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-01",
+          "note": "The retained scope is host-side Ghidra/Python asset analysis and does not describe a native reconstructed executable output."
         },
         "build": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-01",
+          "note": "Repository URL is currently unavailable; no build or runnable reconstruction claim can be checked."
         },
         "runtime_profiles": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-01",
+          "note": "No native game/runtime output is established for the retained analysis-tool scope."
         },
         "ai": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-01",
+          "note": "No explicit AI-use evidence is retained, and the primary repository is currently unavailable."
         },
         "relationships": {
-          "state": "unreviewed",
-          "checked_at": null
+          "state": "needs-research",
+          "checked_at": "2026-10-01",
+          "note": "Locate the repository's new home, archive or successor before establishing project lineage."
         }
       },
       "next_actions": [
-        "Perform initial project audit against primary sources"
+        "Locate a renamed repository, archive or successor for sarnau/AtariST-Starflight.",
+        "Re-audit identity, inputs, CPU scope, build and relationships once primary contents are available."
       ]
     },
     {
@@ -30197,7 +30206,7 @@
     },
     {
       "project_id": "dos-supaplex-binary-patches",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -30213,8 +30222,9 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "SUP.ASM uses incbin over SUPAPLEX.EXE and emits replacement 16-bit x86 instructions and DOS-side sound/graphics patches, establishing x86 output independently of the broad DOS label."
         },
         "build": {
           "state": "reviewed",
@@ -30234,7 +30244,9 @@
         }
       },
       "next_actions": [
-        "Verify any author-reported build, parity and runtime claims independently; continue related-project and provenance research."
+        "Establish an exact minimum CPU before adding a runtime profile; the README's 386DX/40 result is an observed working configuration, not a stated floor.",
+        "Verify patched-executable construction and representative runtime behavior independently.",
+        "Review explicit AI-use and project-lineage evidence if it appears."
       ]
     },
     {
@@ -31859,7 +31871,7 @@
     },
     {
       "project_id": "king-of-chicago-hqc-intro",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -31878,9 +31890,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The component is reconstructed 68000 Amiga program source with only the reviewed base instruction model and OCS/Exec accesses; m68000 output is recorded without treating that as a successful build or full hardware profile."
         },
         "build": {
           "state": "needs-research",
@@ -31904,12 +31916,12 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify successful assembly, byte comparison and full runtime requirements."
       ]
     },
     {
       "project_id": "rick-dangerous-oracle-trainer",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -31928,9 +31940,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The reconstructed trainer is explicitly 68000 Amiga source with absolute program/game addresses and Amiga hardware calls; m68000 output is recorded while build and runtime compatibility remain open."
         },
         "build": {
           "state": "needs-research",
@@ -31954,7 +31966,7 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify successful assembly, byte comparison and full runtime requirements."
       ]
     },
     {
@@ -32009,7 +32021,7 @@
     },
     {
       "project_id": "robocod-trsi-trainer",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32028,9 +32040,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The reconstructed trainer is explicit 68000 Amiga assembly with OCS/Exec hardware routines; m68000 output is recorded without claiming successful assembly or a minimum RAM/Kickstart profile."
         },
         "build": {
           "state": "needs-research",
@@ -32054,7 +32066,7 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify successful assembly, byte comparison and full runtime requirements."
       ]
     },
     {
@@ -32109,7 +32121,7 @@
     },
     {
       "project_id": "emetic-skimmer-movers-cracktro",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32128,9 +32140,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The reconstructed source is an Amiga HUNK executable assembled by vasmm68k_mot and uses the base 68000 instruction model documented by the component; this establishes m68000 output without proving a build or runtime minimum."
         },
         "build": {
           "state": "needs-research",
@@ -32154,7 +32166,7 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify successful assembly, byte comparison and full runtime requirements."
       ]
     },
     {
@@ -32209,7 +32221,7 @@
     },
     {
       "project_id": "rsi-cruncher-14-reconstructed",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32228,9 +32240,9 @@
           "note": "File identifies 68000 assembly and uses 68k instructions; this does not prove minimum runtime."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-26",
-          "note": "Inspect opcode/toolchain requirements and test a rebuilt output before claiming a minimum target CPU."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "The reconstructed cruncher is explicit 68000 Amiga assembly using Exec/DOS calls and a 68k decruncher stub; m68000 output is recorded without claiming binary identity or runtime verification."
         },
         "build": {
           "state": "needs-research",
@@ -32254,7 +32266,7 @@
         }
       },
       "next_actions": [
-        "Locate identified original binary and verify build, byte comparison, CPU and runtime claims for this component."
+        "Locate the identified original binary and verify successful assembly, byte comparison and full runtime requirements."
       ]
     },
     {
@@ -36568,7 +36580,7 @@
     },
     {
       "project_id": "amimcp-amiga-automation",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -36581,24 +36593,29 @@
           "note": "Scope checked against repository README and root; no full build audit."
         },
         "source_cpu": {
-          "state": "reviewed",
-          "checked_at": "2026-09-27"
+          "state": "not-applicable",
+          "checked_at": "2026-10-01",
+          "note": "amimcp is original remote-development tooling; it does not analyze or reconstruct a fixed-CPU historical executable."
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "README and agent/Makefile explicitly define 68000 baseline, 68020+ and Apollo 68080 native agent builds."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Reviewed documented m68k-amigaos-gcc commands and Makefile CPU flags for all three agent builds; no local cross-build was executed."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "README explicitly states AmigaOS 2.04+, bare 68000 and bsdsocket.library for the baseline, plus separate 68020+ and Apollo 68080 builds; no RAM floor was inferred."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Repository contains Claude project instructions and recent tracked commits with explicit Claude co-author trailers; this is stronger than merely describing AI integration."
         },
         "relationships": {
           "state": "needs-research",
@@ -36606,7 +36623,8 @@
         }
       },
       "next_actions": [
-        "Check build, minimum runtime, AI authorship and predecessor relationships beyond README/root review"
+        "Independently cross-build the 68000, 68020 and 68080 agent variants.",
+        "Review predecessor/related Amiga automation and remote-control projects."
       ]
     },
     {
@@ -39811,7 +39829,7 @@
     },
     {
       "project_id": "tempest-2000-jaguar-source-restoration",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-01",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -39826,13 +39844,13 @@
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Original CPU is explicit in the inspected listing, source layout or emulator CPU code."
+          "checked_at": "2026-10-01",
+          "note": "The retained original/restored source contains the 68000 main program and dedicated src/gpu/*.gas Jaguar GPU modules."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Specific original hardware CPU minimum was not independently verified."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Makefile explicitly assembles Jaguar GPU modules with rmac -mtom and links them with the 68000 yak/vidinit/yakgpu objects into t2000.abs/t2k.rom."
         },
         "build": {
           "state": "needs-research",
@@ -39856,7 +39874,9 @@
         }
       },
       "next_actions": [
-        "Verify a representative build or format and check stated compatibility on real input."
+        "Run the documented cartridge build and independently verify the stated ROM hash.",
+        "Check whether primary documentation states any narrower Jaguar hardware or regional compatibility boundary.",
+        "Review explicit AI-use evidence if it appears."
       ]
     },
     {
@@ -42156,8 +42176,8 @@
     },
     {
       "project_id": "pet-frogger-original-source",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-01",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -42175,9 +42195,9 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "README identifies the game as the author's original 6502 assembly, and the checked-in source starts at PET addresses and accompanies frogger.prg; output CPU is 6502."
         },
         "build": {
           "state": "needs-research",
@@ -42200,7 +42220,10 @@
           "note": "Period original source rediscovered by its author; no claim of reverse-engineered or byte-matched source."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Run an independent source-to-PRG build and comparison.",
+        "Identify the exact supported Commodore PET model and RAM floor from primary evidence before adding a runtime profile."
+      ]
     },
     {
       "project_id": "max65-acorn-assembler",
@@ -47565,7 +47588,7 @@
     },
     {
       "project_id": "discovery-snes-ida",
-      "last_reviewed": "2026-09-30",
+      "last_reviewed": "2026-10-01",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -47599,9 +47622,9 @@
           "note": "No explicit evidence captured."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-30",
-          "note": "No explicit evidence captured."
+          "state": "reviewed",
+          "checked_at": "2026-10-01",
+          "note": "Commits 1976ee0575a1 ('More fixes using Claude Code:)') and 8bacb9dc5765 ('More fixes by Claude:)') explicitly attribute current work to Claude."
         },
         "relationships": {
           "state": "reviewed",
