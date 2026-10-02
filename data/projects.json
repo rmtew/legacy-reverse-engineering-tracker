@@ -11925,6 +11925,120 @@
     "notes": "James P. Davis independently annotated the Apple II Plus emulator ROM image across $C000–$FFFF, identifying errors in the image and extensively editing/integrating earlier Apple, Sander-Cederlof, McFadden and other reference material. The listing explicitly credits those predecessors; it is not presented as original Apple source. SourceGen project file is linked from the ROM index."
   },
   {
+    "id": "apple-lisa-mister-fpga-core",
+    "title": "Apple-Lisa_MiSTer",
+    "upstream_name": "Apple-Lisa_MiSTer",
+    "display_title": "Apple Lisa — MiSTer FPGA core",
+    "subjects": [],
+    "repo": "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer",
+    "source_platforms": [
+      "Apple Lisa"
+    ],
+    "target_platforms": [
+      "MiSTer FPGA"
+    ],
+    "source_cpu": [
+      "m68000",
+      "6504",
+      "COP421"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Apple Lisa hardware behavior"
+    ],
+    "reconstructed_languages": [
+      "Verilog",
+      "SystemVerilog"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "development-environment"
+    ],
+    "types": [
+      "FPGA core",
+      "hardware emulation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-07-21",
+    "last_checked": "2026-10-03",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "chip-level hardware recreation",
+      "FPGA porting",
+      "disk-image emulation"
+    ],
+    "tags": [
+      "Apple Lisa",
+      "MiSTer",
+      "FPGA",
+      "m68000"
+    ],
+    "notes": "Hardware-accurate Lisa 1/2/5 core ported from LisaFPGA to MiSTer. It models the 68000, 6504 and COP421 subsystems, boots Lisa Office System, and supports ProFile and writable Sony 400K images; blank-floppy initialization remains incomplete.",
+    "runtime_profiles": [
+      {
+        "name": "Lisa Office System on MiSTer",
+        "platform": "Apple Lisa (MiSTer core)",
+        "cpu_family": "m68000",
+        "min_cpu": "Motorola 68000-compatible core",
+        "min_ram_kib": 1024,
+        "chipsets": [
+          "MiSTer DE10-Nano",
+          "Cyclone V"
+        ],
+        "notes": "Office System requires at least 1 MB of configured Lisa RAM; 512 KB is only useful for ROM diagnostics.",
+        "evidence": [
+          "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+        ]
+      }
+    ],
+    "github": {
+      "repository": "MiSTer-devel/Apple-Lisa_MiSTer",
+      "created_at": "2026-07-13",
+      "pushed_at": "2026-07-21",
+      "updated_at": "2026-09-20",
+      "checked_at": "2026-10-02",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Verilog",
+      "activity_state": "active",
+      "languages": [
+        "Verilog",
+        "SystemVerilog",
+        "VHDL",
+        "C++",
+        "Tcl",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "69060a5263b43bbf0cac308dd275b9e345788dd1",
+        "date": "2026-07-21",
+        "message": "Release: analog VGA + Z8530 serial working; add 20260721 rbf",
+        "url": "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/commit/69060a5263b43bbf0cac308dd275b9e345788dd1"
+      }
+    }
+  },
+  {
     "id": "applevision-apple2-6502disassembly",
     "title": "AppleVision",
     "upstream_name": "AppleVision",
@@ -13076,7 +13190,7 @@
         "Claude"
       ],
       "evidence": [
-        "Claude co-author trailer observed in recent tracked commits: 1 in this scan (example d9ea123f9101)"
+        "Claude co-author trailer observed in recent tracked commits: 2 in this scan (example d9ea123f9101)"
       ]
     },
     "techniques": [
@@ -13113,16 +13227,16 @@
         "Roff"
       ],
       "latest_release": {
-        "tag": "v0.5.0",
-        "name": "Atari File Forge 0.5.0",
-        "published_at": "2026-09-14",
-        "url": "https://github.com/peteclarke-del/AtariFileForge/releases/tag/v0.5.0"
+        "tag": "v0.6.0",
+        "name": "Atari File Forge 0.6.0",
+        "published_at": "2026-10-02",
+        "url": "https://github.com/peteclarke-del/AtariFileForge/releases/tag/v0.6.0"
       },
       "latest_commit": {
-        "sha": "2b363e199b2064e7196b3301ab46b5cc06d03f23",
+        "sha": "b8d9a18e09661f9856a5f90e4189b605ffb1abd8",
         "date": "2026-10-02",
-        "message": "Merge pull request #77 from peteclarke-del/feat/greaseweazle-source",
-        "url": "https://github.com/peteclarke-del/AtariFileForge/commit/2b363e199b2064e7196b3301ab46b5cc06d03f23"
+        "message": "Merge pull request #78 from peteclarke-del/release/0.6.0",
+        "url": "https://github.com/peteclarke-del/AtariFileForge/commit/b8d9a18e09661f9856a5f90e4189b605ffb1abd8"
       }
     }
   },
@@ -36189,7 +36303,7 @@
     ],
     "tool_kinds": [],
     "re_started": null,
-    "last_activity": "2026-10-01",
+    "last_activity": "2026-10-02",
     "last_checked": "2026-09-25",
     "ai": {
       "usage": null,
@@ -36262,8 +36376,8 @@
     "github": {
       "repository": "markmoxon/elite-over-econet",
       "created_at": "2024-01-14",
-      "pushed_at": "2026-10-01",
-      "updated_at": "2026-10-01",
+      "pushed_at": "2026-10-02",
+      "updated_at": "2026-10-02",
       "checked_at": "2026-10-02",
       "default_branch": "main",
       "tracking_branch": "main",
@@ -36279,10 +36393,10 @@
         "Batchfile"
       ],
       "latest_commit": {
-        "sha": "aabf572d193d7eb8658ac8226085bc92399a068f",
-        "date": "2026-10-01",
-        "message": "Change \"fileserver\" to \"file server\" throughout documentation",
-        "url": "https://github.com/markmoxon/elite-over-econet/commit/aabf572d193d7eb8658ac8226085bc92399a068f"
+        "sha": "6e7b0d514a7f5a5770514799af05a3b279bf99d4",
+        "date": "2026-10-02",
+        "message": "Add rtc build option to support Acorn Econet RTC",
+        "url": "https://github.com/markmoxon/elite-over-econet/commit/6e7b0d514a7f5a5770514799af05a3b279bf99d4"
       }
     }
   },
@@ -61076,7 +61190,7 @@
       ],
       "evidence": [
         "Claude project instructions/configuration present",
-        "Claude co-author trailer observed in recent tracked commits: 2 in this scan (example 37a7a32bfde9)"
+        "Claude co-author trailer observed in recent tracked commits: 23 in this scan (example 4cb3ea178213)"
       ]
     },
     "techniques": [
@@ -61107,14 +61221,14 @@
       "languages": [
         "C",
         "C++",
+        "Python",
         "Makefile",
         "Eiffel",
         "Perl",
         "PHP",
-        "Python",
         "CMake",
-        "REXX",
         "Shell",
+        "REXX",
         "Assembly",
         "HTML",
         "E",
@@ -61122,10 +61236,10 @@
         "QuickBASIC"
       ],
       "latest_commit": {
-        "sha": "37a7a32bfde9cc9cdb6999582a5018e2ebf0d467",
+        "sha": "3338e890e0ba9bb4b9e494e68453f63a16200764",
         "date": "2026-10-02",
-        "message": "New roadmap: reference-driven development (Phases 200+)",
-        "url": "https://github.com/gooofy/lxa/commit/37a7a32bfde9cc9cdb6999582a5018e2ebf0d467"
+        "message": "Phase 230 — app corpus & compatibility database — v0.11.11",
+        "url": "https://github.com/gooofy/lxa/commit/3338e890e0ba9bb4b9e494e68453f63a16200764"
       }
     }
   },
@@ -63846,6 +63960,110 @@
         "date": "2025-11-01",
         "message": "Merge pull request #2 from SPixs/claude/code-review-011CUg1LsXSwuDnkwkQitdd4",
         "url": "https://github.com/SPixs/JMazeMaster/commit/14e63d6b095218577b8e96dcec910e79c3632681"
+      }
+    }
+  },
+  {
+    "id": "mbasic-521-source-reconstruction",
+    "title": "MBASIC 5.21 Source Reconstruction",
+    "upstream_name": "mbasic2025",
+    "display_title": "MBASIC 5.21 — byte-identical CP/M source reconstruction",
+    "subjects": [
+      "Microsoft BASIC-80 5.21"
+    ],
+    "repo": "https://github.com/avwohl/mbasic2025",
+    "source_platforms": [
+      "CP/M"
+    ],
+    "target_platforms": [
+      "CP/M"
+    ],
+    "source_cpu": [
+      "8080",
+      "8085",
+      "Z80"
+    ],
+    "target_cpu": [
+      "8080",
+      "8085",
+      "Z80"
+    ],
+    "source_language": [
+      "MBASIC 5.21 CP/M executable",
+      "MBASIC 5.2x source"
+    ],
+    "reconstructed_languages": [
+      "MACRO-80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "BASIC interpreter",
+      "byte-exact reconstruction"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-30",
+    "last_checked": "2026-10-03",
+    "status": "complete",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "custom disassembly",
+      "source comparison",
+      "byte-for-byte rebuild"
+    ],
+    "tags": [
+      "CP/M",
+      "MBASIC",
+      "8080",
+      "Z80",
+      "byte-exact"
+    ],
+    "notes": "Reconstructs the lost MBASIC 5.21 source from nearby 5.2x sources and a custom disassembly. The MACRO-80-compatible build produces a CP/M COM file; upstream reports a byte-for-byte match to the historic binary.",
+    "github": {
+      "repository": "avwohl/mbasic2025",
+      "created_at": "2025-11-27",
+      "pushed_at": "2026-09-30",
+      "updated_at": "2026-09-30",
+      "checked_at": "2026-10-02",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python",
+        "Shell",
+        "BASIC",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "449345a624766fad664eb4c18893b8fc8ef571d5",
+        "date": "2026-09-30",
+        "message": "README: keep under 150 lines; move detail into docs/",
+        "url": "https://github.com/avwohl/mbasic2025/commit/449345a624766fad664eb4c18893b8fc8ef571d5"
       }
     }
   },
@@ -71279,10 +71497,10 @@
       "pushed_at": "2026-10-02",
       "updated_at": "2026-10-02",
       "latest_commit": {
-        "sha": "5dd6724e482b87a57168c4908260bfef31619ca2",
+        "sha": "5e82eb88e6ffcc1c9a50db39f2aa0f9803917a05",
         "date": "2026-10-02",
-        "message": "new `workbench/tiling.py`",
-        "url": "https://github.com/fschuhi/papple2/commit/5dd6724e482b87a57168c4908260bfef31619ca2"
+        "message": "were dangling",
+        "url": "https://github.com/fschuhi/papple2/commit/5e82eb88e6ffcc1c9a50db39f2aa0f9803917a05"
       },
       "languages": [
         "Python",
@@ -82771,6 +82989,121 @@
     }
   },
   {
+    "id": "romdev-multiplatform-retro-development-environment",
+    "title": "romdev",
+    "upstream_name": "romdev",
+    "display_title": "romdev — multi-platform ROM development and analysis environment",
+    "subjects": [],
+    "repo": "https://github.com/monteslu/romdev",
+    "source_platforms": [
+      "multi-platform ROMs"
+    ],
+    "target_platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "source_language": [
+      "ROM images",
+      "source projects",
+      "emulator state"
+    ],
+    "reconstructed_languages": [
+      "TypeScript",
+      "C",
+      "C++",
+      "WebAssembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "disassembler",
+      "static-analysis",
+      "binary-analysis",
+      "compiler-toolchain",
+      "assembler-toolchain",
+      "rom-tool",
+      "asset-tool",
+      "automation",
+      "development-environment"
+    ],
+    "types": [
+      "MCP development environment",
+      "ROM analysis",
+      "homebrew toolchain"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-17",
+    "last_checked": "2026-10-03",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "headless emulation",
+      "Rizin and Ghidra analysis",
+      "byte-exact project reassembly",
+      "agent-driven build and test",
+      "live memory analysis"
+    ],
+    "tags": [
+      "multi-platform",
+      "ROM hacking",
+      "homebrew",
+      "MCP",
+      "WebAssembly"
+    ],
+    "notes": "Agent-accessible retro development environment bundling emulators, SDKs, compilers, asset conversion, debugging, Rizin/Ghidra analysis and byte-exact rebuildable-project generation across a broad legacy-console set. The README distinguishes full reassembly for 15 classic platforms from analysis-only support on newer 3D consoles.",
+    "github": {
+      "repository": "monteslu/romdev",
+      "created_at": "2026-05-29",
+      "pushed_at": "2026-09-17",
+      "updated_at": "2026-10-01",
+      "checked_at": "2026-10-02",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "languages": [
+        "C",
+        "JavaScript",
+        "Assembly",
+        "C++",
+        "Shell",
+        "Pascal",
+        "Lua",
+        "HTML",
+        "Linker Script",
+        "Pawn",
+        "Makefile",
+        "Dockerfile",
+        "NASL",
+        "SourcePawn"
+      ],
+      "latest_commit": {
+        "sha": "5d73f1e24a1c076268fd2d518af72fff92d9871d",
+        "date": "2026-09-16",
+        "message": "bump the 31 packages the punctuation pass changed, and repin",
+        "url": "https://github.com/monteslu/romdev/commit/5d73f1e24a1c076268fd2d518af72fff92d9871d"
+      }
+    }
+  },
+  {
     "id": "rscview-gem-resource-renderer",
     "title": "rscview — GEM resource renderer",
     "upstream_name": "rscview — GEM resource renderer",
@@ -84863,6 +85196,108 @@
         "date": "2025-12-24",
         "message": "Added a configurable fix for: If someone dies on a loose floor, the body stays in the air. (#343)",
         "url": "https://github.com/NagyD/SDLPoP/commit/3c5add5fb7f83d4ceb542823ab66d00146c4271b"
+      }
+    }
+  },
+  {
+    "id": "sdltrs-multihdc-trs80-archaeology-emulator",
+    "title": "sdltrs-MultiHDC",
+    "upstream_name": "sdltrs-MultiHDC",
+    "display_title": "sdltrs-MultiHDC — TRS-80 hard-disk archaeology emulator",
+    "subjects": [],
+    "repo": "https://github.com/Egbert-Azure/sdltrs-MultiHDC",
+    "source_platforms": [
+      "TRS-80",
+      "TCS Genie IIIs"
+    ],
+    "target_platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Z80 machine code",
+      "boot EPROMs",
+      "hard-disk images"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "binary-analysis",
+      "development-environment"
+    ],
+    "types": [
+      "emulator",
+      "debugger",
+      "hardware archaeology"
+    ],
+    "re_started": null,
+    "last_activity": "2026-09-08",
+    "last_checked": "2026-10-03",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "live disassembly",
+      "controller-protocol reconstruction",
+      "DAP source debugging",
+      "boot verification"
+    ],
+    "tags": [
+      "TRS-80",
+      "TCS Genie IIIs",
+      "Z80",
+      "CP/M",
+      "SASI"
+    ],
+    "notes": "TRS-80/TCS Genie IIIs emulator derived from SDL2TRS/xtrs with independently implemented OMTI, WD1000/1010 and Xebec S1410 hard-disk paths. Primary documentation records live Z80-driver disassembly, recovered controller behavior, verified CP/M/GDOS boots and a zbx DAP bridge.",
+    "github": {
+      "repository": "Egbert-Azure/sdltrs-MultiHDC",
+      "created_at": "2026-07-18",
+      "pushed_at": "2026-09-08",
+      "updated_at": "2026-09-08",
+      "checked_at": "2026-10-02",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "languages": [
+        "C",
+        "Python",
+        "Shell",
+        "Roff",
+        "Makefile",
+        "CMake",
+        "M4",
+        "JavaScript"
+      ],
+      "latest_commit": {
+        "sha": "f00e95ad806b7cccdb2ab760808cf92fb090d659",
+        "date": "2026-09-08",
+        "message": "Remove .vscode/ from .gitignore",
+        "url": "https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/f00e95ad806b7cccdb2ab760808cf92fb090d659"
       }
     }
   },
@@ -92803,7 +93238,7 @@
       "repository": "captainsouthbird/smb3",
       "created_at": "2017-06-30",
       "pushed_at": "2025-05-01",
-      "updated_at": "2026-09-15",
+      "updated_at": "2026-10-02",
       "checked_at": "2026-10-02",
       "default_branch": "master",
       "tracking_branch": "master",
@@ -95480,6 +95915,95 @@
         "date": "2026-06-01",
         "message": "chore: Add source for King of Chicago Intro by HQC",
         "url": "https://github.com/vschwaberow/amiga_reconstructed/commit/7dab88c64d6c30217f1fc30baaa09464f049d8c2"
+      }
+    }
+  },
+  {
+    "id": "legend-of-zelda-nes-zeldasource-disassembly",
+    "title": "The Legend of Zelda",
+    "upstream_name": "zeldasource",
+    "display_title": "The Legend of Zelda — early NES WIP disassembly",
+    "subjects": [
+      "The Legend of Zelda"
+    ],
+    "repo": "https://github.com/camthesaxman/zeldasource",
+    "source_platforms": [
+      "NES"
+    ],
+    "target_platforms": [
+      "NES"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "NES ROM"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game disassembly"
+    ],
+    "re_started": null,
+    "last_activity": "2016-04-14",
+    "last_checked": "2026-10-03",
+    "status": "stalled",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "incremental ROM-backed reconstruction"
+    ],
+    "tags": [
+      "NES",
+      "Legend of Zelda",
+      "6502",
+      "WIP"
+    ],
+    "notes": "Independent 2016 work-in-progress NES Zelda disassembly. Its GNU Make/cc65 build still requires an original ROM for the portions not yet disassembled, so this record remains distinct from the later complete Zelda disassembly and does not claim a complete or byte-exact reconstruction.",
+    "github": {
+      "repository": "camthesaxman/zeldasource",
+      "created_at": "2016-04-09",
+      "pushed_at": "2016-04-14",
+      "updated_at": "2026-07-20",
+      "checked_at": "2026-10-02",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly",
+        "C++",
+        "Pascal",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "c1de2873089cf1133b97c591827574845d2d3e65",
+        "date": "2016-04-14",
+        "message": "Refactor bank 5 code",
+        "url": "https://github.com/camthesaxman/zeldasource/commit/c1de2873089cf1133b97c591827574845d2d3e65"
       }
     }
   },
@@ -104498,14 +105022,14 @@
         "Claude"
       ],
       "evidence": [
-        "Claude co-author trailer observed in recent tracked commits: 2 in this scan (example f033ec502b44)"
+        "Claude co-author trailer observed in recent tracked commits: 1 in this scan (example 2ddedc89f131)"
       ]
     },
     "github": {
       "repository": "zpqrtbnk/xrick",
       "created_at": "2015-09-30",
-      "pushed_at": "2026-10-01",
-      "updated_at": "2026-10-01",
+      "pushed_at": "2026-10-02",
+      "updated_at": "2026-10-02",
       "checked_at": "2026-10-02",
       "default_branch": "master",
       "tracking_branch": "master",
@@ -104526,10 +105050,10 @@
         "HTML"
       ],
       "latest_commit": {
-        "sha": "b1e5ecc8ad1c631a8750077d26900b604f3c1322",
+        "sha": "2ddedc89f1318c96352b91a940cdae734354ffe6",
         "date": "2026-10-01",
-        "message": "version in splash",
-        "url": "https://github.com/zpqrtbnk/xrick/commit/b1e5ecc8ad1c631a8750077d26900b604f3c1322"
+        "message": "RD2: one game_main frame is rd2_frame_step (T47 phase 2)",
+        "url": "https://github.com/zpqrtbnk/xrick/commit/2ddedc89f1318c96352b91a940cdae734354ffe6"
       }
     }
   },
@@ -104577,7 +105101,7 @@
       "reverse-engineering knowledge base"
     ],
     "re_started": 2026,
-    "last_activity": "2026-09-29",
+    "last_activity": "2026-10-02",
     "last_checked": "2026-10-01",
     "status": "in progress",
     "build": {
@@ -104614,8 +105138,8 @@
     "github": {
       "repository": "zpqrtbnk/xrick-kb",
       "created_at": "2026-09-28",
-      "pushed_at": "2026-09-29",
-      "updated_at": "2026-09-29",
+      "pushed_at": "2026-10-02",
+      "updated_at": "2026-10-02",
       "checked_at": "2026-10-02",
       "default_branch": "main",
       "tracking_branch": "main",
@@ -104625,10 +105149,10 @@
       "primary_language": "Python",
       "activity_state": "active",
       "latest_commit": {
-        "sha": "91de55cb525e131d8316f8b1c6c7da5d85b79088",
-        "date": "2026-09-29",
-        "message": "xrick: fix wasm player",
-        "url": "https://github.com/zpqrtbnk/xrick-kb/commit/91de55cb525e131d8316f8b1c6c7da5d85b79088"
+        "sha": "59070b21cbc2e8bdd53f6a244e1096d527687393",
+        "date": "2026-10-02",
+        "message": "solving RD2",
+        "url": "https://github.com/zpqrtbnk/xrick-kb/commit/59070b21cbc2e8bdd53f6a244e1096d527687393"
       },
       "languages": [
         "Python",
@@ -106527,373 +107051,5 @@
         "url": "https://github.com/TheGoodDoktor/SpectrumAnalyserProjects/commit/99b39381d69c549ee17fc1ff8339ae0c409a5dce"
       }
     }
-  },
-  {
-    "id": "mbasic-521-source-reconstruction",
-    "title": "MBASIC 5.21 Source Reconstruction",
-    "upstream_name": "mbasic2025",
-    "display_title": "MBASIC 5.21 — byte-identical CP/M source reconstruction",
-    "subjects": [
-      "Microsoft BASIC-80 5.21"
-    ],
-    "repo": "https://github.com/avwohl/mbasic2025",
-    "source_platforms": [
-      "CP/M"
-    ],
-    "target_platforms": [
-      "CP/M"
-    ],
-    "source_cpu": [
-      "8080",
-      "8085",
-      "Z80"
-    ],
-    "target_cpu": [
-      "8080",
-      "8085",
-      "Z80"
-    ],
-    "source_language": [
-      "MBASIC 5.21 CP/M executable",
-      "MBASIC 5.2x source"
-    ],
-    "reconstructed_languages": [
-      "MACRO-80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "application"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "BASIC interpreter",
-      "byte-exact reconstruction"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-30",
-    "last_checked": "2026-10-03",
-    "status": "complete",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "custom disassembly",
-      "source comparison",
-      "byte-for-byte rebuild"
-    ],
-    "tags": [
-      "CP/M",
-      "MBASIC",
-      "8080",
-      "Z80",
-      "byte-exact"
-    ],
-    "notes": "Reconstructs the lost MBASIC 5.21 source from nearby 5.2x sources and a custom disassembly. The MACRO-80-compatible build produces a CP/M COM file; upstream reports a byte-for-byte match to the historic binary."
-  },
-  {
-    "id": "sdltrs-multihdc-trs80-archaeology-emulator",
-    "title": "sdltrs-MultiHDC",
-    "upstream_name": "sdltrs-MultiHDC",
-    "display_title": "sdltrs-MultiHDC — TRS-80 hard-disk archaeology emulator",
-    "subjects": [],
-    "repo": "https://github.com/Egbert-Azure/sdltrs-MultiHDC",
-    "source_platforms": [
-      "TRS-80",
-      "TCS Genie IIIs"
-    ],
-    "target_platforms": [
-      "Linux",
-      "Windows",
-      "macOS"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Z80 machine code",
-      "boot EPROMs",
-      "hard-disk images"
-    ],
-    "reconstructed_languages": [
-      "C",
-      "C++"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "binary-analysis",
-      "development-environment"
-    ],
-    "types": [
-      "emulator",
-      "debugger",
-      "hardware archaeology"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-08",
-    "last_checked": "2026-10-03",
-    "status": "active",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "live disassembly",
-      "controller-protocol reconstruction",
-      "DAP source debugging",
-      "boot verification"
-    ],
-    "tags": [
-      "TRS-80",
-      "TCS Genie IIIs",
-      "Z80",
-      "CP/M",
-      "SASI"
-    ],
-    "notes": "TRS-80/TCS Genie IIIs emulator derived from SDL2TRS/xtrs with independently implemented OMTI, WD1000/1010 and Xebec S1410 hard-disk paths. Primary documentation records live Z80-driver disassembly, recovered controller behavior, verified CP/M/GDOS boots and a zbx DAP bridge."
-  },
-  {
-    "id": "apple-lisa-mister-fpga-core",
-    "title": "Apple-Lisa_MiSTer",
-    "upstream_name": "Apple-Lisa_MiSTer",
-    "display_title": "Apple Lisa — MiSTer FPGA core",
-    "subjects": [],
-    "repo": "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer",
-    "source_platforms": [
-      "Apple Lisa"
-    ],
-    "target_platforms": [
-      "MiSTer FPGA"
-    ],
-    "source_cpu": [
-      "m68000",
-      "6504",
-      "COP421"
-    ],
-    "target_cpu": [],
-    "source_language": [
-      "Apple Lisa hardware behavior"
-    ],
-    "reconstructed_languages": [
-      "Verilog",
-      "SystemVerilog"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "emulator",
-      "development-environment"
-    ],
-    "types": [
-      "FPGA core",
-      "hardware emulation"
-    ],
-    "re_started": null,
-    "last_activity": "2026-07-21",
-    "last_checked": "2026-10-03",
-    "status": "active",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "chip-level hardware recreation",
-      "FPGA porting",
-      "disk-image emulation"
-    ],
-    "tags": [
-      "Apple Lisa",
-      "MiSTer",
-      "FPGA",
-      "m68000"
-    ],
-    "notes": "Hardware-accurate Lisa 1/2/5 core ported from LisaFPGA to MiSTer. It models the 68000, 6504 and COP421 subsystems, boots Lisa Office System, and supports ProFile and writable Sony 400K images; blank-floppy initialization remains incomplete.",
-    "runtime_profiles": [
-      {
-        "name": "Lisa Office System on MiSTer",
-        "platform": "Apple Lisa (MiSTer core)",
-        "cpu_family": "m68000",
-        "min_cpu": "Motorola 68000-compatible core",
-        "min_ram_kib": 1024,
-        "chipsets": [
-          "MiSTer DE10-Nano",
-          "Cyclone V"
-        ],
-        "notes": "Office System requires at least 1 MB of configured Lisa RAM; 512 KB is only useful for ROM diagnostics.",
-        "evidence": [
-          "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "romdev-multiplatform-retro-development-environment",
-    "title": "romdev",
-    "upstream_name": "romdev",
-    "display_title": "romdev — multi-platform ROM development and analysis environment",
-    "subjects": [],
-    "repo": "https://github.com/monteslu/romdev",
-    "source_platforms": [
-      "multi-platform ROMs"
-    ],
-    "target_platforms": [
-      "Linux",
-      "Windows",
-      "macOS"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "source_language": [
-      "ROM images",
-      "source projects",
-      "emulator state"
-    ],
-    "reconstructed_languages": [
-      "TypeScript",
-      "C",
-      "C++",
-      "WebAssembly"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "disassembler",
-      "static-analysis",
-      "binary-analysis",
-      "compiler-toolchain",
-      "assembler-toolchain",
-      "rom-tool",
-      "asset-tool",
-      "automation",
-      "development-environment"
-    ],
-    "types": [
-      "MCP development environment",
-      "ROM analysis",
-      "homebrew toolchain"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-17",
-    "last_checked": "2026-10-03",
-    "status": "active",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "headless emulation",
-      "Rizin and Ghidra analysis",
-      "byte-exact project reassembly",
-      "agent-driven build and test",
-      "live memory analysis"
-    ],
-    "tags": [
-      "multi-platform",
-      "ROM hacking",
-      "homebrew",
-      "MCP",
-      "WebAssembly"
-    ],
-    "notes": "Agent-accessible retro development environment bundling emulators, SDKs, compilers, asset conversion, debugging, Rizin/Ghidra analysis and byte-exact rebuildable-project generation across a broad legacy-console set. The README distinguishes full reassembly for 15 classic platforms from analysis-only support on newer 3D consoles."
-  },
-  {
-    "id": "legend-of-zelda-nes-zeldasource-disassembly",
-    "title": "The Legend of Zelda",
-    "upstream_name": "zeldasource",
-    "display_title": "The Legend of Zelda — early NES WIP disassembly",
-    "subjects": [
-      "The Legend of Zelda"
-    ],
-    "repo": "https://github.com/camthesaxman/zeldasource",
-    "source_platforms": [
-      "NES"
-    ],
-    "target_platforms": [
-      "NES"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "source_language": [
-      "NES ROM"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2016-04-14",
-    "last_checked": "2026-10-03",
-    "status": "stalled",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "incremental ROM-backed reconstruction"
-    ],
-    "tags": [
-      "NES",
-      "Legend of Zelda",
-      "6502",
-      "WIP"
-    ],
-    "notes": "Independent 2016 work-in-progress NES Zelda disassembly. Its GNU Make/cc65 build still requires an original ROM for the portions not yet disassembled, so this record remains distinct from the later complete Zelda disassembly and does not claim a complete or byte-exact reconstruction."
   }
 ]

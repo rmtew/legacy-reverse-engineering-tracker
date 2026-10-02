@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-02T15:50:31Z",
+  "updated_at": "2026-10-02T16:29:30Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -7971,7 +7971,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -8568,6 +8570,91 @@
         "tools": []
       }
     },
+    "apple-lisa-mister-fpga-core": {
+      "id": "apple-lisa-mister-fpga-core",
+      "title": "Apple-Lisa_MiSTer",
+      "upstream_name": "Apple-Lisa_MiSTer",
+      "display_title": "Apple Lisa — MiSTer FPGA core",
+      "subjects": [],
+      "repo": "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple Lisa"
+      ],
+      "target_platforms": [
+        "MiSTer FPGA"
+      ],
+      "source_cpu": [
+        "m68000",
+        "6504",
+        "COP421"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Lisa Office System on MiSTer",
+          "platform": "Apple Lisa (MiSTer core)",
+          "cpu_family": "m68000",
+          "min_cpu": "Motorola 68000-compatible core",
+          "min_ram_kib": 1024,
+          "chipsets": [
+            "MiSTer DE10-Nano",
+            "Cyclone V"
+          ],
+          "notes": "Office System requires at least 1 MB of configured Lisa RAM; 512 KB is only useful for ROM diagnostics.",
+          "evidence": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Apple Lisa hardware behavior"
+      ],
+      "reconstructed_languages": [
+        "Verilog",
+        "SystemVerilog"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "development-environment"
+      ],
+      "types": [
+        "FPGA core",
+        "hardware emulation"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "chip-level hardware recreation",
+        "FPGA porting",
+        "disk-image emulation"
+      ],
+      "tags": [
+        "Apple Lisa",
+        "MiSTer",
+        "FPGA",
+        "m68000"
+      ],
+      "notes": "Hardware-accurate Lisa 1/2/5 core ported from LisaFPGA to MiSTer. It models the 68000, 6504 and COP421 subsystems, boots Lisa Office System, and supports ProFile and writable Sony 400K images; blank-floppy initialization remains incomplete.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "applevision-apple2-6502disassembly": {
       "id": "applevision-apple2-6502disassembly",
       "title": "AppleVision",
@@ -8757,7 +8844,9 @@
         "Acorn Archimedes"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [
+        "ARM"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -9152,8 +9241,21 @@
         "Z80",
         "6502"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Stock BBC Model B replay",
+          "platform": "BBC Micro",
+          "cpu_family": "6502",
+          "min_cpu": "6502",
+          "notes": "README says the replays run on a stock Model B with no second processor or sideways RAM; no RAM amount is stated.",
+          "evidence": [
+            "https://github.com/kieranhj/arkos-player-bbc/blob/master/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [],
@@ -11272,7 +11374,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -12170,7 +12274,9 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "Z80"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -14936,7 +15042,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -15626,7 +15734,7 @@
         "Commodore 64"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -25264,7 +25372,7 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -46129,6 +46237,84 @@
         "tools": []
       }
     },
+    "mbasic-521-source-reconstruction": {
+      "id": "mbasic-521-source-reconstruction",
+      "title": "MBASIC 5.21 Source Reconstruction",
+      "upstream_name": "mbasic2025",
+      "display_title": "MBASIC 5.21 — byte-identical CP/M source reconstruction",
+      "subjects": [
+        "Microsoft BASIC-80 5.21"
+      ],
+      "repo": "https://github.com/avwohl/mbasic2025",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "CP/M"
+      ],
+      "target_platforms": [
+        "CP/M"
+      ],
+      "source_cpu": [
+        "8080",
+        "8085",
+        "Z80"
+      ],
+      "target_cpu": [
+        "8080",
+        "8085",
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "MBASIC 5.21 CP/M executable",
+        "MBASIC 5.2x source"
+      ],
+      "reconstructed_languages": [
+        "MACRO-80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "BASIC interpreter",
+        "byte-exact reconstruction"
+      ],
+      "re_started": null,
+      "status": "complete",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "custom disassembly",
+        "source comparison",
+        "byte-for-byte rebuild"
+      ],
+      "tags": [
+        "CP/M",
+        "MBASIC",
+        "8080",
+        "Z80",
+        "byte-exact"
+      ],
+      "notes": "Reconstructs the lost MBASIC 5.21 source from nearby 5.2x sources and a custom disassembly. The MACRO-80-compatible build produces a CP/M COM file; upstream reports a byte-for-byte match to the historic binary.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "winuae-gdb-mcp-axewater": {
       "id": "winuae-gdb-mcp-axewater",
       "title": "mcp-winuae-emu",
@@ -60025,6 +60211,88 @@
         "tools": []
       }
     },
+    "romdev-multiplatform-retro-development-environment": {
+      "id": "romdev-multiplatform-retro-development-environment",
+      "title": "romdev",
+      "upstream_name": "romdev",
+      "display_title": "romdev — multi-platform ROM development and analysis environment",
+      "subjects": [],
+      "repo": "https://github.com/monteslu/romdev",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "multi-platform ROMs"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "ROM images",
+        "source projects",
+        "emulator state"
+      ],
+      "reconstructed_languages": [
+        "TypeScript",
+        "C",
+        "C++",
+        "WebAssembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "disassembler",
+        "static-analysis",
+        "binary-analysis",
+        "compiler-toolchain",
+        "assembler-toolchain",
+        "rom-tool",
+        "asset-tool",
+        "automation",
+        "development-environment"
+      ],
+      "types": [
+        "MCP development environment",
+        "ROM analysis",
+        "homebrew toolchain"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "headless emulation",
+        "Rizin and Ghidra analysis",
+        "byte-exact project reassembly",
+        "agent-driven build and test",
+        "live memory analysis"
+      ],
+      "tags": [
+        "multi-platform",
+        "ROM hacking",
+        "homebrew",
+        "MCP",
+        "WebAssembly"
+      ],
+      "notes": "Agent-accessible retro development environment bundling emulators, SDKs, compilers, asset conversion, debugging, Rizin/Ghidra analysis and byte-exact rebuildable-project generation across a broad legacy-console set. The README distinguishes full reassembly for 15 classic platforms from analysis-only support on newer 3D consoles.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "rscview-gem-resource-renderer": {
       "id": "rscview-gem-resource-renderer",
       "title": "rscview — GEM resource renderer",
@@ -61572,6 +61840,81 @@
         "tools": []
       }
     },
+    "sdltrs-multihdc-trs80-archaeology-emulator": {
+      "id": "sdltrs-multihdc-trs80-archaeology-emulator",
+      "title": "sdltrs-MultiHDC",
+      "upstream_name": "sdltrs-MultiHDC",
+      "display_title": "sdltrs-MultiHDC — TRS-80 hard-disk archaeology emulator",
+      "subjects": [],
+      "repo": "https://github.com/Egbert-Azure/sdltrs-MultiHDC",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TRS-80",
+        "TCS Genie IIIs"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code",
+        "boot EPROMs",
+        "hard-disk images"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "binary-analysis",
+        "development-environment"
+      ],
+      "types": [
+        "emulator",
+        "debugger",
+        "hardware archaeology"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "live disassembly",
+        "controller-protocol reconstruction",
+        "DAP source debugging",
+        "boot verification"
+      ],
+      "tags": [
+        "TRS-80",
+        "TCS Genie IIIs",
+        "Z80",
+        "CP/M",
+        "SASI"
+      ],
+      "notes": "TRS-80/TCS Genie IIIs emulator derived from SDL2TRS/xtrs with independently implemented OMTI, WD1000/1010 and Xebec S1410 hard-disk paths. Primary documentation records live Z80-driver disassembly, recovered controller behavior, verified CP/M/GDOS boots and a zbx DAP bridge.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "sega2asm-genesis-disassembler": {
       "id": "sega2asm-genesis-disassembler",
       "title": "sega2asm — Mega Drive ROM splitter",
@@ -62347,8 +62690,21 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Shrinkler-generated Amiga executable",
+          "platform": "Amiga",
+          "cpu_family": "m68000",
+          "min_cpu": "m68000",
+          "notes": "README says output executables work on all Amiga CPUs and Kickstarts; no RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/bartmanabyss/shrinkler/blob/master/README.txt"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [],
@@ -69235,6 +69591,72 @@
         "intro/trainer"
       ],
       "notes": "HQC is credited for the historical HQC The King of Chicago intro. Volker Schwaberow's collection presents reconstructed assembly; File header identifies a reconstructed Amiga intro for The King of Chicago; annotated startup and hardware routines follow. No original-binary comparison, successful build or runtime test is established for this component.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "legend-of-zelda-nes-zeldasource-disassembly": {
+      "id": "legend-of-zelda-nes-zeldasource-disassembly",
+      "title": "The Legend of Zelda",
+      "upstream_name": "zeldasource",
+      "display_title": "The Legend of Zelda — early NES WIP disassembly",
+      "subjects": [
+        "The Legend of Zelda"
+      ],
+      "repo": "https://github.com/camthesaxman/zeldasource",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "NES"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "NES ROM"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game disassembly"
+      ],
+      "re_started": null,
+      "status": "stalled",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "incremental ROM-backed reconstruction"
+      ],
+      "tags": [
+        "NES",
+        "Legend of Zelda",
+        "6502",
+        "WIP"
+      ],
+      "notes": "Independent 2016 work-in-progress NES Zelda disassembly. Its GNU Make/cc65 build still requires an original ROM for the portions not yet disassembled, so this record remains distinct from the later complete Zelda disassembly and does not claim a complete or byte-exact reconstruction.",
       "ai": {
         "usage": null,
         "tools": []
