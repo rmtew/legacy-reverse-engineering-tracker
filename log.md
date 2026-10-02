@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-03 — RetroRE residuals, rotated discovery and target-CPU audit
+
+Reviewed the remaining RetroRE Zelda lead and rotated fresh searches across Atari Lynx, TRS-80/CP/M and Apple Lisa routes. Added **MBASIC 5.21 — byte-identical CP/M source reconstruction**, **sdltrs-MultiHDC — TRS-80 hard-disk archaeology emulator**, **Apple Lisa — MiSTer FPGA core**, **romdev — multi-platform ROM development and analysis environment**, and **The Legend of Zelda — early NES WIP disassembly**. The records preserve the distinction between reconstructed historical software, original development tooling, hardware emulation and an incomplete independent disassembly.
+
+The separate CPU lane resolved ten queued target-CPU areas. Primary build/source evidence establishes 6502 outputs for **ANFS 4.18 bare disassembly**, **Arkos Tracker players for BBC Micro**, **Attack on Alpha Centauri BBC disassembly** and **Boulder Dash BBC disassembly**; ARM for **ArchieKlang — Archimedes synth port**; Z80 for **Bandersnatch Spectrum code disassembly**; and m68000 compatibility for **Shrinkler — Amiga executable compressor**. **Audio Sculpture 1.5 — IPL protection analysis** and **C64 character ROM glyph listing** are explicitly not CPU-targeted outputs, while **elf2hunk — ELF to Amiga Hunk converter** records no fixed host CPU. Only the documented stock BBC Model B and all-Amiga-CPU runtime statements were added; unstated RAM floors remain unknown.
+
+
 ## 2026-10-02 — Native ROMs, browser outputs and Firestaff original-media review
 
 Resolved ten queued target-CPU areas. **Epyx Fastload cartridge load routines** and **EXMON II BBC/Electron annotated ROM update** now record explicit 6502 native outputs; **Globe — 6502 demo translated to ARM** now correctly separates its original 6502 source from its ARM port output. **Exile BBC 6502-to-C++ study port** records only its explicitly configured x86-64 Visual Studio output, while **OpenCaptive** records its published x86-64 and arm64 package architectures. Browser JavaScript outputs and music/data-analysis tools are explicitly target-CPU not applicable; no host architecture was inferred from their language or platform.

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-02",
+  "indexed_at": "2026-10-03",
   "area_names": [
     "identity",
     "classification",
@@ -25026,7 +25026,7 @@
     },
     {
       "project_id": "audio-sculpture-st-ipl-analysis",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-03",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -25042,8 +25042,12 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "The project output is Hatari breakpoint-action scripts and documentation that patch an existing image in the emulator; it does not build a CPU-targeted replacement executable.",
+          "evidence_urls": [
+            "https://github.com/orionfuzion/newcracks/blob/master/AudioS15/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -25064,7 +25068,7 @@
         }
       },
       "next_actions": [
-        "Check additional build, minimum hardware and predecessor evidence where applicable."
+        "Research remaining audit areas: build, runtime_profiles."
       ]
     },
     {
@@ -41858,8 +41862,8 @@
     },
     {
       "project_id": "bartman-elf2hunk",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -41877,9 +41881,13 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "Makefile builds a portable host converter with GCC/Visual Studio, while source handles several ELF machine types; no fixed runnable host CPU is specified.",
+          "evidence_urls": [
+            "https://github.com/bartmanabyss/elf2hunk/blob/master/Makefile",
+            "https://github.com/bartmanabyss/elf2hunk/blob/master/elf2hunk.c"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -41902,12 +41910,14 @@
           "note": "Separate converter used by the vscode-amiga-debug environment; no independent build was attempted."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "bartman-shrinkler-amiga",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -41925,9 +41935,13 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README says generated executables are compatible with all Amiga CPUs and includes 68000 decompression source, establishing the 68000-compatible output floor.",
+          "evidence_urls": [
+            "https://github.com/bartmanabyss/shrinkler/blob/master/README.txt",
+            "https://github.com/bartmanabyss/shrinkler/blob/master/BUILD.txt"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -41935,9 +41949,12 @@
           "note": "README or files describe source and/or distribution; no independent build was run."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Actual minimum CPU and RAM requirements have not been verified."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "All Amiga CPUs and Kickstarts are explicitly claimed for generated executables; no RAM minimum is stated.",
+          "evidence_urls": [
+            "https://github.com/bartmanabyss/shrinkler/blob/master/README.txt"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
@@ -41950,7 +41967,9 @@
           "note": "Credit original askeksa/Shrinkler; upstream README says generated executables run across Amiga CPUs, but this fork was not tested."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build."
+      ]
     },
     {
       "project_id": "vasm-m68k-mot-vscode-amiga",
@@ -42293,8 +42312,8 @@
     },
     {
       "project_id": "archieklang-archimedes-synth",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -42312,9 +42331,13 @@
           "note": "Exact input/runnable CPU not established from checked files; platform names alone are insufficient."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "No independently established minimum runtime CPU or output constraint."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The checked ARM assembly uses ARM registers/SWIs and the build invokes vasmarm to emit the Archimedes binary.",
+          "evidence_urls": [
+            "https://github.com/kieranhj/archieklang/blob/main/archieklang.asm",
+            "https://github.com/kieranhj/archieklang/blob/main/make.bat"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -42337,12 +42360,14 @@
           "note": "Credits AmigaKlang as predecessor; this is an Archimedes music subsystem port, not an original Amiga source reconstruction."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "arkos-player-bbc",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -42360,9 +42385,12 @@
           "note": "Named instruction set or machine target confirmed in README/source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "No independently established minimum runtime CPU or output constraint."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README explicitly describes three new 6502 replays running on a stock BBC Model B.",
+          "evidence_urls": [
+            "https://github.com/kieranhj/arkos-player-bbc/blob/master/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -42370,9 +42398,12 @@
           "note": "README and selected build/source files checked; no independent build performed."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "No independent hardware compatibility or memory-floor verification."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Stock Model B, no second processor and no sideways RAM are explicit; no RAM quantity is inferred.",
+          "evidence_urls": [
+            "https://github.com/kieranhj/arkos-player-bbc/blob/master/README.md"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -42385,7 +42416,9 @@
           "note": "Credits original Arkos music format and source players. Author explicitly says Claude wrote new code under human direction and review; timing/build claims are upstream."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build."
+      ]
     },
     {
       "project_id": "beeb-port-kit-c64-to-bbc",
@@ -43937,8 +43970,8 @@
     },
     {
       "project_id": "c64-character-rom-glyph-listing",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -43956,9 +43989,13 @@
           "note": "Character glyph ROM holds bitmap data, not CPU instructions."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "The assembled output is a 4 KiB bitmap glyph ROM containing DB data, not executable CPU instructions.",
+          "evidence_urls": [
+            "https://github.com/Commodore-Bench/Commodore-64-Character-Generator-Dissasembly/blob/main/readme.md",
+            "https://github.com/Commodore-Bench/Commodore-64-Character-Generator-Dissasembly/blob/main/chargen.asm"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -43966,9 +44003,12 @@
           "note": "Source and upstream claim examined; build and binary comparison not independently rerun."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory and hardware not established by this review."
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "Bitmap character-ROM data is not a runnable software output.",
+          "evidence_urls": [
+            "https://github.com/Commodore-Bench/Commodore-64-Character-Generator-Dissasembly/blob/main/readme.md"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
@@ -43981,7 +44021,9 @@
           "note": "Re-expresses the 4 KB character ROM as binary glyph rows labelled by character and includes a small browser glyph editor. This is asset mapping, not an executable Kernal/BASIC disassembly; no independent ROM checksum was checked."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build."
+      ]
     },
     {
       "project_id": "epyx-fastload-c64-cartridge-routines",
@@ -44085,8 +44127,8 @@
     },
     {
       "project_id": "attack-alpha-centauri-bbc-fizgog",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -44104,9 +44146,12 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The checked BBC assembly listing contains native 6502 instructions and OS entry points and targets the original game image.",
+          "evidence_urls": [
+            "https://github.com/fizgog/Attack-On-Alpha-Centauri-Disassembly/blob/main/Alpha3.ASM"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -44129,7 +44174,9 @@
           "note": "WIP BBC Micro Attack on Alpha Centauri assembly listing with original media and imagery. Credits Simon Vout and Software Invasion; distinct from an Electron disk/tape distribution."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "zany-kong-bbc-fizgog",
@@ -44277,8 +44324,8 @@
     },
     {
       "project_id": "boulder-dash-bbc-tobylobster",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -44296,9 +44343,13 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Primary README identifies the BBC Micro reconstruction and native BeebAsm/ACME outputs; the checked source is 6502 assembly.",
+          "evidence_urls": [
+            "https://github.com/TobyLobster/Boulderdash/blob/master/readme.md",
+            "https://github.com/TobyLobster/Boulderdash/tree/master/source"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -44306,9 +44357,12 @@
           "note": "Source and upstream claim examined; build and binary comparison not independently rerun."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory and hardware not established by this review."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "README establishes the BBC Micro target but gives no exact model, RAM floor or peripheral requirement.",
+          "evidence_urls": [
+            "https://github.com/TobyLobster/Boulderdash/blob/master/readme.md"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
@@ -44321,7 +44375,9 @@
           "note": "Commented Beebasm/ACME reconstructions of Andrew Bennett’s BBC Boulder Dash with original disk and tools; README reports byte-for-byte identity, not independently rerun here."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build."
+      ]
     },
     {
       "project_id": "plan-b-bbc-tobylobster",
@@ -44471,8 +44527,8 @@
     },
     {
       "project_id": "anfs-zornslemma-418-disassembly",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -44490,9 +44546,13 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The checked BeebAsm build emits an ANFS 4.18 ROM from the 6502 listing and compares it with the original ROM.",
+          "evidence_urls": [
+            "https://github.com/ZornsLemma/anfs/blob/master/make.sh",
+            "https://github.com/ZornsLemma/anfs/tree/master/asm"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -44515,7 +44575,9 @@
           "note": "ZornsLemma ANFS 4.18 assembly listings and a compare-oriented build script; inspected listing is largely automatic labels and missing local ROM inputs prevent verification. Separate earlier effort on the same ROM later covered more comprehensively by acornaeology/acorn-nfs."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "iso-pascal-bbc-electron-zornslemma",
@@ -45003,8 +45065,8 @@
     },
     {
       "project_id": "bandersnatch-zx-code-analysis",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45022,9 +45084,12 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README explicitly requires z80asm to assemble the annotated ZX-format program output.",
+          "evidence_urls": [
+            "https://github.com/nwoeanhinnogaehr/bandersnatch/blob/master/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45047,7 +45112,9 @@
           "note": "Annotated compressed and decompressed ZX-format program from Black Mirror: Bandersnatch, including loader and reassembly script. Credits Matt Westcott’s original code; the code is a modern ZX program, not a 1980s game."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "cjs-elephant-antics-spectrum-petemoore",
@@ -52648,6 +52715,382 @@
           "state": "reviewed",
           "checked_at": "2026-10-02",
           "note": "README enumerates bundled upstream toolchains/libraries and keeps the container as one cohesive project."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "mbasic-521-source-reconstruction",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Repository identity and scope reviewed against primary documentation.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Catalogue classification reviewed against the README and implementation evidence.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The reconstructed source identifies its processor family as 8080/8085/Z80 and contains CP/M entry points.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The same MACRO-80 source is assembled and linked into the reconstructed CP/M COM output for the documented 8080/8085/Z80 family.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README and build script document a MACRO-80-compatible assemble/link path and byte-for-byte comparison; this pass did not rerun it.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "Primary documentation states no minimum legacy-hardware profile beyond the recorded scope.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "No explicit AI-use evidence was found in the reviewed primary documentation.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README identifies the preserved 5.2x sources, original 5.21 binary, custom disassembler and um80 toolchain.",
+          "evidence_urls": [
+            "https://github.com/avwohl/mbasic2025/blob/main/README.md",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/mbasic_src/bintrp.mac",
+            "https://github.com/avwohl/mbasic2025/blob/main/mbasic_521/build.sh"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sdltrs-multihdc-trs80-archaeology-emulator",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Repository identity and scope reviewed against primary documentation.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Catalogue classification reviewed against the README and implementation evidence.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The README explicitly names the built-in Z80 debugger and Z80 driver/ROM analysis used to recover controller behavior.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "Cross-platform host emulator; no fixed host CPU target is asserted.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README documents CMake and autotools build paths and two verified boot scenarios.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "Host emulator; no legacy-hardware minimum applies to the host build.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "No explicit AI-use evidence was found in the reviewed primary documentation.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README records derivation from sdltrsOMTI, SDL2TRS/xtrs and linked companion archive repositories.",
+          "evidence_urls": [
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "apple-lisa-mister-fpga-core",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Repository identity and scope reviewed against primary documentation.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Catalogue classification reviewed against the README and implementation evidence.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README explicitly identifies the simulated Motorola 68000, 6504 and COP421 processors.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "FPGA core output does not target a host instruction-set CPU.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README documents a distributed RBF, working boot/media paths and current limitations; compilation was not independently rerun.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README states the MiSTer hardware and the 1 MB Lisa RAM minimum for Office System; 512 KB is diagnostics-only.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "No explicit AI-use evidence was found in the reviewed primary documentation.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README credits and links the LisaFPGA predecessor and the component CPU/peripheral cores.",
+          "evidence_urls": [
+            "https://github.com/MiSTer-devel/Apple-Lisa_MiSTer/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "romdev-multiplatform-retro-development-environment",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Repository identity and scope reviewed against primary documentation.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Catalogue classification reviewed against the README and implementation evidence.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "This is multi-platform development and analysis tooling; supported guest ISAs are capabilities rather than one original subject CPU.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "Portable Node/WebAssembly host environment with no fixed host CPU target.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README documents npm installation, Node 24+, workspace tests and bundled WebAssembly toolchains; upstream claims byte-identical reassembly for 15 classic platforms.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "README states Node 24+ and host operating systems but no minimum host CPU or RAM.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "No explicit AI-use evidence was found in the reviewed primary documentation.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README inventories the bundled third-party cores, SDKs, toolchains and analysis engines and separates their roles.",
+          "evidence_urls": [
+            "https://github.com/monteslu/romdev/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "legend-of-zelda-nes-zeldasource-disassembly",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Repository identity and scope reviewed against primary documentation.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Catalogue classification reviewed against the README and implementation evidence.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README identifies an NES disassembly and requires the cc65 toolchain; NES program code uses the 6502 family.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The build targets an NES ROM through cc65; no stronger minimum hardware claim is inferred.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "README gives GNU Make/cc65 instructions but says the original ROM remains required until disassembly is complete; build success was not independently verified.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "README gives no minimum console revision or memory profile beyond the NES target.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "No explicit AI-use evidence was found in the reviewed primary documentation.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "Independent WIP lineage retained separately from the later complete Zelda 1 disassembly already in the catalogue.",
+          "evidence_urls": [
+            "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
+          ]
         }
       },
       "next_actions": []

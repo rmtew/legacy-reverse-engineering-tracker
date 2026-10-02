@@ -4,6 +4,11 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/avwohl/mbasic2025 | Lost MBASIC 5.21 CP/M source reconstructed to a byte-identical MACRO-80 build |
+| https://github.com/Egbert-Azure/sdltrs-MultiHDC | TRS-80/TCS Genie IIIs emulator with controller-protocol archaeology, verified CP/M/GDOS boots and Z80 DAP debugging |
+| https://github.com/MiSTer-devel/Apple-Lisa_MiSTer | Apple Lisa MiSTer FPGA core port with explicit LisaFPGA lineage and runnable hardware requirements |
+| https://github.com/monteslu/romdev | Multi-platform ROM development, emulation, debugging, disassembly, decompilation and byte-exact reassembly environment |
+| https://github.com/camthesaxman/zeldasource | Independent early work-in-progress NES Zelda disassembly retained separately from the later complete reconstruction |
 | https://github.com/mrcook/manic-miner | Disassembly-derived C++/SDL Manic Miner port retaining the original Spectrum memory-address model |
 | https://github.com/mrcook/rebelstar-raiders-BASIC | Recovered Rebelstar Raiders Sinclair BASIC/Z80 source with authored TZX extraction and formatting tools |
 | https://github.com/mrcook/scrconv | ZX Spectrum SCR-to-PNG/GIF/JPEG conversion tooling |
