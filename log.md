@@ -1,6 +1,12 @@
 # Search / Report Log
 
 
+## 2026-10-03 — Mixed-output CPU audit and Elite over Econet RTC review
+
+Resolved thirteen CPU audit areas across twelve queued projects. **Chronos — Spectrum beeper engine disassembly** and **Chuckie Egg Spectrum SkoolKit disassembly** now record explicit Z80 build outputs; **CIDOS — Commodore disk BASIC commands** records its checked 6502 PRG build; and **easmx — embeddable ASMX fork** records its implemented multi-CPU output families while marking an original source CPU not applicable.
+
+Pure listing/analysis projects are explicitly target-CPU not applicable, and mixed C64 type-ins plus binary-only Electron releases retain no-evidence-found rather than receiving CPUs inferred from their platforms. The upstream-change lane also updated **Elite over Econet — network-loading & multiplayer scoreboard modification** for its 6502 assembled outputs and new selectable Acorn Econet RTC !BOOT build path. No unstated CPU, RAM or minimum-hardware requirement was added.
+
 ## 2026-10-03 — RetroRE residuals, rotated discovery and target-CPU audit
 
 Reviewed the remaining RetroRE Zelda lead and rotated fresh searches across Atari Lynx, TRS-80/CP/M and Apple Lisa routes. Added **MBASIC 5.21 — byte-identical CP/M source reconstruction**, **sdltrs-MultiHDC — TRS-80 hard-disk archaeology emulator**, **Apple Lisa — MiSTer FPGA core**, **romdev — multi-platform ROM development and analysis environment**, and **The Legend of Zelda — early NES WIP disassembly**. The records preserve the distinction between reconstructed historical software, original development tooling, hardware emulation and an incomplete independent disassembly.

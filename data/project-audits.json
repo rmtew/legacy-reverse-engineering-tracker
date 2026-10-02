@@ -4733,7 +4733,7 @@
     },
     {
       "project_id": "elite-over-econet-moxon",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-03",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -4742,19 +4742,34 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-03",
+          "note": "Reviewed the current README and Acorn Econet RTC build-option change; scope remains a network-loading and multiplayer-scoreboard modification.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-over-econet/blob/main/README.md",
+            "https://github.com/markmoxon/elite-over-econet/commit/6e7b0d514a7f5a5770514799af05a3b279bf99d4"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-25"
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The README explicitly identifies BBC Micro, BBC Master 128 and 6502 Second Processor source variants, while the assembled-output tree contains binaries and installable disc images. The native outputs are 6502-family.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-over-econet/blob/main/README.md",
+            "https://github.com/markmoxon/elite-over-econet/tree/main/3-assembled-output"
+          ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-03",
+          "note": "README documents DSD and Level 3 File Server image builds; the latest commit adds rtc selection between explicit !BOOT variants. Upstream build claims were reviewed but not rerun locally.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-over-econet/blob/main/README.md",
+            "https://github.com/markmoxon/elite-over-econet/commit/6e7b0d514a7f5a5770514799af05a3b279bf99d4"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -19507,7 +19522,7 @@
     },
     {
       "project_id": "cdtv-u75-rom-disassembly",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-03",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -19523,8 +19538,12 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "The deliverables are an annotated 6500/1 disassembly, PDF reference and original dump CSV. The README documents analysis and an emulator harness, not a rebuilt firmware output.",
+          "evidence_urls": [
+            "https://github.com/Korinel/Amiga-CDTV-U75/blob/main/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -19544,9 +19563,7 @@
         }
       },
       "next_actions": [
-        "Check explicit minimum runtime and hardware against primary documentation",
-        "Verify build and runtime claims with a primary build log or release",
-        "Check upstream and derivative relationships before assigning provenance"
+        "Research remaining audit areas: build, runtime_profiles, relationships."
       ]
     },
     {
@@ -42117,8 +42134,8 @@
     },
     {
       "project_id": "easmx-embedded-cross-assembler",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -42131,14 +42148,22 @@
           "note": "floooh's ASMX-derived assembler split into library and executable with WASI CMake preset, binary incbin, root include directory and source-address map output for VS Code KC IDE."
         },
         "source_cpu": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-29",
-          "note": "Legacy media formats are named, but a single input CPU is not established."
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "As a new multi-CPU assembler, easmx has no single original-program CPU; its authored assembly inputs select among explicit output targets.",
+          "evidence_urls": [
+            "https://github.com/floooh/easmx/blob/main/asmx-doc.html"
+          ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The multi-CPU assembler implementation and tests explicitly provide code generators for RCA 1802, 6502-family, 6800-family, 68k, Intel 8048/8051/8080/8085, ARM/Thumb, Jaguar GPU/DSP, Fairchild F8 and Z80-family targets.",
+          "evidence_urls": [
+            "https://github.com/floooh/easmx/blob/main/asmx-doc.html",
+            "https://github.com/floooh/easmx/tree/main/src",
+            "https://github.com/floooh/easmx/tree/main/test"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -42161,12 +42186,14 @@
           "note": "Credit original ASMX and linked vscode-kcide; the README enumerates modifications."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "cidos-c64-disk-commands",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -42184,9 +42211,13 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The CBM prg Studio project explicitly builds cidos.prg from the assembly build list; the inspected source is 6502 assembly. The record uses 6502 rather than inferring the C64-specific 6510 variant.",
+          "evidence_urls": [
+            "https://github.com/OldSkoolCoder/CIDOS/blob/master/CIDOS.cbmprj",
+            "https://github.com/OldSkoolCoder/CIDOS/blob/master/CIDOS.asm"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -42209,7 +42240,9 @@
           "note": "Separate implementation from the tutorial index; README examples are upstream documentation, not independent runtime tests."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "pet-frogger-original-source",
@@ -43386,8 +43419,8 @@
     },
     {
       "project_id": "electron-blagger-mod-snuggsy",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -43405,9 +43438,13 @@
           "note": "CPU named by primary source or the inspected source instruction set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum runnable target or generated output CPU not independently established."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "Reviewed the README and complete repository tree. Only Electron SSD/UEF binaries are published, with no source or explicit output-instruction-set statement.",
+          "evidence_urls": [
+            "https://github.com/Snuggsy187/Electron-Blagger-Mod/blob/main/README.md",
+            "https://github.com/Snuggsy187/Electron-Blagger-Mod/tree/main"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -43430,12 +43467,14 @@
           "note": "Credit original Blagger; classify as documented binary modification, without claiming reconstructed source."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "electron-crypt-capers-snuggsy",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -43453,9 +43492,13 @@
           "note": "CPU named by primary source or the inspected source instruction set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum runnable target or generated output CPU not independently established."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "Reviewed the README and complete repository tree. Only Electron SSD/UEF binaries are published, with no source or explicit output-instruction-set statement.",
+          "evidence_urls": [
+            "https://github.com/Snuggsy187/Electron-Crypt-Capers/blob/main/README.md",
+            "https://github.com/Snuggsy187/Electron-Crypt-Capers/tree/main"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -43478,12 +43521,14 @@
           "note": "Distribution only; mechanism, original input build and byte identity remain unverified."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "electron-exile-helper-snuggsy",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -43501,9 +43546,13 @@
           "note": "CPU named by primary source or the inspected source instruction set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum runnable target or generated output CPU not independently established."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "Reviewed the README and complete repository tree. Only Electron SSD/UEF binaries are published, with no source or explicit output-instruction-set statement.",
+          "evidence_urls": [
+            "https://github.com/Snuggsy187/Electron-Exile-Helper/blob/main/README.md",
+            "https://github.com/Snuggsy187/Electron-Exile-Helper/tree/main"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -43526,7 +43575,9 @@
           "note": "Credit original Exile; no editable patch/source established."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "electron-jetpac-snuggsy",
@@ -45017,8 +45068,8 @@
     },
     {
       "project_id": "chuckie-egg-spectrum-mrcook",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45036,9 +45087,13 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The checked SkoolKit source explicitly says its loader setup makes the Z80 game assemble out of the box, establishing a Z80 output rather than only a platform inference.",
+          "evidence_urls": [
+            "https://github.com/mrcook/chuckie-egg-disassembly/blob/master/chuckie-egg.skool",
+            "https://github.com/mrcook/chuckie-egg-disassembly/blob/master/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45061,7 +45116,9 @@
           "note": "WIP tape-derived SkoolKit listing and control files, loader and game analyses; README credits selected audio comments from Ritchie Swann’s separate disassembly."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "bandersnatch-zx-code-analysis",
@@ -45118,8 +45175,8 @@
     },
     {
       "project_id": "cjs-elephant-antics-spectrum-petemoore",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45137,9 +45194,12 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "The repository publishes a partial original-code disassembly and host-side Go map extractor; it does not document a rebuilt native game output.",
+          "evidence_urls": [
+            "https://github.com/petemoore/cjs_elephant_antics_disassembly/blob/master/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45162,7 +45222,9 @@
           "note": "Partial loader/code disassembly plus Go map extractor and reconstructed level maps from the Spectrum tape blocks; development state described explicitly in README."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "elite-spectrum-rasmus-skoolkit",
@@ -45214,8 +45276,8 @@
     },
     {
       "project_id": "chuckie-egg-spectrum-ritchie",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45233,9 +45295,13 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "The README and repository tree contain SkoolKit listings and a snapshot, but no documented reassembly command or generated runnable output; target CPU remains unset.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chuckie/blob/master/README.md",
+            "https://github.com/Ritchie333/chuckie/tree/master"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45258,7 +45324,9 @@
           "note": "Separate Chuckie Egg Spectrum disassembly with assembly and source; Michael Cook’s later independent SkoolKit project credits some of its audio comments. Keep research attribution distinct."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "hunchback-spectrum-ritchie",
@@ -45457,8 +45525,8 @@
     },
     {
       "project_id": "castle-master-ii-spectrum-disassembly",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45476,9 +45544,13 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "not-applicable",
+          "checked_at": "2026-10-03",
+          "note": "The repository publishes annotated and raw disassembly listings only; it documents no reassembly or runnable replacement output to which a target CPU would apply.",
+          "evidence_urls": [
+            "https://github.com/santiontanon/castlemaster2-disassembly/blob/main/README.md",
+            "https://github.com/santiontanon/castlemaster2-disassembly/tree/main"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45501,7 +45573,9 @@
           "note": "Santiago Ontañón’s original and annotated game/loader listings for the Freescape title; includes author interpretation of rendering, clipping and math, with MDL-assisted loader pass. Do not transfer scope to CPC."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "deathchase-go-reimplementation",
@@ -45699,8 +45773,8 @@
     },
     {
       "project_id": "chronos-beeper-spectrum-study",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45718,9 +45792,13 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "reviewed",
+          "checked_at": "2026-10-03",
+          "note": "The Makefile assembles chronos_zxbeeper.asm with Pasmo to a binary before AYMakeR packages the music; the checked source is Z80 assembly.",
+          "evidence_urls": [
+            "https://github.com/ZoomTen/chronos-zxbeeper/blob/master/README.md",
+            "https://github.com/ZoomTen/chronos-zxbeeper/blob/master/Makefile"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45743,12 +45821,14 @@
           "note": "Work-in-progress extracted Tim Follin Chronos music engine with assembly, songs and Makefile, plus notes distinguishing polyphony, bass, melody and drums; a subsystem study, not a whole-game source."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "c64-typein-ocr-reconstruction",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-03",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45766,9 +45846,13 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-03",
+          "note": "The README and repository tree show a mixed collection of BASIC and MLX-derived PRGs tested in VICE, but do not state one common generated CPU architecture. No CPU was inferred from the C64 platform name.",
+          "evidence_urls": [
+            "https://github.com/xopowoparvo/C64-type-in-programs/blob/main/README.md",
+            "https://github.com/xopowoparvo/C64-type-in-programs/tree/main"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45791,7 +45875,9 @@
           "note": "Magazine MLX 2 and BASIC listings parsed from OCR and corrected with JS checksum routines; includes resulting source/PRG variants and VICE test notes. A collection of historically published programs, with reusable conversion tooling at root."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "cdtv-ir-keyboard-protocol",
