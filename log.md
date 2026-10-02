@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-02 — Native ROMs, browser outputs and Firestaff original-media review
+
+Resolved ten queued target-CPU areas. **Epyx Fastload cartridge load routines** and **EXMON II BBC/Electron annotated ROM update** now record explicit 6502 native outputs; **Globe — 6502 demo translated to ARM** now correctly separates its original 6502 source from its ARM port output. **Exile BBC 6502-to-C++ study port** records only its explicitly configured x86-64 Visual Studio output, while **OpenCaptive** records its published x86-64 and arm64 package architectures. Browser JavaScript outputs and music/data-analysis tools are explicitly target-CPU not applicable; no host architecture was inferred from their language or platform.
+
+The upstream-change lane reviewed **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction**. Its PC 3.4 route now defeats the first original-media group and traverses the cleared square; authenticated Atari ST source-order reads correct the fresh-start sensor chain across six editions. DM2 Macintosh work now binds more CHARSHEET control evidence, corrects big-endian wall-actuator interpretation and aligns hitboxes to source RECT_7. XP/RNG parity, complete Mac inventory dispatch, a normal later-map route and a successful live switch interaction remain open.
+
+
 ## 2026-10-02 — Portable outputs, native 6502 targets and active upstream review
 
 Resolved twelve queued target-CPU areas with primary READMEs, repository trees, build files and source directives. **Commander X16 ROM — Commodore-derived system software** now records its explicit 65C02 output; **Edge Grinder — BBC Master 128 port** records the README's plain 2 MHz 6502 target and bounded Master hardware profile. Seven portable Go, .NET, Python, C++, Rust or SCI-VM outputs are explicitly not applicable to a fixed target CPU. **Jetpac — Acorn Electron conversion**, **Knight Lore — Acorn Electron prerelease** and **Lunar Jetman — BBC to Electron conversion** retain empty CPU metadata with `no-evidence-found` audits because their binary-only repositories do not state an output instruction set.
