@@ -5,7 +5,7 @@
 
 Resolved thirteen CPU audit areas across twelve queued projects. **Chronos — Spectrum beeper engine disassembly** and **Chuckie Egg Spectrum SkoolKit disassembly** now record explicit Z80 build outputs; **CIDOS — Commodore disk BASIC commands** records its checked 6502 PRG build; and **easmx — embeddable ASMX fork** records its implemented multi-CPU output families while marking an original source CPU not applicable.
 
-Pure listing/analysis projects are explicitly target-CPU not applicable, and mixed C64 type-ins plus binary-only Electron releases retain no-evidence-found rather than receiving CPUs inferred from their platforms. The upstream-change lane also updated **Elite over Econet — network-loading & multiplayer scoreboard modification** for its 6502 assembled outputs and new selectable Acorn Econet RTC !BOOT build path. No unstated CPU, RAM or minimum-hardware requirement was added.
+Pure listing/analysis projects are explicitly target-CPU not applicable, and mixed C64 type-ins plus binary-only Electron releases retain no-evidence-found rather than receiving CPUs inferred from their platforms. The same primary review corrects **CDTV U75 controller ROM disassembly** to record its explicit Claude-assisted emulator harness and final code review. The upstream-change lane also updated **Elite over Econet — network-loading & multiplayer scoreboard modification** for its 6502 assembled outputs and new selectable Acorn Econet RTC !BOOT build path. No unstated CPU, RAM or minimum-hardware requirement was added.
 
 ## 2026-10-03 — RetroRE residuals, rotated discovery and target-CPU audit
 
