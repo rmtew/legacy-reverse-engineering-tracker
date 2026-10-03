@@ -3110,7 +3110,7 @@
     },
     {
       "project_id": "copperline-amiga-emulator",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-04",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -3133,8 +3133,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "The 1.0.0-rc.1 release and current README provide macOS Homebrew, Linux AppImage and cargo --release installation/build paths: https://github.com/CopperlineHQ/Copperline/releases/tag/v1.0.0-rc.1"
+          "checked_at": "2026-10-04",
+          "note": "Native screenshot and WinUAE-compatible memory-write changes include targeted tests; existing release/source build paths remain valid."
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -5489,7 +5489,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-03",
+      "last_reviewed": "2026-10-04",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5514,13 +5514,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-03",
-          "note": "Reviewed the v3.0.358 evidence commits: authenticated Atari ST SND1 bytes now reach one live food-swallow SDL queue event on three editions; persisted-root menu handoff reaches source-owned startup state for DM1 PC 3.4, CSB FM Towns and DM2 DOS; a retail JP Theron run reaches Akutuba. Upstream explicitly leaves audible/PSG parity, other editions, later gameplay and usable save restoration open."
+          "checked_at": "2026-10-04",
+          "note": "v3.0.360 covers scoped game discovery, authenticated FM Towns selection and source-order CSB sound; DM2 macOS reaches only the post-title menu."
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-03",
-          "note": "The new original-media and menu regressions add no host CPU or RAM minimum. The existing Apple Silicon arm64 smoke remains the only CPU-specific host profile."
+          "checked_at": "2026-10-04",
+          "note": "The Mac mini capture adds no CPU/RAM minimum; existing Apple Silicon smoke remains the only CPU-specific profile."
         },
         "ai": {
           "state": "reviewed",
@@ -5534,13 +5534,11 @@
         }
       },
       "next_actions": [
-        "Compare DM1 first-monster XP, damage, RNG and same-state output with an original-executable capture.",
-        "Verify audible Atari ST playback, overlapping-event arbitration and PSG waveform parity.",
-        "Extend persisted-root menu launch verification to other supported editions and physical desktop interaction.",
-        "Finish Macintosh event-to-inventory-slot dispatch and verify real pickup/placement through normal gameplay.",
-        "Reach a later DM2 Macintosh wall control through a normal route and verify the live switch transaction.",
-        "Verify Theron save-body semantics, reliable save restoration and later campaign consumers.",
-        "Check predecessors, successors, forks and credited source/disassembly relationships."
+        "Compare DM1 combat/RNG with an original capture.",
+        "Verify audible Atari ST/CSB playback and PSG parity.",
+        "Reach DM2 Macintosh dungeon presentation and verify parity.",
+        "Verify Theron save restoration and later campaign consumers.",
+        "Check predecessor/successor/fork and credited-source relationships."
       ]
     },
     {
@@ -19172,8 +19170,8 @@
     },
     {
       "project_id": "packfire-hitchhikr",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -19188,36 +19186,36 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "m68000 and ARM7/ARM9 depacker sources and build files explicitly establish the payload instruction sets."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README, build scripts and platform depackers establish the packaged outputs; not independently rebuilt."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No minimum host CPU, RAM or exact target-hardware floor is stated."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Primary documentation presents PackFire as an original packer, not reconstructed game code."
         }
       },
-      "next_actions": [
-        "Check explicit minimum runtime and hardware against primary documentation",
-        "Verify build and runtime claims with a primary build log or release",
-        "Check upstream and derivative relationships before assigning provenance"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "mastervamp-hitchhikr",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -19232,36 +19230,36 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "makefile.vamp explicitly selects m68080 output."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Primary makefile and beta manual establish a buildable/runnable Vampire program; not independently compiled."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "m68080/68881 output is explicit; no RAM floor is stated."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "manual.txt explicitly credits SMSPlus as a loose basis."
         }
       },
-      "next_actions": [
-        "Check explicit minimum runtime and hardware against primary documentation",
-        "Verify build and runtime claims with a primary build log or release",
-        "Check upstream and derivative relationships before assigning provenance"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "ptvpack-hitchhikr",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -19276,31 +19274,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "makefile.am explicitly compiles with -m68020; source separately enables Vampire extensions."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README, releases and build files establish runnable packer/replay outputs; not independently rebuilt."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Apollo Vampire is explicit, but no generic minimum CPU or RAM is documented."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README defines an original MOD utility rather than RE-derived program lineage."
         }
       },
-      "next_actions": [
-        "Check explicit minimum runtime and hardware against primary documentation",
-        "Verify build and runtime claims with a primary build log or release",
-        "Check upstream and derivative relationships before assigning provenance"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "amostools-kyz",
@@ -20162,8 +20160,8 @@
     },
     {
       "project_id": "peasauce-disassembler-rmtew",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -20178,30 +20176,31 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "Peasauce analyzes binaries and exports source rather than a fixed-architecture executable."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents direct Python execution with Python 3.5+, PyQt5 and Qt.py."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The Python/Qt dependency profile is explicit; no host CPU or RAM minimum is stated."
         },
         "ai": {
           "state": "no-evidence-found",
           "checked_at": "2026-09-25"
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README identifies an interactive disassembler with no reconstructed-runtime lineage."
         }
       },
-      "next_actions": [
-        "Check releases/build results and distinguish tested output from stated feature coverage",
-        "Check provenance and minimum supported target CPU from primary documentation"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "m68k-reversing-toolkit-rmtew",
@@ -20520,7 +20519,7 @@
     },
     {
       "project_id": "rolling-thunder-amiga-jotd",
-      "last_reviewed": "2026-10-02",
+      "last_reviewed": "2026-10-04",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -20545,13 +20544,13 @@
         },
         "build": {
           "state": "needs-research",
-          "checked_at": "2026-10-02",
-          "note": "Commit 9e42239 adds the hardware tester to the default build and new MCU input decoding, but its own TODO still lists scrolling, sprite, display, timing and game-over lockup defects; no complete gameplay route is established."
+          "checked_at": "2026-10-04",
+          "note": "a12807c adds scrolling/background work and CHIPSIZE 0x200000, but checked TODO defects still prevent a complete route."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-28",
-          "note": "Reviewed README, TODO and recent commits state no minimum Amiga CPU, RAM, chipset, Kickstart, or ROM requirements."
+          "checked_at": "2026-10-04",
+          "note": "The build reserves 2 MiB Chip RAM, but upstream does not present this alone as a complete minimum profile."
         },
         "ai": {
           "state": "reviewed",
@@ -20565,8 +20564,9 @@
         }
       },
       "next_actions": [
-        "Verify a successful complete gameplay route after the documented scrolling, sprite and lockup defects are resolved",
-        "Resolve the exact credited arcade-disassembly/conversion lineage from project-specific documentation"
+        "Verify a complete gameplay route after documented defects are resolved",
+        "Confirm whether 2 MiB Chip is the intended released minimum",
+        "Resolve credited arcade-disassembly/conversion lineage"
       ]
     },
     {
@@ -26588,7 +26588,7 @@
     },
     {
       "project_id": "lxa-linux-amiga-layer",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -26612,8 +26612,8 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "README provides build/install commands, prerequisites, launch examples and an extensive automated test suite."
+          "checked_at": "2026-10-04",
+          "note": "v0.11.18 tests pr_SegList semantics against AmigaOS 3.1 probes and extends graphics/layers conformance."
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -28508,8 +28508,8 @@
     },
     {
       "project_id": "c64re-mcp-workbench",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -28528,12 +28528,14 @@
           "checked_at": "2026-09-25"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README/package metadata document npm installation, Node.js 22+ and byte-diff verification; current checks cover cartridge IDs 87-89."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "TRX64 0.12.3 and user-supplied ROMs are required; no host CPU or RAM minimum is stated."
         },
         "ai": {
           "state": "reviewed",
@@ -28544,14 +28546,12 @@
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify build/runtime and any exact-binary claims independently; check additional provenance if needed."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "trx64-reverse-debugger",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -28571,24 +28571,25 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-04",
+          "note": "v0.12.3 covers interrupt-safe debug builds, 1581 ROM lookup and cartridge-ID fixes."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "User-supplied ROMs are required; no host CPU or RAM minimum is stated."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "v0.12.3 commits explicitly include Claude Opus co-author trailers and session links."
         },
         "relationships": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": [
-        "Verify build/runtime and any exact-binary claims independently; check additional provenance if needed."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "pacman-c64-radare2-sajattack",
@@ -42067,7 +42068,7 @@
     },
     {
       "project_id": "sjasmplus-z80-assembler",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -42086,19 +42087,19 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly lists Z80, R800, Z80N, i8080 and LR35902 outputs."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "README or files describe source and/or distribution; no independent build was run."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents source/release builds and more than 512 tests; not independently rebuilt."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Actual minimum CPU and RAM requirements have not been verified."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No minimum host CPU or RAM is stated."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -43069,7 +43070,7 @@
     },
     {
       "project_id": "qtm-vasm-archimedes-byte-identical",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -43088,19 +43089,19 @@
           "note": "Named instruction set or machine target confirmed in README/source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "No independently established minimum runtime CPU or output constraint."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README/source explicitly identify ARM output for the original ARM2-era player."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "README and selected build/source files checked; no independent build performed."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "build.py compares four variants and README reports all matches; not independently rerun."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "No independent hardware compatibility or memory-floor verification."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Arculator playback and 8 MHz ARM2 measurements are reported; no RAM minimum is stated."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -43411,7 +43412,7 @@
     },
     {
       "project_id": "qr128-commodore-qr-generator",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -43430,19 +43431,19 @@
           "note": "CPU named by primary source or the inspected source instruction set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum runnable target or generated output CPU not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly describes completed variants as 6502 assembly."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "README and selected artifacts reviewed; build/run was not independently repeated."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Runnable disk images and corresponding BASIC/assembly sources are supplied; not independently assembled."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Upstream compatibility reports and platform names are not a measured minimum CPU/RAM profile."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No model-specific RAM, ROM or CPU minimum is stated; unfinished MEGA65/X16 targets are excluded."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -44372,7 +44373,7 @@
     },
     {
       "project_id": "planetoid-bbc-r41n60w",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -44391,19 +44392,19 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "The repository is analysis-only and produces no executable target."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Source and upstream claim examined; build and binary comparison not independently rerun."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No assembler/build script or binary-comparison workflow was found."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory and hardware not established by this review."
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "No runnable project output exists."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -44477,7 +44478,7 @@
     },
     {
       "project_id": "plan-b-bbc-tobylobster",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -44496,19 +44497,19 @@
           "note": "Instruction set/platform identified from inspected listing or stated source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Specific minimum native hardware profile not independently determined."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "go_acme assembles a BBC Micro 6502 output."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Source and upstream claim examined; build and binary comparison not independently rerun."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The pipeline compares the rebuilt binary byte-for-byte before producing an SSD; not independently rerun."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory and hardware not established by this review."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No minimum BBC model, RAM or ROM requirement is stated."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -45680,7 +45681,7 @@
     },
     {
       "project_id": "spectrum-48k-rom-skoolkid",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -45699,19 +45700,19 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The source and skool2asm output are explicitly Z80 assembly."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Upstream build/test claims reviewed; not independently rerun."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents assembler-source generation; no exact rebuilt ROM claim was found."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory, timing and compatibility not independently measured."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No machine/ROM/RAM compatibility floor beyond the analyzed 48K ROM is stated."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -45728,7 +45729,7 @@
     },
     {
       "project_id": "simcity-spectrum-z80-suborb",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -45747,19 +45748,19 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "The repository contains analysis only; the aspirational Z88 port is not a produced output."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Upstream build/test claims reviewed; not independently rerun."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No assembler/build pipeline or runnable reconstructed binary is present."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory, timing and compatibility not independently measured."
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "There is no runnable project output."
         },
         "ai": {
           "state": "no-evidence-found",
@@ -46030,7 +46031,7 @@
     },
     {
       "project_id": "star-raiders-atari8-sidney-cadot",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-04",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -46049,19 +46050,19 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The ca65/ld65 build emits a 6502 Atari 8-bit cartridge."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Upstream build/test claims reviewed; not independently rerun."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Makefile builds the 8 KiB image and runs md5sum -c; not independently rebuilt."
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum memory, timing and compatibility not independently measured."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No minimum Atari model, RAM or OS requirement is stated."
         },
         "ai": {
           "state": "no-evidence-found",

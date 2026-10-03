@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-04 — Apollo/BBC/Z80 output audit and active upstream review
+
+Resolved twelve queued target-CPU areas using primary READMEs, makefiles, assembly sources and verification scripts. Explicit outputs now cover **MasterVamp**, **PackFire**, **PtvPack**, **Plan B BBC disassembly**, **qr128**, **QTM v1.49b**, **sjasmplus**, **ZX Spectrum 48K ROM** and **Star Raiders Atari 8-bit source analysis**. **Peasauce**, **Planetoid BBC disassembly** and **Sim City Spectrum Z80 disassembly** are explicitly target-CPU not applicable. No hardware minimum was inferred from a platform or instruction set.
+
+The upstream lane reviewed **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction**, **Copperline — Amiga emulator & reverse debugger**, **lxa — Linux Amiga executable runtime**, **Rolling Thunder — Amiga 68k translation**, **C64RE — MCP-assisted C64 software analysis workbench** and **TRX64 — C64 reverse-debugging emulator/runtime**. Records preserve the exact boundaries of the new evidence rather than promoting bounded tests to complete compatibility.
+
+
 ## 2026-10-04 — Saturn, Apple IIgs and MSX discovery plus target-CPU audit
 
 Reviewed saved NES, arcade, Atari ST, C64 and Amiga leads and rotated fresh searches through Sega Saturn, Apple IIgs and MSX code results. Added **Ultima III: Exodus — NES disassembly**, **Star Wars arcade — audio firmware disassembly**, **Matrix — Atari ST source reconstruction**, **RetroIO — 8-bit disk and tape image inspector**, **Ghidra Sega Saturn Loader**, **Panzer Dragoon Saga — SH-2 reverse-engineering corpus**, **ApplEm — Apple II/IIgs emulator and debugger**, **MSXDAW — byte-exact MSX disassembly workbench**, **Vampire Killer — byte-exact MSX2 disassembly**, **King's Valley II — byte-exact MSX2 disassembly**, **Booga-Boo — byte-checked MSX1 disassembly**, **Zanac — MSX clean-room AI reconstruction and disassembly**, and **Metal Gear — MSX2 disassembly-derived browser port**.
