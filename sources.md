@@ -4,6 +4,19 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/nmikstas/nes_ultima_3_disassembly | Sixteen-bank Ultima Exodus NES disassembly with Ophis reassembly and MD5 comparison |
+| https://github.com/nmikstas/star-wars-arcade-audio | Commented 6809 disassembly of the 1983 Star Wars arcade sound ROM pair |
+| https://github.com/mwenge/matrix_atarist | Atari ST Matrix reconstruction with RMAC build, fixed MD5 and Hatari launch target |
+| https://github.com/mrcook/retroio | Go tooling for Amstrad/C64/Spectrum disk and tape image directories, geometry and BASIC extraction |
+| https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader | Ghidra Saturn ISO/save-state loader with SH-2 register mapping and signatures |
+| https://github.com/Aeonitis/Reverse-Engineer-Azel | Panzer Dragoon Saga SH-2 disassembly, decompilation and disc-analysis corpus |
+| https://github.com/mikedaley/web-a2e | Apple II/IIgs emulator with debugger, disassembler, disk explorer and programmatic control |
+| https://github.com/0xe1f/MSXDAW | Reusable byte-exact MSX/MSX2 disassembly, reassembly and asset-analysis workbench |
+| https://github.com/0xe1f/VampireKiller | Byte-exact, AI-assisted Vampire Killer MSX2 MegaROM disassembly |
+| https://github.com/0xe1f/KingsValley2 | Byte-exact, AI-assisted King's Valley II MSX2 MegaROM disassembly |
+| https://github.com/mcolom/boogaboo_disasm_msx | Z80 Booga-Boo MSX1 disassembly with expected output hash and CAS reconstruction |
+| https://github.com/mgmalheiros/zanac-re | Clean-room Zanac AI research, Z80 disassembly and operator-reviewed Claude knowledge-base workflow |
+| https://github.com/southernsun/MetalGearJS | Playable MSX2-disassembly-derived Metal Gear browser reimplementation with coverage and headless tests |
 | https://github.com/avwohl/mbasic2025 | Lost MBASIC 5.21 CP/M source reconstructed to a byte-identical MACRO-80 build |
 | https://github.com/Egbert-Azure/sdltrs-MultiHDC | TRS-80/TCS Genie IIIs emulator with controller-protocol archaeology, verified CP/M/GDOS boots and Z80 DAP debugging |
 | https://github.com/MiSTer-devel/Apple-Lisa_MiSTer | Apple Lisa MiSTer FPGA core port with explicit LisaFPGA lineage and runnable hardware requirements |

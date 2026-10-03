@@ -1,6 +1,15 @@
 # Search / Report Log
 
 
+## 2026-10-04 — Saturn, Apple IIgs and MSX discovery plus target-CPU audit
+
+Reviewed saved NES, arcade, Atari ST, C64 and Amiga leads and rotated fresh searches through Sega Saturn, Apple IIgs and MSX code results. Added **Ultima III: Exodus — NES disassembly**, **Star Wars arcade — audio firmware disassembly**, **Matrix — Atari ST source reconstruction**, **RetroIO — 8-bit disk and tape image inspector**, **Ghidra Sega Saturn Loader**, **Panzer Dragoon Saga — SH-2 reverse-engineering corpus**, **ApplEm — Apple II/IIgs emulator and debugger**, **MSXDAW — byte-exact MSX disassembly workbench**, **Vampire Killer — byte-exact MSX2 disassembly**, **King's Valley II — byte-exact MSX2 disassembly**, **Booga-Boo — byte-checked MSX1 disassembly**, **Zanac — MSX clean-room AI reconstruction and disassembly**, and **Metal Gear — MSX2 disassembly-derived browser port**.
+
+The same review records six non-promotions rather than leaving them to be rediscovered: three small C64 charity-competition games fall below the substantial-homebrew threshold, **erings** explicitly disclaims a game-development-tool role, **Duke68k** still lacks primary provenance/build documentation, and the **MazeOfGalious** repository was unavailable.
+
+The independent CPU lane resolved eight queued target-CPU areas. Primary source establishes 68000–68060 outputs for **m68k assembler/disassembler — Amiga Hunk aware**, m68000 for **M68k Reversing Toolkit — generated Amiga analysis**, 6502/65C02 for **max65 — Acorn 65xx assembler**, 45GS02 for **m65dbg — MEGA65 remote debugger**, Z80 for **Wanted: Monty Mole — Spectrum disassembly**, and 6502 for **OSKBasic — C64 graphics BASIC extension** and **OSKMon — C64 and VIC-20 machine-code monitor**. **MegaPET — Commodore PET/SuperPET core on MEGA65** is explicitly target-CPU not applicable because its output is an FPGA core. No runtime minimum was inferred from those output architectures.
+
+
 ## 2026-10-03 — Spectrum/BBC target CPUs, Firestaff and Moonstone
 
 Resolved ten queued target-CPU areas with primary READMEs, repository trees and build files. **Exolon Spectrum disassembly**, **Head Over Heels Spectrum annotated reconstruction**, **The Hobbit Spectrum v1.0 annotated disassembly**, **Hunchback Spectrum disassembly** and **Lode Runner Spectrum reconstructed source** now record explicit Z80 native outputs; **image2mode1 — BBC raster palette converter** records its 6502 display-engine output. Four analysis or binary-only projects are explicitly target-CPU not applicable rather than receiving architectures inferred from their platform.

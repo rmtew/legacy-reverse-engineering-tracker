@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-03",
+  "indexed_at": "2026-10-04",
   "area_names": [
     "identity",
     "classification",
@@ -20205,7 +20205,7 @@
     },
     {
       "project_id": "m68k-reversing-toolkit-rmtew",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-04",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -20221,8 +20221,13 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The toolkit renders and validates native Motorola 68000 assembly for tracked Amiga binaries.",
+          "evidence_urls": [
+            "https://github.com/rmtew/amiga-reversing/blob/main/README.md",
+            "https://github.com/rmtew/amiga-reversing/blob/main/docs/reproduction.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -20242,8 +20247,7 @@
         }
       },
       "next_actions": [
-        "Check releases/build results and distinguish tested output from stated feature coverage",
-        "Check provenance and minimum supported target CPU from primary documentation"
+        "Research remaining audit areas: build, runtime_profiles, relationships."
       ]
     },
     {
@@ -20291,7 +20295,7 @@
     },
     {
       "project_id": "m68k-assembler-disassembler-attackwave",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-04",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -20307,8 +20311,12 @@
           "checked_at": "2026-09-25"
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly lists assembler/disassembler target CPU limits for 68000, 68010, 68020, 68030, 68040 and 68060.",
+          "evidence_urls": [
+            "https://github.com/Attackwave/m68k/blob/main/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -20328,8 +20336,7 @@
         }
       },
       "next_actions": [
-        "Check releases/build results and distinguish tested output from stated feature coverage",
-        "Check provenance and minimum supported target CPU from primary documentation"
+        "Research remaining audit areas: build, runtime_profiles, relationships."
       ]
     },
     {
@@ -41362,8 +41369,8 @@
     },
     {
       "project_id": "oskbasic-c64-graphics-extension",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -41381,9 +41388,13 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The checked 6502/6510 assembly builds the C64 cartridge-resident BASIC extension; this is output architecture evidence, not a RAM minimum.",
+          "evidence_urls": [
+            "https://github.com/OldSkoolCoder/OSKBasic/blob/main/OSKBasic.asm",
+            "https://github.com/OldSkoolCoder/OSKBasic/blob/main/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -41406,12 +41417,14 @@
           "note": "Historical original author and modern assembly are the same named contributor; original binary equivalence is untested."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "oskmon-c64-vic20-monitor",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -41429,9 +41442,12 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Primary README documents a native C64/VIC-20 monitor that assembles and disassembles 6510/6502 instructions directly on the machines.",
+          "evidence_urls": [
+            "https://github.com/OldSkoolCoder/OSKMon/blob/main/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -41454,7 +41470,9 @@
           "note": "Separate monitor implementation linked from OldSkoolCoder's tutorial index."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "axewater-winuae-gdb-monitor",
@@ -42308,8 +42326,8 @@
     },
     {
       "project_id": "max65-acorn-assembler",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -42327,9 +42345,12 @@
           "note": "Explicit CPU in project documentation or code."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Potential target instruction set is named, but minimum runtime CPU or generated output constraints were not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The user guide explicitly selects 6502 or 65C02 instruction sets and emits their raw machine-code binaries.",
+          "evidence_urls": [
+            "https://github.com/0xC0DE6502/max65-releases/blob/main/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -42352,7 +42373,9 @@
           "note": "Track the documented binary tool at repository root; do not imply public assembler source or tested operation."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "archieklang-archimedes-synth",
@@ -43286,8 +43309,8 @@
     },
     {
       "project_id": "mega65-m65dbg",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -43305,9 +43328,13 @@
           "note": "CPU named by primary source or the inspected source instruction set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum runnable target or generated output CPU not independently established."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "m65dbg directly disassembles and controls the MEGA65 monitor; checked source implements the GS4510/45GS02 instruction table.",
+          "evidence_urls": [
+            "https://github.com/mega65/m65dbg/blob/master/README.md",
+            "https://github.com/mega65/m65dbg/blob/master/gs4510.c"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -43330,7 +43357,9 @@
           "note": "Credit gurcei/m65dbg parent and MEGA65 project contributors; README names the original upstream and this branch's extended features."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "retrodebugger-c64-atari800-nes",
@@ -43984,8 +44013,8 @@
     },
     {
       "project_id": "megapet-commodore-pet-fpga",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -44003,9 +44032,12 @@
           "note": "CPU named by primary source or the inspected source instruction set."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum runnable target or generated output CPU not independently established."
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "MegaPET produces an FPGA hardware core for MEGA65, not a software binary for a target CPU; the emulated 6502/6809 remain source-side architectures.",
+          "evidence_urls": [
+            "https://github.com/Rhialto/MegaPET/blob/rhialto/README.md"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -44028,7 +44060,9 @@
           "note": "Credit MiSTer2MEGA65 wrapper and earlier PET MiSTer core; track this maintained root rather than duplicate its discontinued predecessor."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "c64-character-rom-glyph-listing",
@@ -45389,8 +45423,8 @@
     },
     {
       "project_id": "monty-mole-spectrum-ritchie",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -45408,9 +45442,13 @@
           "note": "Original instruction set or targeted chip named in inspected source."
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Minimum native hardware profile not independently measured."
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The maintained SkoolKit source describes the original ZX Spectrum Z80 program; generated output remains native Z80 code.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/monty/blob/main/README.md",
+            "https://github.com/Ritchie333/monty/tree/main/src"
+          ]
         },
         "build": {
           "state": "needs-research",
@@ -45433,7 +45471,9 @@
           "note": "Separate annotated Wanted: Monty Mole Spectrum source with build script; short README and src tree establish work, not independently verified exactness."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "exolon-spectrum-sergey-erokhin",
@@ -53188,6 +53228,708 @@
           "evidence_urls": [
             "https://github.com/camthesaxman/zeldasource/blob/master/README.md"
           ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "ultima-exodus-nes-nmikstas",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/nmikstas/nes_ultima_3_disassembly/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/nmikstas/nes_ultima_3_disassembly/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The checked source is NES 6502 assembly.",
+          "evidence_urls": [
+            "https://github.com/nmikstas/nes_ultima_3_disassembly/tree/main/Source_Files"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Ophis rebuilds the sixteen native NES 6502 banks.",
+          "evidence_urls": [
+            "https://github.com/nmikstas/nes_ultima_3_disassembly/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Upstream documents bank assembly and MD5 comparison; not independently rerun.",
+          "evidence_urls": [
+            "https://github.com/nmikstas/nes_ultima_3_disassembly/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No exact console variant or hardware minimum is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Independent repository in Nick Mikstas's NES disassembly cluster."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "star-wars-arcade-audio-firmware",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/nmikstas/star-wars-arcade-audio/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/nmikstas/star-wars-arcade-audio/blob/master/Star_Wars_Sound_ROM.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "A09-compatible source and 6809 instruction syntax identify the firmware ISA.",
+          "evidence_urls": [
+            "https://github.com/nmikstas/star-wars-arcade-audio/blob/master/Star_Wars_Sound_ROM.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The documented A09 reassembly produces native sound-ROM code for the same 6809 board.",
+          "evidence_urls": [
+            "https://github.com/nmikstas/star-wars-arcade-audio/blob/master/Star_Wars_Sound_ROM.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Source says it can be reassembled with A09; no scripted or independent verification found."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No complete board revision or minimum hardware profile is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Audio subsystem is tracked separately from the main arcade program."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "matrix-atari-st-mwenge",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mwenge/matrix_atarist/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mwenge/matrix_atarist/blob/master/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The reconstructed Atari ST source is 68000 assembly.",
+          "evidence_urls": [
+            "https://github.com/mwenge/matrix_atarist/tree/master/src"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "RMAC emits the native Atari ST 68000 program.",
+          "evidence_urls": [
+            "https://github.com/mwenge/matrix_atarist/blob/master/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Makefile assembles, MD5-checks and optionally runs matrix.prg; not independently rerun.",
+          "evidence_urls": [
+            "https://github.com/mwenge/matrix_atarist/blob/master/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "TOS 1.04 is documented as a known Hatari setup, not a minimum CPU/RAM profile."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Part of mwenge's Llamasoft source/reconstruction graph; distinct from the separately tracked C64 Matrix."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "retroio-multiplatform-media-tool",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mrcook/retroio/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mrcook/retroio/blob/master/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "Inputs are disk/tape container and filesystem data, not executable code."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "Portable Go host utility; it emits reports and decoded text rather than native retro binaries."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents go install and concrete command examples.",
+          "evidence_urls": [
+            "https://github.com/mrcook/retroio/blob/master/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No host CPU or RAM minimum is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Independent generic tool from the same author as tracked Spectrum research projects."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "ghidra-sega-saturn-loader",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader/blob/master/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly maps SH-2 PC/PR/R15 and relies on Ghidra SH-1/SH-2 support."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "The extension creates Ghidra analysis state rather than executable output."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Gradle build and Ghidra installation are documented.",
+          "evidence_urls": [
+            "https://github.com/VGKintsugi/Ghidra-SegaSaturn-Loader/blob/master/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "Ghidra 9.1+ is stated; no CPU or RAM floor."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README credits Yabause, yssloader, ApplySig and external Saturn signature work."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "reverse-engineer-azel-panzer-dragoon-saga",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/Aeonitis/Reverse-Engineer-Azel/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/Aeonitis/Reverse-Engineer-Azel/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly identifies Saturn SH-2 code and Ghidra SH-2 analysis."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The maintained assembly/decompilation corresponds to the native SH-2 programs; no host port is claimed."
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No whole-project reassembly or runnable build claim was found."
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "No runnable reconstructed output is documented."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README links the Saturn loader, SH-2 manuals, emulators and related utilities used by the research."
+        }
+      },
+      "next_actions": [
+        "Check whether any individual PRG later gains a reproducible build or execution harness."
+      ]
+    },
+    {
+      "project_id": "applem-apple-ii-emulator-debugger",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mikedaley/web-a2e/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mikedaley/web-a2e/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Machine table explicitly identifies NMOS 6502, 65C02 and 65C816; Z80 SoftCard is also implemented."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "Portable WebAssembly/browser application; no fixed native host CPU output."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents Emscripten/CMake/Node prerequisites and runnable web deployment."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "Historical machine RAM configurations are emulated profiles, not host minimum requirements."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "Agent-control support does not establish AI-assisted implementation."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "One coherent emulator supports four Apple II family machines and their shared tooling."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "msxdaw-disassembly-workbench",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/0xe1f/MSXDAW/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/0xe1f/MSXDAW/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "Generic workbench accepts many game ROMs rather than representing one original subject."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Workbench scaffolds and verifies sjasmplus Z80 ROM source outputs."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents executable helpers, templates and sjasmplus installation."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No host CPU/RAM minimum is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "Agent-facing skills are a workflow feature; development AI use is not asserted."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README says the workbench began with Vampire Killer and is consumed as a submodule by game repositories."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "vampire-killer-msx2-0xe1f",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/0xe1f/VampireKiller/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/0xe1f/VampireKiller/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly identifies Z80 MSX2 ROM disassembly."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "sjasmplus rebuild produces the native Z80 MSX2 ROM."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents clean assembly and SHA-1 identity; not independently rerun."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "MSX2 is stated but no exact RAM/hardware floor beyond the platform is documented."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Human-guided, largely AI-executed workflow explicitly disclosed; tool unnamed."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Consumes MSXDAW as a submodule."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "kings-valley-ii-msx2-0xe1f",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/0xe1f/KingsValley2/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/0xe1f/KingsValley2/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly identifies Z80 MSX2 code."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "sjasmplus rebuild produces the native Z80 MegaROM."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents clean assembly and SHA-1 identity; not independently rerun."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "MSX2/SCC mapper is stated but no minimum RAM profile."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Human-guided, largely AI-executed workflow explicitly disclosed; tool unnamed."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Consumes MSXDAW as a submodule."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "booga-boo-msx-disassembly",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mcolom/boogaboo_disasm_msx/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mcolom/boogaboo_disasm_msx/blob/master/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly calls this Z80 MSX1 code."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "z80asm produces the native MSX binary."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Expected SHA and CAS reconstruction documented; not independently rerun."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No exact MSX model or RAM floor."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README distinguishes the MSX authors from the original Spanish creators."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "zanac-msx-cleanroom-re",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mgmalheiros/zanac-re/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/mgmalheiros/zanac-re/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Full game disassembly is Z80/MSX source."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "sjasmplus source output targets the original Z80 platform."
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-10-04",
+          "note": "README names sjasmplus and validation commands but does not claim a verified byte-identical whole-ROM build."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "No exact MSX model/RAM floor."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Claude Code sprint loop and operator review are explicit."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "The clean-room AI study, full disassembly and knowledge-base tooling are one coherent repository project."
+        }
+      },
+      "next_actions": [
+        "Verify whether the complete source currently reassembles to an original-ROM hash."
+      ]
+    },
+    {
+      "project_id": "metalgearjs-browser-port",
+      "last_reviewed": "2026-10-04",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/southernsun/MetalGearJS/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "evidence_urls": [
+            "https://github.com/southernsun/MetalGearJS/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "Port is explicitly derived from the MSX2 Z80 disassembly."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-04",
+          "note": "JavaScript browser output has no fixed native CPU architecture."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README documents a no-build-step HTTP launch, complete playthrough and headless tests."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04",
+          "note": "Node 18+ is stated for serving; no host CPU or RAM minimum."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-04"
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-04",
+          "note": "README explicitly credits southernsun/MetalGear and GuillianSeed/MetalGear as the source-disassembly lineage."
         }
       },
       "next_actions": []
