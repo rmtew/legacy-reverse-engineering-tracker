@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-03 — Spectrum/BBC target CPUs, Firestaff and Moonstone
+
+Resolved ten queued target-CPU areas with primary READMEs, repository trees and build files. **Exolon Spectrum disassembly**, **Head Over Heels Spectrum annotated reconstruction**, **The Hobbit Spectrum v1.0 annotated disassembly**, **Hunchback Spectrum disassembly** and **Lode Runner Spectrum reconstructed source** now record explicit Z80 native outputs; **image2mode1 — BBC raster palette converter** records its 6502 display-engine output. Four analysis or binary-only projects are explicitly target-CPU not applicable rather than receiving architectures inferred from their platform.
+
+The upstream-change lane reviewed **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** and **Moonstone — Amiga game-specific Windows adaptation**. Firestaff v3.0.358 now records its bounded authenticated Atari ST sound queue, persisted-root handoff for three original-media editions and retail JP Theron Akutuba capture while retaining the stated audio, gameplay and save-restoration limits. Moonstone now reflects the published v1.4.0 local multiplayer release, the tested but unreleased v1.4.1 fullscreen commit, and explicit Codex attribution. No new hardware minimum was inferred.
+
+
 ## 2026-10-03 — Mixed-output CPU audit and Elite over Econet RTC review
 
 Resolved thirteen CPU audit areas across twelve queued projects. **Chronos — Spectrum beeper engine disassembly** and **Chuckie Egg Spectrum SkoolKit disassembly** now record explicit Z80 build outputs; **CIDOS — Commodore disk BASIC commands** records its checked 6502 PRG build; and **easmx — embeddable ASMX fork** records its implemented multi-CPU output families while marking an original source CPU not applicable.
