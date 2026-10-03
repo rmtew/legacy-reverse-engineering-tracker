@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-03T17:19:39Z",
+  "updated_at": "2026-10-03T18:36:21Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -16467,7 +16467,18 @@
         "6502"
       ],
       "target_cpu": [],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "C64RE workbench",
+          "platform": "Windows, Linux or macOS",
+          "os": "Node.js 22 or newer; TRX64 0.12.3; user-supplied Commodore ROMs",
+          "notes": "No minimum host CPU or RAM is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/README.md",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/package.json"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "6502/6510 machine code",
@@ -16491,8 +16502,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -16507,7 +16518,7 @@
         "MCP",
         "reverse engineering"
       ],
-      "notes": "C64-specific disk/cartridge/PRG forensic and semantic-disassembly workbench with MCP interface and project knowledge graph; verification workflow assembles and compares bytes. README states emulation runtime is supplied by the separate TRX64 project, so C64RE itself should not be catalogued as an emulator.",
+      "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and uses TRX64 0.12.3 with user-supplied ROMs. Current checks share private cartridge IDs 87–89 with related tools; C64RE itself is not an emulator.",
       "ai": {
         "usage": true,
         "tools": [
@@ -19626,10 +19637,12 @@
         "byte_exact": null
       },
       "techniques": [
+        "WinUAE-compatible debug output",
         "cycle-driven hardware emulation",
+        "headless deterministic testing",
+        "native-resolution screenshot capture",
         "reverse stepping",
         "source debugging",
-        "headless deterministic testing",
         "state import"
       ],
       "tags": [
@@ -19640,7 +19653,7 @@
         "AI-assisted",
         "retro development"
       ],
-      "notes": "Cycle-driven OCS/ECS/AGA Amiga emulator in Rust with reverse stepping, GDB/DAP source debugging, profiling, headless automation and direct WHDLoad/executable launching. Copperline 1.0.0-rc.1 was published on 26 September 2026 as the first 1.0 release candidate, with desktop three/four-player netplay and expanded debugger/device tracing. Tracked as adjacent reverse-engineering/development tooling.",
+      "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture now crops the active playfield and records original pixels before presentation effects, including RTG and headless/MCP paths; interlaced capture records the current field. Memory-write output now follows WinUAE conventions.",
       "ai": {
         "usage": true,
         "tools": [
@@ -30055,7 +30068,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room, source-faithful engine for Dungeon Master, Chaos Strikes Back, Dungeon Master II, Dungeon Master Nexus and Theron's Quest. Dungeon Master 1 PC/DOS 3.4 is playable/source-locked; a 2 October original-media regression reaches and defeats the first map-1 group, while 3 October Atari ST checks carry authenticated SND1 data through a live food-swallow event into the SDL queue on English, German and French editions. Audible output, overlap arbitration and PSG parity remain unverified. A persisted authenticated collection root now reaches source-owned startup state for DM1 PC 3.4, CSB FM Towns and DM2 DOS through the normal menu handoff, without establishing later gameplay, every edition or physical desktop input. DM2 Macintosh work remains bounded to source-backed controls, big-endian wall actuators and viewport hitboxes. Theron's retail JP route now reaches Akutuba and the first-person dungeon view, but its native BRAM remains an empty save and the emulator autosave does not restore a usable viewport. Nexus remains active real-data bring-up.",
+      "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.360 scopes bare --game scans to the requested game's leaf, selects authenticated FM Towns media and retains simultaneous CSB sounds in source order. A native macOS DM2 capture reaches New/Resume/Quit after the title; upstream does not treat that as physical-M5 testing, dungeon presentation, audio parity or complete gameplay.",
       "ai": {
         "usage": true,
         "tools": [
@@ -44649,7 +44662,7 @@
         "68000",
         "Linux"
       ],
-      "notes": "Runs AmigaOS command-line and application binaries using 68000 CPU emulation with Linux-backed AmigaOS libraries and filesystem calls. README documents building and running example programs; broad compatibility and RTG development are ongoing rather than established for all Amiga software.",
+      "notes": "Runs AmigaOS binaries using 68000 emulation with Linux-backed libraries. v0.11.18 adds AmigaOS 3.1-probed pr_SegList process-array behavior and more graphics/layers conformance; broad compatibility and RTG work remain ongoing.",
       "ai": {
         "usage": true,
         "tools": [
@@ -46114,8 +46127,21 @@
         "Amiga Vampire"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68080"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Apollo Vampire build",
+          "platform": "Amiga Vampire",
+          "cpu_family": "68000 family",
+          "min_cpu": "m68080",
+          "notes": "The Vampire makefile explicitly compiles and assembles for 68080/68881. No RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/hitchhikr/mastervamp/blob/main/makefile.vamp"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -46135,8 +46161,8 @@
       "re_started": null,
       "status": "beta",
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -46145,7 +46171,7 @@
         "Amiga Vampire",
         "tooling"
       ],
-      "notes": "Beta emulator for Sega Master System, Game Gear and SG-1000 and CBS ColecoVision on Apollo Vampire Amiga accelerator cards; project README identifies beta status.",
+      "notes": "Beta SMS, Game Gear, SG-1000 and ColecoVision emulator for Apollo Vampire. Its makefile explicitly selects m68080/68881; the manual credits SMSPlus as a loose basis. No RAM minimum is documented.",
       "ai": {
         "usage": null,
         "tools": []
@@ -52183,7 +52209,11 @@
         "Nintendo DS"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68000",
+        "ARM7",
+        "ARM9"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -52203,8 +52233,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -52215,7 +52245,7 @@
         "Nintendo DS",
         "tooling"
       ],
-      "notes": "Windows-hosted executable packer for Atari ST, X68000 and Nintendo DS, primarily intended for 64K intros; compression support is not a claim of reverse-engineered game source.",
+      "notes": "Windows-hosted executable packer for Atari ST, X68000 and Nintendo DS. Primary depacker/build sources explicitly cover m68000 plus Nintendo DS ARM7 and ARM9 payloads; no minimum host CPU or RAM is stated.",
       "ai": {
         "usage": null,
         "tools": []
@@ -53222,8 +53252,17 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Python/Qt desktop application",
+          "platform": "Windows, Linux or macOS",
+          "notes": "README requires Python 3.5+, PyQt5 and Qt.py; no minimum CPU or RAM is stated.",
+          "evidence": [
+            "https://github.com/rmtew/peasauce/blob/master/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -53246,8 +53285,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": false,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -53262,7 +53301,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Interactive Python/Qt disassembler that loads Amiga, Atari ST and X68000 68k executables, raw binaries with explicit addresses, and editable labels. README says m68k and executable-format support is not complete; no general byte-identical reassembly claim.",
+      "notes": "Interactive Python/Qt disassembler for Amiga, Atari ST and X68000 68k executables. It exports assembler source but no fixed-CPU executable, so target CPU is not applicable.",
       "ai": {
         "usage": null,
         "tools": []
@@ -54667,7 +54706,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -54686,16 +54727,16 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
-        "byte_exact": null
+        "byte_exact": true
       },
       "techniques": [],
       "tags": [
         "BBC Micro"
       ],
-      "notes": "BBC Plan B disassembly with source, original disk, a rebuilt SSD and tool scripts. Distinct from the original game media alone.",
+      "notes": "BBC Plan B 6502 disassembly. go_acme generates source with py8dis, assembles with ACME, compares it byte-for-byte with the original and builds a runnable SSD.",
       "ai": {
         "usage": null,
         "tools": []
@@ -54792,7 +54833,7 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -54811,8 +54852,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": false,
+        "runnable": false,
         "playable": null,
         "byte_exact": null
       },
@@ -54820,7 +54861,7 @@
       "tags": [
         "BBC Micro"
       ],
-      "notes": "Annotated Planetoid 6502 listing with IRQ, sync and game-routine comments, address maps and split sources. README absent; inspected source itself establishes analysis.",
+      "notes": "Annotated Planetoid 6502 listing. No README, assembler pipeline or runnable binary is present, so target CPU and runtime are not applicable to this analysis-only repository.",
       "ai": {
         "usage": null,
         "tools": []
@@ -56156,8 +56197,21 @@
         "Amiga Vampire"
       ],
       "source_cpu": [],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68020"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Apollo Vampire replay",
+          "platform": "Amiga Vampire",
+          "cpu_family": "68000 family",
+          "notes": "README targets Apollo Vampire and makefile.am compiles for m68020. Source enables Vampire extensions; no generic CPU/RAM floor is claimed.",
+          "evidence": [
+            "https://github.com/hitchhikr/ptvpack/blob/main/README.md",
+            "https://github.com/hitchhikr/ptvpack/blob/main/makefile.am"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -56177,8 +56231,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -56187,7 +56241,7 @@
         "Amiga Vampire",
         "tooling"
       ],
-      "notes": "ProTracker/NoiseTracker/FastTracker MOD packer and replay routine for Apollo Vampire hardware; README describes 1–16 channels and optional sample packing. Windows and Amiga command-line packers supplied.",
+      "notes": "MOD packer and replay routine for Apollo Vampire. The Amiga build explicitly selects m68020 while replay source enables Vampire extensions; this is not a compatibility claim for every 68020 Amiga.",
       "ai": {
         "usage": null,
         "tools": []
@@ -56943,7 +56997,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -56960,8 +57016,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -56971,7 +57027,7 @@
         "Commodore 64",
         "VIC-20"
       ],
-      "notes": "BASIC and assembly QR generator and reusable 6502 routines with source directories and disk images for C128, C64 and VIC-20. README says assembly support for MEGA65 and X16 is unfinished; neither is listed as a proven runnable target.",
+      "notes": "BASIC and assembly QR generator with reusable 6502 routines and disk images for C128, C64 and VIC-20. MEGA65 and X16 support is explicitly unfinished.",
       "ai": {
         "usage": null,
         "tools": []
@@ -56998,8 +57054,20 @@
       "source_cpu": [
         "ARM2"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "ARM2"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "QTM v1.49b reconstructed builds",
+          "platform": "Acorn Archimedes",
+          "cpu_family": "ARM",
+          "notes": "README reports four byte-identical variants, Arculator playback and timing measurements on an 8 MHz ARM2. This is a test context, not a universal RAM minimum.",
+          "evidence": [
+            "https://github.com/kieranhj/qtm-vasm/blob/main/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [],
@@ -57018,16 +57086,16 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
-        "byte_exact": null
+        "byte_exact": true
       },
       "techniques": [],
       "tags": [
         "Acorn Archimedes"
       ],
-      "notes": "Steve Harrison's tokenized BBC BASIC V assembler source transformed into editable vasm ARM syntax; build.py compares four variants byte-for-byte against supplied references. Original QTM by Steve Harrison; the README reports successful matches and an Arculator run, which were not independently repeated here.",
+      "notes": "Steve Harrison's tokenized BBC BASIC V ARM source transformed into editable vasm syntax. build.py checks four variants byte-for-byte; README reports Arculator playback and 8 MHz ARM2 measurements.",
       "ai": {
         "usage": null,
         "tools": []
@@ -60939,7 +61007,7 @@
         "68k",
         "game"
       ],
-      "notes": "Substantial Namco System 86 to Amiga work with original dual-6809/MCU listings, a game-specific Amiga assembly driver and WHDLoad slave. Current code adds a built hardware-tester image and moves MCU input decoding into the interrupt path for joypad/keyboard control, but the tracked TODO still lists scrolling, sprite, display and game-over lockup problems. The copied Jail Break README is not used for controls, build, completion, or hardware claims.",
+      "notes": "Namco System 86 to Amiga translation. Current work re-enables X/Y scrolling and draws a second background layer; the build now reserves 2 MiB Chip RAM, but that allocation is not treated as a documented minimum guarantee. Display, collision, sprite and lockup defects remain open.",
       "ai": {
         "usage": true,
         "tools": [
@@ -63999,7 +64067,7 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -64018,8 +64086,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": false,
+        "runnable": false,
         "playable": null,
         "byte_exact": null
       },
@@ -64027,7 +64095,7 @@
       "tags": [
         "ZX Spectrum"
       ],
-      "notes": "Work-in-progress Spectrum Sim City code analysis identifying UI and simulation processes, assets and disassembly; initial port-to-Z88 goal is not claimed as completed.",
+      "notes": "Work-in-progress Spectrum Sim City Z80 analysis. The README's initial Z88-port goal has no produced port or build, so target CPU and runtime are not applicable.",
       "ai": {
         "usage": null,
         "tools": []
@@ -64105,7 +64173,13 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "Z80",
+        "R800",
+        "Z80N",
+        "8080",
+        "LR35902"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -64122,8 +64196,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -64132,7 +64206,7 @@
         "ZX Spectrum",
         "Amstrad CPC"
       ],
-      "notes": "Z80 family cross assembler with Spectrum and CPC directives, macros, Lua scripting and virtual machine output modes; README describes an import from the original Aprisobal SourceForge repository. Continuation of earlier sjasmplus work, not a reconstructed game.",
+      "notes": "Cross assembler with explicit Z80, R800, Z80N, Intel 8080 and LR35902 opcode support. README documents source/release builds and 512+ tests; no minimum host CPU or RAM is stated.",
       "ai": {
         "usage": true,
         "tools": [
@@ -66340,7 +66414,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -66360,16 +66436,16 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
-        "byte_exact": null
+        "byte_exact": true
       },
       "techniques": [],
       "tags": [
         "Atari 8-bit"
       ],
-      "notes": "Work-in-progress Atari 400/800 Star Raiders assembly, original cartridge reference and Makefile/MD5 data; 8-bit Atari title, not an Atari ST binary.",
+      "notes": "Atari 400/800 Star Raiders 6502 reconstruction. The ca65/ld65 Makefile builds an 8 KiB cartridge and verifies it against the supplied MD5 checksum.",
       "ai": {
         "usage": null,
         "tools": []
@@ -72637,7 +72713,16 @@
         "6502"
       ],
       "target_cpu": [],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "TRX64 headless runtime",
+          "platform": "Windows, Linux or macOS",
+          "notes": "README requires user-supplied Commodore ROMs and documents JSON-RPC. No minimum host CPU or RAM is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/TRX64/blob/main/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "6502/6510 machine code",
@@ -72676,7 +72761,7 @@
         "Commodore 64",
         "6502"
       ],
-      "notes": "Separate headless C64/1541/1581 runtime used by C64RE. README documents reverse stepping, rewind, write provenance, observer breakpoints and CPU/drive tracing exposed through JSON-RPC; ROMs must be supplied by the user. Included for reverse-debugging capabilities rather than as a game reconstruction.",
+      "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.3 hardens interrupt/debug handling, corrects 1581 ROM lookup, records measured C64 Ultimate turbo behavior and shares cartridge IDs 87–89 with related tools. ROMs remain user-supplied.",
       "ai": {
         "usage": true,
         "tools": [
@@ -78255,7 +78340,9 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "Z80"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -78274,7 +78361,7 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": null
@@ -78283,7 +78370,7 @@
       "tags": [
         "ZX Spectrum"
       ],
-      "notes": "SkoolKid’s annotated Spectrum 48K ROM source in SkoolKit format with hexadecimal/decimal HTML and assembly generation; same maintainer’s toolkit is separately tracked.",
+      "notes": "SkoolKid’s annotated ZX Spectrum 48K ROM. skool2asm generates assembler-ready Z80 source; no verified byte-identical ROM rebuild is claimed.",
       "ai": {
         "usage": null,
         "tools": []
