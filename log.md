@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-05 — Oric/Lynx/DOS discovery and target-CPU audit
+
+Rotated fresh discovery through exact FM Towns, Oric/Atmos and Atari Lynx searches. Added **Oric Explorer — media browser and 6502 analysis tool**, **OSDK — Oric cross-development system**, **Blake's 7 — original Oric fan adventure**, **Gearlynx — Atari Lynx emulator and MCP debugger**, **Super Mario Bros. — RE-derived native Atari Lynx port**, **ALYNXDJ — original Atari Lynx music tracker**, **Ultima V — u5d decompilation and playable reconstruction**, and **Stunts 1.1 — restunts2 executable reconstruction**. The records distinguish OSDK's official-project identity from its Git mirror, and keep Blake's 7 and ALYNXDJ explicitly classified as original fan/homebrew work rather than reverse-engineered derivatives.
+
+The independent CPU lane resolved ten queued target areas. Primary READMEs, assembler source and build scripts establish ARM2/ARM250, 6502 and m68000/m68020 outputs where explicit. **dis68k**, **Ghidra Amiga hunks loader** and **MEGA65 I/O symbol generator** are target-CPU not applicable because they produce text, analysis state or symbol definitions rather than runnable CPU-native output. No hardware minimum was inferred from platform or source language.
+
+
 ## 2026-10-04 — MSX/BBC/Amiga output audit and active toolchain review
 
 Resolved ten queued target-CPU areas with primary READMEs, repository trees and build scripts. **Stardust MSX annotated tape reconstruction** now records its verified Z80 reassembly output; **MNT VA2000 — reverse-engineered Picasso96 driver** records the driver's explicit `-m68020` build; **AmigaAsm** records m68000 assembly export; and **vasm m68k MOT — Amiga debugging variant** records its documented 68000-family selectors. **Archie-FACE — Archimedes C demo environment** now explicitly records that its primary build files do not name a specific ARM CPU output. Analysis archives, host tools and unsupported listings are `not-applicable` or `no-evidence-found` rather than inheriting CPUs from platform labels.

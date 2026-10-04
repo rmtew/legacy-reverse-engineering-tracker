@@ -4,6 +4,14 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/oric-software/OricExplorer | Oric media browser with tape/disk parsing, graphics inspection, BASIC viewing and explicit 6502 disassembly |
+| https://github.com/nekoniaow/OSDK | Git mirror of the official Oric cross-development system; tracked as one OSDK project with mirror status preserved |
+| https://github.com/chema-retro/Blakes7-oric-game | Original Oric fan adventure with OSDK-buildable source and documented real-hardware disk requirements |
+| https://github.com/drhelius/Gearlynx | Atari Lynx emulator/debugger with self-modifying-code-aware disassembly, hardware inspection and an embedded MCP server |
+| https://github.com/pwsqrd/lynx_smb | Native Lynx port executing complete-disassembly-derived NES 6502 logic through a 65C02 hardware adapter layer |
+| https://github.com/little-scale/alynxdj | Original native Atari Lynx music tracker with real-hardware verification, ComLynx/MIDI bridging and sample tooling |
+| https://github.com/wonst719/u5d | Playable Ultima V decompilation with assembly-level semantic matching and modern/DOS build routes |
+| https://github.com/dstien/restunts2 | Stunts 1.1 executable reconstruction with Ghidra export, reproducible DOS builds and differential verification |
 | https://github.com/nmikstas/nes_ultima_3_disassembly | Sixteen-bank Ultima Exodus NES disassembly with Ophis reassembly and MD5 comparison |
 | https://github.com/nmikstas/star-wars-arcade-audio | Commented 6809 disassembly of the 1983 Star Wars arcade sound ROM pair |
 | https://github.com/mwenge/matrix_atarist | Atari ST Matrix reconstruction with RMAC build, fixed MD5 and Hatari launch target |
