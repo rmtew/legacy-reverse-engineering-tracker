@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-04 — MSX/BBC/Amiga output audit and active toolchain review
+
+Resolved ten queued target-CPU areas with primary READMEs, repository trees and build scripts. **Stardust MSX annotated tape reconstruction** now records its verified Z80 reassembly output; **MNT VA2000 — reverse-engineered Picasso96 driver** records the driver's explicit `-m68020` build; **AmigaAsm** records m68000 assembly export; and **vasm m68k MOT — Amiga debugging variant** records its documented 68000-family selectors. **Archie-FACE — Archimedes C demo environment** now explicitly records that its primary build files do not name a specific ARM CPU output. Analysis archives, host tools and unsupported listings are `not-applicable` or `no-evidence-found` rather than inheriting CPUs from platform labels.
+
+The upstream lane reviewed **IK+ — Atari ST compatibility and three-player patches**, **lxa — Linux Amiga executable runtime**, **Amy Studio — browser-based ColecoVision development environment** and **Dotnet6502 — 6502 JIT decompiler to .NET MSIL**. The records now preserve IK+ version 7's exact input/build/runtime bounds, lxa's AmigaOS 3.1 probe corrections, Amy Studio's gasm80-compatible assembler and Coleco ADAM support, and Dotnet6502's documented runnable JIT paths without inventing unstated host minima.
+
+
 ## 2026-10-04 — Apollo/BBC/Z80 output audit and active upstream review
 
 Resolved twelve queued target-CPU areas using primary READMEs, makefiles, assembly sources and verification scripts. Explicit outputs now cover **MasterVamp**, **PackFire**, **PtvPack**, **Plan B BBC disassembly**, **qr128**, **QTM v1.49b**, **sjasmplus**, **ZX Spectrum 48K ROM** and **Star Raiders Atari 8-bit source analysis**. **Peasauce**, **Planetoid BBC disassembly** and **Sim City Spectrum Z80 disassembly** are explicitly target-CPU not applicable. No hardware minimum was inferred from a platform or instruction set.
