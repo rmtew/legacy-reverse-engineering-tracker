@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-04T15:23:47Z",
+  "updated_at": "2026-10-04T16:20:52Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -3972,6 +3972,93 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "alynxdj-atari-lynx-music-tracker": {
+      "id": "alynxdj-atari-lynx-music-tracker",
+      "title": "ALYNXDJ",
+      "upstream_name": "ALYNXDJ",
+      "display_title": "ALYNXDJ — original Atari Lynx music tracker",
+      "subjects": [
+        "ALYNXDJ"
+      ],
+      "repo": "https://github.com/little-scale/alynxdj",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Atari Lynx"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "65C02"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Atari Lynx ROM",
+          "platform": "Atari Lynx",
+          "cpu_family": "6502",
+          "min_cpu": "65C02",
+          "min_ram_kib": 64,
+          "chipsets": [
+            "Mikey",
+            "Suzy"
+          ],
+          "notes": "Primary design documentation states one 65C02, 64 KiB unified RAM and native Mikey/Suzy use; save persistence additionally requires a 2 KiB 93C86-compatible EEPROM.",
+          "evidence": [
+            "https://github.com/little-scale/alynxdj/blob/main/DESIGN.md",
+            "https://github.com/little-scale/alynxdj/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "ca65 assembly",
+        "Python",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "original homebrew",
+        "music tracker"
+      ],
+      "re_started": null,
+      "status": "beta",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "native cc65 build",
+        "Mikey audio programming",
+        "ComLynx synchronization",
+        "sample-bank streaming",
+        "hardware regression testing"
+      ],
+      "tags": [
+        "Atari Lynx",
+        "65C02",
+        "music tracker",
+        "homebrew"
+      ],
+      "notes": "Original Lynx homebrew music tracker, not reverse-engineered or RE-derived. Upstream documents a native 65C02 .lnx build, real-hardware validation, four-channel Mikey synthesis, streamed PCM kits, EEPROM persistence and ComLynx/MIDI bridging.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "amaurote-128-spectrum-analyser": {
@@ -8890,7 +8977,10 @@
       "source_cpu": [
         "ARM2"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "ARM2",
+        "ARM250"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -14509,6 +14599,79 @@
         "Acorn Electron"
       ],
       "notes": "Distributed disk/tape binary revision speeds up the original Electron Blagger and removes the stand-on-plant/rotating-spike feature, per README; no source or patch script published here. Credit original Blagger; classify as documented binary modification, without claiming reconstructed source.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "blakes-7-oric-fan-adventure": {
+      "id": "blakes-7-oric-fan-adventure",
+      "title": "Blake's 7",
+      "upstream_name": "Blake's 7",
+      "display_title": "Blake's 7 — original Oric fan adventure",
+      "subjects": [
+        "Blake's 7"
+      ],
+      "repo": "https://github.com/chema-retro/Blakes7-oric-game",
+      "project_url": "https://www.defence-force.org/index.php?game=blakes7&page=games",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Oric-1",
+        "Oric Atmos"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Oric disk release",
+          "platform": "Oric-1 or Oric Atmos",
+          "chipsets": [],
+          "notes": "Requires a floppy disk drive; the documented image is double-sided, 40 tracks and 17 sectors.",
+          "evidence": [
+            "https://github.com/chema-retro/Blakes7-oric-game/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "OASIS scripts"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original fan game",
+        "point-and-click adventure"
+      ],
+      "re_started": null,
+      "status": "released",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "OSDK disk-image build",
+        "scripted point-and-click engine",
+        "floppy release"
+      ],
+      "tags": [
+        "Oric",
+        "6502",
+        "fan game",
+        "adventure"
+      ],
+      "notes": "Original non-commercial fan-made point-and-click adventure for Oric, not a reverse-engineered or RE-derived work. The repository supplies the 6502-style assembly and OSDK build configuration; upstream documents real Oric and emulator use.",
       "ai": {
         "usage": null,
         "tools": []
@@ -31189,7 +31352,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -32071,6 +32236,81 @@
         "tools": [
           "GitHub Copilot"
         ]
+      }
+    },
+    "gearlynx-atari-lynx-mcp-debugger": {
+      "id": "gearlynx-atari-lynx-mcp-debugger",
+      "title": "Gearlynx",
+      "upstream_name": "Gearlynx",
+      "display_title": "Gearlynx — Atari Lynx emulator and MCP debugger",
+      "subjects": [],
+      "repo": "https://github.com/drhelius/Gearlynx",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari Lynx"
+      ],
+      "target_platforms": [
+        "Windows",
+        "macOS",
+        "Linux",
+        "BSD",
+        "RetroArch"
+      ],
+      "source_cpu": [
+        "65C02"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Atari Lynx ROM images",
+        "65C02 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "disassembler",
+        "binary-analysis",
+        "graphics-debugger"
+      ],
+      "types": [
+        "Atari Lynx emulator",
+        "MCP debugging server"
+      ],
+      "re_started": null,
+      "status": "active",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cycle-accurate emulation",
+        "run-ahead disassembly",
+        "breakpoints",
+        "symbol loading",
+        "memory inspection",
+        "MCP tool exposure"
+      ],
+      "tags": [
+        "Atari Lynx",
+        "65C02",
+        "debugger",
+        "MCP"
+      ],
+      "notes": "Cross-platform Lynx emulator with full debugger, self-modifying-code-aware run-ahead disassembly, symbol loading, hardware viewers, trace output and headless MCP control for AI-assisted debugging. MCP support is a user-facing capability and is not treated as evidence that the emulator itself was AI-developed.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "gearsystem-sega-mcp-debugger": {
@@ -44711,6 +44951,80 @@
         ]
       }
     },
+    "super-mario-bros-atari-lynx-port": {
+      "id": "super-mario-bros-atari-lynx-port",
+      "title": "lynx_smb",
+      "upstream_name": "Super Mario Bros. — Atari Lynx Port",
+      "display_title": "Super Mario Bros. — RE-derived native Atari Lynx port",
+      "subjects": [
+        "Super Mario Bros."
+      ],
+      "repo": "https://github.com/pwsqrd/lynx_smb",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "Atari Lynx"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "65C02"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "NES 6502 machine code",
+        "NES ROM assets"
+      ],
+      "reconstructed_languages": [
+        "ca65 assembly",
+        "Python",
+        "Make"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "native port"
+      ],
+      "re_started": null,
+      "status": "work in progress",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "complete-disassembly reuse",
+        "6502-to-65C02 adaptation",
+        "PPU-to-Suzy translation",
+        "APU-to-Mikey translation",
+        "ROM asset extraction"
+      ],
+      "tags": [
+        "NES",
+        "Atari Lynx",
+        "6502",
+        "65C02",
+        "native port"
+      ],
+      "notes": "Runs the original NES 6502 game logic from a complete disassembly on the Lynx 65C02. A thin adapter translates NES PPU, APU and controller access to Suzy, Mikey and Lynx input; the build verifies a user-supplied ROM and emits an .lnx image.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "discovery-lzkn": {
       "id": "discovery-lzkn",
       "title": "LZ Konami compression tools",
@@ -51833,6 +52147,82 @@
         "tools": []
       }
     },
+    "oric-explorer-media-analysis-tool": {
+      "id": "oric-explorer-media-analysis-tool",
+      "title": "Oric Explorer",
+      "upstream_name": "Oric Explorer",
+      "display_title": "Oric Explorer — media browser and 6502 analysis tool",
+      "subjects": [],
+      "repo": "https://github.com/oric-software/OricExplorer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Oric-1",
+        "Oric Atmos",
+        "Oric Telestrat"
+      ],
+      "target_platforms": [
+        "Windows",
+        "macOS",
+        "Linux"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": null,
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Oric tape and disk images",
+        "6502 machine code",
+        "Oric BASIC"
+      ],
+      "reconstructed_languages": [
+        "C#"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "disassembler",
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "media collection browser",
+        "6502 disassembler"
+      ],
+      "re_started": null,
+      "status": "maintenance",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6502 disassembly",
+        "BASIC listing",
+        "hex inspection",
+        "Oric disk and tape parsing",
+        "graphics and character-set viewing"
+      ],
+      "tags": [
+        "Oric",
+        "6502",
+        ".NET"
+      ],
+      "notes": "Maintained source release of Scott Davies's Oric media browser. It reads multiple tape/disk formats, renders Oric graphics and BASIC, and exposes machine-code programs as 6502 assembly; the README documents manual Visual Studio builds and notes that disk writing remains incomplete.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "oscar64nvim-c64-neovim-development": {
       "id": "oscar64nvim-c64-neovim-development",
       "title": "oscar64nvim — C64 build and debug integration",
@@ -51891,6 +52281,72 @@
       "notes": "Marcin Grzybowski's Lua/Vim integration connects Oscar64 with Neovim, VICE and RetroDebugger. Inspected source parses oscar64.json, creates output directories, generates language-server flags, runs async jobs and opens compiler assembly read-only. README explicitly credits AI as an author without naming a model/tool. Install/usage instructions are present but this review did not execute the plugin.",
       "ai": {
         "usage": true,
+        "tools": []
+      }
+    },
+    "oric-software-development-kit": {
+      "id": "oric-software-development-kit",
+      "title": "OSDK",
+      "upstream_name": "Oric Software Development Kit",
+      "display_title": "OSDK — Oric cross-development system",
+      "subjects": [],
+      "repo": "https://github.com/nekoniaow/OSDK",
+      "project_url": "https://osdk.org/",
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Oric-1",
+        "Oric Atmos",
+        "Oric Telestrat"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "6502 assembly",
+        "batch"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "assembler-toolchain",
+        "development-environment",
+        "asset-tool",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "cross-development SDK"
+      ],
+      "re_started": null,
+      "status": "released",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cross-compilation",
+        "assembly",
+        "disk-image construction",
+        "asset conversion"
+      ],
+      "tags": [
+        "Oric",
+        "6502",
+        "SDK"
+      ],
+      "notes": "Complete Windows-hosted cross-development system for the Oric 1, Atmos and Telestrat. This GitHub repository explicitly mirrors the official Subversion source and does not supersede it; the catalogue record represents OSDK itself, not a distinct fork.",
+      "ai": {
+        "usage": null,
         "tools": []
       }
     },
@@ -55875,7 +56331,9 @@
       "source_cpu": [
         "ARM2"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "ARM250"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -56913,7 +57371,9 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -57908,7 +58368,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -59168,7 +59630,10 @@
         "m68000",
         "m68020"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68000",
+        "m68020"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -59204,6 +59669,94 @@
         "tooling"
       ],
       "notes": "Portable Amiga Hunk disassembler recognizing library calls and some jump tables, with 680x0 and FPU decoding. README reports testing against Civilization ECS, LightWave and an 020-era lha.exe, and documents partial Hunk coverage; the similarly named ReSource project is a separate record.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "restunts2-stunts-reconstruction": {
+      "id": "restunts2-stunts-reconstruction",
+      "title": "restunts2",
+      "upstream_name": "restunts2",
+      "display_title": "Stunts 1.1 — restunts2 executable reconstruction",
+      "subjects": [
+        "Stunts 1.1",
+        "4D Sports Driving"
+      ],
+      "repo": "https://github.com/dstien/restunts2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MS-DOS",
+        "FM Towns",
+        "FM Towns Marty"
+      ],
+      "target_platforms": [
+        "MS-DOS",
+        "Linux"
+      ],
+      "source_cpu": [
+        "8086",
+        "i386"
+      ],
+      "target_cpu": [
+        "8086",
+        "i386",
+        "x86-64"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "8086 machine code",
+        "i386 machine code"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly",
+        "C",
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "automation"
+      ],
+      "types": [
+        "executable reconstruction",
+        "Ghidra export tooling"
+      ],
+      "re_started": null,
+      "status": "archived functional",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra collaborative analysis",
+        "assembler export",
+        "layout-preserving reconstruction",
+        "frame-state differential testing",
+        "incremental C porting"
+      ],
+      "tags": [
+        "Stunts",
+        "MS-DOS",
+        "FM Towns",
+        "8086",
+        "i386",
+        "Ghidra"
+      ],
+      "notes": "Archived successor to the original restunts project. It recreates a working, debuggable 16-bit DOS Stunts 1.1 executable with Open Watcom, exports assembler from collaborative Ghidra analysis and verifies ported C against original code; DOS32 and Linux x86-64 targets are test-only, not playable games.",
       "ai": {
         "usage": null,
         "tools": []
@@ -73464,6 +74017,79 @@
         "tools": []
       }
     },
+    "ultima-v-u5d-decompilation": {
+      "id": "ultima-v-u5d-decompilation",
+      "title": "u5d",
+      "upstream_name": "u5d - Ultima V Decompilation Project",
+      "display_title": "Ultima V — u5d decompilation and playable reconstruction",
+      "subjects": [
+        "Ultima V: Warriors of Destiny"
+      ],
+      "repo": "https://github.com/wonst719/u5d",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MS-DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "MS-DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "decompilation",
+        "playable reconstruction"
+      ],
+      "re_started": null,
+      "status": "playable work in progress",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": false
+      },
+      "techniques": [
+        "assembly-level semantic matching",
+        "overlay reconstruction",
+        "original-toolchain comparison",
+        "cross-platform reference disassembly"
+      ],
+      "tags": [
+        "Ultima V",
+        "MS-DOS",
+        "x86",
+        "decompilation"
+      ],
+      "notes": "Ongoing decompilation of MS-DOS Ultima V v1.16, approximately 95% matched excluding assembly functions and playable through the ending with original data. Upstream says perfect binary matching is currently impossible because the original PLINK86 linker is unknown; FM Towns disassemblies are supporting references, not a separate target.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "uae-core-bernds": {
       "id": "uae-core-bernds",
       "title": "UAE",
@@ -74929,7 +75555,9 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "6502"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
