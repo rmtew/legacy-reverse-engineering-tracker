@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-04T02:43:03Z",
+  "updated_at": "2026-10-04T06:21:28Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -5985,7 +5985,9 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68020"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [
@@ -6008,7 +6010,7 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": null
@@ -6017,7 +6019,7 @@
       "tags": [
         "Amiga"
       ],
-      "notes": "The hardware repository includes authored Amiga RTG driver source under drivers/gfx; README describes reverse-engineering the Picasso96 driver interface to get Workbench running. Scope is the driver, not a claim that the graphics-card hardware is software archaeology.",
+      "notes": "The hardware repository includes the reverse-engineered Picasso96 Amiga RTG driver under drivers/gfx. Its primary build script explicitly invokes m68k-amigaos-gcc with -m68020 and produces mntgfx.card; the README records Workbench running through the driver, but states no RAM floor.",
       "ai": {
         "usage": null,
         "tools": []
@@ -6042,7 +6044,7 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -6074,7 +6076,7 @@
         "Amiga",
         "tooling"
       ],
-      "notes": "Collection of Amiga 68k analysis scripts. Its 68kchecker scans IRA-generated disassembly for branches with no memory writes, self-modifying code and supervisor/VBR accesses; tool documentation names IRA and Python 2.5 prerequisites.",
+      "notes": "Host-side Python/Rust utilities for Amiga object analysis and WHDLoad patching. The primary readme documents IRA-assisted resourcing, relocation and patch-list analysis, memory-dump scanning and 68k CPU-dependent-code detection; the tools do not emit one fixed native target executable.",
       "ai": {
         "usage": null,
         "tools": []
@@ -6160,7 +6162,9 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68000"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -7179,7 +7183,7 @@
         "Amiga AMOS"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -7202,8 +7206,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -7212,7 +7216,7 @@
         "Amiga AMOS",
         "tooling"
       ],
-      "notes": "dumpamos extracts AMOS source and memory banks, listamos renders AMOS source as plaintext, and unlockamos unlocks procedures. Third-party AMOS extensions may be needed to decode tokens correctly.",
+      "notes": "Portable host tools for AMOS programs: dumpamos extracts source and memory banks, listamos renders source as text, and unlockamos unlocks procedures. The primary Makefile builds all three with GCC; the README documents command-line use and extension-token requirements, but no host CPU/RAM floor.",
       "ai": {
         "usage": null,
         "tools": []
@@ -7676,7 +7680,8 @@
       "github_branch": null,
       "source_platforms": [],
       "target_platforms": [
-        "ColecoVision"
+        "ColecoVision",
+        "Coleco ADAM"
       ],
       "source_cpu": [],
       "target_cpu": [
@@ -7722,15 +7727,19 @@
         "source breakpoints",
         "instruction stepping",
         "CPU/VDP/RAM/VRAM inspection",
-        "cycle profiling"
+        "cycle profiling",
+        "gasm80-compatible Z80 assembly",
+        "ADAM EOS project support",
+        "ADAM serial/debug input"
       ],
       "tags": [
         "ColecoVision",
         "Z80",
         "homebrew",
-        "browser development"
+        "browser development",
+        "Coleco ADAM"
       ],
-      "notes": "Runnable browser development environment containing the Amy compiler/transpiler/optimizer, Z80 runtime and assembler, compression codecs, examples and a self-hosted GearColeco test/debug core. It is substantial original development tooling, not a reverse-engineered subject.",
+      "notes": "Runnable browser development environment with the Amy compiler/transpiler/optimizer, a gasm80-compatible Z80 assembler, compression codecs, examples and a self-hosted GearColeco debugger. Current commits add native Coleco ADAM EOS filesystem/project, serial-presence and debugger-keyboard support. It is substantial original development tooling, not a reverse-engineered subject.",
       "ai": {
         "usage": true,
         "tools": [
@@ -8829,10 +8838,8 @@
       "target_platforms": [
         "Acorn Archimedes"
       ],
-      "source_cpu": [
-        "ARM2"
-      ],
-      "target_cpu": null,
+      "source_cpu": [],
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -8849,7 +8856,7 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": null
@@ -10274,7 +10281,7 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -10308,7 +10315,7 @@
         "Atari ST",
         "subject"
       ],
-      "notes": "Ghidra archive of the French TOS 1.00 192 KB ROM, intended to document internals, find bugs and support Atari ST software. README documents importing the archive; no reassembled ROM or byte-identical output is claimed.",
+      "notes": "Ghidra archive of the French TOS 1.00 192 KB ROM, intended to document internals, find bugs and support Atari ST software. The primary README documents restoring the GAR archive with Ghidra and JDK 21+; it claims no generated executable, reassembled ROM or byte-identical output.",
       "ai": {
         "usage": null,
         "tools": []
@@ -23908,18 +23915,23 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "6502 instruction tracing",
+        "intermediate representation",
+        ".NET MSIL generation",
+        "self-modifying-code invalidation and fallback"
+      ],
       "tags": [
         "Commodore 64",
         "NES",
         "reverse-engineering tooling"
       ],
-      "notes": "Traces 6502 code into IR and emits .NET MSIL for execution, with C64 and NES example emulators; JIT handles self-modifying code via invalidation. Distinct from highbyte/dotnet-6502 system emulator.",
+      "notes": "Traces 6502 code into an intermediate representation and emits dynamic .NET MSIL, with customizable HAL/JIT hooks and C64 and NES example emulators. The primary README documents runnable dotnet commands and invalidation/interpreter fallback for self-modifying code; recent generic customizer changes preserve that architecture.",
       "ai": {
         "usage": null,
         "tools": []
@@ -38505,7 +38517,36 @@
       "target_cpu": [
         "m68000"
       ],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "IK3J_PAR",
+          "platform": "Atari ST",
+          "cpu_family": "68000 family",
+          "chipsets": [
+            "STF",
+            "STE",
+            "Mega STE"
+          ],
+          "os": "TOS 1.04, 1.62 or 2.06",
+          "notes": "README documents STF, STE and Mega STE operation at 8 and 16 MHz and a parallel-port joystick adapter for player 3; STE and Mega STE were tested on real hardware.",
+          "evidence": [
+            "https://github.com/stephane-perez/ik-plus-reforged/blob/master/README.md"
+          ]
+        },
+        {
+          "name": "IK3J_STE",
+          "platform": "Atari STE",
+          "cpu_family": "68000 family",
+          "min_ram_kib": 1024,
+          "chipsets": [
+            "STE"
+          ],
+          "notes": "STE-only build with 1 MB or more, enhanced joystick port, DMA sound and blitter; README says it was tested on a real STE.",
+          "evidence": [
+            "https://github.com/stephane-perez/ik-plus-reforged/blob/master/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "Atari ST 68000 game executable"
@@ -38543,7 +38584,7 @@
         "Atari ST",
         "International Karate +"
       ],
-      "notes": "Builds a new loader, version-guarded patches for the Ator-cracked ST game, a simultaneous third-player mode and a joystick test utility. Fixes TOS 2.06/STE/Mega STE compatibility and requires the user's exact original input file; the game itself is not distributed or built by CI. Patched output is not an original byte-match.",
+      "notes": "Builds a new loader, version-guarded patches, simultaneous third-player modes and JOYTEST around a user-supplied fixed IK+.PRG image. Version 7 extracts and patches that single-file program, skips its residual floppy check, produces checksum-verified PAR and STE folders, and was tested on real STE and Mega STE hardware. The repository does not distribute the game.",
       "ai": {
         "usage": true,
         "tools": [
@@ -44662,7 +44703,7 @@
         "68000",
         "Linux"
       ],
-      "notes": "Runs AmigaOS binaries using 68000 emulation with Linux-backed libraries. v0.11.18 adds AmigaOS 3.1-probed pr_SegList process-array behavior and more graphics/layers conformance; broad compatibility and RTG work remain ongoing.",
+      "notes": "Runs AmigaOS 68000 binaries through CPU emulation and Linux-backed system-library reimplementations. Recent AmigaOS 3.1 probes corrected full-D0 BOOL/LONG returns and assign-root ParentDir behavior, while the roadmap reached v0.11.25 phases for BCPL and FPU programs; broad compatibility remains ongoing.",
       "ai": {
         "usage": true,
         "tools": [
@@ -66631,7 +66672,9 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": null,
+      "target_cpu": [
+        "Z80"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -66652,7 +66695,7 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": true
@@ -66661,7 +66704,7 @@
       "tags": [
         "MSX"
       ],
-      "notes": "Commented seven-block MSX cassette analysis of Topo Soft Stardust, including Spectrum-style loader format, traces, tools and tests. Project make reports exact 93,861-byte reconstruction; not independently reproduced. The analyzed target is MSX, not ZX Spectrum merely because the port came from Spectrum.",
+      "notes": "Finished, commented seven-block MSX cassette reconstruction of Topo Soft Stardust. The primary README and Makefile state that five Z80 listings rebuild all 93,861 tape bytes byte for byte, gated by a supplied TSX hash, Pasmo, z80dasm and Python 3; this audit did not rerun the build.",
       "ai": {
         "usage": null,
         "tools": []
@@ -73151,7 +73194,7 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -74755,10 +74798,17 @@
       "target_platforms": [
         "development host"
       ],
-      "source_cpu": [
-        "m68000"
+      "source_cpu": [],
+      "target_cpu": [
+        "m68000",
+        "m68008",
+        "m68010",
+        "m68020",
+        "m68030",
+        "m68040",
+        "m68060",
+        "m68080"
       ],
-      "target_cpu": null,
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -74775,7 +74825,7 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": null
@@ -77855,7 +77905,7 @@
       "source_cpu": [
         "6502"
       ],
-      "target_cpu": null,
+      "target_cpu": [],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
