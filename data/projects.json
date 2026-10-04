@@ -27399,7 +27399,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-04",
-    "last_checked": "2026-10-04",
+    "last_checked": "2026-10-05",
     "status": "active",
     "build": {
       "compilable": true,
@@ -27411,12 +27411,14 @@
       "usage": true,
       "tools": [
         "Claude",
-        "GitHub Copilot"
+        "GitHub Copilot",
+        "OpenAI Codex"
       ],
       "evidence": [
         "CLAUDE.md/AGENTS.md contains explicit guidance for AI coding agents driving Copperline.",
         "Claude project instructions/configuration present",
         "Explicit GitHub Copilot involvement in tracked commit ab45c35f8b1a: \"Fix issues found by Copilot\"",
+        "OpenAI Codex-authored branches are explicit in tracked merge commits, including 7269b7df8323.",
         "Claude co-author trailer observed in recent tracked commits: 1 in this scan (example 9ce12673e6ec)"
       ]
     },
@@ -27425,6 +27427,8 @@
       "cycle-driven hardware emulation",
       "headless deterministic testing",
       "native-resolution screenshot capture",
+      "capability-gated WASM expansion plugins",
+      "persistent media write-through",
       "reverse stepping",
       "source debugging",
       "state import"
@@ -27437,7 +27441,7 @@
       "AI-assisted",
       "retro development"
     ],
-    "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture now crops the active playfield and records original pixels before presentation effects, including RTG and headless/MCP paths; interlaced capture records the current field. Memory-write output now follows WinUAE conventions.",
+    "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through.",
     "github": {
       "repository": "CopperlineHQ/Copperline",
       "created_at": "2026-06-14",
@@ -44652,6 +44656,8 @@
       "cycle-accurate emulation",
       "run-ahead disassembly",
       "breakpoints",
+      "function profiling",
+      "missed-VBlank trace logging",
       "symbol loading",
       "memory inspection",
       "MCP tool exposure"
@@ -44662,7 +44668,7 @@
       "debugger",
       "MCP"
     ],
-    "notes": "Cross-platform Lynx emulator with full debugger, self-modifying-code-aware run-ahead disassembly, symbol loading, hardware viewers, trace output and headless MCP control for AI-assisted debugging. MCP support is a user-facing capability and is not treated as evidence that the emulator itself was AI-developed.",
+    "notes": "Cross-platform Lynx emulator with full debugger, self-modifying-code-aware run-ahead disassembly, symbol loading, hardware viewers, trace output and headless MCP control. Current profiling counts frames from Timer 2 VBlank, and the trace logger can report consecutive frames that miss a watched CPU access before VBlank. MCP support is a user-facing capability and is not treated as evidence that the emulator itself was AI-developed.",
     "github": {
       "repository": "drhelius/Gearlynx",
       "created_at": "2025-01-24",
@@ -55056,9 +55062,11 @@
     ],
     "source_cpu": [
       "m68000",
+      "m68010",
       "m68020",
       "m68030",
-      "m68040"
+      "m68040",
+      "m68060"
     ],
     "source_language": [],
     "reconstructed_languages": [
@@ -55071,11 +55079,11 @@
     ],
     "re_started": null,
     "last_activity": "2025-02-09",
-    "last_checked": "2026-09-25",
-    "status": null,
+    "last_checked": "2026-10-05",
+    "status": "released",
     "build": {
-      "compilable": null,
-      "runnable": null,
+      "compilable": true,
+      "runnable": true,
       "playable": null,
       "byte_exact": null
     },
@@ -55083,13 +55091,18 @@
       "usage": null,
       "tools": []
     },
-    "techniques": [],
+    "techniques": [
+      "portable C build",
+      "configuration-guided disassembly",
+      "assembly-source regeneration",
+      "byte-identical reassembly verification"
+    ],
     "tags": [
       "Amiga",
       "Amiga",
       "tooling"
     ],
-    "notes": "Portable Amiga Hunk and raw 68k disassembler/reassembler by Tim Ruehsen, Christian Wasner, Ilkka Lehtoranta and Frank Wille. Aminet lists version 2.11 dated February 2025; AmigaOS cross-toolchain documentation identifies its executable/library/device/raw input coverage. The CPU choices describe decoded code, not a machine minimum for running the tool.",
+    "notes": "Portable Amiga Hunk and raw 68k disassembler/reassembler by Tim Ruehsen, Christian Wasner, Ilkka Lehtoranta and Frank Wille. Aminet lists version 2.11 dated February 2025. Maintainer documentation provides GNU, Windows, macOS, AmigaOS and MorphOS builds and an AmigaBASIC workflow that diff-verifies regenerated assembly. The CPU choices describe decoded code, not a machine minimum or native output architecture.",
     "record_class": "tooling",
     "target_kinds": [],
     "work_kinds": [
@@ -59019,11 +59032,11 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-04",
-    "last_checked": "2026-09-29",
+    "last_checked": "2026-10-05",
     "status": null,
     "build": {
-      "compilable": null,
-      "runnable": null,
+      "compilable": true,
+      "runnable": true,
       "playable": null,
       "byte_exact": null
     },
@@ -59043,7 +59056,7 @@
       "Apple II",
       "Atari ST"
     ],
-    "notes": "Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. Historical story/media format implementation, not a claim of recovered game source.",
+    "notes": "Runnable Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. Current Glk design mode renders undrawn graphics windows with their specified opaque background. This is historical story/media format implementation, not a claim of recovered game source.",
     "github": {
       "repository": "sharkusk/lanthorn",
       "created_at": "2026-06-22",

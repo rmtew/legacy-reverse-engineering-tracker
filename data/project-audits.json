@@ -3110,8 +3110,8 @@
     },
     {
       "project_id": "copperline-amiga-emulator",
-      "last_reviewed": "2026-10-04",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-05",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -3133,8 +3133,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "Native screenshot and WinUAE-compatible memory-write changes include targeted tests; existing release/source build paths remain valid."
+          "checked_at": "2026-10-05",
+          "note": "Native screenshot, WinUAE-compatible memory-write and capability-gated WASM resource-write changes include targeted tests; existing release/source build paths remain valid.",
+          "evidence_urls": [
+            "https://github.com/CopperlineHQ/Copperline/commit/7a83745d6c6159bc74ab0471578ffc8bc244e66e"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -3142,16 +3145,24 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-10-05",
+          "note": "README and commit history explicitly document Claude Code, GitHub Copilot and OpenAI Codex contributions.",
+          "evidence_urls": [
+            "https://github.com/CopperlineHQ/Copperline/blob/main/README.md",
+            "https://github.com/CopperlineHQ/Copperline/commit/7269b7df8323"
+          ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Copperline is an independent emulator/debugger with WinUAE state/configuration interoperability and a maintained public fork of the Bartman VS Code Amiga debugger extension.",
+          "evidence_urls": [
+            "https://github.com/CopperlineHQ/Copperline/blob/main/README.md",
+            "https://github.com/CopperlineHQ/Copperline/blob/main/docs/debugger/vscode-bartman.md"
+          ]
         }
       },
-      "next_actions": [
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "cpc-basic-1-1",
@@ -6217,7 +6228,7 @@
     },
     {
       "project_id": "hatari-atari-emulator-debugger",
-      "last_reviewed": "2026-09-24",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -6247,9 +6258,12 @@
           "checked_at": "2026-09-24"
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-24",
-          "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history contains explicit Claude co-author trailers.",
+          "evidence_urls": [
+            "https://github.com/hatari/hatari/commit/922ec33cbf9590234595d79dcf46a85f6ab49c06"
+          ]
         },
         "relationships": {
           "state": "needs-research",
@@ -19476,7 +19490,7 @@
     },
     {
       "project_id": "swiv-amiga-re",
-      "last_reviewed": "2026-10-02",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -19506,8 +19520,12 @@
           "note": "README documents Chromium/WebKit regression coverage but no minimum browser host CPU or memory."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-25"
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history explicitly records a Claude-assisted session and co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/smikes75/swiv-amiga-re/commit/5b7e78dd3fa2902806751aa31716276f01c7377b"
+          ]
         },
         "relationships": {
           "state": "needs-research",
@@ -20381,8 +20399,8 @@
     },
     {
       "project_id": "ira-amiga-reassembler",
-      "last_reviewed": "2026-09-25",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-05",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -20394,33 +20412,49 @@
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-05",
+          "note": "Maintainer documentation explicitly covers 68000/010/020/030/040/060 code plus 68851 MMU instructions; the CPU list records decoded executable families, not a host minimum.",
+          "evidence_urls": [
+            "https://github.com/erique/ira/blob/master/README.md"
+          ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "not-applicable",
+          "checked_at": "2026-10-05",
+          "note": "IRA regenerates assembler source text from 68k binaries; it does not produce a native executable port whose CPU belongs in target_cpu.",
+          "evidence_urls": [
+            "https://github.com/erique/ira/blob/master/README.md"
+          ]
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Maintainer documentation provides GNU, Windows, macOS, AmigaOS and MorphOS build routes and demonstrates AmigaBASIC source regeneration followed by binary comparison.",
+          "evidence_urls": [
+            "https://github.com/erique/ira/blob/master/README.md",
+            "https://github.com/erique/ira/blob/master/Makefile"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-05",
+          "note": "The README names host variants and AmigaOS 2.0.4+ but gives no exact minimum CPU model or RAM, so no hardware profile is inferred."
         },
         "ai": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-05",
+          "note": "No explicit development-time AI attribution appears in the reviewed maintainer documentation."
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "README traces Tim Ruehsen's original source through Ilkka Lehtoranta's MorphOS cleanup to Frank Wille's portable continuation.",
+          "evidence_urls": [
+            "https://github.com/erique/ira/blob/master/README.md"
+          ]
         }
       },
-      "next_actions": [
-        "Check exact source/release lineage and reproducible build where original source is available",
-        "Do not infer physical hardware minima from target-format support"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "xfdmaster-amiga-decrunch",
@@ -32713,7 +32747,7 @@
     },
     {
       "project_id": "atari-file-forge-workbench",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32741,8 +32775,12 @@
           "checked_at": "2026-09-26"
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-26"
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history contains an explicit Claude co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/peteclarke-del/AtariFileForge/commit/d9ea123f91012b72335fb798ba7bd2bfd20f78e2"
+          ]
         },
         "relationships": {
           "state": "needs-research",
@@ -34045,7 +34083,7 @@
     },
     {
       "project_id": "atari-st-fsharp-7sharp9",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -34073,8 +34111,12 @@
           "checked_at": "2026-09-27"
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history explicitly adds Claude-named repository instructions.",
+          "evidence_urls": [
+            "https://github.com/7sharp9/Atari-St-Emulator/commit/4656ba4b4a519fd7e901b30f008f44cdd4088001"
+          ]
         },
         "relationships": {
           "state": "needs-research",
@@ -39542,7 +39584,7 @@
     },
     {
       "project_id": "amigaports-m68k-amigaos-gcc",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -39576,9 +39618,12 @@
           "note": "Representative formats, hardware models and media revisions need independent checks."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established from inspected source."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history contains an explicit Claude co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/0611596ba6389879a77c3baa2800b61a96ea1f97"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -39792,7 +39837,7 @@
     },
     {
       "project_id": "cpc-syntax-error-emulator",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -39826,9 +39871,12 @@
           "note": "Representative media and host variants need verification."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established for the reviewed software."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history contains an explicit Claude co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/b6223bfde618b401477bb9fb911beb61ea0eca58"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -39842,7 +39890,7 @@
     },
     {
       "project_id": "ue2-c64-ultimate-firmware-emulator",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -39876,9 +39924,12 @@
           "note": "Representative media and host variants need verification."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established for the reviewed software."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history explicitly records a Claude-assisted session and co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/UE2-C64U-Emulator/commit/185726b77bcb6866bd02ed7607bb3bc791243971"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -40342,7 +40393,7 @@
     },
     {
       "project_id": "bascal-retro-basic-compiler",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-05",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -40376,9 +40427,12 @@
           "note": "Representative media and host variants need verification."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established for the reviewed software."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Primary commit history explicitly records a Claude-assisted session and co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/johnjoeallen/bascal/commit/bcd9b2185bafbde68a99d06c0a87ba88ac954283"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -43885,7 +43939,7 @@
     },
     {
       "project_id": "lanthorn-interactive-fiction-archive",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-05",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -43909,19 +43963,25 @@
           "note": "Host analysis utility without a legacy native-executable target."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "README and selected artifacts reviewed; build/run was not independently repeated."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "README publishes runnable Linux x86-64/aarch64, macOS universal and Windows x86-64 archives and documents a Rust workspace release build.",
+          "evidence_urls": [
+            "https://github.com/sharkusk/lanthorn/blob/main/README.md"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-29",
-          "note": "Upstream compatibility reports and platform names are not a measured minimum CPU/RAM profile."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-05",
+          "note": "Published host architectures establish release variants, but the README states no minimum CPU generation or RAM."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-29",
-          "note": "No explicit AI-use attribution found in reviewed project files."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "A primary commit explicitly carries a Claude co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/sharkusk/lanthorn/commit/0869be214e37b14653604e5c3c217c90ff31d2a3"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -46192,8 +46252,8 @@
     },
     {
       "project_id": "z88dk-z80-development-kit",
-      "last_reviewed": "2026-09-29",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-05",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -46226,9 +46286,13 @@
           "note": "Minimum memory, timing and compatibility not independently measured."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-29",
-          "note": "No explicit AI usage evidence in selected files."
+          "state": "reviewed",
+          "checked_at": "2026-10-05",
+          "note": "Repository instructions explicitly configure GitHub Copilot and describe Claude-oriented agent guidance.",
+          "evidence_urls": [
+            "https://github.com/z88dk/z88dk/blob/master/.github/copilot-instructions.md",
+            "https://github.com/z88dk/z88dk/blob/master/AGENTS.md"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -46236,7 +46300,9 @@
           "note": "Long-running C/assembly compiler, assembler, linker and machine libraries targeting over a hundred Z80-family machines, including CPC; one coherent toolkit at repository root."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Research remaining audit areas: build, runtime_profiles."
+      ]
     },
     {
       "project_id": "lha-js-amiga-archive-decoder",
@@ -54149,9 +54215,10 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-05",
-          "note": "README publishes runnable packages and source builds across desktop and libretro targets.",
+          "note": "README publishes runnable packages and source builds across desktop and libretro targets; current commits add Timer 2 VBlank-based profiling and missed-VBlank trace events with targeted tests.",
           "evidence_urls": [
-            "https://github.com/drhelius/Gearlynx/blob/main/README.md"
+            "https://github.com/drhelius/Gearlynx/blob/main/README.md",
+            "https://github.com/drhelius/Gearlynx/commit/db043b6462fcfc6e79d4a309cd766008ebdc72c6"
           ]
         },
         "runtime_profiles": {

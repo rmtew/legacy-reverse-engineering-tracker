@@ -1,6 +1,13 @@
 # Search / Report Log
 
 
+## 2026-10-05 — Final CPU queue item and explicit AI evidence
+
+Resolved the last queued CPU audit for **IRA — Amiga 68k reassembler**. Primary maintainer documentation establishes 68000/010/020/030/040/060 input coverage, portable build routes and a source-regeneration/binary-comparison workflow; its assembler-text output makes target CPU not applicable, while exact host CPU and RAM minima remain unasserted.
+
+The upstream lane reviewed **Copperline — Amiga emulator & reverse debugger** and **Gearlynx — Atari Lynx emulator and MCP debugger**. Copperline now records capability-gated WASM resource writes, persistent write-through tests, public Bartman-extension lineage and explicit Codex attribution. Gearlynx now records Timer 2 VBlank profiling and missed-VBlank trace events. Ten stale AI audit states were reconciled with explicit repository instructions or co-author evidence already present in project records.
+
+
 ## 2026-10-05 — Oric/Lynx/DOS discovery and target-CPU audit
 
 Rotated fresh discovery through exact FM Towns, Oric/Atmos and Atari Lynx searches. Added **Oric Explorer — media browser and 6502 analysis tool**, **OSDK — Oric cross-development system**, **Blake's 7 — original Oric fan adventure**, **Gearlynx — Atari Lynx emulator and MCP debugger**, **Super Mario Bros. — RE-derived native Atari Lynx port**, **ALYNXDJ — original Atari Lynx music tracker**, **Ultima V — u5d decompilation and playable reconstruction**, and **Stunts 1.1 — restunts2 executable reconstruction**. The records distinguish OSDK's official-project identity from its Git mirror, and keep Blake's 7 and ALYNXDJ explicitly classified as original fan/homebrew work rather than reverse-engineered derivatives.
