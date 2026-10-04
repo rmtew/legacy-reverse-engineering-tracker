@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-04T16:20:52Z",
+  "updated_at": "2026-10-04T18:19:20Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -19811,6 +19811,8 @@
         "cycle-driven hardware emulation",
         "headless deterministic testing",
         "native-resolution screenshot capture",
+        "capability-gated WASM expansion plugins",
+        "persistent media write-through",
         "reverse stepping",
         "source debugging",
         "state import"
@@ -19823,12 +19825,13 @@
         "AI-assisted",
         "retro development"
       ],
-      "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture now crops the active playfield and records original pixels before presentation effects, including RTG and headless/MCP paths; interlaced capture records the current field. Memory-write output now follows WinUAE conventions.",
+      "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through.",
       "ai": {
         "usage": true,
         "tools": [
           "Claude",
-          "GitHub Copilot"
+          "GitHub Copilot",
+          "OpenAI Codex"
         ]
       }
     },
@@ -32297,6 +32300,8 @@
         "cycle-accurate emulation",
         "run-ahead disassembly",
         "breakpoints",
+        "function profiling",
+        "missed-VBlank trace logging",
         "symbol loading",
         "memory inspection",
         "MCP tool exposure"
@@ -32307,7 +32312,7 @@
         "debugger",
         "MCP"
       ],
-      "notes": "Cross-platform Lynx emulator with full debugger, self-modifying-code-aware run-ahead disassembly, symbol loading, hardware viewers, trace output and headless MCP control for AI-assisted debugging. MCP support is a user-facing capability and is not treated as evidence that the emulator itself was AI-developed.",
+      "notes": "Cross-platform Lynx emulator with full debugger, self-modifying-code-aware run-ahead disassembly, symbol loading, hardware viewers, trace output and headless MCP control. Current profiling counts frames from Timer 2 VBlank, and the trace logger can report consecutive frames that miss a watched CPU access before VBlank. MCP support is a user-facing capability and is not treated as evidence that the emulator itself was AI-developed.",
       "ai": {
         "usage": null,
         "tools": []
@@ -39860,9 +39865,11 @@
       ],
       "source_cpu": [
         "m68000",
+        "m68010",
         "m68020",
         "m68030",
-        "m68040"
+        "m68040",
+        "m68060"
       ],
       "target_cpu": null,
       "runtime_profiles": null,
@@ -39886,20 +39893,25 @@
         "reassembler"
       ],
       "re_started": null,
-      "status": null,
+      "status": "released",
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "portable C build",
+        "configuration-guided disassembly",
+        "assembly-source regeneration",
+        "byte-identical reassembly verification"
+      ],
       "tags": [
         "Amiga",
         "Amiga",
         "tooling"
       ],
-      "notes": "Portable Amiga Hunk and raw 68k disassembler/reassembler by Tim Ruehsen, Christian Wasner, Ilkka Lehtoranta and Frank Wille. Aminet lists version 2.11 dated February 2025; AmigaOS cross-toolchain documentation identifies its executable/library/device/raw input coverage. The CPU choices describe decoded code, not a machine minimum for running the tool.",
+      "notes": "Portable Amiga Hunk and raw 68k disassembler/reassembler by Tim Ruehsen, Christian Wasner, Ilkka Lehtoranta and Frank Wille. Aminet lists version 2.11 dated February 2025. Maintainer documentation provides GNU, Windows, macOS, AmigaOS and MorphOS builds and an AmigaBASIC workflow that diff-verifies regenerated assembly. The CPU choices describe decoded code, not a machine minimum or native output architecture.",
       "ai": {
         "usage": null,
         "tools": []
@@ -42722,8 +42734,8 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -42733,7 +42745,7 @@
         "Apple II",
         "Atari ST"
       ],
-      "notes": "Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. Historical story/media format implementation, not a claim of recovered game source.",
+      "notes": "Runnable Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. Current Glk design mode renders undrawn graphics windows with their specified opaque background. This is historical story/media format implementation, not a claim of recovered game source.",
       "ai": {
         "usage": true,
         "tools": [
