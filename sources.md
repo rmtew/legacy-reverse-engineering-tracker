@@ -4,6 +4,70 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/slippyex/ym2149-rs | YM2149-RS — PSG emulation and legacy music replay toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/agranlund/hyper68k | Hyper68k — unfinished Atari ST virtualization on 68030 hosts; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/BlueInt32/super-sprint | SuperSprint Web — Atari ST-inspired browser racing remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/frje/B.A.T.II | B.A.T. II — recovered original Atari ST game sources; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/rptb1/adlan | ADLAN — preserved CPC adventure compiler and Bar Trek sources; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/rptb1/lolan | LOLAN — preserved CPC native-code Forth-like compiler and games; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/agranlund/wolf | Wolfenstein 3D — Game Boy Color custom-cartridge source port; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/agranlund/pmdoom | PmDoom 0.61 — Granlund’s Atari MiNT/TOS Doom source port; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/agranlund/atarisound | AtariSound — native mxPlay/JAM MIDI, OPL and module plugins; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/slippyex/TinyFC-Replayer | Tiny Future Composer Library — Windows music replay port; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/carrierdown/megabreak | MegaBreak — preserved original DOS game and level-editor sources; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/AzazelN28/lov | Legends of Valour — unfinished WebGL exploration reimplementation; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/amgammel/Atari-ST-draughts | Dammen — preserved 1990 Atari ST international-draughts game; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/freemchr/MegaST | MegaST — Atari ST/STE MiSTery-derived FPGA core for MEGA65; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/pkali/Turrican-II | Turrican II — unfinished 1992-era Atari 8-bit source port; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/PSP-Archive/Nicky-Boum | Nicky Boum / Nicky 2 — archived PSP port of Montoir’s engine rewrite; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/muckypaws/AmstradDSKExplorer | AmstradDSKExplorer — CPC DSK inspection and extraction; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/jeromelesaux/martine | Martine — CPC and CPC Plus graphics converter; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/bchiha/DES_Adventure | DES Adventure — CPC desktop-environment game prototype; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/santiontanon/paket-cpcio | PAKETCAS / PAKETDSK — CPC firmware-derived tape and disk libraries; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/lronaldo/kungfuguns | Kung Fu Guns — native CPC game-jam release; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/Narkhos/le-dernier-serment | Le Dernier Serment / The Last Oath — 128 KB CPC adventure; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/Bofner/SG-1000-MSX-Tile-Converter | SG-1000 / MSX Graphics Mode II — Aseprite exporter; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/cdoty/9918-Adventures | 9918 Adventures — TMS-9918 assembly starter and demo; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/JoppyFurr/SN76489-TestRom | SN76489 TestRom — Sega PSG hardware diagnostics; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/xdanieldzd/MasterFudgeMk2 | MasterFudgeMk2 — incomplete Sega and ColecoVision emulator; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/salvakantero/Robbie_CPC | Robbie Strikes Back! — PSSST-inspired CPC adaptation; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/tasosnikitakis/Sorcery_Remake | Sorcery+ Remake — incomplete MonoGame remake and room editor; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/Colpocorto/gauntlet-editor | Gauntlet Editor — MSX, Spectrum and CPC maze editor; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/feltz/bombjack | BombJack — native Lua/LÖVE arcade clone by feltz; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/JoppyFurr/Snepulator | Snepulator — Sega and ColecoVision multi-system emulator; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/JoppyFurr/Ants-for-Master-System | Ants for Master System — native card-game remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/JoppyFurr/Sneptest-SMS | Sneptest-SMS — Master System input and VDP diagnostics; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/cdoty/tms9918lib | tms9918lib — portable TMS-9918 game-development library; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/cdoty/CrabSCV | CrabSCV — Super Cassette Vision demo and asset tools; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/patrickvonmassow/heart-of-africa-remake | The Heart of Africa — incomplete 3D browser remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/ian-wigley/nodes-of-yesod-typescript | Nodes of Yesod — unfinished TypeScript browser remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/dschwen/spindizzy | Spindizzy — partial WebGL remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/commandojs/commandojs | CommandoJS — rough first-level C64 Commando browser remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/bylexus/sensitive-js | SensitiveJS — C64 puzzle-game browser remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/eylvisaker/xle | XLE — Legacy of the Ancients / Legend of Blacksilver remake engine; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/acapitani/im-godot | Impossible Mission — Godot movement and lift prototype; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/teruk/movbizz | MovBizz — Movie Business server-backed web remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kochsoft/free_sentinel_gl | Free Sentinel GL — C++/Qt remake of The Sentinel; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/solveotto/oilswell_godot | Oil's Well — Godot 4 remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/sanguinik/knightofwor | Knight of Wor — JavaFX remake of Wizard of Wor; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/jasonkelk/blok-copy-rx-c64 | Blok Copy RX — native C64 Remix Edition source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/jasonkelk/blok-copy-a8 | Blok Copy — native Atari 8-bit Edition source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/drunella/u5remastered | Ultima V Remastered — C64 cartridge/disk adaptation and patches; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/darrenfoulds/1nvader-c64 | 1NVADER — original C64 assembly game source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/voidstar78/destinyhunter | Destiny Hunter — PET homebrew with C64 and Apple II ports; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kweepa/wolf64 | Wolf64 — native C64 Wolfenstein 3D fan port; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kevedwards/crazeeriderbbc | Crazee Rider — original BBC Micro source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kevedwards/crazeeriderelectron | Crazee Rider — original Acorn Electron source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kevedwards/galaforce1bbc | Galaforce — original BBC Micro source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kevedwards/galaforce1electron | Galaforce — original Acorn Electron source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kevedwards/galaforce2bbc | Galaforce 2 — original BBC Micro source; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/kevedwards/edasv1.8 | EDAS 1.8 — recovered C128 editor/assembler; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/f-fix/wav2cas | wav2cas — MSX cassette audio and CAS toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/f-fix/fat8_d88_tool | FAT8 D88 extractor and RBYTE tools; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/f-fix/nontama_to_bload | NONTAMA / MSX M-loader tape unpackers; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/f-fix/cas2uef | cas2uef — compact CAS to BBC tape-image conversion; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/f-fix/bin2fds | bin2fds — FDSStick capture-to-disk-image converter; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
+| https://github.com/f-fix/mzm2met | mzm2met — embedded NES ROM extraction; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
 | https://github.com/ymgve/edos_reversing | EDOS — distribution-media analysis and extraction toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
 | https://github.com/canadianavenger/ssi-img | SSI IMG/BIN — image conversion toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
 | https://github.com/bielesibub/Brutal-Deluxe | Speedball II: Brutal Deluxe — browser adaptation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |

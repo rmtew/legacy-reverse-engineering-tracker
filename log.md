@@ -1,5 +1,15 @@
 # Search / Report Log
 
+## 2026-10-05 — Deeper searches and related developers: 64 projects
+
+Added **64 approved source-reviewed projects**, increasing the catalogue from 1,380 to **1,444**. The pass inspected 75 distinct roots and retained eleven non-promoted decisions. The 29 query/page attempts yielded 998 unique roots; seven pages remained capped and one developer query failed validation. All additions have eight-area audits, original/target CPU decisions and source/build/license/AI/lineage evidence.
+
+Highlights include Wolf64, Sorcery+, Heart of Africa, B.A.T. II, original Crazee Rider/Galaforce releases, PAKET-CPCIO, EDAS 1.8, MegaST and CrabSCV. Four distinct source/target machine labels are supported by actual source: Super Cassette Vision, NEC PC-6001 mkII, NEC PC-6601 and Pasopia. Existing family labels are reused elsewhere.
+
+No candidate was compiled, run, played or hardware-tested. Unknown facts and all byte-exact fields stay unknown; positive flags are explicit upstream reports. Incomplete implementations, assets, licensing conflicts and exact hardware/toolchain prerequisites remain visible. No application or workflow changes.
+
+See [the full review and exact query coverage](docs/deeper-search-related-developers-64-2026-10-05.md). Metadata refresh, actual Pages deployment and all 64 live catalogue/Activity/RSS additions require verification.
+
 ## 2026-10-05 — Deeper GitHub and related-developer batch
 
 Added **60 source-reviewed projects**, increasing the catalogue from 1,320 to **1,380**. All sixty are the approved new candidates, with complete eight-area audits and primary evidence. The bounded pass used 36 new query/page pairs, including six third pages, eighteen second pages and twelve related-developer/name searches. There were 1,150 unique roots and fourteen full 100-result pages; this was not exhaustive.
