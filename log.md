@@ -1,5 +1,15 @@
 # Search / Report Log
 
+## 2026-10-05 — Deeper GitHub and related-developer batch
+
+Added **60 source-reviewed projects**, increasing the catalogue from 1,320 to **1,380**. All sixty are the approved new candidates, with complete eight-area audits and primary evidence. The bounded pass used 36 new query/page pairs, including six third pages, eighteen second pages and twelve related-developer/name searches. There were 1,150 unique roots and fourteen full 100-result pages; this was not exhaustive.
+
+Highlights include FreeNukum ST, Roadwar 2000, Chuckie Egg for Game Boy, Gauntlet Construction Kit, Fairlight PC, PlayStation Boulder Dash, native CPC games, Sega CP/M/IPL and Wonder Boy disassembly, plus specialist reverse-engineering, preservation and development tools. Four distinct machines gained labels; equivalent aliases and unsupported hardware assumptions were avoided. Fourteen non-promoting decisions preserve exclusions/holds without adding projects.
+
+Unknown build/CPU/runtime facts remain unknown; positive flags are explicitly upstream-only, and no candidate was built, run or hardware-tested. All byte-exact flags remain null. Original-asset, license, lineage, partial/prototype and missing-dependency caveats remain explicit. No application/workflow or generated-state edits.
+
+See [the complete review, query coverage and platform decisions](docs/deeper-github-developers-60-2026-10-05.md). Existing metadata and Pages workflows produce live Activity/RSS; actual deployment and all 60 entries must be checked.
+
 ## 2026-10-05 — Correct recent platform-label aliases
 
 Normalized equivalent platform spellings in **16 records** from the 65- and 51-project batches, including nine records with Sega-prefixed SG-1000/SC-3000 values. Established family labels are **SG-1000** and **SC-3000**; SC-3000H support remains in notes. Related exact aliases in the same batches now use Master System, VIC-20, NES, Amstrad CPC464 and Oric-1. The change affects 25 source/target values, two runtime-profile platform values and 18 tag values, across 31 fields.

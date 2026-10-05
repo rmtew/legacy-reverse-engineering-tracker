@@ -4,6 +4,66 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/ymgve/edos_reversing | EDOS — distribution-media analysis and extraction toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/canadianavenger/ssi-img | SSI IMG/BIN — image conversion toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/bielesibub/Brutal-Deluxe | Speedball II: Brutal Deluxe — browser adaptation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/CmKeen/openspeedball2 | OpenSpeedball — Speedball 2 Python remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/ianinit/lastRealm | The Last Realm of Magic — EnvyMUD source preservation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/sjroesink/speedball2 | Speedball — Neon League browser/Go adaptation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/Nutzzz/SpinnakerAdventure | Spinnaker Adventure System — format analyzer and extractor; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/missingno7/gods_dos_tools | GODS DOS — graphics/level analysis toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/rickz0rz/esq-decomp | Esquire 9.04 / Prevue — Amiga disassembly and C reconstruction; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/MariuszOnik/SwosDS | SwosDS — OpenSWOS-derived C/Nintendo DS port; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/Darian-Frey/Amiga-Disk-Engine | Amiga Disk Engine — disk/container/filesystem toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/henols/c64-re-tools | c64-re-tools — agent-oriented C64 engineering toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/pmassy/bubble-bobble-pc1 | Bubble Bobble PC1 — DOS 16-colour conversion and analysis; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/ssstraub/roadwar2000-C64-rewrite | Roadwar 2000 — C64 disassembly and TypeScript rewrite; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/Team-Resurgent/SwinSID2 | SwimSID2 — SwinSID Nano firmware continuation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/M64GitHub/zig64 | zig64 — C64 6510 emulator and tracing core; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/jaredevans/wasteland-c64-patched | Wasteland C64 — roster decryptor and party editor; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/DE8MSH/C64_Icicle_Race_DiasAss_PCE_SNES_PORT | Icicle Race — partial C64 disassembly; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/alby69/py6502emu_gemini | pyC64emu — Gemini-assisted Python C64 emulator; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/digwuren/redis | Redis — retro disk/tape dissection tools; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/Zapskii/GB-Chuckie-Egg | Chuckie Egg — ZX Spectrum to Game Boy DMG port; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/mfidder2026/c64red | C64RED — original Pokémon-inspired RPG; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/JustinBaldock/C64-RaidOnBungelingBay | Raid on Bungeling Bay — C64 reassembly; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/ahmetcanaksu/C64Research | C64Research — Rust emulator and KERNAL study; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/larspontoppidan/c64rework | C64 Rework / REVM — assisted reconstruction framework; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/tkleisas/elite-remake | Elite Remake — BBC Micro disc Elite in C#; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/MichaelTroelsen/SIDM2conv | SIDM2conv — SID to SID Factory II converter; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/pertyjons/sid-analyzer | sid-analyzer — SID structure, MIDI and project exporter; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/turesheim/commodore-commander | Commodore Commander — Theia development IDE; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/turboboy215/MW2MID | MW2MID — Martin Walker Game Boy/Game Gear music converter; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/davemoore22/cpcreg | Reginald and the She Vampires — native CPC remake and sequel; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/davemoore22/cpcspacehockey | Space Hockey — BASIC-to-Z80 CPC rewrite; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/salvakantero/RedPlanet_CPC | Red Planet — native CPC464 action-adventure; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/salvakantero/Sorcerers_CPC | Sorcerers — native 64K CPC464 game; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/vaspervnp/GalagaCPC | Galaga CPC — native Z80 arcade remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/vaspervnp/HabitatCPC | Habitat — partial CPC6128 colony simulation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/siriokds/GearSF7000-devel | GearSF7000 — SG-1000 / SC-3000 emulator and debugger; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/siriokds/SC-3000-CPM-2.2 | CP/M 2.2 / P2DOS — SC-3000 disk-system adaptation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/siriokds/SF-7000-IPL | SF-7000 IPL — annotated SC-3000 expansion firmware; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/amoibos/zvmsega | ZVM Sega — partial Z-machine interpreter for SD-1000-expanded SC-3000; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/amoibos/gfx2sg | gfx2sg — SG-1000 graphics converter for SGlib; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/StevePro7/WonderBoySMS | Wonder Boy — Emulicious-generated Master System disassembly; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/georgeflower/Qasteroids-atari-stfm | Qasteroids — native Atari STFM asteroid-game port; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/neilrackett/atarist-freenukum | Duke Nukem Episode 1 — FreeNukum Atari ST port; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/jonathanopalise/roadblasters-ste | RoadBlasters — Atari STE enhancement patches; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/vitopod/amiga-player-manager-toolkit | Player Manager — Amiga save editor and analytics toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/horaceandthespider/bloodwych-z80 | Bloodwych ZX Spectrum — level editor and renderer research; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/robertramsay/settlersgm | The Settlers — GameMaker/Freeserf recreation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/borilla/cpc-netwalk | Netwalk — Amstrad CPC native puzzle game; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/cpcitor/color-flood-for-amstrad-cpc | Color Flood — Amstrad CPC territory puzzle game; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/cpcepower/defenderofthecrown_new | Defender of the Crown — CPC enhancement source preservation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/pw32x/downland_c | Downland — native C reconstruction and console ports; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/j-pastor/fairlight | Fairlight I / II — Godot recreation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/rixnobis/boulderdash | Boulder Dash for PlayStation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/Nayphee/Gauntlet-Construction-Kit | Gauntlet Construction Kit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/re64/re64 | re64 collaborative C64 reverse-engineering framework; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/dclark-rpi/smon_C64 | SMON C64 readaptation; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/nschneir/PET-Project | PET Project development and debugging tools; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/f-fix/dwimsy | dwimsy media-preservation toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
+| https://github.com/adrianeyre/multi-game-interpreter | MGI: Multi Game Interpreter; primary source/build/CPU/runtime/AI/lineage reviewed in the 60-project deeper-search batch. |
 | https://github.com/CrownParkComputing/SWIV-Native | S.W.I.V. Amiga — native C reconstruction; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
 | https://github.com/yanekk/superfrog-re | Superfrog floppy format and level-analysis tools; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
 | https://github.com/gmegidish/ninja2 | Ninja 2 — DOS demo reconstructed for browsers; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
