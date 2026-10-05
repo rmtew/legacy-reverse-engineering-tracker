@@ -1,5 +1,15 @@
 # Search / Report Log
 
+## 2026-10-05 — Platform-matrix and curated-remake batch
+
+Added **65 source-reviewed projects**, taking the catalogue from 1,204 to **1,269**. The approved batch includes 64 unique GitHub roots and F.L’s Barbarian author-site remake family. Three old RustyPixelsUK URLs are preserved as canonical redirect aliases, without adding projects. All new records have complete eight-area research audits and primary evidence.
+
+Discovery combined a bounded 78-query platform/term GitHub matrix with creator/competition sources and the user-supplied Awesome Game Remakes list. The list yielded twenty primary-reviewed additions; unmatched search/list links remain unqualified. New projects include OpenFodder, OpenDUNE (including Atari builds), freeserf.net, Lionheart Remake, Geneva, NeoDesk, AWeb, CPC RetroDev source releases, Yawi, Notator Online and partial Midwinter/Neuromancer/Dork’s Dilemma reconstructions.
+
+Buildability, runtime compatibility, original-source CPU and AI claims remain evidence-scoped. No independent candidate build/play test was performed; incomplete gameplay, missing build/assets, data-only equivalence and platform-specific limitations are retained. No code/workflow changes or unrelated old-exclusion reconsideration is included.
+
+See [the full review](docs/platform-matrix-remakes-65-2026-10-05.md). Existing refresh and Pages workflows generate catalogue addition activity and RSS.
+
 ## 2026-10-05 — Big retro-development discovery batch
 
 Reviewed 47 new candidates from fresh, locally deduplicated platform searches and four explicit project leads. Added **44 projects**, taking the catalogue from 1,160 to **1,204**; recorded **one retired-predecessor duplicate**, **two exclusions**, and **zero deferrals**.

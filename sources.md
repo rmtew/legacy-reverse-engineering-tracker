@@ -4,6 +4,71 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/thebitculture/ase | ASE — Atari ST-family system emulator; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/odipar/ST1 | ST1 — streaming ZX1 decompression for 68000; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/jbqueru/stepback | Stepping Back — MegaBuSTers Atari ST demo; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/diegoparrilla/atarist-silly-demo | AtariST Silly Demo — native STe demo example; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/futureretrofusion/MiniVMac-Amiga68k | Mini vMac — native AmigaOS 68k Macintosh emulator; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/SpitfireTN/AmiBinkD | AmiBinkD — native AmigaOS binkd mailer; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/amigazen/AWeb3 | AWeb 3 — classic Amiga browser source revival; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/amigazen/AmigaPython | Amiga Python — Python 2.0 preservation and revival; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/amigazen/unsui | unsui — Amiga POSIX library, shell and tools; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/GribnifSoftware/Geneva | Geneva — Atari ST multitasking GEM AES source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/GribnifSoftware/NeoDesk | NeoDesk — Atari ST replacement desktop source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/PeyloW/ChromaGrid | Chroma Grid — Atari STe puzzle-game revival; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/simonsunnyboy/quadromania | Quadromania — SDL tile puzzle with Atari MiNT port; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/tattlemuss/minymiser | MinYMiser — Atari ST compressed-music toolkit; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/amigazen/make-amiga | GNU Make — amigazen Amiga port revival; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/8bit-Dude/8bit-Unity | 8bit-Unity — cross-platform 6502 game SDK; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/hannenz/zoomania | Zoo Mania — Commodore 64 puzzle-game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/ricardoquesada/c64-the-uni-games | The Uni Games — Commodore 64 unicycle sports game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/JasonKelk/RG-Rampage-C64 | RG Rampage — Commodore 64 native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/Utodev/MALUVA | MALUVA — DAAD native storage extension; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/CPCRetroDev/space-moves | Space Moves — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/CPCRetroDev/frogalot | Frogalot — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/CPCRetroDev/top-top | Top Top — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/CPCRetroDev/znax | ZNAX — Amstrad CPC native puzzle-game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/CPCRetroDev/4to4BackToTheFuture | 4 to 4 Back to the Future — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/antoniorv6/TheRookieThiefCPC | The Rookie Thief — Amstrad CPC 464 native game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/marc239/Shoot-to-move | Shoot to Move — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/adrimarco/Zollowers_AmstradCPC | Zollowers — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/rgiot/prince_dastan_sokoban_within | Prince Dastan: Sokoban Within — 64 KB Amstrad CPC puzzle game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/manuelsagra/OPQAvsQAOP | OPQA vs. QAOP: The Final Battle — Amstrad CPC puzzle game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/monineun/Woods-Rescue | Woods Rescue — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/JessHG04/Slimy | Slimy — Amstrad CPC native game source; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/EMWiRES/ColecoVisionARPABET | ColecoVision ARPABET — native speech-synthesis application; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/maxim-zhao/sms-vgm-player | SMS VGM Player — Sega Master System native music player; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/amoibos/Yawi | Yawi — native SG-1000 / SC-3000 Enigma remake; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/bjorn-nah/town_patrol | Town Patrol — Atari Lynx homebrew arcade game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/james7780/befok | Bezerkoids / Befok — native Atari Lynx Berzerk remake; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/hoglet67/6502Life | 6502Life — native Acorn Game of Life implementations; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/davidatbailey/hex-survivors | HEX survivors — BBC Micro Mode 7 arena-survival game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/stevemonks/CAndMNext | Cat and Mouse — creator-remade ZX Spectrum Next maze game; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/RetroHQ/LynxGDLib | LynxGDLib — Atari Lynx Game Drive cartridge I/O library; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/wreiske/notator-web | Notator Online — Atari ST .SON format reconstruction and player; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/vcheckk-archive/midwinter-decode | Midwinter — DOS behavioral decode and terrain reconstruction; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/halr9000/Neuromancer_C64_RE | Neuromancer — C64 room-zero native browser reconstruction; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/anthonyjclarke/Dorks_Dilemma_C16 | Dork's Dilemma — C16 / Plus4 source restoration; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| http://barbarian.1987.free.fr/indexEN.htm | Barbarian / Death Sword — F.L CPC-derived BASIC remakes; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/OpenFodder/openfodder | Open Fodder — Cannon Fodder 1/2 engine reimplementation; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/OpenDUNE/OpenDUNE | OpenDUNE — Dune II reconstruction with native Atari ST support; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/Pyrdacor/freeserf.net | Freeserf.net — The Settlers I C# reimplementation; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/b3dgs/lionheart-remake | Lionheart Remake — Amiga action game reimplementation; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/benbaker76/DetectiveDS | DetectiveDS — The Detective Game Nintendo DS remake; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/benbaker76/WarhawkDS | Warhawk DS — C64 shooter reimagined in Nintendo DS ARM code; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/benbaker76/ManicMinerLL | Manic Miner in the Lost Levels — Nintendo DS multi-port stage remake; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/Pyrdacor/Amber | Amber — early Amberstar reimplementation and data framework; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/ssenegas/kickoff | Open Kick-Off — Kick Off 2 Java rewrite prototype; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/carstene1ns/atomiks | Atomiks — Atomix puzzle-game remake; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/XProger/OpenLara | OpenLara — Tomb Raider engine reconstruction and retro-hardware ports; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/vgrichina/battlecity | Battle City — Famicom 6502 analysis and browser reimplementation; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/AlisterT/openjazz | OpenJazz — Jazz Jackrabbit engine reimplementation; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/opentyrian/opentyrian | OpenTyrian — Tyrian native C source port; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/sulix/omnispeak | Omnispeak — Commander Keen 4–6 reimplementation; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/ericwa/ericw-tools | ericw-tools — Quake-family map compiler and BSP utilities; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/qbism/q2tools-220 | q2tools-220 — Quake II Valve-220 map compiler tools; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/Toksisitee/PopResourceEditor | PopResourceEditor — Populous: The Beginning asset editor; reviewed source/build evidence and limitations recorded in the 65-project batch. |
+| https://github.com/SembeiNorimaki/Transarctica-2 | Transarctica 2 — in-development Godot remake; reviewed source/build evidence and limitations recorded in the 65-project batch. |
 | https://github.com/kylofon/test-drive-sdl3 | DOS EGA/CGA/Hercules and separately reconstructed Amiga versions share a coherent SDL3 port repository. Real-mode or 68000 memory layouts are retained as data, while gameplay is native C. Original EXE/ADF assets remain required. |
 | https://github.com/kylofon/test-drive-2-sdl3 | Reconstructs the DOS EGA Collection version with Supercars/Muscle Cars and California/European scenery. CGA/Hercules and Tandy paths remain unported; original data files are required. |
 | https://github.com/kylofon/test-drive-3-sdl3 | Native C reconstruction of the VGA version, all five cars and both courses, with AdLib/Sound Blaster and PC-speaker output. EGA/Tandy graphics and several sound devices are not ported; original game data is required. |
