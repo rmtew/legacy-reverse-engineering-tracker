@@ -4,6 +4,53 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/kylofon/test-drive-sdl3 | DOS EGA/CGA/Hercules and separately reconstructed Amiga versions share a coherent SDL3 port repository. Real-mode or 68000 memory layouts are retained as data, while gameplay is native C. Original EXE/ADF assets remain required. |
+| https://github.com/kylofon/test-drive-2-sdl3 | Reconstructs the DOS EGA Collection version with Supercars/Muscle Cars and California/European scenery. CGA/Hercules and Tandy paths remain unported; original data files are required. |
+| https://github.com/kylofon/test-drive-3-sdl3 | Native C reconstruction of the VGA version, all five cars and both courses, with AdLib/Sound Blaster and PC-speaker output. EGA/Tandy graphics and several sound devices are not ported; original game data is required. |
+| https://github.com/kylofon/street-rod-sdl3 | Native C reconstruction of the full VGA game with optional Street Rod SE car data. Maintains original data/memory structure, adds a launcher, and requires original assets; alternate graphics adapters remain unported. |
+| https://github.com/kylofon/aces-of-the-pacific-sdl3 | Native C reconstruction of INTRO.EXE, PS.EXE and AP.EXE in one process, based on CD version 1.2. VGA/AdLib gameplay is reported working; other sound devices and reported carrier-deck rendering issues remain. Original executable/data resources are required. |
+| https://github.com/ddanila/batty-pc | Ports CityAceE's documented Z80 Batty disassembly into native 386 protected-mode DOS C++. Upstream reports all 15 levels and all three modes playable plus pixel/frame parity gates. Those bounded parity checks do not establish a byte-identical original Spectrum binary. |
+| https://github.com/VorticonCmdr/re-micro-machines | Reconstructs DOS Micro Machines gameplay, asset formats, sound and track editing in browser JavaScript. Author describes a playable one-player tournament and partially complete two-human modes; repository source and evidence distinguish proven, static and unresolved behavior. Original game files are loaded locally. |
+| https://github.com/VorticonCmdr/re-gods | Evidence-grounded DOS GODS reconstruction with decoded formats, browser renderer, movement/combat and level editor. Native JS source is inspected; the README preserves open enemy-strategy, level-sequencing and other fidelity gaps. Track as partial reconstruction, not a verified complete game. Historical Gods/gods-web work is merged into this root repository. |
+| https://github.com/vgrichina/mars-exe-re | Annotated reconstruction of Tim Clarke's Mars voxel demo and an independent JavaScript renderer. A separate purpose-built x86 emulator is the differential oracle, not the browser render path. Author-reported pixel equality across selected seeds is image parity, not original-binary byte exactness. Actual browser source is now in site/mars.js, despite stale web/ paths in some README sections. |
+| https://github.com/missingno7/template_dos_port | Primary README explicitly retires this DOS_RE 1.0 starter in favor of the already tracked dos_re 2.0 repository; preserve the predecessor identity without duplicating that recovery-framework lineage. |
+| https://github.com/64kramsystem/war_of_lance-reversing_test | Primary README explicitly says no reversing run has started and no gameplay fidelity is established. The current repository is experiment preparation, bundled third-party inputs and adapted tool configuration, without demonstrated game reconstruction; re-review if actual independently authored recovered implementation appears. |
+| https://github.com/barbeque/sg1000 | The reviewed root is the Soggy-1000 hardware clone/KiCad project. Its software/ramtest is acknowledged as a small board-specific RAM and paging bring-up program, but the hardware root is not promoted as an independent historical-software reconstruction or general development suite. |
+| https://github.com/rester159/blacktiger_MD | Black Tiger MD — native Mega Drive arcade port; explicit user-supplied lead, verified against primary implementation and technical documentation. |
+| https://github.com/rester159/side-arms-MD | Side Arms MD — native Mega Drive arcade port; explicit user-supplied lead, verified against primary implementation and technical documentation. |
+| https://github.com/sidick/volamos | volamos — AmigaOS CLI compatibility runtime; explicit user-supplied lead, verified against primary implementation and technical documentation. |
+| https://github.com/RaybeezPL/raptor-amiga-port | Explicitly requested candidate; native 68030/68060 port with substantial Amiga-specific implementation, build targets and author-reported full gameplay. |
+| https://github.com/sy2002/AExp | AExp — Amiga 500 FPGA core for MEGA65 |
+| https://github.com/agranlund/ScummST | ScummST — SCUMM 5/6 games for stock Atari ST |
+| https://github.com/HenrykRichter/libSDL12_Amiga68k | SDL 1.2 — optimized Amiga 68k multimedia library |
+| https://github.com/OoZe1911/micropython-amiga-port | MicroPython — native AmigaOS 68020+ port |
+| https://github.com/cahirwpz/FreeRTOS-Amiga | FreeRTOS — native Amiga operating-system port |
+| https://github.com/8bitbubsy/ahx2play | AHX 2.3d-sp3 — portable C music replayer |
+| https://github.com/bdgscotland/amiport | amiport — AmigaOS native porting and test toolkit |
+| https://github.com/juollila/cpm68k-amiga | SturmBIOS — CP/M-68K BIOS and boot system for Amiga |
+| https://github.com/krabobmkd/amigamame | MAME106 MiniMix — general arcade emulator for Amiga |
+| https://github.com/earok/AkikoWolf | Akiko Wolf — native CD32 Wolfenstein 3D port |
+| https://github.com/vAmigaNet/vAmigaNet | vAmiga.net — browser-based Amiga emulator |
+| https://github.com/thomas-luebker/Amigo | Amigo — Amiga emulator for iPhone, iPad and Apple Silicon |
+| https://github.com/CrownParkComputing/Lotus2-Native | Lotus Turbo Challenge 2 — native C reconstruction |
+| https://github.com/lainejones/Roadster | Roadster — native Amiga Roadshow network controller |
+| https://github.com/tmm22/platoon-macos | Platoon — native Swift reconstruction for macOS |
+| https://github.com/atarigamer/lynxcc | lynxcc — Atari Lynx C/assembly SDK and optimized toolchain |
+| https://github.com/AtariLynx/cc65-lynx-gametemplate | CC65 Game template — Atari Lynx reproducible development environment |
+| https://github.com/james7780/paratroopers | Paratroopers — Atari Lynx Sabotage-inspired homebrew |
+| https://github.com/james7780/Handy-Rogue | Handy Rogue — Atari Lynx roguelike conversion |
+| https://github.com/lvcabral/retaliate64 | Retaliate CE — Commodore 64 native space-shooter remake |
+| https://github.com/1888games/Donkey-Kong-Junior-C64 | Donkey Kong Junior — Game & Watch conversion for Commodore computers |
+| https://github.com/aNdy-vSy/chiller2 | Chiller 2 — Commodore 64 homebrew platform game |
+| https://github.com/Zirias/c64_8192 | 8192 — Commodore 64 2048-style puzzle game |
+| https://github.com/dmcoles/TrailBlazer_BBC_Micro_Conversion | TrailBlazer — native BBC Micro conversion |
+| https://github.com/mattgodbolt/frogman | FROGMAN — BBC Micro game disassembly and remaster |
+| https://github.com/vaspervnp/TheShaft | The Shaft — Amstrad CPC 6128 homebrew platformer |
+| https://github.com/nzeemin/spectrum-desolate | Desolate — TI-83 Plus to ZX Spectrum native port |
+| https://github.com/maciejmiklas/fred-in-space | Fred in Space — ZX Spectrum Next homebrew game |
+| https://github.com/sp00nznet/chipschallenge-lynx-recomp | Chip's Challenge — Atari Lynx native-C static recompilation |
+| https://github.com/sp00nznet/crystalmines2-lynx-recomp | Crystal Mines II — Atari Lynx native-C static recompilation |
+| https://github.com/sp00nznet/lynxrecomp | lynxrecomp — Atari Lynx static recompiler and analysis runtime |
 | https://github.com/oric-software/OricExplorer | Oric media browser with tape/disk parsing, graphics inspection, BASIC viewing and explicit 6502 disassembly |
 | https://github.com/nekoniaow/OSDK | Git mirror of the official Oric cross-development system; tracked as one OSDK project with mirror status preserved |
 | https://github.com/chema-retro/Blakes7-oric-game | Original Oric fan adventure with OSDK-buildable source and documented real-hardware disk requirements |

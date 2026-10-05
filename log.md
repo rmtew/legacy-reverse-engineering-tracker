@@ -1,5 +1,14 @@
 # Search / Report Log
 
+## 2026-10-05 — Big retro-development discovery batch
+
+Reviewed 47 new candidates from fresh, locally deduplicated platform searches and four explicit project leads. Added **44 projects**, taking the catalogue from 1,160 to **1,204**; recorded **one retired-predecessor duplicate**, **two exclusions**, and **zero deferrals**.
+
+The explicit leads are **Black Tiger MD**, **Side Arms MD**, **volamos** and **Raptor: Call of the Shadows for Amiga**. New coverage also includes native **Lotus Turbo Challenge 2** and **Platoon** reconstructions, **ScummST**, Amiga porting/runtime libraries, **Test Drive I–III**, **Street Rod**, **Aces of the Pacific**, **Batty for DOS**, **FROGMAN**, **The Shaft**, **Desolate**, **TrailBlazer**, and Lynx development/recompilation projects.
+
+Every addition has identity/classification, CPU, build/runtime, AI and relationship audits. Browser output is not assigned a hardware CPU; native game paths are distinguished from general emulators and separate differential oracles. Chip's Challenge/Crystal Mines II Lynx reference ports are runnable experiments with unfinished input, not playable games. FROGMAN's code-region equality and other frame/asset comparisons are not generalized to whole-release byte identity. Build/playability claims retain their upstream scope; no independent game build or play test was performed.
+
+See [the complete review](docs/big-retro-development-batch-2026-10-05.md). Existing metadata/activity and Pages/RSS workflows generate public addition events after publication.
 
 ## 2026-10-05 — Final CPU queue item and explicit AI evidence
 
