@@ -4,6 +4,57 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/CrownParkComputing/SWIV-Native | S.W.I.V. Amiga — native C reconstruction; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/yanekk/superfrog-re | Superfrog floppy format and level-analysis tools; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/gmegidish/ninja2 | Ninja 2 — DOS demo reconstructed for browsers; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/ant512/SuperFoulEggiOS | Super Foul Egg — iOS remake-lineage port; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Panxatony/bmp-remake | Bundesliga Manager Professional — browser reimplementation; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Vairn/Dune | Dune Amiga — partial C++/SDL reconstruction; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/bulipol/banditRemake | Bandit Kings of Ancient China — Classic Mac reverse-engineering corpus; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/AmigaGuide/MonkeyIslandAmigaGraphics | The Secret of Monkey Island Amiga — SCUMM graphics extractor; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Innsomatico/DrakkhenPC-QOL | Drakkhen PC — reverse-engineered quality-of-life patch toolkit; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Samuel-DEVULDER/APurify | APurify — original Amiga memory-access instrumentation tool; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/kswkev/dungeon-master-claude | Dungeon Master (Java remake); source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/levincem/dungeonMaster-codex | Dungeon Master Codex; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/erichlof/TheSentinel-2nd-Look | The Sentinel: 2nd Look; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/antxiko/temptations-disassembly | Temptations (MSX) commented disassembly; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/damianduffy/Oh-Mummy | Oh Mummy (Pygame remake); source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Eddy226/FruityFrank | Fruity Frank (MrEddy Java remake); source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/mikroman/DEFENDER-c64 | Defender — C64 cartridge disassembly; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/sarnau/btx-re | Commodore BTX Decoder II — 6801 and C64 firmware reconstruction; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/xlar54/megasam | megasam — SAM speech synthesis for MEGA65; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/trident64/SIDwinder | SIDwinder — SID disassembler, relocator and player builder; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/ytmytm/plus4-parobek | Parobek — Plus/4-family fastloader utility ROM; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/githubnemo/c64-attraktor | Lorenz Attraktor on C64; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/rvanee/c64wasm | c64wasm — Rust C64 and 1541 emulator; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/StewBC/machines | machines — c64m and a2m emulators with shared debugger; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/visy/zoo19_trackmo | Zoo 2019 trackmo — Plus/4 native demo source; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/peercom/swift64 | Swift64 — native macOS C64 emulator; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Webfra/Murks64 | Murks64 — partial console C64 emulator; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/phillipeaton/JETPAC_VIC-20_disassembly | JETPAC — VIC-20 annotated disassembly; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/RedRene/gateway2apshai-X | Gateway to Apshai X — Java/LibGDX remake; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/robertorenz/beach-head | Operation Beachhead — 2.5D browser remake; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/jdamboeck/mafia-engine | Mafia Engine — C64 Mafia Python reimplementation; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/PascalHarris/Chipwits-C | ChipWits-C — unfinished Forth-to-C Macintosh port; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/virtualparadox/a-kastely | A Kastély — C64 reverse-engineering toolkit and browser game; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/Galfodo/SIDdecompiler | SIDdecompiler — relocatable C64 music-driver reconstruction; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/fdivitto/SAY | SAY — Bondwell SPEECH.COM disassembly and enhancement; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/thedjinn/rustsam | Rustsam — Rust Software Automatic Mouth reimplementation; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/xahmol/ArchiLudo | ArchiLudo — native Acorn Archimedes Ludo port; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/chipwits/chipwits-forth | ChipWits-FORTH — original Macintosh and C64 source restoration; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/xahmol/ludo | Ludo / GeoLudo — original C128 game and 8-bit native ports; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/siriokds/SKAZKA_SC3000 | Skazka — native SC-3000 RPG; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/amoibos/Akalabeth | Akalabeth — SG-1000/SC-3000 native C port; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/amoibos/Softporn-3000 | Softporn Adventure — SC-3000 native C port; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/kobolt/sgtouzen | SG-Touzen — SG-1000/SC-3000 BASIC emulator; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/JoppyFurr/SC-TapeWave | SC-TapeWave; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/siriokds/Air-Sea-Attack-CVBasic | Air/Sea Attack — CVBasic reconstruction and port; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/StevePro7/FlickySMS | Flicky — Z80 disassembly and practice modifications; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/haroldo-ok/sms-game-designer | SMS Game Designer; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/davemoore22/cpcnibdx | NibblerDX — Amstrad CPC remake; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/salvakantero/BootyRemake_CPC | Booty — The Remake for Amstrad CPC; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/vaspervnp/FuriousFowlsCPC | Furious Fowls — Amstrad CPC slingshot game; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
+| https://github.com/davemoore22/cpctv2024 | Transversion 2024 — Amstrad CPC remake; source/build evidence and limitations reviewed in the 51-project GitHub expansion. |
 | https://github.com/thebitculture/ase | ASE — Atari ST-family system emulator; reviewed source/build evidence and limitations recorded in the 65-project batch. |
 | https://github.com/odipar/ST1 | ST1 — streaming ZX1 decompression for 68000; reviewed source/build evidence and limitations recorded in the 65-project batch. |
 | https://github.com/jbqueru/stepback | Stepping Back — MegaBuSTers Atari ST demo; reviewed source/build evidence and limitations recorded in the 65-project batch. |

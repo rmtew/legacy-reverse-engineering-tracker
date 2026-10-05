@@ -1,5 +1,15 @@
 # Search / Report Log
 
+## 2026-10-05 — GitHub pagination and platform-alias batch
+
+Added **51 source-reviewed projects**, increasing the catalogue from 1,269 to **1,320**. The bounded follow-on pass used 53 GitHub search calls, including eight page-two continuations and spelling/term variants, plus direct author/source links. Result lists contain 1,581 unique roots; 58 selected roots received primary review and exactly the approved 51 were promoted. Sixteen pages still hit the 100-result cap.
+
+Highlights include SWIV-Native, two independent Dungeon Master reimplementations, C64 Defender, VIC-20 JETPAC, Air/Sea Attack CVBasic, SG-1000/SC-3000 Akalabeth and Softporn Adventure, CPC Booty/Nibbler/Transversion, and ChipWits original-source restoration. Tools, native homebrew, demos and generic emulators remain distinctly typed. Retired c64m and predecessor SIDBlaster URLs alias the approved current projects without adding duplicates.
+
+All 51 have complete eight-area research audits. Primary source/build/release evidence supports bounded flags; incomplete/non-buildable projects, original-asset requirements, rights caveats and uncertain hardware remain explicit. No candidate compilation/playtest, byte-exact verification, application/workflow edit or unreviewed-lead promotion was performed.
+
+See [the complete review and exact query coverage](docs/github-pagination-aliases-51-2026-10-05.md). Existing metadata and Pages workflows generate catalogue Activity and RSS.
+
 ## 2026-10-05 — Platform-matrix and curated-remake batch
 
 Added **65 source-reviewed projects**, taking the catalogue from 1,204 to **1,269**. The approved batch includes 64 unique GitHub roots and F.L’s Barbarian author-site remake family. Three old RustyPixelsUK URLs are preserved as canonical redirect aliases, without adding projects. All new records have complete eight-area research audits and primary evidence.
