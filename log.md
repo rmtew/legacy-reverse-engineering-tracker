@@ -1,5 +1,11 @@
 # Search / Report Log
 
+## 2026-10-05 — Correct recent platform-label aliases
+
+Normalized equivalent platform spellings in **16 records** from the 65- and 51-project batches, including nine records with Sega-prefixed SG-1000/SC-3000 values. Established family labels are **SG-1000** and **SC-3000**; SC-3000H support remains in notes. Related exact aliases in the same batches now use Master System, VIC-20, NES, Amstrad CPC464 and Oric-1. The change affects 25 source/target values, two runtime-profile platform values and 18 tag values, across 31 fields.
+
+Project IDs/counts, source provenance, hardware minima, build/runtime/AI claims and unrelated older vocabulary are unchanged. No renderer/configuration or workflow code changed; filters consume stored platform strings directly. The catalogue remains at **1,320 projects**.
+
 ## 2026-10-05 — GitHub pagination and platform-alias batch
 
 Added **51 source-reviewed projects**, increasing the catalogue from 1,269 to **1,320**. The bounded follow-on pass used 53 GitHub search calls, including eight page-two continuations and spelling/term variants, plus direct author/source links. Result lists contain 1,581 unique roots; 58 selected roots received primary review and exactly the approved 51 were promoted. Sixteen pages still hit the 100-result cap.
