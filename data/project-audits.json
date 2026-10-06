@@ -110453,6 +110453,655 @@
         "Clarify code and asset reuse permissions with the author before redistributing a compiled derivative.",
         "Validate a specific VBCC build/CPU/FPU/display combination and compare the full, light and AGA variants without generalizing compatibility."
       ]
+    },
+    {
+      "project_id": "plouf-amiga-source",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Aurélien Gâteau recovered his 1994 shareware game from floppy disks, removed demo limits and translated the visible UI. It is a two-or-three-player sea-urchin throwing game with random islands.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Original-source preservation with later author adjustments. The tree contains the game and configuration-editor AMOS sources plus graphics/audio. This is one game; its editor and emulator launch route are not separate projects.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The preserved AMOS game is for the classic Amiga 500, hence the original platform is Amiga/m68k. Downloaded plouf.AMOS is a 282,392-byte tokenized source/asset container with an AMOS Basic V1.3 header and matches Git blob ce3d069d429259054f45251addfdd92b02165708. Limitations: Tokenized source was header/string-inspected, not fully detokenized or instruction-audited.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md",
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/plouf.AMOS"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The documented rebuild uses the Amiga AMOS Compiler and retains a native classic-Amiga/m68k output. UAE on modern hosts is an emulator route, not a native Linux port.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "README gives an interactive AMOS Compiler procedure rather than a modern unattended recipe. The AMOS editor/compiler must be obtained separately; the binary source includes program assets. Limitations: No compilation, execution, gameplay or byte comparison was performed; all independent build flags remain null.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The author specifies Amiga 500 and joystick/keyboard controls for up to three people, without RAM or Kickstart minima. The runtime profile preserves that bounded target.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "No development-AI disclosure was found in the README or latest five commit messages. Historical age alone does not establish non-use.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The author explicitly relicensed the former shareware under GPLv3-or-later. Canonical root and game title were screened against 1,732 current projects, source/decision indexes and the 2,066-root prior-review union before primary inspection. No same-project lineage was found.",
+          "evidence_urls": [
+            "https://github.com/agateau/plouf/blob/554d3dcd1bc8bef79a8bf1d3bb5809b101cb7b72/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "devils-queer-house-amiga-source",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Viliam Šimko’s original 1994–1996 platform game survives as GFA BASIC listings, earlier AmigaBASIC level editors and artwork. The author reports seven completed levels without a final boss.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/dqh.lst"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Substantial original-game source archive: dqh.lst implements joystick movement, jumping, sword/laser attacks, deaths, level changes, teleports and scores. Modern release packages wrap the original game in UAE and are not counted as reconstructed host engines.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/dqh.lst"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The original game targets a 7 MHz Amiga 500. GFA BASIC listings call classic Amiga library functions and use memory/bitmap operations, supporting original Amiga/m68k provenance.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/src/initgame.lst"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The preserved game logic remains classic-Amiga GFA BASIC for m68k. Linux/Windows download claims are explicitly emulator-packaged original-game execution; no native x86 or PPC translation is asserted.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/dqh.lst"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Source opens DEVIL:Obrazok, DEVIL:levels/level N, a moj font and dev.obr. These runtime resources are absent from the checked source tree; separately advertised release packages were not unpacked. Listings require the historical BASIC environment, with no clean rebuild recipe established. Limitations: No compilation, execution, gameplay or byte comparison was performed; all independent build flags remain null. Missing source-tree resources are not claimed missing from every distribution.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/src/initgame.lst",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/src/newlevel.lst"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "README reports a 7 MHz Amiga 500 with 1 MB Chip RAM. This supports the author configuration; no PPC, AGA, RTG, OS floor or measured minimum is added.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "README, selected source and the latest five commit messages contain no explicit development-AI attribution. Usage remains unknown.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/dqh.lst"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The archive is the original author’s game and editors, counted once. No root LICENSE or redistribution grant was found in the full tree and inspected README; public source availability is not a blanket license. Canonical root and game title were screened against 1,732 current projects, source/decision indexes and the 2,066-root prior-review union before primary inspection. No same-project lineage was found.",
+          "evidence_urls": [
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/README.md",
+            "https://github.com/vsimko/dqh-amiga/blob/db715c2f7489cb279563508645ace6148171b559/dqh.lst"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "blaze-amiga-source-keithbugeja",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Keith Bugeja preserves his explicitly unfinished Amiga game Blaze. The source header identifies it as his old code; the repository includes a game-assets ADF.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/README.md",
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Substantial original-game preservation rather than a generic engine: the roughly 10,000-line assembly file includes player/enemy handling, foreground animation, maps, energy/lives/jewel counters, level presentation and high scores.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Blaze.S uses Motorola data/address registers, 68k instructions, Exec calls and direct Amiga custom-chip addresses. This establishes preserved Amiga/m68k source, without claiming a byte-identical disassembly.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The source still targets classic Amiga/m68k hardware directly. No contemporary port, PPC output or independently assembled ISA minimum is established.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "No standalone build recipe is present. Source expects BLAZE: graphics files and historical include names; assets/blaze.adf is supplied but was not unpacked. Include capitalization differs from tree filenames (PScroll.Mod/Pscroll.Mod and Sine_Table.Data/Sine_table.Data), a portability concern on case-sensitive hosts. Limitations: No compilation, execution, gameplay or byte comparison was performed; all independent build flags remain null. The author explicitly calls the game unfinished; an ADF’s presence does not prove a clean source rebuild.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "The README links an Amiga 500 video, and code drives the custom chipset, but no reliable RAM, Kickstart or minimum runnable configuration was established. The routine named Allocate_Fast calls AllocMem with flags zero, so its name does not prove Fast RAM is required.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/README.md",
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "The README, source header, MIT license and latest five commit messages provide no affirmative development-AI claim. Usage remains unknown.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/README.md",
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/src/Blaze.S"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Root LICENSE grants MIT terms under Keith Bugeja’s 2024 copyright. Source references archived graphics assets whose ADF contents were not reviewed individually. Canonical root and game title were screened against 1,732 current projects, source/decision indexes and the 2,066-root prior-review union before primary inspection. No same-project lineage was found.",
+          "evidence_urls": [
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/LICENSE",
+            "https://github.com/keithbugeja/blaze/blob/2e9bb7d34f5593d57c874135c8985908766a0211/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "space-invaders-amiga-kotbehemot53",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "A distinct native A500 implementation of Space Invaders, with 55 aliens, destructible shields, UFO, waves, lives, power-ups and named high scores in main.asm.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/main.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Newly authored native homebrew using familiar arcade rules and Amiga custom chips. No extraction or decompilation of original arcade code is established; source ISA/platform stays empty rather than inventing binary provenance.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/main.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-06",
+          "note": "No separately analyzed legacy binary or predecessor source ISA is identified. This homebrew implementation’s 68000 architecture belongs to its output target.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The build script explicitly selects vasm -m68000 and Amiga hunk output; source uses 68000 registers and OCS custom-chip access. No PPC/RTG target is implied.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/scripts/build.sh",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/main.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Bash/PowerShell recipes assemble and link the single source with vasm/vlink. Toolchain binaries and the copyrighted Kickstart ROM are deliberately excluded. Emulation expects a separately obtained legal ROM; no original arcade data file is required by the reviewed recipe. Limitations: No compilation, execution, gameplay or byte comparison was performed; all independent build flags remain null.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/scripts/build.sh",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The documented OCS/PAL A500 configuration is 512 KiB Chip plus 512 KiB slow RAM and Kickstart 1.3+. The runner confirms those memory settings; the source’s vertical-blank wait at PAL line 303 does not justify NTSC compatibility.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/scripts/run.sh",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/main.asm",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The author-written introduction explicitly attributes the initial project to Claude Fable 5 and later guided fixes to Opus. Record Claude and affirmative AI use as author testimony; the remainder of the README is labelled LLM-generated, so its claims are checked against source/configuration. This is not an inference from CLAUDE.md.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "A root GPLv3 license is present. Canonical root and game title were screened against 1,732 current projects, source/decision indexes and the 2,066-root prior-review union before primary inspection. No same-project lineage was found. Shared Space Invaders rules do not make unrelated implementations one code lineage.",
+          "evidence_urls": [
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/LICENSE",
+            "https://github.com/kotbehemot53/amiga-space-invaders/blob/7b7a0fdaedad01818050a2bbb0d9686b1a73dbf6/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "diggers-mhatxotic-remake",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The README identifies a fan remake of Diggers, explicitly tracing the original to Amiga CD32, Amiga 1200 and DOS and crediting Toby Simpson for the original Amiga design/programming. app.json independently describes the Amiga/DOS remake. The root is absent from the prior-source union and no Diggers subject is present in the 1,732-project baseline.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/app.json"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "This is a substantial game reimplementation. The reviewed Lua bank module calculates gem prices, sells inventory and checks zone victory; race.lua implements race selection, and main.lua loads game modules and engine callbacks. The current game tree uses Lua against the separately hosted C++ Mhatxotic Engine, rather than preserving original Amiga machine code.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/bank.lua",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/race.lua",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/main.lua",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/app.json"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "m68k describes the historical Amiga CD32/1200 lineage named by the author; it is a platform-family inference, not an inspected disassembly or a target requirement of this remake. The DOS lineage is also documented, but its original executable and CPU minimum were not inspected. Limitations: No original binary/source-language audit or exact historical minimum CPU claim.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The README explicitly labels Windows and Linux releases x64 and macOS Intel/Arm universal; these support x86-64 and arm64 host targets. Lua game scripts are executed by the external native engine. Historical Amiga m68k is not the host target here. Limitations: Advertised release architectures were not verified by binary inspection.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/app.json"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Game scripts, levels and media are present. app.json selects src/main.lua, whose Core/Asset/Fbo interfaces require Mhatxotic Engine; this repository is not a standalone Lua-interpreter application. The README links release packages and asserts end-to-end playability, but that author claim was not independently exercised. Limitations: No engine build, dependency install, compilation, launch, gameplay or byte-equivalence test was performed; all four build flags remain unknown.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/app.json",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/main.lua",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The documented host profiles are Windows x64, Intel/Arm macOS and Ubuntu-family x64 Linux, with OpenGL 3.2, OpenAL 1.1 and input devices. Linux notes external libglfw3/libtheora1 requirements. README memory figures are estimates and conflict with app.json's 64 MiB err_minram setting, so no RAM minimum is promoted. Limitations: These are author-advertised profiles, not measured compatibility or minimum-hardware results.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/app.json"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "The inspected README, app manifest, bank/race/main source samples and head commit disclose no development-AI assistance. References to rival AI describe in-game opponents and do not establish use of generative development tools. Limitations: AI usage stays unknown; no inference of non-use from silence.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/bank.lua",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/race.lua",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/src/main.lua"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The author describes a single remake lineage beginning as a 2006 Win32 C version, then moving to the modern external engine; those versions are not separate projects. The engine dependency is not counted as another game. license.md is an all-rights-reserved disclaimer, not a verified open-source grant; it recognizes Millennium ownership and disclaims endorsement. Original and third-party media rights remain separate. Limitations: No upstream engine audit, complete asset-rights clearance or exact remake-start date is asserted.",
+          "evidence_urls": [
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/readme.md",
+            "https://github.com/mhatxotic/diggers/blob/b57c2c3edcec056a8b2f55b54a27d8ce24a9cba9/license.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "atoms-www-amiga-remake",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "README explicitly calls this a reimplementation of Tom Kuhn's Atoms Amiga game, explains its Atari ST predecessor and Amiga Format coverdisk release, and says the design follows the Amiga version. The root and title have no match in the screened catalogue/prior union.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.html"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "game.js implements configurable two-to-four-player setup, board generation, legal atom placement, overflowing cells, orthogonal chain reactions, elimination, winner detection and restart. This is game logic rather than a genre-only visual homage. The author intentionally changes chain-reaction display and adds computer opponents.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.js",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "m68k is recorded only for the named historical Amiga/Atari ST versions, as a hardware-family inference from the author's provenance. Neither the historical executable nor original programming language was inspected. Limitations: No model-specific CPU minimum or binary-derived reconstruction is claimed.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "The inspected entry page and JavaScript target a browser DOM/CSS runtime and specify no native instruction-set target. target_cpu remains empty; browser portability does not prove any particular x86/Arm host or native Amiga execution.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.html",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.js",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The entry page loads vi.js and game.js directly, and README provides a static-checkout launch path without a compilation stage. The tree includes the referenced audio and image assets. Current game.js also fetches about.html and registers a service worker, so README's file-opening instruction alone does not establish all features under file://. Limitations: No browser session, server setup, gameplay or byte comparison was performed; build/runnable/playable/byte_exact stay unknown.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.html",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.js"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The author requires modern browser support for ES2018, CSS Grid, transitions, transforms and variables, with Chrome/Firefox-family browsers named. The inspected code also uses Fetch and service-worker registration. No numeric CPU/RAM minimum or verified current browser matrix is available. Limitations: Historical browser compatibility statements were not retested.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.js"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "No development-AI disclosure was found in README, LICENSE, entry page or game.js. CPU-player configuration and VI calls are in-game opponent behavior and are not evidence of AI-assisted software development. Limitations: AI usage is unknown, not false.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/LICENSE",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.js"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Thomas Pike's web implementation credits Tom Kuhn's original Atoms and its Atari ST-to-Amiga history; it is not presented as a source mirror of that historical game. LICENSE grants MIT terms for this implementation. Bundled audio/media were not individually traced to rights holders, so the code license is not treated as blanket original-asset clearance. Limitations: No exhaustive fork/asset provenance survey was performed.",
+          "evidence_urls": [
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/README.md",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/LICENSE",
+            "https://github.com/thomas-pike/atoms-www/blob/a19ae4483dcdaabafca318f7650bbf1fe3f1e448/game.html"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "xit-qfel13-javascript-remake",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "README explicitly identifies an effort to port Amiga X-it to JavaScript and CSS. The root and normalized X-it/Xit title were screened against prior roots and the current catalogue without a match. index.html names Xit and links the same source repository.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/README",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/index.html"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The active index loads js/xit2.js, whose inspected level parser, timer/energy handling, player input, weighted block/slider movement, ice, traps, teleporters and bombs establish substantial puzzle-game reimplementation. Level data and an editor are present in the tree. Although the author calls it a port, this is JavaScript game logic rather than a mirror of an existing native port. Limitations: No complete-level or original-behavior parity is claimed.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/index.html",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/js/xit2.js",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/levels/001.txt"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "m68k identifies the historical Amiga source platform named in README, at hardware-family level only. No original binary or assembly listing was audited. Limitations: Original source language and exact Amiga CPU/chipset requirements remain unknown.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/README"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "JavaScript/DOM/CSS is the inspected execution path. The source contains no native output architecture or Amiga build target, so target_cpu remains empty rather than carrying historical m68k onto browser hosts.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/README",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/index.html",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/js/xit2.js"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The checked-in HTML directly loads JavaScript/CSS, with no compilation needed for that source path. js/xit2.js loads levels through XMLHttpRequest and accepts HTTP status 200; a static HTTP origin is therefore the evidenced asset-serving path, not a guaranteed file:// launch. TODO.txt retains floor/object separation, undo, level-save and animation work. Limitations: No HTTP server, browser runtime, game completion or byte-equivalence verification was performed.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/index.html",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/js/xit2.js",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/TODO.txt"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "README says development was under Chrome and calls for a modern browser. The implementation requires DOM events, CSS assets, XMLHttpRequest and localStorage for its editor/level handoff. No numeric RAM/CPU requirement or current cross-browser support claim is established. Limitations: No tested minimum-browser version is recorded.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/README",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/js/xit2.js"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "README, TODO, entry page and inspected JavaScript contain no development-AI disclosure. AI usage remains unknown; the 2011 repository dates are not used as proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/README",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/TODO.txt",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/js/xit2.js"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "This is one X-it remake root, with xit.js, xit2.js, minified copies and the integrated editor retained as a single lineage. The active HTML selects xit2.js. No LICENSE file was found in the complete non-truncated snapshot tree and the inspected entry/source files contain no reuse grant; source visibility and bundled sprites do not establish redistribution rights. Limitations: Original asset provenance and explicit project licensing need clarification; do not label this open source.",
+          "evidence_urls": [
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/README",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/index.html",
+            "https://github.com/qfel13/xit/blob/f4ed6ec207b771806b2ecae75b4e12e1bf4eca9c/js/xit2.js"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "deuteros-resurrected-godot",
+      "last_reviewed": "2026-10-06",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Repository metadata identifies a remake of Ian Bird's Atari ST/Amiga Deuteros, and the linked official project website confirms the Amiga remake and links this repository. README is still a setup placeholder, so identity does not rely on that file alone.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/project.godot",
+            "https://www.deuteros.com/",
+            "https://github.com/DeuterosOrg/Deuteros-Resurrected"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The Godot C# project contains substantive game systems. GameCore wires day advancement, production, research, ship updates, alien messages and screens; Factory implements production-queue progress using builder count/level and bounded counters. This supports a game reimplementation, not a recovered original source archive or a title-screen-only demo.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Code/GameCore.cs",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Code/Objects/Factory.cs",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Deuteros.csproj"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The stated Atari ST/Amiga historical provenance supports m68k only at platform-family level. The inspected modern C# logic is not evidence for the original source language, exact original CPU model or binary-accurate translation. Limitations: No original executable or assembly was inspected.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Code/Objects/Factory.cs",
+            "https://github.com/DeuterosOrg/Deuteros-Resurrected",
+            "https://www.deuteros.com/"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Both Windows Desktop and Linux/X11 export presets explicitly select binary_format/architecture=\"x86_64\". This establishes configured x86-64 host output, independent of the original m68k game. Conditional Android/iOS .NET framework settings do not establish mobile exports and are not promoted as targets. Limitations: The website advertises Windows only; Linux is a configuration target, not a verified distributed build.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/export_presets.cfg",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Deuteros.csproj",
+            "https://www.deuteros.com/"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Deuteros.csproj specifies Godot.NET.Sdk 4.2.1, net6.0 and Newtonsoft.Json 13.0.3; project.godot selects a Godot 4.2 C# main scene. The website describes ongoing development and partial feature completion. Its playable-build claim is not an independent result. Limitations: No Godot import/export, compilation, downloaded-binary launch, gameplay or byte comparison was run. Export paths are author-local and require adjustment elsewhere.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Deuteros.csproj",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/project.godot",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/export_presets.cfg",
+            "https://www.deuteros.com/"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "Recorded profiles describe the two desktop export configurations. project.godot requests Forward Plus and a 1280×720 viewport; these are configuration observations, not minimum-hardware benchmarks. Numeric RAM/GPU/CPU minima and Linux execution have not been established. Limitations: No runtime compatibility matrix was independently tested.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/project.godot",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/export_presets.cfg"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-06",
+          "note": "No development-AI disclosure was found in the README placeholder, project configuration or inspected GameCore/Factory code. AI usage stays unknown.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/README.md",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Code/GameCore.cs",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Code/Objects/Factory.cs",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Deuteros.csproj"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-06",
+          "note": "The prior catalogue already has Project Eon for the same Deuteros subject, but this separately owned Godot/C# implementation has distinct source and no fork relationship in repository metadata. It is retained as an independent implementation, not another copy of Eon. LICENSE contains CC0-1.0; the official site separately reserves original assets/names to their owners and disclaims endorsement. Limitations: No blanket clearance of original game assets or full contribution/lineage graph is asserted.",
+          "evidence_urls": [
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/LICENSE",
+            "https://github.com/deuterosorg/deuteros-resurrected/blob/942d993d64ae078ac56344451aa0d228f364a9fd/Godot/Deuteros.csproj",
+            "https://github.com/DeuterosOrg/Deuteros-Resurrected",
+            "https://www.deuteros.com/",
+            "https://github.com/yeager/project-eon"
+          ]
+        }
+      },
+      "next_actions": []
     }
   ]
 }

@@ -814,3 +814,7 @@ Promoted the approved 13 original-binary CPU-plus-OS-API runner projects after f
 ## 2026-10-06 — Seventeen Amiga game projects
 
 Promoted exactly 17 approved original-source game archives, native homebrew and reconstructions after fresh catalogue/source/decision/prior-review dedup. Ermentrud/Inga is one lineage and AmigaBridge games one collection. All 136 audit areas preserve hardware/ISA, partial build, licensing/assets and affirmative AI evidence. Rezerwar and held leads are not promoted. See [complete Amiga game audit](docs/amiga-games-17-2026-10-06.md). Bounded discovery only, with no candidate builds or execution.
+
+## 2026-10-06 — Review eight additional Amiga game projects and seven held or excluded leads
+
+[Research record](docs/research/2026-10-06-amiga-games-next-eight.md).
