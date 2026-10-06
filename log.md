@@ -851,3 +851,8 @@ Published exactly the approved 37 source-reviewed projects (15 games, 13 system/
 ## 2026-10-06 — Thirteen retro CLI runner projects
 
 Published exactly 13 approved source-reviewed runner projects, from 1,702 to 1,715, with 104 substantive audits and one Pyromaniac availability hold. All existing catalogue/audit objects and app/workflow/PR4 code are unchanged; the known SDL attribution issue remains untouched and DMPP’s corrected date is preserved. Independent build/runtime/fidelity flags stay unknown. See [full source and host-support audit](docs/retro-cli-runners-13-2026-10-06.md).
+
+
+## 2026-10-06 — Seventeen source-reviewed Amiga games
+
+Published the 17 approved games/collections, from 1,715 to 1,732, with 136 substantive audit areas. Existing project/audit/index/history objects and code/workflows remain unchanged, including the known SDL attribution issue, PR4 labels and DMPP date. Independent build/runtime/fidelity flags remain unknown. Rezerwar and all held leads stay outside this promotion. See [full publication audit](docs/amiga-games-17-2026-10-06.md).

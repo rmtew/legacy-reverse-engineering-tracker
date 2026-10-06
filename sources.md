@@ -809,3 +809,8 @@ Reviewed 49 primary roots, promoting the approved 37 while preserving 8 holds, 3
 ## 2026-10-06 — Retro CLI executable runners
 
 Promoted the approved 13 original-binary CPU-plus-OS-API runner projects after fresh source/decision/lineage dedup. Full 104-area audits preserve guest versus host distinctions, build/runtime uncertainty, explicit AI provenance, licensing and original-tool constraints. Pyromaniac remains deferred because its official site says it is not distributed. See [complete runner audit](docs/retro-cli-runners-13-2026-10-06.md). No claim of exhaustive ecosystem coverage; full-machine emulators and source-only cross-compilers were not added to this batch.
+
+
+## 2026-10-06 — Seventeen Amiga game projects
+
+Promoted exactly 17 approved original-source game archives, native homebrew and reconstructions after fresh catalogue/source/decision/prior-review dedup. Ermentrud/Inga is one lineage and AmigaBridge games one collection. All 136 audit areas preserve hardware/ISA, partial build, licensing/assets and affirmative AI evidence. Rezerwar and held leads are not promoted. See [complete Amiga game audit](docs/amiga-games-17-2026-10-06.md). Bounded discovery only, with no candidate builds or execution.
