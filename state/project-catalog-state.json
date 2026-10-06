@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-06T06:18:54Z",
+  "updated_at": "2026-10-06T07:40:56Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -7937,6 +7937,109 @@
         "tools": []
       }
     },
+    "geekychris-amiga-games": {
+      "id": "geekychris-amiga-games",
+      "title": "Amiga Games — Dot Chase, Fractalus and Void Trader collection",
+      "upstream_name": "amiga_games",
+      "display_title": "Amiga Games — Dot Chase, Fractalus and Void Trader collection",
+      "subjects": [
+        "Dot Chase",
+        "Fractalus",
+        "Void Trader"
+      ],
+      "repo": "https://github.com/geekychris/amiga_games",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "68020",
+        "PowerPC 440"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Dot Chase: selected classic 68k build",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "os": "AmigaOS 3.x (intuition.library/graphics.library v39)",
+          "notes": "-m68020 build with intuition.library and graphics.library v39, four-plane LORES screen. No PPC branch is evidenced. RAM and chipset minima are unstated; not independently run.",
+          "evidence": [
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile",
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/main.c"
+          ]
+        },
+        {
+          "name": "Fractalus and Void Trader: selected classic AGA builds",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "chipsets": [
+            "AGA"
+          ],
+          "os": "AmigaOS 3.x (v39 libraries)",
+          "notes": "Both selected builds use -m68020, explicit AGA 320x256x8bpp and v39 OS libraries. No minimum RAM or measured performance threshold is established. 64 KiB stack requests are not RAM minima.",
+          "evidence": [
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile",
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp",
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile",
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c"
+          ]
+        },
+        {
+          "name": "Fractalus and Void Trader: PPC OS4 variants",
+          "platform": "Amiga",
+          "cpu_family": "PowerPC",
+          "os": "AmigaOS 4.1",
+          "notes": "ARCH=ppc selects -mcpu=440 and newlib with sam460ex/QEMU intent. The PPC variants use silent audio stubs; Fractalus uses graphics.library fallback rendering. Pacing/freezing limitations are author-reported. This does not cover Dot Chase or the whole collection; exact CPU/RAM minimum remains unverified.",
+          "evidence": [
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile",
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile",
+            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c",
+            "https://github.com/geekychris/amiga_games/commit/0b22777413670059b1f8c12d1a8eacf8511a9c78"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "native homebrew game collection"
+      ],
+      "re_started": null,
+      "status": "Three substantive game anchors reviewed; per-game 68k/PPC variants and parent-library dependency; independently untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "source-reviewed",
+        "independent-build-untested",
+        "native homebrew game collection"
+      ],
+      "notes": "amiga_games is one source-available AmigaBridge game collection with its own canonical root, distinct from the already-tracked parent tooling. Three inspected anchors establish the bounded game collection: Dot Chase implements maze dot-eating, ghost states, power pellets, fruit, score, lives and level completion; Fractalus implements terrain flight, pilot rescue/deception, landing/airlock/takeoff, combat, fuel/shield win/loss and attract mode; Void Trader implements space combat, docking, station trading, cargo/credits, salvage and win/game-over states. Void Trader prices are fixed with 90% resale; variable-price trade routes remain future work. The complete 426-entry tree was inspected and three game anchors were read in depth; this is not a claim that every listed game or asset was audited. One subject/game collection is counted, with Dot Chase, Fractalus and Void Trader as the reviewed subjects. These are substantial native homebrew/homage implementations; no original-binary reconstruction is established. Fractalus source explicitly calls itself a Rescue on Fractalus homage. Demos, utilities and tests are outside this game scope. Hubert, although listed among games in README, is an interactive shell/REPL with LLM support and is excluded from the game anchors. No extra project is made for uninspected collection labels. The reviewed anchors are original native C/C++ game implementations and homages, not analysed historical instruction streams. source_cpu and source_language remain empty; the selected 68020 and PowerPC 440 outputs belong in target_cpu. Historical inspirations and an Amiga label do not establish an original binary CPU. Dot Chase explicitly uses m68k-amigaos-gcc -m68020 with no reviewed PPC branch. Fractalus and Void Trader have separate ARCH=m68k/-m68020 and ARCH=ppc/ppc-amigaos-gcc(-g++) -mcpu=440 branches. Their PowerPC support cannot be generalized to Dot Chase, all games, every PPC processor or every AmigaOS release. The three per-game Makefiles require the external parent AmigaBridge headers and libbridge.a at ../../amiga-bridge, so the game repository alone is insufficient without that layout, dependency and matching compiler/library architecture. Classic builds use -noixemul; the two PPC branches use newlib and architecture-specific audio stubs. Fractalus/Void Trader treat failed ab_init as optional at runtime, so a running host MCP/daemon is not established as universally required merely by README deployment instructions. Dot Chase ignores that return value; daemon-free execution remains unverified. Parent examples-pin mismatch is retained under relationships. No collection build, binary availability or playthrough was independently verified; all four build flags remain null. Requirements differ by inspected game and architecture. Dot Chase builds with -m68020, opens intuition.library and graphics.library v39, and uses a four-plane LORES custom screen; no PPC branch or chipset minimum is asserted for it. Fractalus and Void Trader default to -m68020, AmigaOS 3.x/v39 libraries and explicit AGA 320x256x8bpp. Their separate PPC builds use -mcpu=440, newlib and AmigaOS 4.1 sam460ex/QEMU intent, with silent audio stubs replacing Paula access; Fractalus also falls back to graphics.library rendering. This establishes selected compiler targets, not independently tested accelerator/RAM minima or general PPC compatibility. Source requests 65536-byte stacks in the two 3D games; stack allocations are not total-RAM minima. Upstream reports Fractalus uncapped at 150–200 fps after Delay(2) froze on OS4, resulting in very fast combat/short attract delay; Void Trader uses an explicitly temporary CPU-burn pacing loop. None of those author observations was reproduced here. Explicit game-source commit trailers attribute Fractalus attract-mode work and draw-overlay correction to Claude Opus 4.7 (1M context); the MIT copyright-line update credits Claude Opus 4.7. These are affirmative development-assistance evidence, so ai.usage is true and tools contains only Claude. The claim does not quantify generated code, cover every game, or rely on an instruction filename, provider email or the unrelated Hubert LLM feature. Latest five commit messages were freshly rechecked. The existing amiga-devbench-mcp tracker record covers the separate parent geekychris/amiga_mcp debugger/development tooling, not this game inventory. All three inspected games require its ../../amiga-bridge/include and libbridge.a in the expected layout, with matching target architecture. The parent examples gitlink at a346995a30948fff03faa3b3efbaf5a3bdb131dc pins 2dad36f1c16e158ba9e951c0a92760d25366680a and .gitmodules hints feat/initial-import, whereas this collection was reviewed at c3a23bec0328cf716fac6536f9164ea6209bf397; the recursive-parent-clone recipe does not necessarily reproduce this snapshot. Root LICENSE and inspected SPDX headers grant MIT, overriding the stale README license-TBD sentence for those files. Sampled stakattack/ptplayer.asm is Frank Wille public-domain code, so the README all-original wording is not a whole-collection provenance guarantee. Full asset/dependency licensing remains partial. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot c3a23bec0328cf716fac6536f9164ea6209bf397. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/geekychris/amiga_games https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/game.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/game.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/combat.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/trade.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/README.md https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/hubert/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/main.c https://github.com/geekychris/amiga_games/commit/0b22777413670059b1f8c12d1a8eacf8511a9c78 https://github.com/geekychris/amiga_games/commit/8fc73947ef92fdc2d06b170ed39e38da22a14549 https://github.com/geekychris/amiga_games/commit/3cc8ad907c06b51834ae9d622a5f46fdec3dd4c3 https://github.com/geekychris/amiga_games/commit/07193a647bc68a70ba3802599789eb26333c8c14 https://github.com/geekychris/amiga_mcp/blob/a346995a30948fff03faa3b3efbaf5a3bdb131dc/.gitmodules https://github.com/geekychris/amiga_mcp/tree/a346995a30948fff03faa3b3efbaf5a3bdb131dc/examples https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/LICENSE https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/stakattack/ptplayer.asm",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "amigaghidra-scripts-caddy666": {
       "id": "amigaghidra-scripts-caddy666",
       "title": "Amiga Ghidra annotation scripts",
@@ -8183,6 +8286,82 @@
         "usage": true,
         "tools": [
           "LLM"
+        ]
+      }
+    },
+    "amiga-minesweeper-boingball": {
+      "id": "amiga-minesweeper-boingball",
+      "title": "AmIga Minesweeper — native Amiga homebrew source",
+      "upstream_name": "AmIga Minesweeper",
+      "display_title": "AmIga Minesweeper — native Amiga homebrew source",
+      "subjects": [
+        "AmIga Minesweeper",
+        "Minesweeper"
+      ],
+      "repo": "https://github.com/boingball/AmIgaMinesweeper",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Author RAM requirement; source V39 API floor",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_chip_ram_kib": 1024,
+          "os": "AmigaOS / Intuition V39",
+          "notes": "README states 1MB Chip RAM and OS2+, but the unguarded active busy-pointer path calls SetWindowPointer, a V39 API. Treat OS2 claim as contradicted; no runtime test, exact CPU or chipset minimum established.",
+          "evidence": [
+            "https://github.com/boingball/AmIgaMinesweeper/blob/c825ab1055c14355816b45d688514e9d8a294cf1/README.md",
+            "https://github.com/boingball/AmIgaMinesweeper/blob/c825ab1055c14355816b45d688514e9d8a294cf1/minesweeper.c",
+            "https://d0.se/autodocs/intuition.library/SetWindowPointerA"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original Amiga homebrew",
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Substantive native game source reviewed; build and runtime independently unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "native AmigaOS API programming"
+      ],
+      "tags": [
+        "Amiga",
+        "m68k",
+        "native homebrew",
+        "source-reviewed"
+      ],
+      "notes": "Darren Banfi’s AmIga Minesweeper is a distinct original native Amiga implementation, with source, screenshot and author README rather than an emulator wrapper or a mirror of another Minesweeper source release. The full minesweeper.c defines a 10-by-10 board with ten mines, adjacency counts, a queue-based empty-area reveal, flagging, mouse events, reset, win/loss handling and Amiga Intuition graphics/audio effects. It is not the same code lineage as Paul Kienitz’s Miner, despite sharing the game genre. The author’s root and title were absent from the current 1715 catalogue, source and decision indexes and 2031 prior-root union. Subject/game: native classic-Amiga homebrew written in C. This is a source-available new implementation of familiar Minesweeper rules, not evidence of disassembling the Windows game or reconstructing an original commercial Amiga executable. The Amiga APIs and actual rule/event code establish a substantive game. work_kinds stays empty rather than inventing a binary-derived reverse-engineering method; original-homebrew and AI-assisted-development nuance remains in types and notes. This is a newly authored native Amiga C game, with no separately analyzed predecessor executable or original machine code. source_platforms and source_cpu therefore stay empty; the newly authored C source is recorded under reconstructed_languages, while the explicit classic-Amiga and m68k-amigaos compiler target belongs in target_platforms/target_cpu. This avoids assigning a source ISA merely from the machine on which a new homebrew game is intended to run. The provided compiler example uses m68k-amigaos-gcc, and source calls classic AmigaOS interfaces. The output target is therefore m68k. The README’s generic classic-Amiga statement does not independently demonstrate a stock 68000 minimum, later 68020 requirements, a PPC build or an AROS target; those are not assigned. No executable was compiled or ISA-inspected in this audit. README provides an m68k-amigaos GCC command and mentions VBCC; the tree contains source and screenshot rather than a verified generated binary/release. The implementation uses C99-style loops and modern Amiga SDK declarations, so exact compiler/SDK compatibility requires a future clean build. No build, installation, game execution, gameplay or byte comparison was performed, and all four build flags remain null. README’s fully-functional description is an author assertion, not an independent test. README claims a classic Amiga with at least 1MB Chip RAM and AmigaOS 2.0+. The current source contradicts the OS floor: setPointerBusy/setPointerNormal call SetWindowPointer with WA_BusyPointer, and revealCell actually invokes these unguarded functions. Published Amiga SDK autodocs mark both SetWindowPointer and SetWindowPointerA as V39. The profile preserves the author-stated Chip RAM and marks the source-required Intuition V39 path; it does not promise OS2 compatibility. No exact CPU/chipset/RTG/accelerator minimum or measured runtime was established. README explicitly states that AI was used to make this project over seven hours, naming Amiga Guru on ChatGPT. ai.usage is true and the named tool is ChatGPT; this is affirmative author attribution, not inference from an AI-named file, a screenshot, a provider domain or gameplay logic. The current bounded latest-30 commit review found no additional explicit named AI coauthor claim. The attribution does not quantify which lines were generated or independently verify the author’s elapsed-time claim. Root LICENSE is MIT, copyright Darren Banfi 2024, and the C file names the same author. No external game-data download or commercial original binary is required by the documented code path. This distinct code is not merged with other Minesweeper homebrew merely because the rules match. The README clone command spells a different repository name; the verified canonical root is boingball/AmIgaMinesweeper and no unverified alternate URL is created. The OS compatibility contradiction is preserved for future validation rather than repaired during catalogue publication. Pinned source snapshot c825ab1055c14355816b45d688514e9d8a294cf1; bounded source/history audit. Evidence: https://github.com/boingball/AmIgaMinesweeper/blob/c825ab1055c14355816b45d688514e9d8a294cf1/README.md https://github.com/boingball/AmIgaMinesweeper/blob/c825ab1055c14355816b45d688514e9d8a294cf1/minesweeper.c https://d0.se/autodocs/intuition.library/SetWindowPointerA https://github.com/boingball/AmIgaMinesweeper/blob/c825ab1055c14355816b45d688514e9d8a294cf1/LICENSE",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "ChatGPT"
         ]
       }
     },
@@ -17620,6 +17799,75 @@
         "tools": []
       }
     },
+    "battle-squadron-2-amiga-jam": {
+      "id": "battle-squadron-2-amiga-jam",
+      "title": "Battle Squadron 2 — Amiga Game Jam shooter source",
+      "upstream_name": "Battle Squadron 2",
+      "display_title": "Battle Squadron 2 — Amiga Game Jam shooter source",
+      "subjects": [
+        "Battle Squadron 2"
+      ],
+      "repo": "https://github.com/bitwise-brains/AGJ2024_BS2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented ACE/custom-chip game target",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "notes": "The source targets native Amiga custom-chip graphics/input through ACE, with five-bitplane rendering, ProTracker/mixed audio and data.tte loading. No exact CPU generation, RAM amount, chipset guarantee or Kickstart/AmigaOS minimum was established. res/data.tte is present at 678755 bytes, with BS2.info and highscore.dat, but its packed contents and asset-reconstruction pipeline were not decoded. No stock A500 compatibility claim is inferred from ACE.",
+          "evidence": [
+            "https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/main.c",
+            "https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/game.h",
+            "https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/CMakeLists.txt"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "native jam-game source"
+      ],
+      "re_started": null,
+      "status": "Substantive game source; ACE pin and licensing unresolved; independent build/playability unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "source-reviewed",
+        "independent-build-untested",
+        "native jam-game source"
+      ],
+      "notes": "Battle Squadron 2 is the bitwise-brains Amiga Game Jam 2024 shooter source. Its 2621-line game.c and related state/data headers implement four stages including a boss, enemy waves, player/enemy projectiles, collisions, damage, powerups, lives, special weapon, score table, intermissions and victory/loop states. The 47-entry non-truncated tree and sole Initial commit were inspected; this is one game rather than a template or four separate stages. This is an original jam sequel/fan-game implementation using ACE, published as readable C source. Substantive gameplay/state code warrants a game record, but no reverse-engineered Battle Squadron code, disassembly or decompilation claim is established. work_kinds is therefore empty. The jam title does not establish rights to the historical name or assets. No analysed predecessor binary or original instruction stream is established. This is authored native game source, so source_cpu and source_language remain empty; the actual m68k Amiga output is represented under target_cpu. The historical Battle Squadron subject alone is not CPU evidence. CMake requires AMIGA and uses AmigaCMakeCrossToolchains/Modules/m68k-amigaos, with Bartman ELF-to-hunk or Bebbo executable routes and bundled 68k mixer assembly. These establish the m68k Amiga target family. No exact 68000/020 instruction level is selected in the reviewed top-level recipe, so no exact CPU or minimum is invented. CMake >=3.14 and C11 require an Amiga C compiler/toolchain, ACE and ace_audio_mixer. .gitmodules names AmigaPorts/ACE and CMake calls add_subdirectory(ace), but the complete snapshot has no ace directory or mode-160000 gitlink. A recursive clone alone cannot recover a pinned ACE dependency. The external cross-toolchain module path is ../../AmigaCMakeCrossToolchains/Modules/m68k-amigaos. file(COPY \"${RES_DIR}/*\" ...) is a suspicious literal-wildcard packaging line, not a reproduced build failure. No build or release binary was verified; all four build flags remain null. The source targets native Amiga custom-chip graphics/input through ACE, with five-bitplane rendering, ProTracker/mixed audio and data.tte loading. No exact CPU generation, RAM amount, chipset guarantee or Kickstart/AmigaOS minimum was established. res/data.tte is present at 678755 bytes, with BS2.info and highscore.dat, but its packed contents and asset-reconstruction pipeline were not decoded. No stock A500 compatibility claim is inferred from ACE. The full tree, sole Initial commit, CMake/.gitmodules, main/game/header/intermission source and the first 100 lines of win.c were inspected. No explicit AI development attribution was found. usage remains null; gameplay logic, file names and absence of a disclosure do not establish AI-assisted coding or non-use. ACE is an external dependency, not a second game discovery, and its missing pin is unresolved. No root README or game LICENSE is present in the complete tree; GitHub metadata also reports license null. Public readability does not grant redistribution rights to this game or its packed assets. The mixer credits Jeroen Knoester, but that attribution and ACE do not establish a broad game/asset license. The project title presents a Battle Squadron sequel; no independent original-code lineage is demonstrated. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot 9faae78ea57f137e477001ff6d97543ea6c55c3e. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/main.h https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/game.c https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/intermission.c https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/win.c https://github.com/bitwise-brains/AGJ2024_BS2/commit/9faae78ea57f137e477001ff6d97543ea6c55c3e https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/CMakeLists.txt https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/ace_audio_mixer/src/mixer.asm https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/.gitmodules https://github.com/bitwise-brains/AGJ2024_BS2/tree/9faae78ea57f137e477001ff6d97543ea6c55c3e https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/main.c https://github.com/bitwise-brains/AGJ2024_BS2/blob/9faae78ea57f137e477001ff6d97543ea6c55c3e/src/game.h",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "rkplay-battlesquadron-music": {
       "id": "rkplay-battlesquadron-music",
       "title": "Battle Squadron music replay — rkplay",
@@ -17679,6 +17927,90 @@
         "game audio"
       ],
       "notes": "README describes a reverse engineered replayer for Ron Klaren’s Battle Squadron Amiga music, with WAV/raw PCM output. C source, Makefile and song format module present; fidelity to original routine unverified.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "battleship-amigaos3-tickbit": {
+      "id": "battleship-amigaos3-tickbit",
+      "title": "Battleship — native AmigaOS 3 game source",
+      "upstream_name": "Battleship for AmigaOS 3",
+      "display_title": "Battleship — native AmigaOS 3 game source",
+      "subjects": [
+        "Battleship"
+      ],
+      "repo": "https://github.com/tickBit/Amiga-Battleship",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Workbench full/light variants",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "os": "AmigaOS 3.x",
+          "notes": "Full/light game windows need 800x800/600x600 inner dimensions. Display mode large enough is required; no numeric CPU/RAM or mandatory RTG claim. Author documents pen-color/resource-initialization issues.",
+          "evidence": [
+            "https://github.com/tickBit/Amiga-Battleship/blob/b3442b1d077e6aa65f4f56f2e1c95f8c953d0781/README.md"
+          ]
+        },
+        {
+          "name": "Own-screen AGA variant",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "chipsets": [
+            "AGA"
+          ],
+          "os": "AmigaOS 3.x",
+          "notes": "README identifies this as the AGA workaround for some RTG pen issues. Documented source compile recipe includes -fpu=68881; do not infer a stock no-FPU machine is compatible. Actual display selection and runtime untested.",
+          "evidence": [
+            "https://github.com/tickBit/Amiga-Battleship/blob/b3442b1d077e6aa65f4f56f2e1c95f8c953d0781/README.md",
+            "https://github.com/tickBit/Amiga-Battleship/blob/b3442b1d077e6aa65f4f56f2e1c95f8c953d0781/Battleship-light-screen.c"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original Amiga homebrew",
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Substantive native game source reviewed; build and runtime independently unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "native AmigaOS API programming"
+      ],
+      "tags": [
+        "Amiga",
+        "m68k",
+        "native homebrew",
+        "source-reviewed"
+      ],
+      "notes": "This distinct native AmigaOS 3 C implementation has full, light and own-screen Battleship variants. The reviewed complete own-screen source implements ship placement/rotation/undo, player and computer shooting, hit counts, new game and terminal win/loss states; packaged LhA files and artwork are also present. The project is counted once across these variants. Its canonical tickBit/Amiga-Battleship root and subject-code identity do not match prior-reviewed roots or a current catalogue record. Subject/game: original native Amiga homebrew implementing the board-game rules with a computer opponent and system-native GUI. Source uses Intuition/GadTools, graphics, layers and backfill-hook APIs. It is not a disassembly of a commercial Battleship binary, a generic GUI toolkit or an emulator; work_kinds is intentionally empty. References to AIHits, difficulty and computer shooting describe game behavior rather than evidence of AI-assisted development. This is an original C implementation of Battleship rules, with no separately analyzed predecessor game binary or source CPU. source_platforms and source_cpu remain empty, while target_platforms/target_cpu describe its native AmigaOS 3 m68k output. The code uses classic native headers/calling conventions, and AGA/RTG compatibility concerns belong to target runtime variants, not invented original source architectures. Classic m68k is the evidenced output ISA. The own-screen source documents vc -c99 with -lamiga and -fpu=68881, so that specific recipe requests hardware floating-point instructions. It is not safe to claim that its resulting binary runs on every stock 68000/68020 machine. No general minimum CPU is inferred from that compiler flag, and an alternative software-float build remains untested rather than assumed. No PPC, AmigaOS4 or modern-host target is documented by the reviewed source. README requires VBCC with -c99 and says its backfill-hook implementation prevents direct use of other compilers. The checked-in source provides the own-screen compile line with -fpu=68881. C files and packed LhA binary distributions exist, but their correspondence and a clean rebuild were not tested. The README warns resource/library/allocation failures may behave badly. These are documented build/source facts, not observed compilation or playability; all four build flags remain null. The full and light Workbench windows require inner sizes of 800x800 and 600x600 respectively, so a display large enough for the selected variant is necessary. README documents an own-screen AGA variant to work around ObtainBestPenA problems on some RTG systems. This is not an OCS/A500 compatibility statement or a universal RTG requirement. The own-screen source selects a display mode and the recipe requests a 68881 FPU; exact CPU/RAM minima and actual machine compatibility remain unverified. No affirmative development-AI attribution was found in the reviewed README, full own-screen C source, root tree or bounded latest-30 commit messages. ai.usage stays null and tools stays empty; that is not proof of non-use. AIHits, difficulty and opponent attack routines are ordinary gameplay computer-opponent logic. No attribution is inferred from source style, names, generic author language, or an instruction filename. All full/light/own-screen C and LhA variants are maintained in one repository and one record. The reviewed complete tree contains no standard LICENSE file and the README/source header supplied no general redistribution or modification grant; publicly accessible code is not treated as an open-source license. The embedded picture source and background image are game assets, but no blanket asset-rights grant was found. Report this licensing gap separately from the project’s eligibility as a substantive source-available game. Pinned source snapshot b3442b1d077e6aa65f4f56f2e1c95f8c953d0781; bounded source/history audit. Evidence: https://github.com/tickBit/Amiga-Battleship/blob/b3442b1d077e6aa65f4f56f2e1c95f8c953d0781/README.md https://github.com/tickBit/Amiga-Battleship/blob/b3442b1d077e6aa65f4f56f2e1c95f8c953d0781/Battleship-light-screen.c",
       "ai": {
         "usage": null,
         "tools": []
@@ -18904,6 +19236,89 @@
         ]
       }
     },
+    "besch-amiga": {
+      "id": "besch-amiga",
+      "title": "Besch — Amiga card-game source archive",
+      "upstream_name": "Besch (beschei-en)",
+      "display_title": "Besch — Amiga card-game source archive",
+      "subjects": [
+        "Besch",
+        "beschei-en"
+      ],
+      "repo": "https://github.com/samskivert/beschei-en",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "68020"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Archived native Amiga card game",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "notes": "Native Intuition/GadTools screen and chip-stored card images. SAS/C configuration selects 68020, but no verified minimum CPU, OS version, RAM or chipset is documented; min_cpu intentionally omitted.",
+          "evidence": [
+            "https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/main.c",
+            "https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/card.c",
+            "https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/SCOPTIONS"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original Amiga card-game source archive"
+      ],
+      "re_started": null,
+      "status": "Original 1995 Amiga C archive; SAS/C 68020 configuration preserved; build and runtime untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original-source preservation",
+        "card-rule implementation"
+      ],
+      "tags": [
+        "Amiga",
+        "card game",
+        "original source",
+        "SAS/C",
+        "68020 configured",
+        "source-reviewed",
+        "build untested"
+      ],
+      "notes": "Michael D. Bayne's Besch, archived under repository name beschei-en. Repository metadata identifies an Amiga card game circa 1995; main.c's historical revision and screen title independently establish the game name/author/date. The tree includes main event handling, cards/decks/stacks, move scoring, board logic and a computer opponent. These are substantial original C game modules, not merely screenshots or an executable wrapper. Canonical root and subject aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and the 2031-root prior-review index; this is a new project lineage. Current default-branch tip is 07c6eb2e235808eb84f89b259f7cd34cda81efe3; the complete tree contains 37 entries. Original native Amiga game source archive, classified as source-restoration for preservation rather than decompilation or a new reconstruction. main.c initializes the Amiga screen and game classes; board.c implements interaction/state and opponent.c searches move hypotheses. Makefile produces a single Besch executable from these modules. The 1995 source revision markers and 2011 Git import do not establish a later reverse-engineering effort. The original C source is specifically classic Amiga: it uses Exec, graphics, Intuition and GadTools APIs, chip image data, __far and register-call conventions. This supports m68k source architecture. The configured CPU=68020 belongs to the archived compiler output recipe; it does not prove every historical original binary or every theoretical rebuild used that exact processor. SCOPTIONS explicitly selects CPU=68020 together with PARMS=REGISTER, SCODE and SDATA; Makefile invokes SAS/C SC to compile/link Besch. target_cpu therefore records 68020 for the documented native Amiga build. This is a concrete output configuration, not a generic inference from C or from the Amiga name, and is not promoted to an independently verified minimum runnable CPU. Historical Makefile uses SAS/C SC with SLink named as linker, Amiga Delete/Copy commands and SDK/library headers, with eleven game modules and generated prototype headers. SCOPTIONS uses Amiga-specific options and CPU=68020; source relies on chip, __far and register conventions. A present-day toolchain or adaptation is needed to assess a clean rebuild. No README or top-level LICENSE is present in the complete tree, and no local compilation/execution or original-binary comparison was performed. All four build flags remain null. main.c explicitly creates an Amiga custom screen like Workbench at depth three, uses Intuition/GadTools event handling and offers optional opponent search depth. card.c stores its suit images in chip data. This establishes a native Amiga runtime profile but not a particular chipset, RAM/Chip RAM quantity or OS-version minimum. CPU=68020 is retained solely as build output configuration; no min_cpu is populated and A500/68000 compatibility is not asserted. opponent.c contains hand-coded card-game move search and scoring; this is in-game AI, not evidence of AI-generated code. The final Git commit says autogenerated headers and other bits, which describes compiler/prototype generation rather than naming any AI development tool. Current default-branch history review covered the latest 10 commit messages returned by a 30-commit request, including tip 07c6eb2e235808eb84f89b259f7cd34cda81efe3; no explicit development-AI attribution or disclosure was found in these messages or the cited reviewed text. This bounded absence is not proof of non-use: ai.usage stays null and ai.tools stays empty. No inference is made from filenames, author addresses, or code style. Besch is the in-program/Makefile name and beschei-en is the same author's repository identity, so they are one project. card.c defines suit image data directly rather than requiring an identified external commercial card-art package. Source headers say the information is public domain and permit broad reuse, but then also assert exclusive rights in jocular wording; this nonstandard notice is preserved as ambiguous rather than normalized to CC0 or another clean SPDX license. No README/license grant resolves that ambiguity in the full tree. The archive's wider distribution and game-rule lineage remain only partially reviewed. last_activity 2011-05-25 is the inspected default-branch commit date, not repository creation or push time. re_started remains unknown; original release dates, author copyright dates and GitHub import dates are not treated as a reverse-engineering start. All four build flags are null. No candidate source was compiled or executed, no preserved executable was run, and no gameplay or byte comparison was performed. Overall and source-graph coverage remain partial. Evidence: https://github.com/samskivert/beschei-en https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/main.c https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/board.c https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/opponent.c https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/card.c https://github.com/samskivert/beschei-en/commit/07c6eb2e235808eb84f89b259f7cd34cda81efe3 https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/Makefile https://github.com/samskivert/beschei-en/blob/07c6eb2e235808eb84f89b259f7cd34cda81efe3/SCOPTIONS https://github.com/samskivert/beschei-en/tree/07c6eb2e235808eb84f89b259f7cd34cda81efe3 https://github.com/samskivert/beschei-en/commits/07c6eb2e235808eb84f89b259f7cd34cda81efe3",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "betrayal-at-krondor-dos-byte-match": {
       "id": "betrayal-at-krondor-dos-byte-match",
       "title": "Betrayal at Krondor",
@@ -19645,6 +20060,90 @@
         "Java"
       ],
       "notes": "Bitmapper rescales inputs to 160x200 multicolor pixels, selects a global background and per-cell colors, iterates color conversion with diffusion/scatter controls and writes load address, bitmap, screen/color memory and background byte as Koala output. GUI exposes conversion, preview and saving. NetBeans project targets Java 1.6 bytecode; no executable release, build success or runtime minimum was verified.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "bitriot-bugbomber-reimplementation": {
+      "id": "bitriot-bugbomber-reimplementation",
+      "title": "BitRiot — desktop SDL2 reimplementation of Amiga Bug Bomber",
+      "upstream_name": "BitRiot",
+      "display_title": "BitRiot — desktop SDL2 reimplementation of Amiga Bug Bomber",
+      "subjects": [
+        "Bug Bomber",
+        "BitRiot"
+      ],
+      "repo": "https://github.com/VenKamikaze/BitRiot",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "Windows"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Documented Linux SDL2 host",
+          "platform": "Linux",
+          "os": "Linux",
+          "notes": "The current implementation targets SDL2 desktop hosts, with documented Linux and MinGW/Windows build/run paths. README specifies SDL2 >=2.0.18, SDL2_mixer/ttf/image, RmlUI >=4.3 and FreeType, while CMake also requires OpenGL. No native Amiga build target is evidenced, and no host CPU generation, RAM or OS-version minimum is documented. Controller, hot-join, fullscreen and larger-map features are upstream descriptions, not independent runtime tests.",
+          "evidence": [
+            "https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/README.md",
+            "https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/CMakeLists.txt"
+          ]
+        },
+        {
+          "name": "Documented Windows MinGW SDL2 host",
+          "platform": "Windows",
+          "os": "Windows",
+          "notes": "The current implementation targets SDL2 desktop hosts, with documented Linux and MinGW/Windows build/run paths. README specifies SDL2 >=2.0.18, SDL2_mixer/ttf/image, RmlUI >=4.3 and FreeType, while CMake also requires OpenGL. No native Amiga build target is evidenced, and no host CPU generation, RAM or OS-version minimum is documented. Controller, hot-join, fullscreen and larger-map features are upstream descriptions, not independent runtime tests.",
+          "evidence": [
+            "https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/README.md",
+            "https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/CMakeLists.txt"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++14"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "desktop game reimplementation"
+      ],
+      "re_started": null,
+      "status": "Substantive SDL2 desktop remake; master described as stable upstream, Beta/menu TODOs remain; independently untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "source-reviewed",
+        "independent-build-untested",
+        "desktop game reimplementation"
+      ],
+      "notes": "BitRiot is a C++ clone/reimplementation of the Amiga game Bug Bomber. README traces it to a university project originally using Win32/DirectDraw, later ported to SDL1 and then SDL2; THANKS names Ross Turner for the initial game. The older tags and current SDL2 master are one project. Inspected GameEngine.cpp and the entity/player/spawn architecture establish substantial game implementation, not extracted Amiga original code. This is a modern desktop game reimplementation of an Amiga gameplay subject. The maintained source contains entities, bombs, robots, spawn/player lifecycle, board/game state, controls, menu/scoreboard and bundled media. It qualifies as an Amiga-game remake but not a native Amiga port or original-binary runner. Maintainer calls master the latest stable SDL2 code and lists v1.41 features/fixes; the game still carries Beta and player-select/menu TODOs. Neither language nor a release label proves playability here. The README establishes Bug Bomber gameplay inspiration and a prior Win32 C++ implementation, not analysis of an Amiga instruction stream. source_cpu is left empty: the historical Amiga subject alone is insufficient to label a specific original CPU, and generic Windows code is not x86 evidence. source_language records the prior C++ implementation lineage, not recovered machine code. Reviewed CMake and Linux/MinGW instructions select C++14 and desktop dependencies, but no processor-specific target or host ISA matrix. target_cpu remains empty. Linux, MinGW, SDL2 and OpenGL do not by themselves establish x86, x86-64, ARM or another CPU, and they do not imply native Amiga support. CMake >=3.4.3 selects C++14 and requires SDL2/mixer/ttf/image, OpenGL and RmlUi, with FreeType on the non-MinGW path. README asks for a recursive clone. .gitmodules and the tree pin mikke89/RmlUi under ext/RmlUi/RmlUi at 76245e8d615e5771ab6dd01ac4ea3c59038e6071; the build expects dependency outputs under ext/RmlUi, so the dependency build/layout is part of reproduction. Current CMake defaults to Release/static RmlUi; its Debug path explicitly reports unresolved static-RmlUi/FreeType linking issues. No clean build or execution was performed, and all four build flags remain null. The current implementation targets SDL2 desktop hosts, with documented Linux and MinGW/Windows build/run paths. README specifies SDL2 >=2.0.18, SDL2_mixer/ttf/image, RmlUI >=4.3 and FreeType, while CMake also requires OpenGL. No native Amiga build target is evidenced, and no host CPU generation, RAM or OS-version minimum is documented. Controller, hot-join, fullscreen and larger-map features are upstream descriptions, not independent runtime tests. The README, inspected game/build/license material, complete 296-entry tree and latest five master commit messages contain no explicit AI-assisted development disclosure. ai.usage remains null with no tools. AIGameView and SimpleBrain are gameplay behavior class names, not evidence of AI-assisted coding; lack of attribution is not proof of non-use. The Win32, SDL1 and SDL2 versions are one BitRiot lineage, distinct from Bug Bomber's historical release. README reports permission from the original BitRiot author and explains applying Apache licensing; LICENSE carries Apache-2.0. THANKS credits Ross Turner and separate art/audio contributors. Source licensing does not automatically clear all bundled assets. RmlUi is a pinned external dependency, not another game. Broader origin/asset-license review remains partial. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot bc7985acb67dec79217d3541b13c8a10bf917b69. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/README.md https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/src/GameEngine.cpp https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/THANKS.txt https://github.com/VenKamikaze/BitRiot/commit/bc7985acb67dec79217d3541b13c8a10bf917b69 https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/CMakeLists.txt https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/.gitmodules https://github.com/VenKamikaze/BitRiot/tree/bc7985acb67dec79217d3541b13c8a10bf917b69 https://github.com/VenKamikaze/BitRiot/commits/bc7985acb67dec79217d3541b13c8a10bf917b69 https://github.com/VenKamikaze/BitRiot/blob/bc7985acb67dec79217d3541b13c8a10bf917b69/LICENSE",
       "ai": {
         "usage": null,
         "tools": []
@@ -22235,6 +22734,80 @@
         "jotd666"
       ],
       "notes": "BurgerTime arcade transcode for Amiga; README explicitly credits game reverse engineering and 6502→68000 conversion and states the game uses original code/sound/graphics.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "burn-amiga": {
+      "id": "burn-amiga",
+      "title": "Burn — native Amiga side-scrolling shooter",
+      "upstream_name": "Burn",
+      "display_title": "Burn — native Amiga side-scrolling shooter",
+      "subjects": [
+        "Burn"
+      ],
+      "repo": "https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Author-tested OCS A500 configuration",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_cpu": "68000",
+          "min_chip_ram_kib": 512,
+          "chipsets": [
+            "OCS"
+          ],
+          "os": "Workbench 1.3",
+          "notes": "The shipped BurnAmigaReadme reports testing on an OCS A500 with 512 KiB chip RAM and Workbench 1.3, and approximately 320000 bytes free required. The profile records that author-tested configuration, not a measured universal minimum. The same author reports stability issues on an A500 running AmigaOS 3.2.2. Current globals.i configures 320x256, four bitplanes/16 colours, a 320x192 game viewport and a 64-line HUD; the earlier README target of 32 colours and proposed NTSC support must not override the actual configuration. HALFFRAMERATE is commented out. Joystick is required; player 1 uses port 2 and two-player mode uses both joystick ports. Q quits.",
+          "evidence": [
+            "https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/BurnAmigaReadme",
+            "https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/include/globals.i",
+            "https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/.vscode/tasks.json"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original native homebrew"
+      ],
+      "re_started": null,
+      "status": "Substantive jam-game source; author-tested low-end configuration; independent build/playability unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "source-reviewed",
+        "independent-build-untested",
+        "original native homebrew"
+      ],
+      "notes": "Burn is RiPpEr253's source-available AmiGameJam2025 side-scrolling action/shooter. The inspected 68k source implements one/two-player selection, joystick motion, firing, jumping, enemies at nine scrolling checkpoints, health, knockback, invulnerability, score, respawning and shared lives. Burn executable and BurnAGJ25.adf are present in the 107-entry non-truncated tree but were only inventoried; source/binary correspondence is unverified. This is an original native Amiga homebrew game, with source and assets, rather than a disassembly or decompilation. The real main/player/enemy/game-manager loops establish a substantive game beyond a template. One map/level is visible and wave exhaustion exists, but an end-to-end victory sequence was not established. Game over exits to AmigaOS rather than providing a verified restart. work_kinds is empty because no binary-derived reconstruction method is claimed. No predecessor binary is being analysed: this is original homebrew source. source_cpu and source_language are empty rather than assigning an original binary ISA from its Amiga target. Its explicit 68000 assembly/build target is recorded under target_cpu and reconstructed_languages. The provided VS Code Amiga Assembly task invokes vasmm68k_mot with -m68000 and -Fhunk, followed by vlink -bamigahunk -Bstatic. This directly establishes a Motorola 68000 target, without implying compatibility with every AmigaOS release or proving a runnable build. The provided .vscode/tasks.json uses the Amiga Assembly integration, vasm and vlink with src/rippergame.s as entry; source includes and assets are committed. This is a recipe, not a successful local compilation. The committed executable and ADF were not run or compared with source, and the author reports OS3.2.2 instability. All four build flags remain null. The shipped BurnAmigaReadme reports testing on an OCS A500 with 512 KiB chip RAM and Workbench 1.3, and approximately 320000 bytes free required. The profile records that author-tested configuration, not a measured universal minimum. The same author reports stability issues on an A500 running AmigaOS 3.2.2. Current globals.i configures 320x256, four bitplanes/16 colours, a 320x192 game viewport and a 64-line HUD; the earlier README target of 32 colours and proposed NTSC support must not override the actual configuration. HALFFRAMERATE is commented out. Joystick is required; player 1 uses port 2 and two-player mode uses both joystick ports. Q quits. README.md, BurnAmigaReadme, sampled substantive assembly, task/configuration files, the complete tree and the latest five default-branch commit messages were checked. No explicit AI-assisted development attribution was found, so usage remains null and tools empty. Filenames, absence of an attribution and code style are not evidence of use or non-use. The shipped readme credits RiPpEr253 for code, art and design and Zee for sound effects. The root LICENSE contains GPL-3.0 text; this does not resolve an only-versus-or-later choice or independently clear every asset. No separate asset-license terms were found in the inspected docs/tree. Commander Keen is a stated inspiration, not evidence of reconstructed Commander Keen source. One root, executable and disk image are counted as one game lineage. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot f9edd3e50eebcef64eabf04a13a1789a66c7dfad. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/BurnAmigaReadme https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/src/rippergame.s https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/src/gamemanager.s https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/commit/f9edd3e50eebcef64eabf04a13a1789a66c7dfad https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/src/playercontroller.s https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/src/actorroutines.s https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/README.md https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/.vscode/tasks.json https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/tree/f9edd3e50eebcef64eabf04a13a1789a66c7dfad https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/include/globals.i https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/commits/f9edd3e50eebcef64eabf04a13a1789a66c7dfad https://github.com/RiPpErTheGreyFox/BurnGameAmiGameJam2025/blob/f9edd3e50eebcef64eabf04a13a1789a66c7dfad/LICENSE",
       "ai": {
         "usage": null,
         "tools": []
@@ -39705,6 +40278,84 @@
         "tools": []
       }
     },
+    "else-we-get-mad-amiga": {
+      "id": "else-we-get-mad-amiga",
+      "title": "Else We Get Mad! — original Amiga fighting-game source",
+      "upstream_name": "Else We Get Mad!",
+      "display_title": "Else We Get Mad! — original Amiga fighting-game source",
+      "subjects": [
+        "Else We Get Mad!"
+      ],
+      "repo": "https://github.com/alpine9000/EWGM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented classic Amiga game target",
+          "platform": "Amiga",
+          "notes": "README specifies 1 MB RAM; Makefile selects 68000 and OCS configurations. No verified Chip/Fast split or Kickstart floor. Runtime was not independently tested.",
+          "evidence": [
+            "https://github.com/alpine9000/EWGM/blob/64af79807e08845e6ed3fc009d93bc4832daaf7e/README.md",
+            "https://github.com/alpine9000/EWGM/blob/64af79807e08845e6ed3fc009d93bc4832daaf7e/game/Makefile"
+          ],
+          "cpu_family": "m68k",
+          "min_ram_kib": 1024,
+          "chipsets": [
+            "OCS"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "native Amiga game source release",
+        "original authored source"
+      ],
+      "re_started": null,
+      "status": "Original game source release reviewed; rebuild, runtime and completeness independently untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "native Amiga development",
+        "custom-chip graphics",
+        "joystick-driven combat"
+      ],
+      "tags": [
+        "Amiga",
+        "OCS",
+        "original source",
+        "fighting game",
+        "source-reviewed"
+      ],
+      "notes": "EWGM is the original Else We Get Mad! game engine written by alpine9000 for Amiga Wave, which supplied the art, concept, sound effects and music and released the game. This is one game project, with its asset/build support retained under the same repository root. The reviewed player.c contains eight-direction joystick motion, attack-button/jump handling and punch/kick configuration, while the Makefile enumerates enemy/fighter logic and four level modules. It is substantive native game source, rather than a generic example or an asset-only archive. Classified as a game subject with original authored C and 68000 assembly. No disassembly, decompilation or binary-derived reconstruction is claimed: work_kinds is deliberately empty and original-source release is retained in types. The source includes platform-specific renderer, sound/music, input, object and game-level modules. Bundled authoring, compression and disk-image tools support this game and are not separately promoted. Multiple disk and Workbench configurations are output variants of the same title, not independent game discoveries. The inspected recipe uses developer-specific /usr/local/amiga/vgcc paths, the Amiga NDK, GCC-to-vasm assembly, vlink, a locally built libgcc archive, generated asset headers and shared external tools. It provides adf, fast and Workbench routes, with default all selecting fast and wb. Test recipes depend on the developer's FS-UAE folders and Lua setup; their presence is not a test result. No compiler, assembler, packer, emulator or game was executed in this review. All four build flags remain null, including byte exactness; source publication and the author's release statement do not prove a reproducible reconstruction. README explicitly targets a classic Amiga with 1 MB RAM, so a documented 1024 KiB profile is retained. OCS build configurations and explicit 68000 code generation are supported. The CONFIG_OCS_512 name is not treated as evidence that the whole game runs in 512 KiB. Chip/Fast partition requirements, Workbench/Kickstart version floors and performance across specific machines have not been established. The Fast-RAM and Workbench variants need their own future runtime checks; no aggregate allocation total or release-test result has been invented. The original-author repository and Else We Get Mad!/EWGM aliases are distinct from the current catalogue. Amiga Wave owns the creative contribution described in README; Enable Software Pty Ltd is credited for the 2017 game code. README and LICENSE grant GPLv2 use for the remaining files but explicitly except third-party/public-domain player, bootblock, depacker, keyboard/OS, trackloader, startup and auxiliary-tool files. Those exceptions retain their individual terms and are not blanket-relicensed. These dependencies and output variants are not extra game projects. Full author/dependency graph coverage and exact redistribution composition remain partial. The reviewed game Makefile explicitly generates 68000 code and Amiga Hunk objects using the m68k-amigaosvasm GCC/vasm/vlink toolchain. target_cpu=68000 applies to the game output, not to the Unix-like build host. Separate CONFIG_OCS_512, CONFIG_OCS_FAST and CONFIG_WORKBENCH definitions alter loading/memory behavior without establishing a different output ISA. Akiko/CD32-related source and a historical compatibility commit do not establish an accelerator, PowerPC or AGA requirement, and none is recorded.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "emetic-skimmer-movers-cracktro": {
       "id": "emetic-skimmer-movers-cracktro",
       "title": "Emetic Skimmer — The Movers cracktro reconstruction",
@@ -40246,6 +40897,148 @@
         "macOS"
       ],
       "notes": "Modern supporting tooling derived from Tyrann’s tyrutils and id Software’s quake-tools, with q3map2-derived lighting features. Includes qbsp, vis, light, bspinfo and bsputil, plus optional lightpreview. CMake instructions cover Ubuntu, Windows and macOS; Embree 4 and oneTBB are required. Embree-enabled licensing is GPLv3+ according to the README. Game names describe supported formats rather than separately reconstructed game subjects. Reviewed 2026-10-05. Build/run/play statements are upstream reports; no candidate code was compiled or executed in this review. Evidence: https://github.com/ericwa/ericw-tools/blob/main/README.md https://github.com/ericwa/ericw-tools/blob/main/qbsp/qbsp.cc https://github.com/ericwa/ericw-tools/blob/main/CMakeLists.txt",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "ermentrud-inga": {
+      "id": "ermentrud-inga",
+      "title": "Ermentrud / Inga — original Amiga adventure engine and SDL2 reimplementation",
+      "upstream_name": "Inga",
+      "display_title": "Ermentrud / Inga — original Amiga adventure engine and SDL2 reimplementation",
+      "subjects": [
+        "Ermentrud",
+        "Inga"
+      ],
+      "repo": "https://github.com/timoinutilis/inga-sdl",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga",
+        "MorphOS",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "source_cpu": [
+        "68020"
+      ],
+      "target_cpu": [
+        "68020",
+        "PowerPC",
+        "ARM64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Original Ermentrud / Inga selected 68k RTG build",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "os": "AmigaOS 3",
+          "notes": "Preserved Makefile.vbcc selects 68020. Original game requires a graphics card and hard disk; kernel opens 640x480 8-bit. No minimum memory or accelerator speed is documented; not independently run.",
+          "evidence": [
+            "https://github.com/timoinutilis/inga-amigaos3/blob/4b33ebe39c605c7a51b1a358e1a7da16d8821573/Makefile.vbcc",
+            "https://github.com/timoinutilis/inga-amigaos3/blob/4b33ebe39c605c7a51b1a358e1a7da16d8821573/kernel.c",
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md"
+          ]
+        },
+        {
+          "name": "Inga SDL native AmigaOS4 build",
+          "platform": "Amiga",
+          "cpu_family": "PowerPC",
+          "os": "AmigaOS 4",
+          "notes": "Separate Makefile.amigaos4 uses AmigaOS4/newlib and installed SDL2 dependencies. README misnames it Makefile.os4. No exact CPU generation, RAM or OS4 minor-version minimum verified.",
+          "evidence": [
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/Makefile.amigaos4",
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md"
+          ]
+        },
+        {
+          "name": "Inga SDL native MorphOS build",
+          "platform": "MorphOS",
+          "cpu_family": "PowerPC",
+          "os": "MorphOS",
+          "notes": "Separate make recipe selects ppc-morphos-gcc-10, SDL2/mixer/ttf and installed SDK. No exact CPU/RAM or OS-version minimum established.",
+          "evidence": [
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/Makefile.mos",
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md"
+          ]
+        },
+        {
+          "name": "Inga SDL documented macOS arm64 example",
+          "platform": "macOS",
+          "cpu_family": "ARM64",
+          "os": "macOS",
+          "notes": "README explicitly generates an arm64 Xcode project and requires SDL2 libraries. It is an example architecture, not a measured minimum or a complete host support matrix.",
+          "evidence": [
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md",
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/CMakeLists.txt"
+          ]
+        },
+        {
+          "name": "Inga SDL documented Linux build",
+          "platform": "Linux",
+          "os": "Linux",
+          "notes": "Ubuntu instructions and CMake target with SDL2/mixer/ttf. No CPU, RAM or distribution-version minimum established.",
+          "evidence": [
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md",
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/CMakeLists.txt"
+          ]
+        },
+        {
+          "name": "Inga SDL documented Windows build",
+          "platform": "Windows",
+          "os": "Windows",
+          "notes": "README requires SDL2 2.0.4 or newer with mixer/ttf and a developer-command-prompt CMake build. No CPU/RAM or Windows-version minimum established.",
+          "evidence": [
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md",
+            "https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/CMakeLists.txt"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game",
+        "game-engine"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original game-engine source archive",
+        "SDL2 engine reimplementation",
+        "native Amiga-family ports"
+      ],
+      "re_started": null,
+      "status": "Preserved original engine and modern SDL2 reimplementation for unfinished Ermentrud; independent builds/playability unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Amiga",
+        "source-reviewed",
+        "independent-build-untested",
+        "original game-engine source archive",
+        "SDL2 engine reimplementation",
+        "native Amiga-family ports"
+      ],
+      "notes": "Ermentrud / Inga is one adventure-game/engine lineage spanning the preserved native AmigaOS3 engine and the modern Inga SDL reimplementation. README says Ermentrud and original Inga were created in 2001–2004 and the game was never finished. That origin does not date the later reimplementation. The original C engine has graphics, animation, actors, inventory, dialogues, bytecode execution and audio; the modern code has game state, navigation, scripts, scenes, menus and sound. inga-sdl is the canonical tracked root; inga-amigaos3 is an original-engine source alias, not a second project. This subject includes an original Amiga game-engine source archive plus a substantive modern reimplementation and native modern Amiga-family ports. The author explicitly chose a complete rewrite of important engine features instead of mechanically replacing Amiga calls, while retaining the old data formats and interpreter lineage. It is not a disassembly or a claim of extracted original machine code. Ermentrud remains an unfinished game; author compatibility/release descriptions do not verify completion or playability here. The preserved original AmigaOS3 engine is an actual 68k C-source lineage. Makefile.vbcc selects vc +aos68k and -cpu=68020; the original GCC options select m68020-60/soft-float/noixemul. source_cpu records 68020 for that concrete preserved engine configuration, not an assumed minimum derived solely from the Amiga brand. Original source is C rather than machine code. The original-engine build directly selects 68020. Modern Makefile.mos uses ppc-morphos-gcc-10; Makefile.amigaos4 is an AmigaOS4/newlib/SDL2 recipe, forming the documented PowerPC port lineage. README gives a CMAKE_OSX_ARCHITECTURES=arm64 Xcode example. These establish 68020, PowerPC and ARM64 selected targets. Reviewed generic Linux/Windows CMake instructions do not establish a complete host ISA matrix or additional minima. The original engine has GCC and VBCC build recipes; VBCC selects +aos68k -cpu=68020. Modern CMake requires >=3.16.3 and SDL2, SDL2_mixer and SDL2_ttf; documented platform recipes additionally specify their SDK/dependencies. Separate Makefile.amigaos4 and Makefile.mos exist, but README says make -f Makefile.os4, a filename mismatch. Full Ermentrud game art/story/audio data are not the small Workshop sample committed with the engine; released game packages must be handled separately. No clean build, original/modern runtime, compatibility or byte comparison was performed, so all four build flags remain null. The original Ermentrud/Inga target requires an Amiga graphics card and hard disk; preserved kernel.c opens a 640x480 8-bit display and Makefile.vbcc selects aos68k 68020. This is an RTG-oriented game, not a stock OCS/AGA-only claim. The selected 68020 build profile is documented, but no measured RAM, accelerator speed or lower compatible CPU was established. The SDL2 engine has distinct AmigaOS 4 and MorphOS native build recipes and Linux/Windows/macOS host recipes. macOS arm64 is an explicit CMake/Xcode example; it does not establish all macOS architectures or an OS-version minimum. Full Ermentrud packages are separate from the small Workshop sample in the engine repository. The reviewed original/modern docs, source, licenses, complete trees and latest five default-branch commit messages in both roots yielded no explicit AI-assisted development disclosure. usage stays null and tools empty. No AI conclusion is drawn from names, generic configuration or code style; this bounded check does not establish non-use. Original Inga/Ermentrud history and the modern SDL engine are consolidated as one lineage, including the separate inga-amigaos3 repository and any legacy copies in the modern tree. The inga-sdl LICENSE has a zlib-style permissive grant and matching source headers. The separately hosted original root has no top-level LICENSE; do not silently extend the modern license to every original file or to Ermentrud artwork/story/audio. The author's game page lists separate released packages. SDL2 and its component libraries are dependencies, not additional game discoveries. Broader history, asset and port-package provenance remain partial. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot 0730b2e5bfda838896c64f3095da3cc217377ba1. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/README.md https://github.com/timoinutilis/inga-amigaos3/blob/4b33ebe39c605c7a51b1a358e1a7da16d8821573/README.md https://github.com/timoinutilis/inga-amigaos3/blob/4b33ebe39c605c7a51b1a358e1a7da16d8821573/kernel.c https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/sources/Game.c https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/sources/Script.c https://github.com/timoinutilis/inga-amigaos3/blob/4b33ebe39c605c7a51b1a358e1a7da16d8821573/Makefile.vbcc https://github.com/timoinutilis/inga-amigaos3/blob/4b33ebe39c605c7a51b1a358e1a7da16d8821573/Makefile https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/Makefile.mos https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/Makefile.amigaos4 https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/CMakeLists.txt https://inutilis.itch.io/ermentrud https://github.com/timoinutilis/inga-sdl/commits/0730b2e5bfda838896c64f3095da3cc217377ba1 https://github.com/timoinutilis/inga-amigaos3/commits/4b33ebe39c605c7a51b1a358e1a7da16d8821573 https://github.com/timoinutilis/inga-sdl/blob/0730b2e5bfda838896c64f3095da3cc217377ba1/LICENSE https://github.com/timoinutilis/inga-amigaos3/tree/4b33ebe39c605c7a51b1a358e1a7da16d8821573",
       "ai": {
         "usage": null,
         "tools": []
@@ -62661,6 +63454,125 @@
         "tools": []
       }
     },
+    "lugi": {
+      "id": "lugi",
+      "title": "Lugi — text-adventure revival with Amiga port",
+      "upstream_name": "Lugi",
+      "display_title": "Lugi — text-adventure revival with Amiga port",
+      "subjects": [
+        "Lugi"
+      ],
+      "repo": "https://github.com/paulkienitz/Lugi",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga",
+        "MS-DOS",
+        "Windows",
+        "Linux",
+        "Android",
+        "WebAssembly"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k",
+        "x86",
+        "x86-64",
+        "ARM64",
+        "WebAssembly"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented native Amiga build",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "os": "AmigaDOS 1.x target",
+          "notes": "basics.c explicitly targets plain 68k and AmigaDOS 1.x; 1.x saves scores under S:. No numerical CPU/RAM minimum or runtime validation added.",
+          "evidence": [
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/basics.c",
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/amiga/makefile.aztec",
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/README.md"
+          ]
+        },
+        {
+          "name": "Documented Linux build",
+          "platform": "Linux",
+          "cpu_family": "x86",
+          "notes": "README identifies the checked-in clang output target as x86_64-pc-linux-gnu. This output-architecture statement is not a measured minimum requirement.",
+          "evidence": [
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/README.md"
+          ]
+        },
+        {
+          "name": "Documented Android build",
+          "platform": "Android",
+          "cpu_family": "ARM",
+          "notes": "README reports a tested aarch64-unknown-linux-android24 target; no broader device or RAM minimum established by this review.",
+          "evidence": [
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/README.md"
+          ]
+        },
+        {
+          "name": "Documented browser build",
+          "platform": "WebAssembly",
+          "notes": "README requires a modern browser with JavaScript async support. Server-side high scores require the separately configured PHP/database service. No host CPU or RAM minimum stated.",
+          "evidence": [
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/README.md",
+            "https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/emscripten/emcc-make.sh"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Pascal"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "translation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "author revival",
+        "Pascal-to-C source translation",
+        "native Amiga port"
+      ],
+      "re_started": null,
+      "status": "Author revival with documented native Amiga and modern ports; original Pascal preservation incomplete; untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "author-source revival",
+        "source-language translation",
+        "platform-specific console adaptation"
+      ],
+      "tags": [
+        "Amiga",
+        "interactive fiction",
+        "text adventure",
+        "source-available",
+        "commercial restriction",
+        "source-reviewed",
+        "build untested"
+      ],
+      "notes": "Jay Wilson and Paul Kienitz's 1980-81 text adventure revived by its authors as portable C. README describes randomized maps, limited real-time runs and command-driven puzzle play; lugi.c provides the main game/score structure and enumerates substantive command, world, parser and action modules. Much of the Pascal-to-C translation was done in the early 1990s but unfinished then. The current tree includes a concrete native Amiga build and executable alongside modern ports, all one Lugi lineage. Canonical root and subject aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and the 2031-root prior-review index; this is a new project lineage. Current default-branch tip is c0a722044f397d9f8ad6e7a30ee29307701dc098; the complete tree contains 53 entries. Author-source revival and Pascal-to-C translation, with a native Amiga game port and multiple other output targets. It is not demonstrated binary decompilation. README says the complete final Pascal original survives only as an annotated paper printout, with merely an unfinished version digitally preserved; this archive does not restore or supply that final original source. The maintained C implementation is substantive and distinct from the optional web high-score service. README identifies the original as 1980-81 Pascal, with early-1990s C translation, but does not identify the original machine or instruction set. source_platforms and source_cpu therefore remain empty rather than assigning Amiga, a mainframe, or x86 to the Pascal original. The native Amiga and modern platforms belong to the C implementation's outputs; its portable language does not reveal the original CPU. basics.c explicitly says the Amiga compiler must target AmigaDOS 1.x on a plain 68k and amiga/makefile.aztec supplies that native route. Other primary output evidence is explicit: the MS-DOS Open Watcom recipe uses -bt=DOS -0 -ml, the Visual Studio project has Win32 and x64 configurations, README identifies x86_64-pc-linux-gnu and a tested aarch64-unknown-linux-android24 target, and Emscripten emits Lugi.wasm. Thus target_cpu records m68k, x86, x86-64, ARM64 and WebAssembly; these are output architectures, never the unknown original Pascal source CPU. macOS is only a prospective port. README documents platform-specific builds sharing C sources: Amiga supports Manx Aztec C rather than SAS/C; the Amiga makefile selects 16-bit ints, stack overflow checking and lc16. Windows supports MSVC/Open Watcom, while its TCC route is explicitly broken. MS-DOS uses Open Watcom; Unix has gcc/clang/tcc scripts and Emscripten builds wasm/JS. Prebuilt target binaries and upstream build reports are not independent verification. Optional web high scores additionally require MySQL/MariaDB and configured PHP pages; no credentials are read or reproduced in this review. All build flags remain null. Amiga-specific basics.c explicitly targets AmigaDOS 1.x on plain 68k; README confirms the S: high-score fallback for 1.x. That supports an Amiga profile without an invented RAM/chipset requirement. README also explicitly describes x86-64 Linux and tested ARM64 Android output, plus a web build requiring a modern browser with JavaScript async support. The remark that an 8088 PC is about as primitive as advisable is informal sizing guidance, not an independently measured all-target minimum. No exact RAM values or unsupported macOS runtime are recorded. The reviewed README, C implementation and target recipes disclose author revival and compiler ports, but no development-AI assistance. The latest commit adds a private new-scores viewer; that message does not attribute an AI tool. Current default-branch history review covered the latest 30 commit messages returned by a 30-commit request, including tip c0a722044f397d9f8ad6e7a30ee29307701dc098; no explicit development-AI attribution or disclosure was found in these messages or the cited reviewed text. This bounded absence is not proof of non-use: ai.usage stays null and ai.tools stays empty. No inference is made from filenames, author addresses, or code style. All platform folders compile the same Lugi C game and remain one counted subject. README credits Jay Wilson as the original initiator and distinguishes the original Pascal version, early C translation and current revival; shared authorship with Tripppin/Miner does not make those other games duplicate lineages. LICENSE.md is a custom three-clause BSD-like grant plus Commons Clause: selling the software or a product/service substantially deriving value from it is excluded, including fee-based hosting/support as defined there. It must not be described as ordinary unrestricted BSD or clean open-source licensing. The optional PHP/MySQL high-score service and audio samples are separate deployment concerns within this repository. Original-paper-source recovery and wider history remain incomplete. last_activity 2026-08-18 is the inspected default-branch commit date, not repository creation or push time. re_started remains unknown; original release dates, author copyright dates and GitHub import dates are not treated as a reverse-engineering start. All four build flags are null. No candidate source was compiled or executed, no preserved executable was run, and no gameplay or byte comparison was performed. Overall and source-graph coverage remain partial. Evidence: https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/README.md https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/lugi.c https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/amiga/makefile.aztec https://github.com/paulkienitz/Lugi https://github.com/paulkienitz/Lugi/commit/c0a722044f397d9f8ad6e7a30ee29307701dc098 https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/basics.c https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/msdos/MAKEFILE.WAT https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/windows/Lugi.vcxproj https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/emscripten/emcc-make.sh https://github.com/paulkienitz/Lugi/commits/c0a722044f397d9f8ad6e7a30ee29307701dc098 https://github.com/paulkienitz/Lugi/blob/c0a722044f397d9f8ad6e7a30ee29307701dc098/LICENSE.md https://github.com/paulkienitz/Lugi/tree/c0a722044f397d9f8ad6e7a30ee29307701dc098",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "github-smnjameson-lumac64": {
       "id": "github-smnjameson-lumac64",
       "title": "Luma — native C64 puzzle-game source",
@@ -69142,6 +70054,87 @@
         "tools": []
       }
     },
+    "miner-amiga": {
+      "id": "miner-amiga",
+      "title": "Miner — Amiga Minesweeper source archive",
+      "upstream_name": "Miner",
+      "display_title": "Miner — Amiga Minesweeper source archive",
+      "subjects": [
+        "Miner",
+        "Minesweeper"
+      ],
+      "repo": "https://github.com/paulkienitz/Miner",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented Miner release-5 runtime",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "os": "AmigaDOS 2.04 or later",
+          "notes": "Optional ASL screen-mode requester needs newer capability associated with AmigaDOS 2.1. No CPU or RAM minimum established; audio can be disabled for low Chip RAM. Preserved binary untested.",
+          "evidence": [
+            "https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/Miner.doc"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original Amiga Minesweeper implementation source archive"
+      ],
+      "re_started": null,
+      "status": "Historical native Amiga game source; missing build dependencies and version ambiguity; untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original-source preservation",
+        "minefield game-rule implementation"
+      ],
+      "tags": [
+        "Amiga",
+        "Minesweeper",
+        "original source",
+        "Aztec C",
+        "source-reviewed",
+        "build untested"
+      ],
+      "notes": "Paul Kienitz's original 1994-95 Amiga Minesweeper implementation, dedicated to Jay Miner. README distinguishes its click-on-press behavior, sound and color from the contemporary Windows game. action.c contains minefield generation, reveal/chord and scoring logic; miner.c implements the Amiga interface. Source, a preserved executable, sampled sounds, image data and release-5 manual are included. miner.h says VERSION 6, but the manual identifies release 5; the review does not invent a published sixth release. Canonical root and subject aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and the 2031-root prior-review index; this is a new project lineage. Current default-branch tip is e7317a617b00accc6b42923e7cfaf334544a3471; the complete tree contains 62 entries. Native Amiga game subject and author-source archive, classified as source-restoration for preservation scope. This is an original implementation of Minesweeper rules rather than a recovered Windows Minesweeper binary or a software disassembly. Source-preserved gameplay, audio and interface modules qualify it as a game even though historical build dependencies are missing. The Windows game is contextual inspiration; the source platform being preserved here is Amiga. The historical Miner implementation uses classic Amiga C, Exec/Intuition/GadTools interfaces and Amiga compiler pragmas in miner.c; makefile is explicitly for Aztec C. These establish the m68k Amiga source lineage. The Windows Minesweeper inspiration is not an x86 binary input, so x86 is not recorded as this project's source CPU. The Amiga Aztec makefile links ram:Miner from miner, action, images, audio and aztecstuff modules with the native C library. The direct Amiga OS ABI and native GUI/audio code support an m68k output label. No PC output or exact accelerator minimum is claimed; optional screen modes and an alternate stack-hungry flood-fill algorithm do not establish output ISA requirements. Aztec C makefile depends on custom II/INTU precompiled headers, and miner.h includes Paul.h, absent from the complete repository tree. The preserved executable therefore does not establish a complete clean rebuild. Default options select AUTOFLASH and FIDDLE_FONT; optional BIG_STACK may need 50K or more of stack, but is not the documented default or a whole-machine RAM minimum. VERSION 6 in the header versus release 5 in Miner.doc is retained as an archive-version ambiguity. All four build flags remain null. Miner.doc explicitly requires AmigaDOS 2.04 or later and permits Workbench or CLI launching. The screen-mode requester needs the newer ASL capability associated with AmigaDOS 2.1; this is an optional feature rather than a 2.1 baseline requirement. Audio can be disabled when Chip RAM is tight. No numerical total/Chip/Fast RAM, processor or chipset minimum is established, and the BIG_STACK build option is not promoted into a runtime memory requirement. The author README and release manual describe the historical Minesweeper implementation and its interface changes; reviewed minefield generation/reveal logic provides no AI-assisted development disclosure. Current default-branch history review covered the latest 8 commit messages returned by a 30-commit request, including tip e7317a617b00accc6b42923e7cfaf334544a3471; no explicit development-AI attribution or disclosure was found in these messages or the cited reviewed text. This bounded absence is not proof of non-use: ai.usage stays null and ai.tools stays empty. No inference is made from filenames, author addresses, or code style. Miner.doc describes inspiration and comparisons with Windows Minesweeper and other Amiga mine games, but identifies this implementation as Paul Kienitz's own, dedicated to Jay Miner. Those comparisons do not establish shared source or duplicate lineage. The historical notice permits copying/distribution only while none of the included files is removed or altered; this is not a blanket source-modification grant or standard permissive license. Paul.h and custom precompiled headers are missing dependencies; bundled sounds/art/executable belong to the same game archive. Broader lineage and redistribution review is partial. last_activity 2026-04-26 is the inspected default-branch commit date, not repository creation or push time. re_started remains unknown; original release dates, author copyright dates and GitHub import dates are not treated as a reverse-engineering start. All four build flags are null. No candidate source was compiled or executed, no preserved executable was run, and no gameplay or byte comparison was performed. Overall and source-graph coverage remain partial. Evidence: https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/README.md https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/Miner.doc https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/action.c https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/miner.c https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/miner.h https://github.com/paulkienitz/Miner https://github.com/paulkienitz/Miner/commit/e7317a617b00accc6b42923e7cfaf334544a3471 https://github.com/paulkienitz/Miner/blob/e7317a617b00accc6b42923e7cfaf334544a3471/makefile https://github.com/paulkienitz/Miner/tree/e7317a617b00accc6b42923e7cfaf334544a3471 https://github.com/paulkienitz/Miner/commits/e7317a617b00accc6b42923e7cfaf334544a3471",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "github-drmortalwombat-bunkerdigger": {
       "id": "github-drmortalwombat-bunkerdigger",
       "title": "Mineshaft Gap: native C64 shelter-management game source",
@@ -74721,6 +75714,86 @@
         "Crystal Caves"
       ],
       "notes": "Unofficial modern engine using original game data; README states episode 1 is playable while episodes 2/3, saving and some audio/UI behavior remain incomplete. CPU of original binary not independently established.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "opendow-dogs-of-war": {
+      "id": "opendow-dogs-of-war",
+      "title": "OpenDOW — Dogs of War Amiga-game reimplementation",
+      "upstream_name": "OpenDOW",
+      "display_title": "OpenDOW — Dogs of War Amiga-game reimplementation",
+      "subjects": [
+        "Dogs of War"
+      ],
+      "repo": "https://github.com/rofl0r/openDOW",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Documented POSIX/Linux SDL host",
+          "platform": "Linux",
+          "notes": "POSIX libc and SDL/audio support are documented; no host CPU, RAM or OS-version minimum is established. README gameplay and audio-backend caveats remain unverified upstream claims.",
+          "evidence": [
+            "https://github.com/rofl0r/openDOW/blob/c65070ad3ed0f48f61831274182b2f86081ac017/README",
+            "https://github.com/rofl0r/openDOW/blob/c65070ad3ed0f48f61831274182b2f86081ac017/Makefile"
+          ],
+          "os": "POSIX / Linux"
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "original Amiga game behavior and asset data"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "high-level game reimplementation",
+        "partial enemy-route reconstruction"
+      ],
+      "re_started": "2012",
+      "status": "Substantive reimplementation reviewed; incomplete mission routes and death behavior; build/runtime independently untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "behavioral reconstruction",
+        "sprite and map data interpretation",
+        "SDL rendering",
+        "enemy-route authoring"
+      ],
+      "tags": [
+        "Amiga original",
+        "POSIX",
+        "SDL",
+        "incomplete spawn maps",
+        "source-reviewed"
+      ],
+      "notes": "OpenDOW is rofl0r's reimplementation of the 1989 Amiga Dogs of War, identified by the current repository description and original-resource credits. spriteview.c is the game executable despite its provisional name: it maintains player weapons, ammunition, scores and cash, enemies, projectiles, explosions, vehicles, collisions, mission transitions and map completion. It is counted once with its spawn editor and data. The title refers to the Amiga game actually reconstructed; other historical platform editions are not included merely because they share the name. This is a game subject implemented in native C99 using SDL, with reimplementation and game-data interpretation as its demonstrated methods. README instructs contributors to compare enemy behavior with the original running in an emulator and author replacement spawn-route structs. The reviewed program runs its own game logic rather than executing original 68k instructions in a CPU interpreter. No decompiler provenance, original game source recovery, byte-identical rebuild or full-fidelity completion is established. LICENSE dates the new code to 2012 and 2013, supporting a 2012 project-development start rather than using GitHub creation as a proxy. README requires POSIX C99, Perl and SDL headers/libraries, plus sibling libulz, c-flod and rcb2 checkouts and a config.mak audio-backend define. The inspected Makefile defaults to a debug rcb2 build and provides optimized alternatives. These are recipes only; no candidate code or build tools were run. Gameplay remains incomplete: README lists dying as unfinished and says only Australia's spawn routes were authored. Current spawnmaps.c adds a Russia array still marked FIXME and maps ten other missions to Australia. This is stronger, current evidence than repeating the older README unchanged. All compilable/runnable/playable/byte_exact flags remain null. The documented target is a POSIX/Linux machine with SDL and audio support. README describes keyboard/mouse play and a future configurable/joystick control scheme, so neither original joystick parity nor a complete playthrough is verified. SDL is the recommended audio route; the optional libao route has an upstream ALSA/high-CPU caveat. No minimum host ISA, memory, GPU or Linux version is evidenced. Native Amiga hardware requirements do not apply to this modern output, and the original source platform is not presented as a runnable target. One reimplementation lineage covers OpenDOW, spriteview.out, its internal spawn editor and Dogs of War data. No existing project/root or resolved prior decision matched during the normalized baseline and alias screen. LICENSE places the new game code under GPLv3 and identifies c-flod as a separate music-player dependency translated from Christian Corti's ActionScript work; rcb2 and libulz are build/library dependencies, not new game discoveries. Original graphics by Chris Sorrell and audio/music by David Whittaker retain 1989 copyrights. The repository's artwork-use legal claims are not endorsed here, and owning the game is not asserted to grant unrestricted redistribution. README requires a POSIX OS/libc, gives Linux as the concrete example, and names GCC/Clang and SDL. The Makefile builds spriteview.out through rcb2, linking pthread and libm without an ISA support matrix. No reviewed statement or target-specific option verifies a modern host architecture; target_cpu remains empty. Host x86, x86-64, ARM, PowerPC and native Amiga outputs are not inferred from portable C, compiler availability, SDL or the author's remarks about low-end hardware.",
       "ai": {
         "usage": null,
         "tools": []
@@ -83116,6 +84189,86 @@
         "Pushover"
       ],
       "notes": "Playable browser reimplementation based on the DOS executable and user-provided DOS assets, using static and live DOSBox tracing. Historical Amiga/ST releases are mentioned but their media are not analyzed or accepted; original data omission is normal bring-your-own-data design.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "puzzland": {
+      "id": "puzzland",
+      "title": "Puzzland — Amiga picture-puzzle source archive",
+      "upstream_name": "Puzzland",
+      "display_title": "Puzzland — Amiga picture-puzzle source archive",
+      "subjects": [
+        "Puzzland"
+      ],
+      "repo": "https://github.com/dannyow/Puzzland",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented original Amiga game",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "notes": "README names Amiga 500 and provides an ADF/emulator route. Exact CPU, RAM and Kickstart minima are not established; no runtime was independently tested.",
+          "evidence": [
+            "https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "m68k assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original commercial game source archive"
+      ],
+      "re_started": null,
+      "status": "Author source archive; historical rebuild recipe incomplete; build and runtime untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original-source preservation"
+      ],
+      "tags": [
+        "Amiga",
+        "puzzle",
+        "original source",
+        "Lattice C",
+        "source-reviewed",
+        "build untested"
+      ],
+      "notes": "Daniel Owsiański's author release of Puzzland, his first commercial Amiga game. README identifies an Amiga 500 scrolling picture-piece puzzle and preserves source, image assets, Polish AmigaGuide instructions and an ADF. Sources/Puzzland.c and PuzFunsPL.h implement the actual selection/event loop, scoring, piece covers and Intuition drawing; this is substantive original game source rather than a download wrapper. Canonical root and subject aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and the 2031-root prior-review index; this is a new project lineage. Current default-branch tip is 61cb503c28687739511e472782b908a4f7032e69; the complete tree contains 70 entries. Native Amiga game subject and original-source preservation/restoration. The C game loop, Amiga display structures and AssRoutine.a are author source, not a new decompilation or disassembly of a commercial executable. source-restoration describes the archival recovery scope; no completed modern rebuild is claimed. The preserved original/full and demo executables are variants of this single Puzzland subject. The historical game is for classic Amiga hardware: README explicitly identifies Amiga 500, PuzDatsPL.h uses native Amiga graphics/Intuition types, and AssRoutine.a uses Motorola data/address registers, movem.l, lea and rts. m68k is recorded for the original source lineage; no more specific original processor minimum is derived from the platform name. The surviving Lattice/Blink link fragment combines AssRoutine.o with native Amiga libraries and Puzzland.lib, while AssRoutine.a uses the 68k instruction set. The evidenced output target is native Amiga/m68k. README's WinUAE and FS-UAE instructions describe ways to run the preserved Amiga disk; these are not Windows/Linux native ports or additional target ISAs. README explicitly says the author does not know how to rebuild the game on modern systems. Sources/makefile is a historical TempCFile-oriented fragment: its lc invocation is commented out, it links with Blink and depends on df1:/LIB:/OBJ: assigns, AssRoutine.o and prebuilt Puzzland.lib. C/assembly, object files, libraries, full/demo binaries and an ADF are preserved, but their presence does not prove a clean source build or byte identity. All build flags remain null. README documents the original Amiga 500 game and loading its ADF in an Amiga emulator. That establishes an Amiga runtime profile only; no exact RAM, Chip RAM, Kickstart or minimum CPU requirement was established. Native picture rendering and Amiga screen APIs do not justify a specific chipset minimum, and the packed assets and preserved executable have not been exercised. The reviewed author README is retrospective source-release documentation; the puzzle/scoring C and assembly do not disclose AI-assisted development. Current default-branch history review covered the latest 4 commit messages returned by a 30-commit request, including tip 61cb503c28687739511e472782b908a4f7032e69; no explicit development-AI attribution or disclosure was found in these messages or the cited reviewed text. This bounded absence is not proof of non-use: ai.usage stays null and ai.tools stays empty. No inference is made from filenames, author addresses, or code style. README links the historical Puzzland listing and the author's retrospective, and identifies the images and ADF as parts of the same game archive. The full/demo libraries and executables are not separate projects. No top-level LICENSE or blanket redistribution grant appears in the complete tree or reviewed README; original commercial source availability must not be labeled a permissive/open-source license. Bundled images and binaries retain their own rights questions. Wider historical distribution and author-graph review is partial. last_activity 2024-05-29 is the inspected default-branch commit date, not repository creation or push time. re_started remains unknown; original release dates, author copyright dates and GitHub import dates are not treated as a reverse-engineering start. All four build flags are null. No candidate source was compiled or executed, no preserved executable was run, and no gameplay or byte comparison was performed. Overall and source-graph coverage remain partial. Evidence: https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/README.md https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/Sources/Puzzland.c https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/Sources/PuzFunsPL.h https://github.com/dannyow/Puzzland https://github.com/dannyow/Puzzland/commit/61cb503c28687739511e472782b908a4f7032e69 https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/Sources/PuzDatsPL.h https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/Sources/AssRoutine.a https://github.com/dannyow/Puzzland/blob/61cb503c28687739511e472782b908a4f7032e69/Sources/makefile https://github.com/dannyow/Puzzland/tree/61cb503c28687739511e472782b908a4f7032e69 https://github.com/dannyow/Puzzland/commits/61cb503c28687739511e472782b908a4f7032e69",
       "ai": {
         "usage": null,
         "tools": []
@@ -96728,6 +97881,109 @@
         "tools": []
       }
     },
+    "soeki-networ-source-recovery": {
+      "id": "soeki-networ-source-recovery",
+      "title": "Soeki / Networ — partial Amiga/BeOS RTS source recovery",
+      "upstream_name": "Soeki",
+      "display_title": "Soeki / Networ — partial Amiga/BeOS RTS source recovery",
+      "subjects": [
+        "Soeki",
+        "Networ",
+        "The Plague"
+      ],
+      "repo": "https://github.com/mntmn/soeki",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "BeOS"
+      ],
+      "target_platforms": [
+        "Amiga",
+        "BeOS",
+        "Linux"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Preserved Amiga game-development variant",
+          "platform": "Amiga",
+          "notes": "Amiga 1200 origin is historical context. Source uses Chip/Fast memory and 8-plane screens, but exact CPU, RAM, chipset and OS minima have not been verified; c2p030 is not treated as a 68030 requirement.",
+          "evidence": [
+            "https://github.com/mntmn/soeki/blob/a53d74a2855d9cffeba56813f7093f7dd7cb3b75/README.md",
+            "https://github.com/mntmn/soeki/blob/a53d74a2855d9cffeba56813f7093f7dd7cb3b75/nw01/NetWor/Networ.c",
+            "https://github.com/mntmn/soeki/blob/a53d74a2855d9cffeba56813f7093f7dd7cb3b75/nw01/NetWor/NW_Master.h"
+          ],
+          "cpu_family": "m68k"
+        },
+        {
+          "name": "Historical BeOS game variant",
+          "platform": "BeOS",
+          "notes": "Inspected display code requests a supported 640x480 32-bit mode via BWindowScreen. No exact CPU, RAM or BeOS-version minimum is verified; the recalled development Pentium is not a minimum.",
+          "evidence": [
+            "https://github.com/mntmn/soeki/blob/a53d74a2855d9cffeba56813f7093f7dd7cb3b75/soeki_dev2/Soeki_Clean_Dev/Makefile",
+            "https://github.com/mntmn/soeki/blob/a53d74a2855d9cffeba56813f7093f7dd7cb3b75/soeki_dev2/Soeki_Clean_Dev/platform/beos/master.cpp"
+          ],
+          "os": "BeOS"
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "original C++ source",
+        "m68k assembly"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "m68k assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "partial original-source and asset recovery",
+        "historical native game variants",
+        "unfinished SDL revival"
+      ],
+      "re_started": null,
+      "status": "Partial recovery of an abandoned Amiga/BeOS game with unfinished SDL revival; completeness and independent runtime unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "archive recovery",
+        "original-source preservation",
+        "SDL2 backend adaptation",
+        "unit action and path processing"
+      ],
+      "tags": [
+        "Amiga",
+        "BeOS",
+        "RTS",
+        "unfinished game",
+        "partial recovery",
+        "SDL2",
+        "source-reviewed"
+      ],
+      "notes": "Soeki, initially Networ and later also The Plague, is Lukas Hartmann's abandoned 1998–2000 real-time strategy game. README describes its Amiga 1200/Maxon C++ beginnings, move to BeOS and eventual loss of sources/assets. A friend retained only some of them and returned that partial archive years later. Amiga nw01/nw_light0, BeOS soeki_dev variants and sdl_port are one continuous game lineage. Reviewed SDL processing.cpp contains unit path tables, movement, attacks and deaths; Amiga source contains native screen/input/rendering work. The presence of real gameplay source is established without claiming a complete original restoration. Classified as a game subject with partial original-source restoration/preservation and a later source-based SDL backend adaptation. These are recovered authored C++ and assembly, not a decompilation of an original binary. The original Amiga material, historical BeOS code and SDL revival remain one record rather than one discovery per directory/name. The author's 2019 SDL commit explicitly calls it unfinished while reporting that the engine runs; that statement is retained as an upstream claim only. README's historical 1998 start is original development, not a verified source-restoration start, so re_started is left null. This is an incomplete recovered archive, not a complete release-ready source restoration. Amiga code depends on period compiler/API assumptions and hard-coded TEXT:Hisoft_C paths, data files and assembly helpers. The inspected BeOS makefile depends on BUILDHOME/etc/makefile-engine and period /boot libraries/headers. The SDL script compiles the platform and independent C++ modules with g++ and links SDL2/SDL2_image. The 2019 commit reports an unfinished engine that runs, followed by 2020 header/output-name fixes; it is not independent test proof. None of the variants was built or executed here and all four build flags remain null. README identifies the Amiga 1200 development origin, but does not state a complete runnable hardware minimum. NW_Master.h allocates 8-plane 320x256 bitmaps and both Chip/Fast memory; Networ.c uses c2p030. Those source details preclude casually promising a stock A500 setup, yet neither an exact 68020/030 minimum nor an AGA requirement is asserted without direct requirements/testing. The BeOS display code explicitly requests 640x480 at 32 bits and checks graphics-mode support; the developer's recalled Pentium clock is not a minimum. Linux/SDL2 RAM, OS and host CPU requirements remain unknown, and every variant remains untested. Networ, Soeki and The Plague are successive names and directories of the same author/game, including the historical Amiga-to-BeOS migration and later SDL revival. They were screened as aliases against the 1715-project baseline and prior reviewed roots, with no counted match. README credits the friend who preserved some sources/assets and supplied graphics routines; this contextualizes the partial archive rather than licensing it. No root project LICENSE or clear blanket redistribution grant was found. Historical third-party BeOS development/driver binaries are ancillary archive contents, not additional game discoveries or proof of permission. Broader archive/dependency provenance remains partial. m68k denotes only the preserved native Amiga variant. The historical BeOS makefile and platform code verify BeOS targeting, but the reviewed recipe does not establish a supported ISA matrix; neither BeOS's possible architectures nor the author's uncertain development-machine recollection are substituted for one. sdl_port/build.sh uses g++ with SDL2 and SDL2_image without architecture flags, so no x86-64, ARM or other modern-host CPU is added. Amiga, BeOS and Linux-oriented SDL outputs are separate runtime variants, not interchangeable compatibility guarantees.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "softporn-adventure-sc3000-port": {
       "id": "softporn-adventure-sc3000-port",
       "title": "Softporn-3000",
@@ -104155,6 +105411,76 @@
         "tools": []
       }
     },
+    "financial-time-machine-sdl-reconstruction": {
+      "id": "financial-time-machine-sdl-reconstruction",
+      "title": "The Financial Time Machine — Amiga source recovery and SDL reconstruction",
+      "upstream_name": "The Financial Time Machine",
+      "display_title": "The Financial Time Machine — Amiga source recovery and SDL reconstruction",
+      "subjects": [
+        "The Financial Time Machine"
+      ],
+      "repo": "https://github.com/rofl0r/financial-time-machine",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "original Amiga C source"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "source-reconstruction",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "incomplete original-source recovery",
+        "SDL backend adaptation"
+      ],
+      "re_started": "2014",
+      "status": "Incomplete original-source restoration and SDL adaptation; active stubs remain; build/runtime independently untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "lost-function reconstruction",
+        "Amiga API replacement",
+        "SDL graphics and input"
+      ],
+      "tags": [
+        "Amiga original",
+        "SDL",
+        "incomplete recovery",
+        "unimplemented commands",
+        "source-reviewed"
+      ],
+      "notes": "This repository preserves and adapts the 1985 Amiga The Financial Time Machine source release after loss of lessee6.c. The November 2014 README explicitly describes reconstructing missing functionality and replacing the backend for modern systems. ftm.c retains the financial-game model, stock/timeline logic, player portfolios, command handling and save/load behavior with local SDL-backed drawing/input replacements. The historical 1982 Odyssey 2 and later C64 editions are mentioned as ancestry only; this repository's actual source basis is the Amiga C release, so they are not additional source-platform records. This is a game subject with original-source restoration, reconstruction of missing source functions and an SDL/API reimplementation. It is neither a binary decompilation nor a claim that the lost source has been recovered completely. Modern ftm.c is derived from the original C and adds replacement RastPort-style graphics/input behavior. The latest commit imports a recovered validity_check chunk as validity_check_original but explicitly says it is not used yet. The current parser remains a separate replacement. The 2014 reconstruction date is explicit in README and commit history; 1985 denotes the original release, not the reconstruction start. README documents a C99 compiler, SDL and make; Makefile compiles the C files and links -lSDL, and no build/run was attempted. ftm.c explicitly defines warning-returning STUB bodies for calc_taxes, earnings_display, click, add_purchase and del_purchase. The active validity_check can emit UNHANDLED COMMAND GIVEN; the recovered validity_check_original is not the active implementation. A net-worth FIXME is also retained. These defects prevent any claim of complete restored gameplay. All four build flags remain null: neither a recipe, a large source file nor the recovered historical fragment verifies compilation, runtime, playability or binary identity. The preserved original is an Amiga game, while the modern output is an SDL/POSIX adaptation represented under Linux. This is a source-based host adaptation, not a bundled 68k emulator or a newly verified native-Amiga release. The README gives library/build prerequisites rather than a hardware minimum; no host ISA, RAM or OS-version floor is established. Financial-game commands remain incomplete regardless of whether a window could be opened. The Linux label describes the POSIX-oriented adaptation and does not certify builds across Linux architectures or distributions. One record covers the lost-file recovery, original C preservation and SDL adaptation, rather than counting each as a new game. The latest commit attributes a recovered validity_check fragment to Crashdisk's EAB post and preserves its incomplete/unused status; README links the broader Amiga recovery discussion. The original Odyssey 2/C64 ancestry is context, not a separately inspected code lineage in this batch. No root project-level LICENSE/COPYING grant was found in the complete tree or reviewed README. Original shipment with C source is not itself a modern redistribution grant; rights remain unresolved, and no unrestricted redistribution conclusion is recorded. The modern implementation uses SDL with POSIX headers and timing/input functions; the Makefile links -lSDL with an ordinary C compiler. These sources do not establish a host ISA matrix or exact processor requirement. target_cpu therefore remains empty even though Linux/POSIX is the identified build family. Portable C99, unistd.h, sys/time.h and an SDL dependency do not prove x86-64/ARM support. The historical Amiga origin also does not establish that this modernized tree still rebuilds as a native Amiga executable.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "graphics-magician-picture-painter-apple2-6502disassembly": {
       "id": "graphics-magician-picture-painter-apple2-6502disassembly",
       "title": "The Graphics Magician Picture Painter",
@@ -108234,6 +109560,87 @@
         "SkoolKit"
       ],
       "notes": "Pobtastic annotated ZX Spectrum disassembly created with SkoolKit.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tripppin": {
+      "id": "tripppin",
+      "title": "Tripppin — Amiga board-game source archive",
+      "upstream_name": "Tripppin",
+      "display_title": "Tripppin — Amiga board-game source archive",
+      "subjects": [
+        "Tripppin",
+        "Tripppples"
+      ],
+      "repo": "https://github.com/paulkienitz/Tripppin",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Tripppin fourth release",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "os": "AmigaDOS 2.04 or later",
+          "notes": "Explicit fourth-release OS requirement; CLI/Workbench and optional public-screen use. No CPU, RAM or chipset minimum established; not independently run.",
+          "evidence": [
+            "https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/Readme.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original Amiga board-game source archive"
+      ],
+      "re_started": null,
+      "status": "Original Amiga source archive; missing private header and legacy build dependencies; untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "original-source preservation",
+        "board-rule implementation"
+      ],
+      "tags": [
+        "Amiga",
+        "board game",
+        "original source",
+        "Aztec C",
+        "source-reviewed",
+        "build untested"
+      ],
+      "notes": "Paul Kienitz's original Amiga implementation of the remembered commercial board game Tripppples, represented by the fourth-release README and matching Tripppin 4 window title. Board.c shuffles the arrow tiles; Trip.c implements legal moves, recursive move selection and a separate thinking task; Jrdobbs.c draws the board pieces. The 8-by-8 game, configurable difficulty, suggestions and undo are substantive native game code. Canonical root and subject aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and the 2031-root prior-review index; this is a new project lineage. Current default-branch tip is b2132ac57c4be74393b1020cc8585f5fe1b77147; the complete tree contains 10 entries. This is preservation of the author's C board-game implementation, a native Amiga game subject. The author explicitly says he recreated the board rules from memory and may not have reproduced them exactly. It is not reverse engineering of a previous software binary; source-restoration is the archival work category, with board-rule implementation recorded as a technique rather than an asserted decompilation. Original classic Amiga C uses graphics.library/Intuition, Amiga Exec tasks and 68k register-call ABI pragmas. Board.c declares DrawImage with amicall register arguments a0/a1/d0/d1, and the makefile explicitly requires Amiga Aztec C 5.0+. This establishes the m68k source lineage without converting screen colors or integer widths into a processor minimum. MAKEFILE links ram:Tripppin using Amiga Aztec C and the native C library, while source uses direct classic Amiga library ABI calls and OS task primitives. The evidenced output is native Amiga/m68k. No modern host port or accelerated-CPU-only build is documented by the reviewed source, and exact minimum CPU is left unspecified. MAKEFILE says Aztec C 5.0+ only and requires custom II and INTU precompiled headers with Amiga headers, pragmas and prototypes. Trip.h includes Paul.h, which is absent from the current complete nine-file tree. The README even describes a historical omitted-Paul.h distribution issue; it does not supply the missing file today. Filenames also retain Amiga-era case assumptions. No clean modern rebuild was verified; all build/runtime/byte-exact flags remain null. The fourth-release README explicitly requires AmigaDOS 2.04 and says it no longer runs under 1.x. It launches from Workbench or CLI, optionally on a named public screen, adapting to font size/interlace and using additional screen colors when available. These are native GUI features, not evidence of an AGA/RTG or accelerator requirement. No numerical RAM or CPU minimum is documented. Trip.c's recursive PickBestMove and separate ThinkerTask are a traditional computer opponent. They establish game logic, not AI-assisted source development; the author describes writing this game for Amiga graphics and event-loop practice. Current default-branch history review covered the latest 6 commit messages returned by a 30-commit request, including tip b2132ac57c4be74393b1020cc8585f5fe1b77147; no explicit development-AI attribution or disclosure was found in these messages or the cited reviewed text. This bounded absence is not proof of non-use: ai.usage stays null and ai.tools stays empty. No inference is made from filenames, author addresses, or code style. README attributes the commercial board-game invention to William T. Powers and says this implementation was made from distant memory. It explicitly places the program code in the public domain while distinguishing the rules/game that the author did not invent. The archive is its own source lineage; neither the commercial board game nor other Paul Kienitz Amiga games are duplicate implementations of these source files. Paul.h and the II/INTU compilation environment remain unresolved external build dependencies. Broader historical distribution review is partial. last_activity 2026-03-28 is the inspected default-branch commit date, not repository creation or push time. re_started remains unknown; original release dates, author copyright dates and GitHub import dates are not treated as a reverse-engineering start. All four build flags are null. No candidate source was compiled or executed, no preserved executable was run, and no gameplay or byte comparison was performed. Overall and source-graph coverage remain partial. Evidence: https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/Readme.md https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/Board.c https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/Trip.c https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/Jrdobbs.c https://github.com/paulkienitz/Tripppin https://github.com/paulkienitz/Tripppin/commit/b2132ac57c4be74393b1020cc8585f5fe1b77147 https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/MAKEFILE https://github.com/paulkienitz/Tripppin/blob/b2132ac57c4be74393b1020cc8585f5fe1b77147/Trip.h https://github.com/paulkienitz/Tripppin/tree/b2132ac57c4be74393b1020cc8585f5fe1b77147 https://github.com/paulkienitz/Tripppin/commits/b2132ac57c4be74393b1020cc8585f5fe1b77147",
       "ai": {
         "usage": null,
         "tools": []
@@ -113597,6 +115004,83 @@
       "notes": "Author analyzed the original ADF with Ghidra, IRA and FS-UAE and used AI to extract rules. Desktop port documents deviations; original save and highscores formats are byte-compatible, which does not imply a byte-exact game binary. README provides cargo run/install instructions.",
       "ai": {
         "usage": true,
+        "tools": []
+      }
+    },
+    "windless-bay-amiga": {
+      "id": "windless-bay-amiga",
+      "title": "Windless Bay — original Amiga interactive-fiction game",
+      "upstream_name": "Windless Bay",
+      "display_title": "Windless Bay — original Amiga interactive-fiction game",
+      "subjects": [
+        "Windless Bay"
+      ],
+      "repo": "https://github.com/astrofra/game-windless-bay",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented classic Amiga OCS game",
+          "platform": "Amiga",
+          "notes": "The generated game-world source explicitly names Amiga OCS. Exact CPU, RAM and Kickstart floors are unverified, as is a complete playthrough.",
+          "evidence": [
+            "https://github.com/astrofra/game-windless-bay/blob/ee0eb46bebfe70694517a39738b3c9cb8aeeecf1/README.md",
+            "https://github.com/astrofra/game-windless-bay/blob/ee0eb46bebfe70694517a39738b3c9cb8aeeecf1/game/game/world.c"
+          ],
+          "cpu_family": "m68k",
+          "chipsets": [
+            "OCS"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "native Amiga interactive-fiction source",
+        "original authored game"
+      ],
+      "re_started": null,
+      "status": "Distinct game source and scenario reviewed; draft navigation/content; rebuild and complete playthrough unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "scenario compilation",
+        "native Amiga game development",
+        "world and inventory scripting"
+      ],
+      "tags": [
+        "Amiga",
+        "OCS",
+        "interactive fiction",
+        "R-Page",
+        "draft game",
+        "source-reviewed"
+      ],
+      "notes": "Windless Bay is a distinct short interactive-fiction game set at an Antarctic research station near Mount Erebus. README identifies a classic-Amiga game built on R-Page, and game/game/world.c contains game-specific room/world state, CABLE plus COMBINE to TELEPHONE object combination, sprite associations and scenario conditions. The Makefile composes world, scene, GUI, text, assets and special-game modules with R-Page. Its world and content establish a game project beyond an engine checkout or screenshot repository. It is tracked separately from the existing rpage-resistance engine record. Classified as an original authored native-Amiga game subject, not a reverse engineering or decompilation of another commercial title. work_kinds is empty because the demonstrated work is game development and scenario generation rather than a binary-derived reconstruction. The generated world source is explicitly labeled Windless Bay for Amiga OCS and identifies the R-Page scenario toolchain. Generated C is a build/content artifact, not evidence of generative-AI authorship. Bundled engine, compression and asset tools remain dependencies within this game's single repository identity. The inspected SAS/C recipe compiles native C objects, builds an includes.gst header and links main.exe with R-Page, AmigaOS and decompression components. Resource generation is a separate asset/scenario stage. The latest five commits explicitly include draft resource toolchain, draft content and draft navigation before fixes to PNG conversion and world.json navigation. A checked-in main.exe or resource pack does not establish a reproducible source build or a completed story. No tools or candidate binary were executed, and compilable, runnable, playable and byte_exact remain null. The catalogue preserves this as substantial but draft game work. The upstream target is the classic Amiga family, with the generated game-world header explicitly specifying OCS. That is sufficient for a platform/chipset profile but not a numeric minimum. No exact processor, total or Chip/Fast RAM amount, Kickstart/Workbench version or completed-playthrough result was found in README, makefile, SCOPTIONS and the reviewed game source. The profile therefore records OCS without claiming that every stock A500 configuration meets its requirements. R-Page's independent requirements must not silently be inherited by this game without verifying the bundled version and content. Windless Bay uses ResistanceVault/rpage, already represented as rpage-resistance in the catalogue. The dependency link does not make the game a mirror of the engine: the reviewed source implements a separate named story, world and content. Engine modules, generated scenario code and packed resources belong to one game discovery. The repository LICENSE is MIT with Resistance copyright, but separately bundled dependency files should retain their own notices; this review does not assert an asset-by-asset rights audit. The root/name/alias check found no prior Windless Bay game entry. Full upstream author/content graph coverage remains partial. The checked recipe uses SAS/C sc to build an Amiga main.exe from game modules and AmigaOS-specific R-Page sources. Together with the explicit classic-Amiga target this supports m68k output. SCOPTIONS contains optimization/code/data settings but no exact CPU requirement in the reviewed text. Windows resource-tool binaries in the tree describe a development-host stage and do not make Windows a target platform for the game; neither those utilities nor Python resource scripts determine a host/game ISA entry.",
+      "ai": {
+        "usage": null,
         "tools": []
       }
     },
