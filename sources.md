@@ -818,3 +818,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-06 — Review eight additional Amiga game projects and seven held or excluded leads
 
 [Research record](docs/research/2026-10-06-amiga-games-next-eight.md).
+
+## 2026-10-06 — Review seven additional Amiga game projects and two held leads
+
+[Research record](docs/research/2026-10-06-amiga-games-timed-seven.md).

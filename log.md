@@ -860,3 +860,7 @@ Published the 17 approved games/collections, from 1,715 to 1,732, with 136 subst
 ## 2026-10-06 — Review eight additional Amiga game projects and seven held or excluded leads
 
 [Research record](docs/research/2026-10-06-amiga-games-next-eight.md).
+
+## 2026-10-06 — Review seven additional Amiga game projects and two held leads
+
+[Research record](docs/research/2026-10-06-amiga-games-timed-seven.md).
