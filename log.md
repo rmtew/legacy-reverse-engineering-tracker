@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-06 — Second focused Amiga/C64 pass: 70 approved projects
+
+Added **70 approved, source-reviewed projects**, bringing the catalogue from 1,498 to **1,568**, with 560 evidence-backed audit areas. Seventeen holds, one audit-only hybrid runtime and nine lineage/reference decisions remain non-promoted. Coverage: 47 repository-search attempts, 46 distinct new query/page pairs, 424 screened roots and 94 primary reviews plus three lineage references.
+
+Highlights include original Gloom, DeluxePaint, Habitat and Ambermoon archives; Stunt Car Racer, AmiVikings2, native Amiga ports and C64 games; Supermon+64, UVK, Oberon-A, ACEBasicJS and replayer analysis. Source/target CPU and runtime limits, license/assets, build caveats and explicit AI provenance remain distinct. Rescue on Fractalus retains game-specific Atari hardware emulation and is audit-only.
+
+No candidate builds or app/workflow changes. All byte-exact fields remain unknown. See [full evidence, queries and decisions](docs/focused-amiga-c64-round2-70-2026-10-06.md). Metadata refresh and actual Pages deployment are verified separately.
+
 ## 2026-10-06 — Focused Amiga and C64: 54 approved projects
 
 Added **54 approved, source-reviewed projects**, bringing the catalogue from 1,444 to **1,498**. All additions have complete eight-area audits; five inspected holds remain non-promoted. Thirty-five search calls returned 1,240 unique roots, with eight capped pages. Deduplication included current catalogue/source/decision identities plus 1,637 prior roots.
