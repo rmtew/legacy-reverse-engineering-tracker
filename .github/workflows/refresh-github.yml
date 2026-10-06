@@ -13,6 +13,14 @@ on:
         description: Probe every tracked repository in this run
         type: boolean
         default: false
+      publication_base:
+        description: Publication-only refresh base commit (requires publication_head)
+        type: string
+        default: ""
+      publication_head:
+        description: Published catalogue commit; must descend from publication_base
+        type: string
+        default: ""
   push:
     branches: [main]
     paths:
@@ -21,6 +29,8 @@ on:
       - "tools/merge_pending_projects.py"
       - "tools/refresh_github.py"
       - "tools/collect_activity.py"
+      - "tools/refresh_scope.py"
+      - "tools/test_refresh_scope.py"
       - "tools/activity_history.py"
       - "tools/record_project_activity.py"
       - "state/project-catalog-state.json"
@@ -32,7 +42,8 @@ permissions:
 
 concurrency:
   group: refresh-github-metadata
-  # Keep queued runs and discovery dispatches; never cancel a running refresh.
+  # Never cancel an active refresh. Actions may replace queued jobs; scheduled
+  # catalogue reconciliation recovers publications whose push run was coalesced.
   cancel-in-progress: false
 
 jobs:
@@ -40,6 +51,18 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # Job-level settings also apply when commit contention reruns generators.
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_MIN_RATE_RESERVE: "100"
+      GITHUB_MAX_RATE_RESERVE: "250"
+      GITHUB_RATE_RESERVE_FRACTION: "0.15"
+      GITHUB_HTTP_SAFETY_CAP: "4000"
+      GITHUB_REQUEST_DELAY: "0.10"
+      GITHUB_FORCE_FULL_PROBE: ${{ inputs.full_probe || false }}
+      GITHUB_REFRESH_SCOPE_FILE: ${{ runner.temp }}/github-refresh-scope.json
+      PUBLICATION_BASE: ${{ inputs.publication_base || '' }}
+      PUBLICATION_HEAD: ${{ inputs.publication_head || '' }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -60,27 +83,16 @@ jobs:
         if: steps.window.outputs.run == 'true'
         run: python tools/merge_pending_projects.py
 
-      - name: Probe repositories and schedule scans
+      - name: Select catalogue publication scope
         if: steps.window.outputs.run == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_MIN_RATE_RESERVE: "100"
-          GITHUB_MAX_RATE_RESERVE: "250"
-          GITHUB_RATE_RESERVE_FRACTION: "0.15"
-          GITHUB_HTTP_SAFETY_CAP: "4000"
-          GITHUB_REQUEST_DELAY: "0.10"
-          GITHUB_FORCE_FULL_PROBE: ${{ inputs.full_probe || false }}
+        run: python tools/refresh_scope.py
+
+      - name: Probe selected repositories and schedule scans
+        if: steps.window.outputs.run == 'true'
         run: python tools/refresh_github.py
 
-      - name: Collect due activity incrementally
+      - name: Collect selected activity incrementally
         if: steps.window.outputs.run == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_MIN_RATE_RESERVE: "100"
-          GITHUB_MAX_RATE_RESERVE: "250"
-          GITHUB_RATE_RESERVE_FRACTION: "0.15"
-          GITHUB_HTTP_SAFETY_CAP: "4000"
-          GITHUB_REQUEST_DELAY: "0.10"
         run: python tools/collect_activity.py
 
       - name: Record project catalogue changes
@@ -110,6 +122,8 @@ jobs:
               echo "main advanced during refresh; rerunning generators on latest main"
               git reset --hard origin/main
               python tools/merge_pending_projects.py
+              # Recompute against the original event/dispatch base, never HEAD^.
+              python tools/refresh_scope.py
               python tools/refresh_github.py
               python tools/collect_activity.py
               python tools/record_project_activity.py
@@ -125,6 +139,10 @@ jobs:
             sleep $((attempt * 2))
           done
           exit 1
+
+      - name: Require complete publication enrichment
+        if: steps.window.outputs.run == 'true'
+        run: python tools/refresh_scope.py --check-complete
 
       - name: Dispatch Pages after discovery refresh
         if: steps.window.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && github.actor == 'github-actions[bot]'

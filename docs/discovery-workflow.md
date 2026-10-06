@@ -1,5 +1,9 @@
 # Discovery batch workflow
 
+New passes can use the [single-authoring research record](research-records.md)
+and [repeatable prepare/publish/verify pipeline](publication-pipeline.md). The
+legacy batch below remains supported; no existing catalogue migration is needed.
+
 Keep a research pass together. Screen candidate URLs, review primary project pages, then create one JSON batch. Do not mark unknown build, AI, CPU or runtime facts false. Record non-promotions in `data/discovery-decisions.json` so the same lead need not be reassessed from scratch.
 
 ## Screen search results

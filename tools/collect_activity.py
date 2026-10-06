@@ -21,6 +21,7 @@ from urllib.request import Request, urlopen
 
 from activity_history import compact_history, freeze_addition_context, write_activity
 from refresh_github import probe_interval_minutes
+from refresh_scope import load_scope, pending_publication, select_repositories
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
@@ -44,6 +45,10 @@ RATE_RESET = None
 MAX_BRANCHES = 100
 MAX_PAGES = 5
 DETAIL_THRESHOLD = 25
+# Adaptive runs reserve most of their usable capacity for ordinary maintenance.
+PUBLICATION_REQUEST_LIMIT = None
+PUBLICATION_REQUESTS = 0
+PUBLICATION_ACTIVE = False
 
 COAUTHOR_PATTERN = re.compile(r"^[ \t]*co-authored-by:[ \t]*([^\r\n]+)", re.I | re.M)
 # Match the named co-author, never its email domain or model/provider suffix.
@@ -75,6 +80,20 @@ class RateStop(RuntimeError):
 
 class PrimaryReserve(RateStop):
     pass
+
+class PublicationBudget(RuntimeError):
+    """The adaptive publication slice is spent; ordinary work may continue."""
+    pass
+
+
+def configure_publication_budget(adaptive):
+    global PUBLICATION_REQUEST_LIMIT, PUBLICATION_REQUESTS, PUBLICATION_ACTIVE
+    PUBLICATION_REQUESTS = 0
+    PUBLICATION_ACTIVE = False
+    available = max(0, MAX_HTTP_REQUESTS - REQUESTS)
+    if RATE_REMAINING is not None:
+        available = min(available, max(0, RATE_REMAINING - effective_reserve()))
+    PUBLICATION_REQUEST_LIMIT = min(1000, available // 4) if adaptive else None
 
 def effective_reserve():
     if RATE_LIMIT is None:
@@ -155,8 +174,14 @@ def save_state(state):
     state["updated_at"] = NOW_ISO
     STATE.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-def api(path, allow_404=False):
-    global REQUESTS
+def api(path, allow_404=False, allow_empty_repo=False):
+    global REQUESTS, PUBLICATION_REQUESTS
+    if (PUBLICATION_ACTIVE and PUBLICATION_REQUEST_LIMIT is not None
+            and PUBLICATION_REQUESTS >= PUBLICATION_REQUEST_LIMIT):
+        raise PublicationBudget(
+            f"adaptive publication slice exhausted ({PUBLICATION_REQUESTS}/{PUBLICATION_REQUEST_LIMIT} requests); "
+            "full history remains pending; use a publication-only refresh if this repeats"
+        )
     if REQUESTS >= MAX_HTTP_REQUESTS:
         raise RateStop(f"HTTP safety cap reached ({MAX_HTTP_REQUESTS})")
     if not primary_available():
@@ -165,6 +190,8 @@ def api(path, allow_404=False):
         )
 
     REQUESTS += 1
+    if PUBLICATION_ACTIVE:
+        PUBLICATION_REQUESTS += 1
     headers = {
         "Accept": "application/vnd.github+json",
         "User-Agent": "legacy-reverse-engineering-tracker",
@@ -185,6 +212,8 @@ def api(path, allow_404=False):
         time.sleep(REQUEST_DELAY)
         if allow_404 and exc.code == 404:
             return None
+        if allow_empty_repo and exc.code == 409:
+            return []
         if exc.code in (403, 429) and (
             "rate limit" in body.lower() or "secondary" in body.lower()
         ):
@@ -205,19 +234,31 @@ def commit_date(item):
     commit = item.get("commit") or {}
     return (commit.get("committer") or {}).get("date") or (commit.get("author") or {}).get("date")
 
-def list_branches(repo, explicit):
-    branches = api(f"/repos/{repo}/branches?per_page={MAX_BRANCHES}") or []
-    by_name = {b.get("name"): b for b in branches if b.get("name")}
+def list_branches(repo, explicit, *, complete=False):
+    by_name = {}
+    page = 1
+    while True:
+        branches = api(f"/repos/{repo}/branches?per_page={MAX_BRANCHES}&page={page}") or []
+        by_name.update({b["name"]: b for b in branches if b.get("name")})
+        if not complete or len(branches) < MAX_BRANCHES:
+            break
+        page += 1
     for branch in explicit:
         if branch and branch not in by_name:
             found = api(f"/repos/{repo}/branches/{quote(branch, safe='')}", allow_404=True)
             if found:
                 by_name[branch] = found
+            elif by_name:
+                raise RuntimeError(f"Tracked branch {branch} is missing in {repo}")
     return by_name
 
-def fetch_commits(repo, branch, since, path=None):
+
+def fetch_commits(repo, branch, since, path=None, *, complete=False):
+    # Initial/backfill work must walk the complete window. Budget/rate failures
+    # retain the request; ordinary incremental scans keep their existing cap.
     out = []
-    for page in range(1, MAX_PAGES + 1):
+    page = 1
+    while True:
         params = {
             "sha": branch,
             "since": since.isoformat(timespec="seconds").replace("+00:00", "Z"),
@@ -226,11 +267,12 @@ def fetch_commits(repo, branch, since, path=None):
         }
         if path:
             params["path"] = path
-        chunk = api(f"/repos/{repo}/commits?{urlencode(params)}", allow_404=True) or []
+        chunk = api(f"/repos/{repo}/commits?{urlencode(params)}", allow_empty_repo=True) or []
         out.extend(chunk)
-        if len(chunk) < 100:
-            break
-    return out
+        if len(chunk) < 100 or (not complete and page >= MAX_PAGES):
+            return out
+        page += 1
+
 
 def event_from_commit(project_id, repo, item):
     commit = item.get("commit") or {}
@@ -294,12 +336,12 @@ def attribute_with_details(events, newest, repo, branch, items, root_projects, p
             if path_touched(files, project["github_path"]):
                 add_event(events, project, repo, item, branch, newest)
 
-def attribute_with_path_queries(events, newest, repo, branch, since, items, root_projects, path_projects):
+def attribute_with_path_queries(events, newest, repo, branch, since, items, root_projects, path_projects, *, complete=False):
     for item in items:
         for project in root_projects:
             add_event(events, project, repo, item, branch, newest)
     for project in path_projects:
-        matched = fetch_commits(repo, branch, since, project["github_path"])
+        matched = fetch_commits(repo, branch, since, project["github_path"], complete=complete)
         for item in matched:
             add_event(events, project, repo, item, branch, newest)
 
@@ -339,12 +381,14 @@ def activity_state(value):
     return "dormant"
 
 def scan_order(repositories, state):
-    """Prioritize detected changes, then repositories least recently deep-scanned."""
+    """Finish publications first; rotate failed attempts before ordinary scans."""
     repo_state = state.get("repositories", {})
-    reason_rank = {"changed": 0, "new": 1, "new-project": 1, "backfill": 1, "scheduled": 2}
+    reason_rank = {"publication": -1, "changed": 0, "new": 1, "new-project": 1, "backfill": 1, "scheduled": 2}
     def key(repo):
         rs = repo_state.get(repo, {})
         reason = rs.get("scan_reason") or "scheduled"
+        if pending_publication(rs):
+            return (-1, rs.get("last_deep_scan_attempt_at") or "", repo.casefold())
         last = rs.get("last_deep_scan") or rs.get("first_seen_at") or ""
         return (reason_rank.get(reason, 3), last, repo.casefold())
     return sorted(repositories, key=key)
@@ -402,6 +446,7 @@ def advance_probe_deadlines(by_repo, state, now=NOW):
             rs["next_probe_due_at"] = due.isoformat(timespec="seconds").replace("+00:00", "Z")
 
 def main():
+    global PUBLICATION_ACTIVE
     projects = load_json(PROJECTS, [])
     payload = load_json(ACTIVITY, {"generated_at": None, "window_days": DAYS, "events": []})
     state = load_json(STATE, {"version": 1, "repositories": {}})
@@ -415,11 +460,30 @@ def main():
         if repo:
             by_repo.setdefault(repo, []).append(project)
 
+    scope = load_scope()
+    configure_publication_budget(scope["mode"] == "adaptive")
+    by_repo = select_repositories(by_repo, scope)
+    scoped_ids = {p["id"] for group in by_repo.values() for p in group}
+    reset_ids = {pid for repo in by_repo
+                 if pending_publication(state["repositories"].get(repo, {}))
+                 for pid in (state["repositories"][repo]["publication"].get("reset_project_ids") or [])}
+    removed_ids = set(scope.get("removed_project_ids", []))
+    untouched = []
     events = {}
     summaries = []
     project_events = []
     repair_latest_ids = set()
     for old in payload.get("events", []):
+        project_id = old.get("project_id")
+        if old.get("type") in {"commit", "daily_commits"}:
+            if project_id in reset_ids or project_id in removed_ids:
+                continue
+            project = project_by_id.get(project_id)
+            if not project or old.get("repository") != github_repo(project.get("repo")):
+                continue
+        if scope["mode"] == "publication" and project_id not in scoped_ids:
+            untouched.append(old)
+            continue
         when = parse_time(old.get("date"))
         if not when or when < CUTOFF:
             continue
@@ -446,12 +510,24 @@ def main():
 
     baseline = parse_time(payload.get("generated_at")) or (NOW - timedelta(days=2))
     newest = {}
-    scanned = commits_seen = pruned_branches = 0
+    backfill_ids = set()
+    scanned = commits_seen = pruned_branches = deferred_publications = 0
     stopped = None
 
     for repo in scan_order(by_repo, state):
         rs = state["repositories"].setdefault(repo, {})
         if not rs.get("scan_requested"):
+            continue
+        required = pending_publication(rs)
+        PUBLICATION_ACTIVE = required and scope["mode"] == "adaptive"
+        if (PUBLICATION_ACTIVE and PUBLICATION_REQUESTS >= PUBLICATION_REQUEST_LIMIT):
+            deferred_publications += 1
+            continue
+        if required:
+            rs["last_deep_scan_attempt_at"] = NOW_ISO
+        if required and not rs["publication"].get("metadata_complete"):
+            # The source/default branch and release/head context must be known
+            # before a successful scan can freeze a publication's context.
             continue
 
         repo_projects = by_repo[repo]
@@ -463,16 +539,20 @@ def main():
         explicit.add(default)
         branch_state = rs.setdefault("branches", {})
         full_success = True
-        backfill = rs.get("scan_reason") in {"new", "new-project", "backfill"}
+        backfill = required or rs.get("scan_reason") in {"new", "new-project", "backfill"}
+        if backfill:
+            backfill_ids.update(p["id"] for p in repo_projects)
 
         try:
-            branches = list_branches(repo, explicit)
+            branches = list_branches(repo, explicit, complete=backfill)
             present_branches = set(branches)
             for stale in list(branch_state):
                 if stale not in present_branches:
                     branch_state.pop(stale, None)
                     pruned_branches += 1
             for branch, branch_info in branches.items():
+                if required and not any(project_matches_branch(p, branch) for p in repo_projects):
+                    continue
                 bs = branch_state.setdefault(branch, {})
                 tip = ((branch_info.get("commit") or {}).get("sha"))
                 if tip and tip == bs.get("tip_sha") and not backfill:
@@ -495,16 +575,16 @@ def main():
                 # enter data/activity.json.
                 if not bs.get("last_scan_at") and not rs.get("last_deep_scan"):
                     since = CUTOFF
-                items = fetch_commits(repo, branch, since)
+                items = fetch_commits(repo, branch, since, complete=backfill)
                 commits_seen += len(items)
 
                 candidates = [p for p in repo_projects if project_matches_branch(p, branch)]
                 root_projects = [p for p in candidates if not p.get("github_path")]
                 path_projects = [p for p in candidates if p.get("github_path")]
 
-                if path_projects and len(items) > min(DETAIL_THRESHOLD, max(1, len(path_projects) * 2)):
+                if path_projects and (backfill or len(items) > min(DETAIL_THRESHOLD, max(1, len(path_projects) * 2))):
                     attribute_with_path_queries(
-                        events, newest, repo, branch, since, items, root_projects, path_projects
+                        events, newest, repo, branch, since, items, root_projects, path_projects, complete=backfill
                     )
                 else:
                     attribute_with_details(
@@ -515,6 +595,11 @@ def main():
                 bs["last_scan_at"] = NOW_ISO
                 if items:
                     bs["last_commit_at"] = commit_date(items[0])
+        except PublicationBudget as exc:
+            full_success = False
+            deferred_publications += 1
+            rs["last_error"] = str(exc)
+            print(f"PUBLICATION DEFERRED during {repo}: {exc}", file=sys.stderr)
         except RateStop as exc:
             stopped = str(exc)
             full_success = False
@@ -524,7 +609,10 @@ def main():
             rs["last_error"] = str(exc)[:400]
             print(f"WARNING: activity {repo}: {exc}", file=sys.stderr)
 
+        PUBLICATION_ACTIVE = False
         if full_success:
+            if required:
+                rs["publication"]["history_complete"] = True
             rs["last_deep_scan"] = NOW_ISO
             rs["last_deep_scan_project_ids"] = sorted(p["id"] for p in repo_projects)
             rs["scan_requested"] = False
@@ -534,6 +622,7 @@ def main():
         if stopped:
             break
 
+    PUBLICATION_ACTIVE = False
     for project_id, item in newest.items():
         project = project_by_id.get(project_id)
         if project:
@@ -559,7 +648,7 @@ def main():
     items_by_project = {}
     for event in events.values():
         when = parse_time(event.get("date"))
-        if when and when >= baseline - timedelta(days=1):
+        if when and (event.get("project_id") in backfill_ids or when >= baseline - timedelta(days=1)):
             fake = {
                 "sha": event.get("sha"),
                 "commit": {"message": event.get("message") or ""},
@@ -578,7 +667,9 @@ def main():
     for event in output:
         event["branches"] = sorted(set(event.get("branches") or []))
 
-    freeze_addition_context(output, projects, state["repositories"], NOW)
+    freeze_addition_context(output, [p for p in projects if p["id"] in scoped_ids], state["repositories"], NOW)
+    output.extend(untouched)
+    output.sort(key=lambda event: (event.get("date") or "", event.get("project_id") or ""), reverse=True)
 
     payload = {
         "generated_at": NOW_ISO,
@@ -597,6 +688,8 @@ def main():
         f"Deep-scanned {scanned} repositories; saw {commits_seen} branch commits; "
         f"pruned {pruned_branches} stale branch-state entries; "
         f"{pending} repositories remain queued; retained {len(output)} activity events; "
+        f"{deferred_publications} publications deferred by adaptive slice "
+        f"({PUBLICATION_REQUESTS}/{PUBLICATION_REQUEST_LIMIT if PUBLICATION_REQUEST_LIMIT is not None else 'unrestricted'} requests); "
         f"made {REQUESTS} activity HTTP requests; primary remaining "
         f"{RATE_REMAINING if RATE_REMAINING is not None else '?'}/"
         f"{RATE_LIMIT if RATE_LIMIT is not None else '?'}; reserve {effective_reserve()}."

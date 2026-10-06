@@ -30,6 +30,7 @@ jobs:
         run: python -m unittest discover -s tools -p 'test_*.py'
 
       - name: Verify branch is a clean fast-forward of main
+        id: publication
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -45,6 +46,7 @@ jobs:
           ahead_by="$(jq -r '.ahead_by' <<<"${compare}")"
           behind_by="$(jq -r '.behind_by' <<<"${compare}")"
 
+          echo "base=${main_sha}" >> "$GITHUB_OUTPUT"
           echo "main=${main_sha}"
           echo "head=${HEAD_SHA}"
           echo "status=${status} ahead=${ahead_by} behind=${behind_by}"
@@ -70,7 +72,12 @@ jobs:
       - name: Dispatch metadata refresh
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run refresh-github.yml --ref main
+          PUBLICATION_BASE: ${{ steps.publication.outputs.base }}
+          PUBLICATION_HEAD: ${{ github.sha }}
+        run: |
+          gh workflow run refresh-github.yml --ref main \
+            -f publication_base="$PUBLICATION_BASE" \
+            -f publication_head="$PUBLICATION_HEAD"
 
       - name: Delete landed discovery branch
         env:

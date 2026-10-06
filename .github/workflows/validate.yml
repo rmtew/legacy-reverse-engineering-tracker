@@ -1,0 +1,28 @@
+name: Validate tracker changes
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check Python behavior
+        run: python -m unittest discover -s tools -p 'test_*.py'
+      - name: Check browser and connector behavior
+        run: |
+          node --check web/tracker.js
+          node --test tools/test_cpu_filters.js tools/test_publish_discovery.js
+      - name: Validate data and generated feeds
+        run: |
+          python tools/generate_rss.py data/activity.json data/projects.json /tmp/activity.xml
+          python tools/generate_recent_activity.py data/activity.json /tmp/activity-30d.json
+          python tools/generate_recent_activity.py data/activity.json /tmp/activity-180d.json --days 180
+          python tools/validate_site_data.py data/projects.json data/activity.json /tmp/activity.xml
+          git diff --exit-code -- data state
