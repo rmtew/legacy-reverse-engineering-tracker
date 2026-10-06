@@ -799,3 +799,8 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/chesterbr/2048-2600 | Buildable Atari 2600 2048 port with documented PAL and hardware/emulator execution |
 | https://github.com/nanochess/Atomchess-6502 | Oscar Toledo's documented 1 KiB x86-to-6502 Atomchess port for Atari 2600 |
 | https://github.com/fonic/wcdatool | Watcom-aware DOS executable disassembly workbench with hint-driven code/data analysis and debug-symbol module reconstruction |
+
+
+## 2026-10-06 — Amiga-only focused fifth pass
+
+Reviewed 49 primary roots, promoting the approved 37 while preserving 8 holds, 3 lineage references and 1 exclusion. Source snapshots, CPU/build/runtime/licensing/asset and AI caveats are recorded in [focused-amiga-round5-37-2026-10-06.md](docs/focused-amiga-round5-37-2026-10-06.md). Coverage: 15 search attempts, at least 456 known result occurrences, 442 encountered roots, 87 prior roots screened. One original response count is unavailable and one emulator query reached its 100-result cap; failures and repeats are explicit. This is bounded discovery, not exhaustion.

@@ -841,3 +841,8 @@ Recorded the original Racket `tomyun/juice` as the predecessor lineage represent
 The separate CPU lane resolved eleven queued areas across seven existing records. DoDonPachi DaiOuJou now records its README's explicit 68000 evidence; Batman, Gradius, ALIS, PowerPacker and RNC ProPack retain empty CPU fields with precise no-evidence-found audit states instead of platform guesses; AmigaQB_extract is explicitly CPU-not-applicable as backup-data recovery tooling. The unresolved CPU queue falls from 164 to 157 projects.
 
 This pass adds **8 projects**, taking the catalogue from 755 to **763**.
+
+
+## 2026-10-06 — Amiga-only focused fifth pass: 37 projects
+
+Published exactly the approved 37 source-reviewed projects (15 games, 13 system/emulator projects, nine development tools), from 1,665 to 1,702. Added 296 evidence-backed audit areas and kept 8 holds, 3 lineage references and 1 exclusion unpromoted. All build flags remain unknown. Corrected the existing DMPP last_activity from pushed_at-derived 2017-04-08 to verified commit date 2017-04-07, with source proof in its identity audit. Other 1,664 prior project records and all app/workflow/PR4 code are preserved. SDL attribution remains a separately known issue. See [focused-amiga-round5-37-2026-10-06.md](docs/focused-amiga-round5-37-2026-10-06.md).
