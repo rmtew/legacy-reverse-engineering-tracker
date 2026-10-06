@@ -13,6 +13,17 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
+      - name: Set up workflow linter
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.25.x"
+          cache: false
+      - name: Validate workflow expressions and schema
+        run: >-
+          go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12
+          -shellcheck= -pyflakes=
+          .github/workflows/refresh-github.yml .github/workflows/pages.yml
+          .github/workflows/land-discovery.yml .github/workflows/validate.yml
       - name: Check Python behavior
         run: python -m unittest discover -s tools -p 'test_*.py'
       - name: Check browser and connector behavior
