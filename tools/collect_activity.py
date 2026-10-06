@@ -45,12 +45,30 @@ MAX_BRANCHES = 100
 MAX_PAGES = 5
 DETAIL_THRESHOLD = 25
 
-AI_PATTERNS = [
-    (re.compile(r"co-authored-by:.*\b(?:claude|anthropic)\b", re.I), "Claude"),
-    (re.compile(r"co-authored-by:.*\b(?:chatgpt|openai)\b", re.I), "ChatGPT"),
-    (re.compile(r"co-authored-by:.*\bcopilot\b", re.I), "GitHub Copilot"),
-    (re.compile(r"co-authored-by:.*\bgemini\b", re.I), "Gemini"),
+COAUTHOR_PATTERN = re.compile(r"^[ \t]*co-authored-by:[ \t]*([^\r\n]+)", re.I | re.M)
+# Match the named co-author, never its email domain or model/provider suffix.
+# In particular, Pi can use an OpenAI model/backend without being ChatGPT or
+# Codex. Provider-only/model-only identities do not establish a specific tool.
+AI_NAME_PATTERNS = [
+    (re.compile(r"^claude\b", re.I), "Claude"),
+    (re.compile(r"^chatgpt\b", re.I), "ChatGPT"),
+    (re.compile(r"^(?:openai[ \t]+)?codex\b", re.I), "Codex"),
+    (re.compile(r"^(?:github[ \t]+)?copilot\b", re.I), "GitHub Copilot"),
+    (re.compile(r"^(?:google[ \t]+)?gemini\b", re.I), "Gemini"),
+    (re.compile(r"^pi(?:$|[ \t(])", re.I), "Pi"),
 ]
+
+def coauthor_tools(message):
+    """Return explicitly named tools and their unmodified display-name evidence."""
+    found = {}
+    for match in COAUTHOR_PATTERN.finditer(message):
+        # Some trailers omit the angle brackets around the address.
+        name = re.sub(r"<[^<>]*>|\S+@\S+", "", match.group(1)).strip()
+        for pattern, tool in AI_NAME_PATTERNS:
+            if pattern.search(name):
+                found.setdefault(tool, name)
+                break
+    return found
 
 class RateStop(RuntimeError):
     pass
@@ -293,15 +311,15 @@ def detect_ai(record, items):
     examples = {}
     for item in items:
         message = ((item.get("commit") or {}).get("message") or "")
-        for pattern, tool in AI_PATTERNS:
-            if pattern.search(message):
-                hits[tool] = hits.get(tool, 0) + 1
-                examples.setdefault(tool, (item.get("sha") or "")[:12])
-                tools.add(tool)
+        for tool, name in coauthor_tools(message).items():
+            hits[tool] = hits.get(tool, 0) + 1
+            examples.setdefault(tool, ((item.get("sha") or "")[:12], name))
+            tools.add(tool)
     for tool, count in hits.items():
         marker = f"{tool} co-author trailer observed in recent tracked commits"
         evidence = [e for e in evidence if not e.startswith(marker)]
-        evidence.append(f"{marker}: {count} in this scan (example {examples[tool]})")
+        sha, name = examples[tool]
+        evidence.append(f"{marker}: {count} in this scan (example {sha}; {name})")
     if tools:
         ai["usage"] = True
         ai["tools"] = sorted(tools)
