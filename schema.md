@@ -53,6 +53,8 @@ The UI renders structured classification independently of the display title. `di
 
 `ai` contains `usage` (`true`, `false`, or `null`) and a `tools` array containing only explicitly evidenced tools.
 
+Co-author attribution uses the named tool, never an organization or email domain alone. For example, `Pi (GPT-6 Astra) <noreply@openai.com>` identifies Pi, and `Codex (GPT-6) <noreply@openai.com>` identifies Codex. `OpenAI <noreply@openai.com>` does not identify ChatGPT or any other specific tool. Model/provider details are preserved verbatim in `ai.evidence`; they are not additional tool labels.
+
 
 ## Automated GitHub metadata
 
