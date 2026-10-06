@@ -21108,6 +21108,643 @@
       ],
       "project_ids": [],
       "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-e8johan-tosemu",
+      "title": "TOSEMU — Atari TOS original-binary userspace runner",
+      "url": "https://github.com/e8johan/tosemu",
+      "decision": "promoted",
+      "reason": "Approved original-binary runner discovery. TOSEMU is Johan Toverland Thelin’s hosted environment for original Atari TOS executables, not a decompilation of one guest application. The current PRG loader opens and maps the supplied file, checks magic 0x601A, constructs the guest environment and applies relocation entries. The tosemu executable runs a program directly; the separate tosaesd daemon supports shared GEM accessory sessions and is not a prerequisite for a single CLI invocation. README explicitly targets integration into Linux and excludes general games/demos. This repository is counted once; its hosted EmuTOS and Musashi components are dependencies, not additional runner discoveries. Canonical repository and lineage aliases were screened against the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and prior dedup index; no existing counted project matched. Source snapshot 443340b2dfcf9e691a080bc4e3722102bc9c2839, non-truncated tree with 274 entries. README requires recursive Musashi and EmuTOS submodules and make; Makefile uses GCC, generates Musashi opcode tables and links hosted EmuTOS AES/VDI. NO_WAYLAND=1 removes the Wayland/xkbcommon headers, libraries and protocol-generation route; the Ubuntu workflow explicitly uses it for check and emuvdi-check. The GUI route needs Wayland tooling; optional detected integrations include D-Bus, libpng, FreeType/fontconfig and ALSA. The hosted EmuTOS build uses -fno-strict-aliasing and non-PIE flags because guest APIs contain 32-bit pointer fields. Devpac/Lattice tests are separate from building the host runner and require the original installations. Upstream describes excluding SoftFloat and dead-stripping unused later-CPU FPU/MMU code; this review did not inspect a resulting binary or certify link-time license composition. All four build flags remain null; inspected recipes and upstream reports are not local test results.",
+      "evidence_urls": [
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/README.md",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/src/tossystem.c",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/.gitmodules",
+        "https://github.com/e8johan/tosemu",
+        "https://github.com/e8johan/tosemu/commit/443340b2dfcf9e691a080bc4e3722102bc9c2839",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/src/musashi.c",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/src/gemdosfile.c",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/src/emuvdi/README",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/docs/DETAILS.md",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/src/musashiconf.h",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/Makefile",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/.github/workflows/run-tests.yaml",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/tests/devpac/Makefile",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/tests/lattice/Makefile",
+        "https://github.com/e8johan/tosemu/commit/819101122907b41e99bb1e5708ce9b5bee84e465",
+        "https://github.com/e8johan/tosemu/commit/09fbbfa751df62964fb2d710881ed92e80661a00",
+        "https://github.com/e8johan/tosemu/commits/443340b2dfcf9e691a080bc4e3722102bc9c2839",
+        "https://github.com/e8johan/tosemu/blob/443340b2dfcf9e691a080bc4e3722102bc9c2839/COPYING"
+      ],
+      "source_ids": [
+        "github-e8johan-tosemu"
+      ],
+      "project_ids": [
+        "tosemu"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-sapionaps-paratos",
+      "title": "ParaTos — Atari TOS and MiNT userspace runner",
+      "url": "https://github.com/SapionAps/ParaTos",
+      "decision": "promoted",
+      "reason": "Approved original-binary runner discovery. ParaTos is an experimental direct runner for original Atari TOS/MiNT command-line applications. README identifies Linux and explains the system-call translation approach. gemdos/loader.c reads and endian-converts the PRG header, builds the basepage/environment, copies text/data, applies relocation fixups and appends ARGV data. paratos.c loads the named executable and enters the CPU engine directly, without an ST machine boot. A 2023 upstream commit explicitly added OSX support, and current Apple-specific executable-path and byte-order code remains present; this refines the earlier discovery’s Linux-only evidence without asserting that a modern macOS build was tested. Canonical repository and lineage aliases were screened against the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and prior dedup index; no existing counted project matched. Source snapshot 9d43e70bce3ed4f82ee43e35375994332fc2ac4b, non-truncated tree with 106 entries. CMakeLists.txt declares CMake 3.10, C11, bundled mushashi and gemdos subdirectories and a paratos executable. Clang warning adjustments and the later explicit opcode-table definitions document maintenance of that route; they do not prove current build success. The original OSX-support commit adds Apple byte order and executable-path logic, with guarded host API differences, retained at the inspected tip. The guest test directory requires make plus a m68k-atari-mintelf- cross-toolchain and produces hello.tos, echo_args.tos, exit_code.tos and syscall proxies. Those generated guest outputs are ignored build artifacts, not prebuilt executables present in the tree. No boot-ROM dependency appears in the direct loader/build recipe. The host virtual-memory and unaligned-access assumptions require validation on any selected platform. All four build flags remain null; inspected recipes and upstream reports are not local test results.",
+      "evidence_urls": [
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/README.md",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/gemdos/loader.c",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/paratos.c",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/byteorder.h",
+        "https://github.com/SapionAps/ParaTos/commit/c0fd582c80b1681c30731f816a3b12e585773ca9",
+        "https://github.com/SapionAps/ParaTos",
+        "https://github.com/SapionAps/ParaTos/commit/9d43e70bce3ed4f82ee43e35375994332fc2ac4b",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/gemdos/gemdos_dispatch.c",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/gemdos/path.c",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/gemdos/file.c",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/mushashi/m68kconf.h",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/test_programs/README.md",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/memory.c",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/memory.i",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/CMakeLists.txt",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/test_programs/Makefile",
+        "https://github.com/SapionAps/ParaTos/commit/96db56afe7190d8c314a0265f23a9f7c202439f3",
+        "https://github.com/SapionAps/ParaTos/commit/8006a12cd116c395d71f9023bcde75895f4e68a7",
+        "https://github.com/SapionAps/ParaTos/commit/612d761cc2df93fcd927dadef7f640f20a114565",
+        "https://github.com/SapionAps/ParaTos/commits/9d43e70bce3ed4f82ee43e35375994332fc2ac4b",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/COPYING",
+        "https://github.com/SapionAps/ParaTos/blob/9d43e70bce3ed4f82ee43e35375994332fc2ac4b/mushashi/readme.txt"
+      ],
+      "source_ids": [
+        "github-sapionaps-paratos"
+      ],
+      "project_ids": [
+        "paratos"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-hamishcoleman-riscose",
+      "title": "riscose — RISC OS ARM userspace binary runner",
+      "url": "https://github.com/hamishcoleman/riscose",
+      "decision": "promoted",
+      "reason": "Approved original-binary runner discovery. One riscose project family is tracked across its original SourceForge home, repo.or.cz lineage and the inspected hamishcoleman/riscose GitHub tree. The original site describes SWI-level execution of unmodified RISC OS applications without a RISC OS ROM. README demonstrates direct GNU grep invocation with host stdin and filenames. Current main.c and mem.c load an application image at guest address 0x8000 and execute it through arm_run_routine. Although README still says Absolute executables only, current code and man/riscose.1 also expose module and utility modes; this is evidence of implemented paths, not complete compatibility. The GitHub tip is 2023-10-25; a prior indexed repo.or.cz summary reported 2023-11-02, but its direct access was geographically blocked. That lineage is retained without pretending the GitHub tip is the newest commit anywhere in the family. Canonical repository and lineage aliases were screened against the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and prior dedup index; no existing counted project matched. Source snapshot ec85f120327ce37ecee8bbcb90f3111330bd5bae, non-truncated tree with 231 entries. The inspected route is Autotools plus C: a Git checkout needs maintainer tools, configure checks a C compiler, yacc, ranlib, awk and Perl, and src/Makefile.am links ncurses and readline. The checked-in Ubuntu workflow installs autoconf/libgdbm-dev, runs autoreconf -if, then configure and make; the workflow is a recipe, not a successful run verified here. ARMulator is the default backend, with sleeve/native selectable. The generated rom/romimage.o belongs to the compatibility runtime and is not evidence that an original RISC OS boot ROM is required. The original project explicitly says no RISC OS ROM is needed. Guest compiler tools are separate inputs, and the original test page explicitly withholds redistribution of Norcroft cc. No build, guest execution or binary-equivalence experiment was performed. All four build flags remain null; inspected recipes and upstream reports are not local test results.",
+      "evidence_urls": [
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/README.md",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/main.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/mem.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/man/riscose.1",
+        "https://riscose.sourceforge.net/",
+        "https://repo.or.cz/riscose.git",
+        "https://github.com/hamishcoleman/riscose",
+        "https://github.com/hamishcoleman/riscose/commit/ec85f120327ce37ecee8bbcb90f3111330bd5bae",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/configure.ac",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/armul/arm.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/swi.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/os/osfile.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/native/native-arm.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/armul/armemu.c",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/native/Make-defs",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/Makefile.am",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/.github/workflows/ci.yml",
+        "https://riscose.sourceforge.net/testbinaries.html",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/TODO",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/PROBLEMS",
+        "https://github.com/hamishcoleman/riscose/commits/ec85f120327ce37ecee8bbcb90f3111330bd5bae",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/src/sleeve/README",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/mod/LICENSE",
+        "https://inputplus.co.uk/ralph/"
+      ],
+      "source_ids": [
+        "github-hamishcoleman-riscose",
+        "riscose-sourceforge-home",
+        "riscose-repo-or-cz-lineage"
+      ],
+      "project_ids": [
+        "riscose"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-alias-riscose-sourceforge-home",
+      "title": "riscose lineage alias: https://riscose.sourceforge.net/",
+      "url": "https://riscose.sourceforge.net/",
+      "decision": "duplicate",
+      "reason": "Original riscose site documents ROM-free SWI compatibility, historical Linux/ARM work, GPL distribution and the dated 2001 Norcroft cc/Acorn linker demonstration. It is provenance for the single riscose record, not a second runner. Historical pages do not establish present-day compatibility. Keep one counted family; do not promote this location separately.",
+      "evidence_urls": [
+        "https://riscose.sourceforge.net/",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/README.md",
+        "https://riscose.sourceforge.net/"
+      ],
+      "source_ids": [
+        "riscose-sourceforge-home",
+        "github-hamishcoleman-riscose"
+      ],
+      "project_ids": [
+        "riscose"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-alias-riscose-repo-or-cz-lineage",
+      "title": "riscose lineage alias: https://repo.or.cz/riscose.git",
+      "url": "https://repo.or.cz/riscose.git",
+      "decision": "duplicate",
+      "reason": "Known alternate riscose repository lineage, retained under the same project identity as SourceForge and the inspected GitHub copy. The discovery pass observed an indexed 2023-11-02 summary but direct retrieval was geographically restricted; no bypass was attempted and the repository’s exact current head has not been verified. Keep one counted family; do not promote this location separately.",
+      "evidence_urls": [
+        "https://repo.or.cz/riscose.git",
+        "https://github.com/hamishcoleman/riscose/blob/ec85f120327ce37ecee8bbcb90f3111330bd5bae/README.md",
+        "https://riscose.sourceforge.net/"
+      ],
+      "source_ids": [
+        "riscose-repo-or-cz-lineage",
+        "github-hamishcoleman-riscose"
+      ],
+      "project_ids": [
+        "riscose"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-ksherlock-mpw",
+      "title": "mpw — original 68K MPW tool runner for macOS",
+      "url": "https://github.com/ksherlock/mpw",
+      "decision": "promoted",
+      "reason": "Approved source-reviewed original-binary runner discovery. README identifies the mpw command, author, tool-search layout and native-shell invocation. toolbox/loader.cpp opens the original resource fork, loads CODE resource 0, constructs the A5/jump-table state and brings in additional CODE segments. This is a substantive original-tool runner, not a source-port compiler or a script around a fully booted Mac. Root and record ID are absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior dedup index. Inspected master tip: a6b58bf3828e78388ab70ce53bf7be7bbff19d18. Tooling with emulator and development-environment capabilities. The loader executes original guest instructions; toolbox/dispatch.cpp translates Classic Mac OS Open/Read/Write traps, and toolbox/os.cpp plus mpw/mpw_io.cpp route guest I/O into host-backed FDEntry operations. API reimplementation and embedded CPU emulation are distinct parts of the same runner. No full-Mac, arbitrary-tool or full-API compatibility is established. README credits the WinFellow 680x0 core under GPL-2.0-or-later and describes the combined executable as GPL v2. The public-domain mempoolite/SQLite-derived allocator and BSD-style notices in examined MPW I/O code retain their component distinctions; libsane is a separate submodule. Original MPW tools, interfaces, runtime libraries and other guest content are not licensed by the emulator grant. This 68K implementation is separate from Treeki’s Rust/PowerPC mpw-emu; similar names and purpose do not establish a code fork. Overall source/author/dependency graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/toolbox/dispatch.cpp",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/.gitmodules",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/.github/workflows/cmake-fat.yml",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/mpw/mpw_io.cpp",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/README.md",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/toolbox/loader.cpp",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/CMakeLists.txt",
+        "https://github.com/ksherlock/mpw/blob/a6b58bf3828e78388ab70ce53bf7be7bbff19d18/toolbox/os.cpp",
+        "https://github.com/ksherlock/mpw/tree/a6b58bf3828e78388ab70ce53bf7be7bbff19d18",
+        "https://github.com/ksherlock/mpw/commit/a6b58bf3828e78388ab70ce53bf7be7bbff19d18"
+      ],
+      "source_ids": [
+        "github-ksherlock-mpw"
+      ],
+      "project_ids": [
+        "ksherlock-mpw"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-treeki-mpw-emu",
+      "title": "mpw-emu — experimental PowerPC MPW tool runner",
+      "url": "https://github.com/Treeki/mpw-emu",
+      "decision": "promoted",
+      "reason": "Approved source-reviewed original-binary runner discovery. src/main.rs reads the requested original tool through MacFile, parses its PEF data fork and resources, links it into emulated memory, forwards argv and returns the emulated exit status. README reports MWCPPC from CodeWarrior Pro 1 and DeRez results. These are upstream demonstrations, not independent compatibility tests; this record is the experimental runner rather than CodeWarrior/MPW itself. Root and record ID are absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior dedup index. Inspected main tip: a0d23d515987ae5b486da9430e0b78a02ac93b4f. Substantive emulator/development tooling: src/linker.rs builds transition-vector shims for imported symbols; src/emulator/mod.rs installs InterfaceLib/StdCLib and Toolbox/C-library callbacks and handles them through a PowerPC supervisor-call hook. Original PEF instructions run inside Unicorn without booting Classic Mac OS. Missing imports remain logged, the initialization vector is explicitly unimplemented, and the README lists missing PEF relocations and APIs. XCOFF support is not established. The complete 37-entry tree has no LICENSE/COPYING grant, Cargo.toml has no license field, and repository metadata reports license null. Do not describe it as permissively licensed or assume public source authorizes redistribution. Unicorn and Rust dependencies retain their separate terms, as do original CodeWarrior/MPW executables and libraries. README’s comparison with SheepShaver/QEMU describes the purpose; no fork relationship is established. Merged PR #1 concerns Retro68-produced MacBinary II input and is not evidence that Retro68 is this runner’s implementation or guest CPU. Overall source/author/dependency graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/emulator/mod.rs",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/main.rs",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/README.md",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/Cargo.toml",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/filesystem.rs",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/pef/mod.rs",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/linker.rs",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/emulator/interface_lib.rs",
+        "https://github.com/Treeki/mpw-emu/blob/a0d23d515987ae5b486da9430e0b78a02ac93b4f/src/emulator/std_c_lib.rs",
+        "https://github.com/Treeki/mpw-emu/tree/a0d23d515987ae5b486da9430e0b78a02ac93b4f",
+        "https://github.com/Treeki/mpw-emu/commit/a0d23d515987ae5b486da9430e0b78a02ac93b4f"
+      ],
+      "source_ids": [
+        "github-treeki-mpw-emu"
+      ],
+      "project_ids": [
+        "treeki-mpw-emu"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-cracyc-msdos-player",
+      "title": "MS-DOS Player — original DOS command runner for Windows",
+      "url": "https://github.com/cracyc/msdos-player",
+      "decision": "promoted",
+      "reason": "Approved source-reviewed original-binary runner discovery. readme.txt explicitly targets 16-bit DOS command-line utilities and demonstrates msdos lcc sample.c followed by msdos sample.exe. msdos.cpp identifies Takeda as author, loads MZ/ZM EXEs with relocation and otherwise uses the COM entry at 0x100. The selected maintained source root is cracyc/msdos-player, default branch vt. Its README credits imported fixes from the cracyc fork; the official Takeda distribution is lineage/context, not a second project. Root and record ID are absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior dedup index. Inspected vt tip: b3ebaa8452be478afec604361db32e9451eb43e2. Emulator/development tooling with CPU execution plus DOS/BIOS service translation. The INT 21h dispatch sends 3Dh/3Fh/40h/4Bh to host-backed open/read/write/execute handling. The direct console workflow does not boot a DOS disk image, but this is not a CPU-only layer: text-mode hardware scaffolding, memory services and optional driver/VDD support exist. README excludes Win16, graphics/sound hardware and gaming as the project’s goal; protected-mode capabilities vary by CPU build. One family combines Takeda’s MS-DOS Player and the cracyc maintained fork; GitHub fork=false is hosting metadata and does not negate the documented lineage. README licenses source under GPL v2 and credits MAME CPU cores, Neko Project 21/W, DOSBox/DOSBox-X, DOSVAXJ3 and ReactOS-derived portions; component notices need preservation. Guest DOS compilers, commands, libraries and COMMAND.COM retain separate rights and must be supplied lawfully. This is neither Microsoft’s original NTVDM nor davidly/ntvdm. The official Takeda URL was retained from prior discovery, but this publication recheck received HTTP 403 and therefore does not newly verify its release/test claims. Overall source/author/dependency graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/Makefile.mingw",
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/Makefile",
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/.github/workflows/ccpp.yml",
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/readme.txt",
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/msdos.vcxproj",
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/license/COPYING.txt",
+        "https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/msdos.cpp",
+        "https://github.com/cracyc/msdos-player/tree/b3ebaa8452be478afec604361db32e9451eb43e2",
+        "https://github.com/cracyc/msdos-player/commit/b3ebaa8452be478afec604361db32e9451eb43e2"
+      ],
+      "source_ids": [
+        "github-cracyc-msdos-player"
+      ],
+      "project_ids": [
+        "msdos-player"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-doctorwkt-apout",
+      "title": "Apout — original PDP-11 Unix a.out runner",
+      "url": "https://github.com/DoctorWkt/Apout",
+      "decision": "promoted",
+      "reason": "Approved source-reviewed original-binary runner discovery. The canonical DoctorWkt repository supplies the current Apout 2.4 source and identifies supported historical Unix binary families. main.c accepts an original pdp11_binary and arguments; aout.c identifies a.out magic/ABI, loads instructions and data and supports 2.11BSD overlays. Original commands and compiler binaries are guest inputs, not restored native-host sources. Root and record ID are absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior dedup index. Inspected master tip: bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7. Emulator/development tooling: cpu.c fetches and dispatches original PDP-11 instructions, while v7trap.c directly implements guest read/write/open through native calls and bsdtrap.c provides a separate 2.11BSD ABI. APOUT_ROOT rewrites absolute guest paths; relative paths remain host-relative. This is not a full PDP-11 machine or guest OS boot. It provides host-file access, not containment; NATIVES is enabled by the Makefile and unrecognized binaries can be attempted with host execv. The current repository has a GPL-3.0 LICENSE and GitHub identifies GPL-3.0; COPYRIGHT also preserves permissive notices for Warren Toomey and Eric Edwards’ instruction-emulation ancestry. Keep this mixed file-level provenance explicit rather than copying an older mirror’s permissive-only summary or asserting that every inherited line was relicensed. Historical guest Unix executables/libraries and disk collections require their own rights review. Older Apout mirrors/ports are this lineage’s context and are not separately promoted; no macOS/Windows current-support guarantee is borrowed from them. Overall source/author/dependency graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/README",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/Makefile",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/LIMITATIONS",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/main.c",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/COPYRIGHT",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/bsdtrap.c",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/cpu.c",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/v7trap.c",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/LICENSE",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/aout.c",
+        "https://github.com/DoctorWkt/Apout/blob/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7/defines.h",
+        "https://github.com/DoctorWkt/Apout/tree/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7",
+        "https://github.com/DoctorWkt/Apout/commit/bd9af21bd8bb2fa956dcda5db0b0aeec2cffc8f7"
+      ],
+      "source_ids": [
+        "github-doctorwkt-apout"
+      ],
+      "project_ids": [
+        "doctorwkt-apout"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-kg68k-run68x",
+      "title": "run68x — Human68k command-line executable runner",
+      "url": "https://github.com/kg68k/run68x",
+      "decision": "promoted",
+      "reason": "Approved original CLI-runner discovery. run68x is the maintained Human68k CUI emulator derived from run68. The README names rururutan/run68 and several run68mac forks as origins. The current C implementation has its own executable loader, 68000 interpreter, debugger and Human68k-compatible services. One family is counted; original run68 and the linked macOS variants are lineage references, not additional discoveries. Canonical root was absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior deduplication index. Inspected default-branch head: fc28826dd795b1f0a3241f0b03fe2353e12e7233. Modern tooling executes original Human68k .X and raw .R programs from argv, using host files and the existing terminal. load.c reads the HU header, performs relocation and initializes BSS; run68.c builds a PSP and enters the interpreter. DOS calls, IOCS and FE floating-point helpers are implemented in host C. The initialized HUMAN.SYS name represents a synthetic PSP, not a required OS image. The inspected direct-run path needs no original ROM or booted Human68k. README and source headers license run68x under GPL-2.0-or-later and explicitly trace run68/run68mac ancestry. The family is counted once under kg68k/run68x; alternate forks may differ in API and platform support. Original Human68k tools, XC-linked executables and their data remain separately licensed. The high-memory mode requires users to patch linked XC library code themselves; no automatic patcher or right to redistribute original tools is implied. Wider author, dependency and fork-graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/README.md",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/load.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/exec.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/run68.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/human68k.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/doscall.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/dos_file.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/iocscall.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/src/line_f.c",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/.github/workflows/release-win-x64.yml",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/.github/workflows/cmake-macos.yml",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/.github/workflows/cmake-multi-platform.yml",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/CMakeLists.txt",
+        "https://github.com/kg68k/run68x/actions/runs/30469695278",
+        "https://github.com/kg68k/run68x/actions/runs/30469445109",
+        "https://github.com/kg68k/run68x/actions/runs/30469442514",
+        "https://github.com/kg68k/run68x/actions/runs/30469442441",
+        "https://github.com/kg68k/run68x/commit/946314f4072e5464c67605a3854259fe829b1920",
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/LICENCE"
+      ],
+      "source_ids": [
+        "github-kg68k-run68x"
+      ],
+      "project_ids": [
+        "run68x-human68k-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-davidly-m68",
+      "title": "m68 — CP/M-68K and 68000 executable runner",
+      "url": "https://github.com/davidly/m68",
+      "decision": "promoted",
+      "reason": "Approved original CLI-runner discovery. m68 directly loads 68000 CP/M-68K .68K, Linux-style ELF and Motorola hex programs. The repository contains a substantial custom C++ 68000 interpreter, executable loaders and host OS-service implementations. README and cpm/m.sh show original Digital Research compiler/assembler/linker stages being invoked through m68; MT Pascal, CB68 BASIC, DDT, SVS tools and Forth examples are documented uses of this one runner. Canonical root was absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior deduplication index. Inspected default-branch head: 45b0c7378c7adc4433141d33cf5dd119b9cca612. A tooling emulator and partial OS-API reimplementation, not recovered source for the guest compilers. load_cpm68k reads the 0x601a executable header, creates a basepage and relocates text/data/BSS; trap 2 implements BDOS and trap 3 BIOS, with host fopen/fread-backed files. Trap 0 handles supported Linux-style services and trap 15 Fondse-style calls. The direct-run path constructs runtime state without booting CP/M or loading a ROM. Root LICENSE dedicates the emulator work under CC0-1.0. Checked-in Digital Research, Manx/Aztec, SVS, Forth and other legacy tools/support files retain their own rights; CC0 does not relicense third-party binaries or libraries. The README explicitly says the DOS-hosted Aztec C68K distribution requires a DOS emulator such as davidly/ntvdm: that compiler is not itself a native m68 guest. ntvcm/ntvdm nested builds and RVOS/ARMOS are related independent runners, not aliases of m68. Wider author, dependency and fork-graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/README.md",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/m68.cxx",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/m68000.cxx",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/cpm/m.sh",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/mtpascal/m.sh",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/cb68/m.sh",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/mr.sh",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/mrmac.sh",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/mr.bat",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/c_tests/mm68.sh",
+        "https://github.com/davidly/m68/tree/45b0c7378c7adc4433141d33cf5dd119b9cca612",
+        "https://github.com/davidly/m68/commit/45b0c7378c7adc4433141d33cf5dd119b9cca612",
+        "https://github.com/davidly/m68/commit/6f80a453ba368325c2355c2337b5f62f736c9e35",
+        "https://github.com/davidly/m68/commit/734810e91a9140e946fe5a510f4878ee4940c27a",
+        "https://github.com/davidly/m68/commit/1ecb00d5418c09e4a5245ce72f2f544fa7801816",
+        "https://github.com/davidly/m68/commit/70e38c93e52fb938bd71298cf9ae1c55b01e11cf",
+        "https://github.com/davidly/m68/commit/5f09dd1b4b43a761e5fa7017196f42de8b42960a",
+        "https://github.com/davidly/m68/commit/fc46d9c60989fd91a0fb799df3c161e194d3519d",
+        "https://github.com/davidly/m68/commit/b4ab325a54fc546ba63dabe8fa5ddede71f9931b",
+        "https://github.com/davidly/m68/commit/94b5e1e47ed19545e56a7ebf2a24ee29a2fb04c0",
+        "https://github.com/davidly/m68/commit/ee0877b508881b05685d652197362070541cbdb8",
+        "https://github.com/davidly/m68/commit/1c25edc722b847096846f7812b0da9209f779aa0",
+        "https://github.com/davidly/m68/commit/5cf3c971c3e1119cd83017ac9e084663880ba765",
+        "https://github.com/davidly/m68/commit/2796f147bc0842bd8196c1caab9b3bac6d3f281a",
+        "https://github.com/davidly/m68/commit/a4151db2db2325f1532145ae56ef9145ad87e95c",
+        "https://github.com/davidly/m68/commit/d9fe71bf862790b296b29b47bc89eefc1741dd4e",
+        "https://github.com/davidly/m68/commit/3dba9c7055b5f9d4789c817d850683b3fd2943bd",
+        "https://github.com/davidly/m68/commit/7258324daccb69771ab59eb1d4c9a1dc55576fe3",
+        "https://github.com/davidly/m68/commit/ebb8d56f346132c5349c0c37e326b3a9f1988f5b",
+        "https://github.com/davidly/m68/commit/eebefb5fc5af04112f418beb719c7ec49bda0368",
+        "https://github.com/davidly/m68/commit/a06ac110112b7f1cd35a87cc241146022bd6ef87",
+        "https://github.com/davidly/m68/commit/cd82d25549f50ed7df3571e14871184e80ce746e",
+        "https://github.com/davidly/m68/commit/dbe4ec1ceca407ba1faef07764970ebe41fe976f",
+        "https://github.com/davidly/m68/commit/b6822c710ffd639ff171ec69fbdd9efd32354efb",
+        "https://github.com/davidly/m68/commit/4340ecc166b074b6287c5a41f9e20ab1298e8bb4",
+        "https://github.com/davidly/m68/commit/b679e55a7bb75c4a2121713ef61d41532962d942",
+        "https://github.com/davidly/m68/commit/c8d1467ee781049739c88b066ec84494927c19a9",
+        "https://github.com/davidly/m68/commit/cfe6676aef2954cfdfd7573b953f305f0b9cec2b",
+        "https://github.com/davidly/m68/commit/ac0ac3676a5fb632d39b904eca6cc52db7a3765d",
+        "https://github.com/davidly/m68/commit/7d2f4c8971d7263fe0b8de9af2848f4a9f3d8722",
+        "https://github.com/davidly/m68/commit/ebe52c6f39a9f9ec74083d3ffdc8c675ce6dbf85",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/LICENSE"
+      ],
+      "source_ids": [
+        "github-davidly-m68"
+      ],
+      "project_ids": [
+        "m68-cpm68k-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-agn453-zxcc",
+      "title": "ZXCC — CP/M compiler and command-line tool runner",
+      "url": "https://github.com/agn453/ZXCC",
+      "decision": "promoted",
+      "reason": "Approved original CLI-runner discovery. Tony Nicholson’s ZXCC maintains John Elliott’s ZXCC 0.5.7 lineage. It loads original CP/M .COM/.CPM programs at 0x100 and runs Ian Collier’s Z80 interpreter, while wrappers such as zxc, zxas, zxlink, zxlibr and zxobjtohex adapt host arguments for existing compiler tools. The original release and this maintained repository are one project family, not separate records. Canonical root was absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior deduplication index. Inspected default-branch head: c45e5065eca63dd045d60511a8b21ab7f567303a. Cross-development tooling executes original binaries with partial CP/M 2/3 API translation. The ED FE trap routes BDOS/BIOS calls to native C; CPMREDIR maps CP/M drives and FCB operations onto host files. Required bios.bin is the bundled tiny ZXCC-specific synthetic BIOS/BDOS shim, with Z80/bios.zsm source, not an original vendor ROM or full CP/M OS. Users separately supply HI-TECH or Digital Research compiler binaries, includes, libraries and overlays. The maintained source derives from John Elliott ZXCC and Ian Collier’s xz80 CPU. Root COPYING/LICENSE and CPU carry GPLv2/GPL-2.0-or-later terms; CPMIO/CPMREDIR contain GNU Library GPL v2-or-later notices. Preserve component terms and separately supplied HI-TECH/Digital Research tools’ licences. README discusses fixes shared with zxccp, yaze and Mark Ogden, but related emulators and compiler repositories are not extra aliases or newly counted runner records here. Wider author, dependency and fork-graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/README.md",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/zxcc.doc",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/bin/zxcc.c",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/bin/z80.c",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/bin/zxbdos.c",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/cpmredir/lib/cpmredir.c",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/cpmredir/lib/cpmdrv.c",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/Z80/bios.zsm",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/winbuild/README.md",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/winbuild/zxcc/zxcc.vcxproj",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/configure.ac",
+        "https://github.com/agn453/ZXCC/commit/c45e5065eca63dd045d60511a8b21ab7f567303a",
+        "https://github.com/agn453/ZXCC/commit/b3d4e2c83d4076f7222c63e4832929966ece02f8",
+        "https://github.com/agn453/ZXCC/commit/271e9b48667c8981da38c9057d53414aed211525",
+        "https://github.com/agn453/ZXCC/commit/d48f863d678284e7ca3796715185641628935ae7",
+        "https://github.com/agn453/ZXCC/commit/478e2cfabdf91705833ecb520f52802d7199fd01",
+        "https://github.com/agn453/ZXCC/commit/37d557584c221e8aca7cd1163178f002194b0e5b",
+        "https://github.com/agn453/ZXCC/commit/7e1b7d3628fff0f14fef67258c9df76033499028",
+        "https://github.com/agn453/ZXCC/commit/b62f50375b80dcb7e01ae877eb3c5e95ea096da0",
+        "https://github.com/agn453/ZXCC/commit/f667e61031bccfc945c6c2125885ec61d9c31573",
+        "https://github.com/agn453/ZXCC/commit/a3f60f3caadef23c97dd8beb6bac929858bf51f0",
+        "https://github.com/agn453/ZXCC/commit/f8a7b41cb4d33421ac6c68f61f17f169a886ed2f",
+        "https://github.com/agn453/ZXCC/commit/94d1e9cad16325576ec642a19a27148a62f91731",
+        "https://github.com/agn453/ZXCC/commit/abe8f9f1baf4b6211cb2720fc8e82b87a3698ff8",
+        "https://github.com/agn453/ZXCC/commit/68fede670bd7c5c57004b8fd15d055c5e74820b0",
+        "https://github.com/agn453/ZXCC/commit/0e60cfe757a1ff8cf0cdbb303faf0e233b0ebc98",
+        "https://github.com/agn453/ZXCC/commit/eb806dc849e6dddc0dc7bb72c5455d630507980e",
+        "https://github.com/agn453/ZXCC/commit/5ba79ae4f2f7237b011ed174d595db676bf5b661",
+        "https://github.com/agn453/ZXCC/commit/e33b8f46f170ca8bcce6eba1256aa48674cf0e0d",
+        "https://github.com/agn453/ZXCC/commit/1328a2d43f53901047db57b37b5aeedbcedb3971",
+        "https://github.com/agn453/ZXCC/commit/74e633e4b96b0dfdf92d08210f9169c2857d6e03",
+        "https://github.com/agn453/ZXCC/commit/45f24f62dd71b4dd21734012565d7af8ad30877b",
+        "https://github.com/agn453/ZXCC/commit/35d376f4807dff54ad5b32ec5df8af32f9340a40",
+        "https://github.com/agn453/ZXCC/commit/e255ad8c0e48438d5a4b4a0c719bb5cd3bb5a0bc",
+        "https://github.com/agn453/ZXCC/commit/e74e3abc3b6a250b24a908ffc8552dfe4f3c9cda",
+        "https://github.com/agn453/ZXCC/commit/cefafd9554fab6931aa20d4e4bd5ad34dcfd29d6",
+        "https://github.com/agn453/ZXCC/commit/fe5a8b79bfdb9122e102a2219c296db977dad828",
+        "https://github.com/agn453/ZXCC/commit/63e8565c22c4a0f950aa2d1175c26fe7ca51d638",
+        "https://github.com/agn453/ZXCC/commit/14907f0ff8e74536179c467deba5db1cafdcbb51",
+        "https://github.com/agn453/ZXCC/commit/ad7553823af521c942141859e93ee87929bd8191",
+        "https://github.com/agn453/ZXCC/commit/4157e2ea825ff93249eb7b09d70156b225b86f69",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/Makefile.am",
+        "https://github.com/agn453/ZXCC/tree/c45e5065eca63dd045d60511a8b21ab7f567303a",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/LICENSE",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/COPYING",
+        "https://github.com/agn453/ZXCC/blob/c45e5065eca63dd045d60511a8b21ab7f567303a/cpmio/COPYING.LIB"
+      ],
+      "source_ids": [
+        "github-agn453-zxcc"
+      ],
+      "project_ids": [
+        "zxcc-cpm-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-davidly-ntvcm",
+      "title": "ntvcm — CP/M 8080/Z80 command-line runner",
+      "url": "https://github.com/davidly/ntvcm",
+      "decision": "promoted",
+      "reason": "Approved original CLI-runner discovery. NT Virtual CP/M Machine is a standalone C++ command-line runner for CP/M .COM tools. ntvcm.cxx loads a selected host file at guest 0x100, creates CP/M entry hooks and enters x80.cxx. README documents asm/load, Turbo Pascal, Aztec C, WordStar and many other tools; they are compatibility examples, not separately reconstructed projects. The current head has removed the former GDB/MI debugger-host mode, so it is not advertised as a current capability. Canonical root was absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior deduplication index. Inspected default-branch head: be598f65c1b649f5250dcd6d8fef266b1b86413e. An emulator with native CP/M BDOS/file and console translation, an 8080/Z80 trace disassembler and optional per-PC CSV profiling. It executes original instructions and synthesizes BDOS/BIOS hooks rather than booting a CP/M disk or requiring an original ROM. Host fopen/fread/fwrite implement FCB file operations. Original guest tools must be supplied with their own overlays/data; this record is the runner, not a full disk/hardware emulator or compiler reconstruction. Root LICENSE is CC0-1.0 for the emulator work; third-party CP/M programs and support files are not relicensed. The bundled z80test-cpm port preserves Patrik Rak’s separate MIT-style upstream licence. davidly/cpm_compilers holds example toolchains, while m68/RVOS can serve as nested hosts; these are related projects, not this runner’s aliases. Explicit DCC-derived fixes in recent commits are recorded without merging DCC into this identity. Wider author, dependency and fork-graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/README.md",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/ntvcm.cxx",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/x80.cxx",
+        "https://github.com/davidly/ntvcm/commit/be598f65c1b649f5250dcd6d8fef266b1b86413e",
+        "https://github.com/davidly/ntvcm/commit/b18941f43db5c36bf970773d23822cec933211ea",
+        "https://github.com/davidly/ntvcm/commit/9c1aada46e822c27f8de6ef4774beeac69cbd802",
+        "https://github.com/davidly/ntvcm/commit/408792f9fca5d5897c1956fa492f44c6c9fc8717",
+        "https://github.com/davidly/ntvcm/commit/928c7c638a75d1745b3816ec79c2f39d913c05a4",
+        "https://github.com/davidly/ntvcm/commit/5c85a5799cb0a833c937ff00d95fd4d12d1db1d6",
+        "https://github.com/davidly/ntvcm/commit/7737d28b6a90b2b8d9fa3f58a78ef20c95480ede",
+        "https://github.com/davidly/ntvcm/commit/924d4eb98f7313d66efda951596c805842f9c77b",
+        "https://github.com/davidly/ntvcm/commit/04a5f11034889158508347b3f8b4dfc56b62541a",
+        "https://github.com/davidly/ntvcm/commit/e6b96a74474e1ce0c2c788fca1403aee1c04af53",
+        "https://github.com/davidly/ntvcm/commit/5e429c95c66996e9357d2fbc1f3f0e9054ce4169",
+        "https://github.com/davidly/ntvcm/commit/d6f29b839a02c974c45a407d109ad32097a0eb51",
+        "https://github.com/davidly/ntvcm/commit/854f23d0673bb488dc14d502627efca4dbaa08c3",
+        "https://github.com/davidly/ntvcm/commit/9534a3c1384bb4ee47cc78193fef0ca34f1d0c14",
+        "https://github.com/davidly/ntvcm/commit/0de303025b0f9438e261bc2f768cd270e1ebe5b8",
+        "https://github.com/davidly/ntvcm/commit/dce724667be4f601522ec6d81a6217f33feb9211",
+        "https://github.com/davidly/ntvcm/commit/4236cfb3e47f6f0f253e0176e0f54d555ce3404f",
+        "https://github.com/davidly/ntvcm/commit/35a8bb7b2c8520507cefb58a1cfe0a452d57b506",
+        "https://github.com/davidly/ntvcm/commit/7ebc79eb00556cc497b6328d390bcc1698a429a8",
+        "https://github.com/davidly/ntvcm/commit/05ccb4208d9484933cb8914d548b88a0972575c1",
+        "https://github.com/davidly/ntvcm/commit/5944c0cff52a8279f45dbbbe1c64165e38992169",
+        "https://github.com/davidly/ntvcm/commit/e0b8097a19cc20daa1e9610b1560f6ec6ff9b801",
+        "https://github.com/davidly/ntvcm/commit/e6c26bf06e2c964dc7dc2b284db8442cf71279ed",
+        "https://github.com/davidly/ntvcm/commit/e43c62d72166c7ac770c216566a2d6e9bbbedbd5",
+        "https://github.com/davidly/ntvcm/commit/e47c9cd34b7d309b7a1d8e7c4329e7672c0e9c9f",
+        "https://github.com/davidly/ntvcm/commit/aa4874a1ad7ca38a4ae61c4457c7033890544d5b",
+        "https://github.com/davidly/ntvcm/commit/1c968fa4a9bfce82749dea9a805157405cfacd7d",
+        "https://github.com/davidly/ntvcm/commit/eae45340ad3683ccd9e6ff8d789b5094deab8ab1",
+        "https://github.com/davidly/ntvcm/commit/f62ba902a08112e2ef3c7d45d74ecb2a2ceaf563",
+        "https://github.com/davidly/ntvcm/commit/87ae7abc98852bbe366ee3e9da88fc0da00ebbac",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/msvcenv.bat",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/mr.bat",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/mr.sh",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/mrmac.sh",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/mwatcom.bat",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/.github/workflows/main.yml",
+        "https://github.com/davidly/ntvcm/actions/runs/36086079580",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/LICENSE",
+        "https://github.com/davidly/ntvcm/blob/be598f65c1b649f5250dcd6d8fef266b1b86413e/z80test-cpm/UPSTREAM-LICENSE.txt"
+      ],
+      "source_ids": [
+        "github-davidly-ntvcm"
+      ],
+      "project_ids": [
+        "ntvcm-cpm-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-davidly-ntvdm",
+      "title": "ntvdm — 8086 DOS command-line executable runner",
+      "url": "https://github.com/davidly/ntvdm",
+      "decision": "promoted",
+      "reason": "Approved original CLI-runner discovery. David Lee’s NT Virtual DOS Machine is an independent portable 8086/text-mode DOS runner, distinct from Microsoft’s system NTVDM component. ntvdm.cxx loads .COM and MZ/ZM .EXE files, applies relocations and runs i8086.cxx. README documents direct console/script use of MASM, Link, Microsoft C, Turbo Pascal/C, QuickBasic and other legacy tools. Original test software is included but does not become reconstructed source or separate runner records. Canonical root was absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior deduplication index. Inspected default-branch head: 0649657d912f23e60b32971d1c45653d48b440e3. Tooling combines an 8086 interpreter with partial DOS 3.00-style APIs, BIOS/text-console and selected interrupt behavior. The loader creates PSP/environment and synthetic interrupt stubs; DOS file calls use native host fopen/fread/fwrite and -r maps a host directory to C:. Original executables run without a booted DOS OS or vendor ROM in the normal path. Optional boot-sector loading does not establish a complete PC hardware emulator. Root LICENSE uses CC0-1.0 for emulator work. The repository’s Microsoft, Borland and other legacy compiler/editor/application binaries retain separate rights; CC0 does not relicense them or their runtime libraries. The runner is separate from Microsoft NTVDM, DOSBox and the author’s dos_compilers examples. Related m68/sparcos host-emulation paths are recorded as dependencies/compatibility contexts without duplicate projects or claims that these tools were independently run here. Wider author, dependency and fork-graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/README.md",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/ntvdm.cxx",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/i8086.cxx",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/mr.bat",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/mr.sh",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/mmacr.sh",
+        "https://github.com/davidly/m68/blob/45b0c7378c7adc4433141d33cf5dd119b9cca612/ntvdm/mntvdm.sh",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/.github/workflows/main.yml",
+        "https://github.com/davidly/ntvdm/actions/runs/32583264084",
+        "https://github.com/davidly/ntvdm/commit/b1e9018f6e1c75e53ba979791687ede25bcbc28c",
+        "https://github.com/davidly/ntvdm/commit/a75f7dcb757ca0bc946dd1732260dd7594cacc8b",
+        "https://github.com/davidly/ntvdm/commit/e6768c49077e51f1d941a5cb6bdc267262a6f0bb",
+        "https://github.com/davidly/ntvdm/commit/9739404359b62eb6b812bb0313cdcd7f83d9a0cf",
+        "https://github.com/davidly/ntvdm/commit/925fa0486aeed803634264468801e0e95068a6a9",
+        "https://github.com/davidly/ntvdm/commit/dc08aa1f3bf4226a8c237355a86e71863bf670bd",
+        "https://github.com/davidly/ntvdm/commit/3256f47886a86fc19440a198a824f4003ac2a3ab",
+        "https://github.com/davidly/ntvdm/blob/0649657d912f23e60b32971d1c45653d48b440e3/LICENSE"
+      ],
+      "source_ids": [
+        "github-davidly-ntvdm"
+      ],
+      "project_ids": [
+        "ntvdm-dos-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-promote-github-ogdenpm-thames-src",
+      "title": "Thames — ISIS-II 8080/8085 command-line tool runner",
+      "url": "https://github.com/ogdenpm/thames-src",
+      "decision": "promoted",
+      "reason": "Approved original CLI-runner discovery. Mark Ogden’s maintained Thames source explicitly derives from John Elliott’s Thames 0.1.1. Elliott’s official page identifies an ISIS-II runner for the tools used to build CP/M3, and the maintained loader/interpreter confirm direct original-binary execution. Count the original tarball and enhanced fork as one lineage under ogdenpm/thames-src. CP/M3 is the build product of example guest tools, not the OS API being emulated. Canonical root was absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior deduplication index. Inspected default-branch head: dd545328888b6e989c5975053372d97a36dc336f. Modern tooling executes linked ISIS-II Intel OMF images, often without file extensions. isis_load accepts module/start/data/end records, loads bytes and rejects unresolved relocation/external/library records. main creates synthetic MDS BIOS/ISIS trap stubs in RAM, loads the argv-selected tool and enters the interpreter. ISIS OPEN/CLOSE/READ/WRITE/SEEK/LOAD translate to host files through device mapping; the path needs original tools/support files but no original boot ROM or booted ISIS OS. John Elliott origin and Mark Ogden enhancements remain one Thames family. The interpreter has GPL-2.0-or-later headers and COPYING is GPLv2; several ISIS/loader files have GNU Library GPL v2-or-later notices, so preserve mixed component terms. Original Intel tools are separately licensed. Documentation recommends newer native-C ports for several tools; those execute recompiled source and must not be conflated with Thames running originals. The previous documentation-only hold is superseded by this pinned source audit. Wider author, dependency and fork-graph coverage remains partial.",
+      "evidence_urls": [
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/README.md",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/doc/thames.md",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/isisload.c",
+        "https://www.seasip.info/Unix/Thames/",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/thames.c",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/isis.c",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/isisfile.c",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/z80.c",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/thames.h",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/thames/thames.vcxproj",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/CMakeLists.txt",
+        "https://github.com/ogdenpm/thames-src/tree/dd545328888b6e989c5975053372d97a36dc336f",
+        "https://github.com/ogdenpm/thames-src/commit/dd545328888b6e989c5975053372d97a36dc336f",
+        "https://github.com/ogdenpm/thames-src/commit/f24827f42eefecebd6d738659c88e92b083a301b",
+        "https://github.com/ogdenpm/thames-src/commit/4c1f2f369e8b883bdd20a3b067117a2f43eb124b",
+        "https://github.com/ogdenpm/thames-src/commit/1a5d769bae56398b886bdfc53b93fdbbd40b4f59",
+        "https://github.com/ogdenpm/thames-src/commit/a220c7c089abc69546bed3b0317b9ae342515d9d",
+        "https://github.com/ogdenpm/thames-src/commit/76d7bd2e7f95024085e44c1e2ed388c66807072d",
+        "https://github.com/ogdenpm/thames-src/commit/dba4e6df8ac478d2da1293260dc21d85946025e5",
+        "https://github.com/ogdenpm/thames-src/commit/76a884f5e0feca1e0792826f4d627d5c84071204",
+        "https://github.com/ogdenpm/thames-src/commit/59e785994519c0bca3d554680caba58a9aec113e",
+        "https://github.com/ogdenpm/thames-src/commit/54d22808613f59388caa5170dd584d935554b6bb",
+        "https://github.com/ogdenpm/thames-src/commit/251c1c18ebac9152f10f8ccbf35ebd0dfd808d3c",
+        "https://github.com/ogdenpm/thames-src/commit/1481cd11bb1275198a73a9065cd2cbed09d08d22",
+        "https://github.com/ogdenpm/thames-src/commit/0e8035c66b60a342273fc079cb962f20533cda38",
+        "https://github.com/ogdenpm/thames-src/commit/3ddeb6ed2088d3977f4d103cb6153a3b2fe6f04b",
+        "https://github.com/ogdenpm/thames-src/commit/ea293d98373b96718f8d0998767f55f2954dbc7b",
+        "https://github.com/ogdenpm/thames-src/commit/c99c1e724b1bea2b0ba3fd200c818f9a656cdc1f",
+        "https://github.com/ogdenpm/thames-src/commit/e9c6b004a5e962ba7ac2b7b5ab07ae84abd9038b",
+        "https://github.com/ogdenpm/thames-src/commit/44bceea13d42598b142c0c0ddcc123a2a5554382",
+        "https://github.com/ogdenpm/thames-src/commit/f595996e36d2f03b373429f6d79e0a74820e7dcf",
+        "https://github.com/ogdenpm/thames-src/commit/2405de574471091ee538058de3543ab008d5ad34",
+        "https://github.com/ogdenpm/thames-src/commit/ae78624852f9974e23561945b201d37266859f1e",
+        "https://github.com/ogdenpm/thames-src/commit/0b5870cd183aa53c9efbc51e27471d4bd359f937",
+        "https://github.com/ogdenpm/thames-src/commit/22933fb932b8511cd2c9f5bcf25e284712a3b71e",
+        "https://github.com/ogdenpm/thames-src/commit/1aaf54922e77db6a8b1a393c0558e4d3052e0a5e",
+        "https://github.com/ogdenpm/thames-src/commit/b54a24728d954ec557738c80c6933b10d4220bcd",
+        "https://github.com/ogdenpm/thames-src/commit/d2357bdd9c63c793ddcfc2dd501f37992181e4b2",
+        "https://github.com/ogdenpm/thames-src/commit/e28de6a9c4419790755d9e68c91d71dff43362db",
+        "https://github.com/ogdenpm/thames-src/commit/984f6168a3160971f78fdcf549cc654fdcfab80c",
+        "https://github.com/ogdenpm/thames-src/commit/2182d8ba46cebd1e2a2c95334f7b3e05bf74a6f3",
+        "https://github.com/ogdenpm/thames-src/commit/43e213a1800b047d4be4cbb303630915a348554d",
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/COPYING"
+      ],
+      "source_ids": [
+        "github-ogdenpm-thames-src"
+      ],
+      "project_ids": [
+        "thames-isis-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-runner-lineage-run68-origin",
+      "title": "run68 origin",
+      "url": "https://github.com/rururutan/run68",
+      "decision": "duplicate",
+      "reason": "Explicitly documented original/alternate source within the one promoted run68x lineage; not a separately counted new project. This records family deduplication, not identity of every fork capability.",
+      "evidence_urls": [
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/README.md",
+        "https://github.com/rururutan/run68"
+      ],
+      "source_ids": [
+        "github-kg68k-run68x"
+      ],
+      "project_ids": [
+        "run68x-human68k-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-runner-lineage-run68mac-origin",
+      "title": "run68mac origin",
+      "url": "https://github.com/GOROman/run68mac",
+      "decision": "duplicate",
+      "reason": "Explicitly documented original/alternate source within the one promoted run68x lineage; not a separately counted new project. This records family deduplication, not identity of every fork capability.",
+      "evidence_urls": [
+        "https://github.com/kg68k/run68x/blob/fc28826dd795b1f0a3241f0b03fe2353e12e7233/README.md",
+        "https://github.com/GOROman/run68mac"
+      ],
+      "source_ids": [
+        "github-kg68k-run68x"
+      ],
+      "project_ids": [
+        "run68x-human68k-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-runner-lineage-john-elliott-thames-origin",
+      "title": "John Elliott Thames origin",
+      "url": "https://www.seasip.info/Unix/Thames/",
+      "decision": "duplicate",
+      "reason": "Explicitly documented original/alternate source within the one promoted Thames lineage; not a separately counted new project. This records family deduplication, not identity of every fork capability.",
+      "evidence_urls": [
+        "https://github.com/ogdenpm/thames-src/blob/dd545328888b6e989c5975053372d97a36dc336f/README.md",
+        "https://www.seasip.info/Unix/Thames/"
+      ],
+      "source_ids": [
+        "github-ogdenpm-thames-src"
+      ],
+      "project_ids": [
+        "thames-isis-cli-runner"
+      ],
+      "reviewed_at": "2026-10-06"
+    },
+    {
+      "id": "2026-10-06-defer-pyromaniac-riscos-runner",
+      "title": "RISC OS Pyromaniac — distribution availability hold",
+      "url": "https://pyromaniac.riscos.online/",
+      "decision": "deferred",
+      "reason": "Exact CPU-emulation plus RISC OS API translation model, with direct host files and explicit Windows/macOS/Linux documentation, but primary homepage says it is not currently distributed. Public technical documentation and examples do not establish available source/download or a redistribution licence. No project is promoted; optional original modules retain separate rights.",
+      "evidence_urls": [
+        "https://pyromaniac.riscos.online/",
+        "https://pyromaniac.riscos.online/pyromaniac/README.html",
+        "https://pyromaniac.riscos.online/pyromaniac/CHANGELOG.html"
+      ],
+      "source_ids": [
+        "retro-cli-pyromaniac-riscos-online"
+      ],
+      "project_ids": [],
+      "reviewed_at": "2026-10-06"
     }
   ]
 }

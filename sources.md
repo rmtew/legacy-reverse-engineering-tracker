@@ -804,3 +804,8 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 ## 2026-10-06 — Amiga-only focused fifth pass
 
 Reviewed 49 primary roots, promoting the approved 37 while preserving 8 holds, 3 lineage references and 1 exclusion. Source snapshots, CPU/build/runtime/licensing/asset and AI caveats are recorded in [focused-amiga-round5-37-2026-10-06.md](docs/focused-amiga-round5-37-2026-10-06.md). Coverage: 15 search attempts, at least 456 known result occurrences, 442 encountered roots, 87 prior roots screened. One original response count is unavailable and one emulator query reached its 100-result cap; failures and repeats are explicit. This is bounded discovery, not exhaustion.
+
+
+## 2026-10-06 — Retro CLI executable runners
+
+Promoted the approved 13 original-binary CPU-plus-OS-API runner projects after fresh source/decision/lineage dedup. Full 104-area audits preserve guest versus host distinctions, build/runtime uncertainty, explicit AI provenance, licensing and original-tool constraints. Pyromaniac remains deferred because its official site says it is not distributed. See [complete runner audit](docs/retro-cli-runners-13-2026-10-06.md). No claim of exhaustive ecosystem coverage; full-machine emulators and source-only cross-compilers were not added to this batch.
