@@ -18,6 +18,8 @@ on:
       - "tools/test_activity_history.py"
       - "tools/test_rss.py"
       - "tools/test_refresh_github.py"
+      - "tools/refresh_scope.py"
+      - "tools/test_refresh_scope.py"
       - "tools/validate_site_data.py"
       - "tools/apply_discovery_batch.py"
       - "tools/test_discovery_batch.py"
@@ -127,11 +129,14 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Require complete publication data
+        run: python tools/refresh_scope.py --check-publishable
+
       - name: Check JavaScript syntax
         run: node --check web/tracker.js
 
       - name: Check CPU filter behavior
-        run: node --test tools/test_cpu_filters.js
+        run: node --test tools/test_cpu_filters.js tools/test_publish_discovery.js
 
       - name: Check RSS generator syntax
         run: python -m py_compile tools/generate_rss.py tools/generate_recent_activity.py tools/validate_site_data.py tools/apply_discovery_batch.py

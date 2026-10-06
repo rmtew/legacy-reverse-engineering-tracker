@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 from datetime import date
 import json
 import os
@@ -33,16 +34,16 @@ def require(condition: bool, message: str) -> None:
 
 def apply_batch(data: dict, batch: dict) -> dict:
     allowed = {"date", "event_id", "summary", "notes", "kind", "projects", "sources",
-               "source_updates", "tasks", "task_updates", "decisions", "source_ids"}
+               "source_updates", "tasks", "task_updates", "decisions", "source_ids", "project_updates"}
     require(isinstance(batch, dict) and not (set(batch) - allowed), "Unknown batch fields or invalid batch object")
     day = batch.get("date")
     require(isinstance(day, str), "Batch needs a date (YYYY-MM-DD)")
     date.fromisoformat(day)
     for field in ("event_id", "summary"):
         require(isinstance(batch.get(field), str) and bool(batch[field].strip()), f"Batch needs {field}")
-    for field in ("projects", "sources", "source_updates", "tasks", "task_updates", "decisions", "source_ids"):
+    for field in ("projects", "sources", "source_updates", "tasks", "task_updates", "decisions", "source_ids", "project_updates"):
         require(isinstance(batch.get(field, []), list), f"{field} must be an array")
-    require(any(batch.get(field) for field in ("projects", "sources", "source_updates", "tasks", "task_updates", "decisions")), "Batch has no changes")
+    require(any(batch.get(field) for field in ("projects", "sources", "source_updates", "tasks", "task_updates", "decisions", "project_updates")), "Batch has no changes")
 
     projects = data["projects.json"]
     audits = data["project-audits.json"]["projects"]
@@ -121,6 +122,39 @@ def apply_batch(data: dict, batch: dict) -> dict:
         audit_ids.add(project_id)
         added_projects.append(project_id)
 
+    updated_projects = []
+    for update in batch.get("project_updates", []):
+        require(isinstance(update, dict) and not (set(update) - {"project_id", "expected_sha256", "changes", "audit", "source_ids", "allow_shared_url"}), "Invalid project update fields")
+        project_id = update.get("project_id")
+        require(project_id in project_ids and project_id not in added_projects and project_id not in updated_projects,
+                f"Duplicate or unknown project update {project_id!r}")
+        project = next(p for p in projects if p["id"] == project_id)
+        digest = hashlib.sha256(json.dumps(project, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        require(update.get("expected_sha256") == digest, f"Stale project update for {project_id}; review the latest record")
+        changes = update.get("changes")
+        require(isinstance(changes, dict) and changes and "id" not in changes, "Project updates need nonempty changes and cannot change id")
+        proposed = {**project, **copy.deepcopy(changes)}
+        url = proposed.get("project_url") or proposed.get("repo")
+        require(isinstance(url, str) and url.strip(), f"Project {project_id} needs repo or project_url")
+        collision = [p["id"] for p in projects if p["id"] != project_id and unique_url(p.get("project_url") or p.get("repo") or "") == unique_url(url)]
+        require(not collision or update.get("allow_shared_url") is True, f"Project {project_id} shares URL; explicitly allow_shared_url")
+        audit = copy.deepcopy(update.get("audit"))
+        require(isinstance(audit, dict) and audit.get("project_id", project_id) == project_id
+                and audit.get("last_reviewed") == day, f"Project {project_id} update needs an explicit current audit")
+        for area in ("source_cpu", "target_cpu"):
+            require((audit.get("areas", {}).get(area) or {}).get("state") in {"reviewed", "needs-research", "no-evidence-found", "not-applicable"},
+                    f"Project {project_id} needs an explicit {area} audit decision")
+        audit["project_id"] = project_id
+        project.clear()
+        project.update(proposed)
+        audits[next(i for i, a in enumerate(audits) if a["project_id"] == project_id)] = audit
+        for source_id in update.get("source_ids", []):
+            require(source_id in source_by_id, f"Unknown source {source_id} for {project_id}")
+            source_by_id[source_id]["projects_promoted"] = sorted(set(source_by_id[source_id]["projects_promoted"]) | {project_id})
+            source_by_id[source_id]["last_reviewed"] = day
+            event_sources.add(source_id)
+        updated_projects.append(project_id)
+
     for update in batch.get("source_updates", []):
         require(isinstance(update, dict) and update.get("id") in source_by_id, "Source update references unknown id")
         require(not (set(update) - {"id", "review_state", "reason", "last_reviewed"}), "Unsupported source update field")
@@ -169,12 +203,12 @@ def apply_batch(data: dict, batch: dict) -> dict:
     require(batch["event_id"] not in {event["id"] for event in history}, "Duplicate research event id")
     event = {"id": batch["event_id"], "date": day, "kind": batch.get("kind", "source-review"),
              "summary": batch["summary"], "source_ids": sorted(event_sources),
-             "project_ids": added_projects, "notes": batch.get("notes", "")}
+             "project_ids": added_projects + updated_projects, "notes": batch.get("notes", "")}
     position = next((i for i, old in enumerate(history) if old["date"] <= day), len(history))
     history.insert(position, event)
     for name in ("discovery-sources.json", "discovery-decisions.json", "project-audits.json", "research-activity.json"):
         data[name]["indexed_at"] = day
-    return {"projects": added_projects, "sources": sorted(event_sources), "decisions": len(batch.get("decisions", []))}
+    return {"projects": added_projects, "updated_projects": updated_projects, "sources": sorted(event_sources), "decisions": len(batch.get("decisions", []))}
 
 
 def run(root: Path, batch: dict, write: bool) -> dict:
@@ -219,7 +253,7 @@ def main() -> None:
         summary = run(args.root, json.loads(args.batch.read_text(encoding="utf-8")), args.write)
     except (ValueError, KeyError, TypeError) as exc:
         parser.error(str(exc))
-    print(("Applied" if args.write else "Dry run:") + f" {len(summary['projects'])} projects, "
+    print(("Applied" if args.write else "Dry run:") + f" {len(summary['projects'])} additions, {len(summary['updated_projects'])} updates, "
           f"{summary['decisions']} decisions; sources: {', '.join(summary['sources']) or 'none'}")
     print("Files: " + ", ".join(summary["changed_files"]))
 

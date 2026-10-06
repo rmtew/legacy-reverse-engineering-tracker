@@ -49,6 +49,15 @@ Unknown facts stay **unknown**. In particular, absence of evidence does not beco
 
 ## Discovery passes
 
+For a publication-ready pass, use the [single-authoring research record](docs/research-records.md)
+and [repeatable publication pipeline](docs/publication-pipeline.md). One reviewed
+area narrative generates project notes, audits and the report. Preparation emits
+an exact-diff review bundle; connector publication preserves expected-SHA leases
+and verifies the authored tree. Catalogue publication refreshes only changed
+repositories, completing their metadata/history/context before Pages. Scheduled
+maintenance continues its normal broad adaptive polling and recovers incomplete
+first scans. Existing catalogue records and legacy batches need no migration.
+
 The daily `discovery-intake.yml` workflow rotates GitHub repository/README and code searches, lists repositories under selected source profiles, checks selected repository READMEs and title directories, and mines GitHub links from selected source websites. It screens hits locally and writes a ranked review queue to `state/discovery-intake.json`, retaining query/source provenance and per-route counts. `python tools/discovery_intake.py --list 30` shows its highest-ranked leads; `python tools/discovery_intake.py` runs the same intake locally with `GITHUB_TOKEN`. `workflow_dispatch` runs it on demand and accepts optional newline-separated candidate URLs. External web *search* still needs an interactive search provider; this job follows curated website sources but does not scrape a search engine. The intake queue never changes project or research decisions.
 
 Screen search-result URLs before opening candidate pages: `python tools/screen_discovery_candidates.py --input candidates.txt --route 'web search'`. The input can be one URL per line or a JSON array of URLs / `{ "url": "...", "route": "..." }` objects; use `--input -` for stdin or `--json` for structured results and per-route counts. It combines current projects, source nodes and reviewed decisions without making GitHub API calls. A known profile or repository can still contain new projects; inspect `known_repository_path` hits and unreviewed/deferred matches rather than discarding them. Redirected/renamed URLs can be recorded as duplicate decisions linked to the current project ID, giving future searches an exact alias match.
