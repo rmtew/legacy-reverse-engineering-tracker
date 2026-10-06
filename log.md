@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-06 — Third focused Amiga/C64 pass: 53 approved projects
+
+Added **53 approved, source-reviewed projects**, bringing the catalogue from 1,568 to **1,621**, with 424 evidence-backed audit areas. Three holds and eleven lineage/reference decisions remain non-promoted. Coverage: 25 repository-search attempts, 177 screened roots, 59 primary reviews and eight lineage-only lookups. Five failed queries are disclosed; no capped pages or new platform labels.
+
+Highlights include AMOS Professional, Enforcer, HyperCache, MediaPoint, Oscar64, Maniac Mansion engine/scripts, Law of the West, Action Replay, Hans Kloss, Schreckenstein-64, native homebrew and development libraries. Source/target CPU, host/runtime roles, restrictive licenses/assets, build uncertainty and explicit Claude/Copilot attribution are retained individually. Thrust’s native reconstruction is separate from its emulator-backed browser editor; script analysis is not mistaken for compilable C.
+
+No candidate builds or app/workflow changes. All byte-exact fields remain unknown. See [full evidence, query ledger and decisions](docs/focused-amiga-c64-round3-53-2026-10-06.md). Metadata refresh and actual Pages deployment are verified separately.
+
 ## 2026-10-06 — Second focused Amiga/C64 pass: 70 approved projects
 
 Added **70 approved, source-reviewed projects**, bringing the catalogue from 1,498 to **1,568**, with 560 evidence-backed audit areas. Seventeen holds, one audit-only hybrid runtime and nine lineage/reference decisions remain non-promoted. Coverage: 47 repository-search attempts, 46 distinct new query/page pairs, 424 screened roots and 94 primary reviews plus three lineage references.

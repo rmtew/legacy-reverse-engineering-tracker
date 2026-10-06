@@ -4,6 +4,59 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/MichaelSinz/AmigaEnforcer | Amiga Enforcer — original MMU memory-debugging suite; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/PlummersSoftwareLLC/HyperCacheAmiga | HyperCache Amiga — recovered disk-cache source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/evaneykelen/mediapoint-amiga | MediaPoint — original Amiga multimedia authoring source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/AOZ-Studio/AMOS-Professional-Official | AMOS Professional — official Amiga BASIC source release; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/obarthel/trackfile-device | trackfile.device — Amiga virtual-floppy driver and DAControl; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/ResistanceVault/preservation-abbs20 | ABBS 2.x — preserved Amiga bulletin-board system source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/ResistanceVault/preservation-virus-executor | VirusExecutor — preserved Amiga antivirus source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/ResistanceVault/preservation-play-it-pro | PlayItPro — preserved Amiga hard-disk sample-player source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/tksuoran/PowerBattle | PowerBattle — original Amiga game source and incomplete C++ conversion; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/tgreaves/serendipity | Serendipity — preserved Amiga music-production source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/tgreaves/fission-chips | Fission Chips — preserved Amiga chip-music production source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/pchalamet/amiga-sources | pchalamet Amiga sources — original demo and utility collection; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Samuel-DEVULDER/popt | Popt — original Amiga 680x0 assembly optimizer source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/steffest/ordo | ORDO — original native Amiga visual and music demo; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/oscar64 | Oscar64: C/C++ cross-compiler for 6502 systems; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/OscarTutorials | OscarTutorials: C64 programming example collection; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/minotrace | Minotrace: native C64 labyrinth racer source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/Ninia | Ninia: native C64 language, editor and runtime; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/corescape | Corescape: native C64 vertical shooter source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/zombies | Plants vs Zombies C64 / Veggies vs Undead: native fan demake; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/plekthora | Plekthora: native C64 horizontal shooter source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/bunkerdigger | Mineshaft Gap: native C64 shelter-management game source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/ballnchain | Ball and Chain: native C64 runner source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/osfxedit | osfxedit: native C64 SID sound-effect editor; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/tinylisp64 | TinyLisp64: native C64 Lisp interpreter source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/photoncrawler | Photon Crawler: native C64 ray-tracer source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/shalldom | Shallow Domains: native C64 hex-strategy source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/drmortalwombat/MetalMayhem | Metal Mayhem: native C64 split-screen tank-combat source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/pditincho/mm-explained | Maniac Mansion: C64 native-engine disassembly; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/pditincho/law-of-the-west-explained | Law of the West: partial C64 NTSC disassembly; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/donnchawp/C64ActionReplay | Action Replay: C64 PAL V6 ROM disassembly and fastload patch; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/hbekel/infocom64 | infocom64: native C64 Z-machine interpreter reconstructions; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/mnaberez/vc1541dos | VC-1541-DOS/80: PET/CBM IEC option-ROM reconstruction; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/hayesmaker/thrust-c64 | Thrust: C64 reconstruction, native mod and web level tools; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/malikcjm/hans_kloss_c64 | Hans Kloss: partial C64 disassembly; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/rsquared68/schreckenstein64 | Schreckenstein-64: Atari-derived native C64 port; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/segrax/Maniac.Mansion.Disassembly | Maniac Mansion v0: SCUMM script disassembly and reference; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/oziphantom/CodeTree | CodeTree — C64/6502 control-flow graph analysis; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/oziphantom/Qwack64 | Qwack64 — native C64 Qwak recreation; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/oziphantom/FirefighterJenny | Firefighter Jenny — C64 4K homebrew source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/oziphantom/SquidJump | Squid Jump — native C64 fan recreation source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/oziphantom/Picross | Picross — C64 4K puzzle-game source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/common | c64lib Common — native C64 assembly library; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/chipset | c64lib Chipset — native C64 assembly library; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/text | c64lib Text — native C64 assembly library; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/copper64 | Copper64 — C64 raster-list and interrupt library; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/gradle-retro-assembler-plugin | Gradle Retro Assembler Plugin — C64 build and asset pipeline; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/magic-desk-crt | Magic-Desk-CRT — native C64 cartridge bootstrap and loader; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/c64lib/ctm-viewer | CTM Viewer — native C64 CharPad graphics preview; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/maciejmalecki/tony-demo | Tony: Born for Adventure — C64 demo source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/maciejmalecki/trex64 | T-Rex 64 — native C64 dinosaur-runner recreation; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/maciejmalecki/bluevessel | BlueVessel — native C64 raster-effects intro; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/64bites/64spec | 64spec — native C64/6502 assembly testing framework; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/BSzili/NBlood-Amiga | NBlood-Amiga — native Blood source port; second focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/BSzili/PCExhumed-Amiga | PCExhumed-Amiga — native Exhumed / Powerslave source port; second focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/BSzili/libdl-hunk | libdl-hunk — native Amiga Hunk dynamic linker; second focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
