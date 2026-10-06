@@ -4,6 +4,60 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/vigo/dinozorus | Dinozorus — original Amiga television-game source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/kwahu/amiga_voxel_engine | Icarus — native Amiga and Atari voxel engine; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Rst7CBSIE/SDDDE | SDDDE — Amiga A1200 3D engine and map converters; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/ResistanceVault/rpage | R-PAGE — native Amiga adventure-game framework; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/neodyme60/amiga-game-engine | Amiga Game Engine 0.4 — system-friendly graphics framework; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/coppersoft/planar | Planar — native Amiga blitter and game framework; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Lexodev/SAGE | SAGE — high-end Amiga RTG game-engine library; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/JeanMichelForgeas/UIK | UIK — original AmigaOS user-interface object toolkit; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/osresearch/laserchess | Laser Chess — Amiga BASIC-derived browser port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/mwulffn/AmiGalaga | AmiGalaga — native Galaga reconstruction for PAL Amiga 500; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Last-Minute-Creations/germz | GermZ — native four-player Amiga game and map editor; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Last-Minute-Creations/shalatuvaar | Shalatuvaar / amiMelee — native Amiga hex-map game prototype; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Last-Minute-Creations/villages | Villages — native Amiga tile-and-road strategy-game source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/daedalus2097/WeegieNights | WeegieNights — AmiBlitz Amiga Game Jam source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/NovaCoderX/FitzQuake | FitzQuake Amiga 68k — AmiQuake-derived NovaMesa port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Fido666/Breathless | Breathless SDL2 — Amiga 68020 assembly-to-C port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/astrofra/abbaye-des-morts-amiga-classic | L’Abbaye des Morts — unfinished Amiga source port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/renestraub/amiga-leonardo | Leonardo — original Amiga puzzle-game source archive; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/renestraub/amiga-snackzone | Snackzone — original Bifi Roll Free Amiga game source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/LutzGrosshennig/amiga-brain-braiser | Brain Braiser — original Amiga strategy-game source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/LutzGrosshennig/amiga-baycat-command | Baycat Command — recovered unfinished Amiga game source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/renestraub/amiga-crack | Crack — original Amiga breakout-game source archive; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/renestraub/amiga-rolling-ronny | Rolling Ronny — original Amiga platform-game source archive; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/milkeybabes/Alien3-C64 | Alien3 — original C64 source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/Zibri/Rubicon-C64 | Rubicon — disk protection reconstruction; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/christo/revenge | Revenge — retro reverse-engineering environment; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/DarwinNE/Silk-Dust | Silk Dust — multi-platform adventure source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/tonysavon/Frostbite-C64 | Frostbite — native C64 port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/tonysavon/Keystone-Kapers-C64 | Keystone Kapers — native C64 port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/tonysavon/Crackpots-C64 | Crackpots — native C64 port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/1888games/Burger-Time-C64- | Burger Time — native C64 arcade port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/1888games/Caveman-C64 | Caveman — electronic tabletop game C64 port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/karmic64/sniper-c64 | Sniper — native C64 homebrew source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/jefflomax/word-writer-6-commodore-64 | Word Writer 6 — original and ACME-converted C64 source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/cobbpg/kye-c64 | Kye — native C64 puzzle-game port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/mvindahl/interword-c64 | Interword — recovered original C64 source; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/wfahle/c64-tiny-pascal | Tiny Pascal — C64 compiler and runtime port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/doj/dracopy | DraCopy and DraBrowse — Commodore file utilities; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/esn83/OpenCurseOfSherwood | Open Curse of Sherwood — C64 game remake; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/GeorgRottensteiner/C64Studio | C64 Studio / RetroDevStudio — C64 development IDE; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/fletto2/smb1transpiler | SMB1 transpiler — Apple II/C64 VERA port rebuilder; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/mark-akturatech/c64-archeology-tools | C64 archeology tools — T64 extraction utility; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/TheRealZerfall/FoodTruck | Food Truck — C64 game source and prototypes; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/c1570/Reblitz64 | Reblitz64 — reconstructed Blitz! BASIC compiler; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/boeckmann/c64krnl | C64 KERNAL and BASIC — ASM6502 source port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/geekychris/rtl8139-amigaos4-re | rtl8139re.device — AmigaOS 4 driver reconstruction; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/jz237/pinball-illusions-html | Pinball Illusions — browser reconstruction; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/keithbphillips/perihelion | Perihelion 2.0 — Amiga BBX game reconstruction; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/VonKossa/ReFlood | ReFlood — native reconstruction of Amiga Flood; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/astrofra/preservation-rog-by-funkentstort | Rog — C64 demo disassembly and extraction toolkit; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/chrisaacson69/lads-2bml | LADS — reconstructed book-source assembler; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/geekychris/virtnet-amigaos4 | virtnet.device — native AmigaOS 4 virtio network driver; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/geekychris/netstack-amigaos4 | NetBSD rump — incomplete AmigaOS 4 network-stack port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
+| https://github.com/geekychris/python-amigaos4 | CPython 3.12.7 — AmigaOS 4 PowerPC port; focused Amiga/C64 primary source/build/CPU/runtime/AI/lineage review with full eight-area audit. |
 | https://github.com/slippyex/ym2149-rs | YM2149-RS — PSG emulation and legacy music replay toolkit; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
 | https://github.com/agranlund/hyper68k | Hyper68k — unfinished Atari ST virtualization on 68030 hosts; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |
 | https://github.com/BlueInt32/super-sprint | SuperSprint Web — Atari ST-inspired browser racing remake; primary source/build/CPU/runtime/AI/lineage reviewed in the 64-project related-developer batch. |

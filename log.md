@@ -1,5 +1,15 @@
 # Search / Report Log
 
+## 2026-10-06 — Focused Amiga and C64: 54 approved projects
+
+Added **54 approved, source-reviewed projects**, bringing the catalogue from 1,444 to **1,498**. All additions have complete eight-area audits; five inspected holds remain non-promoted. Thirty-five search calls returned 1,240 unique roots, with eight capped pages. Deduplication included current catalogue/source/decision identities plus 1,637 prior roots.
+
+Highlights include original Alien3, Word Writer 6, Interword, Dinozorus, Leonardo, Rolling Ronny, Snackzone and Brain Braiser source; AmiGalaga, ReFlood, Pinball Illusions and native C64 ports; developer/preservation tools; and four PowerPC AmigaOS 4 projects. Amiga 3000 and Sam460ex are distinct hardware labels. C64 VERA/A2VERA stay explicit expansion requirements; unresolved Caveman hardware stays in notes.
+
+No candidate builds, execution or byte comparisons were performed. Original asset/license, inferred behavior, historical toolchain, partial implementation and explicit AI-attribution limits are retained. No app/workflow changes.
+
+See [the source evidence, exact search ledger and all project decisions](docs/focused-amiga-c64-54-2026-10-06.md). Metadata refresh and actual Pages deployment must finish before verifying all 54 live catalogue/Activity/RSS additions.
+
 ## 2026-10-05 — Deeper searches and related developers: 64 projects
 
 Added **64 approved source-reviewed projects**, increasing the catalogue from 1,380 to **1,444**. The pass inspected 75 distinct roots and retained eleven non-promoted decisions. The 29 query/page attempts yielded 998 unique roots; seven pages remained capped and one developer query failed validation. All additions have eight-area audits, original/target CPU decisions and source/build/license/AI/lineage evidence.
