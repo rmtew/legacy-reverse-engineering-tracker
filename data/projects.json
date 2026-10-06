@@ -2507,6 +2507,99 @@
     }
   },
   {
+    "id": "a100-amiga-cobour",
+    "title": "A100",
+    "upstream_name": "A100",
+    "display_title": "A100 — native Amiga game",
+    "subjects": [
+      "A100"
+    ],
+    "repo": "https://github.com/cobour/a100",
+    "source_platforms": [],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Author-documented PAL Amiga requirement",
+        "platform": "Amiga",
+        "cpu_family": "m68k",
+        "min_chip_ram_kib": 512,
+        "notes": "Author explicitly states PAL Amiga and at least 512 KiB Chip RAM. A500/A1200 emulator tests and the checked-in A500/KS3.1 launch configuration are compatibility reports, not OS or chipset minima. One user reports an ADF issue with ACA1221lc; the author could not reproduce/debug that hardware.",
+        "evidence": [
+          "https://cobour.itch.io/a100",
+          "https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/.vscode/launch.json"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "m68k assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native Amiga homebrew"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-06",
+    "status": "Source reviewed; independent build and gameplay untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": false,
+      "tools": [],
+      "evidence": [
+        "The author-controlled itch.io game page explicitly labels its content “No generative AI was used”; this is an attributed disclosure, not an independent provenance audit. https://cobour.itch.io/a100"
+      ]
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "homebrew",
+      "source-reviewed"
+    ],
+    "notes": "Identity: Frank Neumann/cobour’s released Amiga puzzle game is explicitly linked to this complete-source repository by the author’s source-release post. The source implements game state, brick placement failure/game-over, scores and menus. Classification: New native Amiga game source. The author identifies 1010! by Gram Games as an inspiration; no original mobile binary/source conversion is established. The bundled Java data converter is a build dependency, not a separately counted game. Source CPU: No separately reconstructed legacy binary or inherited source ISA is established. Original implementation in 68000 assembly is recorded as this homebrew output, without inferring a source CPU from the game that inspired it. Target CPU: VS Code build tasks invoke vasmm68k_mot with -m68000 and Amiga hunk output; the main/game-over code uses 68k registers and instructions. Java 21 is a host asset-generation dependency, not the game’s runtime ISA. Build: The author requires JDK 21+ and VS Code’s Amiga Assembly extension. Tasks build data via the Gradle tool, create an ADF and assemble/link the game; the data-tool command and launchers include developer-local assembler/Kickstart paths that need configuration. A legal Kickstart ROM is external. Asset sources exist in the inspected complete tree, but end-to-end input completeness was not tested. Limitations: No candidate compilation, execution, gameplay or byte comparison was performed. Independent build flags remain null. Runtime profiles: The author states PAL Amiga with at least 512 KiB Chip RAM, with A500/A1200 emulator tests. The source launcher’s A500, 512 KiB and KS3.1 values remain configuration evidence; no Kickstart minimum is inferred. An author/user discussion reports an ACA1221lc ADF incompatibility while WHDLoad works. AI: The author-controlled release page explicitly declares no generative AI use for this game. Record a negative author disclosure, bounded to that label rather than asserting a forensic review of every contribution. Relationships: The game page credits external graphics/music and the ptplayer/inflate components. No root LICENSE or game-wide redistribution grant was found in the complete tree or README; public source and a free download are not a blanket license. Canonical root was fresh against 2,081 prior-reviewed/catalogue/source/decision roots. Current 1,740-project title/subject screening found no same-project entry, and repository metadata reports a non-fork with no parent/source relationship. Evidence: https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/README.md https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/a100.asm https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/src/ingame/game_over_detection.asm https://cobour.itch.io/a100/devlog/997275/source-code-released https://cobour.itch.io/a100 https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/.vscode/tasks.json https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/.vscode/launch.json",
+    "github": {
+      "repository": "cobour/a100",
+      "created_at": "2025-07-29",
+      "pushed_at": "2025-07-29",
+      "updated_at": "2026-01-08",
+      "checked_at": "2026-10-06",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "quiet",
+      "languages": [
+        "Assembly",
+        "Java",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6",
+        "date": "2025-07-29",
+        "message": "added link to itch",
+        "url": "https://github.com/cobour/a100/commit/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6"
+      }
+    },
+    "last_activity": "2025-07-29"
+  },
+  {
     "id": "a2-hires-lab-apple2-lode-runner",
     "title": "a2-hires-lab",
     "upstream_name": "a2-hires-lab",
@@ -30237,6 +30330,132 @@
         "url": "https://github.com/TobyLobster/Boulderdash/commit/f0a2f0c726fe7f6b058f9ee814a02e8891463764"
       }
     }
+  },
+  {
+    "id": "bounty-hunter-rust-remake",
+    "title": "Bounty Hunter — Rust remake",
+    "upstream_name": "bounty-hunter-remake",
+    "display_title": "Bounty Hunter — Rust remake",
+    "subjects": [
+      "Bounty Hunter",
+      "MissionAD"
+    ],
+    "repo": "https://github.com/pertyjons/bounty-hunter-remake",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Linux",
+      "macOS",
+      "Windows"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "Intended Linux release artifact",
+        "platform": "Linux",
+        "notes": "Workflow labels its Linux artifact x86_64; default runner toolchain is used, not an explicit --target triple. Artifact naming is documentary intent only and does not establish architecture.",
+        "evidence": [
+          "https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml"
+        ]
+      },
+      {
+        "name": "Intended Windows release artifact",
+        "platform": "Windows",
+        "notes": "Workflow labels its Windows artifact x86_64; unpinned windows-latest runner, not a tested minimum.",
+        "evidence": [
+          "https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml"
+        ]
+      },
+      {
+        "name": "Intended macOS release artifact",
+        "platform": "macOS",
+        "notes": "Workflow labels its macOS artifact aarch64; unpinned macos-latest runner and native-default compilation, not a verified universal release.",
+        "evidence": [
+          "https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml"
+        ]
+      }
+    ],
+    "source_language": [
+      "68000 assembly"
+    ],
+    "reconstructed_languages": [
+      "Rust"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game reimplementation"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-06",
+    "status": "Source-based Rust port with level 2 still unwired; AI assistance disclosed; runtime untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "README explicitly reports heavy Claude Code assistance for 68000 assembly-to-Rust conversion, naming CLI 2.1.107 and Claude Opus 4.6: https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/README.md",
+        "Claude project instructions/configuration present"
+      ]
+    },
+    "techniques": [
+      "source-based reimplementation",
+      "gameplay reimplementation"
+    ],
+    "tags": [
+      "Amiga",
+      "remake"
+    ],
+    "notes": "Identity: README identifies an Amiga 500 Bounty Hunter/MissionAD platformer from 1995–1996, credits original authors Per Jonsson and Buster Blom (DeadZoft), and says Per Jonsson maintains this Rust remake. It identifies Original/MissionAD40+.asm as the reference revision. Root and Bounty Hunter/MissionAD subjects have no screened prior match. Classification: This is a source-based Rust reimplementation, not CPU emulation. main.rs runs fixed 50 Hz game ticks, player/enemy updates, combat and screen transitions. player.rs and collision.rs implement translated motion and collision behavior, with original assembly routine references. The tree contains original Amiga material plus converted assets, retained together as one game lineage. Limitations: README’s faithful/bit-for-bit behavior language is an author claim; no equivalence proof or full-game completion result is recorded. Source CPU: README explicitly states 68000 assembly for the Amiga 500, supporting m68k source-family and original assembly language. The archive path is corroborated by the pinned full tree, and Rust comments identify original assembly routines. This historical source is separate from the desktop host output. Limitations: Original assembly contains non-UTF-8 bytes. A connector-transcoded inspection was readable but did not match the Git blob SHA; it is not included in the exact UTF-8 proof cache or used to claim independently verified original instruction coverage. No higher-CPU, chipset or RAM minimum is inferred. Target CPU: The build workflow names release outputs linux-x86_64, windows-x86_64 and macos-aarch64, but those are post-build filenames rather than compiler target evidence. Builds use native-default cargo on mutable latest OS runners without explicit target triples. No CPU architecture is therefore promoted: target_cpu and profile CPU fields remain empty. Limitations: An explicit target triple or executable-header inspection is needed to establish output CPU. No binary was downloaded or inspected; historical m68k is not copied to desktop output. Build: Cargo.toml requires Rust 1.85/edition 2024 and depends on macroquad, cpal, mod_player, serde/ron and include_dir. assets.rs embeds the assets directory. README documents Linux system dependencies and cargo build/run commands. PROGRESS explicitly says level 2 loading is not wired into the game loop, despite preloading its music; the converted level tree contains level 1. Limitations: No dependency install, cargo build/test, CI result verification, launch, gameplay or byte comparison was performed. All independent build/runtime/byte-exact flags remain unknown, and full original-game coverage is not claimed. Runtime profiles: Linux/macOS/Windows profiles describe intended workflow artifacts only. README lists ALSA, pkg-config, xkbcommon and Wayland development dependencies for Linux; modern window/input/audio are provided by macroquad/cpal. The 50 Hz timing and configurable window sizes reproduce presentation/game timing, not CPU or RAM minima. Limitations: No measured minimum machine, OS-version compatibility matrix or performance benchmark is available. AI: README expressly discloses heavy assistance from Claude Code, CLI 2.1.107 with Claude Opus 4.6, in converting 68000 assembly to Rust. AI usage is therefore true on direct author disclosure, independently of the presence of CLAUDE.md or the in-game enemies’ AI. Limitations: This records disclosed assistance, not an estimate of generated-code percentage or independent verification of the named tool/version. Relationships: The maintainer claims continuity with one original author and keeps the original assembly/assets and the Rust conversion in this single non-fork repository. Original/MissionAD versions, level variants and the modern port are not separate projects. The complete tree has no LICENSE file; Cargo.toml has no license field, and README’s as-is warning is not itself an explicit redistribution grant. Limitations: Original coauthor/media rights and permission to redistribute the full source/assets need clarification; do not label the whole repository verified open source. Evidence: https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/README.md https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/PROGRESS.md https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/main.rs https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/player.rs https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/collision.rs https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/Cargo.toml https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/assets.rs",
+    "github": {
+      "repository": "pertyjons/bounty-hunter-remake",
+      "created_at": "2026-04-14",
+      "pushed_at": "2026-04-14",
+      "updated_at": "2026-09-12",
+      "checked_at": "2026-10-06",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "latest_release": {
+        "tag": "v0.5.0",
+        "name": "Bounty Hunter Remake v0.5.0",
+        "published_at": "2026-04-14",
+        "url": "https://github.com/pertyjons/bounty-hunter-remake/releases/tag/v0.5.0"
+      },
+      "languages": [
+        "Assembly",
+        "Rust",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "365be5ed453c7e1cc46ab98383c05f0a721af4fa",
+        "date": "2026-04-14",
+        "message": "Drop security audit and MSRV jobs from build workflow",
+        "url": "https://github.com/pertyjons/bounty-hunter-remake/commit/365be5ed453c7e1cc46ab98383c05f0a721af4fa"
+      }
+    },
+    "last_activity": "2026-04-14"
   },
   {
     "id": "brain-braiser-lutzgrosshennig",
@@ -85036,6 +85255,127 @@
     }
   },
   {
+    "id": "legiongame-monogame-remake",
+    "title": "LegionGame — AMOS-based C# remake",
+    "upstream_name": "LegionGame",
+    "display_title": "LegionGame — AMOS-based C# remake",
+    "subjects": [
+      "Legion"
+    ],
+    "repo": "https://github.com/bsoja/LegionGame",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Documented Linux 64-bit configuration",
+        "platform": "Linux",
+        "cpu_family": "x86-64",
+        "notes": "Project copies linux-x64 SDL2/OpenAL libraries; not a measured minimum or independently tested build.",
+        "evidence": [
+          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md",
+          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj"
+        ]
+      },
+      {
+        "name": "Documented Windows 64-bit configuration",
+        "platform": "Windows",
+        "cpu_family": "x86-64",
+        "notes": "Project copies windows-x64 SDL2/OpenAL libraries; 32-bit files in tree are not active target support.",
+        "evidence": [
+          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md",
+          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj"
+        ]
+      },
+      {
+        "name": "Untested macOS configuration",
+        "platform": "macOS",
+        "notes": "OSX copy branch exists, but README explicitly says macOS was not tested; no architecture established.",
+        "evidence": [
+          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md",
+          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj"
+        ]
+      }
+    ],
+    "source_language": [
+      "AMOS BASIC"
+    ],
+    "reconstructed_languages": [
+      "C#"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game reimplementation"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-06",
+    "status": "Partial MonoGame remake with substantial strategic logic; runtime untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "source-based reimplementation",
+      "gameplay reimplementation"
+    ],
+    "tags": [
+      "Amiga",
+      "remake"
+    ],
+    "notes": "Identity: README identifies a remake of the classic Amiga Legion based on original AMOS source supplied by its authors. It names data/amos/leg31.Asc, whose inspected AMOS statements, army/city arrays and game procedures substantiate the source lineage. Root and Legion title/subject were absent from the 2,081-root prior union and 1,740-project baseline. Classification: The project rewrites original game logic in C#. ArmiesTurnProcessor contains turn progression, movement and target handling; CityIncidents implements plague/fire/rat outcomes, rioting, population and morale changes, and battle setup. This is substantive, incomplete game reconstruction rather than a generic engine or source-only mirror. Limitations: README still lists missing player-army commands, terrain interaction, stores and other functionality; completeness is not asserted. Source CPU: m68k refers only to the historical Amiga platform named by the author. Original-language evidence is unusually direct: leg31.Asc contains AMOS BASIC game code. No original executable was disassembled, so source CPU is a platform-family classification rather than an exact processor minimum. Limitations: No verified OCS/ECS/AGA, RTG, PPC or particular 680x0 minimum is recorded. Target CPU: README documents Linux and Windows 64-bit support, and Legion.csproj specifically copies linux-x64 and windows-x64 SDL2/OpenAL dependencies. x86-64 is therefore the configured host family. Included x86 dependency folders are not active support: README says project changes are needed. The macOS branch supplies no verified architecture. Limitations: No binary inspection or execution verified host instruction sets; historical m68k is not a remake output target. Build: The main project targets net6.0 and pins MonoGame.Framework.DesktopGL 3.6.0.1625, Autofac 4.6.2 and Newtonsoft.Json 12.0.3. It references sibling projects and copies checked-in Assets/bin content and JSON data. The snapshot includes XNB assets and native dependencies. MonoGameLibLoader contains an SDL loading workaround and a remaining OpenAL-loading TODO. Limitations: No dependency restore, content rebuild, compilation, launch, gameplay or byte comparison was performed; all four independent build flags remain unknown. Runtime profiles: Profiles separate documented Linux/Windows x64 configurations from the explicitly untested macOS path. .NET 6, MonoGame DesktopGL, SDL2 and OpenAL are source/configuration observations. No numeric RAM, minimum CPU model, GPU minimum or tested OS-version matrix is established. AI: No development-AI disclosure was found in the reviewed README, GPL text, AMOS source, C# turn/incident logic or project configuration. Computer-controlled armies are game mechanics and do not imply generative development assistance. Limitations: AI usage remains unknown; no inference of non-use from repository age or silence. Relationships: Metadata marks this root as non-fork, and README directly credits the original AMOS source rather than a modern upstream port. Original AMOS, alternative source copies, bundled Amiga files and the C# rewrite are kept in one Legion lineage. Root LICENSE contains GPLv3, but that alone does not establish complete clearance of all copied original art, archives and third-party binaries. Limitations: No exhaustive asset-rights or external fork graph audit was performed. Evidence: https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/data/amos/leg31.Asc https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion.Model/ArmiesTurnProcessor.cs https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion.Model/CityIncidents.cs https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/MonoGameLibLoader.cs https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/LICENSE",
+    "github": {
+      "repository": "bsoja/LegionGame",
+      "created_at": "2018-04-08",
+      "pushed_at": "2022-12-08",
+      "updated_at": "2025-06-29",
+      "checked_at": "2026-10-06",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C#",
+      "activity_state": "dormant",
+      "languages": [
+        "C#",
+        "AGS Script",
+        "Visual Basic .NET",
+        "Roff"
+      ],
+      "latest_commit": {
+        "sha": "8b971b9345f5dd595cae27cbbf06f4f803f7ca46",
+        "date": "2022-08-20",
+        "message": "add original files",
+        "url": "https://github.com/bsoja/LegionGame/commit/8b971b9345f5dd595cae27cbbf06f4f803f7ca46"
+      }
+    },
+    "last_activity": "2022-08-20"
+  },
+  {
     "id": "lemmings-amiga-html5-editor",
     "title": "Lemmings — Amiga game-data editor",
     "upstream_name": "Lemmings — Amiga game-data editor",
@@ -91828,6 +92168,102 @@
     }
   },
   {
+    "id": "marblez-toobz-unity-remake",
+    "title": "Marblez — Toobz Unity remake",
+    "upstream_name": "Marblez",
+    "display_title": "Marblez — Toobz Unity remake",
+    "subjects": [
+      "Toobz"
+    ],
+    "repo": "https://github.com/mpgossage/Marblez",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Web browser"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "Unity 5.6 WebGL export configuration",
+        "platform": "Web browser",
+        "notes": "README specifies Unity 5.6.0f3 and Kongregate WebGL template; 940×620 is configured display size, not a hardware minimum.",
+        "evidence": [
+          "https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/README.md",
+          "https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectVersion.txt",
+          "https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectSettings.asset"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C#"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game reimplementation"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-06",
+    "status": "Unity 5.6 browser remake source reviewed; independent build and runtime unknown",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "gameplay reimplementation"
+    ],
+    "tags": [
+      "Amiga",
+      "remake"
+    ],
+    "notes": "Identity: README explicitly identifies Marblez as a Unity port of the Amiga game Toobz. It credits Digital Wizardry for original design and copied levels, and Mark Gossage for new code/art. Marblez, Toobz and this root have no prior catalogue/root match; Marble Madness is an unrelated title and is not conflated with this game. Classification: MarblezControl implements the 10×7 board, rotating track pieces, marble spawning, catch/release tiles, redirectors, color changers and matching-color home goals. BallMove implements track traversal and tile-entry/exit routing. The author describes a Unity 4.4-to-5.6 migration of the same remake, not separate games. Source CPU: m68k records historical Amiga provenance at platform-family level only, based on the author naming Toobz as the original. The inspected C# is modern remake logic and gives no original-language or exact historical CPU minimum evidence. Limitations: Original executable, source language and chipset requirements were not inspected. Target CPU: The documented release/build route is Unity WebGL in a browser. Neither README nor the inspected game code establishes a particular native host instruction set. target_cpu is empty; Unity editor/platform defaults do not prove desktop releases, and historical Amiga m68k is not a browser CPU requirement. Build: ProjectVersion records Unity 5.6.0f3, matching README. The tree contains game scenes, C# logic, levels, sprites, audio and third-party plugins. README provides WebGL/Kongregate template setup and warns of template/version and CORS issues; its out-of-the-box claim is author-reported. The TODO file contains setup, audio and local-saving notes. Limitations: No Unity import, compilation, export, server, launch, gameplay or byte-equivalence test was run. All build flags remain unknown. Runtime profiles: The evidenced profile is a Unity 5.6 browser WebGL export using the Kongregate integration. Project settings use a 940×620 web canvas and webGLMemorySize 256, which are export settings, not measured minimum display/RAM requirements. No current browser or GPU compatibility matrix was tested. AI: No generative-AI development or asset disclosure was found in README, LICENSE, gameplay source, TODO or inspected Unity settings. AI usage remains unknown. Limitations: No claim of non-use follows from publication date or absent disclosure. Relationships: This non-fork root is one Toobz remake lineage across Unity generations, with no separate count for imported plugins, Kongregate test scenes or copied raw levels. LICENSE grants MIT terms for Mark Gossage’s software. README explicitly says the original level design was copied, so the code grant is not treated as independent clearance of Digital Wizardry content or every bundled third-party asset. Limitations: No original-rightsholder permission or complete third-party asset license inventory was verified. Evidence: https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/README.md https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/_rawMaps/readme.txt https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/Assets/Scripts/MarblezControl.cs https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/Assets/Scripts/BallMove.cs https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectSettings.asset https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectVersion.txt https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/Assets/Docs/todo.txt https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/LICENSE",
+    "github": {
+      "repository": "mpgossage/Marblez",
+      "created_at": "2017-04-23",
+      "pushed_at": "2017-05-06",
+      "updated_at": "2024-09-17",
+      "checked_at": "2026-10-06",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C#",
+      "activity_state": "dormant",
+      "languages": [
+        "C#",
+        "CSS",
+        "JavaScript",
+        "HTML",
+        "Batchfile"
+      ],
+      "latest_commit": {
+        "sha": "9784ca1be948c56f80bc7ea50a5d587692da639a",
+        "date": "2017-05-06",
+        "message": "Silly mistake on documentation",
+        "url": "https://github.com/mpgossage/Marblez/commit/9784ca1be948c56f80bc7ea50a5d587692da639a"
+      }
+    },
+    "last_activity": "2017-05-06"
+  },
+  {
     "id": "github-hayesmaker-marios-cement-factory-64",
     "title": "Mario’s Cement Factory: native C64 game source",
     "upstream_name": "Mario’s Cement Factory C64",
@@ -97074,6 +97510,116 @@
         "url": "https://github.com/nmikstas/mike-tysons-punch-out-disassembly/commit/60b2fa0e61d57b10b5fadc04be96241d25755d25"
       }
     }
+  },
+  {
+    "id": "minden24-flutter-amiga-remake",
+    "title": "Minden24 — Amiga card-game remake",
+    "upstream_name": "minden24",
+    "display_title": "Minden24 — Amiga card-game remake",
+    "subjects": [
+      "1988 Amiga Patience-style card game by Klaus Kramer (ZENTAC)"
+    ],
+    "repo": "https://github.com/IntensiCode/minden24",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Web browser",
+      "Linux"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "Flutter web build configuration",
+        "platform": "Web browser",
+        "notes": "Workflow runs flutter build web and README links a playable page; neither build nor page was executed in this pass.",
+        "evidence": [
+          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/README.md",
+          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/.github/workflows/deploy_pages.yml",
+          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/pubspec.yaml"
+        ]
+      },
+      {
+        "name": "Checked-in Linux desktop scaffold",
+        "platform": "Linux",
+        "notes": "Flutter/GTK CMake runner exists; it is a configuration target, not evidence of a tested distributed Linux build.",
+        "evidence": [
+          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/linux/CMakeLists.txt"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "Dart"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game reimplementation"
+    ],
+    "re_started": "2024",
+    "last_checked": "2026-10-06",
+    "status": "Flutter/Flame card-game remake; Suno music credited; runtime untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Suno"
+      ],
+      "evidence": [
+        "assets/data/credits.txt explicitly credits music to Suno. This supports AI-assisted music assets only, not AI-written code: https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/assets/data/credits.txt"
+      ]
+    },
+    "techniques": [
+      "gameplay reimplementation"
+    ],
+    "tags": [
+      "Amiga",
+      "remake"
+    ],
+    "notes": "Identity: README describes a 2024 remake of a 1988 Amiga Patience-style card game; the shipped credits name original author Klaus Kramer (ZENTAC). The project title is Minden24. Root, Minden24/Minden and named subject lineage have no screened prior match. The historical subject is described conservatively rather than assigning an unverified exact original release title. Limitations: The original binary and exact historical title/version were not independently inspected. Classification: minden_game.dart implements three shuffled card sets, twelve ascending same-suit ace stacks, eight descending alternating-color play stacks, layered cards blocked by cards above, legal placements, undo, save/load and win detection. The help text explains those rules, and README records options intended to reproduce the original game. This is substantive card-game reconstruction, not merely a card renderer. Limitations: No original-rule equivalence or complete-game play test was performed. Source CPU: m68k is recorded only as the historical Amiga hardware-family inference from the author’s 1988-game provenance. Modern Dart source does not establish the original language, a minimum 680x0 model, graphics chipset or original memory requirement. Limitations: No original executable/source-level CPU audit is claimed. Target CPU: The active workflow builds Flutter web output. A Linux Flutter/GTK CMake runner is checked in, but neither path specifies a native CPU architecture in the inspected project files. target_cpu is empty rather than copying historical m68k or assuming every Flutter-supported architecture. Build: pubspec.yaml requires Dart SDK ^3.3.0 and declares Flutter, Flame ^1.18.0 and audio/state dependencies plus asset directories. The workflow installs Flutter stable, resolves packages and invokes flutter build web. A lockfile, test source, image/audio assets and Linux runner appear in the tree; these are inspected configuration/source evidence, not a successful build result. Limitations: No Flutter dependency resolution, tests, web/Linux build, browser launch, gameplay or byte comparison was performed. All four independent flags remain unknown. Runtime profiles: Web is the documented deployment path. Linux is separately recorded as an untested checked-in scaffold using GTK 3 and Flutter, whose CMake comments require the installed bundle resource layout. Generic Flutter portability is not treated as proof of additional mobile or desktop releases. Numeric CPU/RAM/GPU and browser minima are absent. AI: The shipped credits explicitly attribute music to suno.com, whose official site describes an AI music generator. This supports disclosed AI-assisted music assets, so AI usage is true with tool Suno. The inspected README and Dart gameplay code do not disclose coding assistance; no code-generation claim is made. Limitations: The specific Suno model, tracks, prompts and proportion of generated music are not documented; development-code AI usage remains unknown. Relationships: This non-fork root is one Flutter/Flame remake of the credited Amiga card game. LICENSE is the Unlicense for software, while credits separately identify multiple card-art suppliers and Suno music. That software dedication does not by itself verify the separate terms for every asset or the original game. The Linux scaffold and web deployment are not separate games. Limitations: Original-name provenance and individual card/audio license clearance remain outside this source-only audit. Evidence: https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/README.md https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/assets/data/credits.txt https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/pubspec.yaml https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/lib/game/minden_game.dart https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/assets/data/help.txt https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/.github/workflows/deploy_pages.yml https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/linux/CMakeLists.txt https://suno.com/ https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/LICENSE",
+    "github": {
+      "repository": "IntensiCode/minden24",
+      "created_at": "2024-07-17",
+      "pushed_at": "2024-07-21",
+      "updated_at": "2025-09-30",
+      "checked_at": "2026-10-06",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Dart",
+      "activity_state": "dormant",
+      "languages": [
+        "Dart",
+        "CMake",
+        "C++",
+        "HTML",
+        "C"
+      ],
+      "latest_commit": {
+        "sha": "077f963e5c6b2c41afef4aa4f8ebe5af76434661",
+        "date": "2024-07-21",
+        "message": "Switch back to game (music) after playing end music (without looping)",
+        "url": "https://github.com/IntensiCode/minden24/commit/077f963e5c6b2c41afef4aa4f8ebe5af76434661"
+      }
+    },
+    "last_activity": "2024-07-21"
   },
   {
     "id": "miner-amiga",
@@ -119706,6 +120252,107 @@
         "url": "https://github.com/neodyme60/rayman_disasm/commit/2444e3f35bc8cbc2d1ca9078ac066bc6038f316c"
       }
     }
+  },
+  {
+    "id": "rc-rally-cross-amiga-ozzyboshi",
+    "title": "RC (Rally Cross)",
+    "upstream_name": "RC (Rally Cross)",
+    "display_title": "RC (Rally Cross) — native Amiga game",
+    "subjects": [
+      "RC (Rally Cross)"
+    ],
+    "repo": "https://github.com/Ozzyboshi/rc",
+    "source_platforms": [],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "m68k"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Author-documented classic OCS/ECS target",
+        "platform": "Amiga",
+        "cpu_family": "m68k",
+        "min_chip_ram_kib": 1024,
+        "chipsets": [
+          "OCS",
+          "ECS"
+        ],
+        "notes": "README explicitly asks for at least 1 MiB Chip RAM. Tested A600/KS2.04/2 MiB Fast, Vampire V600 and A500+/ACA500+ configurations are author reports, not minimum CPU, Fast RAM or OS requirements. AGA/RTG variants remain a TODO.",
+        "evidence": [
+          "https://github.com/Ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/README.md",
+          "https://github.com/Ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/rc_ocs/src/rc.s"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "m68k assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native Amiga homebrew"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-06",
+    "status": "Source reviewed; independent build and gameplay untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "homebrew",
+      "source-reviewed"
+    ],
+    "notes": "Identity: Ozzyboshi’s RC is a native top-down racing game for classic Amiga with up to eight human/computer cars, track terrain/collisions, lap timing, race points and a championship flow. The author describes recreating the idea of Fabio Antoniazzi’s DOS shareware game, not copying its implementation. Classification: Distinct homebrew game inspired by a DOS title. Source contains the race loop and car/collision/track/standings modules; this is not only an engine sample. The AProcessing submodule is a dependency, and the unused AGA experiments do not justify additional port entries. Source CPU: The author describes a new Amiga implementation inspired by the remembered PC game. No inherited DOS source or binary-derived reconstruction was found, so DOS/x86 are not assigned as source provenance. Target CPU: The Makefile assembles with vasmm68k_mot and links Amiga hunk binaries; rc.s uses 68k instructions and names OCS/ECS Amigas. No PPC target or exact minimum CPU is established. An AMMX macro include alone does not prove Vampire-only ISA requirements. Build: The make recipe uses vasm/vlink, an external AProcessing submodule, bundled track/audio/graphics data and separate Shrinkler/exe2adf packaging commands. It produces rc/rc32 variants and a bootable ADF route. The source still has expansion TODOs, including AGA/RTG. A repository binary or author test claim does not establish a fresh rebuild. Limitations: No candidate compilation, execution, gameplay or byte comparison was performed. Independent build flags remain null. Runtime profiles: README explicitly requires at least 1 MiB Chip RAM and reports A600/KS2.04 plus 2 MiB Fast RAM, Vampire V600 and A500+/ACA500+ tests. Those are reported configurations, not accelerator/Fast RAM/OS minima. The source header specifies OCS/ECS; AGA and RTG are future work. AI: The inspected README, complete path tree, build recipe, main source and license contain no affirmative development-AI attribution. Mentions of computer AI and CPU-driven cars describe gameplay logic; usage remains unknown. Relationships: README explicitly applies GPL version 2, supported by the root license. Credits name code, graphics, tracks and music contributors; AProcessing is a linked dependency. Canonical root was fresh against 2,081 prior-reviewed/catalogue/source/decision roots. Current 1,740-project title/subject screening found no same-project entry, and repository metadata reports a non-fork with no parent/source relationship. Evidence: https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/README.md https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/rc_ocs/src/rc.s https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/.gitmodules https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/rc_ocs/Makefile https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/LICENSE",
+    "github": {
+      "repository": "Ozzyboshi/rc",
+      "created_at": "2022-11-01",
+      "pushed_at": "2023-11-12",
+      "updated_at": "2026-09-28",
+      "checked_at": "2026-10-06",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "latest_release": {
+        "tag": "v0.6",
+        "name": "March Update - collisions",
+        "published_at": "2023-03-13",
+        "url": "https://github.com/Ozzyboshi/rc/releases/tag/v0.6"
+      },
+      "languages": [
+        "Assembly",
+        "Makefile",
+        "Shell",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170",
+        "date": "2023-11-12",
+        "message": "Update README.md",
+        "url": "https://github.com/Ozzyboshi/rc/commit/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170"
+      }
+    },
+    "last_activity": "2023-11-12"
   },
   {
     "id": "rc2014-512k-norflash-writer-bread80",
@@ -156173,6 +156820,100 @@
     }
   },
   {
+    "id": "viper-coffeescript-amiga-remake",
+    "title": "Viper — CoffeeScript browser remake",
+    "upstream_name": "viper",
+    "display_title": "Viper — CoffeeScript browser remake",
+    "subjects": [
+      "Viper"
+    ],
+    "repo": "https://github.com/bjornharrtell/viper",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Web browser"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "Canvas browser client with Node services",
+        "platform": "Web browser",
+        "notes": "Requires Canvas, browser audio and a same-origin Express/socket.io backend; legacy external libraries and local audio are referenced but absent.",
+        "evidence": [
+          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/viper.html",
+          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/Viper.coffee",
+          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/services.coffee",
+          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/package.json"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "CoffeeScript"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "game reimplementation"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-06",
+    "status": "Substantive browser remake with incomplete packaged dependencies; runtime untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "gameplay reimplementation"
+    ],
+    "tags": [
+      "Amiga",
+      "remake"
+    ],
+    "notes": "Identity: README links the original ViperAGA12 game on Aminet and a historical review; repository metadata describes a CoffeeScript port of an old Amiga game. The entry page and source call the game Viper. The root and Viper title have no screened prior match. Limitations: The linked Aminet package/readme could not be fetched in this pass, so original details beyond repository provenance are not promoted. Classification: Viper and Worm implement turning, continuous trail growth, reflecting at walls, periodic safe gaps, intersection-based death/scoring, increasing speed and canvas drawing. Client/server messages implement two-player joining, move forwarding and game-over scoring, while the page exposes single-player and multiplayer menus. This is substantial game logic rather than a generic geometry demonstration. Limitations: No complete-original feature parity or current multiplayer operation was tested. Source CPU: m68k is a historical Amiga-family inference from the author’s provenance and original-game link. The ViperAGA12 archive name is not sufficient to establish an original CPU minimum or the remake’s graphics requirements. Limitations: No original source/executable inspection, exact 680x0 minimum or verified chipset requirement is claimed. Target CPU: CoffeeScript is compiled into browser JavaScript, with separate CoffeeScript Node services. These source/runtime choices specify no native host instruction set; target_cpu remains empty. The historical Amiga architecture is not assigned to this browser/server output. Build: Cakefile concatenates four game modules and invokes coffee to emit public/lib/viper.js; package.json pins Express 2.4.3 and socket.io 0.7.7 for the server. The non-truncated tree lacks the referenced lib/OpenLayers.js, lib/jsts.js, snd audio files and public output directories; CoffeeScript/compiler tooling is not declared in package dependencies. services.coffee serves a public directory while viper.html is at the root, leaving deployment assembly undocumented. Limitations: The checked-in source is not established as a self-contained runnable checkout. No dependency installation, CoffeeScript build, server launch, gameplay or byte comparison was performed; build flags remain unknown. Runtime profiles: The application needs a Canvas/DOM browser with audio, jQuery/jQuery UI, JSTS/OpenLayers and its Express/socket.io endpoints. Input handlers include keyboard, mouse and touch. Old HTTP CDN references and absent local resources need restoration/verification before a current-browser profile can be claimed. No CPU, RAM or minimum browser version is established. AI: README, package/build files and inspected CoffeeScript game/server logic contain no development-AI disclosure. AI usage stays unknown. Limitations: Repository age and source style are not proof of non-use. Relationships: Metadata reports a non-fork repository; README explicitly identifies the original game, so the browser and server modules remain one Viper reimplementation. No LICENSE/COPYING file appears in the complete tree, and reviewed files provide no explicit reuse grant. Original-game and sound rights are not established by source visibility. Limitations: Source availability must not be described as verified open-source licensing. Full upstream source/asset provenance remains limited. Evidence: https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/README https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/viper.html https://github.com/bjornharrtell/viper https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/Viper.coffee https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/Worm.coffee https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/services.coffee https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/Cakefile https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/package.json",
+    "github": {
+      "repository": "bjornharrtell/viper",
+      "created_at": "2010-05-13",
+      "pushed_at": "2011-08-04",
+      "updated_at": "2024-01-05",
+      "checked_at": "2026-10-06",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": true,
+      "fork": false,
+      "primary_language": "CoffeeScript",
+      "activity_state": "dormant",
+      "languages": [
+        "CoffeeScript",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "d9cc2a246daf4307511faa5a556d478d2fef4d91",
+        "date": "2011-08-04",
+        "message": "Fixes to mp. Add touch support.",
+        "url": "https://github.com/bjornharrtell/viper/commit/d9cc2a246daf4307511faa5a556d478d2fef4d91"
+      }
+    },
+    "last_activity": "2011-08-04"
+  },
+  {
     "id": "virtnet-amigaos4-native-driver",
     "title": "virtnet.device",
     "upstream_name": "virtnet.device",
@@ -164381,653 +165122,5 @@
         "url": "https://github.com/BlitterStudio/zz9000-drivers/commit/701ee6e9bf96f19e302d874b166e22e06952e0b6"
       }
     }
-  },
-  {
-    "id": "a100-amiga-cobour",
-    "title": "A100",
-    "upstream_name": "A100",
-    "display_title": "A100 — native Amiga game",
-    "subjects": [
-      "A100"
-    ],
-    "repo": "https://github.com/cobour/a100",
-    "source_platforms": [],
-    "target_platforms": [
-      "Amiga"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "68000"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "Author-documented PAL Amiga requirement",
-        "platform": "Amiga",
-        "cpu_family": "m68k",
-        "min_chip_ram_kib": 512,
-        "notes": "Author explicitly states PAL Amiga and at least 512 KiB Chip RAM. A500/A1200 emulator tests and the checked-in A500/KS3.1 launch configuration are compatibility reports, not OS or chipset minima. One user reports an ADF issue with ACA1221lc; the author could not reproduce/debug that hardware.",
-        "evidence": [
-          "https://cobour.itch.io/a100",
-          "https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/.vscode/launch.json"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "m68k assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [],
-    "tool_kinds": [],
-    "types": [
-      "native Amiga homebrew"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-10-06",
-    "status": "Source reviewed; independent build and gameplay untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": false,
-      "tools": [],
-      "evidence": [
-        "The author-controlled itch.io game page explicitly labels its content “No generative AI was used”; this is an attributed disclosure, not an independent provenance audit. https://cobour.itch.io/a100"
-      ]
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "homebrew",
-      "source-reviewed"
-    ],
-    "notes": "Identity: Frank Neumann/cobour’s released Amiga puzzle game is explicitly linked to this complete-source repository by the author’s source-release post. The source implements game state, brick placement failure/game-over, scores and menus. Classification: New native Amiga game source. The author identifies 1010! by Gram Games as an inspiration; no original mobile binary/source conversion is established. The bundled Java data converter is a build dependency, not a separately counted game. Source CPU: No separately reconstructed legacy binary or inherited source ISA is established. Original implementation in 68000 assembly is recorded as this homebrew output, without inferring a source CPU from the game that inspired it. Target CPU: VS Code build tasks invoke vasmm68k_mot with -m68000 and Amiga hunk output; the main/game-over code uses 68k registers and instructions. Java 21 is a host asset-generation dependency, not the game’s runtime ISA. Build: The author requires JDK 21+ and VS Code’s Amiga Assembly extension. Tasks build data via the Gradle tool, create an ADF and assemble/link the game; the data-tool command and launchers include developer-local assembler/Kickstart paths that need configuration. A legal Kickstart ROM is external. Asset sources exist in the inspected complete tree, but end-to-end input completeness was not tested. Limitations: No candidate compilation, execution, gameplay or byte comparison was performed. Independent build flags remain null. Runtime profiles: The author states PAL Amiga with at least 512 KiB Chip RAM, with A500/A1200 emulator tests. The source launcher’s A500, 512 KiB and KS3.1 values remain configuration evidence; no Kickstart minimum is inferred. An author/user discussion reports an ACA1221lc ADF incompatibility while WHDLoad works. AI: The author-controlled release page explicitly declares no generative AI use for this game. Record a negative author disclosure, bounded to that label rather than asserting a forensic review of every contribution. Relationships: The game page credits external graphics/music and the ptplayer/inflate components. No root LICENSE or game-wide redistribution grant was found in the complete tree or README; public source and a free download are not a blanket license. Canonical root was fresh against 2,081 prior-reviewed/catalogue/source/decision roots. Current 1,740-project title/subject screening found no same-project entry, and repository metadata reports a non-fork with no parent/source relationship. Evidence: https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/README.md https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/a100.asm https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/src/ingame/game_over_detection.asm https://cobour.itch.io/a100/devlog/997275/source-code-released https://cobour.itch.io/a100 https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/.vscode/tasks.json https://github.com/cobour/a100/blob/536e10ba9e174bb15cb1ae2b3c7fcc46909e3cb6/a100/.vscode/launch.json"
-  },
-  {
-    "id": "rc-rally-cross-amiga-ozzyboshi",
-    "title": "RC (Rally Cross)",
-    "upstream_name": "RC (Rally Cross)",
-    "display_title": "RC (Rally Cross) — native Amiga game",
-    "subjects": [
-      "RC (Rally Cross)"
-    ],
-    "repo": "https://github.com/Ozzyboshi/rc",
-    "source_platforms": [],
-    "target_platforms": [
-      "Amiga"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "m68k"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "Author-documented classic OCS/ECS target",
-        "platform": "Amiga",
-        "cpu_family": "m68k",
-        "min_chip_ram_kib": 1024,
-        "chipsets": [
-          "OCS",
-          "ECS"
-        ],
-        "notes": "README explicitly asks for at least 1 MiB Chip RAM. Tested A600/KS2.04/2 MiB Fast, Vampire V600 and A500+/ACA500+ configurations are author reports, not minimum CPU, Fast RAM or OS requirements. AGA/RTG variants remain a TODO.",
-        "evidence": [
-          "https://github.com/Ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/README.md",
-          "https://github.com/Ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/rc_ocs/src/rc.s"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "m68k assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [],
-    "tool_kinds": [],
-    "types": [
-      "native Amiga homebrew"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-10-06",
-    "status": "Source reviewed; independent build and gameplay untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "homebrew",
-      "source-reviewed"
-    ],
-    "notes": "Identity: Ozzyboshi’s RC is a native top-down racing game for classic Amiga with up to eight human/computer cars, track terrain/collisions, lap timing, race points and a championship flow. The author describes recreating the idea of Fabio Antoniazzi’s DOS shareware game, not copying its implementation. Classification: Distinct homebrew game inspired by a DOS title. Source contains the race loop and car/collision/track/standings modules; this is not only an engine sample. The AProcessing submodule is a dependency, and the unused AGA experiments do not justify additional port entries. Source CPU: The author describes a new Amiga implementation inspired by the remembered PC game. No inherited DOS source or binary-derived reconstruction was found, so DOS/x86 are not assigned as source provenance. Target CPU: The Makefile assembles with vasmm68k_mot and links Amiga hunk binaries; rc.s uses 68k instructions and names OCS/ECS Amigas. No PPC target or exact minimum CPU is established. An AMMX macro include alone does not prove Vampire-only ISA requirements. Build: The make recipe uses vasm/vlink, an external AProcessing submodule, bundled track/audio/graphics data and separate Shrinkler/exe2adf packaging commands. It produces rc/rc32 variants and a bootable ADF route. The source still has expansion TODOs, including AGA/RTG. A repository binary or author test claim does not establish a fresh rebuild. Limitations: No candidate compilation, execution, gameplay or byte comparison was performed. Independent build flags remain null. Runtime profiles: README explicitly requires at least 1 MiB Chip RAM and reports A600/KS2.04 plus 2 MiB Fast RAM, Vampire V600 and A500+/ACA500+ tests. Those are reported configurations, not accelerator/Fast RAM/OS minima. The source header specifies OCS/ECS; AGA and RTG are future work. AI: The inspected README, complete path tree, build recipe, main source and license contain no affirmative development-AI attribution. Mentions of computer AI and CPU-driven cars describe gameplay logic; usage remains unknown. Relationships: README explicitly applies GPL version 2, supported by the root license. Credits name code, graphics, tracks and music contributors; AProcessing is a linked dependency. Canonical root was fresh against 2,081 prior-reviewed/catalogue/source/decision roots. Current 1,740-project title/subject screening found no same-project entry, and repository metadata reports a non-fork with no parent/source relationship. Evidence: https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/README.md https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/rc_ocs/src/rc.s https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/.gitmodules https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/rc_ocs/Makefile https://github.com/ozzyboshi/rc/blob/3038d29c1f29c0a7033b7b8d5ec37fdf1fbf5170/LICENSE"
-  },
-  {
-    "id": "legiongame-monogame-remake",
-    "title": "LegionGame — AMOS-based C# remake",
-    "upstream_name": "LegionGame",
-    "display_title": "LegionGame — AMOS-based C# remake",
-    "subjects": [
-      "Legion"
-    ],
-    "repo": "https://github.com/bsoja/LegionGame",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Linux",
-      "Windows",
-      "macOS"
-    ],
-    "source_cpu": [
-      "m68k"
-    ],
-    "target_cpu": [
-      "x86-64"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "Documented Linux 64-bit configuration",
-        "platform": "Linux",
-        "cpu_family": "x86-64",
-        "notes": "Project copies linux-x64 SDL2/OpenAL libraries; not a measured minimum or independently tested build.",
-        "evidence": [
-          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md",
-          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj"
-        ]
-      },
-      {
-        "name": "Documented Windows 64-bit configuration",
-        "platform": "Windows",
-        "cpu_family": "x86-64",
-        "notes": "Project copies windows-x64 SDL2/OpenAL libraries; 32-bit files in tree are not active target support.",
-        "evidence": [
-          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md",
-          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj"
-        ]
-      },
-      {
-        "name": "Untested macOS configuration",
-        "platform": "macOS",
-        "notes": "OSX copy branch exists, but README explicitly says macOS was not tested; no architecture established.",
-        "evidence": [
-          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md",
-          "https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj"
-        ]
-      }
-    ],
-    "source_language": [
-      "AMOS BASIC"
-    ],
-    "reconstructed_languages": [
-      "C#"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game reimplementation"
-    ],
-    "re_started": null,
-    "last_activity": "2022-08-20",
-    "last_checked": "2026-10-06",
-    "status": "Partial MonoGame remake with substantial strategic logic; runtime untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "source-based reimplementation",
-      "gameplay reimplementation"
-    ],
-    "tags": [
-      "Amiga",
-      "remake"
-    ],
-    "github": {
-      "repository": "bsoja/LegionGame",
-      "created_at": "2018-04-08",
-      "pushed_at": "2022-12-08",
-      "updated_at": "2025-06-29",
-      "checked_at": "2026-10-06",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C#",
-      "activity_state": "stale",
-      "latest_commit": {
-        "sha": "8b971b9345f5dd595cae27cbbf06f4f803f7ca46",
-        "date": "2022-08-20",
-        "message": "add original files",
-        "url": "https://github.com/bsoja/LegionGame/commit/8b971b9345f5dd595cae27cbbf06f4f803f7ca46"
-      }
-    },
-    "notes": "Identity: README identifies a remake of the classic Amiga Legion based on original AMOS source supplied by its authors. It names data/amos/leg31.Asc, whose inspected AMOS statements, army/city arrays and game procedures substantiate the source lineage. Root and Legion title/subject were absent from the 2,081-root prior union and 1,740-project baseline. Classification: The project rewrites original game logic in C#. ArmiesTurnProcessor contains turn progression, movement and target handling; CityIncidents implements plague/fire/rat outcomes, rioting, population and morale changes, and battle setup. This is substantive, incomplete game reconstruction rather than a generic engine or source-only mirror. Limitations: README still lists missing player-army commands, terrain interaction, stores and other functionality; completeness is not asserted. Source CPU: m68k refers only to the historical Amiga platform named by the author. Original-language evidence is unusually direct: leg31.Asc contains AMOS BASIC game code. No original executable was disassembled, so source CPU is a platform-family classification rather than an exact processor minimum. Limitations: No verified OCS/ECS/AGA, RTG, PPC or particular 680x0 minimum is recorded. Target CPU: README documents Linux and Windows 64-bit support, and Legion.csproj specifically copies linux-x64 and windows-x64 SDL2/OpenAL dependencies. x86-64 is therefore the configured host family. Included x86 dependency folders are not active support: README says project changes are needed. The macOS branch supplies no verified architecture. Limitations: No binary inspection or execution verified host instruction sets; historical m68k is not a remake output target. Build: The main project targets net6.0 and pins MonoGame.Framework.DesktopGL 3.6.0.1625, Autofac 4.6.2 and Newtonsoft.Json 12.0.3. It references sibling projects and copies checked-in Assets/bin content and JSON data. The snapshot includes XNB assets and native dependencies. MonoGameLibLoader contains an SDL loading workaround and a remaining OpenAL-loading TODO. Limitations: No dependency restore, content rebuild, compilation, launch, gameplay or byte comparison was performed; all four independent build flags remain unknown. Runtime profiles: Profiles separate documented Linux/Windows x64 configurations from the explicitly untested macOS path. .NET 6, MonoGame DesktopGL, SDL2 and OpenAL are source/configuration observations. No numeric RAM, minimum CPU model, GPU minimum or tested OS-version matrix is established. AI: No development-AI disclosure was found in the reviewed README, GPL text, AMOS source, C# turn/incident logic or project configuration. Computer-controlled armies are game mechanics and do not imply generative development assistance. Limitations: AI usage remains unknown; no inference of non-use from repository age or silence. Relationships: Metadata marks this root as non-fork, and README directly credits the original AMOS source rather than a modern upstream port. Original AMOS, alternative source copies, bundled Amiga files and the C# rewrite are kept in one Legion lineage. Root LICENSE contains GPLv3, but that alone does not establish complete clearance of all copied original art, archives and third-party binaries. Limitations: No exhaustive asset-rights or external fork graph audit was performed. Evidence: https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/README.md https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/data/amos/leg31.Asc https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion.Model/ArmiesTurnProcessor.cs https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion.Model/CityIncidents.cs https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/Legion.csproj https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/src/Legion/MonoGameLibLoader.cs https://github.com/bsoja/legiongame/blob/8b971b9345f5dd595cae27cbbf06f4f803f7ca46/LICENSE"
-  },
-  {
-    "id": "marblez-toobz-unity-remake",
-    "title": "Marblez — Toobz Unity remake",
-    "upstream_name": "Marblez",
-    "display_title": "Marblez — Toobz Unity remake",
-    "subjects": [
-      "Toobz"
-    ],
-    "repo": "https://github.com/mpgossage/Marblez",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Web browser"
-    ],
-    "source_cpu": [
-      "m68k"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "Unity 5.6 WebGL export configuration",
-        "platform": "Web browser",
-        "notes": "README specifies Unity 5.6.0f3 and Kongregate WebGL template; 940×620 is configured display size, not a hardware minimum.",
-        "evidence": [
-          "https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/README.md",
-          "https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectVersion.txt",
-          "https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectSettings.asset"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "C#"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game reimplementation"
-    ],
-    "re_started": null,
-    "last_activity": "2017-05-06",
-    "last_checked": "2026-10-06",
-    "status": "Unity 5.6 browser remake source reviewed; independent build and runtime unknown",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "gameplay reimplementation"
-    ],
-    "tags": [
-      "Amiga",
-      "remake"
-    ],
-    "github": {
-      "repository": "mpgossage/Marblez",
-      "created_at": "2017-04-23",
-      "pushed_at": "2017-05-06",
-      "updated_at": "2024-09-17",
-      "checked_at": "2026-10-06",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C#",
-      "activity_state": "stale",
-      "latest_commit": {
-        "sha": "9784ca1be948c56f80bc7ea50a5d587692da639a",
-        "date": "2017-05-06",
-        "message": "Silly mistake on documentation",
-        "url": "https://github.com/mpgossage/Marblez/commit/9784ca1be948c56f80bc7ea50a5d587692da639a"
-      }
-    },
-    "notes": "Identity: README explicitly identifies Marblez as a Unity port of the Amiga game Toobz. It credits Digital Wizardry for original design and copied levels, and Mark Gossage for new code/art. Marblez, Toobz and this root have no prior catalogue/root match; Marble Madness is an unrelated title and is not conflated with this game. Classification: MarblezControl implements the 10×7 board, rotating track pieces, marble spawning, catch/release tiles, redirectors, color changers and matching-color home goals. BallMove implements track traversal and tile-entry/exit routing. The author describes a Unity 4.4-to-5.6 migration of the same remake, not separate games. Source CPU: m68k records historical Amiga provenance at platform-family level only, based on the author naming Toobz as the original. The inspected C# is modern remake logic and gives no original-language or exact historical CPU minimum evidence. Limitations: Original executable, source language and chipset requirements were not inspected. Target CPU: The documented release/build route is Unity WebGL in a browser. Neither README nor the inspected game code establishes a particular native host instruction set. target_cpu is empty; Unity editor/platform defaults do not prove desktop releases, and historical Amiga m68k is not a browser CPU requirement. Build: ProjectVersion records Unity 5.6.0f3, matching README. The tree contains game scenes, C# logic, levels, sprites, audio and third-party plugins. README provides WebGL/Kongregate template setup and warns of template/version and CORS issues; its out-of-the-box claim is author-reported. The TODO file contains setup, audio and local-saving notes. Limitations: No Unity import, compilation, export, server, launch, gameplay or byte-equivalence test was run. All build flags remain unknown. Runtime profiles: The evidenced profile is a Unity 5.6 browser WebGL export using the Kongregate integration. Project settings use a 940×620 web canvas and webGLMemorySize 256, which are export settings, not measured minimum display/RAM requirements. No current browser or GPU compatibility matrix was tested. AI: No generative-AI development or asset disclosure was found in README, LICENSE, gameplay source, TODO or inspected Unity settings. AI usage remains unknown. Limitations: No claim of non-use follows from publication date or absent disclosure. Relationships: This non-fork root is one Toobz remake lineage across Unity generations, with no separate count for imported plugins, Kongregate test scenes or copied raw levels. LICENSE grants MIT terms for Mark Gossage’s software. README explicitly says the original level design was copied, so the code grant is not treated as independent clearance of Digital Wizardry content or every bundled third-party asset. Limitations: No original-rightsholder permission or complete third-party asset license inventory was verified. Evidence: https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/README.md https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/_rawMaps/readme.txt https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/Assets/Scripts/MarblezControl.cs https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/Assets/Scripts/BallMove.cs https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectSettings.asset https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/ProjectSettings/ProjectVersion.txt https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/Assets/Docs/todo.txt https://github.com/mpgossage/marblez/blob/9784ca1be948c56f80bc7ea50a5d587692da639a/LICENSE"
-  },
-  {
-    "id": "viper-coffeescript-amiga-remake",
-    "title": "Viper — CoffeeScript browser remake",
-    "upstream_name": "viper",
-    "display_title": "Viper — CoffeeScript browser remake",
-    "subjects": [
-      "Viper"
-    ],
-    "repo": "https://github.com/bjornharrtell/viper",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Web browser"
-    ],
-    "source_cpu": [
-      "m68k"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "Canvas browser client with Node services",
-        "platform": "Web browser",
-        "notes": "Requires Canvas, browser audio and a same-origin Express/socket.io backend; legacy external libraries and local audio are referenced but absent.",
-        "evidence": [
-          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/viper.html",
-          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/Viper.coffee",
-          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/services.coffee",
-          "https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/package.json"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "CoffeeScript"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game reimplementation"
-    ],
-    "re_started": null,
-    "last_activity": "2011-08-04",
-    "last_checked": "2026-10-06",
-    "status": "Substantive browser remake with incomplete packaged dependencies; runtime untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "gameplay reimplementation"
-    ],
-    "tags": [
-      "Amiga",
-      "remake"
-    ],
-    "github": {
-      "repository": "bjornharrtell/viper",
-      "created_at": "2010-05-13",
-      "pushed_at": "2011-08-04",
-      "updated_at": "2024-01-05",
-      "checked_at": "2026-10-06",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": true,
-      "fork": false,
-      "primary_language": "CoffeeScript",
-      "activity_state": "stale",
-      "latest_commit": {
-        "sha": "d9cc2a246daf4307511faa5a556d478d2fef4d91",
-        "date": "2011-08-04",
-        "message": "Fixes to mp. Add touch support.",
-        "url": "https://github.com/bjornharrtell/viper/commit/d9cc2a246daf4307511faa5a556d478d2fef4d91"
-      }
-    },
-    "notes": "Identity: README links the original ViperAGA12 game on Aminet and a historical review; repository metadata describes a CoffeeScript port of an old Amiga game. The entry page and source call the game Viper. The root and Viper title have no screened prior match. Limitations: The linked Aminet package/readme could not be fetched in this pass, so original details beyond repository provenance are not promoted. Classification: Viper and Worm implement turning, continuous trail growth, reflecting at walls, periodic safe gaps, intersection-based death/scoring, increasing speed and canvas drawing. Client/server messages implement two-player joining, move forwarding and game-over scoring, while the page exposes single-player and multiplayer menus. This is substantial game logic rather than a generic geometry demonstration. Limitations: No complete-original feature parity or current multiplayer operation was tested. Source CPU: m68k is a historical Amiga-family inference from the author’s provenance and original-game link. The ViperAGA12 archive name is not sufficient to establish an original CPU minimum or the remake’s graphics requirements. Limitations: No original source/executable inspection, exact 680x0 minimum or verified chipset requirement is claimed. Target CPU: CoffeeScript is compiled into browser JavaScript, with separate CoffeeScript Node services. These source/runtime choices specify no native host instruction set; target_cpu remains empty. The historical Amiga architecture is not assigned to this browser/server output. Build: Cakefile concatenates four game modules and invokes coffee to emit public/lib/viper.js; package.json pins Express 2.4.3 and socket.io 0.7.7 for the server. The non-truncated tree lacks the referenced lib/OpenLayers.js, lib/jsts.js, snd audio files and public output directories; CoffeeScript/compiler tooling is not declared in package dependencies. services.coffee serves a public directory while viper.html is at the root, leaving deployment assembly undocumented. Limitations: The checked-in source is not established as a self-contained runnable checkout. No dependency installation, CoffeeScript build, server launch, gameplay or byte comparison was performed; build flags remain unknown. Runtime profiles: The application needs a Canvas/DOM browser with audio, jQuery/jQuery UI, JSTS/OpenLayers and its Express/socket.io endpoints. Input handlers include keyboard, mouse and touch. Old HTTP CDN references and absent local resources need restoration/verification before a current-browser profile can be claimed. No CPU, RAM or minimum browser version is established. AI: README, package/build files and inspected CoffeeScript game/server logic contain no development-AI disclosure. AI usage stays unknown. Limitations: Repository age and source style are not proof of non-use. Relationships: Metadata reports a non-fork repository; README explicitly identifies the original game, so the browser and server modules remain one Viper reimplementation. No LICENSE/COPYING file appears in the complete tree, and reviewed files provide no explicit reuse grant. Original-game and sound rights are not established by source visibility. Limitations: Source availability must not be described as verified open-source licensing. Full upstream source/asset provenance remains limited. Evidence: https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/README https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/viper.html https://github.com/bjornharrtell/viper https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/Viper.coffee https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/Worm.coffee https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/src/services.coffee https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/Cakefile https://github.com/bjornharrtell/viper/blob/d9cc2a246daf4307511faa5a556d478d2fef4d91/package.json"
-  },
-  {
-    "id": "bounty-hunter-rust-remake",
-    "title": "Bounty Hunter — Rust remake",
-    "upstream_name": "bounty-hunter-remake",
-    "display_title": "Bounty Hunter — Rust remake",
-    "subjects": [
-      "Bounty Hunter",
-      "MissionAD"
-    ],
-    "repo": "https://github.com/pertyjons/bounty-hunter-remake",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Linux",
-      "macOS",
-      "Windows"
-    ],
-    "source_cpu": [
-      "m68k"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "Intended Linux release artifact",
-        "platform": "Linux",
-        "notes": "Workflow labels its Linux artifact x86_64; default runner toolchain is used, not an explicit --target triple. Artifact naming is documentary intent only and does not establish architecture.",
-        "evidence": [
-          "https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml"
-        ]
-      },
-      {
-        "name": "Intended Windows release artifact",
-        "platform": "Windows",
-        "notes": "Workflow labels its Windows artifact x86_64; unpinned windows-latest runner, not a tested minimum.",
-        "evidence": [
-          "https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml"
-        ]
-      },
-      {
-        "name": "Intended macOS release artifact",
-        "platform": "macOS",
-        "notes": "Workflow labels its macOS artifact aarch64; unpinned macos-latest runner and native-default compilation, not a verified universal release.",
-        "evidence": [
-          "https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml"
-        ]
-      }
-    ],
-    "source_language": [
-      "68000 assembly"
-    ],
-    "reconstructed_languages": [
-      "Rust"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game reimplementation"
-    ],
-    "re_started": null,
-    "last_activity": "2026-04-14",
-    "last_checked": "2026-10-06",
-    "status": "Source-based Rust port with level 2 still unwired; AI assistance disclosed; runtime untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude"
-      ],
-      "evidence": [
-        "README explicitly reports heavy Claude Code assistance for 68000 assembly-to-Rust conversion, naming CLI 2.1.107 and Claude Opus 4.6: https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/README.md"
-      ]
-    },
-    "techniques": [
-      "source-based reimplementation",
-      "gameplay reimplementation"
-    ],
-    "tags": [
-      "Amiga",
-      "remake"
-    ],
-    "github": {
-      "repository": "pertyjons/bounty-hunter-remake",
-      "created_at": "2026-04-14",
-      "pushed_at": "2026-04-14",
-      "updated_at": "2026-09-12",
-      "checked_at": "2026-10-06",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Assembly",
-      "activity_state": "active",
-      "latest_commit": {
-        "sha": "365be5ed453c7e1cc46ab98383c05f0a721af4fa",
-        "date": "2026-04-14",
-        "message": "Drop security audit and MSRV jobs from build workflow",
-        "url": "https://github.com/pertyjons/bounty-hunter-remake/commit/365be5ed453c7e1cc46ab98383c05f0a721af4fa"
-      }
-    },
-    "notes": "Identity: README identifies an Amiga 500 Bounty Hunter/MissionAD platformer from 1995–1996, credits original authors Per Jonsson and Buster Blom (DeadZoft), and says Per Jonsson maintains this Rust remake. It identifies Original/MissionAD40+.asm as the reference revision. Root and Bounty Hunter/MissionAD subjects have no screened prior match. Classification: This is a source-based Rust reimplementation, not CPU emulation. main.rs runs fixed 50 Hz game ticks, player/enemy updates, combat and screen transitions. player.rs and collision.rs implement translated motion and collision behavior, with original assembly routine references. The tree contains original Amiga material plus converted assets, retained together as one game lineage. Limitations: README’s faithful/bit-for-bit behavior language is an author claim; no equivalence proof or full-game completion result is recorded. Source CPU: README explicitly states 68000 assembly for the Amiga 500, supporting m68k source-family and original assembly language. The archive path is corroborated by the pinned full tree, and Rust comments identify original assembly routines. This historical source is separate from the desktop host output. Limitations: Original assembly contains non-UTF-8 bytes. A connector-transcoded inspection was readable but did not match the Git blob SHA; it is not included in the exact UTF-8 proof cache or used to claim independently verified original instruction coverage. No higher-CPU, chipset or RAM minimum is inferred. Target CPU: The build workflow names release outputs linux-x86_64, windows-x86_64 and macos-aarch64, but those are post-build filenames rather than compiler target evidence. Builds use native-default cargo on mutable latest OS runners without explicit target triples. No CPU architecture is therefore promoted: target_cpu and profile CPU fields remain empty. Limitations: An explicit target triple or executable-header inspection is needed to establish output CPU. No binary was downloaded or inspected; historical m68k is not copied to desktop output. Build: Cargo.toml requires Rust 1.85/edition 2024 and depends on macroquad, cpal, mod_player, serde/ron and include_dir. assets.rs embeds the assets directory. README documents Linux system dependencies and cargo build/run commands. PROGRESS explicitly says level 2 loading is not wired into the game loop, despite preloading its music; the converted level tree contains level 1. Limitations: No dependency install, cargo build/test, CI result verification, launch, gameplay or byte comparison was performed. All independent build/runtime/byte-exact flags remain unknown, and full original-game coverage is not claimed. Runtime profiles: Linux/macOS/Windows profiles describe intended workflow artifacts only. README lists ALSA, pkg-config, xkbcommon and Wayland development dependencies for Linux; modern window/input/audio are provided by macroquad/cpal. The 50 Hz timing and configurable window sizes reproduce presentation/game timing, not CPU or RAM minima. Limitations: No measured minimum machine, OS-version compatibility matrix or performance benchmark is available. AI: README expressly discloses heavy assistance from Claude Code, CLI 2.1.107 with Claude Opus 4.6, in converting 68000 assembly to Rust. AI usage is therefore true on direct author disclosure, independently of the presence of CLAUDE.md or the in-game enemies’ AI. Limitations: This records disclosed assistance, not an estimate of generated-code percentage or independent verification of the named tool/version. Relationships: The maintainer claims continuity with one original author and keeps the original assembly/assets and the Rust conversion in this single non-fork repository. Original/MissionAD versions, level variants and the modern port are not separate projects. The complete tree has no LICENSE file; Cargo.toml has no license field, and README’s as-is warning is not itself an explicit redistribution grant. Limitations: Original coauthor/media rights and permission to redistribute the full source/assets need clarification; do not label the whole repository verified open source. Evidence: https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/README.md https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/PROGRESS.md https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/main.rs https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/player.rs https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/collision.rs https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/.github/workflows/build.yml https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/Cargo.toml https://github.com/pertyjons/bounty-hunter-remake/blob/365be5ed453c7e1cc46ab98383c05f0a721af4fa/src/assets.rs"
-  },
-  {
-    "id": "minden24-flutter-amiga-remake",
-    "title": "Minden24 — Amiga card-game remake",
-    "upstream_name": "minden24",
-    "display_title": "Minden24 — Amiga card-game remake",
-    "subjects": [
-      "1988 Amiga Patience-style card game by Klaus Kramer (ZENTAC)"
-    ],
-    "repo": "https://github.com/IntensiCode/minden24",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Web browser",
-      "Linux"
-    ],
-    "source_cpu": [
-      "m68k"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "Flutter web build configuration",
-        "platform": "Web browser",
-        "notes": "Workflow runs flutter build web and README links a playable page; neither build nor page was executed in this pass.",
-        "evidence": [
-          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/README.md",
-          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/.github/workflows/deploy_pages.yml",
-          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/pubspec.yaml"
-        ]
-      },
-      {
-        "name": "Checked-in Linux desktop scaffold",
-        "platform": "Linux",
-        "notes": "Flutter/GTK CMake runner exists; it is a configuration target, not evidence of a tested distributed Linux build.",
-        "evidence": [
-          "https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/linux/CMakeLists.txt"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "Dart"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "game reimplementation"
-    ],
-    "re_started": "2024",
-    "last_activity": "2024-07-21",
-    "last_checked": "2026-10-06",
-    "status": "Flutter/Flame card-game remake; Suno music credited; runtime untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Suno"
-      ],
-      "evidence": [
-        "assets/data/credits.txt explicitly credits music to Suno. This supports AI-assisted music assets only, not AI-written code: https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/assets/data/credits.txt"
-      ]
-    },
-    "techniques": [
-      "gameplay reimplementation"
-    ],
-    "tags": [
-      "Amiga",
-      "remake"
-    ],
-    "github": {
-      "repository": "IntensiCode/minden24",
-      "created_at": "2024-07-17",
-      "pushed_at": "2024-07-21",
-      "updated_at": "2025-09-30",
-      "checked_at": "2026-10-06",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Dart",
-      "activity_state": "stale",
-      "latest_commit": {
-        "sha": "077f963e5c6b2c41afef4aa4f8ebe5af76434661",
-        "date": "2024-07-21",
-        "message": "Switch back to game (music) after playing end music (without looping)",
-        "url": "https://github.com/IntensiCode/minden24/commit/077f963e5c6b2c41afef4aa4f8ebe5af76434661"
-      }
-    },
-    "notes": "Identity: README describes a 2024 remake of a 1988 Amiga Patience-style card game; the shipped credits name original author Klaus Kramer (ZENTAC). The project title is Minden24. Root, Minden24/Minden and named subject lineage have no screened prior match. The historical subject is described conservatively rather than assigning an unverified exact original release title. Limitations: The original binary and exact historical title/version were not independently inspected. Classification: minden_game.dart implements three shuffled card sets, twelve ascending same-suit ace stacks, eight descending alternating-color play stacks, layered cards blocked by cards above, legal placements, undo, save/load and win detection. The help text explains those rules, and README records options intended to reproduce the original game. This is substantive card-game reconstruction, not merely a card renderer. Limitations: No original-rule equivalence or complete-game play test was performed. Source CPU: m68k is recorded only as the historical Amiga hardware-family inference from the author’s 1988-game provenance. Modern Dart source does not establish the original language, a minimum 680x0 model, graphics chipset or original memory requirement. Limitations: No original executable/source-level CPU audit is claimed. Target CPU: The active workflow builds Flutter web output. A Linux Flutter/GTK CMake runner is checked in, but neither path specifies a native CPU architecture in the inspected project files. target_cpu is empty rather than copying historical m68k or assuming every Flutter-supported architecture. Build: pubspec.yaml requires Dart SDK ^3.3.0 and declares Flutter, Flame ^1.18.0 and audio/state dependencies plus asset directories. The workflow installs Flutter stable, resolves packages and invokes flutter build web. A lockfile, test source, image/audio assets and Linux runner appear in the tree; these are inspected configuration/source evidence, not a successful build result. Limitations: No Flutter dependency resolution, tests, web/Linux build, browser launch, gameplay or byte comparison was performed. All four independent flags remain unknown. Runtime profiles: Web is the documented deployment path. Linux is separately recorded as an untested checked-in scaffold using GTK 3 and Flutter, whose CMake comments require the installed bundle resource layout. Generic Flutter portability is not treated as proof of additional mobile or desktop releases. Numeric CPU/RAM/GPU and browser minima are absent. AI: The shipped credits explicitly attribute music to suno.com, whose official site describes an AI music generator. This supports disclosed AI-assisted music assets, so AI usage is true with tool Suno. The inspected README and Dart gameplay code do not disclose coding assistance; no code-generation claim is made. Limitations: The specific Suno model, tracks, prompts and proportion of generated music are not documented; development-code AI usage remains unknown. Relationships: This non-fork root is one Flutter/Flame remake of the credited Amiga card game. LICENSE is the Unlicense for software, while credits separately identify multiple card-art suppliers and Suno music. That software dedication does not by itself verify the separate terms for every asset or the original game. The Linux scaffold and web deployment are not separate games. Limitations: Original-name provenance and individual card/audio license clearance remain outside this source-only audit. Evidence: https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/README.md https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/assets/data/credits.txt https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/pubspec.yaml https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/lib/game/minden_game.dart https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/assets/data/help.txt https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/.github/workflows/deploy_pages.yml https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/linux/CMakeLists.txt https://suno.com/ https://github.com/intensicode/minden24/blob/077f963e5c6b2c41afef4aa4f8ebe5af76434661/LICENSE"
   }
 ]
