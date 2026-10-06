@@ -105,8 +105,10 @@ Incomplete work remains pending and cannot be described as a completed addition.
 Normal schedules and manual dispatches without publication inputs retain broad
 adaptive polling. They can recover pending first scans.
 
-Recovery work in adaptive runs has an aggregate request slice, leaving capacity
-for ordinary maintenance. A first scan too large for existing safety limits
+Recovery work in each adaptive metadata/history phase has a shared request slice
+(at most 25% of usable capacity, capped at 1,000 calls), leaving capacity for
+ordinary maintenance. Every refresh reconciles still-unrecorded catalogue changes,
+including when a previous publication run was replaced by a later code-only push. A first scan too large for existing safety limits
 stays pending with a diagnostic; there is no unsafe partial-completion shortcut.
 This change does not introduce resumable page cursors or increase quota limits.
 

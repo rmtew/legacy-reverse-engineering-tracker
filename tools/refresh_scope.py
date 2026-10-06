@@ -59,6 +59,17 @@ def catalogue_delta(before, after):
             "fingerprints": fingerprints}
 
 
+def union_catalogue_deltas(*deltas):
+    """Retain work missed by earlier triggers, using the same current catalogue."""
+    fields = ("repositories", "changed_project_ids", "reset_project_ids", "left_github_project_ids",
+              "removed_project_ids", "membership_repositories")
+    merged = {"mode": "publication", **{field: sorted({value for delta in deltas
+              for value in delta.get(field, [])}) for field in fields}}
+    merged["fingerprints"] = {repo: fingerprint for delta in deltas
+                              for repo, fingerprint in delta["fingerprints"].items()}
+    return merged
+
+
 def load_scope():
     filename = os.environ.get("GITHUB_REFRESH_SCOPE_FILE")
     if not filename:
@@ -186,11 +197,11 @@ def main():
     event = json.loads(Path(event_path).read_text()) if event_path else {}
     base, head = select_base(os.environ.get("GITHUB_EVENT_NAME", ""), event,
                              os.environ.get("PUBLICATION_BASE", ""), os.environ.get("PUBLICATION_HEAD", ""))
+    current = json.loads(PROJECTS.read_text(encoding="utf-8"))
+    catalogue = json.loads(CATALOGUE.read_text(encoding="utf-8")) if CATALOGUE.exists() else {"projects": {}}
+    outstanding = catalogue_delta(list(catalogue.get("projects", {}).values()), current)
     if base is None:
-        catalogue = json.loads(CATALOGUE.read_text(encoding="utf-8")) if CATALOGUE.exists() else {"projects": {}}
-        publication = catalogue_delta(list(catalogue.get("projects", {}).values()),
-                                      json.loads(PROJECTS.read_text(encoding="utf-8")))
-        scope = {"mode": "adaptive", "publication": publication}
+        scope = {"mode": "adaptive", "publication": outstanding}
     else:
         if not all(re.fullmatch(r"[0-9a-fA-F]{40}", value) for value in (base, head)):
             raise ValueError("Publication revisions must be full commit SHAs")
@@ -201,7 +212,7 @@ def main():
             git("merge-base", "--is-ancestor", base, head)
             before = (json.loads(git("show", f"{base}:data/projects.json"))
                       if git("ls-tree", "--name-only", base, "--", "data/projects.json") else [])
-        scope = catalogue_delta(before, json.loads(PROJECTS.read_text(encoding="utf-8")))
+        scope = union_catalogue_deltas(catalogue_delta(before, current), outstanding)
         scope.update({"base": base, "head": head})
     Path(filename).write_text(json.dumps(scope, indent=2) + "\n", encoding="utf-8")
     work = scope.get("publication", scope)

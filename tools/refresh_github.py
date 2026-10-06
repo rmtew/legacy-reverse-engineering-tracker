@@ -42,6 +42,9 @@ RATE_LIMIT = None
 RATE_REMAINING = None
 RATE_RESET = None
 RATE_START_REMAINING = None
+PUBLICATION_REQUEST_LIMIT = None
+PUBLICATION_REQUESTS = 0
+PUBLICATION_ACTIVE = False
 FORCE_FULL_PROBE = os.environ.get("GITHUB_FORCE_FULL_PROBE", "").lower() == "true"
 
 AI_CONFIG = {
@@ -56,6 +59,20 @@ class RateStop(RuntimeError):
 class PrimaryReserve(RateStop):
     pass
 
+class PublicationBudget(RuntimeError):
+    """The adaptive publication slice is spent; ordinary probes may continue."""
+    pass
+
+
+def configure_publication_budget(adaptive):
+    global PUBLICATION_REQUEST_LIMIT, PUBLICATION_REQUESTS, PUBLICATION_ACTIVE
+    PUBLICATION_REQUESTS = 0
+    PUBLICATION_ACTIVE = False
+    available = max(0, MAX_HTTP_REQUESTS - REQUESTS)
+    if RATE_REMAINING is not None:
+        available = min(available, max(0, RATE_REMAINING - effective_reserve()))
+    PUBLICATION_REQUEST_LIMIT = min(1000, available // 4) if adaptive else None
+
 def effective_reserve():
     if RATE_LIMIT is None:
         return MIN_RESERVE
@@ -65,6 +82,7 @@ def effective_reserve():
 
 def update_rate(headers):
     global RATE_LIMIT, RATE_REMAINING, RATE_RESET, RATE_START_REMAINING
+    global PUBLICATION_REQUEST_LIMIT
     if not headers:
         return
     try:
@@ -78,6 +96,12 @@ def update_rate(headers):
             RATE_RESET = int(headers["X-RateLimit-Reset"])
     except (TypeError, ValueError):
         pass
+    if PUBLICATION_REQUEST_LIMIT is not None and RATE_REMAINING is not None:
+        # The first live response may reveal less quota than the initial guess.
+        # Include calls already spent, and only tighten the aggregate allowance.
+        available = max(0, RATE_REMAINING - effective_reserve())
+        PUBLICATION_REQUEST_LIMIT = min(PUBLICATION_REQUEST_LIMIT,
+                                        max(PUBLICATION_REQUESTS, (PUBLICATION_REQUESTS + available) // 4))
 
 def rate_snapshot():
     reset_at = None
@@ -239,7 +263,13 @@ def probe_order(repositories, state):
     return sorted(repositories, key=key)
 
 def api(path, *, etag=None, allow_404=False, allow_empty_repo=False):
-    global REQUESTS, NOT_MODIFIED, CONDITIONAL_REQUESTS
+    global REQUESTS, NOT_MODIFIED, CONDITIONAL_REQUESTS, PUBLICATION_REQUESTS
+    if (PUBLICATION_ACTIVE and PUBLICATION_REQUEST_LIMIT is not None
+            and PUBLICATION_REQUESTS >= PUBLICATION_REQUEST_LIMIT):
+        raise PublicationBudget(
+            f"adaptive publication metadata slice exhausted ({PUBLICATION_REQUESTS}/{PUBLICATION_REQUEST_LIMIT} requests); "
+            "metadata remains pending; use a publication-only refresh if this repeats"
+        )
     if REQUESTS >= MAX_HTTP_REQUESTS:
         raise RateStop(f"HTTP safety cap reached ({MAX_HTTP_REQUESTS})")
     # A conditional request only saves quota when it actually returns 304.
@@ -250,6 +280,8 @@ def api(path, *, etag=None, allow_404=False, allow_empty_repo=False):
         )
 
     REQUESTS += 1
+    if PUBLICATION_ACTIVE:
+        PUBLICATION_REQUESTS += 1
     if etag:
         CONDITIONAL_REQUESTS += 1
     headers = {
@@ -468,7 +500,7 @@ def fill_missing_latest_commits(repos, state, request=None, *, required=False):
     return checked, found, unavailable
 
 def main():
-    global RATE_LIMIT, RATE_REMAINING, RATE_RESET
+    global RATE_LIMIT, RATE_REMAINING, RATE_RESET, PUBLICATION_ACTIVE
     records = json.loads(PROJECTS.read_text(encoding="utf-8"))
     state = load_state()
     previous_rate = (state.get("rate") or {}).get("probe") or {}
@@ -484,10 +516,11 @@ def main():
             repos.setdefault(repo, []).append(record)
 
     scope = load_scope()
+    configure_publication_budget(scope["mode"] == "adaptive")
     prepare_publication(repos, state, scope, records)
     repos = select_repositories(repos, scope)
 
-    probed = changed_count = requested = skipped = 0
+    probed = changed_count = requested = skipped = deferred_publications = 0
     stopped = None
     bootstrap_state = not bool(state["repositories"])
 
@@ -497,6 +530,10 @@ def main():
         new_repo = repo not in state["repositories"]
         rs = state["repositories"].setdefault(repo, {})
         required = pending_publication(rs)
+        PUBLICATION_ACTIVE = required and scope["mode"] == "adaptive"
+        if PUBLICATION_ACTIVE and PUBLICATION_REQUESTS >= PUBLICATION_REQUEST_LIMIT:
+            deferred_publications += 1
+            continue
         metadata_required = required and not rs["publication"].get("metadata_complete")
         rs.setdefault("first_seen_at", RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z"))
         if new_repo and not bootstrap_state:
@@ -532,6 +569,11 @@ def main():
 
         try:
             info, headers, status = get_json(f"/repos/{repo}", etag=None if metadata_required else rs.get("etag"))
+        except PublicationBudget as exc:
+            deferred_publications += 1
+            rs["last_error"] = str(exc)
+            print(f"PUBLICATION DEFERRED before {repo}: {exc}", file=sys.stderr)
+            continue
         except RateStop as exc:
             stopped = str(exc)
             print(f"RATE STOP before {repo}: {exc}", file=sys.stderr)
@@ -594,6 +636,10 @@ def main():
                         rs.pop("empty_languages_checked_at", None)
                     if any(not p.get("github_path") for p in repo_projects):
                         rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
+                except PublicationBudget as exc:
+                    deferred_publications += 1
+                    rs["last_error"] = str(exc)
+                    print(f"PUBLICATION DEFERRED while enriching {repo}: {exc}", file=sys.stderr)
                 except PrimaryReserve as exc:
                     if required:
                         rs["last_error"] = str(exc)[:400]
@@ -640,6 +686,7 @@ def main():
         if stopped:
             break
 
+    PUBLICATION_ACTIVE = False
     ordinary_repos = {repo: projects for repo, projects in repos.items()
                       if not pending_publication(state["repositories"].get(repo, {}))}
     history_checked, history_found, history_unavailable = fill_missing_latest_commits(ordinary_repos, state)
@@ -655,6 +702,8 @@ def main():
     print(
         f"Probed {probed}/{len(repos)} repositories ({skipped} deferred by cadence); "
         f"detected {changed_count} pushed changes; "
+        f"{deferred_publications} publications deferred by adaptive metadata slice "
+        f"({PUBLICATION_REQUESTS}/{PUBLICATION_REQUEST_LIMIT if PUBLICATION_REQUEST_LIMIT is not None else 'unrestricted'} requests); "
         f"requested {requested} deep scans; made {REQUESTS} HTTP requests "
         f"({NOT_MODIFIED} returned 304); checked {history_checked} missing historical heads "
         f"({history_found} project dates found, {history_unavailable} unavailable); primary remaining "

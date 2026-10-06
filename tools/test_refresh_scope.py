@@ -186,7 +186,9 @@ class CatalogueScopeTest(unittest.TestCase):
             # Include the actual result of merging pending entries after checkout.
             path.write_text(json.dumps(json.loads(path.read_text()) + [project("pending", "pending/repo")]))
             manifest = root / "scope.json"
-            with patch.multiple(scope, ROOT=root, PROJECTS=path), patch.dict(os.environ, {
+            catalogue = root / "catalogue.json"
+            catalogue.write_text(json.dumps({"projects": {"old": scope.material(project("old"))}}))
+            with patch.multiple(scope, ROOT=root, PROJECTS=path, CATALOGUE=catalogue), patch.dict(os.environ, {
                     "GITHUB_EVENT_NAME": "workflow_dispatch", "PUBLICATION_BASE": base,
                     "PUBLICATION_HEAD": head, "GITHUB_EVENT_PATH": "", "GITHUB_REFRESH_SCOPE_FILE": str(manifest)}), \
                     patch("sys.argv", ["refresh_scope.py"]):
@@ -194,6 +196,74 @@ class CatalogueScopeTest(unittest.TestCase):
             result = json.loads(manifest.read_text())
             self.assertEqual(result["base"], base)
             self.assertEqual(result["repositories"], ["later/repo", "new/repo", "pending/repo"])
+
+    def test_later_code_only_push_and_dispatch_recover_unrecorded_publication(self):
+        for event_name in ("push", "workflow_dispatch"):
+            with self.subTest(event_name=event_name), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                (root / "data").mkdir()
+                path = root / "data/projects.json"
+                old, new = project("old", "old/repo"), project("new", "new/repo")
+                def git(*args):
+                    return subprocess.check_output(["git", *args], cwd=root, text=True, stderr=subprocess.DEVNULL).strip()
+                git("init")
+                git("config", "user.name", "Test")
+                git("config", "user.email", "test@example.com")
+                path.write_text(json.dumps([old]))
+                git("add", ".")
+                git("commit", "-m", "original catalogue")
+                catalogue = root / "catalogue.json"
+                catalogue.write_text(json.dumps({"projects": {"old": scope.material(old)}}))
+                path.write_text(json.dumps([old, new]))
+                git("add", "data/projects.json")
+                git("commit", "-m", "A: publication whose refresh did not run")
+                base = git("rev-parse", "HEAD")
+                (root / "code.py").write_text("# B: unrelated code change\n")
+                git("add", "code.py")
+                git("commit", "-m", "B: code-only push")
+                head = git("rev-parse", "HEAD")
+                event = root / "event.json"
+                event.write_text(json.dumps({"before": base, "after": head}))
+                manifest = root / "scope.json"
+                with patch.multiple(scope, ROOT=root, PROJECTS=path, CATALOGUE=catalogue), patch.dict(os.environ, {
+                        "GITHUB_EVENT_NAME": event_name, "GITHUB_EVENT_PATH": str(event),
+                        "PUBLICATION_BASE": base if event_name == "workflow_dispatch" else "",
+                        "PUBLICATION_HEAD": head if event_name == "workflow_dispatch" else "",
+                        "GITHUB_REFRESH_SCOPE_FILE": str(manifest)}), patch("sys.argv", ["refresh_scope.py"]):
+                    scope.main()
+                selected = json.loads(manifest.read_text())
+                self.assertEqual(selected["repositories"], ["new/repo"])
+                self.assertEqual(selected["reset_project_ids"], ["new"])
+                state = {"repositories": {}}
+                scope.prepare_publication({"old/repo": [old], "new/repo": [new]}, state, selected, [old, new])
+                # Even after the ordinary recorder advances its snapshot, the
+                # missed publication cannot deploy until both phases finish.
+                recorded = {"projects": {p["id"]: scope.material(p) for p in (old, new)}}
+                with self.assertRaises(SystemExit):
+                    scope.check_publishable(state, [old, new], recorded)
+                state["repositories"]["new/repo"]["publication"]["metadata_complete"] = True
+                with self.assertRaises(SystemExit):
+                    scope.check_publishable(state, [old, new], recorded)
+                state["repositories"]["new/repo"]["publication"]["history_complete"] = True
+                scope.check_publishable(state, [old, new], recorded)
+
+    def test_delta_union_preserves_old_membership_moves_deletions_and_fingerprints(self):
+        persisted = [project("move", "old/repo"), project("gone", "gone/repo"),
+                     project("path", "path/repo", github_path="old"), project("left", "left/repo")]
+        current = [project("move", "new/repo"), project("path", "path/repo", github_path="new"),
+                   {**project("left"), "repo": "https://gitlab.com/left/repo"}, project("added", "added/repo")]
+        # The triggering event remembers a different prior repository than the
+        # persisted catalogue; both obsolete memberships must be cleaned up.
+        event_before = [{**p, "repo": "https://github.com/intermediate/repo"} if p["id"] == "move" else p
+                        for p in current]
+        outstanding = scope.catalogue_delta(persisted, current)
+        event = scope.catalogue_delta(event_before, current)
+        merged = scope.union_catalogue_deltas(event, outstanding)
+        self.assertEqual(merged["reset_project_ids"], ["added", "left", "move", "path"])
+        self.assertEqual(merged["removed_project_ids"], ["gone"])
+        self.assertEqual(merged["left_github_project_ids"], ["left"])
+        self.assertTrue({"old/repo", "intermediate/repo", "gone/repo", "left/repo"} <= set(merged["membership_repositories"]))
+        self.assertEqual(merged["fingerprints"], outstanding["fingerprints"])
 
 
 class PublicationPipelineTest(unittest.TestCase):
@@ -376,7 +446,70 @@ class PublicationPipelineTest(unittest.TestCase):
         self.assertFalse(rs["publication"]["metadata_complete"])
         self.assertTrue(rs["scan_requested"])
 
+    def test_many_historical_heads_share_metadata_slice_and_ordinary_probe_continues(self):
+        self.check_metadata_slice(40, False)
+
+    def test_unknown_quota_metadata_slice_tightens_on_live_headers_and_ordinary_probe_continues(self):
+        self.check_metadata_slice(4000, True)
+
+    def check_metadata_slice(self, http_cap, live_quota):
+        old, _ = self.seed()
+        old["github"]["languages"] = ["C"]
+        paths = [project("path-" + str(index), github_path="path-" + str(index)) for index in range(20)]
+        other = project("other", "z/pending", github_path="other")
+        records = [old, *paths, other]
+        self.projects.write_text(json.dumps(records))
+        delta = scope.catalogue_delta([old], records)
+        self.manifest.write_text(json.dumps({"mode": "adaptive", "publication": delta}))
+        state = json.loads(self.state.read_text())
+        state["repositories"]["unrelated/repo"]["last_release_check_at"] = NOW_ISO
+        self.state.write_text(json.dumps(state))
+        requests = []
+        class Response(io.BytesIO):
+            status = 200
+            headers = {}
+        def network(request, **kwargs):
+            url = request.full_url
+            requests.append(url)
+            self.assertNotIn("z/pending", url, "Each pending repository must share the same metadata slice")
+            if "/languages" in url:
+                payload = {"C": 100}
+            elif "/contents?" in url:
+                payload = []
+            elif "/commits?" in url:
+                payload = [commit()]
+            else:
+                payload = {"default_branch": "main", "pushed_at": "2026-08-01T00:00:00Z"}
+            response = Response(json.dumps(payload).encode())
+            if live_quota:
+                response.headers = {"X-RateLimit-Limit": "5000", "X-RateLimit-Remaining": str(291 - len(requests))}
+            return response
+        with patch.multiple(refresh, REQUESTS=0, MAX_HTTP_REQUESTS=http_cap, REQUEST_DELAY=0), \
+                patch.object(refresh, "urlopen", side_effect=network):
+            refresh.main()
+            self.assertEqual(refresh.PUBLICATION_REQUEST_LIMIT, 10)
+            self.assertEqual(refresh.PUBLICATION_REQUESTS, 10)
+            self.assertEqual(refresh.REQUESTS, 11)
+        state = json.loads(self.state.read_text())
+        pending = state["repositories"]["owner/repo"]
+        self.assertFalse(pending["publication"]["metadata_complete"])
+        self.assertFalse(pending["publication"]["history_complete"])
+        self.assertTrue(pending["scan_requested"])
+        self.assertIn("publication-only refresh", pending["last_error"])
+        self.assertEqual(state["repositories"]["unrelated/repo"]["last_probe_at"], NOW_ISO)
+        self.assertEqual(sum("unrelated/repo" in url for url in requests), 1)
+        self.assertEqual(sum("/commits?" in url for url in requests), 7)
+        self.assertTrue(scope.pending_publication(state["repositories"]["z/pending"]))
+        with self.assertRaises(SystemExit):
+            scope.check_complete(delta, state)
+
     def test_oversized_publications_share_adaptive_slice_and_ordinary_work_continues(self):
+        self.check_history_slice(12, False)
+
+    def test_unknown_quota_history_slice_tightens_on_live_headers_and_ordinary_scan_continues(self):
+        self.check_history_slice(4000, True)
+
+    def check_history_slice(self, http_cap, live_quota):
         self.seed()
         projects = json.loads(self.projects.read_text()) + [project("other", "other/pending")]
         self.projects.write_text(json.dumps(projects))
@@ -405,8 +538,11 @@ class PublicationPipelineTest(unittest.TestCase):
             else:
                 page = int(parse_qs(urlparse(url).query)["page"][0])
                 payload = [commit(f"huge-{page}-{index}") for index in range(100)]
-            return Response(json.dumps(payload).encode())
-        with patch.multiple(collector, REQUESTS=0, MAX_HTTP_REQUESTS=12, REQUEST_DELAY=0), \
+            response = Response(json.dumps(payload).encode())
+            if live_quota:
+                response.headers = {"X-RateLimit-Limit": "5000", "X-RateLimit-Remaining": str(263 - len(requests))}
+            return response
+        with patch.multiple(collector, REQUESTS=0, MAX_HTTP_REQUESTS=http_cap, REQUEST_DELAY=0), \
                 patch.object(collector, "urlopen", side_effect=network):
             collector.main()
             self.assertEqual(collector.PUBLICATION_REQUEST_LIMIT, 3)
@@ -485,15 +621,30 @@ class CompletePaginationTest(unittest.TestCase):
 
 class RequestBudgetTest(unittest.TestCase):
     def test_adaptive_slice_uses_remaining_quota_and_publication_only_is_unrestricted(self):
-        with patch.multiple(collector, REQUESTS=0, MAX_HTTP_REQUESTS=4000, RATE_LIMIT=5000, RATE_REMAINING=650):
-            collector.configure_publication_budget(True)
-            self.assertEqual(collector.PUBLICATION_REQUEST_LIMIT, 100)
-            collector.configure_publication_budget(False)
-            self.assertIsNone(collector.PUBLICATION_REQUEST_LIMIT)
-        with patch.multiple(collector, REQUESTS=0, MAX_HTTP_REQUESTS=10000, RATE_REMAINING=None):
-            collector.configure_publication_budget(True)
-            self.assertEqual(collector.PUBLICATION_REQUEST_LIMIT, 1000)
-        collector.configure_publication_budget(False)
+        for module in (refresh, collector):
+            with patch.multiple(module, REQUESTS=0, MAX_HTTP_REQUESTS=4000, RATE_LIMIT=5000, RATE_REMAINING=650):
+                module.configure_publication_budget(True)
+                self.assertEqual(module.PUBLICATION_REQUEST_LIMIT, 100)
+                module.configure_publication_budget(False)
+                self.assertIsNone(module.PUBLICATION_REQUEST_LIMIT)
+            with patch.multiple(module, REQUESTS=0, MAX_HTTP_REQUESTS=10000, RATE_REMAINING=None):
+                module.configure_publication_budget(True)
+                self.assertEqual(module.PUBLICATION_REQUEST_LIMIT, 1000)
+            module.configure_publication_budget(False)
+
+    def test_live_quota_changes_can_only_tighten_the_adaptive_slice(self):
+        for module in (refresh, collector):
+            with patch.multiple(module, REQUESTS=0, MAX_HTTP_REQUESTS=4000, RATE_LIMIT=None, RATE_REMAINING=None):
+                module.configure_publication_budget(True)
+                self.assertEqual(module.PUBLICATION_REQUEST_LIMIT, 1000)
+                module.PUBLICATION_REQUESTS = 1
+                module.update_rate({"X-RateLimit-Limit": "5000", "X-RateLimit-Remaining": "290"})
+                self.assertEqual(module.PUBLICATION_REQUEST_LIMIT, 10)
+                module.update_rate({"X-RateLimit-Limit": "5000", "X-RateLimit-Remaining": "4000"})
+                self.assertEqual(module.PUBLICATION_REQUEST_LIMIT, 10)
+                module.update_rate({"X-RateLimit-Limit": "5000", "X-RateLimit-Remaining": "270"})
+                self.assertEqual(module.PUBLICATION_REQUEST_LIMIT, 5)
+                module.configure_publication_budget(False)
 
     def test_complete_pagination_is_still_bounded_by_http_and_rate_guards(self):
         for module in (refresh, collector):

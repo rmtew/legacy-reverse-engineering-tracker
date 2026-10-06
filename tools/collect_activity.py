@@ -104,6 +104,7 @@ def effective_reserve():
 
 def update_rate(headers):
     global RATE_LIMIT, RATE_REMAINING, RATE_RESET
+    global PUBLICATION_REQUEST_LIMIT
     if not headers:
         return
     try:
@@ -115,6 +116,12 @@ def update_rate(headers):
             RATE_RESET = int(headers["X-RateLimit-Reset"])
     except (TypeError, ValueError):
         pass
+    if PUBLICATION_REQUEST_LIMIT is not None and RATE_REMAINING is not None:
+        # The first live response may reveal less quota than the initial guess.
+        # Include calls already spent, and only tighten the aggregate allowance.
+        available = max(0, RATE_REMAINING - effective_reserve())
+        PUBLICATION_REQUEST_LIMIT = min(PUBLICATION_REQUEST_LIMIT,
+                                        max(PUBLICATION_REQUESTS, (PUBLICATION_REQUESTS + available) // 4))
 
 def load_rate_from_state(state):
     global RATE_LIMIT, RATE_REMAINING, RATE_RESET
