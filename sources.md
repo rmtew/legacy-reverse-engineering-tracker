@@ -4,6 +4,50 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/ptitSeb/stuntcarremake | Stunt Car Racer Remake — source-derived portable reconstruction; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/tuxpuck-amiga | TuxPuck Amiga — native m68k SDL game port; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/airstrike-amiga | Airstrike Amiga — native RTG dogfighting port; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/jzintv-amiga | jzIntv Amiga — native Intellivision emulator port; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/VControlGUI | VControlGUI — Amiga Vampire accelerator control panel; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/AmigaFontEditor | AmigaFontEditor — browser-based Amiga font and asset tools; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/AmigaPouetDownloader | AmigaPouetDownloader — ARexx release organizer and relay; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Ozzyboshi/alsfsAmigaServer | ALSFS — Amiga/Linux serial filesystem suite; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/weiju/fatma | Fatma — Amiga keymap Hunk-file editor; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/weiju/amigados-utils | amigados-utils — Amiga disk and Hunk development tools; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/weiju/dmpp | DMPP — Amiga hardware research and visual emulator; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/wertstahl/blitzways | BlitzWays — original Amiga tile-puzzle source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/xet7/notegame | Notegame — original Amiga music-symbol game and editor; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/GalagaC64 | Galaga: native C64 arcade adaptation source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/GalaxianC64 | Galaxian: native C64 arcade adaptation source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/Megamania-C64- | Megamania: native C64 adaptation source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/PaperPlanesC64 | Paper Planes: native C64 port source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/Fire-Game-Watch | Fire: native C64 Game & Watch adaptation source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/10x10-C64- | 10x10: native C64 puzzle-game source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/Infinite-Space-C64- | Infinite Space: native C64 shooter source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/Merge64 | Merge64: native C64 block-merging game source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/SnoutAbout_C64 | Snout About: native C64 competition-game source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/1888games/OyupOyup | OYUP!: native C64 Puyo-inspired game source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/hayesmaker/marios-cement-factory-64 | Mario’s Cement Factory: native C64 game source; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/OldSkoolCoder/NeptuneLander | Neptune Lander: unfinished native C64 tutorial game; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/SPixs/ModPlayer | MOD Player: Java Amiga tracker-format playback; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/GeorgRottensteiner/Painter | Painter: Windows image editor with Amiga ILBM support; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/Esshahn/spritemate | Spritemate: C64 sprite editor and snapshot tools; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/AmiFTP | AmiFTP 2 — restored native Amiga FTP client; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/ifftools | IFFTools — native Amiga image and audio converters; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/BGUI | BGUI — preserved Amiga BOOPSI GUI framework; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/ClassAction | ClassAction — restored Amiga file manager; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/gtlayout.library | gtlayout.library — preserved Amiga GadTools layout toolkit; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/iffparse | iffparse and iffar — Amiga IFF inspection and archive tools; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/amigazen/LZXa | LZXa — Amiga LZX-compatible archive reimplementation; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/AmigaPorts/SDL | SDL — native PowerPC AmigaOS4 multimedia port; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/AmigaPorts/ilbmtoicon | ILBMToIcon — Amiga icon-format converter; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/AmigaPorts/camd-i2c-driver | CAMD I2C — native Amiga MIDI transmit driver; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/BlitterStudio/poseidon-usb | Poseidon USB — standalone AmigaOS3 source restoration; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/BlitterStudio/zz9000-drivers | ZZ9000 — native AmigaOS driver suite; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/djh0ffman/ProTrackerTools | ProTrackerTools — Amiga MOD optimization and conversion; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/djh0ffman/Wav2Amiga | wav2amiga — ProTracker sample preparation; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/djh0ffman/TTETrackLoaders | TTE Track Loaders — native Amiga floppy loading; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
+| https://github.com/djh0ffman/TTEDiskBuilder | TTE Disk Builder — Amiga bootable ADF authoring; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/MichaelSinz/AmigaEnforcer | Amiga Enforcer — original MMU memory-debugging suite; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/PlummersSoftwareLLC/HyperCacheAmiga | HyperCache Amiga — recovered disk-cache source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/evaneykelen/mediapoint-amiga | MediaPoint — original Amiga multimedia authoring source; third focused Amiga/C64 source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |

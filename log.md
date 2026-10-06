@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-06 — Fourth focused Amiga/C64 pass: 44 approved projects
+
+Added **44 approved source-reviewed projects**, taking the catalogue from 1,621 to **1,665**, with 352 evidence-backed audit areas. Nine holds, twelve lineage/component references and two exclusions remain unpromoted. Coverage: 24 repository-search attempts, 23 fresh exact query/page pairs, one disclosed repeat and 414 screened roots; four search failures and no capped pages.
+
+Highlights include Stunt Car Racer Remake, BlitzWays, Notegame, native Amiga ports, Galaga/Galaxian/Megamania and other C64 games, ClassAction restoration, LZXa, Poseidon USB, ZZ9000 drivers and Amiga/C64 format tooling. Hardware/runtime roles, incomplete builds/resources, restrictive licenses/assets and narrowly evidenced Codex review credit remain explicit.
+
+No candidate builds or app/workflow changes. All build flags remain unknown. See [full audits, sources, queries and decisions](docs/focused-amiga-c64-round4-44-2026-10-06.md). Metadata refresh and actual Pages deployment are verified separately.
+
 ## 2026-10-06 — Third focused Amiga/C64 pass: 53 approved projects
 
 Added **53 approved, source-reviewed projects**, bringing the catalogue from 1,568 to **1,621**, with 424 evidence-backed audit areas. Three holds and eleven lineage/reference decisions remain non-promoted. Coverage: 25 repository-search attempts, 177 screened roots, 59 primary reviews and eight lineage-only lookups. Five failed queries are disclosed; no capped pages or new platform labels.
