@@ -1633,11 +1633,7 @@ Project ID: pom2games-native-apple-ii-collection · Overall audit: reviewed
 {
   "ai": {
     "evidence": [
-      {
-        "kind": "commit-co-author",
-        "text": "The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI.",
-        "url": "https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288"
-      }
+      "The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Evidence: https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288"
     ],
     "tools": [
       "Claude"
@@ -3264,11 +3260,7 @@ Project ID: speedway-varona-applesoft-adaptation · Overall audit: reviewed
 {
   "ai": {
     "evidence": [
-      {
-        "kind": "readme-disclosure",
-        "text": "README explicitly credits \"Asistencia de desarrollo: Claude (Anthropic)\". ai.usage=true and tools=[Claude] reflect that direct development-assistance disclosure, not inference from code style.",
-        "url": "https://github.com/nvarona/speedway-apple-ii/blob/cbee406056b1db148d9f8ee5287d3c466f35c52f/README.md"
-      }
+      "README explicitly credits \"Asistencia de desarrollo: Claude (Anthropic)\". ai.usage=true and tools=[Claude] reflect that direct development-assistance disclosure, not inference from code style. Evidence: https://github.com/nvarona/speedway-apple-ii/blob/cbee406056b1db148d9f8ee5287d3c466f35c52f/README.md"
     ],
     "tools": [
       "Claude"
