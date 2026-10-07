@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-07T02:46:10Z",
+  "updated_at": "2026-10-07T04:45:37Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -865,6 +865,75 @@
         "SDK"
       ],
       "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builder emits 6510/6502 assembly for 64tass; example JSON and guides are included. Mode 8 has no wall UV textures or room-over-room, and is not the historical character-cell renderer. Upstream qualifies stock VICE x64sc; real hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0. The repository documents Codex-assisted use of the SDK, not independently verified AI authorship of the engine.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "3tris-html5-francescom": {
+      "id": "3tris-html5-francescom",
+      "title": "3Tris",
+      "upstream_name": "3Tris",
+      "display_title": "3Tris: HTML5 recreation of the Macintosh 68k puzzle game",
+      "subjects": [
+        "3Tris"
+      ],
+      "repo": "https://github.com/francescom/3Tris",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "Web browser"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Documented HTML5 browser edition",
+          "platform": "Web browser",
+          "notes": "Historical author claims include IE9+, Firefox, Chrome, Safari and iOS devices; Android explicitly untested. No current browser or hardware minimum independently verified.",
+          "evidence": [
+            "https://github.com/francescom/3Tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/README.md",
+            "https://github.com/francescom/3Tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/index.html"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "browser remake",
+        "3D puzzle-game reimplementation"
+      ],
+      "re_started": null,
+      "status": "HTML5/JavaScript game source and media; documented polygon-depth bug; runtime untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: The maintainer identifies this as HTML5 3Tris and explicitly links its original Macintosh 68K predecessor. The implemented JavaScript game includes a 3D block grid, eight shape types, timed descent, rotations, placement collision, filled-plane clearing, score/level progression and game over, with separate device-oriented pages. Classification: A browser JavaScript recreation with its own Canvas/3D rendering and input code. The inspected gameplay uses direct grid and shape logic, not emulation of Macintosh CPU or Toolbox calls. No binary-derived recovery method or original source translation is asserted. Source CPU: README explicitly calls the predecessor a Macintosh 68K game, establishing m68k historical ancestry. No original binary was inspected and no more precise 680x0 minimum or PowerPC edition is inferred. The README’s broad decade wording is not used as an exact release date. Target CPU: The output is HTML5/JavaScript executed by a browser. The inspected pages load local scripts and media; they do not establish a native output ISA. The historical m68k ancestry is not copied into target_cpu. Build: The tree provides directly served HTML/JavaScript, Canvas support code, audio in Ogg/MP3, image assets and a PHP endpoint serving the application-cache manifest; no transpiler or package-managed build is specified. README explicitly notes an unresolved polygon-distance visualization bug and says Android was untested. The current behavior of obsolete app-cache/browser paths has not been checked. Limitations: No dependency installation, game compilation, tests, launch, gameplay, hardware check or binary comparison was performed. All build-verification flags remain null. Runtime profiles: README lists iPhone/iPod/iPad, IE9, Firefox, Chrome and Safari compatibility, while index.html requires an HTML5-capable browser and excludes Internet Explorer below 9. These are historical author claims, with no current-version test, hardware floor or numeric RAM minimum. AI: The inspected README and complete available 7-commit message history contain no explicit development-AI disclosure or assistant co-author trailer. This does not establish non-use; age, coding style and filenames are not AI evidence. Relationships: A single browser game with fast/slow/iOS layouts, not separate implementations per page. It has no root LICENSE; index.html says source may be used by anyone, which is an informal source-use statement rather than a standard license or established grant for every bundled sound/image. No matching root or 3Tris lineage was found in the current catalogue/prior-review union. The original-author website link could not be fetched, so authorship beyond the repository’s primary description is not assumed. Evidence: https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/README.md https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/jsinc/3tris.js https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/index.html https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/jsinc/3tris_draw.js https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/jsinc/js_3d_engine.js https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/fast.html https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/manifest.php https://github.com/francescom/3tris/blob/3b991a89dcb435d5333ec842e01f107424686a28/jsinc/scoresaver.js https://github.com/francescom/3Tris/commit/3b991a89dcb435d5333ec842e01f107424686a28",
       "ai": {
         "usage": null,
         "tools": []
@@ -17972,6 +18041,70 @@
         "tools": []
       }
     },
+    "battlechess-macintosh-native-recompilation": {
+      "id": "battlechess-macintosh-native-recompilation",
+      "title": "Battle Chess",
+      "upstream_name": "BattleChess",
+      "display_title": "Battle Chess: Macintosh 68k recovery to native C/C++",
+      "subjects": [
+        "Battle Chess"
+      ],
+      "repo": "https://github.com/myaumura/BattleChess",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "macOS",
+        "Linux"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "native recompilation",
+        "game reconstruction"
+      ],
+      "re_started": null,
+      "status": "Substantial native game recovery; external data/extraction tooling required and original parity incomplete",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: Unofficial native recompilation of Macintosh Battle Chess. docs/DATA.md identifies the exact recovery baseline as MacPlay Battle Chess 1.0.2, with an embedded 1988–93 Interplay notice; the general 1991 release label does not date that exact binary. Reviewed code includes legal moves, piece lists, saves, animation sequencing, game sessions and native UI. Classification: Binary-derived recovery into a C11 engine and C++17/SDL3 host, explicitly not a clean-room project. recovered_core.c translates original file-offset routines into host-valued structs rather than a mapped 68k memory image; animation.c retains original routine provenance beside native helpers, while QuickDrawControl.cpp recreates controls through SDL. No guest-CPU interpreter is in these inspected game/host paths. Source CPU: README and the data contract explicitly identify Motorola 68k Macintosh as the original recovered executable. The source preserves A5-global and original file-offset provenance. No later PowerPC source release is claimed or inferred. Target CPU: Build instructions use the compiler’s normal host architecture on modern macOS/Linux; CMake declares C11/C++17 and SDL3 without a fixed ISA. The modern native output is therefore not recorded as m68k or as a guessed x86/ARM family. Build: CMake 3.20 and C11/C++17 build a source-only core by default; the application additionally needs SDL3 3.4 and a matching external prepared data pack. CMake checks for generated catalogs, animation pixels, a 32,000-byte opening book and assets. The repository intentionally omits original resources and the extraction scripts needed to create the pack. Upstream dated test and playability claims are reported separately from verification here. Limitations: No dependency installation, game compilation, tests, launch, gameplay, hardware check or binary comparison was performed. All build-verification flags remain null. Original idle-animation triggering, timing/audio, computer choices, save exchange and modem interoperability remain incomplete or unverified upstream. Runtime profiles: The application needs a desktop video/audio environment supported by SDL3 and the matching external data pack. No exact minimum CPU, RAM, macOS version or Linux distribution is established. Original Macintosh source architecture and dummy-driver smoke tests are not host runtime minima. AI: The inspected README and complete available 11-commit message history contain no explicit development-AI disclosure or assistant co-author trailer. This does not establish non-use; age, coding style and filenames are not AI evidence. Limitations: NOTICE describes the icon as generated artwork but does not name an AI system; its linked resources/ICON.md is absent from the pinned tree. Neither that wording nor a filename establishes development-AI usage. Relationships: The inspected root is a distinct Macintosh recovery, not a clone of an existing Battle Chess catalogue record. MIT covers contributions only to the extent contributors can license them; NOTICE excludes original code/data, Apple fonts and other third-party material. Screenshots contain original artwork, while required data and the separate recovery workspace are not distributed. No public URL for the omitted extraction toolchain is supplied in the inspected data contract. Evidence: https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/README.md https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/docs/DATA.md https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/lib/recovered_core.c https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/lib/Game.c https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/lib/animation.c https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/src/QuickDrawControl.cpp https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/config/build.cmake https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/docs/BUILD.md https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/docs/ROADMAP.md https://github.com/myaumura/BattleChess/commit/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/NOTICE https://github.com/myaumura/battlechess/blob/fc9211d7e6a5409f8d01d35cd018494d76ca9d0d/LICENSE",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "battle-city-browser-reconstruction": {
       "id": "battle-city-browser-reconstruction",
       "title": "Battle City — Famicom 6502 analysis and browser reimplementation",
@@ -18998,6 +19131,86 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "beast-mac-pascal-swift-reconstruction": {
+      "id": "beast-mac-pascal-swift-reconstruction",
+      "title": "Beast 1.0",
+      "upstream_name": "beasties-macos-port",
+      "display_title": "Beast 1.0: 68000-to-Pascal reconstruction and native Swift port",
+      "subjects": [
+        "Beast 1.0"
+      ],
+      "repo": "https://github.com/RoyTinker/beasties-macos-port",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "macOS"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "ARM64",
+        "x86-64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Declared modern native output",
+          "platform": "macOS",
+          "os": "macOS 14 or later",
+          "notes": "Swift tools 5.9 manifest; arm64 and x86_64 universal build. No independent run or numeric RAM floor established.",
+          "evidence": [
+            "https://github.com/RoyTinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/Package.swift",
+            "https://github.com/RoyTinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/build-app.sh"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Pascal",
+        "m68k assembly"
+      ],
+      "reconstructed_languages": [
+        "Pascal",
+        "Swift"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "decompilation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Pascal reconstruction and Swift native port"
+      ],
+      "re_started": null,
+      "status": "Annotated 68000 disassembly, reconstructed Pascal and Swift/AppKit game; port fidelity unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: Preserves and reconstructs Chuck Shotton/BIAP Systems’ 1989 Beast 1.0. The game’s CODE resources, Pascal routines and Swift board logic are present, with movement, block pushing, enemy pursuit, win/loss and settings. Classification: Annotated 68000 disassembly was lifted into Pascal and translated routine by routine into Swift. The AppKit shell calls native game logic; its PICT interpreter decodes graphics commands, not CPU instructions or Macintosh hardware. Treat as binary-derived reconstruction and native port, not original-author source. Source CPU: The CODE 2 listing contains Motorola address/data registers, 68000 opcodes and Macintosh A-line Toolbox traps. Reconstructed Pascal preserves CODE offsets and A5 globals. This establishes m68k input independently of a generic classic-Mac label. Target CPU: build-app.sh explicitly requests arm64 and x86_64 Swift builds. These are native modern Mac outputs; retained 68000 disassembly is an input artifact and does not imply a rebuilt classic-Mac target. Build: SwiftPM defines BeastCore, the AppKit executable and a test target; the shell script packages resources and applies an ad-hoc signature. Original resource data and generated artwork are included. No Pascal rebuild recipe or complete-game equivalence test was established. Limitations: No game was compiled, launched, played, hardware-tested or byte-compared. All independent verification flags remain unknown. Runtime profiles: Package.swift declares macOS 14 and Swift tools 5.9. The native shell uses a 60 Hz timer and original-sized board coordinates. QDRandom explicitly has not been checked against a real ROM; documentation lists deliberate menu, storage, input, zoom and safety changes. No precise historic OS/RAM minimum is claimed. AI: Actual implementation commit 8729de48 adds the Swift game, shell and build files and includes an explicit Claude coauthor trailer. Its model label is recorded only as an upstream attribution, not independent model-version verification. Nine available commit messages were inspected. Relationships: One reconstruction lineage covers its disassembly, Pascal and Swift stages. No matching Beast lineage appears in the catalogue or prior-review union. The Swift port is MIT licensed, except original-derived Artwork.swift and AppIcon.icns; the original application, disassembly and art retain Chuck Shotton/BIAP rights. Evidence: https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/README.md https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/src/Beast.p https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/Sources/BeastCore/BeastGame.swift https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/disasm/CODE_2.s https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/Sources/Beast/PICT.swift https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/Sources/Beast/AppDelegate.swift https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/build-app.sh https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/Package.swift https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/Sources/BeastCore/QDRandom.swift https://github.com/RoyTinker/beasties-macos-port/commit/8729de48e467dc2ac9460a11deca0911f4b8b752 https://github.com/roytinker/beasties-macos-port/blob/14b329202f25e01181c8d51b3ecb9d22682f0a17/port/LICENSE",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "beeb-port-kit-c64-to-bbc": {
@@ -47300,6 +47513,66 @@
         "tools": []
       }
     },
+    "galactic-empire-minimicro-joestrout": {
+      "id": "galactic-empire-minimicro-joestrout",
+      "title": "Galactic Empire — Mini Micro recreation",
+      "upstream_name": "Galactic Empire",
+      "display_title": "Galactic Empire — Mini Micro recreation",
+      "subjects": [
+        "Galactic Empire (Cary Torkelson)"
+      ],
+      "repo": "https://github.com/JoeStrout/galactic-empire",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "Mini Micro",
+        "Web browser"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "MiniScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game remake"
+      ],
+      "re_started": null,
+      "status": "Recreation and extension with source and assets; static review only",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Macintosh",
+        "68k ancestry",
+        "static review"
+      ],
+      "notes": "Identity: README identifies an open-source recreation/extension of Cary Torkelson’s Mac shareware game, with explicit instructions for playing the original. The repository preserves reference screenshots and original help alongside a separate MiniScript implementation. Classification: Independent MiniScript recreation/extension. main.ms implements the 20-planet galaxy, fleet travel, spying, combat/occupation, resources and the 1200-year win/loss deadline; gameRules.ms provides technology-dependent combat and force-generation rules. This is concrete gameplay source, not a description-only or emulator-wrapper listing. Source CPU: The preserved original GE-Help.text explicitly supports digitized sound on System 6.0.2 and later and color graphics on System 6.0.4 with Color QuickDraw, plus a 320K monochrome allocation. m68k ancestry is inferred from those original System 6 execution requirements, which predate PowerPC support, rather than from a generic classic-Mac label. Limitations: The original help is MacRoman and was retrieved as exact base64 bytes, decoded only for static reading and Git-blob verified against the pinned tree. It is cited as a binary/non-UTF-8 file instead of falsely re-encoding it in the UTF-8 proof cache. Target CPU: The README targets the Mini Micro interpreter and the author distributes an HTML5 build. Neither the MiniScript game nor the inspected instructions declares a game-specific CPU output; no CPU family is inferred from Mini Micro’s host implementations. Build: The documented path mounts the repository in Mini Micro and loads/runs main. Source, PNG artwork, resource/sound modules and original-reference material are present. main.ms imports Mini Micro/system helper modules; the project is not standalone without that environment. The pinned LICENSE is the Unlicense/public-domain dedication for the remake; original reference-game rights are separate. Inspected game source; some actions deliberately use simplified fixed quantities, consistent with recreation/extension rather than binary fidelity. Limitations: No interpreter launch, execution, gameplay, dependency verification or byte comparison was performed. The author’s released browser build is not treated as local runtime verification. Runtime profiles: The README requires Mini Micro but does not establish a minimum Mini Micro version, host CPU or RAM. Original Macintosh memory requirements belong to the historical source game, not a runtime minimum for this recreation, so runtime_profiles stays empty. AI: The inspected README and MiniScript gameplay modules contain no explicit development-AI attribution. AI usage remains unknown; computational game rules and automated opponents would not themselves establish development assistance. Relationships: The README explicitly ties this independent recreation to Cary Torkelson’s game and includes a route to the original Mac distribution. Reference material is kept separate from the new MiniScript code. No same-code port or mirror relationship to an already-reviewed root was found in the screened registers. Evidence: https://github.com/joestrout/galactic-empire/blob/1517e2a827e4889f2e86a7ffa1c35e39fcc19452/README.md https://github.com/joestrout/galactic-empire/blob/1517e2a827e4889f2e86a7ffa1c35e39fcc19452/main.ms https://github.com/JoeStrout/galactic-empire/blob/1517e2a827e4889f2e86a7ffa1c35e39fcc19452/reference/GE-Help.text https://github.com/joestrout/galactic-empire/blob/1517e2a827e4889f2e86a7ffa1c35e39fcc19452/gameRules.ms https://joestrout.itch.io/galactic-empire https://github.com/joestrout/galactic-empire/blob/1517e2a827e4889f2e86a7ffa1c35e39fcc19452/LICENSE",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "galactic-empire-c64-reimplementation": {
       "id": "galactic-empire-c64-reimplementation",
       "title": "Galactic Empire — native C64 game reconstruction in C",
@@ -70388,6 +70661,82 @@
         "tools": []
       }
     },
+    "megaroids-mac-swift-source-reconstruction": {
+      "id": "megaroids-mac-swift-source-reconstruction",
+      "title": "Megaroids",
+      "upstream_name": "Megaroids",
+      "display_title": "Megaroids: recovered Macintosh C and Swift remake",
+      "subjects": [
+        "Megaroids"
+      ],
+      "repo": "https://github.com/jraymonds86/Megaroids",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "macOS"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Inspected modern application target",
+          "platform": "macOS",
+          "os": "macOS 26.0 target setting",
+          "notes": "Target settings override project-level 26.4 values. README gives inconsistent Xcode 16+ and 26.4.1+ guidance. No fixed output ISA or tested hardware minimum established.",
+          "evidence": [
+            "https://github.com/jraymonds86/Megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/Megaroids.xcodeproj/project.pbxproj",
+            "https://github.com/jraymonds86/Megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "m68k assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Swift"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "translation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Historical C source recovery and Swift remake"
+      ],
+      "re_started": null,
+      "status": "Recovered source/data and Swift game implementation; deliberate gameplay/audio changes; build untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: Reconstructs the Bunnells’ Megaroids from a historical book listing, corrected OCR and binary-extracted sprite data, then implements a modern Swift game. The README gives both 1984 and 1985 original dates; no exact original release date is selected here. Classification: Source-led recovery and translation rather than a general emulator. The recovered C contains Toolbox calls and hardware-oriented code; Swift GameEngine, Ship and SoundEngine implement game-state progression, motion and audio directly. Recovered Megaroids.c is an assembled reference, not an untouched original archive. Source CPU: The preserved C includes a 68000 compiler string, inline 68k operations, low-memory globals and original Macintosh framebuffer addresses. These establish the m68k Macintosh implementation, separate from the Swift host architecture. Target CPU: The Xcode project builds a macOS Swift application but does not pin an explicit output ISA in the inspected settings. Do not infer Apple silicon or Intel support from modern macOS alone; target_cpu is intentionally empty. Build: An Xcode project and source/assets are present. A git-ignored project.xcconfig is a required base configuration and contains user-supplied signing/bundle settings; it must be supplied locally. The README’s Xcode 16+ heading conflicts with its later 26.4.1+ instruction. No exact compiler minimum is asserted. Limitations: No game was compiled, launched, played, hardware-tested or byte-compared. All independent verification flags remain unknown. Runtime profiles: Application target deployment settings are macOS 26.0, overriding project-level 26.4 settings. The source runs a 60 Hz timer and original-resolution game model. It deliberately changes audio mixing, hyperspace behavior, friction and presentation, so advertised pixel fidelity is not treated as verified equivalence. AI: README explicitly credits Claude Code for the Swift implementation and overall porting approach. That direct development disclosure supports AI usage; the .claude ignore entry is not used as evidence. Both available commit messages were also inspected. Relationships: Recovered C and Swift are one project lineage, with no Megaroids project found in the current catalogue/prior union. This does not duplicate other independent Asteroids-like games. No repository-wide license was found in the complete tree; the author reserves original game rights to the Bunnell family, so availability is not a blanket reuse grant. Evidence: https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/README.md https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/Megaroids.c https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/Megaroids/Game/GameEngine.swift https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/Megaroids/Game/Ship.swift https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/Megaroids/Audio/SoundEngine.swift https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/Megaroids.xcodeproj/project.pbxproj https://github.com/jraymonds86/megaroids/blob/79fa383912ee58aad8ee3d96d3a1bc6c8ef21a4d/.gitignore",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude Code"
+        ]
+      }
+    },
     "megasam-mega65-speech-port": {
       "id": "megasam-mega65-speech-port",
       "title": "megasam — SAM speech synthesis for MEGA65",
@@ -72676,6 +73025,67 @@
         "tools": []
       }
     },
+    "missile-macintosh-munafo-original-source": {
+      "id": "missile-macintosh-munafo-original-source",
+      "title": "Missile",
+      "upstream_name": "Missile",
+      "display_title": "Missile: Robert Munafo’s original Macintosh Pascal source",
+      "subjects": [
+        "Missile",
+        "Missile Command"
+      ],
+      "repo": "https://mrob.com/pub/source/missile.html",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "Macintosh"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Pascal"
+      ],
+      "reconstructed_languages": [],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Original-author Macintosh game source"
+      ],
+      "re_started": null,
+      "status": "Author-published Pascal and resource listings; rebuild untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: Robert Munafo publishes his June 1984 Macintosh Missile Command implementation, with later revisions. Classification: Original-author Pascal preservation: missile movement, fireballs, rounds, scoring and Toolbox UI are implemented. Source CPU: Author identifies the original 128K Macintosh; m68k is inferred from that explicit machine target. Target CPU: Historical Macintosh output remains m68k. Later PowerPC compatibility claims do not establish native PowerPC recompilation. Build: Lisa Pascal source and resource definitions are published. Historical interface units and resource compilation remain required. Limitations: No game was compiled, launched, played, hardware-tested or byte-compared. All independent verification flags remain unknown. Runtime profiles: Original 128K Macintosh compatibility is author-reported. Exact OS/RAM minima remain unspecified; source comments disclose missing sound and other features. AI: No development-AI attribution found on the inspected source page; non-use is not established. Relationships: Independent Macintosh implementation, distinct from indexed Atari arcade disassembly. Source-specific GPL-2.0 notice applies; generic website footer licensing is separate. Evidence: https://mrob.com/pub/source/missile.html",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "missile-command-arcade-6502disassembly": {
       "id": "missile-command-arcade-6502disassembly",
       "title": "Missile Command",
@@ -74387,6 +74797,63 @@
         "source-reviewed"
       ],
       "notes": "Identity: The Mojon Twins identify this as their MTE MK1 NES/AGNES engine port to SG-1000 and consequently Master System. The complete tree contains four named example games and PAL/NTSC .sg images; this pass closely inspected the Cheril Perils build/game/hardware code and Sgt. Helmet’s custom gameplay documentation rather than independently auditing all four games. Classification: This is a source-level native homebrew engine port and example-game collection, with C substantially retained from the NES engine and hardware handling adapted for SG-1000. No binary-derived reverse engineering is established, so no RE-derived-port classification is asserted. The engine, examples and region variants are counted once. Source CPU: The inherited source is identified as the NES MTE MK1/AGNES C engine, but no original NES binary or upstream CPU-specific implementation was inspected. NES lineage alone is not used to populate source_cpu. Target CPU: The Cheril example Makefile invokes SDCC with -mz80 for compile/link and maps data at 0xC000; SGlib exposes direct console VDP/interrupt handling with Z80 assembly. Bundled Windows .exe tools are build hosts, not the game target architecture. Build: The inspected example has C sources, generated asset data, SGlib/PSGlib/aPLib source/object files and an SDCC/ihx2sms build recipe; the tree includes asset-source folders and Windows-oriented bundled tools. However, src/README.md explicitly says the clean engine tree is not currently compilable. That limitation is not silently replaced by the presence of example ROMs. Root licensing is LGPL-3.0 text with an upstream README attribution naming the inherited NES engine; third-party libraries/tools and game assets require their own rights review. Limitations: No bundled tool was run and no example was built or played. The exact reproducibility/asset completeness of all four examples remains untested; project-wide build flags remain null rather than applying the clean-src failure to every example. Runtime profiles: The author claims SG-1000/Master System compatibility and the Cheril source documents separate PAL asset/timing preparation. The reviewed files do not establish a machine/RAM minimum or independent hardware test; generated 48 KiB ROM files and 0xC000 data placement are not runtime RAM minima. AI: The inspected documentation, complete tree filename inventory and latest observed commit contain no explicit development-AI tool attribution. This bounded check is not a complete history or provenance audit, so usage remains unknown. Relationships: The upstream identifies MTE MK1 NES/AGNES as the source-level predecessor and sverx’s DevKitSMS SGlib/PSGlib/aPLib as dependencies, with SGlib heavily modified. The local catalogue screen found no MK1/AGNES/AGSG1000 or named-game alias; known devkitSMS is not rereviewed or counted. Four game examples and their regional outputs remain inside this single collection record. Evidence: https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/README.md https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/examples/01_cheril_perils_classic/dev/game.c https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/examples/02_sgt_helmet_training_day/README.md https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/docs/AGSG1000_requirements.md https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/examples/01_cheril_perils_classic/dev/hw_sg1000.h https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/examples/01_cheril_perils_classic/dev/Makefile https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/examples/01_cheril_perils_classic/dev/lib/SGlib.c https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/LICENSE https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/src/README.md https://github.com/mojontwins/loves_the_sg1000/blob/a25be2647792f3ce03f4af26e124ca8cbefde7ac/examples/01_cheril_perils_classic/dev/compile.bat https://github.com/mojontwins/loves_the_sg1000/commit/a25be2647792f3ce03f4af26e124ca8cbefde7ac",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "multipong-native-mac68k-jcgraybill": {
+      "id": "multipong-native-mac68k-jcgraybill",
+      "title": "Multi Pong",
+      "upstream_name": "multipong",
+      "display_title": "Multi Pong: native Macintosh multi-window Pong",
+      "subjects": [
+        "Multi Pong"
+      ],
+      "repo": "https://github.com/jcgraybill/multipong",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Macintosh"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "native homebrew game",
+        "Pong-style game"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; independent build and gameplay untested",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: The maintainer’s Multi Pong is a native multi-window Pong variant developed in a 68k Macintosh programming study group. The reviewed implementation contains moving balls, an opponent paddle, collision against visible regions of draggable windows, five difficulty choices, scoring and an end condition at seven points. Classification: Original source-level homebrew in C using Macintosh Toolbox windows, QuickDraw regions, menus and event handling. The user changes the playfield through actual Mac windows; this is an implemented game rather than a generic window shell. The linked browser edition is a delivery option, not evidence of a separate browser reimplementation. Source CPU: No historical binary, machine-code input or recovered original Pong source is identified. This is new homebrew and does not establish a historical source CPU or source platform; those arrays are empty. Target CPU: README situates development specifically in the 68k Macintosh programming group and instructs building with THINK C 6.0; the source uses direct classic Toolbox/QuickDraw calls. Together these establish the intended m68k output. The generic Performa reference is not treated as proof of native PowerPC code generation. Build: README requires THINK C 6.0 and decoding/decompressing the supplied project and resource archives with StuffIt Expander. The complete tree includes the C implementation plus separate BinHex/StuffIt project and resource files. Those encoded artifacts were not unpacked, so project settings and resource-fork completeness remain unverified. Limitations: No dependency installation, game compilation, tests, launch, gameplay, hardware check or binary comparison was performed. All build-verification flags remain null. Runtime profiles: No exact minimum Macintosh model, OS release, RAM budget or CPU speed is stated in the inspected README/source. WaitNextEvent, menu/resource lookups and QuickDraw region behavior are required by the code, but they are not converted into an unsupported numeric hardware or OS floor. AI: The inspected README and complete available 13-commit message history contain no explicit development-AI disclosure or assistant co-author trailer. This does not establish non-use; age, coding style and filenames are not AI evidence. Relationships: One coherent homebrew game, with its source and encoded project/resources retained at one root. The repository has an Apache-2.0 license. No matching Multi Pong source lineage was found in the catalogue or prior-review root union; the linked study group is development context, not another game identity. Evidence: https://github.com/jcgraybill/multipong/blob/5c69a8bfce75a7b62482ac622520fb882918c805/README.md https://github.com/jcgraybill/multipong/blob/5c69a8bfce75a7b62482ac622520fb882918c805/multipong.c https://github.com/jcgraybill/multipong/blob/5c69a8bfce75a7b62482ac622520fb882918c805/Multi%20Pong.π.rsrc.sit.hqx https://github.com/jcgraybill/multipong/blob/5c69a8bfce75a7b62482ac622520fb882918c805/Multi%20Pong.π.sit.hqx https://github.com/jcgraybill/multipong/commit/5c69a8bfce75a7b62482ac622520fb882918c805 https://github.com/jcgraybill/multipong/blob/5c69a8bfce75a7b62482ac622520fb882918c805/LICENSE",
       "ai": {
         "usage": null,
         "tools": []
@@ -102107,6 +102574,71 @@
         "tools": []
       }
     },
+    "sparks-classic-mac-restoration-depp": {
+      "id": "sparks-classic-mac-restoration-depp",
+      "title": "Sparks — original classic Macintosh game restoration",
+      "upstream_name": "Sparks",
+      "display_title": "Sparks — original classic Macintosh game restoration",
+      "subjects": [
+        "Sparks"
+      ],
+      "repo": "https://github.com/depp/sparks",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "Macintosh"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k",
+        "PowerPC"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original-source restoration",
+        "unfinished game prototype"
+      ],
+      "re_started": null,
+      "status": "Unfinished original game restoration; static review only",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "Macintosh",
+        "68k ancestry",
+        "static review"
+      ],
+      "notes": "Identity: The author identifies Sparks as the beginnings of a Macintosh game written around 2000 and this repository as an attempt to get its original classic Macintosh code running. The pinned tree contains the game loop, entity, player, star-field, renderer and resource source, rather than only an announcement. Classification: Original-source restoration of an unfinished game prototype. Main.cpp initializes the classic Toolbox and drives Game_RunFrame; this is neither a binary decompilation nor a modern independent remake. The README explicitly declines to characterize the historical work as a finished game. Source CPU: The preserved original Macintosh C++ tree has separate 68K object rules, CPlusOptions-68K with the near model, 68K runtime libraries and a Sparks.68k link target. Together with the author’s original-code statement, this directly establishes m68k source provenance rather than inferring it from the approximate date. Target CPU: The MPW makefile explicitly targets both Sparks.68k through ILink and Sparks.ppc through PPCLink. These are documented build targets; successful output was not established. Build: Inspected the MPW makefile, classic Toolbox bootstrap and complete tree inventory. The build requires the historical CPlus/PPCCPlus, ILink/PPCLink and Rez tools and classic Macintosh libraries; Resources.r and Resources.rsrc are present. No root license grant was found in the tree or README. The project remains explicitly unfinished. Limitations: No compilation, tests, execution, gameplay or binary comparison was performed. All build booleans remain null. Runtime profiles: Main.cpp tests Color QuickDraw availability and an 8-bit display mode, then allocates a GWorld backbuffer. These are implementation requirements, but the inspected material supplies no authoritative minimum CPU model or RAM for a usable game; no runnable hardware profile is asserted. AI: The inspected README and original-code/bootstrap material contain no explicit development-AI disclosure. This is a bounded negative search, not evidence of non-use; usage remains unknown. Relationships: The README mentions another copy in /game/space without identifying a repository. This record covers the author’s Sparks restoration root once; that undeclared copy is not promoted separately. The root was absent from the current catalogue and prior-review/source/decision root index. Limitations: The other copy’s provenance and current location remain unresolved. Evidence: https://github.com/depp/sparks/blob/61a6865733af34949fd912217d7a5441ccce93cd/README.md https://github.com/depp/sparks/blob/61a6865733af34949fd912217d7a5441ccce93cd/Main.cpp https://github.com/depp/sparks/blob/61a6865733af34949fd912217d7a5441ccce93cd/Makefile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "speedball2-amiga": {
       "id": "speedball2-amiga",
       "title": "Speedball 2",
@@ -119447,6 +119979,82 @@
         "no-independent-build"
       ],
       "notes": "Native C64 Wolfenstein 3D fan implementation with assembly raycaster, enemy chase/shoot/line-of-sight logic and native VIC/SID/input/loader modules. It is distinct from the existing Amiga CD32 port and does not execute the DOS program through a guest CPU interpreter. README and credits identify an unofficial Wolfenstein 3D fan port to Commodore 64. 6502 assembly contains raycaster/game layout, enemy line-of-sight/chase/shoot logic and native VIC/SID/input modules. ACME/Python/VICE build creates KERNAL and Krill disk variants, with separate optional EasyFlash packing. Limitations: README/credits restrict framing to noncommercial fan use; no general repository license file was found. Original game/assets and included third-party code retain separate rights. EasyFlash requires a separately obtained Disk2Easyflash tool; Krill disk needs real 1541-class drive or true-drive emulation. Technical design document warns it describes an early design; inspected source and current build files are stronger evidence. No local build, physical-hardware test, emulator run or claimed frame-rate measurement. README/build.sh give an ACME/Python/c1541 recipe for KERNAL and Krill disk variants; credits identify version 1.9. A version label and recipe do not establish a successful build, frame-rate measurement or tested complete game. No source build or C64/emulator execution was performed, so all build flags remain null. Krill disk requires a real 1541-class drive or VICE true-drive emulation; virtual-device traps cannot run its drive code. Optional EasyFlash packaging uses the KERNAL disk and requires a separately obtained Disk2Easyflash script. The early design’s 64 KB budget is explicitly stale and is not promoted as a verified current runtime minimum. The source subject is DOS Wolfenstein 3D, while the examined implementation is new C64 assembly. No original DOS CPU architecture was established in this evidence sample; source_cpu remains empty and is never copied from the 6502 target. src/wolf64.asm explicitly selects !cpu 6502 and says undocumented opcodes are excluded. target_cpu=6502 follows that source directive; it is not inferred from the C64 label and establishes neither a SuperCPU requirement nor a minimum runtime CPU. Distinct C64 assembly port with target-specific renderer, memory map, disk loader and input; tracked Wolfenstein entry targets Amiga CD32. Reuses classic subject/assets and credits other technical influences, but no rehosted fork was identified. Existing related records: akikowolf-cd32-native-port (https://github.com/earok/AkikoWolf). The canonical repository root was compared with the hash-verified 1,380-project baseline and discovery indexes at 44558101462cd67db1951803eaeea07aafdff930; no canonical-root collision was found. GitHub fork=false is metadata, not proof of independent authorship. Rights: No general code license found; noncommercial/fan notice and third-party caveats. README/credits restrict framing to noncommercial fan use; no general repository license file was found. Original game/assets and included third-party code retain separate rights. AI evidence: The reviewed .cursor/rules/no-vice-unless-asked.mdc is a Cursor workflow/configuration indicator only. It does not explicitly attribute game development or generated code to AI. ai.usage remains null and ai.tools is empty; configuration alone is not affirmative usage evidence. Repository pushed_at was observed as 2026-10-03T21:54:19Z; last_activity is left null pending a commit-level activity check. No independent compilation, execution, gameplay, hardware test or original-binary comparison was performed. Primary evidence: https://github.com/Kweepa/Wolf64/blob/main/README.md https://github.com/Kweepa/Wolf64/blob/main/src/wolf64.asm https://github.com/Kweepa/Wolf64/blob/main/src/enemy_ai.asm https://github.com/Kweepa/Wolf64/blob/main/build.sh https://github.com/Kweepa/Wolf64/blob/main/credits.txt https://github.com/Kweepa/Wolf64/blob/main/TechDesignDoc.md https://github.com/Kweepa/Wolf64/blob/main/.cursor/rules/no-vice-unless-asked.mdc",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "wolf3d-mac-original-source-archive": {
+      "id": "wolf3d-mac-original-source-archive",
+      "title": "Wolfenstein 3D",
+      "upstream_name": "Wolf3D-Mac",
+      "display_title": "Wolfenstein 3D: original Macintosh 68k/PowerPC source archive",
+      "subjects": [
+        "Wolfenstein 3D"
+      ],
+      "repo": "https://github.com/Blzut3/Wolf3D-Mac",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "Macintosh"
+      ],
+      "source_cpu": [
+        "m68k",
+        "PowerPC"
+      ],
+      "target_cpu": [
+        "m68k",
+        "PowerPC"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Preserved Macintosh 68k initialization requirements",
+          "platform": "Macintosh",
+          "cpu_family": "m68k",
+          "os": "System 6.0.7 or later",
+          "notes": "Source requires 32-bit Color QuickDraw and 8-bit display at least 512×384; no minimum CPU model or RAM inferred from architecture or warning cases. Requirements are code-derived, not runtime-tested.",
+          "evidence": [
+            "https://github.com/Blzut3/Wolf3D-Mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Mac.c",
+            "https://github.com/Blzut3/Wolf3D-Mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Wolf.h"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "m68k assembly",
+        "PowerPC assembly"
+      ],
+      "reconstructed_languages": [],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original-source archive"
+      ],
+      "re_started": null,
+      "status": "Archived original Macintosh source release; legacy project/resources and rebuild unverified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "macintosh-68k-discovery"
+      ],
+      "notes": "Identity: Preservation mirror of the original Macintosh Wolfenstein 3D First/Second Encounter source release, attributed in the preserved release note to Bill Heineman and Chris DeSalvo. The note dates the Macintosh commercial release to October 1994 and the source-release account to January 2000; the GitHub root itself is a later third-party archive. WolfMain.c implements the level/game loop, player/enemy/projectile movement and game progression. Classification: Historical original-source preservation with native Macintosh Toolbox support, C gameplay and separate 68k/PPC assembly renderers. The preserved note says this Mac version descends from the SNES adaptation and uses BSP rendering, so it is not collapsed into the tracker’s DOS-derived Wolf ports merely by title. No new decompilation is claimed. Source CPU: The release note explicitly distinguishes Macintosh 68000 and PowerPC editions. Wolf.68k contains D/A registers, MOVEM/MOVE/ADDX/DBF instructions, and Wolf.ppc contains PowerPC register, TOC and code-section conventions. These independently establish both source families; the SNES ancestry does not become a claimed source binary platform for this Mac archive. Target CPU: The archive retains distinct native 68k and PowerPC renderer paths and a CodeWarrior project. Both architectures describe preserved original outputs, not modern host targets or verified successful rebuilds. README’s historical runtime-generated-scaler description is not copied as current behavior: Wolf.68k explicitly records a revision to tight loops, and current SetupScalers68k.c builds a reciprocal table with a disabled older ScaleGlue call path. Build: The source-release note says the project was updated from CodeWarrior DR/4 to Pro 5. The tree contains Wolf3D.mcp, assembly/object artifacts and separate proprietary music libraries, but no complete game resource/asset pack or reproducible modern recipe. Source still uses resource IDs and GetResource/LoadAResource calls. Project-file strings name both MacOS 68K/PPC linkers and legacy libraries; they do not prove all dependencies are present. Limitations: No dependency installation, game compilation, tests, launch, gameplay, hardware check or binary comparison was performed. All build-verification flags remain null. README’s original author build claim is historical and does not verify this mirror. Runtime profiles: Mac.c’s 68k initialization explicitly rejects systems before 6.0.7, requires 32-bit Color QuickDraw, and selects an 8-bit monitor at least 512×384. Its 68000/68020/68030 cases display speed warnings rather than a reliable universal minimum-CPU rule. The PowerPC branch skips the OS gate with a 7.1 comment; no independently established PPC minimum or numeric RAM requirement is asserted. AI: The inspected README and complete available 1-commit message history contain no explicit development-AI disclosure or assistant co-author trailer. This does not establish non-use; age, coding style and filenames are not AI evidence. Relationships: One archived mirror of the original Mac source lineage, counted once. Existing records were compared without re-researching their roots: earok/AkikoWolf credits AWolf/PSP/id DOS source, agranlund/wolf derives from Wolf4SDL/id, and kweepa/wolf64 is a C64 assembly raycaster. In contrast, this preserved author note explicitly identifies a SNES-derived implementation rather than the PC version, with BSP visibility; RefBsp.c and separate Mac renderer paths corroborate material implementation differences, not merely a new target platform. No matching Blzut3/Heineman/Burger Mac source root appears in the complete prior-review union. No general root license is supplied; the release note expressly reserves Steve Hales/Jim Nitchals music-driver rights and requires separate permission for reuse. Public source availability is not treated as an unrestricted redistribution grant. Evidence: https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/ReadMe.txt https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/WolfMain.c https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/PlMove.c https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/RefBsp.c https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Wolf.68k https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Wolf.ppc https://github.com/Blzut3/Wolf3D-Mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Mac.c https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/SetupScalers68k.c https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/SetupScalersPPC.c https://github.com/blzut3/wolf3d-mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Wolf.h https://github.com/Blzut3/Wolf3D-Mac/blob/4ff692cf2a71f10cefc467e83c910399890747a4/Wolf3D.mcp https://github.com/Blzut3/Wolf3D-Mac/commit/4ff692cf2a71f10cefc467e83c910399890747a4",
       "ai": {
         "usage": null,
         "tools": []
