@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-07T13:48:34Z",
+  "updated_at": "2026-10-07T16:24:08Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -6040,6 +6040,77 @@
         "tools": []
       }
     },
+    "alpharoid-msx-byte-exact": {
+      "id": "alpharoid-msx-byte-exact",
+      "title": "Alpharoid",
+      "upstream_name": "Alpharoid",
+      "display_title": "Alpharoid — MSX byte-exact reassembly",
+      "subjects": [
+        "Alpharoid"
+      ],
+      "repo": "https://github.com/0xe1f/Alpharoid",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "byte-exact reassembly"
+      ],
+      "re_started": null,
+      "status": "Work in progress; upstream byte-exact verification is automated",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "annotated disassembly",
+        "byte-exact reassembly",
+        "SHA-1 verification"
+      ],
+      "tags": [
+        "MSX",
+        "Z80",
+        "game",
+        "AI-assisted"
+      ],
+      "notes": "A human-guided, largely AI-executed annotated disassembly that reassembles the complete 32 KiB MSX cartridge and verifies a byte-identical ROM. The source is sufficient to build without redistributing the original ROM; independent compilation and execution were not performed.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Cursor"
+        ]
+      }
+    },
     "alsfs-amiga-linux-serial-suite": {
       "id": "alsfs-amiga-linux-serial-suite",
       "title": "ALSFS — Amiga/Linux serial filesystem suite",
@@ -6102,7 +6173,7 @@
         "source-reviewed",
         "native Amiga serial filesystem application and host integration"
       ],
-      "notes": "One multi-repository suite that exposes real Amiga files and floppy images to Linux over a null-modem serial link. alsfssrv.c implements a resident Amiga serial command server for filesystem listing/read/write/delete/rename, ADF floppy operations and keyboard input; amiga_operations.c uses DOS and trackdisk.device APIs. The author’s separate documentation identifies alsfsAmigaServer, alsfsNodejsServer and the Linux FUSE alsfs client as parts of one suite, not independent products. Server Makefile uses vbcc +kick13 and Amiga NDK; source says tested on an unexpanded A600 with Workbench 2.1. Suite documentation requires Workbench 2.1 for its ARexx bootstrap, a null-modem link and Linux Node/FUSE components. It reports working on a stock 1 MB Chip RAM A600, and warns that transfers are extremely slow. +kick13 build flags do not establish an end-to-end Workbench 1.3 bootstrap: upstream explicitly says the documented bootstrap needs ARexx and Workbench 2.1. Amiga server lacks a clear license in its own tree; Linux FUSE client says GPLv3, while Node package.json says GPL-2.0. Do not flatten the multi-repository licensing to a single version. Serial defaults are 19200 baud. The HTTP-facing helper and destructive filesystem operations deserve a private/trusted network; no security or reliability audit was performed. The suite can write/delete files and floppy contents; no server was executed and no disk was modified. This original filesystem transfer suite operates on Amiga files and disk images; no historical native binary is reconstructed. Data/filesystem content does not have a single source CPU. The native-server recipe uses vbcc +kick13 and the NDK but no explicit processor-selection argument, native assembly or inspected executable header establishes a target ISA independently in this bounded review. No Linux/Node host ISA is inferred. target_cpu stays empty pending stronger primary evidence. Makefile compiles the Amiga server with vbcc +kick13 and hardcoded /data paths. Linux FUSE client uses autotools and curl/json-c/crypto/zip/magic; Node serial bridge is separate. The documented ARexx bootstrap requires Workbench 2.1 despite +kick13. No filesystem operations or disk writes were performed. Author reports use on an unexpanded A600 with 1 MB Chip RAM; that successful setup is not converted into an independently verified minimum. Documented serial link uses a null-modem cable at 19200 baud. Workbench 1.3 lacks the required ARexx bootstrap. alsfsAmigaServer, alsfs Linux FUSE client, alsfsNodejsServer and alsfsdocumentation are one counted suite. Amiga server licensing is unclear, Linux client explicitly GPLv3 and Node metadata GPL-2.0. Trusted/private deployment is appropriate given HTTP exposure and destructive file/disk operations; no security assurance is implied. License/asset review: Amiga server: no explicit license found. Related Linux client: GPLv3; Node package: GPL-2.0 metadata. Preserve this mixed/unclear component status. No explicit generative-AI attribution found in the selected README, source, build, license evidence or 22 recent commit messages. This bounded review is not proof of non-use. Generic provider domains and gameplay AI are not tool attribution. Source snapshot: commit 22e5391e13533659e906763d894c0988abc2d0ae; actual root Git tree fa5529af77361da2e5ff815629186d8e6a5c3fa0 verified through https://api.github.com/repos/Ozzyboshi/alsfsAmigaServer/git/commits/22e5391e13533659e906763d894c0988abc2d0ae. All build flags remain null; no candidate was compiled, run, emulated or byte-compared. Repository creation and release dates do not establish a reverse-engineering start date. Evidence: https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/alsfssrv.c https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/amiga_operations.c https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/Makefile https://github.com/Ozzyboshi/alsfsdocumentation/blob/22e5391e13533659e906763d894c0988abc2d0ae/docs/index.md https://github.com/Ozzyboshi/alsfsdocumentation/blob/22e5391e13533659e906763d894c0988abc2d0ae/docs/alsfssrv.md https://github.com/Ozzyboshi/alsfs/blob/22e5391e13533659e906763d894c0988abc2d0ae/src/alsfs.c https://github.com/Ozzyboshi/alsfs/blob/22e5391e13533659e906763d894c0988abc2d0ae/configure.ac https://github.com/Ozzyboshi/alsfsNodejsServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/package.json https://api.github.com/repos/Ozzyboshi/alsfsAmigaServer/git/commits/22e5391e13533659e906763d894c0988abc2d0ae",
+      "notes": "One multi-repository suite that exposes real Amiga files and floppy images to Linux over a null-modem serial link. alsfssrv.c implements a resident Amiga serial command server for filesystem listing/read/write/delete/rename, ADF floppy operations and keyboard input; amiga_operations.c uses DOS and trackdisk.device APIs. The author’s separate documentation identifies alsfsAmigaServer, alsfsNodejsServer and the Linux FUSE alsfs client as parts of one suite, not independent products. Server Makefile uses vbcc +kick13 and Amiga NDK; source says tested on an unexpanded A600 with Workbench 2.1. Suite documentation requires Workbench 2.1 for its ARexx bootstrap, a null-modem link and Linux Node/FUSE components. It reports working on a stock 1 MB Chip RAM A600, and warns that transfers are extremely slow. +kick13 build flags do not establish an end-to-end Workbench 1.3 bootstrap: upstream explicitly says the documented bootstrap needs ARexx and Workbench 2.1. Amiga server lacks a clear license in its own tree; Linux FUSE client says GPLv3, while Node package.json says GPL-2.0. Do not flatten the multi-repository licensing to a single version. Serial defaults are 19200 baud. The HTTP-facing helper and destructive filesystem operations deserve a private/trusted network; no security or reliability audit was performed. The suite can write/delete files and floppy contents; no server was executed and no disk was modified. This original filesystem transfer suite operates on Amiga files and disk images; no historical native binary is reconstructed. Data/filesystem content does not have a single source CPU. The native-server recipe uses vbcc +kick13 and the NDK but no explicit processor-selection argument, native assembly or inspected executable header establishes a target ISA independently in this bounded review. No Linux/Node host ISA is inferred. target_cpu stays empty pending stronger primary evidence. Makefile compiles the Amiga server with vbcc +kick13 and hardcoded /data paths. Linux FUSE client uses autotools and curl/json-c/crypto/zip/magic; Node serial bridge is separate. The documented ARexx bootstrap requires Workbench 2.1 despite +kick13. No filesystem operations or disk writes were performed. Author reports use on an unexpanded A600 with 1 MB Chip RAM; that successful setup is not converted into an independently verified minimum. Documented serial link uses a null-modem cable at 19200 baud. Workbench 1.3 lacks the required ARexx bootstrap. alsfsAmigaServer, alsfs Linux FUSE client, alsfsNodejsServer and alsfsdocumentation are one counted suite. Amiga server licensing is unclear, Linux client explicitly GPLv3 and Node metadata GPL-2.0. Trusted/private deployment is appropriate given HTTP exposure and destructive file/disk operations; no security assurance is implied. License/asset review: Amiga server: no explicit license found. Related Linux client: GPLv3; Node package: GPL-2.0 metadata. Preserve this mixed/unclear component status. No explicit generative-AI attribution found in the selected README, source, build, license evidence or 22 recent commit messages. This bounded review is not proof of non-use. Generic provider domains and gameplay AI are not tool attribution. Source snapshot: commit 22e5391e13533659e906763d894c0988abc2d0ae; actual root Git tree fa5529af77361da2e5ff815629186d8e6a5c3fa0 verified through https://api.github.com/repos/Ozzyboshi/alsfsAmigaServer/git/commits/22e5391e13533659e906763d894c0988abc2d0ae. All build flags remain null; no candidate was compiled, run, emulated or byte-compared. Repository creation and release dates do not establish a reverse-engineering start date. Evidence: https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/alsfssrv.c https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/amiga_operations.c https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/Makefile https://github.com/Ozzyboshi/alsfsdocumentation/blob/22e5391e13533659e906763d894c0988abc2d0ae/docs/index.md https://github.com/Ozzyboshi/alsfsdocumentation/blob/22e5391e13533659e906763d894c0988abc2d0ae/docs/alsfssrv.md https://github.com/Ozzyboshi/alsfs/blob/22e5391e13533659e906763d894c0988abc2d0ae/src/alsfs.c https://github.com/Ozzyboshi/alsfs/blob/22e5391e13533659e906763d894c0988abc2d0ae/configure.ac https://github.com/Ozzyboshi/alsfsNodejsServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/package.json https://api.github.com/repos/Ozzyboshi/alsfsAmigaServer/git/commits/22e5391e13533659e906763d894c0988abc2d0ae CPU audit (2026-10-08): complete-tree search found no explicit vbcc CPU selection, assembly or executable header. Source CPU remains not applicable; target ISA remains unsupported despite Amiga API and A600 test context.",
       "ai": {
         "usage": null,
         "tools": []
@@ -14132,6 +14203,77 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "arkanoid-msx-byte-exact": {
+      "id": "arkanoid-msx-byte-exact",
+      "title": "Arkanoid",
+      "upstream_name": "Arkanoid",
+      "display_title": "Arkanoid — MSX byte-exact reassembly",
+      "subjects": [
+        "Arkanoid"
+      ],
+      "repo": "https://github.com/0xe1f/Arkanoid",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "byte-exact reassembly"
+      ],
+      "re_started": null,
+      "status": "Work in progress; upstream byte-exact verification is automated",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "annotated disassembly",
+        "byte-exact reassembly",
+        "SHA-1 verification"
+      ],
+      "tags": [
+        "MSX",
+        "Z80",
+        "game",
+        "AI-assisted"
+      ],
+      "notes": "A human-guided, largely AI-executed annotated disassembly that reassembles the complete 32 KiB MSX cartridge and verifies a byte-identical ROM. The source is sufficient to build without redistributing the original ROM; independent compilation and execution were not performed.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Cursor"
+        ]
       }
     },
     "arkanoid-msx-disassembly-mcolom": {
@@ -40058,6 +40200,72 @@
         "tools": []
       }
     },
+    "dynamite-dan-spectrum-disassembly": {
+      "id": "dynamite-dan-spectrum-disassembly",
+      "title": "Dynamite Dan",
+      "upstream_name": "Dynamite Dan",
+      "display_title": "Dynamite Dan — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "Dynamite Dan"
+      ],
+      "repo": "https://github.com/Ritchie333/dynamitedan",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "dynamite-dan-2-spectrum": {
       "id": "dynamite-dan-2-spectrum",
       "title": "Dynamite Dan II",
@@ -40543,7 +40751,7 @@
         "partial",
         "license-unclear"
       ],
-      "notes": "Reverse-engineers the early-1990s EDOS on-demand distribution CDs, including encrypted catalogue metadata, disk block records, flux lengths and compressed MFM/GCR bits. Actual Python implementation decrypts metadata, reads EDOS disk headers, extracts per-side/per-track blocks and computes pulse/bit statistics. It recognizes A35 Atari ST and A36 Amiga among disk platform IDs. Separate tape-controller documentation covers the 6809 controller; tape entry types are recognized but iter_blocks currently implements disk blocks only. Python command dispatch and extraction/statistics implementation are present, but no explicit successful runtime result or independently verified conversion was established. No package/build manifest was found. All build flags remain unknown. Separate repository root for EDOS format research; GitHub metadata reports fork=false, which alone does not prove originality. No repository-root match was found in the current catalogue or reviewed decisions; wider author/link research is not exhausted. Rights/provenance: No license identified. Research/extraction code, not a complete EDOS duplicator, game remake or tape converter. Sega IDs, unusual Amiga format 0x14 and accurate flux timing remain TODO. Tape-platform documentation should not be mistaken for implemented tape extraction. No license file or explicit redistribution grant identified; from_cds includes historical catalogue/controller-related material. No explicit AI-use attribution was found in the bounded reviewed material. Absence is not proof of non-use; usage stays null. Review scope: README, selected source/build/rights files and 7 latest default-branch commits; absence is not proof of no AI use. No independent compilation, installation, execution, playtest, hardware test or original-program binary comparison was performed in this catalogue review. Repository creation dates are not treated as reconstruction start dates. Evidence: https://github.com/ymgve/edos_reversing/blob/main/README.md https://github.com/ymgve/edos_reversing/blob/main/edostool.py https://github.com/ymgve/edos_reversing/blob/main/edoslib.py https://github.com/ymgve/edos_reversing/blob/main/tape_controller_system.md https://github.com/ymgve/edos_reversing/commit/c555b6c3c0949d28e6715f23c8f06cdc43aa8b32 https://github.com/ymgve Source platforms describe catalogued media families, including the README’s Spectrum tape ID; implemented block extraction remains disk-only. Tape platform recognition is not tape extraction support.",
+      "notes": "Reverse-engineers the early-1990s EDOS on-demand distribution CDs, including encrypted catalogue metadata, disk block records, flux lengths and compressed MFM/GCR bits. Actual Python implementation decrypts metadata, reads EDOS disk headers, extracts per-side/per-track blocks and computes pulse/bit statistics. It recognizes A35 Atari ST and A36 Amiga among disk platform IDs. Separate tape-controller documentation covers the 6809 controller; tape entry types are recognized but iter_blocks currently implements disk blocks only. Python command dispatch and extraction/statistics implementation are present, but no explicit successful runtime result or independently verified conversion was established. No package/build manifest was found. All build flags remain unknown. Separate repository root for EDOS format research; GitHub metadata reports fork=false, which alone does not prove originality. No repository-root match was found in the current catalogue or reviewed decisions; wider author/link research is not exhausted. Rights/provenance: No license identified. Research/extraction code, not a complete EDOS duplicator, game remake or tape converter. Sega IDs, unusual Amiga format 0x14 and accurate flux timing remain TODO. Tape-platform documentation should not be mistaken for implemented tape extraction. No license file or explicit redistribution grant identified; from_cds includes historical catalogue/controller-related material. No explicit AI-use attribution was found in the bounded reviewed material. Absence is not proof of non-use; usage stays null. Review scope: README, selected source/build/rights files and 7 latest default-branch commits; absence is not proof of no AI use. No independent compilation, installation, execution, playtest, hardware test or original-program binary comparison was performed in this catalogue review. Repository creation dates are not treated as reconstruction start dates. Evidence: https://github.com/ymgve/edos_reversing/blob/main/README.md https://github.com/ymgve/edos_reversing/blob/main/edostool.py https://github.com/ymgve/edos_reversing/blob/main/edoslib.py https://github.com/ymgve/edos_reversing/blob/main/tape_controller_system.md https://github.com/ymgve/edos_reversing/commit/c555b6c3c0949d28e6715f23c8f06cdc43aa8b32 https://github.com/ymgve Source platforms describe catalogued media families, including the README’s Spectrum tape ID; implemented block extraction remains disk-only. Tape platform recognition is not tape extraction support. CPU audit (2026-10-08): complete-tree processor/assembly/output search found no corroborated source or target ISA. The documented 6809 controller remains explicitly hypothetical and is not promoted.",
       "ai": {
         "usage": null,
         "tools": []
@@ -44116,6 +44324,72 @@
         "SkoolKit"
       ],
       "notes": "Complete RAM disassembly by Ritchie Swann; later/current mirrors also exist in the Pobtastic SkoolKit collection.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "everyones-a-wally-spectrum-disassembly": {
+      "id": "everyones-a-wally-spectrum-disassembly",
+      "title": "Everyone's a Wally",
+      "upstream_name": "Everyone's a Wally",
+      "display_title": "Everyone’s a Wally — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "Everyone's a Wally"
+      ],
+      "repo": "https://github.com/pobtastic/everyonesawally",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
       "ai": {
         "usage": null,
         "tools": []
@@ -55726,6 +56000,72 @@
         "tools": []
       }
     },
+    "herberts-dummy-run-spectrum-disassembly": {
+      "id": "herberts-dummy-run-spectrum-disassembly",
+      "title": "Herbert's Dummy Run",
+      "upstream_name": "Herbert's Dummy Run",
+      "display_title": "Herbert’s Dummy Run — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "Herbert's Dummy Run"
+      ],
+      "repo": "https://github.com/Ritchie333/dummyrun",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "vs-sr-cd32-heroquest2": {
       "id": "vs-sr-cd32-heroquest2",
       "title": "HeroQuest II: Legacy of Sorasil — CD32 reverse-engineering documentation",
@@ -56597,6 +56937,72 @@
         "6502"
       ],
       "notes": "Reverse-engineered and commented-source project for Jeff Minter's C64 Hover Bovver. The repository states that the game compiles and plays, while further cleanup and labelling remain.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "how-to-be-a-complete-bastard-spectrum-disassembly": {
+      "id": "how-to-be-a-complete-bastard-spectrum-disassembly",
+      "title": "How to be a Complete Bastard",
+      "upstream_name": "How to be a Complete Bastard",
+      "display_title": "How to Be a Complete Bastard — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "How to be a Complete Bastard"
+      ],
+      "repo": "https://github.com/pobtastic/howtobeacompletebastard",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
       "ai": {
         "usage": null,
         "tools": []
@@ -60916,6 +61322,89 @@
         "tools": []
       }
     },
+    "jawbreaker-deluxe-ti99-port": {
+      "id": "jawbreaker-deluxe-ti99-port",
+      "title": "Jawbreaker I + II Deluxe — TI-99/4A",
+      "upstream_name": "Jawbreaker I + II Deluxe — TI-99/4A",
+      "display_title": "Jawbreaker I + II Deluxe — MSX-to-TI-99/4A port",
+      "subjects": [
+        "Jawbreaker I + II Deluxe Edition",
+        "Jawbreaker"
+      ],
+      "repo": "https://github.com/ohustin/jawbreaker2-ti99",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX1"
+      ],
+      "target_platforms": [
+        "TI-99/4A"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "TMS9900"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "32K cartridge",
+          "platform": "TI-99/4A",
+          "cpu_family": "TMS9900",
+          "notes": "Runs on a plain console as a 32K bank-switched cartridge; variables use the 256-byte scratchpad and no memory expansion is required.",
+          "evidence": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "MSX Z80 source and data"
+      ],
+      "reconstructed_languages": [
+        "TMS9900 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "translation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "native port",
+        "fan conversion"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cross-CPU source port",
+        "asset conversion",
+        "bank-switched cartridge build"
+      ],
+      "tags": [
+        "TI-99/4A",
+        "MSX",
+        "TMS9900",
+        "Z80",
+        "fan conversion"
+      ],
+      "notes": "Source port of the MSX1 Jawbreaker I + II Deluxe Edition to TI-99/4A TMS9900 assembly. Primary documentation identifies the MSX lineage and a 32K bank-switched cartridge that uses only the console’s 256-byte scratchpad, requiring no memory expansion. The runtime profile records those explicit constraints without inventing a RAM minimum.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "apple-ii-games-schmidt-original-source-collection": {
       "id": "apple-ii-games-schmidt-original-source-collection",
       "title": "Jennifer L. Schmidt’s Apple II Games",
@@ -64926,7 +65415,7 @@
         "partial",
         "original-data-rights-unverified"
       ],
-      "notes": "Repository describes a Web reimplementation of Legends of Valour, with Vue/Vite and JavaScript WebGL2 code. The active src/engine/index.js has map tile decoding/collision, camera and character/sprite rendering, update logic and asset loading. useGame.js directly initializes that engine; the empty src/game/Game.js is not the only implementation. Build package has Vite dev/build/preview scripts; bundled map/texture/sprite image assets are loaded at runtime. README's reverse-engineering section is empty and does not establish the exact original edition being reconstructed. Listed original platforms describe the game's lineage, not verified separate ports. README still lists inventory, audio/music, scheduling, rendering/collision refactors and networking as TODO. No complete RPG gameplay or faithful finished recreation is claimed. Root GPL v3 does not establish rights to all original-game-derived artwork/data; no provenance blanket assumed. No local build/run performed. Empty/refactor stub files coexist with the substantial active renderer. A separate unfinished browser reimplementation of Legends of Valour. The README’s Amiga/Atari ST/MS-DOS release summary does not identify which edition supplied the analysed maps/assets. Root GPL v3 concerns code; it does not establish rights to original-game-derived art/data. Refactor stubs coexist with an active renderer. The README repeats historical release platforms, but its reverse-engineering section is empty and no exact original edition/binary is identified in the reviewed renderer. Neither source platforms nor source CPU are promoted from this lineage list. Amiga, Atari ST and DOS remain provenance context only. The active JavaScript engine and Vue/Vite package target a WebGL2 browser. They establish no native machine ISA or specific CPU requirements, so target_cpu stays null. src/composables/useGame.js initializes the substantive src/engine/index.js renderer, with map decoding, collision, sprite/camera and asset loading. Empty refactor stubs do not negate the implementation, but inventory/audio/scheduling/networking remain TODO and no successful current build or complete RPG playtest is established. All flags remain null. WebGL2/browser use is evident from the active engine, but no supported browser/GPU list, CPU minimum or RAM requirement is documented. No runtime profile is inferred from graphics APIs alone. No explicit generative-AI attribution was found in the bounded reviewed README, selected source/build/license files and 0 inspected recent commit messages. Absence does not establish non-use, so usage remains null.  Review scope: bounded README, metadata/tree, selected implementation/build/license excerpts and recent default-branch commits; tree-only files were not treated as fully read. No independent compilation, installation, synthesis, simulation, code execution, playtest, hardware test or original-binary comparison was performed. Repository creation and original software-development dates are not reverse-engineering start dates. Wider author/reference graphs remain partial. Evidence: https://github.com/AzazelN28/lov/blob/main/README.md https://github.com/AzazelN28/lov/blob/main/src/engine/index.js https://github.com/AzazelN28/lov/blob/main/src/composables/useGame.js https://github.com/AzazelN28/lov/blob/main/src/game/Game.js https://github.com/AzazelN28/lov/blob/main/package.json https://github.com/AzazelN28/lov/blob/main/LICENSE https://github.com/AzazelN28/lov/commits/main",
+      "notes": "Repository describes a Web reimplementation of Legends of Valour, with Vue/Vite and JavaScript WebGL2 code. The active src/engine/index.js has map tile decoding/collision, camera and character/sprite rendering, update logic and asset loading. useGame.js directly initializes that engine; the empty src/game/Game.js is not the only implementation. Build package has Vite dev/build/preview scripts; bundled map/texture/sprite image assets are loaded at runtime. README's reverse-engineering section is empty and does not establish the exact original edition being reconstructed. Listed original platforms describe the game's lineage, not verified separate ports. README still lists inventory, audio/music, scheduling, rendering/collision refactors and networking as TODO. No complete RPG gameplay or faithful finished recreation is claimed. Root GPL v3 does not establish rights to all original-game-derived artwork/data; no provenance blanket assumed. No local build/run performed. Empty/refactor stub files coexist with the substantial active renderer. A separate unfinished browser reimplementation of Legends of Valour. The README’s Amiga/Atari ST/MS-DOS release summary does not identify which edition supplied the analysed maps/assets. Root GPL v3 concerns code; it does not establish rights to original-game-derived art/data. Refactor stubs coexist with an active renderer. The README repeats historical release platforms, but its reverse-engineering section is empty and no exact original edition/binary is identified in the reviewed renderer. Neither source platforms nor source CPU are promoted from this lineage list. Amiga, Atari ST and DOS remain provenance context only. The active JavaScript engine and Vue/Vite package target a WebGL2 browser. They establish no native machine ISA or specific CPU requirements, so target_cpu stays null. src/composables/useGame.js initializes the substantive src/engine/index.js renderer, with map decoding, collision, sprite/camera and asset loading. Empty refactor stubs do not negate the implementation, but inventory/audio/scheduling/networking remain TODO and no successful current build or complete RPG playtest is established. All flags remain null. WebGL2/browser use is evident from the active engine, but no supported browser/GPU list, CPU minimum or RAM requirement is documented. No runtime profile is inferred from graphics APIs alone. No explicit generative-AI attribution was found in the bounded reviewed README, selected source/build/license files and 0 inspected recent commit messages. Absence does not establish non-use, so usage remains null.  Review scope: bounded README, metadata/tree, selected implementation/build/license excerpts and recent default-branch commits; tree-only files were not treated as fully read. No independent compilation, installation, synthesis, simulation, code execution, playtest, hardware test or original-binary comparison was performed. Repository creation and original software-development dates are not reverse-engineering start dates. Wider author/reference graphs remain partial. Evidence: https://github.com/AzazelN28/lov/blob/main/README.md https://github.com/AzazelN28/lov/blob/main/src/engine/index.js https://github.com/AzazelN28/lov/blob/main/src/composables/useGame.js https://github.com/AzazelN28/lov/blob/main/src/game/Game.js https://github.com/AzazelN28/lov/blob/main/package.json https://github.com/AzazelN28/lov/blob/main/LICENSE https://github.com/AzazelN28/lov/commits/main CPU audit (2026-10-08): full-tree and scoped code search did not identify the exact source edition/ISA; JavaScript/WebGL2 output has no explicit native CPU target. Both remain unevidenced.",
       "ai": {
         "usage": null,
         "tools": []
@@ -84392,6 +84881,80 @@
         "tools": []
       }
     },
+    "demons-forge-dos-archaeology": {
+      "id": "demons-forge-dos-archaeology",
+      "title": "pc-demonsforge-doc",
+      "upstream_name": "pc-demonsforge-doc",
+      "display_title": "The Demon’s Forge — DOS disk-image and engine archaeology",
+      "subjects": [
+        "The Demon's Forge"
+      ],
+      "repo": "https://github.com/vs-sr-dev/pc-demonsforge-doc",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "IBM PC",
+        "MS-DOS"
+      ],
+      "target_platforms": [
+        "analysis host"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "8086 machine code",
+        "disk image"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "documentation"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disk-image archaeology",
+        "engine analysis"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "8086 disassembly",
+        "disk-directory recovery",
+        "vector asset rendering",
+        "cross-file comparison"
+      ],
+      "tags": [
+        "DOS",
+        "x86",
+        "game",
+        "software archaeology"
+      ],
+      "notes": "Measurement-first archaeology of the 1987 DOS release: Python tools decode the self-booting disk image, recover its directory, render 75 rooms and 28 objects, and compare the DOS patch against the embedded original. The repository explicitly identifies its strict 16-bit 8086 disassembler; no runnable reconstruction is claimed.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "pce-analyser-8bit-analysers": {
       "id": "pce-analyser-8bit-analysers",
       "title": "PCE Analyser",
@@ -87249,7 +87812,7 @@
         "original source",
         "source-reviewed"
       ],
-      "notes": "Jan Erik Olausen's 1992 PlayItPro source for cueing and streaming 8SVX audio. README says the program was designed in 1992 for ice-hockey arenas and radio stations, supporting hotkey cues and mono/stereo IFF 8SVX playback from hard disk. PIP.c contains GUI/application source; PIPPlayDiskSample.c contains double-buffered Amiga audio-device and file handling. Source embeds sc5 compilation commands; repository retains historic JEO and -P: include assigns. No standalone complete build recipe or working recreation of historical assigns/libraries was verified. Exact CPU/OS/memory minimum is not established by inspected files. The software license does not license arbitrary samples a user plays. License review: GPL-3.0 license text and explicit GPLv3 preservation statement. The inspected PIP.c and PIPPlayDiskSample.c establish original Amiga C source, audio-device use and embedded sc5 commands, but do not state a processor model or expose a checked ISA-specific implementation. CPU is left unknown rather than derived solely from the Amiga/SAS-C labels. The embedded sc5 commands lack an explicit CPU setting, and the bounded review did not establish output ISA from an assembly module or executable. No target CPU is asserted until primary output evidence is checked. PIP.c and PIPPlayDiskSample.c embed sc5 compilation commands and use JEO and -P: assigns. No standalone complete build recipe or recreated library environment was verified. No source was compiled or audio playback attempted. The inspected source and build documentation do not establish a sufficiently explicit output-specific hardware minimum. No runtime profile is populated; CPU architecture, compiler options, development machines, historical test anecdotes and platform labels are not converted into runnable minimum requirements. No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; commit history was not reviewed. All build flags, including byte_exact, remain null: source and historical reports were reviewed, but no candidate was compiled, run, emulated or compared with an original binary. Release years and repository creation dates are not reverse-engineering start dates. Evidence: https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/readme.md https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIP.c https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIPPlayDiskSample.c https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/LICENSE",
+      "notes": "Jan Erik Olausen's 1992 PlayItPro source for cueing and streaming 8SVX audio. README says the program was designed in 1992 for ice-hockey arenas and radio stations, supporting hotkey cues and mono/stereo IFF 8SVX playback from hard disk. PIP.c contains GUI/application source; PIPPlayDiskSample.c contains double-buffered Amiga audio-device and file handling. Source embeds sc5 compilation commands; repository retains historic JEO and -P: include assigns. No standalone complete build recipe or working recreation of historical assigns/libraries was verified. Exact CPU/OS/memory minimum is not established by inspected files. The software license does not license arbitrary samples a user plays. License review: GPL-3.0 license text and explicit GPLv3 preservation statement. The inspected PIP.c and PIPPlayDiskSample.c establish original Amiga C source, audio-device use and embedded sc5 commands, but do not state a processor model or expose a checked ISA-specific implementation. CPU is left unknown rather than derived solely from the Amiga/SAS-C labels. The embedded sc5 commands lack an explicit CPU setting, and the bounded review did not establish output ISA from an assembly module or executable. No target CPU is asserted until primary output evidence is checked. PIP.c and PIPPlayDiskSample.c embed sc5 compilation commands and use JEO and -P: assigns. No standalone complete build recipe or recreated library environment was verified. No source was compiled or audio playback attempted. The inspected source and build documentation do not establish a sufficiently explicit output-specific hardware minimum. No runtime profile is populated; CPU architecture, compiler options, development machines, historical test anecdotes and platform labels are not converted into runnable minimum requirements. No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; commit history was not reviewed. All build flags, including byte_exact, remain null: source and historical reports were reviewed, but no candidate was compiled, run, emulated or compared with an original binary. Release years and repository creation dates are not reverse-engineering start dates. Evidence: https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/readme.md https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIP.c https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIPPlayDiskSample.c https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/LICENSE CPU audit (2026-10-08): complete-tree search found no assembly, processor directive, compiler CPU option or executable metadata; both source and output ISA remain unsupported rather than inferred from Amiga/SAS-C context.",
       "ai": {
         "usage": null,
         "tools": []
@@ -88233,7 +88796,7 @@
         "original source",
         "source-reviewed"
       ],
-      "notes": "The author's original BlitzBasic 2 PowerBattle source, preserved alongside a later incomplete C++ conversion. README identifies the author's early-1990s Amiga game and points directly to 8037.txt as its original source. 8037.txt identifies version 0.8037 dated 1 October 1995 and contains BlitzBasic application setup, game/editor conditionals, gameplay and data definitions. CMakeLists.txt builds the separate C++20 conversion; it is not evidence that the original BlitzBasic Amiga source builds through CMake. README says the C++ conversion is slow and unlikely to progress quickly; do not describe it as a completed port. LICENSE is a zero-byte file (Git blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391), so GitHub NOASSERTION does not grant a license. Original data completeness, source encoding, BlitzBasic toolchain and build/runtime behavior remain unverified. No modern host target is asserted as tested. License review: Empty LICENSE confirmed by 0-byte tree entry and empty git-blob response; no usable license grant found. README identifies original BlitzBasic 2 Amiga source and 8037.txt contains version 0.8037, gameplay and editor code. Neither inspected source nor build metadata explicitly establishes the original ISA, so no CPU is inferred from Amiga or BlitzBasic alone. The original source is for Amiga, while CMakeLists.txt concerns a separate incomplete C++20 conversion. No target CPU or verified modern host platform is asserted from the language, build host or original platform label. 8037.txt is the original BlitzBasic source. The later CMake recipe is for a separate C++20 conversion and cannot compile the historical source. The author calls conversion progress slow; source/data completeness and a working rebuild remain unverified. The inspected source and build documentation do not establish a sufficiently explicit output-specific hardware minimum. No runtime profile is populated; CPU architecture, compiler options, development machines, historical test anecdotes and platform labels are not converted into runnable minimum requirements. No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; commit history was not reviewed. All build flags, including byte_exact, remain null: source and historical reports were reviewed, but no candidate was compiled, run, emulated or compared with an original binary. Release years and repository creation dates are not reverse-engineering start dates. Evidence: https://github.com/tksuoran/PowerBattle/blob/master/README.md https://github.com/tksuoran/PowerBattle/blob/master/8037.txt https://github.com/tksuoran/PowerBattle/blob/master/CMakeLists.txt https://api.github.com/repos/tksuoran/PowerBattle/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "notes": "The author's original BlitzBasic 2 PowerBattle source, preserved alongside a later incomplete C++ conversion. README identifies the author's early-1990s Amiga game and points directly to 8037.txt as its original source. 8037.txt identifies version 0.8037 dated 1 October 1995 and contains BlitzBasic application setup, game/editor conditionals, gameplay and data definitions. CMakeLists.txt builds the separate C++20 conversion; it is not evidence that the original BlitzBasic Amiga source builds through CMake. README says the C++ conversion is slow and unlikely to progress quickly; do not describe it as a completed port. LICENSE is a zero-byte file (Git blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391), so GitHub NOASSERTION does not grant a license. Original data completeness, source encoding, BlitzBasic toolchain and build/runtime behavior remain unverified. No modern host target is asserted as tested. License review: Empty LICENSE confirmed by 0-byte tree entry and empty git-blob response; no usable license grant found. README identifies original BlitzBasic 2 Amiga source and 8037.txt contains version 0.8037, gameplay and editor code. Neither inspected source nor build metadata explicitly establishes the original ISA, so no CPU is inferred from Amiga or BlitzBasic alone. The original source is for Amiga, while CMakeLists.txt concerns a separate incomplete C++20 conversion. No target CPU or verified modern host platform is asserted from the language, build host or original platform label. 8037.txt is the original BlitzBasic source. The later CMake recipe is for a separate C++20 conversion and cannot compile the historical source. The author calls conversion progress slow; source/data completeness and a working rebuild remain unverified. The inspected source and build documentation do not establish a sufficiently explicit output-specific hardware minimum. No runtime profile is populated; CPU architecture, compiler options, development machines, historical test anecdotes and platform labels are not converted into runnable minimum requirements. No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; commit history was not reviewed. All build flags, including byte_exact, remain null: source and historical reports were reviewed, but no candidate was compiled, run, emulated or compared with an original binary. Release years and repository creation dates are not reverse-engineering start dates. Evidence: https://github.com/tksuoran/PowerBattle/blob/master/README.md https://github.com/tksuoran/PowerBattle/blob/master/8037.txt https://github.com/tksuoran/PowerBattle/blob/master/CMakeLists.txt https://api.github.com/repos/tksuoran/PowerBattle/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 CPU audit (2026-10-08): complete-tree review found no original executable/assembly/processor directive and no target triple in the unfinished C++ conversion; source and target CPU remain unevidenced.",
       "ai": {
         "usage": null,
         "tools": []
@@ -93198,6 +93761,72 @@
         "tools": []
       }
     },
+    "redhawk-spectrum-disassembly": {
+      "id": "redhawk-spectrum-disassembly",
+      "title": "Redhawk",
+      "upstream_name": "Redhawk",
+      "display_title": "Redhawk — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "Redhawk"
+      ],
+      "repo": "https://github.com/Ritchie333/redhawk",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "github-digwuren-redis": {
       "id": "github-digwuren-redis",
       "title": "Redis — retro disk/tape dissection tools",
@@ -96436,6 +97065,72 @@
         "tools": []
       }
     },
+    "robotron-2084-spectrum-disassembly": {
+      "id": "robotron-2084-spectrum-disassembly",
+      "title": "Robotron: 2084",
+      "upstream_name": "Robotron: 2084",
+      "display_title": "Robotron: 2084 — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "Robotron: 2084"
+      ],
+      "repo": "https://github.com/pobtastic/robotron2084",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "robotwar-clojure-harrington": {
       "id": "robotwar-clojure-harrington",
       "title": "RobotWar (Clojure/ClojureScript)",
@@ -98360,6 +99055,134 @@
         "tools": []
       }
     },
+    "sam-coupe-rom-source": {
+      "id": "sam-coupe-rom-source",
+      "title": "SAM Coupé ROM Source",
+      "upstream_name": "SAM Coupé ROM Source",
+      "display_title": "SAM Coupé ROM v3.0 — corrected original source",
+      "subjects": [
+        "SAM Coupé ROM"
+      ],
+      "repo": "https://github.com/simonowen/samrom",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SAM Coupé"
+      ],
+      "target_platforms": [
+        "SAM Coupé"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "original Z80 assembly source"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original-source restoration"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "source correction",
+        "ROM assembly"
+      ],
+      "tags": [
+        "SAM Coupé",
+        "Z80",
+        "ROM",
+        "source preservation"
+      ],
+      "notes": "Corrected and reorganized original SAM Coupé v3.0 ROM source, joined by a glue module and intended to match the official ROM image. Historical ROM binaries are included with the author’s permission. The Makefile uses pyz80; no independent assembly or byte comparison was run.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sam-mod-player": {
+      "id": "sam-mod-player",
+      "title": "SAM MOD player",
+      "upstream_name": "SAM MOD player",
+      "display_title": "SAM MOD Player — native SAM Coupé music player",
+      "subjects": [
+        "SAM MOD player"
+      ],
+      "repo": "https://github.com/stefandrissen/SAM-MOD-player",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "SAM Coupé"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew",
+        "music player"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "runtime code generation",
+        "multi-device audio output",
+        "autoboot disk build"
+      ],
+      "tags": [
+        "SAM Coupé",
+        "Z80",
+        "original homebrew",
+        "audio"
+      ],
+      "notes": "Original SAM Coupé MOD player written in Z80 assembly. Its loader generates device-specific player code for SAA1099, SAMDAC, DAC, Blue Alpha Sampler and Quazar outputs, and the Ant/pyz80 build creates an autoboot disk. This is original homebrew, not reverse-engineered work; no build or hardware test was performed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "samdisk-floppy-image-utility": {
       "id": "samdisk-floppy-image-utility",
       "title": "SAMdisk — protected floppy imaging",
@@ -98404,6 +99227,138 @@
         "PC-compatible floppy media"
       ],
       "notes": "Simon Owen's portable disk-image utility specializing in PC-compatible copy-protected formats; README says v4 core was rewritten from SAMdisk 3 and remains incomplete. Same project's successive versions; unsupported or lost functions are not implied to work.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "samdos2-source-reconstruction": {
+      "id": "samdos2-source-reconstruction",
+      "title": "SAMDOS",
+      "upstream_name": "SAMDOS",
+      "display_title": "SAMDOS2 — final SAM Coupé DOS source reconstruction",
+      "subjects": [
+        "SAMDOS2"
+      ],
+      "repo": "https://github.com/stefandrissen/samdos",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SAM Coupé"
+      ],
+      "target_platforms": [
+        "SAM Coupé"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "released Z80 assembly source",
+        "SAMDOS2 binary"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "operating-system"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "byte-exact source reconstruction"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "dZ80 disassembly",
+        "source merge",
+        "byte comparison"
+      ],
+      "tags": [
+        "SAM Coupé",
+        "Z80",
+        "operating system",
+        "source reconstruction"
+      ],
+      "notes": "Reconstructs the final public SAMDOS2 source by merging a dZ80 disassembly of the distributed binary into the last released source. Repository history states the final source assembles 100% identically, including preserved build/use noise. No independent assembly or comparison was run.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sampuzznic": {
+      "id": "sampuzznic",
+      "title": "SamPuzznic",
+      "upstream_name": "SamPuzznic",
+      "display_title": "SamPuzznic — original SAM Coupé fan conversion",
+      "subjects": [
+        "SamPuzznic",
+        "Puzznic"
+      ],
+      "repo": "https://github.com/stripwax/SamPuzznic",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "SAM Coupé"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew",
+        "fan conversion"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "native assembly",
+        "level-data conversion"
+      ],
+      "tags": [
+        "SAM Coupé",
+        "Z80",
+        "original homebrew",
+        "fan conversion"
+      ],
+      "notes": "Original from-scratch SAM Coupé Puzznic clone written entirely in Z80 assembly. The author explicitly describes it as a new implementation rather than a reverse-engineered port; upstream reports multiple playable puzzles while the game remains incomplete. No build or gameplay test was performed.",
       "ai": {
         "usage": null,
         "tools": []
@@ -104374,6 +105329,76 @@
         "tools": []
       }
     },
+    "snatcher-pce-cd-reassembly": {
+      "id": "snatcher-pce-cd-reassembly",
+      "title": "Snatcher PCE-CD Reassembly Project",
+      "upstream_name": "Snatcher PCE-CD Reassembly Project",
+      "display_title": "Snatcher CD-ROMantic — PC Engine CD byte-exact reassembly",
+      "subjects": [
+        "Snatcher CD-ROMantic"
+      ],
+      "repo": "https://github.com/buranko-kun/snatcher",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC Engine CD"
+      ],
+      "target_platforms": [
+        "PC Engine CD"
+      ],
+      "source_cpu": [
+        "HuC6280"
+      ],
+      "target_cpu": [
+        "HuC6280"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "HuC6280 machine code"
+      ],
+      "reconstructed_languages": [
+        "HuC6280 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "byte-exact partial reassembly"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "annotated disassembly",
+        "PCEAS reassembly",
+        "byte comparison"
+      ],
+      "tags": [
+        "PC Engine CD",
+        "HuC6280",
+        "game"
+      ],
+      "notes": "Verified source-level HuC6280 reassembly of Snatcher CD-ROMantic. The IPL boot and partially sourced engine banks reassemble byte-identically against user-supplied Redump extracts; unfinished banks remain explicit. No game data is distributed and no independent build was run.",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "sneptest-sms-hardware-diagnostics": {
       "id": "sneptest-sms-hardware-diagnostics",
       "title": "Sneptest-SMS",
@@ -105678,6 +106703,76 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "sote-extractor": {
+      "id": "sote-extractor",
+      "title": "SOTE Extractor",
+      "upstream_name": "SOTE Extractor",
+      "display_title": "SOTE Extractor — Shadows of the Empire asset archaeology",
+      "subjects": [
+        "Star Wars: Shadows of the Empire"
+      ],
+      "repo": "https://github.com/GTTeancum/sote-extractor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "development host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Windows PE executable and game data"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "C#"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "asset extractor",
+        "format-analysis tool"
+      ],
+      "re_started": null,
+      "status": "Primary-source scope reviewed; no independent build or runtime verification",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "PE relocation",
+        "texture decoding",
+        "glTF export",
+        "disassembly-informed format recovery"
+      ],
+      "tags": [
+        "Windows",
+        "asset extraction",
+        "software archaeology"
+      ],
+      "notes": "Game-specific extractor for the Windows PC release of Star Wars: Shadows of the Empire. The primary documentation says format rules were recovered from disassembly of Shadows.exe; tools relocate PE-format data DLLs and export level geometry, characters and textures. CPU fields remain empty because the reviewed material does not state the original or output ISA.",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "github-georgrottensteiner-soulless": {
@@ -111944,6 +113039,72 @@
         "DHp2"
       ],
       "notes": "Contains packed and unpacked Tearaway Thomas data and a substantive Python DHp2 decompressor. The README calls it a partial reimplementation, but the public tree substantiates unpacking research only; no playable reconstruction is claimed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "technician-ted-spectrum-disassembly": {
+      "id": "technician-ted-spectrum-disassembly",
+      "title": "Technician Ted",
+      "upstream_name": "Technician Ted",
+      "display_title": "Technician Ted — ZX Spectrum annotated disassembly",
+      "subjects": [
+        "Technician Ted"
+      ],
+      "repo": "https://github.com/Ritchie333/chipfact",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "documentation host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit source",
+        "HTML"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated disassembly"
+      ],
+      "re_started": null,
+      "status": "Annotated disassembly; upstream documentation build reviewed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit annotation",
+        "HTML generation"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "game",
+        "SkoolKit"
+      ],
+      "notes": "Game-specific annotated ZX Spectrum disassembly maintained as SkoolKit source with generated browsable documentation. The reviewed build produces documentation from an owned original image; it is not recorded as a game reassembly, and no build was independently run.",
       "ai": {
         "usage": null,
         "tools": []
