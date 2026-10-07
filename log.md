@@ -1,5 +1,11 @@
 # Search / Report Log
 
+## 2026-10-07 — CPU queue and 3Dvibe64 v1.7.0 maintenance
+
+Resolved **eight queued source/target-CPU audit areas** across BlitzWays, Notegame, Yawi, Skazka, Photon Crawler and Quadromania. Broad m68k assignments use direct 680x0 or checked-in native-binary evidence; the two newly authored Z80 games now correctly mark predecessor CPU as not applicable, Photon Crawler's 6502 output follows its Oscar64 toolchain, and Quadromania retains only its explicit ARM/MIPS outputs. EDOS, Legends of Valour, PlayItPro, PowerBattle and ALSFS remain open rather than deriving an ISA from platform or language.
+
+Also reviewed **3Dvibe64 v1.7.0**: its opt-in Mode 7 fast path uses eight-pixel projective blocks and alternate-row reconstruction. The recorded Turbo6510 64 MHz figures remain a scene-specific accelerated-emulator profile, not a physical-hardware minimum. Codex usage manuals are kept distinct from development-AI evidence. No candidate was compiled or run.
+
 ## 2026-10-06 — Fourth focused Amiga/C64 pass: 44 approved projects
 
 Added **44 approved source-reviewed projects**, taking the catalogue from 1,621 to **1,665**, with 352 evidence-backed audit areas. Nine holds, twelve lineage/component references and two exclusions remain unpromoted. Coverage: 24 repository-search attempts, 23 fresh exact query/page pairs, one disclosed repeat and 414 screened roots; four search failures and no capped pages.

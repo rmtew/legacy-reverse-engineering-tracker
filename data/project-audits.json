@@ -37340,8 +37340,8 @@
     },
     {
       "project_id": "3dvibe64-c64-graphics-sdk",
-      "last_reviewed": "2026-09-27",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-07",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -37362,16 +37362,32 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "README documents builder commands and VICE qualification; no independent build in this review."
+          "checked_at": "2026-10-07",
+          "note": "v1.7.0 publishes the fast Mode 7 builder path, public cube, assembled arithmetic/renderer tests and preserved prior output hashes. These are upstream qualification claims; no independent build or runtime test was performed here.",
+          "evidence_urls": [
+            "https://github.com/Librologica/3Dvibe64/commit/84491d4b25ce20154d95ad24585d1d344ddba2e1",
+            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/RELEASE-NOTES-1.7.0.md",
+            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/TESTING.md"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "Primary release notes give an explicit Turbo6510 64 MHz benchmark and recommend Q8 above 20 MHz, but call the results scene-specific and say actual hardware is not newly qualified. The runtime profile preserves that bounded accelerated-emulation evidence without turning the recommendation into a minimum.",
+          "evidence_urls": [
+            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/RELEASE-NOTES-1.7.0.md",
+            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/MODE7-FAST.en.md"
+          ]
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-07",
+          "note": "README and dedicated manuals explicitly teach users how to create 3Dvibe64 demos with Codex. That is downstream SDK usage guidance, not evidence that generative AI developed the engine itself. No engine-development attribution was found in the reviewed README, changelog, release notes, dedicated manuals or latest 30 commit messages; project ai.usage remains unknown.",
+          "evidence_urls": [
+            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/README.md",
+            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/VIBE-CODING-GUIDE.en.md",
+            "https://github.com/Librologica/3Dvibe64/commits/main"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -37380,8 +37396,7 @@
         }
       },
       "next_actions": [
-        "Independently build a representative Mode 8 example and check physical C64 behavior.",
-        "Investigate development provenance before assigning an AI usage value."
+        "Independently build a representative v1.7.0 Mode 7 fast example and test physical C64-compatible hardware if later verification is authorized."
       ]
     },
     {
@@ -59692,8 +59707,8 @@
     },
     {
       "project_id": "quadromania-sdl-game",
-      "last_reviewed": "2026-10-05",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-07",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -59733,17 +59748,14 @@
           ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-05",
-          "note": "Makefile.wiz explicitly invokes arm-openwiz-linux-gnu-gcc and Makefile.dingux invokes mipsel-linux-gcc. The reviewed generic/Atari path does not pin an m68k variant or desktop CPU, so those remain unasserted.",
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "Makefile.wiz explicitly invokes arm-openwiz-linux-gnu-gcc and Makefile.dingux explicitly invokes mipsel-linux-gcc, establishing the recorded ARM and MIPS output families. The generic/Atari MiNT route has no inspected processor-selection flag; no m68k variant or desktop CPU is added.",
           "evidence_urls": [
-            "https://github.com/simonsunnyboy/quadromania/blob/master/README",
-            "https://github.com/simonsunnyboy/quadromania/blob/master/Makefile",
-            "https://github.com/simonsunnyboy/quadromania/blob/master/CMakeLists.txt",
-            "https://github.com/simonsunnyboy/quadromania/blob/master/INSTALL",
-            "https://github.com/simonsunnyboy/quadromania/commit/f08dcc61537d68f93e813170fd8ea1cf4cce4f87",
-            "https://github.com/simonsunnyboy/quadromania/blob/master/Makefile.wiz",
-            "https://github.com/simonsunnyboy/quadromania/blob/master/Makefile.dingux"
+            "https://github.com/simonsunnyboy/quadromania/blob/f08dcc61537d68f93e813170fd8ea1cf4cce4f87/README",
+            "https://github.com/simonsunnyboy/quadromania/blob/f08dcc61537d68f93e813170fd8ea1cf4cce4f87/Makefile.wiz",
+            "https://github.com/simonsunnyboy/quadromania/blob/f08dcc61537d68f93e813170fd8ea1cf4cce4f87/Makefile.dingux",
+            "https://github.com/simonsunnyboy/quadromania/blob/f08dcc61537d68f93e813170fd8ea1cf4cce4f87/INSTALL"
           ]
         },
         "build": {
@@ -59799,7 +59811,7 @@
         }
       },
       "next_actions": [
-        "Find the actual Atari MiNT compile configuration before assigning its target CPU variant; preserve the upstream playability limitation."
+        "Add an Atari MiNT CPU only if a primary build configuration or executable establishes it; current ARM/MIPS outputs are complete as recorded."
       ]
     },
     {
@@ -61797,8 +61809,8 @@
     },
     {
       "project_id": "yawi-sg1000-sc3000",
-      "last_reviewed": "2026-10-05",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-07",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -61821,13 +61833,12 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-05",
-          "note": "The release describes an Enigma remake but the exact original executable/platform is not identified in the inspected source. No original CPU is inferred from genre or title.",
+          "state": "not-applicable",
+          "checked_at": "2026-10-07",
+          "note": "The inspected build and source implement a new native Enigma-style puzzle game for SG-1000/SC-3000. No exact predecessor executable is analysed, so source_cpu is not applicable; the already reviewed SDCC -mz80 output remains Z80.",
           "evidence_urls": [
-            "https://github.com/amoibos/Yawi/blob/main/engine.c",
-            "https://github.com/amoibos/Yawi/blob/main/compile.bat",
-            "https://www.smspower.org/Homebrew/Yawi-SG"
+            "https://github.com/amoibos/Yawi/blob/d04d381eb20b6d015d7784738ac2ccfcc8fc9832/engine.c",
+            "https://github.com/amoibos/Yawi/blob/d04d381eb20b6d015d7784738ac2ccfcc8fc9832/compile.bat"
           ]
         },
         "target_cpu": {
@@ -68324,8 +68335,8 @@
     },
     {
       "project_id": "skazka-sc3000-native-rpg",
-      "last_reviewed": "2026-10-05",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-07",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -68354,16 +68365,12 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-05",
-          "note": "No source binary or original CPU provenance is documented. Target C and assembly are native Z80/SDCC for SC-3000/H.",
+          "state": "not-applicable",
+          "checked_at": "2026-10-07",
+          "note": "The repository contains a newly authored SC-3000 RPG in C and Z80 assembly and does not identify or analyse an earlier executable. source_cpu is therefore not applicable; the reviewed SDCC/sdasz80 -mz80 output remains Z80.",
           "evidence_urls": [
-            "https://github.com/siriokds/SKAZKA_SC3000/blob/main/game.h",
-            "https://github.com/siriokds/SKAZKA_SC3000/blob/main/game_title.h",
-            "https://github.com/siriokds/SKAZKA_SC3000/blob/main/game_main.h",
-            "https://github.com/siriokds/SKAZKA_SC3000/blob/main/main.h",
-            "https://github.com/siriokds/SKAZKA_SC3000/blob/main/zMakeGAME.cmd",
-            "https://github.com/siriokds/SKAZKA_SC3000/commit/a2ed53909ef01e3d0e7830897ef3faf3223cb1c1"
+            "https://github.com/siriokds/SKAZKA_SC3000/blob/a2ed53909ef01e3d0e7830897ef3faf3223cb1c1/main.c",
+            "https://github.com/siriokds/SKAZKA_SC3000/blob/a2ed53909ef01e3d0e7830897ef3faf3223cb1c1/zMakeGAME.cmd"
           ]
         },
         "target_cpu": {
@@ -96367,7 +96374,7 @@
     },
     {
       "project_id": "github-drmortalwombat-photoncrawler",
-      "last_reviewed": "2026-10-06",
+      "last_reviewed": "2026-10-07",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -96407,15 +96414,14 @@
           ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "C64-specific VIC-II image code and Oscar64-style headers establish the intended platform, but the sampled root has no build recipe or explicit processor selection and the inspected C has no native instruction declaration. Leave target_cpu empty pending a direct target/ISA check; do not infer an exact CPU from C or from the C64 label.",
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "Photon Crawler imports Oscar64 C64/vector headers, and the same author's compiler README explicitly states that Oscar64 targets the classic 6502 processor family with a C64 focus. This establishes a 6502 output family; the project still lacks its own build recipe and runtime minimum.",
           "evidence_urls": [
-            "https://github.com/drmortalwombat/photoncrawler/blob/main/README.md",
-            "https://github.com/drmortalwombat/photoncrawler/blob/main/photoncrawler.c",
-            "https://github.com/drmortalwombat/photoncrawler/blob/main/rgbimage.c",
-            "https://github.com/drmortalwombat/photoncrawler/blob/main/LICENSE",
-            "https://github.com/drmortalwombat/oscar64/blob/main/README.md"
+            "https://github.com/drmortalwombat/photoncrawler/blob/f4b42681220595e7e82855532965926fad9a4ccb/README.md",
+            "https://github.com/drmortalwombat/photoncrawler/blob/f4b42681220595e7e82855532965926fad9a4ccb/photoncrawler.c",
+            "https://github.com/drmortalwombat/oscar64/blob/main/README.md",
+            "https://github.com/drmortalwombat/oscar64/blob/main/include/c64/asm6502.h"
           ]
         },
         "build": {
@@ -96468,9 +96474,8 @@
         }
       },
       "next_actions": [
-        "Find a primary build/target declaration before adding target_cpu or claiming compiler compatibility.",
-        "Resolve the documented build/dependency/assets/rights caveats before any future authorized candidate build or runtime check; no candidate execution was performed in this pass.",
-        "Review remaining linked sources and uninspected implementation areas without treating a sampled audit as complete."
+        "Recover the exact Photon Crawler build command and dependency version before asserting compilability.",
+        "Find an explicit numerical hardware requirement before adding a runtime profile."
       ]
     },
     {
@@ -100219,8 +100224,8 @@
     },
     {
       "project_id": "blitzways-amiga-native-game",
-      "last_reviewed": "2026-10-06",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-07",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -100246,25 +100251,25 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "Substantial editable original Blitz Basic source is preserved, with 1992 concept and later development history. Neither inspected compiler settings nor high-level source establishes a native ISA independently; source_cpu is not inferred from A500+/A1200 labels.",
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "README identifies the preserved original Amiga Blitz Basic 2 source. The checked-in release archive contains an AmigaOS Hunk executable, providing direct native-binary evidence for the broad m68k family; no narrower CPU model is claimed.",
           "evidence_urls": [
             "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/README.md",
             "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/Manual.readme",
             "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/src/VisualStudioCodeSrc/Ways1.30.VSC.bb2",
-            "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/Blitz2CompilerOptions.txt"
+            "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/rls/BlitzWays_files.zip"
           ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "Blitz Basic build/environment and Amiga executable releases are documented, but no explicit processor flag or output header was inspected. target_cpu remains empty; A1200 development does not prove an AGA-only or 68020-only minimum.",
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "The checked-in release archive contains the generated AmigaOS Hunk executable, while README/manual document stock A500+/A1200 operation. Record m68k as the output family; Kickstart 2.0 and 1 MB Chip RAM remain the stated runtime minimum, without inferring 68020 or AGA.",
           "evidence_urls": [
             "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/README.md",
-            "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/Blitz2CompilerOptions.txt",
             "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/Manual.readme",
-            "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/src/VisualStudioCodeSrc/Ways1.30.VSC.bb2"
+            "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/src/VisualStudioCodeSrc/Ways1.30.VSC.bb2",
+            "https://github.com/wertstahl/blitzways/blob/4fa00f788204a6c71983779df0d3bf0b45967af9/rls/BlitzWays_files.zip"
           ]
         },
         "build": {
@@ -100317,14 +100322,14 @@
         }
       },
       "next_actions": [
-        "Resolve the documented license, asset, dependency and compatibility caveats before any redistribution or build attempt.",
-        "Extend the bounded primary review where CPU/output, minimum hardware or relationship evidence remains uncertain."
+        "Resolve the documented license, asset and dependency caveats before any redistribution or build attempt.",
+        "Independently rebuild and run the supplied release path if later verification is authorized."
       ]
     },
     {
       "project_id": "notegame-amiga-blitz-source",
-      "last_reviewed": "2026-10-06",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-07",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -100353,29 +100358,23 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "Original 1994–95 Blitz Basic game/editor sources are readable text exports, with tokenized originals retained. No native ISA was established from the inspected high-level source; source_cpu is not assigned from A1200 development provenance.",
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "The authors explicitly say the 1995 game was coded on an Amiga 1200 '680x0' with Blitz Basic 2, and preserve both tokenized/original and readable source. This directly establishes the broad m68k source family without asserting a particular 680x0 minimum.",
           "evidence_urls": [
             "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/README.md",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/CHANGELOG.md",
             "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Code/Aikaar_V0.26.txt",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Code/TeePeliTP.txt",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Code/convert/convert-to-utf8.sh",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/s/startup-sequence"
+            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Aika-arvot"
           ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "README names Amiga 1200, Blitz Basic 2 v2.10 and SuperTED v2.52. These are environment descriptions, not explicit output ISA evidence or proof of an AGA/68020 minimum. target_cpu remains empty pending native-output evidence.",
+          "state": "reviewed",
+          "checked_at": "2026-10-07",
+          "note": "README identifies the supplied Aika-arvot file as the runnable Amiga executable and explicitly describes the development CPU as 680x0. The output family is therefore m68k; the review still found no explicit minimum model, RAM or OS version.",
           "evidence_urls": [
             "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/README.md",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Code/convert/convert-to-utf8.sh",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/s/startup-sequence",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/CHANGELOG.md",
             "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Code/Aikaar_V0.26.txt",
-            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Code/TeePeliTP.txt"
+            "https://github.com/xet7/notegame/blob/8b7eb4e57ad4554b49b26a0125a1424df25a2d75/Aika/Aika-arvot"
           ]
         },
         "build": {
@@ -100435,8 +100434,8 @@
         }
       },
       "next_actions": [
-        "Resolve the documented license, asset, dependency and compatibility caveats before any redistribution or build attempt.",
-        "Extend the bounded primary review where CPU/output, minimum hardware or relationship evidence remains uncertain."
+        "Resolve the documented license, asset and dependency caveats before any redistribution or build attempt.",
+        "Find an explicit minimum RAM/OS requirement before adding a runtime profile."
       ]
     },
     {
