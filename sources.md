@@ -838,3 +838,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-07 — Review 35 Apple II/IIgs game projects and preserve documented holds
 
 [Research record](docs/research/2026-10-07-apple-ii-games-discovery.md).
+
+## 2026-10-07 — Review 26 additional Apple II/IIgs game implementations and bounded holds
+
+[Research record](docs/research/2026-10-07-apple-ii-games-round2.md).
