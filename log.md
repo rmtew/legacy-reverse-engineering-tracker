@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-08 — Cross-platform discovery and CPU queue exhaustion
+
+Added **17 primary-source-reviewed projects**: two byte-exact MSX reassemblies, seven ZX Spectrum annotated disassemblies, Snatcher's PC Engine CD reassembly, SOTE Extractor, The Demon's Forge archaeology, four SAM Coupé projects, and the Jawbreaker Deluxe TI-99/4A port. Nine screened non-additions are retained as three duplicates/exclusions and four bounded deferrals plus two ordinary emulator-port exclusions.
+
+The distinct fresh-search slice used the exact strict queries `PC Engine disassembly reconstruction`, `SAM Coupe disassembly source`, `TI-99/4A homebrew source`, and `FM Towns reverse engineering tool`, followed by the broader queries `PC Engine disassembly`, `SAM Coupe`, `TI99 homebrew`, and `FMTowns reverse`. Every reviewed URL and disposition is recorded in the decision and research indexes; the FM Towns route produced no candidate.
+
+The separate CPU lane exhausted the live queue: **ten source/target areas across five projects**. EDOS's tentative 6809 controller remains unpromoted because its own documentation calls the reconstruction assumed/best-guess; PlayItPro, PowerBattle, Legends of Valour and ALSFS received complete-tree processor/assembly/output searches without ISA inference from platform, language, compiler name or test hardware. No candidate was independently built, executed or hardware-tested.
+
 ## 2026-10-07 — CPU queue and 3Dvibe64 v1.7.0 maintenance
 
 Resolved **eight queued source/target-CPU audit areas** across BlitzWays, Notegame, Yawi, Skazka, Photon Crawler and Quadromania. Broad m68k assignments use direct 680x0 or checked-in native-binary evidence; the two newly authored Z80 games now correctly mark predecessor CPU as not applicable, Photon Crawler's 6502 output follows its Oscar64 toolchain, and Quadromania retains only its explicit ARM/MIPS outputs. EDOS, Legends of Valour, PlayItPro, PowerBattle and ALSFS remain open rather than deriving an ISA from platform or language.

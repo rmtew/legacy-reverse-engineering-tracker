@@ -4,6 +4,20 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/buranko-kun/snatcher | Snatcher CD-ROMantic — HuC6280 PC Engine CD byte-exact reassembly; promoted after primary README/source/history review. |
+| https://github.com/GTTeancum/sote-extractor | SOTE Extractor — disassembly-informed Shadows of the Empire asset archaeology and extraction tooling. |
+| https://github.com/vs-sr-dev/pc-demonsforge-doc | The Demon's Forge — measured DOS disk-image, 8086 and engine archaeology. |
+| https://github.com/simonowen/samrom | SAM Coupé v3.0 ROM — corrected and reorganized original Z80 source. |
+| https://github.com/stefandrissen/SAM-MOD-player | SAM MOD Player — original native SAM Coupé Z80 music-player source. |
+| https://github.com/stefandrissen/samdos | SAMDOS2 — released-source plus final-binary reconstruction. |
+| https://github.com/stripwax/SamPuzznic | SamPuzznic — from-scratch SAM Coupé fan conversion, explicitly not RE-derived. |
+| https://github.com/ohustin/jawbreaker2-ti99 | Jawbreaker I + II Deluxe — MSX Z80 to TI-99/4A TMS9900 source port. |
+| https://github.com/TOMB5/TOMB5 | Tomb Raider V decompilation held for platform-specific lineage and CPU/output review. |
+| https://github.com/simonowen/simcoupe | SimCoupe canonical repository; reviewed search hit resolves to the existing emulator record. |
+| https://github.com/stefandrissen/sam-coupe-technical-manual | SAM Coupé manual OCR/preservation source; retained as a discovery node rather than software project. |
+| https://github.com/CheungChang7/TI99_HOMEBREW | TI-99 homebrew aggregate; child title and authorship review deferred. |
+| https://github.com/bfox9900/TI99_HOMEBREW | TI-99 homebrew aggregate; child title and relationship review deferred. |
+| https://github.com/polluks/TI99_HOMEBREW | TI-99 homebrew aggregate whose branch/content state needs resolution before title-level review. |
 | https://github.com/ptitSeb/stuntcarremake | Stunt Car Racer Remake — source-derived portable reconstruction; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/Ozzyboshi/tuxpuck-amiga | TuxPuck Amiga — native m68k SDL game port; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |
 | https://github.com/Ozzyboshi/airstrike-amiga | Airstrike Amiga — native RTG dogfighting port; fourth focused Amiga/C64 primary source/build/CPU/runtime/license/AI/lineage review with eight audit areas. |

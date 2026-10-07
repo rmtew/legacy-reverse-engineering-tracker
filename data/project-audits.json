@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-07",
+  "indexed_at": "2026-10-08",
   "area_names": [
     "identity",
     "classification",
@@ -69567,8 +69567,8 @@
     },
     {
       "project_id": "edos-reversing-ymgve",
-      "last_reviewed": "2026-10-05",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -69592,23 +69592,23 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-05",
-          "note": "The implemented work primarily parses catalogue and disk-format data, rather than a particular game instruction set. tape_controller_system.md tentatively identifies a 6809 controller but explicitly labels its hardware reconstruction as best guesses without access to the hardware; that hypothesis is retained in notes, not promoted to a verified CPU. CPUs of catalogued machines are not inferred from their platform names.",
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "A complete-tree search of the current repository for processor names, assembly files, instruction mnemonics and executable metadata found no corroborating original program ISA. README.md and tape_controller_system.md mention a 6809 tape controller, but the latter explicitly labels the hardware reconstruction as assumed/best-guess without access to the hardware. The tentative 6809 hypothesis is therefore not promoted.",
           "evidence_urls": [
             "https://github.com/ymgve/edos_reversing/blob/main/README.md",
-            "https://github.com/ymgve/edos_reversing/blob/main/edostool.py",
-            "https://github.com/ymgve/edos_reversing/blob/main/edoslib.py",
-            "https://github.com/ymgve/edos_reversing/blob/main/tape_controller_system.md"
+            "https://github.com/ymgve/edos_reversing/blob/main/tape_controller_system.md",
+            "https://github.com/ymgve/edos_reversing/tree/main"
           ]
         },
         "target_cpu": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "Python host scripts have no architecture-specific compilation/output target in the reviewed code. Host CPU and runnable hardware minima remain unknown.",
+          "checked_at": "2026-10-08",
+          "note": "The complete-tree search found Python analysis/extraction scripts and data, with no architecture-specific compiled output, target triple or executable header. Host ISA remains unspecified and is not inferred from Python.",
           "evidence_urls": [
             "https://github.com/ymgve/edos_reversing/blob/main/README.md",
-            "https://github.com/ymgve/edos_reversing/blob/main/edostool.py"
+            "https://github.com/ymgve/edos_reversing/blob/main/tape_controller_system.md",
+            "https://github.com/ymgve/edos_reversing/tree/main"
           ]
         },
         "build": {
@@ -69656,9 +69656,7 @@
           ]
         }
       },
-      "next_actions": [
-        "Corroborate the tentative 6809 tape-controller architecture from original controller code/hardware before assigning a source CPU."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "ssi-img-canadianavenger",
@@ -76531,8 +76529,8 @@
     },
     {
       "project_id": "legends-of-valour-web-azazeln28",
-      "last_reviewed": "2026-10-05",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -76556,27 +76554,25 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-05",
-          "note": "The README repeats historical release platforms, but its reverse-engineering section is empty and no exact original edition/binary is identified in the reviewed renderer. Neither source platforms nor source CPU are promoted from this lineage list. Amiga, Atari ST and DOS remain provenance context only.",
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "A complete-tree and repository-scoped code search for processor names, assembly, executable headers and original-edition identifiers found no exact source binary/edition or ISA. The README's Amiga, Atari ST and DOS release list is lineage context only and cannot select a source CPU.",
           "evidence_urls": [
             "https://github.com/AzazelN28/lov/blob/main/README.md",
+            "https://github.com/AzazelN28/lov/blob/main/package.json",
             "https://github.com/AzazelN28/lov/blob/main/src/engine/index.js",
-            "https://github.com/AzazelN28/lov/blob/main/src/composables/useGame.js",
-            "https://github.com/AzazelN28/lov/blob/main/src/game/Game.js",
-            "https://github.com/AzazelN28/lov/blob/main/package.json"
+            "https://github.com/AzazelN28/lov/tree/main"
           ]
         },
         "target_cpu": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "The active JavaScript engine and Vue/Vite package target a WebGL2 browser. They establish no native machine ISA or specific CPU requirements, so target_cpu stays null.",
+          "checked_at": "2026-10-08",
+          "note": "The complete-tree search confirms JavaScript/Vue/WebGL2 browser output and no native target triple, architecture-specific binary or CPU requirement. A browser target does not establish a target CPU.",
           "evidence_urls": [
             "https://github.com/AzazelN28/lov/blob/main/README.md",
+            "https://github.com/AzazelN28/lov/blob/main/package.json",
             "https://github.com/AzazelN28/lov/blob/main/src/engine/index.js",
-            "https://github.com/AzazelN28/lov/blob/main/src/composables/useGame.js",
-            "https://github.com/AzazelN28/lov/blob/main/src/game/Game.js",
-            "https://github.com/AzazelN28/lov/blob/main/package.json"
+            "https://github.com/AzazelN28/lov/tree/main"
           ]
         },
         "build": {
@@ -94583,8 +94579,8 @@
     },
     {
       "project_id": "playitpro-amiga-source-preservation",
-      "last_reviewed": "2026-10-06",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -94607,23 +94603,25 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "The inspected PIP.c and PIPPlayDiskSample.c establish original Amiga C source, audio-device use and embedded sc5 commands, but do not state a processor model or expose a checked ISA-specific implementation. CPU is left unknown rather than derived solely from the Amiga/SAS-C labels.",
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "A complete-tree search of the preserved source found C modules and embedded sc5 command lines, but no assembly module, original executable, processor directive, CPU option or explicit ISA statement. The original Amiga platform and SAS/C tool name are not used to infer a CPU.",
           "evidence_urls": [
             "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/readme.md",
             "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIP.c",
-            "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIPPlayDiskSample.c"
+            "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIPPlayDiskSample.c",
+            "https://github.com/ResistanceVault/preservation-play-it-pro/tree/master"
           ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "The embedded sc5 commands lack an explicit CPU setting, and the bounded review did not establish output ISA from an assembly module or executable. No target CPU is asserted until primary output evidence is checked.",
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The same complete-tree search found no compiler CPU selection, linker map, executable header or architecture-specific output evidence. The embedded sc5 commands do not name a processor, so no target ISA is assigned.",
           "evidence_urls": [
+            "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/readme.md",
             "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIP.c",
             "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/PIPPlayDiskSample.c",
-            "https://github.com/ResistanceVault/preservation-play-it-pro/blob/master/readme.md"
+            "https://github.com/ResistanceVault/preservation-play-it-pro/tree/master"
           ]
         },
         "build": {
@@ -94670,14 +94668,13 @@
         }
       },
       "next_actions": [
-        "Find a primary compiler configuration or native assembly/output file to establish the target CPU without platform inference.",
         "Recover the JEO/-P: include environment and complete link recipe before any future build attempt."
       ]
     },
     {
       "project_id": "powerbattle-original-amiga-source",
-      "last_reviewed": "2026-10-06",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -94700,23 +94697,25 @@
           ]
         },
         "source_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "README identifies original BlitzBasic 2 Amiga source and 8037.txt contains version 0.8037, gameplay and editor code. Neither inspected source nor build metadata explicitly establishes the original ISA, so no CPU is inferred from Amiga or BlitzBasic alone.",
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "A complete-tree search reviewed the original BlitzBasic source, README and all build files but found no original executable, assembly module, processor directive or explicit ISA statement. CPU is not inferred from the Amiga/BlitzBasic labels.",
           "evidence_urls": [
             "https://github.com/tksuoran/PowerBattle/blob/master/README.md",
             "https://github.com/tksuoran/PowerBattle/blob/master/8037.txt",
-            "https://github.com/tksuoran/PowerBattle/blob/master/CMakeLists.txt"
+            "https://github.com/tksuoran/PowerBattle/blob/master/CMakeLists.txt",
+            "https://github.com/tksuoran/PowerBattle/tree/master"
           ]
         },
         "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "The original source is for Amiga, while CMakeLists.txt concerns a separate incomplete C++20 conversion. No target CPU or verified modern host platform is asserted from the language, build host or original platform label.",
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The complete-tree search found a separate unfinished host C++ conversion and CMake configuration without an architecture-specific target triple or processor setting. Neither the historical nor modern output ISA is explicitly evidenced.",
           "evidence_urls": [
-            "https://github.com/tksuoran/PowerBattle/blob/master/CMakeLists.txt",
             "https://github.com/tksuoran/PowerBattle/blob/master/README.md",
-            "https://github.com/tksuoran/PowerBattle/blob/master/8037.txt"
+            "https://github.com/tksuoran/PowerBattle/blob/master/8037.txt",
+            "https://github.com/tksuoran/PowerBattle/blob/master/CMakeLists.txt",
+            "https://github.com/tksuoran/PowerBattle/tree/master"
           ]
         },
         "build": {
@@ -99774,8 +99773,8 @@
     },
     {
       "project_id": "alsfs-amiga-linux-serial-suite",
-      "last_reviewed": "2026-10-06",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -99800,22 +99799,24 @@
         },
         "source_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-10-06",
-          "note": "This original filesystem transfer suite operates on Amiga files and disk images; no historical native binary is reconstructed. Data/filesystem content does not have a single source CPU.",
-          "evidence_urls": [
-            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/alsfssrv.c",
-            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/amiga_operations.c",
-            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/Makefile"
-          ]
-        },
-        "target_cpu": {
-          "state": "needs-research",
-          "checked_at": "2026-10-06",
-          "note": "The native-server recipe uses vbcc +kick13 and the NDK but no explicit processor-selection argument, native assembly or inspected executable header establishes a target ISA independently in this bounded review. No Linux/Node host ISA is inferred. target_cpu stays empty pending stronger primary evidence.",
+          "checked_at": "2026-10-08",
+          "note": "Complete-tree review confirms this is original filesystem-transfer tooling operating on files and disk images, not a reconstruction of a historical executable. No source CPU applies to the analysed data.",
           "evidence_urls": [
             "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/Makefile",
             "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/alsfssrv.c",
-            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/amiga_operations.c"
+            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/amiga_operations.c",
+            "https://github.com/Ozzyboshi/alsfsAmigaServer/tree/22e5391e13533659e906763d894c0988abc2d0ae"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "A complete-tree and repository-scoped code search found vbcc +kick13, Amiga API calls and an A600 test report, but no CPU-selection flag, assembly module, target triple or inspected executable header. None of those contextual facts independently establishes the emitted ISA.",
+          "evidence_urls": [
+            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/Makefile",
+            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/alsfssrv.c",
+            "https://github.com/Ozzyboshi/alsfsAmigaServer/blob/22e5391e13533659e906763d894c0988abc2d0ae/amiga_operations.c",
+            "https://github.com/Ozzyboshi/alsfsAmigaServer/tree/22e5391e13533659e906763d894c0988abc2d0ae"
           ]
         },
         "build": {
@@ -99871,8 +99872,7 @@
         }
       },
       "next_actions": [
-        "Resolve the documented license, asset, dependency and compatibility caveats before any redistribution or build attempt.",
-        "Extend the bounded primary review where CPU/output, minimum hardware or relationship evidence remains uncertain."
+        "Resolve the documented license, asset, dependency and compatibility caveats before any redistribution or build attempt."
       ]
     },
     {
@@ -121670,6 +121670,1366 @@
             "https://github.com/davemoore22/sorcery/blob/f1f5a0b4fc14113dd90ce5b42301c699704ed1e5/README.md",
             "https://github.com/davemoore22/sorcery/blob/f1f5a0b4fc14113dd90ce5b42301c699704ed1e5/doc/LICENSE.md",
             "https://github.com/davemoore22/sorcery/blob/f1f5a0b4fc14113dd90ce5b42301c699704ed1e5/src/engine/engine.cpp"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "alpharoid-msx-byte-exact",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "README explicitly describes a human-guided, largely AI-executed workflow; repository Cursor workflow material identifies Cursor. This does not quantify contribution.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/README.md",
+            "https://github.com/0xe1f/Alpharoid/blob/a2f9092d0da2636a2b28703dbd25ed73ac8fb7c4/Makefile"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "arkanoid-msx-byte-exact",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "README explicitly describes a human-guided, largely AI-executed workflow; repository Cursor workflow material identifies Cursor. This does not quantify contribution.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/README.md",
+            "https://github.com/0xe1f/Arkanoid/blob/daae9ed8bc323bcb4bb9a230dff556b360367244/Makefile"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "everyones-a-wally-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/everyonesawally/tree/be941081a1e71d3cfc554e5cdd24977dc40b6f4a",
+            "https://github.com/pobtastic/everyonesawally/commit/be941081a1e71d3cfc554e5cdd24977dc40b6f4a"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "how-to-be-a-complete-bastard-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/howtobeacompletebastard/tree/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c",
+            "https://github.com/pobtastic/howtobeacompletebastard/commit/85cb4f0a0226efce8913f9ec7ea9b0dc72f0724c"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "robotron-2084-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/pobtastic/robotron2084/tree/8d61acb100cfa1c8bce144728f3eea23ef33ebd5",
+            "https://github.com/pobtastic/robotron2084/commit/8d61acb100cfa1c8bce144728f3eea23ef33ebd5"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "dynamite-dan-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dynamitedan/tree/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03",
+            "https://github.com/Ritchie333/dynamitedan/commit/8fdb3d9174c7b0a5b3c3dabf896cd01957aada03"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "technician-ted-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/chipfact/tree/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0",
+            "https://github.com/Ritchie333/chipfact/commit/298b1371e77b5ffbaf9480a3b9f96d33a23cf4e0"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "herberts-dummy-run-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/dummyrun/tree/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e",
+            "https://github.com/Ritchie333/dummyrun/commit/1f2d6a636e20616c08ddcfcac4d1ffc798137c4e"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "redhawk-spectrum-disassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary documentation and source layout establish the recorded work type without inferring completion.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "SkoolKit source and documentation-generation instructions were reviewed. The output is documentation, not a reconstructed runnable game; no build was independently run.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "Analysis/documentation output has no legacy runnable profile.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/Ritchie333/redhawk/tree/22f51f4d0904219122b9a0e23e611d6ba59dcc64",
+            "https://github.com/Ritchie333/redhawk/commit/22f51f4d0904219122b9a0e23e611d6ba59dcc64"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "snatcher-pce-cd-reassembly",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Verified source-level HuC6280 reassembly of Snatcher CD-ROMantic. The IPL boot and partially sourced engine banks reassemble byte-identically against user-supplied Redump extracts; unfinished banks remain explicit. No game data is distributed and no independent build was run.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary project text or implementation commit attribution explicitly identifies AI-assisted work.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/buranko-kun/snatcher/blob/805b8d60c423d3043a752307bb91c079cb39c6e0/README.md",
+            "https://github.com/buranko-kun/snatcher/commit/805b8d60c423d3043a752307bb91c079cb39c6e0"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sote-extractor",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Game-specific extractor for the Windows PC release of Star Wars: Shadows of the Empire. The primary documentation says format rules were recovered from disassembly of Shadows.exe; tools relocate PE-format data DLLs and export level geometry, characters and textures. CPU fields remain empty because the reviewed material does not state the original or output ISA.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "source_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed primary material did not identify an original executable ISA.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/GTTeancum/sote-extractor/blob/95cc2317cf395a3075ccef757d79423d0d1ad9be/README.md",
+            "https://github.com/GTTeancum/sote-extractor/commit/95cc2317cf395a3075ccef757d79423d0d1ad9be"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "demons-forge-dos-archaeology",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Measurement-first archaeology of the 1987 DOS release: Python tools decode the self-booting disk image, recover its directory, render 75 rooms and 28 objects, and compare the DOS patch against the embedded original. The repository explicitly identifies its strict 16-bit 8086 disassembler; no runnable reconstruction is claimed.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "This analysis/documentation output has no legacy executable target CPU.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary project text or implementation commit attribution explicitly identifies AI-assisted work.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/blob/fedf0b23646881d0a6698eeff498a4da7cfb9019/README.md",
+            "https://github.com/vs-sr-dev/pc-demonsforge-doc/commit/fedf0b23646881d0a6698eeff498a4da7cfb9019"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sam-coupe-rom-source",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Corrected and reorganized original SAM Coupé v3.0 ROM source, joined by a glue module and intended to match the official ROM image. Historical ROM binaries are included with the author’s permission. The Makefile uses pyz80; no independent assembly or byte comparison was run.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/simonowen/samrom/blob/c3eab1248e52719fb1250e3e32fa46e1afb8efa4/README.md",
+            "https://github.com/simonowen/samrom/commit/c3eab1248e52719fb1250e3e32fa46e1afb8efa4"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sam-mod-player",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Original SAM Coupé MOD player written in Z80 assembly. Its loader generates device-specific player code for SAA1099, SAMDAC, DAC, Blue Alpha Sampler and Quazar outputs, and the Ant/pyz80 build creates an autoboot disk. This is original homebrew, not reverse-engineered work; no build or hardware test was performed.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "An original/source CPU does not sensibly apply to this original implementation.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/SAM-MOD-player/blob/e82b272ddde88b00c86d28bd19ac00b2e1244ec0/README.md",
+            "https://github.com/stefandrissen/SAM-MOD-player/commit/e82b272ddde88b00c86d28bd19ac00b2e1244ec0"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "samdos2-source-reconstruction",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Reconstructs the final public SAMDOS2 source by merging a dZ80 disassembly of the distributed binary into the last released source. Repository history states the final source assembles 100% identically, including preserved build/use noise. No independent assembly or comparison was run.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/stefandrissen/samdos/blob/d0f9978def5ae3edb2106c940d59576089a1ef86/README.md",
+            "https://github.com/stefandrissen/samdos/commit/d0f9978def5ae3edb2106c940d59576089a1ef86"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sampuzznic",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Original from-scratch SAM Coupé Puzznic clone written entirely in Z80 assembly. The author explicitly describes it as a new implementation rather than a reverse-engineered port; upstream reports multiple playable puzzles while the game remains incomplete. No build or gameplay test was performed.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-08",
+          "note": "An original/source CPU does not sensibly apply to this original implementation.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "The reviewed documentation did not state a complete minimum runnable hardware profile; none was inferred.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "No explicit AI-use evidence was found in the reviewed README, selected files, or bounded current history; this is not proof of non-use.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/stripwax/SamPuzznic/blob/4b171109bcbe030d2f17a241a675a39197665ef2/README.md",
+            "https://github.com/stripwax/SamPuzznic/commit/4b171109bcbe030d2f17a241a675a39197665ef2"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "jawbreaker-deluxe-ti99-port",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary repository documentation establishes the project identity and scope.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Source port of the MSX1 Jawbreaker I + II Deluxe Edition to TI-99/4A TMS9900 assembly. Primary documentation identifies the MSX lineage and a 32K bank-switched cartridge that uses only the console’s 256-byte scratchpad, requiring no memory expansion. The runtime profile records those explicit constraints without inventing a RAM minimum.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The original instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The produced code instruction set is explicit in the primary documentation or inspected source.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Upstream build instructions and artifacts were reviewed; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary README explicitly states a plain TI-99/4A, 32K cartridge, 256-byte scratchpad variables and no memory expansion; these are recorded without turning cartridge size into RAM.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Primary project text or implementation commit attribution explicitly identifies AI-assisted work.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Canonical URL, title, profile adjacency, and documented lineage were screened against the catalogue and decision ledger.",
+          "evidence_urls": [
+            "https://github.com/ohustin/jawbreaker2-ti99/blob/5ea5ead31030232d33c260498fcf9a810050b49a/README.md",
+            "https://github.com/ohustin/jawbreaker2-ti99/commit/5ea5ead31030232d33c260498fcf9a810050b49a"
           ]
         }
       },
