@@ -834,3 +834,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-07 — Review 9 further Macintosh 68k game projects and documented holds
 
 [Research record](docs/research/2026-10-07-macintosh-68k-games-discovery-round2.md).
+
+## 2026-10-07 — Review 35 Apple II/IIgs game projects and preserve documented holds
+
+[Research record](docs/research/2026-10-07-apple-ii-games-discovery.md).

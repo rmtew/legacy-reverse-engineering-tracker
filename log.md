@@ -876,3 +876,7 @@ Published the 17 approved games/collections, from 1,715 to 1,732, with 136 subst
 ## 2026-10-07 — Review 9 further Macintosh 68k game projects and documented holds
 
 [Research record](docs/research/2026-10-07-macintosh-68k-games-discovery-round2.md).
+
+## 2026-10-07 — Review 35 Apple II/IIgs game projects and preserve documented holds
+
+[Research record](docs/research/2026-10-07-apple-ii-games-discovery.md).
