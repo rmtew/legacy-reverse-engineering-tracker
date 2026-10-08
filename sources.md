@@ -4,6 +4,14 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/sarnau/C64-The-Castles-of-Dr.-Creep | The Castles of Dr. Creep — independent C64 archaeology, tracked Ghidra/IDA material, data-format tools and upstream-reported byte-identical DASM reassembly. |
+| https://github.com/sarnau/LSK-M6T912F-Floppy-Duplicator | LSK M6T912F firmware — labelled Z80 disassembly, EPROM preservation, custom disassembler and board analysis. |
+| https://github.com/sarnau/Z80DisAssembler | Z80DisAssembler — ANSI C++ recursive disassembler and assembler for documented and undocumented Z80 opcodes. |
+| https://github.com/mnaberez/softbox | SSE SoftBox — Z80/6502 firmware and terminal disassemblies, original dumps, CP/M preservation and disk-image tools. |
+| https://github.com/ravn/rc702-bios | RC702 BIOS — author-led reverse engineering, recovered floppy sources, enhancements and documented CP/M build path. |
+| https://github.com/mnaberez/victor9000-z80 | Victor 9000/Sirius 1 Z80-card boot ROM disassembly with an assemble-and-diff target. |
+| https://github.com/joseluizmartins/Polymax-Poly201-ROM-Reverse-Engineering | Polymax Poly 201 DP ROM and disk preservation, including the available Z80A monitor/IPL disassembly. |
+| https://github.com/Quaerendir/Heartlight | Heartlight — Atari listing extraction, 6502 disassembly, deterministic Python reconstruction and XL/XE XEX output. |
 | https://github.com/buranko-kun/snatcher | Snatcher CD-ROMantic — HuC6280 PC Engine CD byte-exact reassembly; promoted after primary README/source/history review. |
 | https://github.com/GTTeancum/sote-extractor | SOTE Extractor — disassembly-informed Shadows of the Empire asset archaeology and extraction tooling. |
 | https://github.com/vs-sr-dev/pc-demonsforge-doc | The Demon's Forge — measured DOS disk-image, 8086 and engine archaeology. |

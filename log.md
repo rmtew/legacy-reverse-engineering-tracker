@@ -1,5 +1,11 @@
 # Search / Report Log
 
+## 2026-10-09 — Z80/CP/M archaeology and Atari reconstruction discovery
+
+Added **eight primary-source-reviewed projects**: **The Castles of Dr. Creep — sarnau analysis**, **LSK M6T912F Floppy Duplicator firmware**, **Z80DisAssembler**, **SSE SoftBox reverse engineering**, **RC702 BIOS reconstruction**, **Victor 9000 Z80 card boot ROM**, **Polymax Poly 201 DP ROM reverse engineering**, and **Heartlight — Atari 8-bit reconstruction**. Two non-additions are retained: Retro Emulation Display is a libretro-based art installation rather than core retro-development work, while the Atari 8-bit disassembly placeholder has no published files. The Music-player disassemblies candidate resolved to its existing record.
+
+The fresh slice used the strict queries `Acorn Archimedes disassembly reconstruction`, `CP/M reverse engineering source reconstruction`, `Atari 8-bit source reconstruction`, and `Oric homebrew development tool`, followed by `Archimedes disassembly`, `CP/M reverse engineering`, `Atari 8-bit disassembly`, and `Oric development`. Archimedes returned no candidate; Oric produced noise or already-covered OSDK material. The separate CPU audit queue was empty, so no architecture was inferred to meet a quota. Primary documentation, build files and selected source were reviewed; no project was independently built, assembled, executed or hardware-tested.
+
 ## 2026-10-08 — Evening release and evidence maintenance
 
 Reviewed five projects with material upstream changes. **Firestaff v3.0.371** now records explicit x86-64/arm64 packages and Theron's Quest Stage 2 trace evidence while preserving the newly isolated Amiga v2.0 startup gap. **Lanthorn v0.9.3** records its platform-directory migration and bounded corrupt/runaway-media handling. **Moonstone v1.4.2** supersedes the unreleased v1.4.1 wording with the published fullscreen, inventory/stat and retail-parity fixes. **The Legend of Zelda NES Recomp v1.9.1** records opt-in crash diagnostics without overstating the still-unconfirmed PLAY crash.
