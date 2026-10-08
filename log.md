@@ -1,5 +1,11 @@
 # Search / Report Log
 
+## 2026-10-08 — Evening release and evidence maintenance
+
+Reviewed five projects with material upstream changes. **Firestaff v3.0.371** now records explicit x86-64/arm64 packages and Theron's Quest Stage 2 trace evidence while preserving the newly isolated Amiga v2.0 startup gap. **Lanthorn v0.9.3** records its platform-directory migration and bounded corrupt/runaway-media handling. **Moonstone v1.4.2** supersedes the unreleased v1.4.1 wording with the published fullscreen, inventory/stat and retail-parity fixes. **The Legend of Zelda NES Recomp v1.9.1** records opt-in crash diagnostics without overstating the still-unconfirmed PLAY crash.
+
+For **konCePCja**, primary README, release and CI evidence closes build, runtime, AI and relationship gaps: the upstream checks compile board-only targets, run 100-frame simulator/bench smokes and exercise headless IPC, while host CPU/RAM minima remain undocumented. The CPU queue was empty at the start of the pass, so no CPU fields were invented. No project was independently built or executed.
+
 ## 2026-10-08 — Cross-platform discovery and CPU queue exhaustion
 
 Added **17 primary-source-reviewed projects**: two byte-exact MSX reassemblies, seven ZX Spectrum annotated disassemblies, Snatcher's PC Engine CD reassembly, SOTE Extractor, The Demon's Forge archaeology, four SAM Coupé projects, and the Jawbreaker Deluxe TI-99/4A port. Nine screened non-additions are retained as three duplicates/exclusions and four bounded deferrals plus two ordinary emulator-port exclusions.

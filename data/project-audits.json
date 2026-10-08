@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-07",
+  "indexed_at": "2026-10-08",
   "area_names": [
     "identity",
     "classification",
@@ -5500,7 +5500,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-04",
+      "last_reviewed": "2026-10-08",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5520,18 +5520,28 @@
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "PROJECT_STATUS explicitly verifies an Apple Silicon macOS boot; arm64 is recorded without inferring architectures for other host builds."
+          "checked_at": "2026-10-08",
+          "note": "v3.0.371 publishes explicit x86-64 and arm64 host artifacts; the record uses the existing x86 family label plus arm64 without inferring older x86 minima.",
+          "evidence_urls": [
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.371"
+          ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "v3.0.360 covers scoped game discovery, authenticated FM Towns selection and source-order CSB sound; DM2 macOS reaches only the post-title menu."
+          "checked_at": "2026-10-08",
+          "note": "v3.0.371 adds source-locked Theron's Quest Japanese Stage 2 routine/runtime-trace evidence and multi-platform packages. The latest DM1 note separately records that isolated Amiga v2.0 M12 startup still fails before first-Hall validation.",
+          "evidence_urls": [
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.371",
+            "https://github.com/yeager/firestaff/commit/eb33d7439d873f18ecd360823cbf3cd23a4c3984"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "The Mac mini capture adds no CPU/RAM minimum; existing Apple Silicon smoke remains the only CPU-specific profile."
+          "checked_at": "2026-10-08",
+          "note": "Release artifacts evidence x86-64 and arm64 variants, but no minimum CPU generation or RAM requirement; the existing Apple Silicon smoke remains the only CPU-specific runtime profile.",
+          "evidence_urls": [
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.371"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -5545,6 +5555,7 @@
         }
       },
       "next_actions": [
+        "Repair and validate the isolated Amiga v2.0 M12 startup through the first Hall frame.",
         "Compare DM1 combat/RNG with an original capture.",
         "Verify audible Atari ST/CSB playback and PSG parity.",
         "Reach DM2 Macintosh dungeon presentation and verify parity.",
@@ -32797,7 +32808,7 @@
     },
     {
       "project_id": "moonstone-amiga-windows-undine1",
-      "last_reviewed": "2026-10-03",
+      "last_reviewed": "2026-10-08",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -32820,13 +32831,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-03",
-          "note": "v1.4.0 is the latest published Windows x64 release and documents local multiplayer; commit b437619 adds fullscreen with stated regression coverage but has not yet been published as v1.4.1."
+          "checked_at": "2026-10-08",
+          "note": "v1.4.2 is the current Windows x64 release and includes fullscreen, inventory/stat corrections, retail upgrade limits and scroll handling on top of v1.4.0 local multiplayer.",
+          "evidence_urls": [
+            "https://github.com/Undine1/Moonstone-A-Hard-Days-Knight-2026/releases/tag/v1.4.2"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-03",
-          "note": "Current primary documentation still requires 64-bit Windows and adds no CPU or RAM minimum beyond the existing x86-64 release profile."
+          "checked_at": "2026-10-08",
+          "note": "The v1.4.2 asset remains Windows x64 and adds no narrower CPU or RAM minimum beyond the existing profile.",
+          "evidence_urls": [
+            "https://github.com/Undine1/Moonstone-A-Hard-Days-Knight-2026/releases/tag/v1.4.2"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -32842,7 +32859,7 @@
         }
       },
       "next_actions": [
-        "Independently verify a complete local-multiplayer session and the eventual v1.4.1 release; review related predecessor/successor work separately."
+        "Independently verify a complete v1.4.2 local-multiplayer session; review related predecessor/successor work separately."
       ]
     },
     {
@@ -34909,8 +34926,8 @@
     },
     {
       "project_id": "koncepcja-cpc-emulator-debugger",
-      "last_reviewed": "2026-09-27",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -34929,25 +34946,41 @@
           "checked_at": "2026-09-27"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "README provides source/release run instructions. Commit 4f3e086 adds Linux/macOS CI that builds board-only simulator and rig targets, runs 100-frame simulator/bench smokes and drives the -H executable over IPC. Tracker did not independently execute them.",
+          "evidence_urls": [
+            "https://github.com/ikari-pl/konCePCja/blob/master/README.md",
+            "https://github.com/ikari-pl/konCePCja/commit/4f3e0867f6f1e2cfce7f83254757ef3b9ee80a7f"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-08",
+          "note": "README and v6.4.2 release publish host packages but no minimum host CPU generation or RAM. CPC model and expansion capacities are emulated configurations, not host minima.",
+          "evidence_urls": [
+            "https://github.com/ikari-pl/konCePCja/blob/master/README.md",
+            "https://github.com/ikari-pl/konCePCja/releases/tag/v6.4.2"
+          ]
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "The headless-loop refactor commit explicitly carries Claude Opus 5.5 co-author trailers and a Claude session URL.",
+          "evidence_urls": [
+            "https://github.com/ikari-pl/konCePCja/commit/2bd57a9a6843adf9ac07a9c16e2f09406b0c7152"
+          ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "README describes a clean hardware-inspired emulator not based today on another emulator and separately identifies vendored third-party components and Amstrad/Locomotive ROM rights.",
+          "evidence_urls": [
+            "https://github.com/ikari-pl/konCePCja/blob/master/README.md"
+          ]
         }
       },
-      "next_actions": [
-        "Verify build, runtime and provenance claims from deeper primary evidence beyond initial README/root inspection"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "cpc-firmware-rc2014-adaptation",
@@ -43961,7 +43994,7 @@
     },
     {
       "project_id": "lanthorn-interactive-fiction-archive",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-08",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -43986,16 +44019,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README publishes runnable Linux x86-64/aarch64, macOS universal and Windows x86-64 archives and documents a Rust workspace release build.",
+          "checked_at": "2026-10-08",
+          "note": "v0.9.3 publishes Linux x86-64/aarch64, macOS universal and Windows x86-64 archives and documents bounded story/media handling plus platform-directory migration.",
           "evidence_urls": [
-            "https://github.com/sharkusk/lanthorn/blob/main/README.md"
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.3"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "Published host architectures establish release variants, but the README states no minimum CPU generation or RAM."
+          "checked_at": "2026-10-08",
+          "note": "v0.9.3 identifies host architectures and Linux libasound2, but states no minimum CPU generation or RAM; no minimum-hardware profile was invented.",
+          "evidence_urls": [
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.3"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -46896,8 +46932,8 @@
     },
     {
       "project_id": "legend-of-zelda-nes-mstan-recomp",
-      "last_reviewed": "2026-09-30",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-08",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -46919,8 +46955,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "README documents supported setup/build commands, generated code and runnable release/ROM-selection flow."
+          "checked_at": "2026-10-08",
+          "note": "v1.9.1 publishes Windows x64 game/symbol archives and adds default-off diagnostics. Its release explicitly limits validation and does not claim a full-game, Linux or macOS qualification or a fix for the reported PLAY crash.",
+          "evidence_urls": [
+            "https://github.com/mstan/LegendOfZeldaNESRecomp/releases/tag/v1.9.1"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -46928,8 +46967,12 @@
           "note": "README documents host platforms but no minimum host CPU or RAM."
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": "2026-09-30"
+          "state": "reviewed",
+          "checked_at": "2026-10-08",
+          "note": "Commit 2119d091 explicitly carries a Claude Opus 5.5 co-author trailer; this closes the prior evidence gap without relying on repository configuration alone.",
+          "evidence_urls": [
+            "https://github.com/mstan/LegendOfZeldaNESRecomp/commit/2119d091dad109cd05c10619e7fb9c4c49a3ebe2"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -46937,9 +46980,7 @@
           "note": "Primary README identifies NESRecomp as the shared framework; this repository has an independent title-specific configuration, generated output and status boundary."
         }
       },
-      "next_actions": [
-        "Check explicit AI-use evidence in commit trailers and project documentation."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "faxanadu-nes-mstan-recomp",
