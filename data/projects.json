@@ -1103,13 +1103,13 @@
     "target_cpu": null,
     "runtime_profiles": [
       {
-        "name": "Mode 7 Q8 fast accelerated-emulation qualification",
+        "name": "Q8 accelerated-emulation qualification",
         "platform": "Commodore 64 (accelerated 6510 emulation)",
         "cpu_family": "6510",
-        "notes": "Upstream recommends Q8 only above 20 MHz and measured the public rotating cube with Turbo6510 at 64 MHz: 6.95 PAL / 7.25 NTSC views per second for the fast profile versus 3.10 / 3.20 for standard. This is scene-specific emulator evidence, not a minimum, an 8-FPS guarantee or physical-hardware qualification.",
+        "notes": "Upstream recommends Q8 only above 20 MHz. v1.8.0 reports Turbo6510 64 MHz measurements on public PAL cube scenes: Mode 2 precise/hybrid 23.70/25.05 FPS, Mode 5 27.00/27.45 FPS, and distant-cube Mode 7 standard/fast/fast+LOD 3.10/6.95/11.50 FPS. These are scene-specific emulator measurements, not minima, general guarantees or physical-hardware qualification.",
         "evidence": [
-          "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/RELEASE-NOTES-1.7.0.md",
-          "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/MODE7-FAST.en.md"
+          "https://github.com/Librologica/3Dvibe64/releases/tag/v1.8.0",
+          "https://github.com/Librologica/3Dvibe64/blob/v1.8.0/RELEASE-NOTES-1.8.0.md"
         ]
       }
     ],
@@ -1135,7 +1135,7 @@
     "re_started": null,
     "last_activity": "2026-10-08",
     "last_checked": "2026-09-27",
-    "status": "v1.7.0 source SDK released; upstream-qualified Mode 7 fast profile, no independent or physical-hardware verification",
+    "status": "v1.8.0 source SDK released; upstream-qualified optional LOD/hybrid raster paths, no independent or physical-hardware verification",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -1152,7 +1152,10 @@
       "VIC-II",
       "2.5D raycasting",
       "block8 projective texture sampling",
-      "upper-row reconstruction"
+      "upper-row reconstruction",
+      "gradual texture LOD",
+      "hybrid Bresenham line raster",
+      "safe raster presentation"
     ],
     "tags": [
       "Commodore 64",
@@ -1160,7 +1163,7 @@
       "raycasting",
       "SDK"
     ],
-    "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builder emits 6510/6502 assembly for 64tass; example JSON and guides are included. Mode 8 has no wall UV textures or room-over-room, and is not the historical character-cell renderer. Upstream qualifies stock VICE x64sc; real hardware has not been tested. Code/data are PolyForm Noncommercial 1.0.0. The repository documents Codex-assisted use of the SDK, not independently verified AI authorship of the engine. v1.7.0 adds an opt-in Mode 7 Q8 fast profile with eight-pixel projective blocks, alternate logical-row sampling and upper-row reconstruction; standard remains the default. Upstream's Turbo6510 64 MHz figures are scene-specific emulator measurements, and physical hardware remains unqualified.",
+    "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine.",
     "github": {
       "repository": "Librologica/3Dvibe64",
       "created_at": "2026-08-08",
@@ -60086,7 +60089,7 @@
       "BBC Micro",
       "6502 Second Processor"
     ],
-    "notes": "Restored and documented Ian Bell/David Braben source discs for BBC Micro with 6502 Second Processor, with variant builds and reference-binary checksum checks; original source, not binary-derived disassembly.",
+    "notes": "Restored and documented Ian Bell/David Braben source discs for BBC Micro with 6502 Second Processor; original source, not binary-derived disassembly. The current README documents four fully functioning build variants: Acornsoft SNG45, Executive, the source-disc build process, and a distinct variant made from binaries already on the source disc, with checksum tables and byte-accuracy guidance.",
     "github": {
       "repository": "markmoxon/elite-source-code-6502-second-processor",
       "created_at": "2020-10-07",
@@ -64648,7 +64651,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.371 publishes x86-64 and arm64 host packages and adds source-locked Theron's Quest Japanese Stage 2 routine boundaries and runtime-trace evidence. A 2026-10-08 isolated Amiga v2.0 M12 run exposed an edition-specific embedded Swoosh startup dependency, so that route still lacks first-Hall validation. A native macOS DM2 capture reaches New/Resume/Quit after the title; upstream does not treat that as physical-M5 testing, dungeon presentation, audio parity or complete gameplay.",
+    "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.373 publishes x86-64 and arm64 host packages, verifies the authentic DM1 Amiga 2.0 F0437 title regions, RGB4 palette stages and 18 source-derived zoom steps, and the subsequent 17ce8dc change admits authentic CSB Amiga 3.3 media through the native title/menu/runtime startup path. Those bounded receipts do not establish full Amiga campaign parity. A separate isolated DM1 Amiga 2.0 M12 run still lacks first-Hall validation, while the native macOS DM2 capture reaches New/Resume/Quit without establishing physical-M5 testing, dungeon presentation, audio parity or complete gameplay.",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-08",
@@ -78255,7 +78258,7 @@
         "Claude"
       ],
       "evidence": [
-        "Claude co-author trailer observed in recent tracked commits: 16 in this scan (example e346cf3303fb; Claude Sonnet 5.5)"
+        "Commit trailer explicitly credits Claude Sonnet 5.5: https://github.com/Quaerendir/Heartlight/commit/e346cf3303fb1bf92e2164ec4ecad0e29b39cddd"
       ]
     },
     "techniques": [
@@ -95007,7 +95010,7 @@
         "Claude"
       ],
       "evidence": [
-        "Claude co-author trailer observed in recent tracked commits: 68 in this scan (example 615b06b53101; Claude Opus 4.8)"
+        "Commit trailer explicitly credits Claude Opus 4.8: https://github.com/sarnau/LSK-M6T912F-Floppy-Duplicator/commit/615b06b53101ba94d11989be76127fcfbf4034bf"
       ]
     },
     "techniques": [
@@ -123700,7 +123703,8 @@
       "MICRO-SOKOBAN",
       "Chess",
       "Maze 3D",
-      "Snake"
+      "Snake",
+      "Pinball Construction Set"
     ],
     "repo": "https://github.com/habib256/pom2games",
     "source_platforms": [
@@ -123728,6 +123732,16 @@
           "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s",
           "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile",
           "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE"
+        ]
+      },
+      {
+        "name": "Pinball Construction Set adaptation",
+        "platform": "Apple II+ or Apple //c",
+        "min_ram_kib": 48,
+        "notes": "The root README states Apple II+ with 48 KB or Apple //c, using mouse or joystick. This is an upstream requirement for the Pinball adaptation, not independently verified hardware compatibility.",
+        "evidence": [
+          "https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
+          "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
         ]
       }
     ],
@@ -123777,7 +123791,7 @@
       "apple-ii-discovery",
       "no-independent-build"
     ],
-    "notes": "Identity: The creator’s repository contains six native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not six inflated entries. Classification: Native Apple II source collection and ports. Arkabreakout assembles a standalone BRUN binary and DOS 3.3 disk; ChromaBreak builds a ProDOS system file. The bundled a2run/a2shot emulator code serves tests and is not embedded in the games. LOGO, demos and generic dev tooling are incidental to this game-scoped record. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null. Runtime profiles: Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed. AI: The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Relationships: The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality. Evidence: https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games",
+    "notes": "Identity: The creator’s repository contains seven native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not seven inflated entries. Classification: Native Apple II source collection and ports. Arkabreakout assembles a standalone BRUN binary and DOS 3.3 disk; ChromaBreak builds a ProDOS system file. The bundled a2run/a2shot emulator code serves tests and is not embedded in the games. LOGO, demos and generic dev tooling are incidental to this game-scoped record. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null. Runtime profiles: Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed. AI: The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Relationships: The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality. Evidence: https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games Maintenance 2026-10-09: commit 76e48cf renames the prior flipper directory/output to Pinball, keeps the Bill Budge Pinball Construction Set adaptation in the repository collection, moves fixed-sector disk construction into shared checked tooling, and extends the checked AppleMouse/DOS paths. The root README states Apple II+ 48 KB or //c with mouse or joystick; this is an upstream requirement, not an independent run. Evidence: https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
     "github": {
       "repository": "habib256/pom2games",
       "created_at": "2026-09-15",
@@ -125566,7 +125580,7 @@
       "macOS",
       "subject"
     ],
-    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. Verified release packaging covers Linux/Windows x86-64 plus macOS and iPadOS arm64. Millennium DOS remains bounded to recovered driver transactions rather than gameplay. Deuteros' recovered Amiga path now supplies title and bootstrap surfaces to the Modern renderer, and the typed $217e4 CIA observation plus $217f2/$21926 return continuation are implemented; capture parity, complete opening flow and gameplay remain unverified.",
+    "notes": "Cross-platform reimplementation with separate Original and opt-in Modern modes. v0.1.5 packages Linux/Windows x86-64, macOS x86-64/arm64 and unsigned iPadOS arm64 builds with integrity manifests. Millennium DOS remains bounded to recovered driver transactions rather than gameplay. Deuteros' recovered Amiga path supplies title/bootstrap surfaces and a bounded CIA return continuation; the latest capture tooling fixes schema-33 receipt serialization and passes its runner/verifier suite, but capture parity, the complete opening flow and gameplay remain unverified.",
     "github": {
       "repository": "yeager/project-eon",
       "created_at": "2026-08-27",
@@ -152721,7 +152735,7 @@
       "Amiga",
       "Stage Swaptro"
     ],
-    "notes": "Reverse engineers the packed Stage swaptro extracted from Sanity's Velveteen 18 disk, documents its load address and memory map, and provides buildable 68000 source plus several patch-based visual/music variants. README includes a Makefile workflow for applying patches, assembling and making a floppy; game playability is not applicable to a demo.",
+    "notes": "Reverse engineers the packed Stage swaptro extracted from Sanity's Velveteen 18 disk, documents its load address and memory map, and provides buildable 68000 source plus several patch-based visual/music variants. README includes a Makefile workflow for applying patches, assembling and making a floppy; game playability is not applicable to a demo. The Italodisco patch stack now replaces demo 4 with a fixed Oracle 13 payload that upstream says works on Kickstart 2.04; this is one variant claim, not a minimum for every swaptro build.",
     "github": {
       "repository": "Ozzyboshi/Stage-Swaptro",
       "created_at": "2026-07-26",
@@ -152751,7 +152765,18 @@
         "message": "new patch for italodisco demo 4, now works on ks 2.04",
         "url": "https://github.com/Ozzyboshi/Stage-Swaptro/commit/7df553d8507bfc1b77c44c6276eca285377b94a1"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Italodisco demo 4 patched variant",
+        "platform": "Amiga",
+        "os": "Kickstart 2.04",
+        "notes": "Commit 7df553d adds patch 0016 and states that Italodisco demo 4 now works on Kickstart 2.04. This is a bounded variant compatibility claim, not a general minimum for the base demo or every patch stack.",
+        "evidence": [
+          "https://github.com/Ozzyboshi/Stage-Swaptro/commit/7df553d8507bfc1b77c44c6276eca285377b94a1"
+        ]
+      }
+    ]
   },
   {
     "id": "star-maze-phaser-jwheat",

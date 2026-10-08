@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-09 — Upstream release, runtime and audit maintenance
+
+Reviewed eight materially touched records. **Firestaff v3.0.373** now separates bounded DM1 Amiga receipt evidence and verified CSB Amiga 3.3 startup from still-unproven campaign parity. **3Dvibe64 v1.8.0** records its optional texture LOD, hybrid raster and safe-presentation paths with scene-specific Turbo6510 measurements rather than hardware minima. **Project Eon v0.1.5** records architecture-specific packages, integrity manifests and the repaired Deuteros capture receipt without claiming complete gameplay.
+
+**POM2 Games** now includes the renamed **Pinball Construction Set** adaptation and its explicit Apple II+ 48 KB / Apple //c runtime statement. **Stage-Swaptro** gains a variant-scoped Kickstart 2.04 profile for the new Italodisco demo 4 patch. **Elite — BBC Micro 6502 Second Processor original sources** now has all four documented build variants and closes its build, runtime, AI and lineage audit gaps. Exact commit trailers reconcile affirmative Claude evidence for **LSK M6T912F Floppy Duplicator firmware** and **Heartlight — Atari 8-bit reconstruction**.
+
+The CPU audit queue was empty at the start of the pass, so no architecture work was invented. No project was independently built, assembled, executed or hardware-tested.
+
 ## 2026-10-09 — Z80/CP/M archaeology and Atari reconstruction discovery
 
 Added **eight primary-source-reviewed projects**: **The Castles of Dr. Creep — sarnau analysis**, **LSK M6T912F Floppy Duplicator firmware**, **Z80DisAssembler**, **SSE SoftBox reverse engineering**, **RC702 BIOS reconstruction**, **Victor 9000 Z80 card boot ROM**, **Polymax Poly 201 DP ROM reverse engineering**, and **Heartlight — Atari 8-bit reconstruction**. Two non-additions are retained: Retro Emulation Display is a libretro-based art installation rather than core retro-development work, while the Atari 8-bit disassembly placeholder has no published files. The Music-player disassemblies candidate resolved to its existing record.

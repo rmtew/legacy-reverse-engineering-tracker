@@ -5500,7 +5500,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-08",
+      "last_reviewed": "2026-10-09",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5528,19 +5528,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-08",
-          "note": "v3.0.371 adds source-locked Theron's Quest Japanese Stage 2 routine/runtime-trace evidence and multi-platform packages. The latest DM1 note separately records that isolated Amiga v2.0 M12 startup still fails before first-Hall validation.",
+          "checked_at": "2026-10-09",
+          "note": "v3.0.373 records an authentic DM1 Amiga 2.0 F0437 receipt. Commit 17ce8dc then verifies authentic CSB Amiga 3.3 ZIP-to-ADF and loose-folder startup through title, input matrix, M12 start menu and runtime; upstream explicitly withholds full campaign parity.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/releases/tag/v3.0.371",
-            "https://github.com/yeager/firestaff/commit/eb33d7439d873f18ecd360823cbf3cd23a4c3984"
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.373",
+            "https://github.com/yeager/firestaff/commit/17ce8dcce184300319d576591f521c6d693553f4"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-08",
-          "note": "Release artifacts evidence x86-64 and arm64 variants, but no minimum CPU generation or RAM requirement; the existing Apple Silicon smoke remains the only CPU-specific runtime profile.",
+          "checked_at": "2026-10-09",
+          "note": "v3.0.373 again publishes x86-64 and arm64 packages but gives no minimum CPU generation or RAM requirement. Amiga 2.0/3.3 here identify original-media editions, not host minima, so the existing Apple Silicon smoke remains the only CPU-specific runtime profile.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/releases/tag/v3.0.371"
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.373"
           ]
         },
         "ai": {
@@ -19691,7 +19691,7 @@
     },
     {
       "project_id": "project-eon-yeager",
-      "last_reviewed": "2026-10-02",
+      "last_reviewed": "2026-10-09",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -19708,18 +19708,28 @@
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "Checked-in release workflows build Linux/Windows x86-64 and macOS/iPadOS arm64 packages, with architecture verification before upload."
+          "checked_at": "2026-10-09",
+          "note": "The v0.1.5 release publishes Linux/Windows x86-64, macOS x86-64 and arm64, plus unsigned iPadOS arm64 packages; no narrower CPU minimum is inferred.",
+          "evidence_urls": [
+            "https://github.com/yeager/project-eon/releases/tag/v0.1.5"
+          ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-02",
-          "note": "Reviewed the current README and commits e0e3e69, 5620ea1 and c378908. Recovered Deuteros title/bootstrap surfaces now enter the renderer and the bounded CIA continuation is implemented; upstream still withholds full parity and gameplay claims."
+          "checked_at": "2026-10-09",
+          "note": "v0.1.5 records passed build/test/package jobs and source-bound integrity manifests. Commit 5a63814 fixes Deuteros capture-receipt serialization and reports 86 runner/verifier tests; complete gameplay parity remains explicitly unclaimed.",
+          "evidence_urls": [
+            "https://github.com/yeager/project-eon/releases/tag/v0.1.5",
+            "https://github.com/yeager/project-eon/commit/5a638146d702bcd2cae976a73fa5a88f37e055bf"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-02",
-          "note": "The refreshed README and release work still state no general minimum host CPU or RAM profile."
+          "checked_at": "2026-10-09",
+          "note": "The v0.1.5 release identifies package architectures and signing caveats but states no general minimum host CPU generation or RAM profile.",
+          "evidence_urls": [
+            "https://github.com/yeager/project-eon/releases/tag/v0.1.5"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
@@ -32592,8 +32602,8 @@
     },
     {
       "project_id": "stage-swaptro-amiga-disassembly",
-      "last_reviewed": "2026-09-26",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-09",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -32613,11 +32623,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-26"
+          "checked_at": "2026-10-09",
+          "note": "Commit 7df553d wires a new Italodisco patch into the documented patch/unpatch stack; no local assembly or floppy run was performed.",
+          "evidence_urls": [
+            "https://github.com/Ozzyboshi/Stage-Swaptro/commit/7df553d8507bfc1b77c44c6276eca285377b94a1"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "Upstream explicitly states that the newly substituted Italodisco demo 4 works on Kickstart 2.04. The profile is variant-scoped and does not infer a minimum CPU, RAM or base-demo OS requirement.",
+          "evidence_urls": [
+            "https://github.com/Ozzyboshi/Stage-Swaptro/commit/7df553d8507bfc1b77c44c6276eca285377b94a1"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
@@ -32628,9 +32646,7 @@
           "checked_at": "2026-09-26"
         }
       },
-      "next_actions": [
-        "Check unverified minimum hardware and runtime variants against primary build documentation; follow credited related work where useful."
-      ]
+      "next_actions": []
     },
     {
       "project_id": "amiga-file-forge-workbench",
@@ -35704,8 +35720,8 @@
     },
     {
       "project_id": "elite-6502-second-processor-original-source",
-      "last_reviewed": "2026-09-27",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-09",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -35724,25 +35740,41 @@
           "checked_at": "2026-09-27"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "The current README documents modern-host build commands, four named variants, checksum verification and byte-accurate output guidance. Commit eb4be1c adds the source-code-files variant details. No build was rerun locally.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-source-code-6502-second-processor/blob/main/README.md",
+            "https://github.com/markmoxon/elite-source-code-6502-second-processor/commit/eb4be1c69db079ea1fa598539ad4c03b5d0777e5"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-09",
+          "note": "README says the produced game disc runs on a BBC Micro with a 6502 Second Processor or emulator, but gives no narrower CPU speed, RAM minimum or OS/ROM requirement. No minimum profile was inferred.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-source-code-6502-second-processor/blob/main/README.md"
+          ]
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-09",
+          "note": "Current README and the inspected build-variant commit contain no explicit development-AI attribution; project ai.usage remains unknown.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-source-code-6502-second-processor/blob/main/README.md",
+            "https://github.com/markmoxon/elite-source-code-6502-second-processor/commit/eb4be1c69db079ea1fa598539ad4c03b5d0777e5"
+          ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "README attributes the original game to Ian Bell and David Braben, the source-disc archive to Ian Bell's site, Paul Brink's annotated disassembly, and Kieran Connell's BeebAsm version as this repository's original basis.",
+          "evidence_urls": [
+            "https://github.com/markmoxon/elite-source-code-6502-second-processor/blob/main/README.md"
+          ]
         }
       },
-      "next_actions": [
-        "Verify build, runtime and provenance claims from deeper primary evidence beyond initial README/root inspection"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "b2t80s-z80-6502-emulator-debugger",
@@ -37373,7 +37405,7 @@
     },
     {
       "project_id": "3dvibe64-c64-graphics-sdk",
-      "last_reviewed": "2026-10-07",
+      "last_reviewed": "2026-10-09",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -37395,21 +37427,20 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "v1.7.0 publishes the fast Mode 7 builder path, public cube, assembled arithmetic/renderer tests and preserved prior output hashes. These are upstream qualification claims; no independent build or runtime test was performed here.",
+          "checked_at": "2026-10-09",
+          "note": "v1.8.0 publishes the optional LOD, hybrid-raster and safe-presentation paths and reports all 22 public scripts passing on clean SDK copies with frozen references preserved. These are upstream qualifications; no local build or runtime test was performed.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/commit/84491d4b25ce20154d95ad24585d1d344ddba2e1",
-            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/RELEASE-NOTES-1.7.0.md",
-            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/TESTING.md"
+            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.8.0",
+            "https://github.com/Librologica/3Dvibe64/blob/v1.8.0/RELEASE-NOTES-1.8.0.md"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "Primary release notes give an explicit Turbo6510 64 MHz benchmark and recommend Q8 above 20 MHz, but call the results scene-specific and say actual hardware is not newly qualified. The runtime profile preserves that bounded accelerated-emulation evidence without turning the recommendation into a minimum.",
+          "checked_at": "2026-10-09",
+          "note": "The v1.8.0 notes retain the recommendation for Q8 above 20 MHz and give bounded Turbo6510 64 MHz scene measurements, while explicitly saying real hardware remains untested. The profile records those measurements without turning a recommendation into a minimum.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/RELEASE-NOTES-1.7.0.md",
-            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/MODE7-FAST.en.md"
+            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.8.0",
+            "https://github.com/Librologica/3Dvibe64/blob/v1.8.0/RELEASE-NOTES-1.8.0.md"
           ]
         },
         "ai": {
@@ -37429,7 +37460,7 @@
         }
       },
       "next_actions": [
-        "Independently build a representative v1.7.0 Mode 7 fast example and test physical C64-compatible hardware if later verification is authorized."
+        "Independently build a representative v1.8.0 configuration and test physical C64-compatible hardware if later verification is authorized."
       ]
     },
     {
@@ -124201,22 +124232,16 @@
     },
     {
       "project_id": "pom2games-native-apple-ii-collection",
-      "last_reviewed": "2026-10-07",
+      "last_reviewed": "2026-10-09",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "The creator’s repository contains six native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not six inflated entries.",
+          "checked_at": "2026-10-09",
+          "note": "The current root README lists seven native Apple II games. The prior flipper directory/output is now Pinball/PINBALL.dsk; it remains the same Bill Budge Pinball Construction Set adaptation within the repository-level collection.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE"
+            "https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
+            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
           ]
         },
         "classification": {
@@ -124266,32 +124291,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null.",
+          "checked_at": "2026-10-09",
+          "note": "Commit 76e48cf moves fixed-sector DOS disk construction into shared checked tooling, renames the flipper build/test path to Pinball and expands emulator-led save/load and mouse coverage. These are inspected upstream changes, not a locally reproduced build.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE"
+            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed.",
+          "checked_at": "2026-10-09",
+          "note": "The current README explicitly states Apple II+ 48 KB or Apple //c with mouse or joystick for Pinball. The new profile preserves this bounded author requirement without inferring CPU generation or independent hardware success.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE"
+            "https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
+            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
           ]
         },
         "ai": {
@@ -124313,19 +124325,11 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality.",
+          "checked_at": "2026-10-09",
+          "note": "The current README explicitly identifies the Pinball entry as an adaptation of Bill Budge's Pinball Construction Set. The directory rename does not establish a new independent repository project; it remains a subject of the tracked collection.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE",
-            "https://github.com/habib256/pom2games",
-            "https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288"
+            "https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
+            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
           ]
         }
       },
@@ -126407,11 +126411,11 @@
           ]
         },
         "ai": {
-          "state": "no-evidence-found",
+          "state": "reviewed",
           "checked_at": "2026-10-09",
-          "note": "Reviewed primary documentation; no explicit development-AI evidence found.",
+          "note": "An inspected primary commit explicitly includes a Co-Authored-By trailer for Claude Opus 4.8; the project record's affirmative Claude metadata is therefore evidence-backed.",
           "evidence_urls": [
-            "https://github.com/sarnau/LSK-M6T912F-Floppy-Duplicator/blob/main/README.md"
+            "https://github.com/sarnau/LSK-M6T912F-Floppy-Duplicator/commit/615b06b53101ba94d11989be76127fcfbf4034bf"
           ]
         },
         "relationships": {
@@ -126850,11 +126854,11 @@
           ]
         },
         "ai": {
-          "state": "no-evidence-found",
+          "state": "reviewed",
           "checked_at": "2026-10-09",
-          "note": "Reviewed README and package metadata; no explicit development-AI evidence found.",
+          "note": "An inspected primary commit explicitly includes a Co-Authored-By trailer for Claude Sonnet 5.5; the project record's affirmative Claude metadata is therefore evidence-backed.",
           "evidence_urls": [
-            "https://github.com/Quaerendir/Heartlight/blob/main/README.md"
+            "https://github.com/Quaerendir/Heartlight/commit/e346cf3303fb1bf92e2164ec4ecad0e29b39cddd"
           ]
         },
         "relationships": {
