@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-08T03:02:43Z",
+  "updated_at": "2026-10-08T06:13:20Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -46960,6 +46960,7 @@
         "SH-2"
       ],
       "target_cpu": [
+        "x86",
         "arm64"
       ],
       "runtime_profiles": [
@@ -47030,7 +47031,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.360 scopes bare --game scans to the requested game's leaf, selects authenticated FM Towns media and retains simultaneous CSB sounds in source order. A native macOS DM2 capture reaches New/Resume/Quit after the title; upstream does not treat that as physical-M5 testing, dungeon presentation, audio parity or complete gameplay.",
+      "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.371 publishes x86-64 and arm64 host packages and adds source-locked Theron's Quest Japanese Stage 2 routine boundaries and runtime-trace evidence. A 2026-10-08 isolated Amiga v2.0 M12 run exposed an edition-specific embedded Swoosh startup dependency, so that route still lacks first-Hall validation. A native macOS DM2 capture reaches New/Resume/Quit after the title; upstream does not treat that as physical-M5 testing, dungeon presentation, audio parity or complete gameplay.",
       "ai": {
         "usage": true,
         "tools": [
@@ -64949,21 +64950,28 @@
       "re_started": null,
       "status": null,
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "sub-cycle pin-level hardware simulation",
+        "flux-image decoding",
+        "deterministic record/replay",
+        "headless TCP debugger automation",
+        "integrated Z80 assembly and disassembly"
+      ],
       "tags": [
         "Amstrad CPC",
         "reverse-engineering tooling"
       ],
-      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless IPC for scripted analysis; no claim of independent feature verification.",
+      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless IPC for scripted analysis. v6.4.2 fixes debugger stepping/register edits, frame-counted IPC waits and serial routing. Subsequent primary CI changes compile the board-only targets, boot the simulator for 100 frames and exercise the -H process through a persistent IPC connection; these are upstream checks, not an independent build or execution by the tracker.",
       "ai": {
         "usage": true,
         "tools": [
-          "Claude"
+          "Claude",
+          "Gemini"
         ]
       }
     },
@@ -65566,7 +65574,7 @@
         "Apple II",
         "Atari ST"
       ],
-      "notes": "Runnable Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. Current Glk design mode renders undrawn graphics windows with their specified opaque background. This is historical story/media format implementation, not a claim of recovered game source.",
+      "notes": "Runnable Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. v0.9.3 moves new installations to platform-standard data folders, adds a migration command and Glulx border defaults, and bounds runaway stories plus damaged media/image/audio handling. This is historical story/media format implementation, not a claim of recovered game source.",
       "ai": {
         "usage": true,
         "tools": [
@@ -66311,7 +66319,7 @@
         "static recompilation"
       ],
       "re_started": null,
-      "status": "believed fully playable",
+      "status": "believed fully playable; Windows x64 v1.9.1 adds opt-in startup/crash diagnostics",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -66331,7 +66339,7 @@
         "x86-64",
         "The Legend of Zelda"
       ],
-      "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. README reports testing through the overworld and dungeon 7 with no remaining dispatch misses. User supplies the matching ROM; no ROM is distributed.",
+      "notes": "Independent game project built on NESRecomp. Original 6502 ROM machine code is translated to C and compiled to native x64; the matching user-supplied ROM is required. v1.9.1 adds a default-off diagnostic mod, local logs/minidumps and startup error dialogs while explicitly making no claim to fix the unconfirmed v1.9.0 PLAY crash or to add full-game, Linux or macOS qualification.",
       "ai": {
         "usage": true,
         "tools": [
@@ -77525,7 +77533,7 @@
         "Amiga game-specific Windows adaptation"
       ],
       "re_started": null,
-      "status": "Windows x64 v1.4.0 release with local multiplayer; v1.4.1 fullscreen changes committed but unreleased",
+      "status": "Windows x64 v1.4.2 release with local multiplayer, fullscreen support, inventory/stat fixes and retail parity corrections",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -77541,10 +77549,11 @@
         "Amiga",
         "Moonstone: A Hard Days Knight"
       ],
-      "notes": "Uses player-supplied Amiga disk images. The Windows build links Musashi, SDL and a custom Amiga OCS implementation; game-specific hooks adapt input, rendering and known bugs. The v1.4.0 release documents local multiplayer for two players in Practice and up to four in a campaign, with separate single-player and multiplayer launchers/save paths. The current unreleased v1.4.1 commit adds tested F11 fullscreen toggling and Escape-to-windowed behavior. This is a native host executable running original 68000 game code, not a translated native game-code recompilation.",
+      "notes": "Uses player-supplied Amiga disk images. The Windows build links Musashi, SDL and a custom Amiga OCS implementation; game-specific hooks adapt input, rendering and known bugs. v1.4.2 includes local multiplayer, fullscreen support, inventory-close controls, corrected stat display, restored upgrade limits and retail scroll handling. This is a native host executable running original 68000 game code, not a translated native game-code recompilation.",
       "ai": {
         "usage": true,
         "tools": [
+          "Claude",
           "Codex"
         ]
       }
