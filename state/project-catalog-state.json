@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-09T15:29:58Z",
+  "updated_at": "2026-10-09T16:15:57Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -4975,6 +4975,77 @@
         "software archaeology"
       ],
       "notes": "The author's Back From Source repository reconstructs the Famicom Akira program in banked assembly and includes a DASM build script for an NES image. RetroRE labels this a partial reverse engineering effort. Reassembly exists as a documented script; successful execution and byte identity have not been verified.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "alex-kidd-miracle-world-sms-disassembly": {
+      "id": "alex-kidd-miracle-world-sms-disassembly",
+      "title": "akmw",
+      "upstream_name": "Alex Kidd in Miracle World Disassembly",
+      "display_title": "Alex Kidd in Miracle World — byte-matching Master System disassembly",
+      "subjects": [
+        "Alex Kidd in Miracle World"
+      ],
+      "repo": "https://github.com/lhsazevedo/akmw",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Master System"
+      ],
+      "target_platforms": [
+        "Sega Master System"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "Z80 ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "split disassembly",
+        "multi-revision assembly",
+        "SHA-1 comparison",
+        "hardware documentation"
+      ],
+      "tags": [
+        "Sega Master System",
+        "Z80",
+        "WLA-DX",
+        "Alex Kidd"
+      ],
+      "notes": "Documented disassembly of both USA/Europe revisions of Alex Kidd in Miracle World. The build invokes WLA-DX's wla-z80 and wlalink, then checks each output against the README's original-ROM SHA-1. The upstream comparison workflow was inspected but not rerun here.",
       "ai": {
         "usage": null,
         "tools": []
@@ -21471,6 +21542,81 @@
         "tools": []
       }
     },
+    "bios-8088-disassembly-collection": {
+      "id": "bios-8088-disassembly-collection",
+      "title": "bios-8088",
+      "upstream_name": "Disassembled BIOS from 8088 machines",
+      "display_title": "8088 BIOS disassembly collection — IBM PC, PCjr and Tandy 1000",
+      "subjects": [
+        "IBM PC 5150 BIOS",
+        "IBM PCjr BIOS",
+        "Tandy 1000 BIOS",
+        "Tandy 1000A BIOS",
+        "Tandy 1000 HX BIOS"
+      ],
+      "repo": "https://github.com/ricardoquesada/bios-8088",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "IBM PC 5150",
+        "IBM PCjr",
+        "Tandy 1000",
+        "Tandy 1000A",
+        "Tandy 1000 HX"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "8088"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "8088 BIOS ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "IDA Pro assembly listings"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "system-software"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "multi-system BIOS disassembly collection"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "IDA Pro disassembly",
+        "ROM preservation",
+        "cross-machine BIOS comparison"
+      ],
+      "tags": [
+        "8088",
+        "IBM PC",
+        "PCjr",
+        "Tandy 1000",
+        "BIOS"
+      ],
+      "notes": "Collection of original ROMs and IDA Pro 5.0 freeware disassemblies for the IBM PC 5150, IBM PCjr, Tandy 1000, 1000A and 1000 HX. The README asks for missing Tandy 1000 HD and EX ROMs. No assembler-based rebuild, byte match or runtime claim was found in the reviewed documentation.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "bird-strike-bbc-micro-fixed-disassembly": {
       "id": "bird-strike-bbc-micro-fixed-disassembly",
       "title": "Bird Strike",
@@ -22648,6 +22794,77 @@
         "original native C64 intro"
       ],
       "notes": "Native intro uses Copper64-driven raster color effects, horizontal waves, scrolling and SID playback with inspected assembly. README documents both PAL and 65-cycle NTSC operation and describes the implementation in detail. Upstream explicitly says old 64-cycle NTSC does not work and notes a half-cycle visual artifact on WinVICE 3.x; do not generalize to all C64 video models. Code comment says Jeroen Tel granted permission to use Noisy Pillars in this intro; that is not a general music-relicensing grant. Original author-created C64 intro, not a reconstruction of a prior binary. source_cpu is not applicable. bluevessel.asm is native 6502/C64 code using Copper64 raster handlers, screen manipulation and SID replay. target_cpu=6502; the Amiga Copper idea does not make it an Amiga output. README documents gradlew build and released PRG files; source/build inspected only. All flags remain unknown: documentation, bundled binaries, source presence and author release claims were not treated as independently verified successful builds/runs. No candidate was built, run or byte-compared. README reports PAL and 65-cycle NTSC behavior, explicitly says old 64-cycle NTSC fails, and notes a WinVICE 3.x half-cycle artifact. No universal all-C64 or minimum CPU/RAM profile is asserted. Distinct titled intro built using Copper64. MIT code license and Jeroen Tel music credit/permission comment were inspected. The permission is described as use of Noisy Pillars in this intro, not a general soundtrack-relicensing grant. No AI-use attribution established from inspected documentation, selected source files, complete file-path tree and up to 30 recent commits; this is not proof of non-use. Repository creation is not a verified reverse-engineering start date. Evidence: https://github.com/maciejmalecki/bluevessel/blob/master/bluevessel.asm https://github.com/maciejmalecki/bluevessel/blob/master/build.gradle https://github.com/maciejmalecki/bluevessel/blob/master/LICENSE https://github.com/maciejmalecki/bluevessel/blob/master/README.md https://api.github.com/repos/maciejmalecki/bluevessel",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "bnkcod-superpet-option-rom": {
+      "id": "bnkcod-superpet-option-rom",
+      "title": "BNKCOD",
+      "upstream_name": "BNKCOD",
+      "display_title": "BNKCOD — Commodore SuperPET option-ROM disassembly",
+      "subjects": [
+        "BNKCOD SuperPET option ROM"
+      ],
+      "repo": "https://github.com/mnaberez/bnkcod",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore SuperPET"
+      ],
+      "target_platforms": [
+        "Commodore SuperPET"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "6502 EPROM machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "option-ROM disassembly"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "EPROM dumping",
+        "automated disassembly",
+        "manual symbols and comments",
+        "SHA-1 comparison reassembly"
+      ],
+      "tags": [
+        "Commodore SuperPET",
+        "6502",
+        "EPROM",
+        "firmware preservation"
+      ],
+      "notes": "Disassembly of an unidentified 2 KiB BNKCOD EPROM found in a SuperPET UD11 option-ROM socket. The author generated a first pass with m740dasm, then added symbols and comments. The Makefile assembles with ASXXXX as6500, emits a 2 KiB image and compares its SHA-1 with the dumped EPROM; that upstream path was inspected but not rerun here.",
       "ai": {
         "usage": null,
         "tools": []
@@ -31594,6 +31811,80 @@
         "no-independent-build"
       ],
       "notes": "Substantial Eclipse Theia/Electron IDE for Commodore 8-bit development, with Kick Assembler support, graphics/SIDScore editors and a native DAP adapter for VICE. package.json defines workspace build/packaging tasks; vice-debug-session.ts connects source-mapped debugging, live disassembly, trace history, memory and VICE monitor protocols. Machine-profile source explicitly lists c64/c128/vic20/plus4/c16/pet/cbm2/cbm5x0/c64dtv. C64DTV is kept as an exact VICE profile within the canonical Commodore 64 platform family, without creating a second machine alias. Theia/Electron desktop development IDE with Kick Assembler language support, VICE DAP debugging and graphics/SIDScore tools. Generic machine profiles are not proof of equal feature support on every model. README reports nightly macOS/Windows/Linux packages with packaged SIDScore smoke tests, but no particular successful packaging run was verified. All build flags remain unknown; npm task presence is not success evidence. macOS is ad-hoc signed by default and release notarisation remains manual. Node/Theia/Electron development environment with VICE, Kick Assembler and Java 21+ for SIDScore. C64DTV is explicitly the c64dtv/x64dtv VICE machine profile with 65DTV02, MMU/register-file banking and DMA/blitter metadata, kept within the Commodore 64 catalogue family. That is neither a new platform alias nor a claim that the IDE runs on the DTV itself. No host CPU/RAM minimum. Build/tool prerequisites: Node/npm; Theia/Electron workspace; Kick Assembler; VICE (patched embedded or external); Java 21+ for SIDScore. Documented commands: npm run theia:build; npm run theia:start; npm run package:current; npm run package:mac. No build or package smoke test performed. README says macOS bundle ad-hoc signed by default; release notarisation remains manual. IDE includes third-party tooling/ROM-derived symbol material; project licence is not a blanket rights statement. IDE/tool suite built on Theia, VICE and Kick Assembler; includes independently maintained SIDScore integration. GitHub reports fork=false; that metadata alone does not establish independent authorship. Canonical root was screened against the approved 1,320-project catalogue plus discovery-source/decision indexes; no root collision was found. Upstream/related links: https://github.com/turesheim/SIDScore. Rights: Repository metadata/root LICENSE indicate EPL-2.0; bundled VICE, SIDScore, assemblers, ROM-derived resources and other dependencies carry separate terms. AI evidence: No explicit AI development attribution found in the reviewed README, sampled source, and three latest commits. Agent configuration alone is not treated as proof. Reviewed 2026-10-05; no independent build, execution, gameplay, hardware test or byte comparison was performed. Primary evidence: https://github.com/turesheim/commodore-commander/blob/main/README.md https://github.com/turesheim/commodore-commander/blob/main/packages/debug-adapter/src/vice-debug-adapter.ts https://github.com/turesheim/commodore-commander/blob/main/package.json https://github.com/turesheim/commodore-commander/blob/main/packages/debug-adapter/src/vice-debug-session.ts https://github.com/turesheim/commodore-commander/commit/ba2953eb258e45624c443a23417dbbb31c38cb4f https://github.com/turesheim/commodore-commander/commit/59efca67d6c4a8b7381d6baade0b861e9ccfc055 https://github.com/turesheim/commodore-commander/commit/ba8ec339254576737dba271392346105368fa1e0 https://github.com/turesheim/commodore-commander/blob/main/packages/language-support/src/machines/commodore-machine-profiles.ts Supplemental exact-profile review: README and debug source explicitly support NMOS 6502 disassembly and C64 6510 debugging, which are the typed instruction-analysis CPUs. The reviewed machine-profile source additionally describes C128 MOS 8502 with secondary Z80, TED MOS 7501/8501, CBM-II MOS 6509 and C64DTV 65DTV02. These exact reference-profile descriptions are preserved here without treating them as demonstrated instruction-analysis coverage or adding CPU aliases. Evidence: https://github.com/turesheim/commodore-commander/blob/ba2953eb258e45624c443a23417dbbb31c38cb4f/packages/language-support/src/machines/commodore-machine-profiles.ts",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "commodore-lcd-kernal-disassembly": {
+      "id": "commodore-lcd-kernal-disassembly",
+      "title": "Commodore LCD Partial Disassembly",
+      "upstream_name": "Commodore LCD Partial Disassembly",
+      "display_title": "Commodore LCD KERNAL partial disassembly",
+      "subjects": [
+        "Commodore LCD prototype KERNAL ROM"
+      ],
+      "repo": "https://github.com/mnaberez/clcd",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore LCD prototype"
+      ],
+      "target_platforms": [
+        "Commodore LCD prototype"
+      ],
+      "source_cpu": [
+        "65C02"
+      ],
+      "target_cpu": [
+        "65C02"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "65C02 ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "6502-family assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "system-software"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "KERNAL ROM disassembly",
+        "prototype firmware analysis"
+      ],
+      "re_started": null,
+      "status": "incomplete",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "annotated ROM disassembly",
+        "schematic correlation",
+        "hardware-timing analysis",
+        "SHA-1 comparison reassembly"
+      ],
+      "tags": [
+        "Commodore LCD",
+        "65C02",
+        "KERNAL",
+        "prototype preservation",
+        "ca65"
+      ],
+      "notes": "Incomplete but extensive disassembly and hardware-oriented analysis of the KERNAL ROM from Bil Herd's Commodore LCD prototype. The README derives a 1 MHz G65SC102/R65C102-class CPU clock and documents IEC, VIA, printer, modem, RTC, editor, monitor and virtual-disk behavior. The ca65/ld65 Makefile compares the rebuilt ROM to the original SHA-1; the build was not rerun here.",
       "ai": {
         "usage": null,
         "tools": []
@@ -50191,6 +50482,70 @@
         "tools": []
       }
     },
+    "galaxian-arcade-scott-tunstall": {
+      "id": "galaxian-arcade-scott-tunstall",
+      "title": "Galaxian",
+      "upstream_name": "Galaxian",
+      "display_title": "Galaxian — Scott Tunstall arcade reverse engineering",
+      "subjects": [
+        "Galaxian"
+      ],
+      "repo": "https://github.com/ScottTunstall/Galaxian",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "arcade ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "annotated assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "commented arcade-game reverse engineering listing"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "MAME debugger tracing",
+        "manual labeling",
+        "memory-map documentation",
+        "cross-reference annotation"
+      ],
+      "tags": [
+        "arcade",
+        "Galaxian",
+        "commented disassembly",
+        "MAME"
+      ],
+      "notes": "Scott Tunstall's large commented reverse-engineering listing for Namco's 1979 Galaxian. The source header records MAME debugger and VS Code use, credits a code review related to Neo Geo and Amiga transcoding, and documents memory, coordinate, labeling and data-structure conventions. No standalone build workflow was found.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "github-1888games-galaxianc64": {
       "id": "github-1888games-galaxianc64",
       "title": "Galaxian: native C64 arcade adaptation source",
@@ -67941,6 +68296,85 @@
         "Android"
       ],
       "notes": "LionEngine-based remake of the Amiga Lionheart, identified explicitly in pom.xml. Inspected BossNorka.java and HUD code implement gameplay/UI in Java. Upstream site advertises local multiplayer, speedrun, battle and versus modes. The current Maven project depends on snapshot versions of its parent and LionEngine, so checkout buildability was not assumed. Reviewed 2026-10-05. Build/run/play statements are upstream reports; no candidate code was compiled or executed in this review. Evidence: https://github.com/b3dgs/lionheart-remake/blob/master/README.md https://github.com/b3dgs/lionheart-remake/blob/master/java/lionheart-game/src/main/java/com/b3dgs/lionheart/Hud.java https://github.com/b3dgs/lionheart-remake/blob/master/pom.xml https://github.com/b3dgs/lionheart-remake/blob/master/java/lionheart-game/src/main/java/com/b3dgs/lionheart/object/feature/BossNorka.java https://lionheart.b3dgs.com/",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lisa-os-source-compilation": {
+      "id": "lisa-os-source-compilation",
+      "title": "LisaSourceCompilation",
+      "upstream_name": "Lisa OS Source Code Compilation",
+      "display_title": "Lisa OS source-compilation and restoration environment",
+      "subjects": [
+        "Lisa Office System 3.0",
+        "Lisa Workshop",
+        "Lisa OS libraries and applications"
+      ],
+      "repo": "https://github.com/alexthecat123/LisaSourceCompilation",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple Lisa"
+      ],
+      "target_platforms": [
+        "Apple Lisa"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "released Lisa Office System source",
+        "original Lisa library binaries"
+      ],
+      "reconstructed_languages": [
+        "Lisa Pascal",
+        "Lisa assembly",
+        "Workshop EXEC",
+        "C",
+        "shell scripts"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "operating-system",
+        "system-software",
+        "application"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "recovered-source build environment",
+        "operating-system restoration"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "historical toolchain reconstruction",
+        "source patching",
+        "missing-routine disassembly",
+        "automated Workshop builds",
+        "disk-image preparation"
+      ],
+      "tags": [
+        "Apple Lisa",
+        "Lisa Office System",
+        "Workshop",
+        "Pascal",
+        "source preservation"
+      ],
+      "notes": "Reproducible environment and extensive instructions for building Lisa Office System 3.0, its libraries and applications from Apple's released source. The repository supplies build scripts, recreated missing source files, a prepared Lisa disk image and an emulator glue replacement, but omits Apple's source itself under its license. The README reports a fully working freshly compiled system; no byte-identical claim is made.",
       "ai": {
         "usage": null,
         "tools": []
@@ -92321,6 +92755,73 @@
         "tools": []
       }
     },
+    "py65-6502-simulator-debugger": {
+      "id": "py65-6502-simulator-debugger",
+      "title": "py65",
+      "upstream_name": "Py65",
+      "display_title": "Py65 — 6502-family simulator and machine-language monitor",
+      "subjects": [],
+      "repo": "https://github.com/mnaberez/py65",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502",
+        "65C02",
+        "65Org16"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "6502-family instruction-set behavior"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "disassembler",
+        "assembler-toolchain"
+      ],
+      "types": [
+        "CPU simulation package",
+        "machine-language monitor"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "instruction-set simulation",
+        "unit-tested CPU models",
+        "interactive memory inspection",
+        "single-line assembly and disassembly"
+      ],
+      "tags": [
+        "6502",
+        "65C02",
+        "65Org16",
+        "Python",
+        "monitor",
+        "retro development tooling"
+      ],
+      "notes": "Python package for simulating the NMOS 6502, a W65C02S-based generic 65C02 and the 65Org16. Its py65mon console provides VICE-like commands, memory load/dump/fill, labels, breakpoints, and simple assembly/disassembly. The package metadata requires Python 3.8 or newer; no host CPU or minimum hardware requirement is claimed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "py8dis-zornslemma": {
       "id": "py8dis-zornslemma",
       "title": "py8dis",
@@ -98924,6 +99425,70 @@
         "tools": []
       }
     },
+    "robotron-2084-arcade-scott-tunstall": {
+      "id": "robotron-2084-arcade-scott-tunstall",
+      "title": "Robotron2084",
+      "upstream_name": "Robotron2084",
+      "display_title": "Robotron: 2084 — Scott Tunstall arcade reverse engineering",
+      "subjects": [
+        "Robotron: 2084"
+      ],
+      "repo": "https://github.com/ScottTunstall/Robotron2084",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "arcade ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "annotated assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "commented arcade-game reverse engineering listing"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "manual symbol recovery",
+        "RAM-map reconstruction",
+        "data-structure analysis",
+        "gameplay-routine annotation"
+      ],
+      "tags": [
+        "arcade",
+        "Robotron: 2084",
+        "commented disassembly",
+        "MAME"
+      ],
+      "notes": "Scott Tunstall's extensive commented reverse engineering of the Robotron: 2084 solid-blue-label arcade program. The listing maps game state, object lists, rendering, controls, CMOS settings and core gameplay routines. The checked repository contains the analysis listing without a README or reproducible build claim.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "robotron-2084-spectrum-disassembly": {
       "id": "robotron-2084-spectrum-disassembly",
       "title": "Robotron: 2084",
@@ -102048,6 +102613,70 @@
         "Atari ST"
       ],
       "notes": "Author-published script decompiler, annotators and resource parsers that generate the SCI Scripts corpus; shared SCI formats, not Amiga/ST native 68k decoding.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "scramble-arcade-scott-tunstall": {
+      "id": "scramble-arcade-scott-tunstall",
+      "title": "Scramble",
+      "upstream_name": "Scramble",
+      "display_title": "Scramble — Scott Tunstall arcade reverse engineering",
+      "subjects": [
+        "Scramble"
+      ],
+      "repo": "https://github.com/ScottTunstall/Scramble",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "arcade ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "annotated assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "commented arcade-game reverse engineering listing"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "MAME debugger tracing",
+        "manual labeling",
+        "board memory-map documentation",
+        "I/O-port analysis"
+      ],
+      "tags": [
+        "arcade",
+        "Scramble",
+        "commented disassembly",
+        "MAME"
+      ],
+      "notes": "Scott Tunstall's large commented reverse-engineering listing for Konami's 1981 Scramble. The source header records MAME debugger and VS Code use, credits review work and a Neo Geo transcoding effort, and documents board memory, port mappings, coordinate conventions and game logic. No standalone build workflow was found.",
       "ai": {
         "usage": null,
         "tools": []
@@ -106913,6 +107542,76 @@
         "Game Gear"
       ],
       "notes": "Maxim's Pascal tool reads Sega, Codemasters and SDSC ROM headers and displays release metadata; README explicitly notes malformed input limitations. Original reader; no disassembly or recovered game code claimed.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sms-bios-disassembly-collection": {
+      "id": "sms-bios-disassembly-collection",
+      "title": "smsbioses",
+      "upstream_name": "SMS BIOSes",
+      "display_title": "Sega 8-bit BIOS and boot-ROM disassembly collection",
+      "subjects": [
+        "Sega Master System BIOS",
+        "Sega Game Gear BIOS",
+        "Sega SF-7000 IPL",
+        "Sega M404 prototype BIOS"
+      ],
+      "repo": "https://github.com/maxim-zhao/smsbioses",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Master System",
+        "Sega Game Gear",
+        "Sega SF-7000"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "console BIOS and boot-ROM machine code"
+      ],
+      "reconstructed_languages": [
+        "assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "system-software"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "multi-ROM firmware disassembly collection"
+      ],
+      "re_started": null,
+      "status": null,
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "annotated ROM disassembly",
+        "hardware-port mapping",
+        "asset extraction"
+      ],
+      "tags": [
+        "Sega Master System",
+        "Game Gear",
+        "SF-7000",
+        "BIOS",
+        "boot ROM"
+      ],
+      "notes": "Collection of annotated Sega 8-bit built-in ROM disassemblies: Master System BIOS 1.0, 1.3 and 2.0, Game Gear BIOS, SF-7000 IPL and an M404 prototype BIOS. The README explains their loader role; representative source records dump/comment provenance and hardware ports. The checked documentation does not explicitly name the CPU or establish a collection-wide rebuild claim, so CPU and build fields remain unfilled rather than inferred.",
       "ai": {
         "usage": null,
         "tools": []
