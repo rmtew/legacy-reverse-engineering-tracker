@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-10 — Retired RetroRE queue and cross-platform discovery
+
+Added **ten primary-source-reviewed projects**: **Py65 — 6502-family simulator and machine-language monitor**, **BNKCOD — Commodore SuperPET option-ROM disassembly**, **Commodore LCD KERNAL partial disassembly**, **8088 BIOS disassembly collection — IBM PC, PCjr and Tandy 1000**, **Alex Kidd in Miracle World — byte-matching Master System disassembly**, **Sega 8-bit BIOS and boot-ROM disassembly collection**, **Lisa OS source-compilation and restoration environment**, and Scott Tunstall's separate **Galaxian**, **Robotron: 2084** and **Scramble** arcade analyses.
+
+The current RetroRE README has materially changed: it now retains original-source links and explicitly retires its reverse-engineering list, so the residual Full/Partial audit task is closed while the source remains substantially reviewed for its separate original-source trail. The distinct fresh slice used `site:github.com Sega Master System disassembly reassembly`, `site:github.com Atari Jaguar homebrew development tool source`, and `site:github.com Apple Lisa ROM disassembly`. The Jaguar SDK hit resolved to its existing record; Mortal Kombat for Jaguar and NeoWidEx remain bounded follow-ups, while sparse `mnaberez/cmd` and `Ritchie333/skiing` repositories retain explicit deferred decisions.
+
+The CPU audit queue was empty before selection. New-project CPU audits use direct README/build/source evidence where explicit and record `no-evidence-found` or `not-applicable` elsewhere; no architecture, hardware minimum, build success or runtime behavior was inferred from platform or filename. Upstream comparison-build claims were reviewed but no project was independently built or executed.
+
 ## 2026-10-09 — AmigaOS ports, emulator expansions and source-build maintenance
 
 Reviewed eight materially changed records. **Amiga Games** now includes the source-level **Planet Chomp**, **Rolling Steel** and **Spectral Keep** AmigaOS 4.1 ports without treating their 3DO lineage as binary reverse engineering; **Amiga DevBench** records the accompanying reproducible OSMesa cross-build and QEMU audio path. **CPCSyntaxError v0.4.0** adds host-backed M4 networking, SYMBiFACE IDE/CF storage and LambdaSpeak 3 speech behavior.

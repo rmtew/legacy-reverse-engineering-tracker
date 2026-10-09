@@ -4,6 +4,19 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/mnaberez/py65 | Py65 — Python 6502/65C02/65Org16 simulator with VICE-like monitor, assembler/disassembler and debugger functions. |
+| https://github.com/mnaberez/bnkcod | BNKCOD — SuperPET option-ROM disassembly with ASXXXX reassembly and original-EPROM SHA-1 comparison. |
+| https://github.com/mnaberez/clcd | Commodore LCD — partial KERNAL ROM disassembly, prototype-hardware analysis and ca65/ld65 comparison build. |
+| https://github.com/ricardoquesada/bios-8088 | IBM PC/PCjr and Tandy 1000 BIOS ROM preservation plus IDA disassemblies. |
+| https://github.com/lhsazevedo/akmw | Alex Kidd in Miracle World — two-revision Master System disassembly with WLA-DX builds and original-ROM SHA-1 checks. |
+| https://github.com/maxim-zhao/smsbioses | Master System, Game Gear, SF-7000 and prototype BIOS/boot-ROM disassembly collection. |
+| https://github.com/alexthecat123/LisaSourceCompilation | Lisa Office System 3.0 recovered-source build environment with recreated missing routines, Workshop automation and prepared disk image. |
+| https://github.com/ScottTunstall/Galaxian | Scott Tunstall's extensively commented Galaxian arcade reverse-engineering listing. |
+| https://github.com/ScottTunstall/Robotron2084 | Scott Tunstall's Robotron: 2084 solid-blue-label arcade reverse-engineering listing. |
+| https://github.com/ScottTunstall/Scramble | Scott Tunstall's commented Scramble arcade reverse-engineering listing and board analysis. |
+| https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar | Deferred Jaguar fan-conversion lead: verify project-specific implementation, provenance and RAPTOR build/CPU evidence without assuming RE derivation. |
+| https://github.com/stepleton/NeoWidEx | Deferred Apple Lisa 2/10 Widget diagnostic/formatter lead pending source, build and exact runtime review. |
+| https://github.com/Ritchie333/skiing | Deferred SkoolKit repository with no root README; inspect nested project identity and provenance before promotion. |
 | https://github.com/sarnau/C64-The-Castles-of-Dr.-Creep | The Castles of Dr. Creep — independent C64 archaeology, tracked Ghidra/IDA material, data-format tools and upstream-reported byte-identical DASM reassembly. |
 | https://github.com/sarnau/LSK-M6T912F-Floppy-Duplicator | LSK M6T912F firmware — labelled Z80 disassembly, EPROM preservation, custom disassembler and board analysis. |
 | https://github.com/sarnau/Z80DisAssembler | Z80DisAssembler — ANSI C++ recursive disassembler and assembler for documented and undocumented Z80 opcodes. |
@@ -698,7 +711,7 @@
 
 | https://github.com/0xC0DE6502 | Acorn Electron/BBC Micro reverse-engineering cluster: game disassemblies, tape loader/protection analysis, Electroniq emulator and source-level debugger |
 
-| https://github.com/realdmx/retrore | Curated 6502 reverse-engineering/original-source index across Apple II, Atari 2600/8-bit, BBC/Acorn, C64, NES and others; its RE/Original distinction is useful for discovery triage |
+| https://github.com/realdmx/retrore | Former 6502 reverse-engineering/original-source index; the current README has retired the reverse-engineering lists and retains original-source links only, so its residual RE queue is exhausted unless the source materially changes. |
 | https://github.com/vermiceli | NES Contra/Super C byte-exact annotated disassemblies with extensive bank, asset, debugging and subsystem documentation |
 
 | https://github.com/lantus | Amiga/68k retro-development profile with OCS homebrew/conversions and ports; ZippyRace-OCS is a verified source-available fan conversion, with related repositories worth auditing |
@@ -738,7 +751,7 @@
 
 ### BBC / Acorn / consoles / newly represented platforms
 
-- Audit RetroRE's untracked **Full/Partial** 6502 reverse-engineering links systematically. High-value leads include Apple II Choplifter/6502disassembly projects, BBC Micro Exile/Imogen/Thrust, Atari 2600 multi-title disassembly collections, C64 title reconstructions and NES full disassemblies; continue distinguishing original-source preservation from RE.
+- Revisit RetroRE only if its current original-source-only README materially restores or replaces the retired reverse-engineering lists; the former Full/Partial queue is complete.
 
 - Follow credited predecessors and related disassemblies around BBC Micro, BBC Master, Acorn Electron, Acorn Archimedes and NES projects.
 - Treat newly represented platforms as first-class discovery targets rather than restricting future searches to the original five platform families.

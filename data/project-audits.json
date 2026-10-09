@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-09",
+  "indexed_at": "2026-10-10",
   "area_names": [
     "identity",
     "classification",
@@ -126890,6 +126890,739 @@
           "note": "README attributes the original game/listing and distinguishes extracted material, disassembly and new Python implementation.",
           "evidence_urls": [
             "https://github.com/Quaerendir/Heartlight/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "py65-6502-simulator-debugger",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README and package metadata identify Py65 as a maintained 6502-family simulation package.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md",
+            "https://github.com/mnaberez/py65/blob/main/pyproject.toml"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The documented simulator, monitor, assembler and disassembler capabilities make this core retro-development tooling.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README explicitly enumerates NMOS 6502, W65C02S-based 65C02 and 65Org16 simulation modules.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-10",
+          "note": "Py65 is a host-side simulator/debugger and does not produce a port or executable for a target CPU.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Pyproject declares an installable Python package and py65mon entry point with Python >=3.8.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/pyproject.toml"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README and package metadata give a Python version but no verified host CPU, RAM, or OS minimum suitable for a runtime profile.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md",
+            "https://github.com/mnaberez/py65/blob/main/pyproject.toml"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed README and package metadata; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README credits the maintainers of the 65C02 and 65Org16 models and distinguishes the three simulated devices.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/py65/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "bnkcod-superpet-option-rom",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README identifies the physical EPROM, socket, system and unknown original author.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Repository contains a maintained, commented option-ROM disassembly and a comparison build.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/README.md",
+            "https://github.com/mnaberez/bnkcod/blob/main/Makefile"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The disassembly uses 6502 instructions and the build invokes the ASXXXX as6500 assembler.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/bnkcod.asm",
+            "https://github.com/mnaberez/bnkcod/blob/main/Makefile"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The build reassembles the source with as6500 into the SuperPET option-ROM image.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Makefile assembles a 2 KiB binary and fails unless its SHA-1 matches the original dump; not rerun locally.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README names a Commodore SuperPET requirement but gives no verified model, RAM, ROM or chipset minimum for a runtime profile.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed README, source and Makefile; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README records Chuck Hutchins as the EPROM discoverer and m740dasm as the initial disassembler while preserving the unknown original authorship.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/bnkcod/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "commodore-lcd-kernal-disassembly",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README identifies an incomplete disassembly of Bil Herd's Commodore LCD prototype KERNAL ROM.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The repository combines a reconstructable ROM listing with substantive firmware and hardware analysis.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md",
+            "https://github.com/mnaberez/clcd/blob/main/kizapr-u102/Makefile"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README explicitly identifies the G65SC102/R65C102 family and documents the derived 1 MHz clock.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The ca65/ld65 build reconstructs the same prototype KERNAL ROM for the documented 65C02-family system.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md",
+            "https://github.com/mnaberez/clcd/blob/main/kizapr-u102/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Makefile assembles with ca65/ld65 and compares the output SHA-1 against the original; not rerun locally.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/kizapr-u102/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The hardware discussion establishes clock and peripherals but not a minimum runnable RAM/ROM/chipset profile for a distributed build.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed README and build file; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README links the original firmware, schematics and specifications and distinguishes the preserved prototype from the present analysis.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/clcd/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "bios-8088-disassembly-collection",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README explicitly enumerates the five represented IBM/Tandy BIOS subjects.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Original ROM files plus per-machine IDA disassemblies form one coherent firmware-analysis collection.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The project title and README identify these as BIOSes from 8088 machines.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-10",
+          "note": "The reviewed repository documents disassembly listings, not a produced port or reassembled executable target.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README and root tree contain no documented assembler build or binary-comparison workflow.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed documentation gives no runnable build or minimum hardware profile.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed README and repository structure; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README separates the represented BIOSes from two sought but absent Tandy variants.",
+          "evidence_urls": [
+            "https://github.com/ricardoquesada/bios-8088/blob/master/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "alex-kidd-miracle-world-sms-disassembly",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README names the 1986 Master System game and the two reconstructed revisions.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Project explicitly aims to understand and document the game through a buildable disassembly.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README requires the WLA-DX Z80 assembler for the original game disassembly.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Compile script assembles both ROM revisions with wla-z80 and links Master System images.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/compile.sh"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README and compile script build both revisions and check their SHA-1 values against the originals; not rerun locally.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md",
+            "https://github.com/lhsazevedo/akmw/blob/main/compile.sh"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README provides no verified minimum console revision, RAM, ROM or emulator requirement for a runtime profile.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed README and build script; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README credits SMS Power research, Emulicious and WLA-DX and notes an earlier private community disassembly without presenting this repository as its mirror.",
+          "evidence_urls": [
+            "https://github.com/lhsazevedo/akmw/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sms-bios-disassembly-collection",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README and repository tree establish a coherent collection of Sega Master System, Game Gear, SF-7000 and prototype built-in ROM disassemblies.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md",
+            "https://github.com/maxim-zhao/smsbioses/blob/master/1.0/Bios10.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The repository contains large annotated firmware listings rather than merely unanalysed ROM images.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md",
+            "https://github.com/maxim-zhao/smsbioses/blob/master/1.0/Bios10.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README and representative BIOS source were checked, but neither explicitly declares the original CPU architecture; no value was inferred from platform or instruction syntax.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md",
+            "https://github.com/maxim-zhao/smsbioses/blob/master/1.0/Bios10.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "No collection-wide documented reassembly output or explicitly named output CPU was found in the reviewed files.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md",
+            "https://github.com/maxim-zhao/smsbioses/blob/master/M404/make.cmd"
+          ]
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "One M404 helper invokes external SMS build tools, but the README does not document a reproducible build for the collection and no blanket claim was made.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md",
+            "https://github.com/maxim-zhao/smsbioses/blob/master/M404/make.cmd"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The reviewed repository gives no minimum runnable hardware or emulator profile.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed README, representative source and helper script; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header credits the ROM dumper and commenters while the README links the SMS Power BIOS documentation.",
+          "evidence_urls": [
+            "https://github.com/maxim-zhao/smsbioses/blob/master/README.md",
+            "https://github.com/maxim-zhao/smsbioses/blob/master/1.0/Bios10.asm"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "lisa-os-source-compilation",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README identifies a source-compilation environment for Lisa Office System 3.0 and enumerates its supplied and omitted material.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "This is recovered-source build restoration with recreated missing routines, not a decompilation or an unrelated archive.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-10",
+          "note": "The principal input is Apple's released source tree; source_cpu is reserved for original binaries actually analysed, not inferred from the platform. Binary-derived missing routines are noted without assigning a CPU absent an explicit declaration.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README establishes Apple Lisa output but does not explicitly state the produced CPU architecture; no value was inferred from platform.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README documents the five-month successful source build, prepared disk, patch scripts and Workshop EXEC automation; not independently rerun.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README documents Lisa and LisaEm workflows but no minimum Lisa model, RAM, ROM or host configuration suitable for a runtime profile.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed the extensive README and repository structure; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "README clearly separates Apple's licensed source, repository-authored build material, recreated binary-derived routines, original disk assets and LisaEm integration.",
+          "evidence_urls": [
+            "https://github.com/alexthecat123/LisaSourceCompilation/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "galaxian-arcade-scott-tunstall",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header explicitly identifies Galaxian and attributes the reverse-engineering work to Scott Tunstall.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The repository contains a large, extensively annotated reverse-engineering listing rather than an unanalysed ROM dump.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The checked source header and introductory documentation do not explicitly name the original CPU; no architecture was inferred from platform or mnemonics.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-10",
+          "note": "The repository presents an analysis listing and does not document a produced port or reassembled executable target.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "No assembler build, binary comparison or execution instructions were found in the repository root or checked source header.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The checked project files do not establish a runnable output or minimum hardware profile.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed repository root and source header; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header names the original publisher and credits related reviews, ports or MAME documentation where applicable.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Galaxian/blob/main/galaxian.asm"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "robotron-2084-arcade-scott-tunstall",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header explicitly identifies Robotron: 2084 and attributes the reverse-engineering work to Scott Tunstall.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The repository contains a large, extensively annotated reverse-engineering listing rather than an unanalysed ROM dump.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The checked source header and introductory documentation do not explicitly name the original CPU; no architecture was inferred from platform or mnemonics.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-10",
+          "note": "The repository presents an analysis listing and does not document a produced port or reassembled executable target.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "No assembler build, binary comparison or execution instructions were found in the repository root or checked source header.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The checked project files do not establish a runnable output or minimum hardware profile.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed repository root and source header; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header names the original publisher and credits related reviews, ports or MAME documentation where applicable.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Robotron2084/blob/main/robomame.asm"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "scramble-arcade-scott-tunstall",
+      "last_reviewed": "2026-10-10",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header explicitly identifies Scramble and attributes the reverse-engineering work to Scott Tunstall.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The repository contains a large, extensively annotated reverse-engineering listing rather than an unanalysed ROM dump.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "source_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The checked source header and introductory documentation do not explicitly name the original CPU; no architecture was inferred from platform or mnemonics.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-10",
+          "note": "The repository presents an analysis listing and does not document a produced port or reassembled executable target.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "No assembler build, binary comparison or execution instructions were found in the repository root or checked source header.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "The checked project files do not establish a runnable output or minimum hardware profile.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed repository root and source header; no explicit development-AI evidence was found.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Source header names the original publisher and credits related reviews, ports or MAME documentation where applicable.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/Scramble/blob/main/scramble.asm"
           ]
         }
       },
