@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-10 — Runtime, compatibility and multi-project maintenance
+
+Reviewed nine materially changed projects. **Freeserf.net** now records its physical-device-tested, owner-gated Android SPAE.PA download path. **lxa v0.11.32** closes a 36-application reference sweep with no garbage or untested entries. **TRX64 v0.12.8** adds runnable PAL/NTSC C64C models, while **C64RE** pins that runtime and moves C64 Ultimate access into a shared bridge daemon that still requires an emulator pass for the same bytes before hardware execution.
+
+**POM2 Games** now includes the separately titled **MCS** music editor and its explicit Apple II+ 48 KB / DOS 3.3 requirement. **Amy Studio** records mode-aware `CLS` generation and conservative call-chain analysis. **papple2** records run-aware label-offset disassembly for self-modifying code and corrects its AI audit from no-evidence-found to affirmative, unnamed-LLM collaboration. **Amigo v0.7.8** records its Pencil/Wacom and iCloud fixes without erasing the still-unverified cross-device case. **STDL** records real Mega STE overscan sweeps at 8 and 16 MHz as tested configurations, not minimum hardware.
+
+The CPU audit queue was empty before selection. No CPU or hardware minimum was inferred from platform, compiler, device model or source language, and no project was independently built or executed.
+
 ## 2026-10-10 — Retired RetroRE queue and cross-platform discovery
 
 Added **ten primary-source-reviewed projects**: **Py65 — 6502-family simulator and machine-language monitor**, **BNKCOD — Commodore SuperPET option-ROM disassembly**, **Commodore LCD KERNAL partial disassembly**, **8088 BIOS disassembly collection — IBM PC, PCjr and Tandy 1000**, **Alex Kidd in Miracle World — byte-matching Master System disassembly**, **Sega 8-bit BIOS and boot-ROM disassembly collection**, **Lisa OS source-compilation and restoration environment**, and Scott Tunstall's separate **Galaxian**, **Robotron: 2084** and **Scramble** arcade analyses.

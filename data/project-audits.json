@@ -11001,7 +11001,7 @@
     },
     {
       "project_id": "papple2-apple2-debugger",
-      "last_reviewed": "2026-10-09",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -11024,12 +11024,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "Primary workbench documentation and commits now describe a completed inline listing editor with persistent annotations, call following, routine selection and back/forward navigation. This is an implementation review, not an independent interactive run.",
+          "checked_at": "2026-10-10",
+          "note": "Observed execution now gates label+offset naming inside instructions, supporting self-modifying-code analysis without decoding arbitrary data as code.",
           "evidence_urls": [
-            "https://github.com/fschuhi/papple2/commit/99c38d0aa3838a095e09713058a598a33bb5b672",
-            "https://github.com/fschuhi/papple2/commit/71383884923cf04a022948a464fc370b65db02f3",
-            "https://github.com/fschuhi/papple2/blob/main/docs/workbench.md"
+            "https://github.com/fschuhi/papple2/commit/2a67d217687c9ca781f13ad100699a6745b9c099",
+            "https://github.com/fschuhi/papple2/commit/defb6a8910d0d9d0f00f944fb436298015eb0d0a"
           ]
         },
         "runtime_profiles": {
@@ -11037,9 +11036,12 @@
           "checked_at": "2026-09-24"
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-24",
-          "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Current project documentation explicitly addresses an AI model as a code/documentation collaborator. The model family is not named and is not guessed.",
+          "evidence_urls": [
+            "https://github.com/fschuhi/papple2/commit/defb6a8910d0d9d0f00f944fb436298015eb0d0a"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -24484,7 +24486,7 @@
     },
     {
       "project_id": "stdl-atari-st-porting-library",
-      "last_reviewed": "2026-09-26",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -24506,13 +24508,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-26",
-          "note": "Primary README gives the m68k-atari-mint-gcc/stcmd build and Hatari launch commands, lists runnable TOS examples, and documents target byte-comparison/performance tests: https://github.com/neilrackett/atarist-stdl/blob/main/README.md."
+          "checked_at": "2026-10-10",
+          "note": "The overscan/cache probe now includes an 8 MHz control and reports 150/150 frames on a real Mega STE at 8 MHz and 16 MHz without cache.",
+          "evidence_urls": [
+            "https://github.com/neilrackett/atarist-stdl/commit/eecd01a969d4636093b73a74944b8eddeaf31860"
+          ]
         },
         "runtime_profiles": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-26",
-          "note": "README documents measurements on stock 8 MHz ST and 16 MHz Mega STE configurations, but does not state one complete minimum CPU/RAM/ROM profile for all library features; no minimum is inferred."
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Real Mega STE 8/16 MHz results are recorded as tested configurations only; no minimum CPU, RAM or ROM requirement is inferred.",
+          "evidence_urls": [
+            "https://github.com/neilrackett/atarist-stdl/commit/eecd01a969d4636093b73a74944b8eddeaf31860"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -26682,7 +26690,7 @@
     },
     {
       "project_id": "lxa-linux-amiga-layer",
-      "last_reviewed": "2026-10-04",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -26706,8 +26714,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "Recent primary commits add AmigaOS 3.1-probed return-value conformance, assign-root path semantics and a v0.11.25 compatibility roadmap."
+          "checked_at": "2026-10-10",
+          "note": "v0.11.32 closes a reference-backed 36-app compatibility sweep with no garbage or untested entries; remaining divergences are explicitly deferred.",
+          "evidence_urls": [
+            "https://github.com/gooofy/lxa/commit/d7cc3ddb29be6356109c034db97fcfc3b233ee12"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -28609,7 +28620,7 @@
     },
     {
       "project_id": "c64re-mcp-workbench",
-      "last_reviewed": "2026-10-04",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28630,8 +28641,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "README/package metadata document npm installation, Node.js 22+ and byte-diff verification; current checks cover cartridge IDs 87-89."
+          "checked_at": "2026-10-10",
+          "note": "The workbench now pins TRX64 0.12.8 and exposes a separately managed C64 Ultimate bridge using the TRX64 wire protocol.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/b5eafd1007b3",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/af17add6f5d5"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -28644,14 +28659,18 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-10",
+          "note": "C64RE remains a TRX64 client; the new C64 Ultimate bridge is a separate runtime endpoint and retains emulator-pass gating before hardware execution.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/b5eafd1007b3"
+          ]
         }
       },
       "next_actions": []
     },
     {
       "project_id": "trx64-reverse-debugger",
-      "last_reviewed": "2026-10-04",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28672,8 +28691,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "v0.12.3 covers interrupt-safe debug builds, 1581 ROM lookup and cartridge-ID fixes."
+          "checked_at": "2026-10-10",
+          "note": "v0.12.8 adds runnable PAL/NTSC C64C rows and corrected color-register timing while preserving explicit unsupported-model refusals.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/TRX64/commit/012fb7eed60e6b2446beaf5c19aeb390643e11a1",
+            "https://github.com/Jondalar/TRX64/commit/37f857f725488c331e266830c8b56982eec0bba1"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -46777,7 +46800,7 @@
     },
     {
       "project_id": "amy-studio-colecovision-development-environment",
-      "last_reviewed": "2026-10-04",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -46801,8 +46824,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "README identifies the repository as the runnable browser release; current commits add the gasm80-compatible amyz80 command-line assembler and focused regression coverage."
+          "checked_at": "2026-10-10",
+          "note": "Compiler review confirms mode-specific CLS generation, direct-call mode propagation and explicit rejection of ambiguous plain-CLS calls.",
+          "evidence_urls": [
+            "https://github.com/amypurple/AmyStudio/commit/540b44e115c1ff4acaff91528503ca26d92d08e4"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -56878,7 +56904,7 @@
     },
     {
       "project_id": "amigo-ios-amiga-emulator",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -56919,11 +56945,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Primary build instructions and implementation reviewed. Boolean claims are documentation-backed; no local compilation or runtime test was performed.",
+          "checked_at": "2026-10-10",
+          "note": "v0.7.8 is live; upstream documents Apple Pencil/Wacom coordinate fixes and an iCloud download-request fix, with cross-device iCloud verification still explicitly open.",
           "evidence_urls": [
-            "https://github.com/thomas-luebker/Amigo/blob/main/README.md",
-            "https://github.com/thomas-luebker/Amigo/blob/main/CLAUDE.md"
+            "https://github.com/thomas-luebker/Amigo/commit/f03474c4f6d8",
+            "https://github.com/thomas-luebker/Amigo/commit/15d8bd257e744bcffb54194df702f18e42fe639f"
           ]
         },
         "runtime_profiles": {
@@ -63196,7 +63222,7 @@
     },
     {
       "project_id": "settlers-freeserf-net",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -63237,20 +63263,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README provides published v2.2.4 packages and an explicit mostly-playable statement. The current .NET 9 project conflicts with stale .NET Core 3.1 README details, so present source compilability remains unknown rather than inferred from the csproj. No local build/run test. byte_exact remains unknown.",
+          "checked_at": "2026-10-10",
+          "note": "Android now has an owner-gated SPAE.PA acquisition path; upstream reports a complete physical-device login/download/start test.",
           "evidence_urls": [
-            "https://github.com/Pyrdacor/freeserf.net/blob/master/README.md",
-            "https://github.com/Pyrdacor/freeserf.net/blob/master/FreeserfNet/FreeserfNet.csproj"
+            "https://github.com/Pyrdacor/freeserf.net/commit/2bd40a1c822125fd5e48b4c48ca2a03aeb8dd149"
           ]
         },
         "runtime_profiles": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "Reviewed runtime/build documentation does not establish explicit minimum CPU/RAM hardware for a runnable output. Platform support, compile flags and source hardware are not treated as minimum requirements.",
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "Physical Samsung Galaxy A13 testing is recorded as a tested configuration only; no Android, CPU or RAM minimum is documented.",
           "evidence_urls": [
-            "https://github.com/Pyrdacor/freeserf.net/blob/master/README.md",
-            "https://github.com/Pyrdacor/freeserf.net/blob/master/FreeserfNet/FreeserfNet.csproj"
+            "https://github.com/Pyrdacor/freeserf.net/commit/2bd40a1c822125fd5e48b4c48ca2a03aeb8dd149"
           ]
         },
         "ai": {
@@ -124255,16 +124279,15 @@
     },
     {
       "project_id": "pom2games-native-apple-ii-collection",
-      "last_reviewed": "2026-10-09",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "The current root README lists seven native Apple II games. The prior flipper directory/output is now Pinball/PINBALL.dsk; it remains the same Bill Budge Pinball Construction Set adaptation within the repository-level collection.",
+          "checked_at": "2026-10-10",
+          "note": "The repository-level collection now includes the separately titled MCS music editor without splitting the established collection record.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
-            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
+            "https://github.com/habib256/pom2games/blob/main/README.md"
           ]
         },
         "classification": {
@@ -124314,19 +124337,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "Commit 76e48cf moves fixed-sector DOS disk construction into shared checked tooling, renames the flipper build/test path to Pinball and expands emulator-led save/load and mouse coverage. These are inspected upstream changes, not a locally reproduced build.",
+          "checked_at": "2026-10-10",
+          "note": "MCS has its own checked-in build and test target; no local build or run was performed.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
+            "https://github.com/habib256/pom2games/commit/e58ca7f35a89"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "The current README explicitly states Apple II+ 48 KB or Apple //c with mouse or joystick for Pinball. The new profile preserves this bounded author requirement without inferring CPU generation or independent hardware success.",
+          "checked_at": "2026-10-10",
+          "note": "The MCS README table explicitly states Apple II+, 48 KB and DOS 3.3; this remains an upstream requirement, not independent compatibility testing.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md",
-            "https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e"
+            "https://github.com/habib256/pom2games/blob/main/README.md",
+            "https://github.com/habib256/pom2games/commit/e58ca7f35a89"
           ]
         },
         "ai": {
