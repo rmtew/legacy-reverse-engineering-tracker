@@ -8995,7 +8995,7 @@
     "re_started": null,
     "last_activity": "2026-10-08",
     "last_checked": "2026-09-23",
-    "status": null,
+    "status": "v1.21 source-built maintenance release; Tools v1.18",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -9013,14 +9013,16 @@
     },
     "techniques": [
       "binary analysis",
-      "format decoding"
+      "format decoding",
+      "source restoration",
+      "recovered-source build"
     ],
     "tags": [
       "game",
       "amber",
       "68k"
     ],
-    "notes": "Binary and data-format research feeding the broader Ambermoon reconstruction ecosystem.",
+    "notes": "Ambermoon v1.21 now ships AM2_CPU and the loader built from Jurie Horneman's original source plus restored missing kernel, 3D-renderer and music-player parts and subsequent fixes. The release fixes plain-68000 odd-size decompression and several memory, loader, conversation and gameplay faults; the tools release workflow publishes Windows, Linux and Amiga artifacts. These are upstream source-build/release claims, not an independent rebuild or byte comparison. Evidence: https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.21 https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.18",
     "github": {
       "repository": "Pyrdacor/Ambermoon",
       "created_at": "2020-06-16",
@@ -11312,7 +11314,9 @@
       "source debugging",
       "memory inspection",
       "remote deployment",
-      "emulator automation"
+      "emulator automation",
+      "cross-compilation",
+      "software rasterization"
     ],
     "tags": [
       "Amiga",
@@ -11320,7 +11324,7 @@
       "debugger",
       "reverse-engineering tooling"
     ],
-    "notes": "Host/target bridge over serial to a real or FS-UAE Amiga, with memory/register inspection, breakpoints, remote execution, a web dashboard and MCP tools. The optional patched FS-UAE enables a separate emulator-level debugger; ordinary FS-UAE still supports the serial bridge. Docker is used for the 68k cross compiler.",
+    "notes": "Host/target bridge over serial to a real or FS-UAE Amiga, with memory/register inspection, breakpoints, remote execution, a web dashboard and MCP tools. The optional patched FS-UAE enables a separate emulator-level debugger; ordinary FS-UAE still supports the serial bridge. Docker is used for the 68k cross compiler. The environment now includes a reproducible AmigaOS 4.1 PPC/newlib build of Mesa 7.8.2 OSMesa for fixed-function software rendering, an on-guest self-test, an opt-in ES1370 QEMU audio route, and updated examples pins for three PPC ports. Upstream reports the OSMesa self-test passes in the QEMU guest; this was not independently reproduced. Evidence: https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d https://github.com/geekychris/amiga_mcp/commit/9242be4af0",
     "github": {
       "repository": "geekychris/amiga_mcp",
       "created_at": "2026-03-08",
@@ -11749,11 +11753,14 @@
     "id": "geekychris-amiga-games",
     "title": "Amiga Games — Dot Chase, Fractalus and Void Trader collection",
     "upstream_name": "amiga_games",
-    "display_title": "Amiga Games — Dot Chase, Fractalus and Void Trader collection",
+    "display_title": "Amiga Games — native games and 3DO-derived AmigaOS ports",
     "subjects": [
       "Dot Chase",
       "Fractalus",
-      "Void Trader"
+      "Void Trader",
+      "Planet Chomp",
+      "Rolling Steel",
+      "Spectral Keep"
     ],
     "repo": "https://github.com/geekychris/amiga_games",
     "source_platforms": [],
@@ -11805,6 +11812,19 @@
           "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c",
           "https://github.com/geekychris/amiga_games/commit/0b22777413670059b1f8c12d1a8eacf8511a9c78"
         ]
+      },
+      {
+        "name": "Planet Chomp, Rolling Steel and Spectral Keep: PPC OS4 source ports",
+        "platform": "Amiga",
+        "cpu_family": "PowerPC",
+        "os": "AmigaOS 4.1",
+        "notes": "The three source-level ports are PPC-only and build with ppc-amigaos-gcc -mcpu=440fp/newlib. Planet Chomp and Rolling Steel use OSMesa 7.8.2 software rendering; Spectral Keep renders its precomputed sprites in software. Upstream reports QEMU sam460ex performance, but no minimum physical CPU or RAM requirement is established.",
+        "evidence": [
+          "https://github.com/geekychris/amiga_games/blob/main/README.md",
+          "https://github.com/geekychris/amiga_games/commit/bdd640236ddf",
+          "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
+          "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4"
+        ]
       }
     ],
     "source_language": [],
@@ -11824,7 +11844,7 @@
     "re_started": null,
     "last_activity": "2026-10-09",
     "last_checked": "2026-10-06",
-    "status": "Three substantive game anchors reviewed; per-game 68k/PPC variants and parent-library dependency; independently untested",
+    "status": "Six substantive game anchors reviewed across classic 68k and PPC AmigaOS variants; independently unbuilt",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -11850,7 +11870,7 @@
       "independent-build-untested",
       "native homebrew game collection"
     ],
-    "notes": "amiga_games is one source-available AmigaBridge game collection with its own canonical root, distinct from the already-tracked parent tooling. Three inspected anchors establish the bounded game collection: Dot Chase implements maze dot-eating, ghost states, power pellets, fruit, score, lives and level completion; Fractalus implements terrain flight, pilot rescue/deception, landing/airlock/takeoff, combat, fuel/shield win/loss and attract mode; Void Trader implements space combat, docking, station trading, cargo/credits, salvage and win/game-over states. Void Trader prices are fixed with 90% resale; variable-price trade routes remain future work. The complete 426-entry tree was inspected and three game anchors were read in depth; this is not a claim that every listed game or asset was audited. One subject/game collection is counted, with Dot Chase, Fractalus and Void Trader as the reviewed subjects. These are substantial native homebrew/homage implementations; no original-binary reconstruction is established. Fractalus source explicitly calls itself a Rescue on Fractalus homage. Demos, utilities and tests are outside this game scope. Hubert, although listed among games in README, is an interactive shell/REPL with LLM support and is excluded from the game anchors. No extra project is made for uninspected collection labels. The reviewed anchors are original native C/C++ game implementations and homages, not analysed historical instruction streams. source_cpu and source_language remain empty; the selected 68020 and PowerPC 440 outputs belong in target_cpu. Historical inspirations and an Amiga label do not establish an original binary CPU. Dot Chase explicitly uses m68k-amigaos-gcc -m68020 with no reviewed PPC branch. Fractalus and Void Trader have separate ARCH=m68k/-m68020 and ARCH=ppc/ppc-amigaos-gcc(-g++) -mcpu=440 branches. Their PowerPC support cannot be generalized to Dot Chase, all games, every PPC processor or every AmigaOS release. The three per-game Makefiles require the external parent AmigaBridge headers and libbridge.a at ../../amiga-bridge, so the game repository alone is insufficient without that layout, dependency and matching compiler/library architecture. Classic builds use -noixemul; the two PPC branches use newlib and architecture-specific audio stubs. Fractalus/Void Trader treat failed ab_init as optional at runtime, so a running host MCP/daemon is not established as universally required merely by README deployment instructions. Dot Chase ignores that return value; daemon-free execution remains unverified. Parent examples-pin mismatch is retained under relationships. No collection build, binary availability or playthrough was independently verified; all four build flags remain null. Requirements differ by inspected game and architecture. Dot Chase builds with -m68020, opens intuition.library and graphics.library v39, and uses a four-plane LORES custom screen; no PPC branch or chipset minimum is asserted for it. Fractalus and Void Trader default to -m68020, AmigaOS 3.x/v39 libraries and explicit AGA 320x256x8bpp. Their separate PPC builds use -mcpu=440, newlib and AmigaOS 4.1 sam460ex/QEMU intent, with silent audio stubs replacing Paula access; Fractalus also falls back to graphics.library rendering. This establishes selected compiler targets, not independently tested accelerator/RAM minima or general PPC compatibility. Source requests 65536-byte stacks in the two 3D games; stack allocations are not total-RAM minima. Upstream reports Fractalus uncapped at 150–200 fps after Delay(2) froze on OS4, resulting in very fast combat/short attract delay; Void Trader uses an explicitly temporary CPU-burn pacing loop. None of those author observations was reproduced here. Explicit game-source commit trailers attribute Fractalus attract-mode work and draw-overlay correction to Claude Opus 4.7 (1M context); the MIT copyright-line update credits Claude Opus 4.7. These are affirmative development-assistance evidence, so ai.usage is true and tools contains only Claude. The claim does not quantify generated code, cover every game, or rely on an instruction filename, provider email or the unrelated Hubert LLM feature. Latest five commit messages were freshly rechecked. The existing amiga-devbench-mcp tracker record covers the separate parent geekychris/amiga_mcp debugger/development tooling, not this game inventory. All three inspected games require its ../../amiga-bridge/include and libbridge.a in the expected layout, with matching target architecture. The parent examples gitlink at a346995a30948fff03faa3b3efbaf5a3bdb131dc pins 2dad36f1c16e158ba9e951c0a92760d25366680a and .gitmodules hints feat/initial-import, whereas this collection was reviewed at c3a23bec0328cf716fac6536f9164ea6209bf397; the recursive-parent-clone recipe does not necessarily reproduce this snapshot. Root LICENSE and inspected SPDX headers grant MIT, overriding the stale README license-TBD sentence for those files. Sampled stakattack/ptplayer.asm is Frank Wille public-domain code, so the README all-original wording is not a whole-collection provenance guarantee. Full asset/dependency licensing remains partial. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot c3a23bec0328cf716fac6536f9164ea6209bf397. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/geekychris/amiga_games https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/game.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/game.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/combat.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/trade.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/README.md https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/hubert/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/main.c https://github.com/geekychris/amiga_games/commit/0b22777413670059b1f8c12d1a8eacf8511a9c78 https://github.com/geekychris/amiga_games/commit/8fc73947ef92fdc2d06b170ed39e38da22a14549 https://github.com/geekychris/amiga_games/commit/3cc8ad907c06b51834ae9d622a5f46fdec3dd4c3 https://github.com/geekychris/amiga_games/commit/07193a647bc68a70ba3802599789eb26333c8c14 https://github.com/geekychris/amiga_mcp/blob/a346995a30948fff03faa3b3efbaf5a3bdb131dc/.gitmodules https://github.com/geekychris/amiga_mcp/tree/a346995a30948fff03faa3b3efbaf5a3bdb131dc/examples https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/LICENSE https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/stakattack/ptplayer.asm",
+    "notes": "amiga_games is one source-available AmigaBridge game collection with its own canonical root, distinct from the already-tracked parent tooling. Three inspected anchors establish the bounded game collection: Dot Chase implements maze dot-eating, ghost states, power pellets, fruit, score, lives and level completion; Fractalus implements terrain flight, pilot rescue/deception, landing/airlock/takeoff, combat, fuel/shield win/loss and attract mode; Void Trader implements space combat, docking, station trading, cargo/credits, salvage and win/game-over states. Void Trader prices are fixed with 90% resale; variable-price trade routes remain future work. The complete 426-entry tree was inspected and three game anchors were read in depth; this is not a claim that every listed game or asset was audited. One subject/game collection is counted, with Dot Chase, Fractalus and Void Trader as the reviewed subjects. These are substantial native homebrew/homage implementations; no original-binary reconstruction is established. Fractalus source explicitly calls itself a Rescue on Fractalus homage. Demos, utilities and tests are outside this game scope. Hubert, although listed among games in README, is an interactive shell/REPL with LLM support and is excluded from the game anchors. No extra project is made for uninspected collection labels. The reviewed anchors are original native C/C++ game implementations and homages, not analysed historical instruction streams. source_cpu and source_language remain empty; the selected 68020 and PowerPC 440 outputs belong in target_cpu. Historical inspirations and an Amiga label do not establish an original binary CPU. Dot Chase explicitly uses m68k-amigaos-gcc -m68020 with no reviewed PPC branch. Fractalus and Void Trader have separate ARCH=m68k/-m68020 and ARCH=ppc/ppc-amigaos-gcc(-g++) -mcpu=440 branches. Their PowerPC support cannot be generalized to Dot Chase, all games, every PPC processor or every AmigaOS release. The three per-game Makefiles require the external parent AmigaBridge headers and libbridge.a at ../../amiga-bridge, so the game repository alone is insufficient without that layout, dependency and matching compiler/library architecture. Classic builds use -noixemul; the two PPC branches use newlib and architecture-specific audio stubs. Fractalus/Void Trader treat failed ab_init as optional at runtime, so a running host MCP/daemon is not established as universally required merely by README deployment instructions. Dot Chase ignores that return value; daemon-free execution remains unverified. Parent examples-pin mismatch is retained under relationships. No collection build, binary availability or playthrough was independently verified; all four build flags remain null. Requirements differ by inspected game and architecture. Dot Chase builds with -m68020, opens intuition.library and graphics.library v39, and uses a four-plane LORES custom screen; no PPC branch or chipset minimum is asserted for it. Fractalus and Void Trader default to -m68020, AmigaOS 3.x/v39 libraries and explicit AGA 320x256x8bpp. Their separate PPC builds use -mcpu=440, newlib and AmigaOS 4.1 sam460ex/QEMU intent, with silent audio stubs replacing Paula access; Fractalus also falls back to graphics.library rendering. This establishes selected compiler targets, not independently tested accelerator/RAM minima or general PPC compatibility. Source requests 65536-byte stacks in the two 3D games; stack allocations are not total-RAM minima. Upstream reports Fractalus uncapped at 150–200 fps after Delay(2) froze on OS4, resulting in very fast combat/short attract delay; Void Trader uses an explicitly temporary CPU-burn pacing loop. None of those author observations was reproduced here. Explicit game-source commit trailers attribute Fractalus attract-mode work and draw-overlay correction to Claude Opus 4.7 (1M context); the MIT copyright-line update credits Claude Opus 4.7. These are affirmative development-assistance evidence, so ai.usage is true and tools contains only Claude. The claim does not quantify generated code, cover every game, or rely on an instruction filename, provider email or the unrelated Hubert LLM feature. Latest five commit messages were freshly rechecked. The existing amiga-devbench-mcp tracker record covers the separate parent geekychris/amiga_mcp debugger/development tooling, not this game inventory. All three inspected games require its ../../amiga-bridge/include and libbridge.a in the expected layout, with matching target architecture. The parent examples gitlink at a346995a30948fff03faa3b3efbaf5a3bdb131dc pins 2dad36f1c16e158ba9e951c0a92760d25366680a and .gitmodules hints feat/initial-import, whereas this collection was reviewed at c3a23bec0328cf716fac6536f9164ea6209bf397; the recursive-parent-clone recipe does not necessarily reproduce this snapshot. Root LICENSE and inspected SPDX headers grant MIT, overriding the stale README license-TBD sentence for those files. Sampled stakattack/ptplayer.asm is Frank Wille public-domain code, so the README all-original wording is not a whole-collection provenance guarantee. Full asset/dependency licensing remains partial. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot c3a23bec0328cf716fac6536f9164ea6209bf397. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/geekychris/amiga_games https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/game.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/game.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/combat.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/trade.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/README.md https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/hubert/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/main.c https://github.com/geekychris/amiga_games/commit/0b22777413670059b1f8c12d1a8eacf8511a9c78 https://github.com/geekychris/amiga_games/commit/8fc73947ef92fdc2d06b170ed39e38da22a14549 https://github.com/geekychris/amiga_games/commit/3cc8ad907c06b51834ae9d622a5f46fdec3dd4c3 https://github.com/geekychris/amiga_games/commit/07193a647bc68a70ba3802599789eb26333c8c14 https://github.com/geekychris/amiga_mcp/blob/a346995a30948fff03faa3b3efbaf5a3bdb131dc/.gitmodules https://github.com/geekychris/amiga_mcp/tree/a346995a30948fff03faa3b3efbaf5a3bdb131dc/examples https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/LICENSE https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/stakattack/ptplayer.asm Since that bounded three-title review, the repository added three distinct AmigaOS 4.1 PPC source ports derived from the author's 3DO versions: Planet Chomp, Rolling Steel and Spectral Keep. Rolling Steel retains the 3DO physics, rules, course loader and renderer maths while substituting OSMesa output; Spectral Keep retains the 3DO rules, rooms, physics, level data and voxel-sprite renderer while replacing cel output with a software framebuffer. All three now share window/full-screen display support. These are source-level fan/homebrew ports, not reverse-engineered binaries, and the author-reported QEMU sam460ex frame rates were not independently reproduced. Evidence: https://github.com/geekychris/amiga_games/blob/main/README.md https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48 https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4 https://github.com/geekychris/amiga_games/commit/6cf1cdf6b4",
     "github": {
       "repository": "geekychris/amiga_games",
       "created_at": "2026-07-15",
@@ -45330,19 +45350,22 @@
     "types": [
       "CPC/Plus cycle-level emulator"
     ],
-    "notes": "Emulates CPC 464/6128, Plus and GX4000 with per-model CRTC/Gate Array timing, disc and tape support, a debugger and embedded RASM. Inspected src/core includes Z80, CRTC variants and debugging code. README calls expansion hardware and UI work in progress; SHAKER compatibility is upstream's claim.",
+    "notes": "Emulates CPC 464/6128, Plus and GX4000 with per-model CRTC/Gate Array timing, disc and tape support, a debugger and embedded RASM. Inspected src/core includes Z80, CRTC variants and debugging code. README calls expansion hardware and UI work in progress; SHAKER compatibility is upstream's claim. v0.4.0 adds host-backed M4 TCP/DNS/server and plain-HTTP operations, a folder-backed FAT16 IDE/CF interface for SYMBiFACE II/III, and LambdaSpeak 3 Epson/DECtalk command handling using host voices. The release documents tests with Duke's TCP/telnet examples, SymbOS and LambdaSpeak software; these upstream compatibility claims were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656",
     "tags": [
       "Amstrad CPC",
       "Amstrad CPC Plus",
       "GX4000"
     ],
     "techniques": [
-      "reimplementation"
+      "reimplementation",
+      "expansion-hardware emulation",
+      "network emulation",
+      "storage emulation"
     ],
     "re_started": null,
     "last_activity": "2026-10-09",
     "last_checked": "2026-09-28",
-    "status": null,
+    "status": "active; v0.4.0 expansion-hardware release",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -64654,7 +64677,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.373 publishes x86-64 and arm64 host packages, verifies the authentic DM1 Amiga 2.0 F0437 title regions, RGB4 palette stages and 18 source-derived zoom steps, and the subsequent 17ce8dc change admits authentic CSB Amiga 3.3 media through the native title/menu/runtime startup path. Those bounded receipts do not establish full Amiga campaign parity. A separate isolated DM1 Amiga 2.0 M12 run still lacks first-Hall validation, while the native macOS DM2 capture reaches New/Resume/Quit without establishing physical-M5 testing, dungeon presentation, audio parity or complete gameplay.",
+    "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.373 publishes x86-64 and arm64 host packages, verifies the authentic DM1 Amiga 2.0 F0437 title regions, RGB4 palette stages and 18 source-derived zoom steps, and the subsequent 17ce8dc change admits authentic CSB Amiga 3.3 media through the native title/menu/runtime startup path. Those bounded receipts do not establish full Amiga campaign parity. A separate isolated DM1 Amiga 2.0 M12 run still lacks first-Hall validation, while the native macOS DM2 capture reaches New/Resume/Quit without establishing physical-M5 testing, dungeon presentation, audio parity or complete gameplay. Subsequent Theron's Quest work corrects the authenticated HuC6280 bank-$1f initializer call target, aligns the bounded C decoder with the retail final-byte lookahead boundary, and hardens stale transition-queue rejection. Static US/JP media checks and synthetic algorithm vectors passed upstream, but authentic level payload decoding, runtime consumer binding and retail game start remain explicitly unproven; a cold-start input capture stayed in the System Card with no Track 02 handoff. Evidence: https://github.com/yeager/firestaff/commit/b9dc0aba9448d0389b1582e236e01f4e7da8432a https://github.com/yeager/firestaff/commit/ca1e96d14f4b8b8893e0e486cbedfdc64e1e0691",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-09",
@@ -117478,7 +117501,9 @@
       "time-machine rewind",
       "call-flow graphs",
       "scriptable headless analysis",
-      "dynamic-first analysis with static hole-filling"
+      "dynamic-first analysis with static hole-filling",
+      "interactive annotation editing",
+      "routine breadcrumb navigation"
     ],
     "tags": [
       "Apple II",
@@ -117487,7 +117512,7 @@
       "debugger",
       "reverse-engineering tooling"
     ],
-    "notes": "Small Apple II emulator deliberately built as a reverse-engineering/debugging instrument rather than a general player. Its ApplePy-derived core now has a completed rebuilt instrumentation layer (tag core-complete): memory access by kind, hook lists, after-instruction callbacks and method-attached experiments. The next phase is an IPython workbench using dynamic analysis first and static disassembly to fill unexecuted holes. Lode Runner's byte-identical XekriRedmane reconstruction is explicitly an external grading oracle, never an analysis input.",
+    "notes": "papple2 is a small Apple II reverse-engineering emulator/debugger with a completed rebuilt instrumentation layer and an IPython workbench. Its prompt_toolkit listing editor now edits labels, operand targets and comments in place, follows calls, preserves back/forward breadcrumbs, and offers a routine picker; annotations are persisted in the dossier and refreshed between terminal sessions. Lode Runner's byte-identical XekriRedmane reconstruction remains an external grading oracle, never an analysis input. Evidence: https://github.com/fschuhi/papple2/commit/99c38d0aa3838a095e09713058a598a33bb5b672 https://github.com/fschuhi/papple2/commit/71383884923cf04a022948a464fc370b65db02f3",
     "github": {
       "repository": "fschuhi/papple2",
       "checked_at": "2026-10-09",
@@ -136523,14 +136548,15 @@
     "techniques": [
       "level-data recovery",
       "binary patching",
-      "graphics reconstruction"
+      "graphics reconstruction",
+      "original graphics recovery"
     ],
     "tags": [
       "DOS",
       "Rockford",
       "hidden levels"
     ],
-    "notes": "Patches the DOS Rockford executable to unlock hidden levels and reconstructs additional theme tiles, values and graphics. Historical Amiga art is compared in the research, but the tool does not patch Amiga media.",
+    "notes": "Patches the DOS Rockford executable to unlock hidden levels and reconstructs additional theme tiles, values and graphics. Historical Amiga art is compared in the research, but the tool does not patch Amiga media. Version 3.0 now distinguishes ORIGINAL.EXE, which uses newly recovered original EGA SCUBA and PLAYER tiles/animations, from ADDON.EXE, whose graphics are reconstructed from Amiga screenshots. The README marks SCUBA, PLAYER and LUCK complete while MUSIC and MINER still lack end-state animations. No DOSBox run was independently performed. Evidence: https://github.com/asahala/Rockford-Patcher/commit/0e4c686000b98288c4c21ece6b958e9399210951 https://github.com/asahala/Rockford-Patcher/blob/main/README.md",
     "github": {
       "repository": "asahala/Rockford-Patcher",
       "created_at": "2023-09-19",
@@ -172889,7 +172915,7 @@
       "retro development",
       "AI-assisted"
     ],
-    "notes": "Wine-style host runtime for classic AmigaOS m68k command-line tools: interprets guest instructions (optional m68k-crate trace JIT) and reimplements OS library calls in Rust. No Kickstart ROM is needed for normal use. It is generic development/analysis tooling, not a native reconstruction of a specific game; graphics, custom chips, Workbench GUI and games are explicitly out of scope. Linux/macOS build and guest execution are corroborated by current CI logs; published Windows x86-64 binaries compile but Windows/Wine runtime remains unverified. Interpreter/JIT parity covers six fixtures; comparison with vamos includes three documented known divergences, so it is not universal compatibility proof.",
+    "notes": "Wine-style host runtime for classic AmigaOS m68k command-line tools: interprets guest instructions (optional m68k-crate trace JIT) and reimplements OS library calls in Rust. No Kickstart ROM is needed for normal use. It is generic development/analysis tooling, not a native reconstruction of a specific game; graphics, custom chips, Workbench GUI and games are explicitly out of scope. Linux/macOS build and guest execution are corroborated by current CI logs; published Windows x86-64 binaries compile but Windows/Wine runtime remains unverified. Interpreter/JIT parity covers six fixtures; comparison with vamos includes three documented known divergences, so it is not universal compatibility proof. The math-library shims now return comparison/test results in both D0 and 68k condition codes, matching the documented ROM calling behavior needed by SAS/C's scmieee.lib; before the fix, SAS/C double comparisons appeared equal and exp() overflow checks returned HUGE_VAL. Evidence: https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564",
     "github": {
       "repository": "sidick/volamos",
       "created_at": "2026-08-18",

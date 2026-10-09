@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-09 — AmigaOS ports, emulator expansions and source-build maintenance
+
+Reviewed eight materially changed records. **Amiga Games** now includes the source-level **Planet Chomp**, **Rolling Steel** and **Spectral Keep** AmigaOS 4.1 ports without treating their 3DO lineage as binary reverse engineering; **Amiga DevBench** records the accompanying reproducible OSMesa cross-build and QEMU audio path. **CPCSyntaxError v0.4.0** adds host-backed M4 networking, SYMBiFACE IDE/CF storage and LambdaSpeak 3 speech behavior.
+
+**Rockford** now distinguishes recovered original EGA SCUBA/PLAYER graphics from Amiga-screenshot reconstructions. **papple2** records its interactive annotation editor and routine breadcrumbs. **Ambermoon v1.21** records release executables built from restored original source and closes its stale AI/relationship audit gaps. **Firestaff** preserves explicit negative boundaries around its Theron's Quest decoder work, while **volamos** records the corrected 68k condition-code semantics required by SAS/C math libraries.
+
+The CPU audit queue was empty before selection. No CPU, RAM minimum, build success or gameplay parity was inferred from platform labels or compiler flags, and no project was independently built or executed.
+
 ## 2026-10-09 — Upstream release, runtime and audit maintenance
 
 Reviewed eight materially touched records. **Firestaff v3.0.373** now separates bounded DM1 Amiga receipt evidence and verified CSB Amiga 3.3 startup from still-unproven campaign parity. **3Dvibe64 v1.8.0** records its optional texture LOD, hybrid raster and safe-presentation paths with scene-specific Turbo6510 measurements rather than hardware minima. **Project Eon v0.1.5** records architecture-specific packages, integrity manifests and the repaired Deuteros capture receipt without claiming complete gameplay.

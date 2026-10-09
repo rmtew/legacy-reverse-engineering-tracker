@@ -621,8 +621,8 @@
     },
     {
       "project_id": "ambermoon",
-      "last_reviewed": "2026-09-23",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-09",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -636,33 +636,50 @@
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-10-09",
+          "note": "The v1.21 changelog explicitly identifies a plain-68000 decompression fault and source-built Amiga program, reinforcing the existing m68000 source-architecture record without asserting a RAM minimum.",
+          "evidence_urls": [
+            "https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b"
+          ]
         },
         "target_cpu": {
           "state": "not-applicable",
           "checked_at": "2026-09-23"
         },
         "build": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-23"
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "The v1.21 changelog states that release AM2_CPU and loader executables are built from the restored original-source tree, and GitHub releases publish v1.21 plus Tools v1.18 artifacts. No independent build, hardware run or byte comparison was performed.",
+          "evidence_urls": [
+            "https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b",
+            "https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.21",
+            "https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.18"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
           "checked_at": "2026-09-23"
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-24",
-          "note": "Current repository checks found no explicit AI evidence; this does not establish non-use."
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "The v1.21 changelog/source-build commit has an explicit Claude Opus 5.5 co-author trailer; AI usage is affirmative but its extent is not inferred.",
+          "evidence_urls": [
+            "https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b"
+          ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "The release changelog explicitly relates this maintained distribution to Jurie Horneman's original source and the restored AmbermoonSource work. The tracker retains separate records for the original-source snapshot, Ambermoon.net and related tooling rather than merging their identities.",
+          "evidence_urls": [
+            "https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b",
+            "https://github.com/jhorneman/ambermoon",
+            "https://github.com/Pyrdacor/Ambermoon.net"
+          ]
         }
       },
-      "next_actions": [
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "ambermoon-advanced",
@@ -5529,10 +5546,10 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-09",
-          "note": "v3.0.373 records an authentic DM1 Amiga 2.0 F0437 receipt. Commit 17ce8dc then verifies authentic CSB Amiga 3.3 ZIP-to-ADF and loose-folder startup through title, input matrix, M12 start menu and runtime; upstream explicitly withholds full campaign parity.",
+          "note": "Reviewed the bounded Theron source-lock/decoder update and its explicit negative boundaries. Upstream reports three loops of focused static, US/JP media and synthetic decoder checks; the cold-start capture did not reach the game. This does not establish full resource or gameplay parity.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/releases/tag/v3.0.373",
-            "https://github.com/yeager/firestaff/commit/17ce8dcce184300319d576591f521c6d693553f4"
+            "https://github.com/yeager/firestaff/commit/b9dc0aba9448d0389b1582e236e01f4e7da8432a",
+            "https://github.com/yeager/firestaff/commit/ca1e96d14f4b8b8893e0e486cbedfdc64e1e0691"
           ]
         },
         "runtime_profiles": {
@@ -10984,7 +11001,7 @@
     },
     {
       "project_id": "papple2-apple2-debugger",
-      "last_reviewed": "2026-10-02",
+      "last_reviewed": "2026-10-09",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -11007,8 +11024,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-02",
-          "note": "README now marks the instrumentation core complete at tag core-complete and documents automated headless tests plus separate manual window/game routes; the IPython workbench is the next stage."
+          "checked_at": "2026-10-09",
+          "note": "Primary workbench documentation and commits now describe a completed inline listing editor with persistent annotations, call following, routine selection and back/forward navigation. This is an implementation review, not an independent interactive run.",
+          "evidence_urls": [
+            "https://github.com/fschuhi/papple2/commit/99c38d0aa3838a095e09713058a598a33bb5b672",
+            "https://github.com/fschuhi/papple2/commit/71383884923cf04a022948a464fc370b65db02f3",
+            "https://github.com/fschuhi/papple2/blob/main/docs/workbench.md"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -20976,7 +20998,7 @@
     },
     {
       "project_id": "amiga-devbench-mcp",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-09",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -20996,8 +21018,12 @@
           "checked_at": "2026-09-25"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "The OSMesa addition provides a Docker-backed reproducible cross-build script, static library target and guest self-test. Upstream says the test passes on QEMU sam460ex; no independent toolchain or guest run was performed, so successful operation remains author-reported.",
+          "evidence_urls": [
+            "https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -21005,15 +21031,26 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-09",
+          "note": "The OSMesa/QEMU integration commit has an explicit Claude Opus 5.5 co-author trailer, consistent with the project's existing affirmative AI record.",
+          "evidence_urls": [
+            "https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d"
+          ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "The examples submodule advances with the three AmigaOS 4.1 ports. The games remain tracked as the separate amiga_games collection; this record covers their cross-build, software-rendering and deployment environment.",
+          "evidence_urls": [
+            "https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d",
+            "https://github.com/geekychris/amiga_mcp/commit/9242be4af0",
+            "https://github.com/geekychris/amiga_games/blob/main/README.md"
+          ]
         }
       },
       "next_actions": [
-        "Verify runtime behavior against a primary execution log or release where documentation alone is insufficient"
+        "Reproduce the OSMesa cross-build and guest self-test or capture a public CI/release receipt.",
+        "Verify the serial debugger against a primary execution log where documentation alone is insufficient."
       ]
     },
     {
@@ -27504,7 +27541,7 @@
     },
     {
       "project_id": "rockford-hidden-level-patcher",
-      "last_reviewed": "2026-09-28",
+      "last_reviewed": "2026-10-09",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -27528,8 +27565,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "README provides the Python patching workflow, supported executable size and documented playable ADDON.EXE route."
+          "checked_at": "2026-10-09",
+          "note": "The current README publishes a version 3.0 DOSBox route with separate ORIGINAL.EXE and ADDON.EXE outputs and explicitly documents the remaining MUSIC/MINER animation gaps. This was not independently run.",
+          "evidence_urls": [
+            "https://github.com/asahala/Rockford-Patcher/commit/0e4c686000b98288c4c21ece6b958e9399210951",
+            "https://github.com/asahala/Rockford-Patcher/blob/main/README.md"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -27542,8 +27583,11 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "README distinguishes recoverable DOS level data from Amiga screenshots/art evidence and an unsupported VGA version."
+          "checked_at": "2026-10-09",
+          "note": "The new evidence sharpens, rather than removes, the provenance split: ORIGINAL.EXE carries recovered EGA SCUBA/PLAYER graphics, while ADDON.EXE uses reconstructions based on Amiga screenshots.",
+          "evidence_urls": [
+            "https://github.com/asahala/Rockford-Patcher/commit/0e4c686000b98288c4c21ece6b958e9399210951"
+          ]
         }
       },
       "next_actions": []
@@ -39923,7 +39967,7 @@
     },
     {
       "project_id": "cpc-syntax-error-emulator",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-09",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -39947,9 +39991,14 @@
           "note": "No single modern host minimum CPU established or applicable."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No independent build or byte/ROM comparison in this batch."
+          "state": "reviewed",
+          "checked_at": "2026-10-09",
+          "note": "v0.4.0 publishes a Windows x64 archive and documents source builds for Linux/macOS. The commit reports targeted M4, SymbOS and LambdaSpeak software tests. No local build, hardware comparison or compatibility test was performed.",
+          "evidence_urls": [
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.4.0",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/blob/main/README.md"
+          ]
         },
         "runtime_profiles": {
           "state": "needs-research",
@@ -39958,10 +40007,10 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Primary commit history contains an explicit Claude co-author trailer.",
+          "checked_at": "2026-10-09",
+          "note": "The v0.4.0 commit has an explicit Claude Opus 5.5 co-author trailer.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/b6223bfde618b401477bb9fb911beb61ea0eca58"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656"
           ]
         },
         "relationships": {
@@ -39971,7 +40020,7 @@
         }
       },
       "next_actions": [
-        "Verify a representative build or format and check stated compatibility on real input."
+        "Independently build one host target and verify a representative expansion path against primary hardware/software behavior."
       ]
     },
     {
@@ -55689,7 +55738,7 @@
     },
     {
       "project_id": "volamos-amiga-cli-runtime",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-09",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -55766,20 +55815,10 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Reviewed current workflow and job logs, not just green badge: Linux release build succeeded; six interpreter/JIT fixture outputs matched; vamos corpus reports three PASS and three explicit known divergences. macOS unit/end-to-end tests pass. No local independent compile was performed. playable and byte_exact are not applicable.",
+          "checked_at": "2026-10-09",
+          "note": "The reviewed commit corrects ROM-compatible N/Z/V/C condition-code semantics for six compare/test handlers used by SAS/C IEEE libraries. The code change was inspected, not independently compiled or executed; previous CI evidence and known divergences remain unchanged.",
           "evidence_urls": [
-            "https://github.com/sidick/volamos/blob/main/README.md",
-            "https://github.com/sidick/volamos/blob/main/userdocs/Building-from-Source.md",
-            "https://github.com/sidick/volamos/blob/main/userdocs/Installation.md",
-            "https://github.com/sidick/volamos/blob/main/userdocs/CLI-Reference.md",
-            "https://github.com/sidick/volamos/blob/main/crates/volamos-core/src/backend.rs",
-            "https://github.com/sidick/volamos/blob/main/crates/volamos-core/Cargo.toml",
-            "https://github.com/sidick/volamos/blob/main/.github/workflows/ci.yml",
-            "https://github.com/sidick/volamos/commit/0a68fabbad5e4c4572fcd91066f050250da3f1b3",
-            "https://github.com/sidick/volamos/releases/tag/v0.8",
-            "https://github.com/sidick/volamos/actions/runs/37101511349/job/111141804134",
-            "https://github.com/sidick/volamos/actions/runs/37101511349/job/111141804171"
+            "https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564"
           ]
         },
         "runtime_profiles": {
@@ -55802,20 +55841,10 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Commit 0a68fabbad5e4c4572fcd91066f050250da3f1b3 has Claude co-author trailer plus Claude session reference; Claude usage=true is explicit.",
+          "checked_at": "2026-10-09",
+          "note": "The math-library correctness commit has an explicit Claude Fable 5.1 co-author trailer, consistent with the existing affirmative AI record.",
           "evidence_urls": [
-            "https://github.com/sidick/volamos/blob/main/README.md",
-            "https://github.com/sidick/volamos/blob/main/userdocs/Building-from-Source.md",
-            "https://github.com/sidick/volamos/blob/main/userdocs/Installation.md",
-            "https://github.com/sidick/volamos/blob/main/userdocs/CLI-Reference.md",
-            "https://github.com/sidick/volamos/blob/main/crates/volamos-core/src/backend.rs",
-            "https://github.com/sidick/volamos/blob/main/crates/volamos-core/Cargo.toml",
-            "https://github.com/sidick/volamos/blob/main/.github/workflows/ci.yml",
-            "https://github.com/sidick/volamos/commit/0a68fabbad5e4c4572fcd91066f050250da3f1b3",
-            "https://github.com/sidick/volamos/releases/tag/v0.8",
-            "https://github.com/sidick/volamos/actions/runs/37101511349/job/111141804134",
-            "https://github.com/sidick/volamos/actions/runs/37101511349/job/111141804171"
+            "https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564"
           ]
         },
         "relationships": {
@@ -110056,7 +110085,7 @@
     },
     {
       "project_id": "geekychris-amiga-games",
-      "last_reviewed": "2026-10-06",
+      "last_reviewed": "2026-10-09",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -110086,37 +110115,33 @@
         },
         "source_cpu": {
           "state": "not-applicable",
-          "checked_at": "2026-10-06",
-          "note": "The reviewed anchors are original native C/C++ game implementations and homages, not analysed historical instruction streams. source_cpu and source_language remain empty; the selected 68020 and PowerPC 440 outputs belong in target_cpu. Historical inspirations and an Amiga label do not establish an original binary CPU.",
+          "checked_at": "2026-10-09",
+          "note": "The reviewed native games and three new 3DO-derived ports are source-level implementations, not analyses of historical instruction streams. No original binary CPU is inferred from the 3DO lineage.",
           "evidence_urls": [
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile"
+            "https://github.com/geekychris/amiga_games/blob/main/README.md",
+            "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
+            "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4"
           ]
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Dot Chase explicitly uses m68k-amigaos-gcc -m68020 with no reviewed PPC branch. Fractalus and Void Trader have separate ARCH=m68k/-m68020 and ARCH=ppc/ppc-amigaos-gcc(-g++) -mcpu=440 branches. Their PowerPC support cannot be generalized to Dot Chase, all games, every PPC processor or every AmigaOS release.",
+          "checked_at": "2026-10-09",
+          "note": "The three added ports explicitly build for AmigaOS 4.1 PPC with -mcpu=440fp. This extends the previously reviewed PPC output scope but does not establish a minimum physical processor or generalize PPC support to every title.",
           "evidence_urls": [
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile"
+            "https://github.com/geekychris/amiga_games/blob/main/README.md",
+            "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
+            "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4"
           ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "The three per-game Makefiles require the external parent AmigaBridge headers and libbridge.a at ../../amiga-bridge, so the game repository alone is insufficient without that layout, dependency and matching compiler/library architecture. Classic builds use -noixemul; the two PPC branches use newlib and architecture-specific audio stubs. Fractalus/Void Trader treat failed ab_init as optional at runtime, so a running host MCP/daemon is not established as universally required merely by README deployment instructions. Dot Chase ignores that return value; daemon-free execution remains unverified. Parent examples-pin mismatch is retained under relationships. No collection build, binary availability or playthrough was independently verified; all four build flags remain null.",
+          "checked_at": "2026-10-09",
+          "note": "Reviewed the three port commits and current README. Planet Chomp and Rolling Steel require the parent's OSMesa build; Spectral Keep uses software composition. Upstream reports QEMU sam460ex runs and all three gained shared full-screen support. No build or execution was independently reproduced.",
           "evidence_urls": [
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/README.md",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/main.c",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c"
+            "https://github.com/geekychris/amiga_games/commit/bdd640236ddf",
+            "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
+            "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4",
+            "https://github.com/geekychris/amiga_games/commit/6cf1cdf6b4"
           ]
         },
         "runtime_profiles": {
@@ -110135,31 +110160,29 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Explicit game-source commit trailers attribute Fractalus attract-mode work and draw-overlay correction to Claude Opus 4.7 (1M context); the MIT copyright-line update credits Claude Opus 4.7. These are affirmative development-assistance evidence, so ai.usage is true and tools contains only Claude. The claim does not quantify generated code, cover every game, or rely on an instruction filename, provider email or the unrelated Hubert LLM feature. Latest five commit messages were freshly rechecked.",
+          "checked_at": "2026-10-09",
+          "note": "The three port commits contain explicit Claude Opus 5.5 co-author trailers, extending the already affirmative Claude evidence.",
           "evidence_urls": [
-            "https://github.com/geekychris/amiga_games/commit/8fc73947ef92fdc2d06b170ed39e38da22a14549",
-            "https://github.com/geekychris/amiga_games/commit/3cc8ad907c06b51834ae9d622a5f46fdec3dd4c3",
-            "https://github.com/geekychris/amiga_games/commit/07193a647bc68a70ba3802599789eb26333c8c14"
+            "https://github.com/geekychris/amiga_games/commit/bdd640236ddf",
+            "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
+            "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4"
           ]
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "The existing amiga-devbench-mcp tracker record covers the separate parent geekychris/amiga_mcp debugger/development tooling, not this game inventory. All three inspected games require its ../../amiga-bridge/include and libbridge.a in the expected layout, with matching target architecture. The parent examples gitlink at a346995a30948fff03faa3b3efbaf5a3bdb131dc pins 2dad36f1c16e158ba9e951c0a92760d25366680a and .gitmodules hints feat/initial-import, whereas this collection was reviewed at c3a23bec0328cf716fac6536f9164ea6209bf397; the recursive-parent-clone recipe does not necessarily reproduce this snapshot. Root LICENSE and inspected SPDX headers grant MIT, overriding the stale README license-TBD sentence for those files. Sampled stakattack/ptplayer.asm is Frank Wille public-domain code, so the README all-original wording is not a whole-collection provenance guarantee. Full asset/dependency licensing remains partial.",
+          "checked_at": "2026-10-09",
+          "note": "The new titles remain subjects of this collection, not separate repository records. Their commits explicitly identify the author's 3DO versions as sources and the parent amiga_mcp repository as the cross-build/OSMesa environment.",
           "evidence_urls": [
-            "https://github.com/geekychris/amiga_mcp/blob/a346995a30948fff03faa3b3efbaf5a3bdb131dc/.gitmodules",
-            "https://github.com/geekychris/amiga_mcp/tree/a346995a30948fff03faa3b3efbaf5a3bdb131dc/examples",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/README.md",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/LICENSE",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/stakattack/ptplayer.asm",
-            "https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile"
+            "https://github.com/geekychris/amiga_games/blob/main/README.md",
+            "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
+            "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4",
+            "https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d"
           ]
         }
       },
       "next_actions": [
-        "Reproduce one title/architecture build with an explicitly matched parent AmigaBridge revision rather than assuming the parent examples gitlink matches main.",
-        "Review remaining game entries individually and validate 68k display/minimum requirements, OS4 timing/audio limits and asset/dependency rights before expanding collection claims."
+        "Reproduce one classic and one PPC title build with the matching parent AmigaBridge/OSMesa revision.",
+        "Review remaining collection entries and asset/dependency rights before expanding subject coverage."
       ]
     },
     {
