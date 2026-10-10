@@ -3923,7 +3923,7 @@
         "Claude"
       ],
       "evidence": [
-        "Claude project instructions/configuration present"
+        "Current field-test plan explicitly documents a Claude session exercising the packed toolkit"
       ]
     },
     "techniques": [
@@ -36049,8 +36049,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-09",
-    "last_checked": "2026-10-05",
-    "status": "active; upstream claims not independently reproduced",
+    "last_checked": "2026-10-10",
+    "status": "active; package metadata is prepared as 2.0.0, but the upstream release gate still lists trusted-publisher setup, tagging and published-package verification as open",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -36068,14 +36068,16 @@
     },
     "techniques": [
       "binary-analysis",
-      "data-format-analysis"
+      "data-format-analysis",
+      "MCP",
+      "field tracing"
     ],
     "tags": [
       "Commodore 64",
       "source-reviewed",
       "no-independent-build"
     ],
-    "notes": "Substantial general-purpose TypeScript toolkit, with VICE MCP/host processes, disk/BASIC/static-analysis/assembly/equivalence workflows; eligible as tooling rather than a game-specific emulator wrapper. src/mcp/server.ts defines typed VICE session operations for memory/register access, disassembly, breakpoints, disk media, profiling, SID/CIA/VIC inspection and bounded execution; src/c64.ts validates PRG address ranges. package.json declares distinct CLI, MCP and host entry points; README explicitly says TypeScript runs through tsx/Node rather than a compiled bundle. General-purpose C64 reverse-engineering/development tooling. The MCP controls a stock VICE process; this is neither a game reconstruction nor a game-specific emulator wrapper. README explicitly says nothing is built: TypeScript runs through tsx/Node. pnpm typecheck emits nothing; tests requiring VICE/Ghidra skip unless opted in. Configuration and installation instructions alone do not establish successful operation, so all build flags remain unknown. Requires Node.js 24+, VICE 3.9+ with ROM files on a graphical host, and ACME/DXA/Ghidra only for their respective workflows. No minimum host CPU/RAM is stated. Build/tool prerequisites: Node.js >=24; pnpm; VICE >=3.9 and C64 ROMs on graphical host; ACME/DXA/Ghidra for respective optional workflows. Documented commands: pnpm install --frozen-lockfile; pnpm typecheck; pnpm test. Live VICE/Ghidra tests are opt-in and skip when prerequisites are absent; no build or tool execution performed. README npx installation claims not independently verified against package registry. Toolkit project with its own implementation; VICE/Ghidra/ACME are external dependencies. GitHub reports fork=false; that metadata alone does not establish independent authorship. Canonical root was screened against the approved 1,320-project catalogue plus discovery-source/decision indexes; no root collision was found. Rights: MIT for toolkit; separately supplied VICE/ROMs and external tools retain their rights. AI evidence: No explicit AI development attribution found in the reviewed README, sampled source, and three latest commits. Agent configuration alone is not treated as proof. Reviewed 2026-10-05; no independent build, execution, gameplay, hardware test or byte comparison was performed. Primary evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/blob/main/src/c64.ts https://github.com/henols/c64-re-tools/blob/main/src/mcp/server.ts https://github.com/henols/c64-re-tools/commit/46993b6ff6617fab2ca93e300c8d37e80da02bc9 https://github.com/henols/c64-re-tools/commit/1aeb3b8026b9736b6c97db433fd8995bee71b2ba https://github.com/henols/c64-re-tools/commit/913bf3e146750eddc84c71438143a26017ab3dac",
+    "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b",
     "github": {
       "repository": "henols/c64-re-tools",
       "created_at": "2026-08-09",
@@ -36718,7 +36720,7 @@
     "re_started": null,
     "last_activity": "2026-10-09",
     "last_checked": "2026-10-10",
-    "status": "active; pins TRX64 0.12.8 and can drive a C64 Ultimate through a shared bridge daemon",
+    "status": "active; pins TRX64 0.12.9 and can drive a C64 Ultimate through a shared bridge daemon",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -36750,7 +36752,7 @@
       "MCP",
       "reverse engineering"
     ],
-    "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and uses TRX64 0.12.8 with user-supplied ROMs. Current checks share private cartridge IDs 87–89 with related tools; C64RE itself is not an emulator. A separately running C64 Ultimate bridge now exposes the TRX64 wire protocol to multiple clients while holding the device's single app connection; hardware execution remains gated on a recorded successful emulator run of the same bytes. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/b5eafd1007b3 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/af17add6f5d5",
+    "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and now pins TRX64 0.12.9 with user-supplied ROMs. The current changes use execution breakpoints for reachability claims, prevent duplicate equate definitions in relocated listings, preserve byte-identical rebuilds, and scope negative knowledge claims to their owning evidence coverage. A separately running C64 Ultimate bridge exposes the TRX64 wire protocol to multiple clients; hardware execution remains gated on a successful emulator run of the same bytes. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/74fe38185ca5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/cbfcadbf92b3 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/f68fe3d28d92",
     "github": {
       "repository": "Jondalar/C64ReverseEngineeringMCP",
       "created_at": "2026-04-01",
@@ -36785,12 +36787,13 @@
       {
         "name": "C64RE workbench",
         "platform": "Windows, Linux or macOS",
-        "os": "Node.js 22 or newer; TRX64 0.12.8; user-supplied Commodore ROMs",
+        "os": "Node.js 22 or newer; TRX64 0.12.9; user-supplied Commodore ROMs",
         "notes": "No minimum host CPU or RAM is stated.",
         "evidence": [
           "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/README.md",
           "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/package.json",
-          "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/af17add6f5d5"
+          "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/af17add6f5d5",
+          "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec"
         ]
       }
     ]
@@ -55971,8 +55974,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-09",
-    "last_checked": "2026-10-05",
-    "status": "Substantial Java/Swing implementation through FUSE/endgame; successful upstream Maven CI, no independent gameplay verification.",
+    "last_checked": "2026-10-10",
+    "status": "Substantial Java/Swing implementation through Sprint 27; successful upstream Maven CI, no independent gameplay verification.",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -56002,7 +56005,7 @@
       "Windows",
       "source-available"
     ],
-    "notes": "Substantial Java/Swing source reimplements original Dungeon Master data loading, rendering and gameplay, including a concrete endgame state machine; Maven build and current-head successful CI are verifiable. Requires user-supplied DUNGEON.DAT; original game assets are excluded. GRAPHICS.DAT must be PC version, otherwise placeholder art is used. Atari ST and Amiga dungeon format support is documented but only uncompressed PC data is reported tested. CI skips real-DAT tests when data files are absent; successful synthetic tests do not establish complete gameplay or fidelity. No repository license file was present in the inspected tree; source availability is verified, unrestricted reuse is not. GitHub Actions run 37373594209 completed successfully with mvn -B verify at reviewed main SHA 536961e22dbda1fb8f8a08c266ffb83dbd76c7d6, supporting compilable=true from remote CI. README documents actual exploration/controls and tested PC data, supporting upstream-reported runnable output. CI skips real-DAT tests when assets are absent; it does not establish a complete playthrough, so playable stays unknown. Independent non-fork Java implementation. README and Endgame.java explicitly credit/port ReDMCSB routines; CLAUDE.md and spell commit additionally identify ScummVM as a cross-check. No independent compilation, installation, execution, playtest or original-program binary comparison was performed in this catalogue review. Evidence: https://github.com/kswkev/dungeon-master-claude/blob/main/README.md https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/Main.java https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/model/Endgame.java https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/model/Party.java https://github.com/kswkev/dungeon-master-claude/blob/main/pom.xml https://github.com/kswkev/dungeon-master-claude/blob/main/.github/workflows/ci.yml https://github.com/kswkev/dungeon-master-claude/actions/runs/37373594209 https://github.com/kswkev/dungeon-master-claude/commit/536961e22dbda1fb8f8a08c266ffb83dbd76c7d6",
+    "notes": "Substantial Java/Swing source reimplements original Dungeon Master data loading, rendering and gameplay, including a concrete endgame state machine; Maven build and current-head successful CI are verifiable. Requires user-supplied DUNGEON.DAT; original game assets are excluded. GRAPHICS.DAT must be PC version, otherwise placeholder art is used. Atari ST and Amiga dungeon format support is documented but only uncompressed PC data is reported tested. CI skips real-DAT tests when data files are absent; successful synthetic tests do not establish complete gameplay or fidelity. No repository license file was present in the inspected tree; source availability is verified, unrestricted reuse is not. GitHub Actions run 37373594209 completed successfully with mvn -B verify at reviewed main SHA 536961e22dbda1fb8f8a08c266ffb83dbd76c7d6, supporting compilable=true from remote CI. README documents actual exploration/controls and tested PC data, supporting upstream-reported runnable output. CI skips real-DAT tests when assets are absent; it does not establish a complete playthrough, so playable stays unknown. Independent non-fork Java implementation. README and Endgame.java explicitly credit/port ReDMCSB routines; CLAUDE.md and spell commit additionally identify ScummVM as a cross-check. No independent compilation, installation, execution, playtest or original-program binary comparison was performed in this catalogue review. Evidence: https://github.com/kswkev/dungeon-master-claude/blob/main/README.md https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/Main.java https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/model/Endgame.java https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/model/Party.java https://github.com/kswkev/dungeon-master-claude/blob/main/pom.xml https://github.com/kswkev/dungeon-master-claude/blob/main/.github/workflows/ci.yml https://github.com/kswkev/dungeon-master-claude/actions/runs/37373594209 https://github.com/kswkev/dungeon-master-claude/commit/536961e22dbda1fb8f8a08c266ffb83dbd76c7d6 Sprint 27 adds map rendering for wall buttons and traversed illusionary walls, click-selected active champions, a party-direction compass, item transit through opening teleporters/pits, and hidden walls that remain solid until opened. These upstream feature claims do not change the existing unknown complete-playthrough state. Evidence: https://github.com/kswkev/dungeon-master-claude/commit/eb7b199de0d8 https://github.com/kswkev/dungeon-master-claude/commit/5f9e3a49ff4a",
     "execution_paths": [
       {
         "name": "Native Java/Swing remake",
@@ -65027,7 +65030,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-10",
-    "last_checked": "2026-10-08",
+    "last_checked": "2026-10-10",
     "status": "active",
     "build": {
       "compilable": true,
@@ -65067,7 +65070,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine. DM1 PC/DOS 3.4 remains playable/source-locked. v3.0.373 publishes x86-64 and arm64 host packages, verifies the authentic DM1 Amiga 2.0 F0437 title regions, RGB4 palette stages and 18 source-derived zoom steps, and the subsequent 17ce8dc change admits authentic CSB Amiga 3.3 media through the native title/menu/runtime startup path. Those bounded receipts do not establish full Amiga campaign parity. A separate isolated DM1 Amiga 2.0 M12 run still lacks first-Hall validation, while the native macOS DM2 capture reaches New/Resume/Quit without establishing physical-M5 testing, dungeon presentation, audio parity or complete gameplay. Subsequent Theron's Quest work corrects the authenticated HuC6280 bank-$1f initializer call target, aligns the bounded C decoder with the retail final-byte lookahead boundary, and hardens stale transition-queue rejection. Static US/JP media checks and synthetic algorithm vectors passed upstream, but authentic level payload decoding, runtime consumer binding and retail game start remain explicitly unproven; a cold-start input capture stayed in the System Card with no Track 02 handoff. Evidence: https://github.com/yeager/firestaff/commit/b9dc0aba9448d0389b1582e236e01f4e7da8432a https://github.com/yeager/firestaff/commit/ca1e96d14f4b8b8893e0e486cbedfdc64e1e0691",
+    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-10",
@@ -70675,8 +70678,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-09",
-    "last_checked": "2026-09-27",
-    "status": null,
+    "last_checked": "2026-10-10",
+    "status": "active; release 1.8.2 with continuing post-release emulator and libretro fixes",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -70692,14 +70695,18 @@
         "GitHub Copilot co-author trailer observed in recent tracked commits: 1 in this scan (example c0092458428c)"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "deterministic netplay",
+      "CD audio streaming",
+      "input-latency control"
+    ],
     "tags": [
       "PC Engine",
       "TurboGrafx-16",
       "SuperGrafx",
       "reverse-engineering tooling"
     ],
-    "notes": "PC Engine/TurboGrafx/SuperGrafx and CD-ROM emulator with integrated debugger and MCP server.",
+    "notes": "Cross-platform PC Engine/TurboGrafx-16/SuperGrafx/CD-ROM²/LD-ROM² emulator with an integrated debugger and MCP server. Post-1.8.2 changes fix input-latency handling, profiler counters, held input restoration after state loads, on-demand CD audio-track loading and deterministic libretro netplay by making SCSI reset state reproducible. The README publishes x64 and arm64 host artifacts but states no minimum CPU or RAM; those artifact architectures are not treated as minimum hardware or a retro output CPU. Evidence: https://github.com/drhelius/Geargrafx/blob/main/README.md https://github.com/drhelius/Geargrafx/commit/18852be0e663 https://github.com/drhelius/Geargrafx/commit/7c987a8bc5ab https://github.com/drhelius/Geargrafx/commit/3492b486b9ac",
     "github": {
       "repository": "drhelius/Geargrafx",
       "created_at": "2024-01-02",
@@ -77947,7 +77954,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-09",
-    "last_checked": "2026-09-24",
+    "last_checked": "2026-10-10",
     "status": "active",
     "build": {
       "compilable": true,
@@ -77971,7 +77978,8 @@
       "CPU/DSP profiling",
       "symbol loading",
       "remote control",
-      "state inspection"
+      "state inspection",
+      "RTC/NVRAM emulation"
     ],
     "tags": [
       "Atari ST",
@@ -77983,7 +77991,7 @@
       "reverse-engineering tooling",
       "retro development"
     ],
-    "notes": "Core Atari ST/STE/TT/Falcon emulator with a built-in debugger, conditional breakpoints, disassembly, symbol support, CPU/DSP profiling and remote-control facilities. Tracked as foundational software-archaeology and reproducible Atari development infrastructure.",
+    "notes": "Core Atari ST/STE/TT/Falcon emulator with a built-in debugger, conditional breakpoints, disassembly, symbol support, CPU/DSP profiling and remote-control facilities. October 9 TT work expands MC146818 RTC/NVRAM behavior with date/time writes, update-in-progress and update-ended flags, a 128 Hz periodic interrupt used by Atari System V, and IRQ wiring to TT MFP GPIP6. These are upstream implementation changes; this catalogue pass did not run Hatari or independently validate guest timing. Evidence: https://github.com/hatari/hatari/commit/85b7b214 https://github.com/hatari/hatari/commit/309cfc5 https://github.com/hatari/hatari/commit/5ae7910",
     "github": {
       "repository": "hatari/hatari",
       "created_at": "2019-02-19",
@@ -100716,8 +100724,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-09",
-    "last_checked": "2026-09-30",
-    "status": "in progress",
+    "last_checked": "2026-10-10",
+    "status": "in progress; release 0.7.9",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -100746,7 +100754,7 @@
       "Master of Magic",
       "ReMoM"
     ],
-    "notes": "Native AmigaOS 68k port of jbalcomb/ReMoM, pinned to predecessor commit a9cc082 and applying mechanical endian/platform patches while retaining original game-data use. Release 0.5.3 fixes wizard-name shadows, movement-mode byte ordering affecting flying, swimming, sailing, forester and mountaineer units, and the Build button's stale action when no stack is selected.",
+    "notes": "Native AmigaOS 68k port of jbalcomb/ReMoM, pinned to predecessor commit a9cc082 while retaining original game-data compatibility and applying endian/platform adaptations. Release 0.7.9 fixes selection of lower entries in city build lists, makes engineers build roads in the correct number of turns with matching dialog feedback, limits minimap cities to explored squares, and adds item-screen diagnostics. The documented minimum remains a 68020, Kickstart/Workbench 3.1+, and either AGA with 2 MiB Chip + 8 MiB Fast RAM or an 8-bit RTG setup with 8 MiB Fast RAM; no FPU is required. Evidence: https://github.com/angree/Amiga-68K-ReMoM/releases/tag/v0.7.9 https://github.com/angree/Amiga-68K-ReMoM/commit/385d430df6ca",
     "github": {
       "repository": "angree/Amiga-68K-ReMoM",
       "created_at": "2026-09-22",
@@ -148732,20 +148740,23 @@
       "SG-1000",
       "Master System",
       "Game Gear",
-      "ColecoVision"
+      "ColecoVision",
+      "Sega Mega Drive"
     ],
     "target_platforms": [
       "Linux"
     ],
     "source_cpu": [
-      "Z80"
+      "Z80",
+      "m68000"
     ],
     "target_cpu": [
       "x86-64"
     ],
     "runtime_profiles": [],
     "source_language": [
-      "Z80 machine code"
+      "Z80 machine code",
+      "m68000 machine code"
     ],
     "reconstructed_languages": [
       "C",
@@ -148764,8 +148775,8 @@
     ],
     "re_started": "2017",
     "last_activity": "2026-10-09",
-    "last_checked": "2026-10-05",
-    "status": "Active multi-system emulator with source and build recipe. Primary-source inspection only; no independent build or runtime test.",
+    "last_checked": "2026-10-10",
+    "status": "Active multi-system emulator; Mega Drive is now included in the default build and upstream reports a number of games playable, while the README machine list is not yet updated.",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -148782,9 +148793,10 @@
       "Master System",
       "Game Gear",
       "ColecoVision",
-      "Linux"
+      "Linux",
+      "Sega Mega Drive"
     ],
-    "notes": "README explicitly supports four systems; SG-1000 implementation wires generic Z80, TMS9928A, PSG, memory and I/O callbacks. C/C++ shell build uses SDL2/OpenGL UI and bundled libraries; save-state and diagnostic paths are visible. Mega Drive source exists but build.sh explicitly gates it behind developer-build under-development support; excluded from confirmed supported-platform labels. User-supplied ROMs required; no independent emulation accuracy or runtime verification. Third-party bundled libraries retain their own licenses. The SG-1000 machine implementation connects a Z80_Context CPU with TMS9928A, PSG and memory/I/O callbacks. Z80 is the guest CPU for supported machines, not an inferred host architecture. build.sh explicitly includes a Windows x86_64-w64-mingw32 cross-build branch. Record x86-64 as that documented build target only; README-supported Linux has no specified CPU. Windows is not promoted into the supported-platform list solely from that recipe. C/C++ build recipe links SDL2/OpenGL UI and bundled libraries. The README supports four systems; Mega Drive is gated as under-development developer-build support. No successful build, runtime or independent accuracy test was performed. SDL2/OpenGL and zlib are software dependencies. No supported Linux hardware minimum was found; the explicit Windows cross-compiler architecture is not a minimum CPU profile. Generic machine emulator developed since 2017 according to README. MIT project license coexists with separate bundled library licenses; user ROMs are required. Under-development Mega Drive support is excluded from confirmed machine labels. No explicit AI-development evidence observed in the README, tree and selected source/build/license files reviewed. This is not evidence of no AI use. No independent compilation, execution, gameplay, real-hardware or byte-exact verification was performed. Evidence: https://github.com/JoppyFurr/Snepulator https://github.com/JoppyFurr/Snepulator/blob/main/README.md https://github.com/JoppyFurr/Snepulator/blob/main/source/sg-1000.c https://github.com/JoppyFurr/Snepulator/blob/main/build.sh https://github.com/JoppyFurr/Snepulator/blob/main/LICENSE.txt",
+    "notes": "Snepulator supports SG-1000, Master System, Game Gear and ColecoVision, and the October 9 change moves Mega Drive from developer-only gating into the default build. The commit states that a number of Mega Drive games are playable; build.sh explicitly compiles its m68k core, YM2612 and Mega Drive machine/VDP sources. The README still lists only the four older systems, so support is recorded with that documentation lag rather than as a release-completeness claim. User-supplied ROMs are required; no independent build, gameplay or accuracy test was performed and no Linux hardware minimum is stated. Evidence: https://github.com/JoppyFurr/Snepulator/commit/2a6523d20e1b https://github.com/JoppyFurr/Snepulator/blob/main/build.sh https://github.com/JoppyFurr/Snepulator/blob/main/README.md",
     "github": {
       "repository": "JoppyFurr/Snepulator",
       "created_at": "2017-01-25",
@@ -168075,7 +168087,7 @@
     "re_started": null,
     "last_activity": "2026-10-09",
     "last_checked": "2026-10-10",
-    "status": "v0.12.8 adds runnable PAL and NTSC C64C models while retaining explicit refusals for unsupported first-revision machines",
+    "status": "v0.12.9 fixes interrupt-entry breakpoints and monitor stepping across IRQ/NMI/RTI while retaining the runnable PAL/NTSC C64C models introduced in v0.12.8",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -168102,7 +168114,7 @@
       "Commodore 64",
       "6502"
     ],
-    "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.8 hardens interrupt/debug handling, corrects 1581 ROM lookup, records measured C64 Ultimate turbo behavior and shares cartridge IDs 87–89 with related tools. ROMs remain user-supplied. The 0.12.8 runtime adds C64C PAL/NTSC rows, custom-IC glue timing and VIC-II color-register behavior checked against VICE; first-revision rows remain explicitly unsupported. Evidence: https://github.com/Jondalar/TRX64/commit/012fb7eed60e6b2446beaf5c19aeb390643e11a1 https://github.com/Jondalar/TRX64/commit/37f857f725488c331e266830c8b56982eec0bba1",
+    "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.9 makes an execution breakpoint on the first interrupt-handler instruction fire, persists interrupt-entry stops through checkpoints, and aligns step, step-over and step-return behavior around IRQ/NMI and RTI with VICE monitor expectations. ROMs remain user-supplied; no host CPU or RAM minimum is stated. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.12.9 https://github.com/Jondalar/TRX64/commit/db224337d341 https://github.com/Jondalar/TRX64/commit/1e6f73894427 https://github.com/Jondalar/TRX64/commit/212ebaf46857",
     "github": {
       "repository": "Jondalar/TRX64",
       "created_at": "2026-06-24",

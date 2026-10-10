@@ -5517,7 +5517,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-09",
+      "last_reviewed": "2026-10-10",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5545,11 +5545,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "Reviewed the bounded Theron source-lock/decoder update and its explicit negative boundaries. Upstream reports three loops of focused static, US/JP media and synthetic decoder checks; the cold-start capture did not reach the game. This does not establish full resource or gameplay parity.",
+          "checked_at": "2026-10-10",
+          "note": "Reviewed corrected DM1 Amiga HD and DM2 FM Towns boot receipts plus the expanded cross-game startup/diagnostic matrix. These are authenticated, source-owned bounded handoffs; they do not establish full campaign, save, display or audio parity.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/b9dc0aba9448d0389b1582e236e01f4e7da8432a",
-            "https://github.com/yeager/firestaff/commit/ca1e96d14f4b8b8893e0e486cbedfdc64e1e0691"
+            "https://github.com/yeager/firestaff/blob/main/README.md",
+            "https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md",
+            "https://github.com/yeager/firestaff/commit/7791b08de76e",
+            "https://github.com/yeager/firestaff/commit/17a20bdb465e"
           ]
         },
         "runtime_profiles": {
@@ -6256,7 +6258,7 @@
     },
     {
       "project_id": "hatari-atari-emulator-debugger",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-10",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -6279,7 +6281,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-24"
+          "checked_at": "2026-10-10",
+          "note": "Reviewed the current TT MC146818 RTC/NVRAM work: writes, UIP/UF state, the 128 Hz periodic interrupt and TT MFP GPIP6 wiring. These are upstream implementation changes; no independent build or guest timing run was performed.",
+          "evidence_urls": [
+            "https://github.com/hatari/hatari/commit/85b7b214",
+            "https://github.com/hatari/hatari/commit/309cfc5",
+            "https://github.com/hatari/hatari/commit/5ae7910"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -12030,7 +12038,7 @@
     },
     {
       "project_id": "remom-amiga",
-      "last_reviewed": "2026-09-30",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -12053,8 +12061,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "Release 0.5.3 remains buildable/runnable and documents bounded functional fixes; existing playable and non-byte-exact states remain unchanged."
+          "checked_at": "2026-10-10",
+          "note": "Release 0.7.9 records bounded functional progress in city build selection, engineer road timing/dialog, explored-city minimap rendering and item diagnostics. Existing compilable/runnable/playable and non-byte-exact states remain unchanged; no local run was performed.",
+          "evidence_urls": [
+            "https://github.com/angree/Amiga-68K-ReMoM/releases/tag/v0.7.9",
+            "https://github.com/angree/Amiga-68K-ReMoM/commit/385d430df6ca"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -28642,16 +28654,22 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-10",
-          "note": "The workbench now pins TRX64 0.12.8 and exposes a separately managed C64 Ultimate bridge using the TRX64 wire protocol.",
+          "note": "C64RE now pins TRX64 0.12.9 and uses execution breakpoints for CPU-reachability claims. Definition-registry and claim-coverage fixes preserve one equate definition per symbol and bounded negative evidence while retaining byte-identical rebuild checks.",
           "evidence_urls": [
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/b5eafd1007b3",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/af17add6f5d5"
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/74fe38185ca5",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/cbfcadbf92b3",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/f68fe3d28d92"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "TRX64 0.12.3 and user-supplied ROMs are required; no host CPU or RAM minimum is stated."
+          "checked_at": "2026-10-10",
+          "note": "Node.js 22+, TRX64 0.12.9 and user-supplied Commodore ROMs are documented. No minimum host CPU or RAM is stated.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/README.md",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -28692,16 +28710,22 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-10",
-          "note": "v0.12.8 adds runnable PAL/NTSC C64C rows and corrected color-register timing while preserving explicit unsupported-model refusals.",
+          "note": "v0.12.9 fixes execution breakpoints at interrupt-handler entry, checkpoint persistence of that stop, and step/step-over/step-return behavior through IRQ/NMI and RTI. Upstream tests are evidence of the bounded debugger behavior; no local run was performed.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/commit/012fb7eed60e6b2446beaf5c19aeb390643e11a1",
-            "https://github.com/Jondalar/TRX64/commit/37f857f725488c331e266830c8b56982eec0bba1"
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.12.9",
+            "https://github.com/Jondalar/TRX64/commit/db224337d341",
+            "https://github.com/Jondalar/TRX64/commit/1e6f73894427",
+            "https://github.com/Jondalar/TRX64/commit/212ebaf46857"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "User-supplied ROMs are required; no host CPU or RAM minimum is stated."
+          "checked_at": "2026-10-10",
+          "note": "v0.12.9 release archives remain documented for Windows, Linux and macOS on x86_64 and arm64, with user-supplied ROMs. No minimum host CPU generation or RAM is stated, so none is inferred.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/TRX64/blob/main/README.md",
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.12.9"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -34622,7 +34646,7 @@
     },
     {
       "project_id": "geargrafx-pce-mcp-debugger",
-      "last_reviewed": "2026-10-01",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -34645,13 +34669,23 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-01",
-          "note": "Primary README build/download documentation reviewed; no local build executed."
+          "checked_at": "2026-10-10",
+          "note": "Reviewed post-1.8.2 input-latency, profiler, state-load input, CD audio loading and deterministic libretro netplay fixes. Release artifacts and upstream implementation changes remain primary evidence; no local build or emulator run was performed.",
+          "evidence_urls": [
+            "https://github.com/drhelius/Geargrafx/blob/main/README.md",
+            "https://github.com/drhelius/Geargrafx/commit/18852be0e663",
+            "https://github.com/drhelius/Geargrafx/commit/7c987a8bc5ab",
+            "https://github.com/drhelius/Geargrafx/commit/3492b486b9ac"
+          ]
         },
         "runtime_profiles": {
-          "state": "not-applicable",
-          "checked_at": "2026-10-01",
-          "note": "Host-run emulator/tooling record; no legacy native minimum-hardware profile applies."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-10",
+          "note": "README publishes x64 and arm64 packages for several hosts, but gives no minimum CPU generation or RAM. Artifact architectures are not minimum-hardware evidence and are not recorded as retro output CPUs.",
+          "evidence_urls": [
+            "https://github.com/drhelius/Geargrafx/blob/main/README.md",
+            "https://github.com/drhelius/Geargrafx/releases/tag/1.8.2"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -65579,7 +65613,7 @@
     },
     {
       "project_id": "dungeon-master-java-kswkev",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -65639,16 +65673,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "GitHub Actions run 37373594209 completed successfully with mvn -B verify at reviewed main SHA 536961e22dbda1fb8f8a08c266ffb83dbd76c7d6, supporting compilable=true from remote CI. README documents actual exploration/controls and tested PC data, supporting upstream-reported runnable output. CI skips real-DAT tests when assets are absent; it does not establish a complete playthrough, so playable stays unknown. All positive flags are bounded upstream evidence, not a local verification.",
+          "checked_at": "2026-10-10",
+          "note": "The earlier successful GitHub Actions Maven verification continues to support compilable=true and the README continues to support upstream-reported runnable output, while real-DAT tests remain optional and complete playability stays unknown. Sprint 27 adds wall-button and traversed-illusion map state, click-selected active champions, compass direction, opening teleporter/pit item transit and closed hidden-wall collision. No new complete-playthrough or independent gameplay evidence was found.",
           "evidence_urls": [
             "https://github.com/kswkev/dungeon-master-claude/blob/main/README.md",
-            "https://github.com/kswkev/dungeon-master-claude/blob/main/pom.xml",
-            "https://github.com/kswkev/dungeon-master-claude/blob/main/.github/workflows/ci.yml",
             "https://github.com/kswkev/dungeon-master-claude/actions/runs/37373594209",
-            "https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/Main.java",
-            "https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/model/Endgame.java",
-            "https://github.com/kswkev/dungeon-master-claude/blob/main/src/main/java/dm/model/Party.java"
+            "https://github.com/kswkev/dungeon-master-claude/commit/eb7b199de0d8",
+            "https://github.com/kswkev/dungeon-master-claude/commit/5f9e3a49ff4a"
           ]
         },
         "runtime_profiles": {
@@ -70750,7 +70781,7 @@
     },
     {
       "project_id": "github-henols-c64-re-tools",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-10",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -70800,39 +70831,30 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README explicitly says nothing is built: TypeScript runs through tsx/Node. pnpm typecheck emits nothing; tests requiring VICE/Ghidra skip unless opted in. Configuration and installation instructions alone do not establish successful operation, so all build flags remain unknown. Build/tool prerequisites: Node.js >=24; pnpm; VICE >=3.9 and C64 ROMs on graphical host; ACME/DXA/Ghidra for respective optional workflows. Documented commands: pnpm install --frozen-lockfile; pnpm typecheck; pnpm test.",
+          "checked_at": "2026-10-10",
+          "note": "package.json and plugin manifests are prepared as 2.0.0 with publishable CLI/MCP/host bins, but the primary roadmap still leaves npm trusted-publisher setup, tagging and verification of the published package open. Build/runtime flags therefore remain unknown.",
           "evidence_urls": [
             "https://github.com/henols/c64-re-tools/blob/main/README.md",
             "https://github.com/henols/c64-re-tools/blob/main/package.json",
-            "https://github.com/henols/c64-re-tools/blob/main/src/c64.ts",
-            "https://github.com/henols/c64-re-tools/blob/main/src/mcp/server.ts",
-            "https://github.com/henols/c64-re-tools/commit/46993b6ff6617fab2ca93e300c8d37e80da02bc9"
+            "https://github.com/henols/c64-re-tools/commit/11987768d056"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "Requires Node.js 24+, VICE 3.9+ with ROM files on a graphical host, and ACME/DXA/Ghidra only for their respective workflows. No minimum host CPU/RAM is stated. No minimum hardware profile was established; source/guest CPU and ROM size are not host minima.",
+          "checked_at": "2026-10-10",
+          "note": "C64RT_TRACE adds field diagnostics but does not state host hardware requirements. Node.js 24+, VICE 3.9+, ROMs and optional analysis tools remain software prerequisites; no CPU or RAM minimum was found.",
           "evidence_urls": [
             "https://github.com/henols/c64-re-tools/blob/main/README.md",
-            "https://github.com/henols/c64-re-tools/blob/main/package.json",
-            "https://github.com/henols/c64-re-tools/blob/main/src/c64.ts",
-            "https://github.com/henols/c64-re-tools/blob/main/src/mcp/server.ts"
+            "https://github.com/henols/c64-re-tools/commit/5ceac29bb61b"
           ]
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "No explicit AI development attribution found in the reviewed README, sampled source, and three latest commits. Agent configuration alone is not treated as proof. This bounded check does not establish non-use; usage remains null and no tool/model is inferred.",
+          "state": "reviewed",
+          "checked_at": "2026-10-10",
+          "note": "The new field-test plan explicitly documents a Claude session exercising the toolkit from its packed artifact. This establishes AI use in the project workflow but is not represented as source-code authorship or a co-author claim.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/blob/main/README.md",
-            "https://github.com/henols/c64-re-tools/commit/46993b6ff6617fab2ca93e300c8d37e80da02bc9",
-            "https://github.com/henols/c64-re-tools/commit/1aeb3b8026b9736b6c97db433fd8995bee71b2ba",
-            "https://github.com/henols/c64-re-tools/commit/913bf3e146750eddc84c71438143a26017ab3dac",
-            "https://github.com/henols/c64-re-tools/blob/main/package.json",
-            "https://github.com/henols/c64-re-tools/blob/main/src/c64.ts",
-            "https://github.com/henols/c64-re-tools/blob/main/src/mcp/server.ts"
+            "https://github.com/henols/c64-re-tools/commit/5ceac29bb61b",
+            "https://github.com/henols/c64-re-tools/blob/main/README.md"
           ]
         },
         "relationships": {
@@ -78374,7 +78396,7 @@
     },
     {
       "project_id": "snepulator-sega-coleco-emulator",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-10",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -78389,20 +78411,21 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README explicitly supports four systems; SG-1000 implementation wires generic Z80, TMS9928A, PSG, memory and I/O callbacks. C/C++ shell build uses SDL2/OpenGL UI and bundled libraries; save-state and diagnostic paths are visible. Generic machine emulator developed since 2017 according to README. Classified as tooling; generic multi-system emulator.",
+          "checked_at": "2026-10-10",
+          "note": "The current default build includes the previously developer-gated Mega Drive core and upstream reports a number of games playable. The README machine list still trails this change, so the record preserves that documentation boundary.",
           "evidence_urls": [
-            "https://github.com/JoppyFurr/Snepulator/blob/main/README.md",
-            "https://github.com/JoppyFurr/Snepulator/blob/main/source/sg-1000.c"
+            "https://github.com/JoppyFurr/Snepulator/commit/2a6523d20e1b",
+            "https://github.com/JoppyFurr/Snepulator/blob/main/build.sh",
+            "https://github.com/JoppyFurr/Snepulator/blob/main/README.md"
           ]
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "The SG-1000 machine implementation connects a Z80_Context CPU with TMS9928A, PSG and memory/I/O callbacks. Z80 is the guest CPU for supported machines, not an inferred host architecture.",
+          "checked_at": "2026-10-10",
+          "note": "build.sh explicitly compiles source/cpu/m68k.c together with the default Mega Drive machine and VDP sources. m68000 is therefore recorded alongside the existing Z80 guest CPU; it is not inferred merely from the platform name.",
           "evidence_urls": [
-            "https://github.com/JoppyFurr/Snepulator/blob/main/README.md",
-            "https://github.com/JoppyFurr/Snepulator/blob/main/source/sg-1000.c"
+            "https://github.com/JoppyFurr/Snepulator/blob/main/build.sh",
+            "https://github.com/JoppyFurr/Snepulator/commit/2a6523d20e1b"
           ]
         },
         "target_cpu": {
@@ -78417,12 +78440,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "C/C++ build recipe links SDL2/OpenGL UI and bundled libraries. The README supports four systems; Mega Drive is gated as under-development developer-build support. No successful build, runtime or independent accuracy test was performed.",
+          "checked_at": "2026-10-10",
+          "note": "Mega Drive sources are now in the ordinary build and the enabling commit reports a number of games playable. No successful local build, complete compatibility claim or independent gameplay check was performed.",
           "evidence_urls": [
-            "https://github.com/JoppyFurr/Snepulator/blob/main/README.md",
-            "https://github.com/JoppyFurr/Snepulator/blob/main/build.sh",
-            "https://github.com/JoppyFurr/Snepulator/blob/main/source/sg-1000.c"
+            "https://github.com/JoppyFurr/Snepulator/commit/2a6523d20e1b",
+            "https://github.com/JoppyFurr/Snepulator/blob/main/build.sh"
           ]
         },
         "runtime_profiles": {
@@ -78457,7 +78479,7 @@
         }
       },
       "next_actions": [
-        "Verify the supported Linux build and document the status of the Windows recipe separately from experimental machines."
+        "Verify the supported Linux build and reconcile the README machine list with newly default Mega Drive support."
       ]
     },
     {
