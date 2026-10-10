@@ -953,3 +953,8 @@ Published the 17 approved games/collections, from 1,715 to 1,732, with 136 subst
 Reviewed nine material upstream changes. **TRX64** and **C64RE** now align interrupt-entry breakpoints and stepping around IRQ/NMI/RTI under the 0.12.9 pin; **Snepulator** moves Mega Drive into its default build with an explicitly compiled m68k core; and **Hatari** expands TT RTC/NVRAM and interrupt behavior.
 
 **Firestaff** adds corrected authenticated boot receipts and a broader cross-game startup matrix without overstating campaign parity. **Master of Magic — ReMoM Amiga port** reaches 0.7.9, **c64-re-tools** prepares 2.0.0 while retaining explicit publication gates and adds human-facing field traces, **Geargrafx** improves deterministic netplay and CD/input behavior, and **Dungeon Master (Java remake)** reaches Sprint 27. The CPU audit queue was empty; no CPU or minimum hardware was inferred from platform, language or host artifact names.
+
+
+## 2026-10-11 — PC-98 reconstruction and game-audio tooling discovery
+
+Closed the stale Snuggsy187 Electron screening task after reconciling all nine named repositories: seven were already promoted and the remaining two already had explicit exclusions. Rotating PC-98, Archimedes and Amiga searches promoted **Touhou 4: Lotus Land Story — PC-98 source reconstruction** and **MIDI Converters — reverse-engineered game-music format toolkit**. Fresh Amiga hits for Compunet Reborn and Eric Graham’s Juggler raytracer resolved to existing project-specific records. The CPU audit queue remained empty; new CPU audits distinguish TH04’s evidenced 16-bit x86 and x64 products from data-only converters where source and target CPUs are not applicable.

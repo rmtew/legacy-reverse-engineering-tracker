@@ -823,6 +823,8 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/ValleyBell/PC98VNResearch | PC-98 visual-novel engine disassemblies, format research, patches and translation tooling |
 | https://github.com/FuzionCD/lime-juice | MES bytecode compiler/decompiler and GP4/GPC/GPA round-trip tooling for PC-98 games |
 | https://github.com/nmlgc/ReC98 | Bit-perfect source reconstruction of the first five Touhou PC-98 games |
+| https://github.com/N0zoM1z0/th04 | Maintained standalone Touhou 4 PC-98 source reconstruction with differential validation and a separate unfinished native x64 port |
+| https://github.com/ValleyBell/MidiConverters | Multi-platform game-music format archaeology toolkit built from sound-driver disassembly and sequence/data reverse engineering |
 | https://github.com/nmlgc/np2debug | Neko Project II debugging fork for PC-98 binary modification and Touhou translation work |
 | https://github.com/sidneycadot/Atari8bit_OSB-NTSC-ROM | Atari 400/800 OS-B paper-source restoration with ca65 conversion and ROM checks |
 | https://github.com/fa8ntomas/blck-game-engine | Annotated Atari 8-bit Bruce Lee 6502 disassembly; build and provenance remain open |
