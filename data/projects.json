@@ -1135,7 +1135,7 @@
     "re_started": null,
     "last_activity": "2026-10-10",
     "last_checked": "2026-09-27",
-    "status": "v1.8.0 source SDK released; upstream-qualified optional LOD/hybrid raster paths, no independent or physical-hardware verification",
+    "status": "v1.9.0 source SDK released; experimental Normalized16 geometry remains opt-in and physically unverified",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -1155,7 +1155,8 @@
       "upper-row reconstruction",
       "gradual texture LOD",
       "hybrid Bresenham line raster",
-      "safe raster presentation"
+      "safe raster presentation",
+      "normalized signed-16 geometry generation"
     ],
     "tags": [
       "Commodore 64",
@@ -1163,7 +1164,7 @@
       "raycasting",
       "SDK"
     ],
-    "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine.",
+    "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine. v1.9.0 adds an explicit experimental Normalized16 build and bounded signed-16 geometry generators while preserving the Q8 defaults unless the optional hook is selected. Native benchmark and qualification tooling are included; this does not change the recorded physical-hardware limitation. Evidence: https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94 https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc",
     "github": {
       "repository": "Librologica/3Dvibe64",
       "created_at": "2026-08-08",
@@ -4349,7 +4350,7 @@
     "re_started": null,
     "last_activity": "2026-10-10",
     "last_checked": "2026-09-27",
-    "status": null,
+    "status": "active byte-exact ROM reassembly with expanded NFS/ANFS annotation coverage",
     "ai": {
       "usage": true,
       "tools": [
@@ -4360,7 +4361,10 @@
         "Claude co-author trailer observed in recent tracked commits: 39 in this scan (example 331fecc3af55; Claude Opus 5.5)"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "instruction-level annotation",
+      "cross-version comment validation"
+    ],
     "github": {
       "repository": "acornaeology/acorn-nfs",
       "checked_at": "2026-10-10",
@@ -4427,7 +4431,7 @@
       "Econet",
       "ROM"
     ],
-    "notes": "Annotated Acorn Network Filing System and Advanced NFS ROMs across multiple 3.x and 4.x versions. The project documents label/comment cross-references, version comparisons and dasmos/fantasm generation; CI reassembles with BeebAsm and compares each supported ROM byte for byte. README documents an 8 KB NFS and 16 KB ANFS successor.",
+    "notes": "Annotated Acorn Network Filing System and Advanced NFS ROMs across multiple 3.x and 4.x versions. The project documents label/comment cross-references, version comparisons and dasmos/fantasm generation; CI reassembles with BeebAsm and compares each supported ROM byte for byte. README documents an 8 KB NFS and 16 KB ANFS successor. The October 2026 annotation pass comments every instruction across the supported NFS/ANFS versions, models command and pointer tables symbolically, corrects mis-decoded data and now requires Fantasm 1.2.1 for the strengthened comment checks; byte-exact BeebAsm verification remains the project's build claim. Evidence: https://github.com/acornaeology/acorn-nfs/commit/5b58991161d5a5bac86e1e58d235c7bffa0f8e82 https://github.com/acornaeology/acorn-nfs/commit/1a96ee5c81aa287e4d20cd03e03945adba33b8ce",
     "build": {
       "compilable": true,
       "runnable": null,
@@ -36695,7 +36699,9 @@
     "repo": "https://github.com/Jondalar/C64ReverseEngineeringMCP",
     "source_platforms": [
       "Commodore 64",
-      "Commodore 1541"
+      "Commodore 1541",
+      "VIC-20",
+      "Commodore Plus/4"
     ],
     "target_platforms": [
       "Windows",
@@ -36753,14 +36759,16 @@
       "disk/cartridge forensics",
       "semantic annotation",
       "byte-diff verification",
-      "C64 Ultimate bridge daemon"
+      "C64 Ultimate bridge daemon",
+      "multi-machine ROM semantics",
+      "relocated-label recovery"
     ],
     "tags": [
       "Commodore 64",
       "MCP",
       "reverse engineering"
     ],
-    "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and now pins TRX64 0.12.9 with user-supplied ROMs. The current changes use execution breakpoints for reachability claims, prevent duplicate equate definitions in relocated listings, preserve byte-identical rebuilds, and scope negative knowledge claims to their owning evidence coverage. A separately running C64 Ultimate bridge exposes the TRX64 wire protocol to multiple clients; hardware execution remains gated on a successful emulator run of the same bytes. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/74fe38185ca5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/cbfcadbf92b3 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/f68fe3d28d92",
+    "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and now pins TRX64 0.12.9 with user-supplied ROMs. The current changes use execution breakpoints for reachability claims, prevent duplicate equate definitions in relocated listings, preserve byte-identical rebuilds, and scope negative knowledge claims to their owning evidence coverage. A separately running C64 Ultimate bridge exposes the TRX64 wire protocol to multiple clients; hardware execution remains gated on a successful emulator run of the same bytes. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/74fe38185ca5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/cbfcadbf92b3 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/f68fe3d28d92 The current platform pass adds explicit VIC-20 and TED-machine tags, Plus/4 BASIC 3.5 listing/tokenization, VIC-20/TED BASIC-stub recognition and signature-based raw-cartridge placement. Follow-up fixes emit outside-image addresses as equates and place names inside relocated blocks at the defining instruction while preserving every reference. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/38f1292610839c16db44f06a565a0ee4e49693f5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/86f2e560ae1608c751018daac2abf2af5c63120e https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/be6a640cbcd7d217562502fdd3b28f7cb613af52",
     "github": {
       "repository": "Jondalar/C64ReverseEngineeringMCP",
       "created_at": "2026-04-01",
@@ -38068,11 +38076,13 @@
     "repo": "https://github.com/StewBC/cc65-Chess",
     "source_platforms": [],
     "target_platforms": [
-      "Apple II"
+      "Apple II",
+      "Acorn Archimedes"
     ],
     "source_cpu": [],
     "target_cpu": [
-      "6502"
+      "6502",
+      "ARM"
     ],
     "runtime_profiles": [
       {
@@ -38089,6 +38099,20 @@
         ],
         "cpu_family": "6502",
         "os": "ProDOS"
+      },
+      {
+        "name": "Acorn A3010 ArchieSDK port",
+        "platform": "Acorn Archimedes",
+        "cpu_family": "ARM",
+        "min_cpu": "ARM250",
+        "min_ram_kib": 2048,
+        "os": "RISC OS 3.11",
+        "notes": "The README and platform source explicitly target an A3010 with ARM250, 2 MB RAM and RISC OS 3.11. This is author-stated compatibility, not an independently executed minimum.",
+        "evidence": [
+          "https://github.com/StewBC/cc65-Chess/commit/4de42f63f1eb04830ecd921165e61bfca54a43fd",
+          "https://github.com/StewBC/cc65-Chess/blob/master/README.md",
+          "https://github.com/StewBC/cc65-Chess/blob/master/src/archie/platArchie.c"
+        ]
       }
     ],
     "source_language": [],
@@ -38108,7 +38132,7 @@
     ],
     "re_started": null,
     "last_checked": "2026-10-07",
-    "status": "Substantive native game source reviewed; build and runtime independently unverified",
+    "status": "cross-platform original homebrew with native Apple II and Acorn A3010 builds; independently unbuilt",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -38130,7 +38154,7 @@
       "apple-ii-discovery",
       "no-independent-build"
     ],
-    "notes": "Identity: Stefan Wessels’ chess game combines a real move generator, legality/attack tests, make/unmake operations and board UI. Oliver Schmidt’s Apple II port has platform C and HGR assembly; the current tree replaces the 2014 engine with a 2026 rewrite. Classification: Original cross-platform homebrew with a native Apple II port. This entry reviews the Apple II output; other ports remain part of the same repository and are not split into duplicate game entries. Chess-opponent search is distinct from development AI. Source CPU: This is newly authored native game code rather than a recovered predecessor executable. No original-binary CPU is assigned from its target machine or the game that inspired it; source_platforms, source_cpu and source_language remain empty. Target CPU: README explicitly describes the Apple II version among the approximately 1 MHz 6502 machines. The inspected Apple II HGR source contains native 6502 instructions and the port file selects cc65 apple2; no 65C02-only or IIgs-native requirement is claimed. Build: Apple II make/port and shared cc65 rules compile C/assembly and package ProDOS images via Cadius. The repository has a measurement/test harness, but its strength, perft and game-count claims were not independently run or adopted as validation. Limitations: No compilation, launch, gameplay, hardware test or original-binary comparison was performed; every independent build flag remains null. Runtime profiles: The reviewed output is the native Apple II HGR board with keyboard controls and a ProDOS image recipe. No exact numeric RAM floor, Apple II model minimum or OS version is established by the sample. AI: README explicitly discloses AI assistance for the 2026 replacement engine, documentation and tests while identifying the 2014 program as hand-written. Recent real implementation/build commits carry Claude coauthor trailers; the upstream model label is not treated as independent version verification. Relationships: The 2014 game, 2026 engine rewrite and Apple II frontend are one project. Root LICENSE is a public-domain dedication. Generic Chess title matches do not identify this code lineage. Normalized root, title/alias and lineage were screened against the 1,798-project f003aa64 catalogue, source/decision files and expanded 2,198-root prior union; no same-code catalogue entry was found. Evidence: https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/README.md https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/src/engine.c https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/src/apple2/hires.s https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/src/apple2/platA2.c https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/make/ports/apple2.mk https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/make/toolchains/cc65.mk https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/LICENSE https://github.com/StewBC/cc65-Chess/commit/facf2525ccf542323edba279c7b8da3f9dd4de31",
+    "notes": "Identity: Stefan Wessels’ chess game combines a real move generator, legality/attack tests, make/unmake operations and board UI. Oliver Schmidt’s Apple II port has platform C and HGR assembly; the current tree replaces the 2014 engine with a 2026 rewrite. Classification: Original cross-platform homebrew with a native Apple II port. This entry reviews the Apple II output; other ports remain part of the same repository and are not split into duplicate game entries. Chess-opponent search is distinct from development AI. Source CPU: This is newly authored native game code rather than a recovered predecessor executable. No original-binary CPU is assigned from its target machine or the game that inspired it; source_platforms, source_cpu and source_language remain empty. Target CPU: README explicitly describes the Apple II version among the approximately 1 MHz 6502 machines. The inspected Apple II HGR source contains native 6502 instructions and the port file selects cc65 apple2; no 65C02-only or IIgs-native requirement is claimed. Build: Apple II make/port and shared cc65 rules compile C/assembly and package ProDOS images via Cadius. The repository has a measurement/test harness, but its strength, perft and game-count claims were not independently run or adopted as validation. Limitations: No compilation, launch, gameplay, hardware test or original-binary comparison was performed; every independent build flag remains null. Runtime profiles: The reviewed output is the native Apple II HGR board with keyboard controls and a ProDOS image recipe. No exact numeric RAM floor, Apple II model minimum or OS version is established by the sample. AI: README explicitly discloses AI assistance for the 2026 replacement engine, documentation and tests while identifying the 2014 program as hand-written. Recent real implementation/build commits carry Claude coauthor trailers; the upstream model label is not treated as independent version verification. Relationships: The 2014 game, 2026 engine rewrite and Apple II frontend are one project. Root LICENSE is a public-domain dedication. Generic Chess title matches do not identify this code lineage. Normalized root, title/alias and lineage were screened against the 1,798-project f003aa64 catalogue, source/decision files and expanded 2,198-root prior union; no same-code catalogue entry was found. Evidence: https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/README.md https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/src/engine.c https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/src/apple2/hires.s https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/src/apple2/platA2.c https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/make/ports/apple2.mk https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/make/toolchains/cc65.mk https://github.com/stewbc/cc65-chess/blob/401f1a87ca6fb8cb5c3bbb0fede7c8b709828fe5/LICENSE https://github.com/StewBC/cc65-Chess/commit/facf2525ccf542323edba279c7b8da3f9dd4de31 The same original homebrew now has an ArchieSDK port targeting an Acorn A3010 with ARM250, 2 MB RAM and RISC OS 3.11. It builds a RISC OS application/ZIP and has host-side platform tests; this is a new native target, not evidence of reverse-engineering lineage. Evidence: https://github.com/StewBC/cc65-Chess/commit/4de42f63f1eb04830ecd921165e61bfca54a43fd https://github.com/StewBC/cc65-Chess/blob/master/README.md",
     "github": {
       "repository": "StewBC/cc65-Chess",
       "created_at": "2014-02-14",
@@ -45751,7 +45775,7 @@
     "types": [
       "CPC/Plus cycle-level emulator"
     ],
-    "notes": "Emulates CPC 464/6128, Plus and GX4000 with per-model CRTC/Gate Array timing, disc and tape support, a debugger and embedded RASM. Inspected src/core includes Z80, CRTC variants and debugging code. README calls expansion hardware and UI work in progress; SHAKER compatibility is upstream's claim. v0.4.0 adds host-backed M4 TCP/DNS/server and plain-HTTP operations, a folder-backed FAT16 IDE/CF interface for SYMBiFACE II/III, and LambdaSpeak 3 Epson/DECtalk command handling using host voices. The release documents tests with Duke's TCP/telnet examples, SymbOS and LambdaSpeak software; these upstream compatibility claims were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656",
+    "notes": "Emulates CPC 464/6128, Plus and GX4000 with per-model CRTC/Gate Array timing, disc and tape support, a debugger and embedded RASM. Inspected src/core includes Z80, CRTC variants and debugging code. README calls expansion hardware and UI work in progress; SHAKER compatibility is upstream's claim. v0.4.0 adds host-backed M4 TCP/DNS/server and plain-HTTP operations, a folder-backed FAT16 IDE/CF interface for SYMBiFACE II/III, and LambdaSpeak 3 Epson/DECtalk command handling using host voices. The release documents tests with Duke's TCP/telnet examples, SymbOS and LambdaSpeak software; these upstream compatibility claims were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656 v0.5.0 adds guided and manual RAM cheats, CDT/TZX tape recording and turbo loading, HFE read/write, IPF read support, image writeback, a 300-rpm real-time floppy model, Multiface II, RS232C endpoints and folder-backed M4 DSK images. The bundled IPF decoder retains its non-commercial licence; upstream compatibility tests were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/35ca66c5bb974eb0b1113e08980ea166cf93362a",
     "tags": [
       "Amstrad CPC",
       "Amstrad CPC Plus",
@@ -45761,12 +45785,15 @@
       "reimplementation",
       "expansion-hardware emulation",
       "network emulation",
-      "storage emulation"
+      "storage emulation",
+      "flux-disc image handling",
+      "real-time floppy timing",
+      "interactive memory search"
     ],
     "re_started": null,
     "last_activity": "2026-10-10",
     "last_checked": "2026-09-28",
-    "status": "active; v0.4.0 expansion-hardware release",
+    "status": "active; v0.5.0 media, cheat and peripheral expansion release",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -63690,7 +63717,7 @@
     "re_started": null,
     "last_activity": "2026-10-10",
     "last_checked": "2026-09-27",
-    "status": null,
+    "status": "v1.2.1; active Python 3.12+ disassembly/reassembly toolkit",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -63707,13 +63734,17 @@
         "Claude co-author trailer observed in recent tracked commits: 3 in this scan (example 9f2734b37f50; Claude Opus 5.5)"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "Python AST driver analysis",
+      "comment-placement linting",
+      "cross-version annotation comparison"
+    ],
     "tags": [
       "BBC Micro",
       "Acorn",
       "reverse-engineering tooling"
     ],
-    "notes": "Consolidated CLI/API for managing annotated 6502 disassemblies across versions, including round-trip verification with BeebAsm; can use Dasmos or py8dis drivers.",
+    "notes": "Consolidated CLI/API for managing annotated 6502 disassemblies across versions, including round-trip verification with BeebAsm; can use Dasmos or py8dis drivers. Fantasm 1.2.1 replaces line-regex annotation discovery with AST parsing for both py8dis and dasmos drivers, makes syntax errors explicit, and adds comment-placement/content checks including copied-version, byte/address, branch-phrasing and code-read-as-data diagnostics with false-positive suppression. Evidence: https://github.com/acornaeology/fantasm/commit/7c8b51870d2c817d8e2d20e70c7a5259b6b6bb2b https://github.com/acornaeology/fantasm/commit/2b0cf0947c4f2d7329ca3bc918a5ea11ca459554 https://github.com/acornaeology/fantasm/commit/9f2734b37f5015221b34554d7e9b748a05fcf39f",
     "github": {
       "repository": "acornaeology/fantasm",
       "created_at": "2026-05-01",
@@ -63737,7 +63768,19 @@
         "message": "Bump version: 1.2.0 → 1.2.1",
         "url": "https://github.com/acornaeology/fantasm/commit/f15727f7ae0e048703d9c3e14dc1458532b8cf55"
       }
-    }
+    },
+    "runtime_profiles": [
+      {
+        "name": "Fantasm CLI and Python API",
+        "platform": "Python host",
+        "os": "Python 3.12 or newer",
+        "notes": "pyproject.toml explicitly requires Python >=3.12. No host CPU or RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/acornaeology/fantasm/blob/main/pyproject.toml",
+          "https://github.com/acornaeology/fantasm/blob/main/README.md"
+        ]
+      }
+    ]
   },
   {
     "id": "fat8-d88-extraction-tools",
@@ -65070,7 +65113,8 @@
       "CD track provenance verification",
       "source-frame byte comparison",
       "native save-format analysis",
-      "bounded in-memory media decoding"
+      "bounded in-memory media decoding",
+      "cross-platform startup matrix testing"
     ],
     "tags": [
       "game engine",
@@ -65079,7 +65123,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e",
+    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-10",
@@ -96513,7 +96557,7 @@
     "re_started": null,
     "last_activity": "2026-10-10",
     "last_checked": "2026-10-10",
-    "status": "v0.11.32; upstream's 36-app reference corpus has 2 platinum, 15 gold and 19 silver results, with no garbage or untested entries",
+    "status": "v0.11.45; upstream reference corpus reports 2 platinum, 25 gold and 9 silver applications",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -96535,7 +96579,9 @@
     "techniques": [
       "68000 emulation",
       "AmigaOS library reimplementation",
-      "filesystem call bridging"
+      "filesystem call bridging",
+      "AmigaOS 3.1 differential corpus testing",
+      "Fred Fish mass-run comparison"
     ],
     "tags": [
       "Amiga",
@@ -96543,7 +96589,7 @@
       "68000",
       "Linux"
     ],
-    "notes": "Runs AmigaOS 68000 binaries through CPU emulation and Linux-backed system-library reimplementations. Recent AmigaOS 3.1 probes corrected full-D0 BOOL/LONG returns and assign-root ParentDir behavior, while the roadmap reached v0.11.25 phases for BCPL and FPU programs; broad compatibility remains ongoing. Version 0.11.32 closes the Phase 238 corpus sweep: all 36 tracked applications now open windows comparable to the AmigaOS 3.1 reference, while remaining behavioral differences stay assigned to later phases. The same change fixes preserved-register ABI behavior, volume names and the harness Workbench backdrop. Evidence: https://github.com/gooofy/lxa/commit/d7cc3ddb29be6356109c034db97fcfc3b233ee12",
+    "notes": "Runs AmigaOS 68000 binaries through CPU emulation and Linux-backed system-library reimplementations. Recent AmigaOS 3.1 probes corrected full-D0 BOOL/LONG returns and assign-root ParentDir behavior, while the roadmap reached v0.11.25 phases for BCPL and FPU programs; broad compatibility remains ongoing. Version 0.11.32 closes the Phase 238 corpus sweep: all 36 tracked applications now open windows comparable to the AmigaOS 3.1 reference, while remaining behavioral differences stay assigned to later phases. The same change fixes preserved-register ABI behavior, volume names and the harness Workbench backdrop. Evidence: https://github.com/gooofy/lxa/commit/d7cc3ddb29be6356109c034db97fcfc3b233ee12 The v0.11.34–0.11.45 pass completes a 9,943-program Fred Fish comparison against AmigaOS 3.1 with 13 remaining lxa-only crashes, then advances the 36-app corpus to 2 platinum, 25 gold and 9 silver. Compatibility fixes include fast-RAM vectors, misc.resource, foreign-vector register handling, condition codes, Workbench screen semantics and clean 32-bit BOOL returns; these are upstream reference results, not independent validation. Evidence: https://github.com/gooofy/lxa/commit/03c1d12f8af19276a4755f0b3edd6085559d18b2 https://github.com/gooofy/lxa/commit/331b8a012448c947be3696381012296b5663567c",
     "github": {
       "repository": "gooofy/lxa",
       "created_at": "2021-07-17",
@@ -116474,7 +116520,10 @@
       "usage": null,
       "tools": []
     },
-    "techniques": [],
+    "techniques": [
+      "C23 enum parsing",
+      "integer-promotion conformance tests"
+    ],
     "tags": [
       "C64",
       "VIC-20",
@@ -116482,7 +116531,7 @@
       "source-reviewed",
       "no-independent-build"
     ],
-    "notes": "README describes a C99/C++ cross-compiler for 6502-family systems, especially C64, PET and VIC-20, including banked cartridges and disk overlays. CMakeLists.txt defines a C++17 executable from the compiler directory; inspected oscar64.cpp drives the compiler and disk-image tooling. Directory contains parser, optimizer, linker, assembler, disassembler, native and bytecode generators. Modern-host cross-compiler and runtime/toolchain, not a reconstruction of an older binary. Windows, macOS and Linux describe compiler hosts; C64, PET and VIC-20 describe generated-code targets. Host architecture is not inferred from C++. README performance and language-support claims are upstream assertions, not independently measured. Only explicitly documented core target labels are proposed, not every possible 6502 target. Source inspection only. No compilation, execution, gameplay, hardware test or byte comparison was performed. Build: CMake 3.15+ with C++17, or repository make/Visual Studio project. Host-specific dependencies and runtime include installation are declared; no host or target build tested. No candidate build, execution, gameplay, hardware test or byte comparison was performed. Supplied binaries, recipes and upstream success claims do not independently establish compilable/runnable/playable or byte-identical output. Architecture: README explicitly says the compiler targets the classic 6502 family. target_cpu=6502 describes generated code, never the CPU running the compiler. Host CPU and minimum hardware are unspecified. Rights: Repository license evidence: GPL-3.0. GPLv3 text inspected. Samples/runtime may require their own finer-grained interpretation before reuse. Relationships: Repository metadata reports fork=false; no separate mirror counted. Runtime: README documents Windows PC, Mac and Linux compiler hosts and separate C64/PET/VIC-20 code targets. It supplies no explicit host CPU/RAM minimum. Do not represent the cross-compiler itself as running on its generated-code targets; runtime_profiles remains empty. AI evidence: No explicit AI development tool/model declaration found in sampled source/README/build/license content and inspected commit messages. This is not proof that AI was unused. Gameplay AI or historical Lisp terminology is not development-assistance evidence. Inspected 3 returned commits (up to three for ordinary candidates), including author/committer names and full messages; no inference from provider domains. Latest activity uses the inspected default-branch commit date, not repository creation or push time. Primary evidence: https://github.com/drmortalwombat/oscar64/blob/main/README.md https://github.com/drmortalwombat/oscar64/blob/main/CMakeLists.txt https://github.com/drmortalwombat/oscar64/blob/main/LICENSE https://github.com/drmortalwombat/oscar64/blob/main/oscar64/oscar64.cpp https://github.com/drmortalwombat/oscar64/commit/3f4268cdf0792a0b74a75a99dbbe77edaf1c9a06 https://github.com/drmortalwombat/oscar64/commit/3de1bbef4b436b14f6af7290dd6af152028bf125 https://github.com/drmortalwombat/oscar64/commit/07b98fb3e15f044b75a40f55f1fbbd10137acc4c",
+    "notes": "README describes a C99/C++ cross-compiler for 6502-family systems, especially C64, PET and VIC-20, including banked cartridges and disk overlays. CMakeLists.txt defines a C++17 executable from the compiler directory; inspected oscar64.cpp drives the compiler and disk-image tooling. Directory contains parser, optimizer, linker, assembler, disassembler, native and bytecode generators. Modern-host cross-compiler and runtime/toolchain, not a reconstruction of an older binary. Windows, macOS and Linux describe compiler hosts; C64, PET and VIC-20 describe generated-code targets. Host architecture is not inferred from C++. README performance and language-support claims are upstream assertions, not independently measured. Only explicitly documented core target labels are proposed, not every possible 6502 target. Source inspection only. No compilation, execution, gameplay, hardware test or byte comparison was performed. Build: CMake 3.15+ with C++17, or repository make/Visual Studio project. Host-specific dependencies and runtime include installation are declared; no host or target build tested. No candidate build, execution, gameplay, hardware test or byte comparison was performed. Supplied binaries, recipes and upstream success claims do not independently establish compilable/runnable/playable or byte-identical output. Architecture: README explicitly says the compiler targets the classic 6502 family. target_cpu=6502 describes generated code, never the CPU running the compiler. Host CPU and minimum hardware are unspecified. Rights: Repository license evidence: GPL-3.0. GPLv3 text inspected. Samples/runtime may require their own finer-grained interpretation before reuse. Relationships: Repository metadata reports fork=false; no separate mirror counted. Runtime: README documents Windows PC, Mac and Linux compiler hosts and separate C64/PET/VIC-20 code targets. It supplies no explicit host CPU/RAM minimum. Do not represent the cross-compiler itself as running on its generated-code targets; runtime_profiles remains empty. AI evidence: No explicit AI development tool/model declaration found in sampled source/README/build/license content and inspected commit messages. This is not proof that AI was unused. Gameplay AI or historical Lisp terminology is not development-assistance evidence. Inspected 3 returned commits (up to three for ordinary candidates), including author/committer names and full messages; no inference from provider domains. Latest activity uses the inspected default-branch commit date, not repository creation or push time. Primary evidence: https://github.com/drmortalwombat/oscar64/blob/main/README.md https://github.com/drmortalwombat/oscar64/blob/main/CMakeLists.txt https://github.com/drmortalwombat/oscar64/blob/main/LICENSE https://github.com/drmortalwombat/oscar64/blob/main/oscar64/oscar64.cpp https://github.com/drmortalwombat/oscar64/commit/3f4268cdf0792a0b74a75a99dbbe77edaf1c9a06 https://github.com/drmortalwombat/oscar64/commit/3de1bbef4b436b14f6af7290dd6af152028bf125 https://github.com/drmortalwombat/oscar64/commit/07b98fb3e15f044b75a40f55f1fbbd10137acc4c The current compiler pass adds C23 explicit enumeration underlying types, preserves enum width/signedness, corrects unsigned wraparound arithmetic, and fixes integer promotions across parsing, constant folding and code generation with dedicated tests. Evidence: https://github.com/drmortalwombat/oscar64/commit/117c17195643ab9a9d847427f53d7d377ebd86ce https://github.com/drmortalwombat/oscar64/commit/bb280155800c1c8785545da1b903175634b8d3b2 https://github.com/drmortalwombat/oscar64/commit/a7b732e00c0774720158f3b91d775a04a25ab67d",
     "github": {
       "repository": "drmortalwombat/oscar64",
       "created_at": "2021-09-06",
@@ -124514,6 +124563,19 @@
           "https://github.com/habib256/pom2games/blob/main/README.md",
           "https://github.com/habib256/pom2games/commit/e58ca7f35a89"
         ]
+      },
+      {
+        "name": "Wilderness reconstruction",
+        "platform": "Apple II+",
+        "cpu_family": "6502",
+        "min_ram_kib": 48,
+        "os": "DOS 3.3",
+        "notes": "The root table and Wilderness Makefile explicitly state Apple II+ with 48 KB and DOS 3.3. This is upstream-stated compatibility for the in-progress reimplementation, not independent hardware validation.",
+        "evidence": [
+          "https://github.com/habib256/pom2games/blob/main/README.md",
+          "https://github.com/habib256/pom2games/blob/main/wilderness/Makefile",
+          "https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338"
+        ]
       }
     ],
     "source_language": [
@@ -124556,13 +124618,18 @@
         "Claude co-author trailer observed in recent tracked commits: 46 in this scan (example f002960f2f5c; Claude Fable 5.1)"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "SMALLDOS format analysis",
+      "WOZ/A2R flux decoding",
+      "6502 voxel ray casting",
+      "reference-model differential testing"
+    ],
     "tags": [
       "source-reviewed",
       "apple-ii-discovery",
       "no-independent-build"
     ],
-    "notes": "Identity: The creator’s repository contains eight native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not eight inflated entries. Classification: Native Apple II source collection and ports. Arkabreakout assembles a standalone BRUN binary and DOS 3.3 disk; ChromaBreak builds a ProDOS system file. The bundled a2run/a2shot emulator code serves tests and is not embedded in the games. LOGO, demos and generic dev tooling are incidental to this game-scoped record. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null. Runtime profiles: Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed. AI: The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Relationships: The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality. Evidence: https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games Maintenance 2026-10-09: commit 76e48cf renames the prior flipper directory/output to Pinball, keeps the Bill Budge Pinball Construction Set adaptation in the repository collection, moves fixed-sector disk construction into shared checked tooling, and extends the checked AppleMouse/DOS paths. The root README states Apple II+ 48 KB or //c with mouse or joystick; this is an upstream requirement, not an independent run. Evidence: https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md The repository now includes MCS, a Music Construction Set-inspired two-staff HGR editor with speaker playback, save/reload support and its own build/test target, and Arkabreakout has expanded to 60 sectors with joystick, paddle and AppleMouse II control. Evidence: https://github.com/habib256/pom2games/commit/e58ca7f35a89 https://github.com/habib256/pom2games/blob/main/README.md",
+    "notes": "Identity: The creator’s repository contains eight native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not eight inflated entries. Classification: Native Apple II source collection and ports. Arkabreakout assembles a standalone BRUN binary and DOS 3.3 disk; ChromaBreak builds a ProDOS system file. The bundled a2run/a2shot emulator code serves tests and is not embedded in the games. LOGO, demos and generic dev tooling are incidental to this game-scoped record. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null. Runtime profiles: Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed. AI: The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Relationships: The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality. Evidence: https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games Maintenance 2026-10-09: commit 76e48cf renames the prior flipper directory/output to Pinball, keeps the Bill Budge Pinball Construction Set adaptation in the repository collection, moves fixed-sector disk construction into shared checked tooling, and extends the checked AppleMouse/DOS paths. The root README states Apple II+ 48 KB or //c with mouse or joystick; this is an upstream requirement, not an independent run. Evidence: https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md The repository now includes MCS, a Music Construction Set-inspired two-staff HGR editor with speaker playback, save/reload support and its own build/test target, and Arkabreakout has expanded to 60 sectors with joystick, paddle and AppleMouse II control. Evidence: https://github.com/habib256/pom2games/commit/e58ca7f35a89 https://github.com/habib256/pom2games/blob/main/README.md The collection now includes an in-progress Wilderness: A Survival Adventure reimplementation based on analysis of external WOZ/A2R images: SMALLDOS layout, parser vocabulary, TOPO maps and the SURV3D view were documented, while a new 6502 terrain renderer is compared bit-for-bit with a Python reference on fixed and randomized inputs. The original images remain out of git. Evidence: https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338 https://github.com/habib256/pom2games/blob/main/wilderness/docs/ANALYSE.md",
     "github": {
       "repository": "habib256/pom2games",
       "created_at": "2026-09-15",
@@ -174122,7 +174189,8 @@
       "native Rust library-call handlers",
       "memory sanitization",
       "library-call tracing",
-      "vamos and Kickstart differential testing"
+      "vamos and Kickstart differential testing",
+      "Amiga library jump-table patch emulation"
     ],
     "tags": [
       "Amiga",
@@ -174133,7 +174201,7 @@
       "retro development",
       "AI-assisted"
     ],
-    "notes": "Wine-style host runtime for classic AmigaOS m68k command-line tools: interprets guest instructions (optional m68k-crate trace JIT) and reimplements OS library calls in Rust. No Kickstart ROM is needed for normal use. It is generic development/analysis tooling, not a native reconstruction of a specific game; graphics, custom chips, Workbench GUI and games are explicitly out of scope. Linux/macOS build and guest execution are corroborated by current CI logs; published Windows x86-64 binaries compile but Windows/Wine runtime remains unverified. Interpreter/JIT parity covers six fixtures; comparison with vamos includes three documented known divergences, so it is not universal compatibility proof. The math-library shims now return comparison/test results in both D0 and 68k condition codes, matching the documented ROM calling behavior needed by SAS/C's scmieee.lib; before the fix, SAS/C double comparisons appeared equal and exp() overflow checks returned HUGE_VAL. Evidence: https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564",
+    "notes": "Wine-style host runtime for classic AmigaOS m68k command-line tools: interprets guest instructions (optional m68k-crate trace JIT) and reimplements OS library calls in Rust. No Kickstart ROM is needed for normal use. It is generic development/analysis tooling, not a native reconstruction of a specific game; graphics, custom chips, Workbench GUI and games are explicitly out of scope. Linux/macOS build and guest execution are corroborated by current CI logs; published Windows x86-64 binaries compile but Windows/Wine runtime remains unverified. Interpreter/JIT parity covers six fixtures; comparison with vamos includes three documented known divergences, so it is not universal compatibility proof. The math-library shims now return comparison/test results in both D0 and 68k condition codes, matching the documented ROM calling behavior needed by SAS/C's scmieee.lib; before the fix, SAS/C double comparisons appeared equal and exp() overflow checks returned HUGE_VAL. Evidence: https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564 exec.library SetFunction now installs executable guest JMP entries, returns a synthesized callable stub for the previous host-backed handler, supports hook chaining and restoration, and is covered by an end-to-end guest test. The patch is deliberately limited to one guest invocation and does not emulate AmigaOS-wide persistent hooks. Evidence: https://github.com/sidick/volamos/commit/018fd8f047d27fa3f85948b1595f44acf3f6f596",
     "github": {
       "repository": "sidick/volamos",
       "created_at": "2026-08-18",

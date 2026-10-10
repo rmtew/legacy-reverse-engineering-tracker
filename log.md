@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-11 — Native targets, media fidelity and compatibility maintenance
+
+Reviewed eleven materially changed records. **cc65 Chess** now includes its directly evidenced native Acorn A3010 build with ARM250, 2 MB RAM and RISC OS 3.11, while remaining classified as original cross-platform homebrew. **POM2 Games** now records the in-progress **Wilderness** reconstruction, its external-original analysis, reference-compared 6502 terrain renderer and explicit Apple II+ 48 KB / DOS 3.3 profile. **CPCSyntaxError v0.5.0** adds cheat search, tape recording/turbo, HFE/IPF media, writeback, real-time floppy timing and additional peripherals.
+
+**lxa v0.11.45** reports 25 gold and 9 silver corpus applications after a complete 9,943-program Fred Fish comparison; **volamos** implements same-invocation `SetFunction` hook chaining; **Firestaff** extends authenticated DM1 Amiga startup and PC34 soundtrack coverage. **Oscar64** adds C23 explicit enum types and integer-semantics fixes. **Fantasm v1.2.1** adds AST-backed driver annotations and cross-version comment checks, which feed the expanded byte-exact **Acorn NFS/ANFS** annotation pass. **C64RE** adds VIC-20/TED semantics and relocated-label fixes, while **3Dvibe64 v1.9.0** keeps its new Normalized16 path opt-in.
+
+The CPU audit queue was empty before selection. CPU and RAM values were recorded only where current primary documentation stated them; author-stated runtime configurations remain distinct from independent verification. No project was independently built or executed.
+
 ## 2026-10-10 — Runtime, compatibility and multi-project maintenance
 
 Reviewed nine materially changed projects. **Freeserf.net** now records its physical-device-tested, owner-gated Android SPAE.PA download path. **lxa v0.11.32** closes a 36-application reference sweep with no garbage or untested entries. **TRX64 v0.12.8** adds runnable PAL/NTSC C64C models, while **C64RE** pins that runtime and moves C64 Ultimate access into a shared bridge daemon that still requires an emulator pass for the same bytes before hardware execution.
