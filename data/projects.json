@@ -12969,6 +12969,99 @@
     }
   },
   {
+    "id": "stunt-car-racer-amiga-track-toolkit",
+    "title": "Amiga Stunt Car Racer Track Toolkit",
+    "upstream_name": "Amiga Stunt Car Racer Track Toolkit",
+    "display_title": "Stunt Car Racer — Amiga track analysis and editing toolkit",
+    "subjects": [
+      "Stunt Car Racer"
+    ],
+    "repo": "https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Python hosts",
+      "Web browser"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "game data",
+      "68000 machine code"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "JavaScript"
+    ],
+    "record_class": "hybrid",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "data-format-analysis",
+      "binary-analysis",
+      "patching"
+    ],
+    "tool_kinds": [
+      "asset-tool",
+      "disk-filesystem-tool",
+      "binary-analysis"
+    ],
+    "types": [
+      "game-specific reverse-engineering toolkit"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "804-byte track codec and guarded editing tools; exact mesh reconstruction remains bounded",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "source-reviewed",
+      "804-byte track format",
+      "guarded patching"
+    ],
+    "notes": "Identity: The root is an independent Stunt Car Racer Amiga research/toolkit project by Ulf Bertilsson. It combines installable Python commands, disk-evidence inspection, track codecs, guarded patch transactions, Blender import and a standalone browser inspector as one coherent project. Classification: The inspected track.py implements an 804-byte big-endian native track decoder/encoder with preservation of all 100 slots and an editor-native backing record. This materially combines game-data reconstruction with useful asset and disk-analysis tooling; it does not implement a playable game engine. Source CPU: The README explicitly identifies the Amiga/Motorola 68000 source-game context. CPU metadata describes the investigated game, not the CPU on which the Python tools execute. Target CPU: The inspected package targets Python 3.9+ hosts, with browser/Blender inspection helpers. No native CPU-specific game executable is generated; an empty target-CPU list avoids turning Python or the 68000 source-data format into a host architecture claim. Build: The pinned head's GitHub CI completed successfully: it compiles Python sources, runs every tests/*.py script and installs the package under Python 3.12. The README documents CLI installation and use. Compilable/runnable describe this tested toolkit; playable is inapplicable and remains null. The no-op codec round-trip claim concerns an expanded resource, not byte-exact rebuilding of the original game binary. Limitations: No project commands were run locally. Upstream CI cannot establish correctness for all proprietary disks, and full native geometry still depends on external table provenance. Runtime profiles: This is host-side analysis and editing software rather than a runnable Amiga reconstruction. Python >=3.9 is an interpreter dependency, not a verified legacy-machine minimum; no retro CPU/RAM/chipset profile applies. AI: The complete tree, all three available commit messages, README, package metadata, codec and inspected provenance/status documents disclose no actual development-AI assistance. Unknown is preserved; generated-looking documentation or tooling terminology is not evidence of AI use. Relationships: Provenance credits public Multi Stunt Car Track.cpp, a continuation of Stunt Car Remake, and Vesuri's labelled Amiga disassembly. The toolkit requires users to supply compatible source tables and legally obtained game media. Its current codec explicitly distinguishes the 804-byte expanded interchange format from compressed protected-disk streams; preview meshes are analysis aids, not a claim of fully exact native geometry. Evidence: https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/README.md https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/pyproject.toml https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/scrtool/track.py https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/docs/TRACK804_VERIFIED.md https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/.github/workflows/ci.yml https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/actions/runs/36896180023 https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/docs/PROVENANCE_V4.md https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/687701205d83b5e800a94549add1306ca9a5b30f https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/80bcc4a01e8e7c7cd2d1ec0976e18064c7b1185c https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/36ce37f571281a07876a3948e947f52b4182157f https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/docs/RE_STATUS.md",
+    "github": {
+      "repository": "djayuffe/Amiga-stunt-car-racer-track-toolkit",
+      "created_at": "2026-10-01",
+      "pushed_at": "2026-10-01",
+      "updated_at": "2026-10-01",
+      "checked_at": "2026-10-11",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python",
+        "HTML"
+      ],
+      "latest_commit": {
+        "sha": "687701205d83b5e800a94549add1306ca9a5b30f",
+        "date": "2026-10-01",
+        "message": "Audit track editor coordinate contract",
+        "url": "https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/687701205d83b5e800a94549add1306ca9a5b30f"
+      }
+    },
+    "last_activity": "2026-10-01"
+  },
+  {
     "id": "amiga-invaders-approxit",
     "title": "amiga-invaders",
     "upstream_name": "amiga-invaders",
@@ -49395,6 +49488,99 @@
     }
   },
   {
+    "id": "dbwrender-windows-source-port",
+    "title": "DBW-Render",
+    "upstream_name": "DBW-Render",
+    "display_title": "DBW-Render — preserved Amiga ray-tracer Windows port",
+    "subjects": [
+      "DBW-Render"
+    ],
+    "repo": "https://github.com/DavidKinder/DBWRender",
+    "source_platforms": [
+      "Amiga",
+      "MS-DOS"
+    ],
+    "target_platforms": [
+      "Windows"
+    ],
+    "source_cpu": [
+      "m68k",
+      "x86"
+    ],
+    "target_cpu": [
+      "x86"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "C"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "C++"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "source-derived native application port"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Win32 ray tracer and rewritten image viewer; original Amiga lineage preserved",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "source-reviewed",
+      "ray tracer",
+      "source-derived port"
+    ],
+    "notes": "Identity: David Kinder maintains a Windows port of David Wecker's DBW-Render, through John H. Lowery's MS-DOS adaptation. The root contains the C ray tracer, a rewritten C++ display application, scene files and build projects. The author traces the earlier history to DEC VAX and Amiga. Classification: This is a source-derived native application port and preservation of a legacy ray tracer. The C source retains original 1987 attribution and the IBM-PC port history. No binary-derived decompilation or reverse-engineering methodology is asserted, so the work-kind list is left empty rather than mislabelling a source port. Source CPU: The author identifies the Amiga A500 edition and the intervening MS-DOS port, while the C source header names the IBM-PC/VGA/MCGA adaptation. The catalogue records their broad m68k and x86 families; it does not invent an exact DOS CPU or a verified runtime minimum. Earlier DEC VAX history is contextual rather than another analysed binary target. Target CPU: The Visual Studio solution explicitly defines Debug and Release x86 configurations mapped to Win32 projects. This establishes the produced Windows x86 architecture rather than assuming it from C/C++. Build: The README gives Visual Studio build instructions and reports completed renders with timing comparisons; release r1 publishes the Windows renderer/viewer. These primary statements support compilable and runnable capability. The maintained source changes resolution and color depth and adds a new viewer, so an original-Amiga binary match is not claimed. Limitations: No local Visual Studio build, render, viewer test or original-output comparison was performed. The published Windows release predates the latest project-file update. Runtime profiles: The reviewed README, solution and project files establish Windows/x86 and a Visual Studio build path, but no supported minimum CPU generation, RAM or runtime Windows release. SDK/toolset settings are build dependencies and are not promoted into minimum hardware claims. AI: The complete tree, five recent commit messages, README, source header/implementation and build project files reveal no explicit development-AI attribution. The latest commit changes the Visual Studio toolset, which alone establishes no AI involvement. Relationships: The source header credits David Wecker and John H. Lowery, and the README explains Kinder's limited core changes and independently rewritten display utility. Release r1 also supplies the original Amiga disk image for historical context. All components remain one DBW-Render lineage; the source header refers to the bundled DBW_Render licence rather than asserting modern GPL terms. Evidence: https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/README.md https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/ray.c https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/DBWRender.sln https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/ray.vcxproj https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/display.vcxproj https://github.com/DavidKinder/DBWRender/releases/tag/r1 https://github.com/DavidKinder/DBWRender/commit/748886b74441d6734ec4ae21f1c81a06968ca369 https://github.com/DavidKinder/DBWRender/commit/888be9dee0a31f6c10e316a24e25aded71aa66ba",
+    "github": {
+      "repository": "DavidKinder/DBWRender",
+      "created_at": "2010-10-21",
+      "pushed_at": "2026-02-08",
+      "updated_at": "2026-02-08",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "recent",
+      "latest_release": {
+        "tag": "r1",
+        "name": "Windows release 1",
+        "published_at": "2020-10-01",
+        "url": "https://github.com/DavidKinder/DBWRender/releases/tag/r1"
+      },
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "latest_commit": {
+        "sha": "748886b74441d6734ec4ae21f1c81a06968ca369",
+        "date": "2026-02-08",
+        "message": "Update to Visual Studio 2026",
+        "url": "https://github.com/DavidKinder/DBWRender/commit/748886b74441d6734ec4ae21f1c81a06968ca369"
+      }
+    },
+    "last_activity": "2026-02-08"
+  },
+  {
     "id": "cbm-basic-kernal-dcpu16-port",
     "title": "dcpu-cbmbasic",
     "upstream_name": "dcpu-cbmbasic",
@@ -74940,6 +75126,94 @@
     }
   },
   {
+    "id": "godlib-atari-development-library",
+    "title": "GODLIB",
+    "upstream_name": "GODLIB",
+    "display_title": "GODLIB — Atari ST native development and profiling library",
+    "subjects": [],
+    "repo": "https://github.com/ReservoirGods/GODLIB",
+    "source_platforms": [],
+    "target_platforms": [
+      "Atari ST",
+      "Windows"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "m68k assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "development-environment",
+      "profiler",
+      "asset-tool"
+    ],
+    "types": [
+      "native development library"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Substantial C/68k library source; build configurations reviewed but untested",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "hardware-register integration",
+      "interrupt-driven profiling"
+    ],
+    "tags": [
+      "Atari ST",
+      "native development",
+      "graphics",
+      "audio",
+      "profiling"
+    ],
+    "notes": "Identity: The root identifies GODLIB as an Atari ST development library. README.TXT credits Pink/RG as main coder and Evil/DHS, GGN, Sage and Scy/tSCc as contributors. The complete untruncated tree contains one coherent library covering graphics, audio, sprites, assets, storage, system bindings and profiling; its components are not counted as separate projects. Classification: Original native development infrastructure, rather than a recovered game or emulator. SYSTEM_S.S saves and restores hardware vectors and accesses Atari registers; PROFILER.C installs interrupt-based function profiling and records samples to PROFILE.PRO. This establishes concrete native development and profiling scope beyond the short README. Source CPU: No historical input binary is being reconstructed in the inspected library. Its original C and assembly implementations are maintained development code; source_cpu remains empty rather than treating its native output architecture as an analysis input. Target CPU: The Atari build selects vasmm68k_mot/vlinkm68k and explicitly passes -m68000 to the assembler and -cpu=68000 to VBCC. The native source independently contains Motorola data/address registers and 68k instructions. Only m68000 is assigned: the Win32/SDL build is evidenced, but its host CPU is not inferred from Windows or general endianness macros. Build: README.TXT documents installation into Pure C. The Atari make configuration provides VBCC/VASM/VLINK TOS output, while GODLIB.MAK builds a Win32/SDL static archive. Both contain environment-specific tool/include locations; the root has unit-test source but no inspected successful current build or test report. All build flags remain unknown. Limitations: No compilation, linked application, unit test or byte comparison was run. Declared build targets and test files are not successful test results. Runtime profiles: GODLIB is a library integrated into downstream programs. Its 68000 build setting is not a verified CPU/RAM minimum for every possible client, and the reviewed documentation does not define a standalone runtime profile. AI: The two root READMEs, complete tree, selected hardware/profiling/build source and latest 20 commit messages disclose no generative-AI use. Usage remains null. Relationships: Author credits and self-contained source identify the Reservoir Gods library as a distinct implementation from the separately tracked smonson-libtos and hildenborg atari-libs. Pure C, VBCC, VASM, VLINK and SDL are development dependencies or host backends, not additional GODLIB subjects. No separate record is proposed for each graphics, packer or profiler directory. Evidence: https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/README.md https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/README.TXT https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/GODLIB.MAK https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/SYSTEM/SYSTEM_S.S https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/PROFILER/PROFILER.C https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/MAKEFILE/PLATFORM/GODLIB_ST.MF https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/BASE/BASE.H https://github.com/ReservoirGods/GODLIB/commits/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9",
+    "github": {
+      "repository": "ReservoirGods/GODLIB",
+      "created_at": "2015-02-01",
+      "pushed_at": "2025-07-01",
+      "updated_at": "2026-07-09",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "quiet",
+      "languages": [
+        "C",
+        "Assembly",
+        "Makefile",
+        "Awk",
+        "Batchfile",
+        "SWIG"
+      ],
+      "latest_commit": {
+        "sha": "ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9",
+        "date": "2025-07-01",
+        "message": "Fast build bff build files for visual studio 2019 and 2022",
+        "url": "https://github.com/ReservoirGods/GODLIB/commit/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9"
+      }
+    },
+    "last_activity": "2025-07-01"
+  },
+  {
     "id": "gods-deluxe-amiga-remake-jotd",
     "title": "Gods Deluxe — modern Gods remake",
     "upstream_name": "Gods Deluxe",
@@ -75761,6 +76035,98 @@
         "url": "https://github.com/albank1/Commodore-64-More-Disassembled-Games/commit/4e091ae0190a8f8deaf429b91e010e9a83284c4f"
       }
     }
+  },
+  {
+    "id": "gorilla-cpm-modula2-port",
+    "title": "Gorilla.BAS - CP/M version",
+    "upstream_name": "Gorilla.BAS - CP/M version",
+    "display_title": "Gorillas — Turbo Modula-2 port for C128 and CP/M systems",
+    "subjects": [
+      "Gorillas",
+      "GORILLA.BAS"
+    ],
+    "repo": "https://github.com/sblendorio/gorilla-cpm",
+    "source_platforms": [
+      "DOS"
+    ],
+    "target_platforms": [
+      "CP/M-80",
+      "Commodore 128",
+      "Memotech MTX",
+      "Amstrad CPC",
+      "MSX-DOS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "QBasic"
+    ],
+    "reconstructed_languages": [
+      "Modula-2"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "native game port"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Author-distributed compiled CP/M game with platform disks and in-game examples; current rebuild and playthrough untested.",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "terminal abstraction",
+      "ballistic projectile simulation",
+      "native CP/M port"
+    ],
+    "tags": [
+      "Commodore 128",
+      "CP/M",
+      "Modula-2",
+      "Gorillas",
+      "Amstrad CPC",
+      "Memotech MTX"
+    ],
+    "notes": "Identity: Francesco Sblendorio’s repository identifies a Turbo Modula-2 reimplementation of Microsoft’s DOS 5.0 GORILLA.BAS. main.mod credits the 1991 QBasic version and the 2015 CP/M version. The non-fork root contains the game, terminal library, compiled .COM and platform disk images; repository metadata identifies GPL-2.0 licensing. Classification: A substantial source-level native game port, not binary-derived decompilation or an embedded CPU-emulation wrapper. The inspected game.mod implements projectile movement, buildings/collisions, alternating players and scoring; xterm.mod provides concrete CP/M terminal behavior. Multiple platform disks distribute the same coherent game. Source CPU: The documented input is the DOS QBasic game at language/game-design level, not an x86 binary disassembly. Original binary CPU does not apply to this source-level port, so source_cpu is empty. Target CPU: The README specifies compiled CP/M-80 .COM output and names a Z80 emulator in the development credits, but the inspected Modula-2 modules do not establish a precise 8080-versus-Z80 output instruction requirement. Target CPU stays empty instead of inferring it solely from the C128 or CP/M platform labels. Build: The author explicitly distributes compiled gorilla.com and bootable C128/MTX/CPC/MSX disk images, with named in-game and intro examples on C128 and CPC. This supports author-reported compilability/runnable/playable status for the distributed game, corroborated by the substantial inspected game loop. The exact fresh-build procedure is not supplied in a build script; Turbo Modula-2 is identified as the compiler. Limitations: No compiler invocation, boot, gameplay session or binary comparison was performed here. True flags describe documented upstream distribution/playability, not an independent test; byte_exact remains null. Runtime profiles: The repository documents CP/M-80, named terminal variants and bootable C128/MTX/CPC distributions. xterm.mod implements C128 color and cursor sequences and fixed 80-column UI assumptions, but no verified minimum CPU/RAM or OS revision is given. No machine-minimum profile is inferred. AI: No explicit development-AI disclosure was found in README, inspected Modula-2 modules, tree inventory or the 30 reviewed commit messages. Their historical dates do not establish non-use; usage stays null. Relationships: The README identifies the original Microsoft QBasic game and this distinct CP/M Modula-2 implementation. The tracked albank1/Commodore-64-Gorillas is a separate C64 BASIC rewrite; shared Gorillas subject alone does not make the CP/M codebase a duplicate. All terminal/platform variants here remain one project. Evidence: https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/README.md https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/source/main.mod https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/source/game.mod https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/source/xterm.mod https://github.com/sblendorio/gorilla-cpm/tree/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d https://github.com/sblendorio/gorilla-cpm/commits/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d",
+    "github": {
+      "repository": "sblendorio/gorilla-cpm",
+      "created_at": "2015-12-11",
+      "pushed_at": "2019-11-07",
+      "updated_at": "2026-04-30",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Modula-2",
+      "activity_state": "dormant",
+      "languages": [
+        "Modula-2"
+      ],
+      "latest_commit": {
+        "sha": "0de936a27ff514c70b43362b5fae6ce3fbdbbf6d",
+        "date": "2019-11-07",
+        "message": "Update README.md",
+        "url": "https://github.com/sblendorio/gorilla-cpm/commit/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d"
+      }
+    },
+    "last_activity": "2019-11-07"
   },
   {
     "id": "gradius-nes-mixup",
@@ -88040,6 +88406,117 @@
     "last_activity": "2026-09-21"
   },
   {
+    "id": "jc64dis-java-retro-disassembler",
+    "title": "JC64dis",
+    "upstream_name": "JC64dis",
+    "display_title": "JC64dis — interactive Commodore disassembler and analysis workbench",
+    "subjects": [],
+    "repo": "https://github.com/ice00/jc64",
+    "source_platforms": [
+      "Commodore 64",
+      "Commodore 128",
+      "Commodore 1541",
+      "VIC-20",
+      "Commodore Plus/4",
+      "Atari 8-bit",
+      "Odyssey 2"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6510",
+      "6502",
+      "Z80",
+      "8048"
+    ],
+    "target_cpu": [
+      "x86-64"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "machine code"
+    ],
+    "reconstructed_languages": [
+      "Java"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "disassembler",
+      "reassembler",
+      "binary-analysis",
+      "emulator"
+    ],
+    "types": [
+      "interactive disassembler",
+      "software emulator"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Current disassembler with observed successful upstream JAR/native CI; experimental emulator retained in the same root.",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "interactive labels and comments",
+      "undocumented opcode decoding",
+      "machine memory maps",
+      "AI-generated analysis annotations"
+    ],
+    "tags": [
+      "Commodore 64",
+      "Commodore 128",
+      "6502",
+      "disassembly",
+      "AI-assisted analysis"
+    ],
+    "notes": "Identity: Ice Team/Stefano Tognon’s coherent Java root contains the historical JC64 emulator and the maintained JC64dis graphical disassembler. The old emulator warning in README does not describe the availability of the later JC64dis releases. Repository metadata identifies the root as non-fork; source headers state GPL-2.0-or-later. Classification: Reusable software-archaeology tooling, not a reconstructed game. The inspected 6510 disassembler decodes legal and undocumented opcodes; TargetType dispatches machine-specific disassembly; the integrated agent can request listings and assign labels/comments. The emulator and disassembler remain one root record. Compiler.java dispatches assembler calls to DASM, ACME, ca65, 64tass, KickAssembler, Glass and AS, substantiating the integrated reassembly capability. Source CPU: M6510Dasm implements 6510 instruction decoding. TargetType explicitly dispatches M6502-family Commodore/Atari targets, C128Z to Z80Dasm and Odyssey to the I8048-family decoder. These are analysed guest architectures, not the Java host CPU. AtariDasm’s inspected memory-map dispatch names GTIA/POKEY/ANTIC, establishing Atari 8-bit rather than Atari ST; OdysseyDasm identifies the Odyssey/Videopac BIOS. Target CPU: The inspected native-image workflow explicitly downloads amd64 Liberica toolchains for Linux, Windows and macOS and produces native JC64dis binaries. x86-64 records those documented native output variants; the separately built JVM JAR is not assigned an inferred hardware CPU. Build: Observed upstream CI at the pinned commit: run 30475925046 completed successfully. Its job records show successful Ant JAR compilation and native-image build steps for Windows/macOS, the combined Linux compilation/native-image step, and artifact uploads. Ant’s manifest selects JC64Dis. This is concrete upstream build-step evidence for compilable=true, not merely a generic green workflow. Published 3.2 and latest releases contain JAR/native packages; runnable/playable and byte exactness remain unknown. Limitations: No local compilation, native/JVM launch, emulator compatibility test or byte comparison was performed. Successful CI builds do not prove GUI/runtime correctness. Runtime profiles: The workflow and README establish Java/native host variants and qualitative performance cautions, but no verified minimum RAM, OS version or CPU generation for a runnable distribution. Guest 6510/Z80/8048 support is not a host minimum; no runtime profile is inferred. AI: The inspected DisassemblerAgent.java implements an OpenAI-compatible AI annotation feature and current release notes advertise AI labeling. This establishes a tool capability, not actual AI use in developing JC64dis. No explicit development-use disclosure or AI co-author attribution was found in README, inspected source/build files or the 30 reviewed commit messages; usage stays null. Relationships: README credits VICE for CPU instruction-emulation foundations and other hardware references. JC64dis is an integrated subsystem of this same repository, not a separate game or project-per-example. The release notes describe Regenerator2000 project import as interoperability; that is not evidence of duplicate identity. Evidence: https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/README.md https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/cpu/M6510Dasm.java https://github.com/ice00/jc64/releases/tag/3.2 https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/swing/main/TargetType.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/ai/DisassemblerAgent.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/asm/Compiler.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/machine/AtariDasm.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/machine/OdysseyDasm.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/.github/workflows/native.yml https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/build-github.xml https://github.com/ice00/jc64/actions/runs/30475925046 https://github.com/ice00/jc64/actions/runs/30475925046/job/90657478818 https://github.com/ice00/jc64/actions/runs/30475925046/job/90657478864 https://github.com/ice00/jc64/actions/runs/30475925046/job/90657478865 https://github.com/ice00/jc64/commits/59988b819768e8c48f01664ed2ff082ee428de77",
+    "github": {
+      "repository": "ice00/jc64",
+      "created_at": "2019-11-30",
+      "pushed_at": "2026-07-29",
+      "updated_at": "2026-08-28",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Java",
+      "activity_state": "active",
+      "latest_release": {
+        "tag": "latest",
+        "name": "Latest development build",
+        "published_at": "2026-07-29",
+        "url": "https://github.com/ice00/jc64/releases/tag/latest"
+      },
+      "languages": [
+        "Java",
+        "HTML",
+        "Shell",
+        "Batchfile"
+      ],
+      "latest_commit": {
+        "sha": "59988b819768e8c48f01664ed2ff082ee428de77",
+        "date": "2026-07-29",
+        "message": "Update native.yml",
+        "url": "https://github.com/ice00/jc64/commit/59988b819768e8c48f01664ed2ff082ee428de77"
+      }
+    },
+    "last_activity": "2026-07-29"
+  },
+  {
     "id": "apple-ii-games-schmidt-original-source-collection",
     "title": "Jennifer L. Schmidt’s Apple II Games",
     "upstream_name": "AppleIIGames",
@@ -91706,6 +92183,114 @@
         "url": "https://github.com/ikari-pl/konCePCja/commit/e0f3587dde66bb8b35dfc3c0630a3726e0b6af62"
       }
     }
+  },
+  {
+    "id": "krypton-egg-native-go-reconstruction",
+    "title": "Krypton Egg — Go / Ebitengine",
+    "upstream_name": "Krypton Egg — Go / Ebitengine",
+    "display_title": "Krypton Egg — native Go reconstruction",
+    "subjects": [
+      "Krypton Egg"
+    ],
+    "repo": "https://github.com/olivierh59500/krytonegg",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Desktop",
+      "Android"
+    ],
+    "source_cpu": [
+      "m68000"
+    ],
+    "target_cpu": [
+      "arm64"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "68000 machine code",
+      "game data"
+    ],
+    "reconstructed_languages": [
+      "Go",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation",
+      "reverse-engineering-derived-port",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "native game reconstruction",
+      "original-data extraction"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Native desktop and Android rewrite; upstream reports complete campaign; local ADF required",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "source-reviewed",
+      "native rewrite",
+      "Ebitengine"
+    ],
+    "execution_paths": [
+      {
+        "name": "Go/Ebitengine desktop and Android",
+        "method": "native-translation",
+        "status": "playable",
+        "notes": "Upstream-reported native rewrite; original 68000 instructions are used for offline analysis only. Local ADF-derived assets required. No independent run in this review.",
+        "evidence": [
+          "https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/port-status.md",
+          "https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/internal/game/physics.go"
+        ]
+      }
+    ],
+    "notes": "Identity: One coherent repository reconstructs HitSoft's Krypton Egg from a specified Amiga ADF, retaining 60 level layouts, six combats, recovered graphics and audio, and original-format custom levels. The original executable is used for offline investigation only. Classification: This is a native Go/Ebitengine game rewrite derived from original-code and data analysis. The inspected physics.go implements ball motion and collision directly in Go. Port status explicitly says original instructions are neither executed nor interpreted at runtime; FS-UAE and Ghidra are offline reference tools, so this is not a game-specific CPU-emulation wrapper. Source CPU: The fidelity audit identifies an Amiga 500 reference session and an extracted code hunk imported in Ghidra as 68000:BE:32:default. This establishes the original Motorola 68000 source architecture independently of the Go output. Target CPU: The Android environment script defaults to android/arm64 and the build script passes that value to ebitenmobile bind. Record arm64 for that concrete output; the generic desktop build does not establish an exhaustive host CPU list. Build: The README supplies asset-reconstruction, build, test, vet and native smoke commands, and the maintained status describes a complete input-driven 60-round/six-combat campaign. These explicit upstream reports support compilable/runnable/playable capability. A compatible user-owned ADF must regenerate ignored assets before building. The Android physical-device test predates the latest fidelity corrections. Limitations: No local compilation, tests, asset extraction, gameplay or Android-device run was performed. Upstream campaign completion is not independent verification or frame-exact equivalence; byte-exact remains unknown. Runtime profiles: The reviewed README requires Go 1.26+ and a desktop graphics environment for development, while Android scripts configure an arm64/API-23 binding and the status describes an earlier Pixel 10a test. These build settings and one prior device observation do not establish a complete current runnable-hardware minimum; no RAM/CPU/chipset profile is asserted. AI: The complete tree, five available recent commit messages, README, port-status/fidelity documents and selected Go/build files contain no explicit development-AI attribution. The deterministic expert player is game-testing logic and is not evidence of AI-assisted development; usage remains unknown. Relationships: The README credits HitSoft and the original Kral/Vidos/Deneyer team, Ebitengine for host presentation, and go-zikmu for module replay. It keeps the reference ADF and reconstructed assets out of Git; original asset ownership is retained. The modern collision solver and host audio deliberately adapt original behavior, and this reconstruction is distinct from later PC/mobile releases. Evidence: https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/README.md https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/port-status.md https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/internal/game/physics.go https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/fidelity-audit.md https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/scripts/android-env.sh https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/scripts/build-android.sh https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/validation.json https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/Makefile https://github.com/olivierh59500/krytonegg/commit/efe9ae43b29f77b8e6445f59dccab2a29f71801e https://github.com/olivierh59500/krytonegg/commit/1a7b6343f8e07a06832d7220c5be44b6729824f0 https://github.com/olivierh59500/krytonegg/commit/4e03673c6501370f5682177baba3cbe1ff73dcab https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/go.mod",
+    "github": {
+      "repository": "olivierh59500/krytonegg",
+      "created_at": "2026-10-09",
+      "pushed_at": "2026-10-09",
+      "updated_at": "2026-10-09",
+      "checked_at": "2026-10-11",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Go",
+      "activity_state": "active",
+      "languages": [
+        "Go",
+        "Python",
+        "Shell",
+        "Java",
+        "Swift",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "efe9ae43b29f77b8e6445f59dccab2a29f71801e",
+        "date": "2026-10-07",
+        "message": "Document how to locate the reference Amiga ADF",
+        "url": "https://github.com/olivierh59500/krytonegg/commit/efe9ae43b29f77b8e6445f59dccab2a29f71801e"
+      }
+    },
+    "last_activity": "2026-10-07"
   },
   {
     "upstream_name": "KULT / Chamber of the Sci-Mutant Priestess",
@@ -111696,6 +112281,109 @@
     "last_activity": "2026-07-01"
   },
   {
+    "id": "nsshaft-native-c128-prototype",
+    "title": "Native Commodore 128 NS-Shaft prototype",
+    "upstream_name": "Native Commodore 128 NS-Shaft prototype",
+    "display_title": "NS-Shaft — native C128 descent-game prototype",
+    "subjects": [
+      "NS-Shaft"
+    ],
+    "repo": "https://github.com/Mankind-dvk/nsshaft-c128",
+    "source_platforms": [],
+    "target_platforms": [
+      "Commodore 128"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "8502"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Native C128 VIC-IIe prototype",
+        "platform": "Commodore 128",
+        "cpu_family": "6502",
+        "min_cpu": "8502",
+        "chipsets": [
+          "VIC-IIe"
+        ],
+        "os": "C128 native mode / BASIC 7 loader",
+        "notes": "Author specifies native 8502 mode at 1 MHz, RAM bank 0, 40-column output and paddle input on control port 1. PAL-oriented frame timing; writable disk needed for persistent scores. No minimum RAM quantity or NTSC compatibility claim is inferred.",
+        "evidence": [
+          "https://github.com/Mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/README.md",
+          "https://github.com/Mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/src/main.s"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "native game prototype"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Substantial native C128 gameplay implementation; documented ca65/ld65 build and VICE launcher, untested in this pass.",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "native 8502 execution",
+      "character-tile scrolling",
+      "SID raster interrupt",
+      "dual-slot high-score persistence"
+    ],
+    "tags": [
+      "Commodore 128",
+      "8502",
+      "VIC-IIe",
+      "prototype"
+    ],
+    "notes": "Identity: The repository identifies an NS-Shaft-style native Commodore 128 prototype, with detailed platform/hazard/character/scoring documentation and a complete subsystem-oriented assembly tree. Its metadata marks it non-fork. No LICENSE file is present in the pinned tree; the included uppercase font has separate classroom-example provenance. Classification: This is a native game reimplementation/prototype, not a game-specific emulator wrapper. The inspected main.s directly initializes C128 MMU/VIC/CIA state, calls gameplay modules and coordinates character selection, physics, scrolling and high-score screens. The README explicitly says it never enters C64 compatibility mode. Source CPU: NS-Shaft is named as gameplay inspiration, but the inspected project does not identify an original binary or recovered source listing being translated. The original subject’s machine architecture and language are therefore left unknown rather than guessed from the new C128 target. Target CPU: README explicitly specifies native C128/8502 execution at 1 MHz. main.s sets ca65’s 6502 instruction subset, starts from a BASIC 7 SYS loader and manipulates C128 MMU registers; 8502 is the evidenced native output CPU, despite the shared 6502 instruction syntax. Build: The PowerShell recipe invokes ca65 and ld65 with c128-prg.cfg to create build/nsshaft-c128.prg; README supplies VICE x128 and real-machine loading instructions. Optional regression sources exist for charset, platforms and leaderboard behavior, including a py65-based high-score harness. These are source/build/test declarations, not observed passing tests. All four build flags remain unknown. Limitations: No assembly, Python regression suite, VICE execution, gameplay test or hardware test was run. README’s byte-identical macro-refactoring discussion does not establish identity with an original NS-Shaft binary. Runtime profiles: A documented native C128 profile is recorded from explicit 8502, 1 MHz, bank-0 and VIC-IIe 40-column statements. README requires paddle input on port 1 and writable disk for saved scores, and describes PAL-oriented timing. The profile records these documented requirements only; no RAM minimum or NTSC compatibility is inferred. Limitations: The documented hardware configuration was not independently exercised. AI: README, inspected assembly/build/test/font files and the 13 visible default-branch commits contain no explicit development-AI attribution. Merged PR 4 uses a codex/docs-source-sync branch but has no description; a branch label alone does not establish actual Codex use. Usage remains null. Relationships: The README describes a native NS-Shaft-style port with newly structured assembly subsystems rather than preserved historical source. Font documentation identifies an unchanged 2048-byte slice of a teacher-provided C64 charset example embedded locally, so that asset has a separate provenance from game logic. No duplicate tracked implementation or independent subproject was established. Limitations: Original game/platform lineage and asset reuse permissions are not fully documented; no source-restoration or clean-room claim is made. Evidence: https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/README.md https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/src/main.s https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/assets/fonts/README.md https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/build.ps1 https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/tests/test_highscores.py https://github.com/Mankind-dvk/nsshaft-c128/pull/4 https://github.com/Mankind-dvk/nsshaft-c128/commits/e4e58a56b72ec04256a7f72b6d09eb41e93f9623",
+    "github": {
+      "repository": "Mankind-dvk/nsshaft-c128",
+      "created_at": "2026-08-20",
+      "pushed_at": "2026-09-28",
+      "updated_at": "2026-09-28",
+      "checked_at": "2026-10-11",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "active",
+      "languages": [
+        "Assembly",
+        "Python",
+        "C++",
+        "PowerShell"
+      ],
+      "latest_commit": {
+        "sha": "e4e58a56b72ec04256a7f72b6d09eb41e93f9623",
+        "date": "2026-09-28",
+        "message": "Merge pull request #4 from Mankind-dvk/codex/docs-source-sync",
+        "url": "https://github.com/Mankind-dvk/nsshaft-c128/commit/e4e58a56b72ec04256a7f72b6d09eb41e93f9623"
+      }
+    },
+    "last_activity": "2026-09-28"
+  },
+  {
     "id": "nblood-amiga-bszili",
     "title": "NBlood-Amiga — native Blood source port",
     "upstream_name": "NBlood-Amiga",
@@ -111871,6 +112559,93 @@
       "disassembly"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "negentropy-c64-html-disassembler",
+    "title": "Negentropy",
+    "upstream_name": "Negentropy",
+    "display_title": "Negentropy — annotated C64 disassembly and linked HTML generator",
+    "subjects": [],
+    "repo": "https://github.com/shewitt-au/negentropy",
+    "source_platforms": [
+      "Commodore 64"
+    ],
+    "target_platforms": [],
+    "source_cpu": [
+      "6502",
+      "6510"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "6502 machine code",
+      "Commodore BASIC"
+    ],
+    "reconstructed_languages": [
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis",
+      "asset-tool"
+    ],
+    "types": [
+      "annotated disassembly generator"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Python beta disassembler; author reports a successful ACME round-trip example, with current execution untested.",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "configuration-driven labels and comments",
+      "linked disassembly",
+      "BASIC SYS cross-references",
+      "character-set rendering"
+    ],
+    "tags": [
+      "Commodore 64",
+      "HTML",
+      "BASIC",
+      "6502"
+    ],
+    "notes": "Identity: Stephen Hewitt’s Negentropy is a Python 3 console C64 disassembler. setup.py names the same canonical repository, beta version 0.2, author and MIT license; repository metadata marks it non-fork. Classification: One reusable analysis/generation tool, rather than a game reconstruction: README describes linked HTML, BASIC listings and charset images. The inspected M6502 decoder emits structured instructions/labels/comments and the CLI delegates output generation to templates. Source CPU: README explicitly specifies 6502 machine-code disassembly and setup.py names both 6502 and 6510. M6502Decoder interprets instruction operand sizes and addressing modes, resolves branch targets and emits instruction records. The C64-specific symbol map belongs to this analysed architecture. Target CPU: The maintained program runs under Python and primarily produces linked HTML/text analysis; its host processor is not specified. An optional ACME source template is not a separate compiled modern-host or native retro game output, so no target CPU is assigned. Build: setup.py declares Python 3, a negentropy console entry point, and Jinja2/Pillow/Lark dependencies. Historical upstream commit ae5712aa9b1e47b9974286929671deccd61cf001 explicitly reports successfully assembling one disassembled file with ACME and playing that test. That is a dated example round-trip claim, not proof of current package installation, arbitrary output rebuilding or byte identity; current build flags remain unknown. Limitations: No package installation, CLI execution, ACME build or output comparison was performed. The README still calls non-HTML templates incomplete. Runtime profiles: Python 3 and named dependencies are documented. The inspected README, package metadata and CLI do not establish a minimum host CPU/RAM or an OS-specific runnable profile; none is inferred from the C64 input format. AI: No explicit development-AI disclosure was found in the README, package metadata, inspected decoder/CLI files, complete tree inventory or the 30 reviewed commit messages. Python code and a missing disclosure do not establish non-use; usage stays null. Relationships: The canonical non-fork root and setup metadata agree on identity. Jinja2, Pillow and Lark are external dependencies, while BASIC/6502 decoders, image generation and output templates are internal components of the same tool. No separate title-level subjects are created. Evidence: https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/README.md https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/setup.py https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/negentropy/M6502decoder.py https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/negentropy/negentropy.py https://github.com/shewitt-au/negentropy/commit/ae5712aa9b1e47b9974286929671deccd61cf001 https://github.com/shewitt-au/negentropy/commits/04b86f701decad4912dc50cf32c906b9644d4f6f https://github.com/shewitt-au/negentropy/tree/04b86f701decad4912dc50cf32c906b9644d4f6f",
+    "github": {
+      "repository": "shewitt-au/negentropy",
+      "created_at": "2018-07-26",
+      "pushed_at": "2025-10-12",
+      "updated_at": "2025-10-12",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "recent",
+      "languages": [
+        "Python",
+        "HTML"
+      ],
+      "latest_commit": {
+        "sha": "04b86f701decad4912dc50cf32c906b9644d4f6f",
+        "date": "2025-10-12",
+        "message": "Fix [r] directive",
+        "url": "https://github.com/shewitt-au/negentropy/commit/04b86f701decad4912dc50cf32c906b9644d4f6f"
+      }
+    },
+    "last_activity": "2025-10-12"
   },
   {
     "id": "np2debug-pc98-debugger",
@@ -119234,6 +120009,87 @@
         ]
       }
     ]
+  },
+  {
+    "id": "pack-ice-atari-compression-library",
+    "title": "pack-ice",
+    "upstream_name": "pack-ice",
+    "display_title": "pack-ice — Atari ICE compression library and utilities",
+    "subjects": [],
+    "repo": "https://github.com/larsbrinkhoff/pack-ice",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "ICE compressed data"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "Shell"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "asset-tool"
+    ],
+    "types": [
+      "legacy-format compression tooling"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "C encoder/decoder with algorithm notes and regression fixtures; tests not run",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "bitstream decoding",
+      "look-ahead compression analysis"
+    ],
+    "tags": [
+      "Atari ST",
+      "ICE",
+      "compression",
+      "file formats"
+    ],
+    "notes": "Identity: README identifies pack-ice as an Atari ST compression utility and AUTHORS names Lars Brinkhoff. The root contains libice encoder/decoder source and the icecat, freeze and melt front ends, plus format analysis and six fixture pairs. These form a single codec/tool project. Classification: Directly useful legacy-format tooling: ice_crunch.c and ice_decrunch.c implement variable-length copy/back-reference bitstreams, while HACKING analyzes encoding costs and competing compression choices. It is a C implementation of the ICE format; the inspected material does not establish binary-derived decompilation or original Pack-Ice source provenance, so no such work kind is asserted. Source CPU: The input is an ICE-compressed byte stream, not a CPU instruction stream. Historical Atari ST use establishes platform relevance but does not establish an original CPU under analysis; source_cpu remains empty. Target CPU: The Makefile uses ordinary gcc and ar without architecture selection, and the reviewed C codec is not an embedded CPU core. No specific output CPU or named host OS support matrix is established, so target_cpu and target_platforms are left empty. Build: The Makefile builds libice.a and three command-line tools and provides make check. testcases/check compares generated compressed fixtures and decompressed round trips, but prints failures without an aggregate nonzero exit status. testcases/README flags fixture 005 as problematic for the current compressor; the optional new algorithm is disabled in ice_crunch.c. No current pass is claimed. Limitations: No build or fixture execution was performed. Fixture equality would validate selected codec cases, not byte-exact reconstruction of a historical executable; byte_exact remains null. Runtime profiles: The inspected README, build file and codec source supply no supported host CPU, RAM minimum or operating-system version. Portable-looking C and the Atari association are not used to invent runnable hardware requirements. AI: The complete tree, README/AUTHORS/HACKING, codec/build/test sources and latest 20 commits contain no explicit generative-AI attribution. The algorithmic look-ahead analysis is not AI-development evidence. Relationships: The inspected repository is its own Lars Brinkhoff codec implementation, not a fork according to repository metadata. It is distinct from the already catalogued multi-format Ancient decompressor and L-Packer executable tool. Encoder, decoder, front ends and fixture suite stay together under the root; no unverified claim is made about derivation from Axel Brok/Pack-Ice assembly source. Evidence: https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/README https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/AUTHORS https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/Makefile https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/HACKING https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/testcases/README https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/ice_crunch.c https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/ice_decrunch.c https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/testcases/check https://github.com/larsbrinkhoff/pack-ice/commits/1f7da1fe22aeada06770356ac70cc67b00256122",
+    "github": {
+      "repository": "larsbrinkhoff/pack-ice",
+      "created_at": "2016-01-06",
+      "pushed_at": "2025-01-05",
+      "updated_at": "2025-03-14",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "quiet",
+      "languages": [
+        "C",
+        "Makefile",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "1f7da1fe22aeada06770356ac70cc67b00256122",
+        "date": "2025-01-05",
+        "message": "Fix error: implicit declaration of function ‘exit’",
+        "url": "https://github.com/larsbrinkhoff/pack-ice/commit/1f7da1fe22aeada06770356ac70cc67b00256122"
+      }
+    },
+    "last_activity": "2025-01-05"
   },
   {
     "id": "packfire-hitchhikr",
@@ -160262,6 +161118,113 @@
     "last_activity": "2025-02-28"
   },
   {
+    "id": "super-methane-brothers-canonical-conversion",
+    "title": "Super Methane Brothers",
+    "upstream_name": "Super Methane Brothers",
+    "display_title": "Super Methane Brothers — original-author native conversion",
+    "subjects": [
+      "Super Methane Brothers"
+    ],
+    "repo": "https://github.com/rombust/Methane",
+    "source_platforms": [
+      "Amiga",
+      "Amiga CD32"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "Android"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [
+      "x86_64",
+      "arm64"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Documented Android build",
+        "platform": "Android",
+        "os": "Android 8.0 / API 26 or newer",
+        "notes": "README and Gradle declare arm64-v8a and x86_64 builds and Vulkan 1.1 rendering. No RAM minimum or device validation was established in this review.",
+        "evidence": [
+          "https://github.com/rombust/Methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/README.md",
+          "https://github.com/rombust/Methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/android/app/build.gradle.kts"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C++",
+      "C"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "original-author native game conversion"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Canonical C++/Vulkan conversion for desktop and Android; v3.0.3 released",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "source-reviewed",
+      "original-author conversion",
+      "Vulkan"
+    ],
+    "notes": "Identity: The canonical repository publishes Super Methane Brothers for Linux, Windows and Android; authors.txt identifies maintainer Mark Page as the original Amiga game's programmer. The old SourceForge developer page links this GitHub root. Current source identifies v3.0.3, matching the October 2026 release. Classification: This is the original programmer's native C++ game conversion, not evidence of a newly discovered assembly decompilation. The inspected game.cpp implements game state directly, and the CMake build links native game, platform and Vulkan sources. Keep all supported outputs under the canonical root and leave reconstruction-method enums empty rather than claiming unproven RE provenance. Source CPU: Primary identity and history name the original Commodore Amiga game and later incorporation of CD32 animation/audio. Record the broad historical m68k family only; no exact original CPU minimum or original-source programming language is claimed from the C++ conversion. Target CPU: Windows presets explicitly select x64, and Android Gradle ABI filters select arm64-v8a and x86_64. Record x86_64 and arm64 for these documented outputs. The generic Linux architecture-handling code is not treated as proof that every detected architecture was tested. Build: The current README documents Linux CMake, Visual Studio and Android Gradle builds plus keyboard, gamepad and touch play. Release v3.0.3 explicitly adds Android, while maintained source and release history establish an existing playable conversion. Compilable/runnable/playable reflect these upstream capabilities, not a local test result. Limitations: No local build, gameplay, input-recording validation or device test was performed. The native conversion and its replay checksums do not establish an original-Amiga byte-exact binary. Runtime profiles: The current README and Gradle configuration explicitly set Android 8.0/API 26 minimum and arm64-v8a/x86_64 ABIs, with Vulkan 1.1 rendering. One Android profile records those declared requirements. No RAM minimum or Windows/Linux minimum CPU/OS is established. AI: The complete tree, five recent commit messages, README, authors/history, selected game source and build configuration were inspected without finding an explicit actual development-AI disclosure. Native input replay and automated state checksums are application/testing functionality, not AI-attribution evidence. Relationships: The original programmer maintains this canonical conversion with original team credits and explicit Apache Software permission to license this conversion under GPL-2.0-or-later; the original Amiga release retains its separate commercial licence. ClanLib-derived portions have their own zlib-style licence. The separately reviewed carstene1ns homebrew tree is an older derivative with distinct console ports; it is not substituted for this canonical record or counted as a second independent reconstruction. Evidence: https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/README.md https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/authors.txt https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/Sources/Game/game.cpp https://methane.sourceforge.net/develop.html https://github.com/rombust/Methane/releases/tag/v3.0.3 https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/CMakeLists.txt https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/history.txt https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/CMakePresets.json https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/android/app/build.gradle.kts https://github.com/rombust/Methane/commit/c1694b0e5cac5be4d9002984ac1a722691c47580 https://github.com/rombust/Methane/commit/5ee918169b7f63d5ea92593f47776d40882da738 https://github.com/rombust/Methane/commit/e376262bb96e7e1f8e8f411bf790d956c84f25d9 https://github.com/carstene1ns/super-methane-brothers/blob/52d931fae033186d791331ad20fd1eb443421f6a/README.md https://github.com/carstene1ns/super-methane-brothers/blob/52d931fae033186d791331ad20fd1eb443421f6a/README",
+    "github": {
+      "repository": "rombust/Methane",
+      "created_at": "2021-03-30",
+      "pushed_at": "2026-10-06",
+      "updated_at": "2026-09-16",
+      "checked_at": "2026-10-11",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "active",
+      "latest_release": {
+        "tag": "v3.0.3",
+        "name": "Methane 3.0.3 Release",
+        "published_at": "2026-10-06",
+        "url": "https://github.com/rombust/Methane/releases/tag/v3.0.3"
+      },
+      "languages": [
+        "C++",
+        "C",
+        "CMake",
+        "GLSL",
+        "Batchfile"
+      ],
+      "latest_commit": {
+        "sha": "c1694b0e5cac5be4d9002984ac1a722691c47580",
+        "date": "2026-09-16",
+        "message": "Merge pull request #17 from peddyjet/x1-labs-port",
+        "url": "https://github.com/rombust/Methane/commit/c1694b0e5cac5be4d9002984ac1a722691c47580"
+      }
+    },
+    "last_activity": "2026-09-16"
+  },
+  {
     "id": "super-pacman-arcade-disassembly",
     "title": "Super Pac-Man",
     "upstream_name": "Super Pac-Man",
@@ -161485,6 +162448,94 @@
         "url": "https://github.com/MariuszOnik/SwosDS/commit/39b8f24f8280730fe2c40598ee8c3abb65b0dadb"
       }
     }
+  },
+  {
+    "id": "symphonie-amiga-tracker-source-restoration",
+    "title": "Symphonie",
+    "upstream_name": "Symphonie",
+    "display_title": "Symphonie — Amiga music-tracker source restoration",
+    "subjects": [
+      "Symphonie"
+    ],
+    "repo": "https://github.com/MastaTabs/Symphonie",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [
+      "m68020"
+    ],
+    "target_cpu": [
+      "m68020"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "68020 assembly"
+    ],
+    "reconstructed_languages": [
+      "68020 assembly",
+      "C"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [
+      "source-restoration"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "restored original application source"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Original tracker source made compilable upstream; current rebuild not independently tested",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Amiga",
+      "source-reviewed",
+      "music tracker",
+      "68020"
+    ],
+    "notes": "Identity: MastaTabs preserves and reorganizes Patrick Meng's Symphonie Amiga music-tracker source, plugin sources, manuals and historical binaries. The main assembly identifies version 3.3d, and the README describes the 256-channel tracker source as made compilable. Classification: This is restoration/preservation of original tracker application source with a modern assembler/linker build, rather than a decompilation. The main application, DSP plugins and old binaries belong to the same project root and are not split into separate catalogue records. Source CPU: The original main source explicitly selects MC68020, and the English guide says Symphonie was written in modular 68020 assembler. The exact 68020 family member is therefore source-backed. Target CPU: build.sh invokes vasmm68k_mot with -m68020 and links an Amiga Hunk output using vlink and the m68k-amigaos libraries. Its C helper is built with the vbcc aos68k target. This establishes a native 68020 output target independently of any runtime minimum. Build: The README explicitly claims the source was made compilable, supported by the checked-in vbcc/vasm/vlink build script and application source. Compilable records that upstream capability. The script assumes local NDK39 and VBCC paths, and merely storing historical executable files does not independently establish the current reconstruction as runnable or equivalent. Limitations: No local compilation, application execution, DSP test or binary comparison was performed; runnable, playable and byte-exact remain null. Runtime profiles: The bundled English guide specifies MC680EC20+, 4 MB and OS 3.0+ for its documented Symphonie 2.4h release, with larger recommended memory for variants. The inspected main source is 3.3d. No evidence establishes that the older guide's minimum applies unchanged to this restored output, so no current runtime profile is copied from it. AI: The complete tree, README, build script, original source/manual portions and five recent commit messages were checked. No explicit development-AI attribution was found; the 2015 activity date is not used to infer non-use. Relationships: The guide credits Patrick Meng and manual contributor Michel Vissers and retains historical proprietary/shareware variant notices. The repository README links the Aminet Symphonie package; this is a third-party restoration rather than a claim that the maintainer authored the original tracker. No blanket open-source licence for the complete archive was established. Evidence: https://github.com/mastatabs/symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/README.md https://github.com/MastaTabs/Symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/Symphonie%20Source.Assembler https://github.com/MastaTabs/Symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/doc/Symphonie_E.guide https://github.com/mastatabs/symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/build.sh https://github.com/MastaTabs/Symphonie/commit/c7d8854f9c9dafa9f74cb339838009072a20a404 https://github.com/MastaTabs/Symphonie/commit/9476677effcb532c1ec0650476963d1730f0faf3",
+    "github": {
+      "repository": "MastaTabs/Symphonie",
+      "created_at": "2015-10-03",
+      "pushed_at": "2015-10-03",
+      "updated_at": "2026-06-04",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly",
+        "C",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "c7d8854f9c9dafa9f74cb339838009072a20a404",
+        "date": "2015-10-03",
+        "message": "move disk icon to oldbin",
+        "url": "https://github.com/MastaTabs/Symphonie/commit/c7d8854f9c9dafa9f74cb339838009072a20a404"
+      }
+    },
+    "last_activity": "2015-10-03"
   },
   {
     "id": "trex64-c64",
@@ -164409,6 +165460,94 @@
     "last_activity": "2023-07-20"
   },
   {
+    "id": "rabenstein-daad-original-adventure",
+    "title": "The Curse of Rabenstein",
+    "upstream_name": "The Curse of Rabenstein",
+    "display_title": "The Curse of Rabenstein — original multi-platform DAAD adventure",
+    "subjects": [
+      "The Curse of Rabenstein"
+    ],
+    "repo": "https://github.com/ByteProject/Rabenstein",
+    "source_platforms": [],
+    "target_platforms": [
+      "Commodore 64",
+      "Commodore Plus/4",
+      "Amstrad CPC",
+      "ZX Spectrum",
+      "ZX Spectrum Next",
+      "Amiga",
+      "Atari ST",
+      "DOS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "DAAD source",
+      "Shell"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native homebrew",
+      "original-source release"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Released adventure with creator-published DAAD source; archived build needs external setup",
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "DAAD database compilation",
+      "platform-specific disk packaging"
+    ],
+    "tags": [
+      "Atari ST",
+      "Amiga",
+      "Commodore 64",
+      "homebrew",
+      "interactive fiction"
+    ],
+    "notes": "Identity: Stefan Vogt/Puddle Software publishes the original source of The Curse of Rabenstein. The 3,187-line rabenstein.dsf contains the game vocabulary, locations, objects and command logic; accompanying artwork and target scripts form one multi-platform game repository. The release page is linked by the creator README. Classification: Substantial original homebrew/adventure source, not reverse engineering of an older commercial game. The repository uses DAAD with the DRC compiler and Maluva extensions, and its scripts package platform-specific interpreter/data disk releases. The game root is retained as one project rather than separate ST, Amiga and C64 records. Source CPU: The inspected work is a newly authored DAAD adventure, not a reconstruction from a historical machine-code binary. source_platforms, source_language and source_cpu therefore remain empty. Target CPU: Target scripts compile a DAAD game database and combine it with external machine-specific interpreters. No interpreter assembly source or explicit CPU selection was verified in this game checkout. The platform targets are established, but target_cpu remains empty rather than inferring processor models from machine names. Build: The creator distributes playable releases and supplies launch instructions for Atari ST, Amiga and other targets, supporting creator-reported runnable/playable=true. The source README expressly warns that external tools are omitted and paths are hardcoded; the inspected ST/Amiga/C64 scripts confirm those dependencies. Current checkout compilability remains unknown. Limitations: No compilation, emulator launch, gameplay or byte comparison was performed. Released binaries are not proof that this archived source snapshot rebuilds without modification. Runtime profiles: The source README and reviewed ST/Amiga scripts specify target machines and media but no verified minimum CPU, RAM or OS version. The creator page gives disk-loading instructions rather than complete ST/Amiga hardware minima; no runtime profile is inferred. AI: The complete repository tree, creator README, game-source header and selected logic, three target scripts and both available commit messages contain no explicit AI-development disclosure. Usage remains null; historical dates alone do not prove non-use. Relationships: The README credits Tim Gilberts for DAAD and Uto for Maluva; DRC is a separate compiler. The public source license allows personal educational use but forbids derivative games, so this is not described as permissively licensed. The official release page also lists later MSX/QL ports, a D42 C64 point-and-click edition and a browser edition; those uninspected implementations are not added to this DAAD source record. Evidence: https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/README.md https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/rabenstein.dsf https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/atari_st.sh https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/amiga.sh https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/64.sh https://8bitgames.itch.io/rabenstein https://github.com/ByteProject/Rabenstein/commits/8fec1f400bbfcb317dbdc8c7a77789fb781492dc",
+    "github": {
+      "repository": "ByteProject/Rabenstein",
+      "created_at": "2020-06-02",
+      "pushed_at": "2020-06-02",
+      "updated_at": "2026-05-23",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Shell",
+      "activity_state": "dormant",
+      "languages": [
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "8fec1f400bbfcb317dbdc8c7a77789fb781492dc",
+        "date": "2020-06-02",
+        "message": "fixing readme file",
+        "url": "https://github.com/ByteProject/Rabenstein/commit/8fec1f400bbfcb317dbdc8c7a77789fb781492dc"
+      }
+    },
+    "last_activity": "2020-06-02"
+  },
+  {
     "id": "financial-time-machine-sdl-reconstruction",
     "subjects": [
       "The Financial Time Machine"
@@ -166051,6 +167190,100 @@
         "url": "https://github.com/COREi64/The-Phantom/commit/0a35fe9cb769b0929bec45f0034ec07b81fa9962"
       }
     }
+  },
+  {
+    "id": "the-race-c128-reconstruction",
+    "title": "The Race",
+    "upstream_name": "The Race",
+    "display_title": "The Race — C128 binary reconstruction and C64 adaptation",
+    "subjects": [
+      "The Race"
+    ],
+    "repo": "https://github.com/ricardoquesada/c128-the-race",
+    "source_platforms": [
+      "Commodore 128"
+    ],
+    "target_platforms": [
+      "Commodore 128",
+      "Commodore 64"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "6502 machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "binary-derived game reconstruction",
+      "native port"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Annotated reconstruction with C128 and C64 build targets and packaged disks; no current build or gameplay verification.",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "ca65/cl65 assembly",
+      "binary-derived reconstruction",
+      "conditional machine initialization",
+      "VIC raster interrupts"
+    ],
+    "tags": [
+      "Commodore 128",
+      "Commodore 64",
+      "6502"
+    ],
+    "notes": "Identity: Ricardo Quesada’s README states that The Race for C128 is being regenerated from its binary files. The root contains orig PRG/D71 inputs, substantial annotated game/intro/music assembly, editable graphics resources and separate C64/C128 packaged disks. The pinned repository is non-fork; no LICENSE file appears in its tree. Classification: The one-line README establishes binary-derived reconstruction rather than recovered original source. Substantial labelled game logic handles two players, collisions, scrolling, timers and raster IRQs. Conditional initialization and the Makefile extend the same recovered game to native C64, so this is one coherent reconstruction/adaptation lineage. Source CPU: The reconstructed C128 game listing uses the 6502-family instruction set, accumulator/X/Y registers, zero-page state and indirect accesses; only the evidenced 6502 instruction architecture is recorded. No Z80/CP/M game path is present in the inspected assembly. Target CPU: Makefile assembles the same sources with cl65 -t c128 and -t c64. main.s conditionally selects C128 MMU or C64 $01 banking initialization. Both outputs remain native 6502-family code; VICE is merely the external launch/test environment. Build: The root declares cl65, Exomizer and VICE c1541/x128/x64 steps and includes D71/D64 binaries. Historical commits describe working intermediate reconstruction and later C64 support, but do not certify the current two-target build or complete gameplay. The default all target also launches emulators. All build/byte-match flags remain unknown. Limitations: No compilation, resource export, emulator launch, gameplay or original-binary comparison was performed. The Makefile references resource-copy inputs not all present under res; corresponding generated .bin assets are committed under src, but the rebuild path was not exercised. Runtime profiles: C128/C64 build targets and VIC/CIA usage are explicit, but the inspected README/build/source files do not specify a verified minimum RAM, PAL/NTSC compatibility or hardware configuration. No runtime profile is inferred from target names or packaged disk images. AI: No explicit AI-development disclosure or AI co-author attribution was found in README, inspected assembly/Makefile or the 29 returned history entries. Historical dates alone are not proof of non-use; usage remains null. Relationships: The C64 adaptation, C128 reconstruction, intro, cracktro and music modules form the same game repository and are retained as one project. orig contains reconstruction inputs and bin contains outputs; these are not extra project records. The author’s separately reviewed binary-only Erasoft archive is not being counted again. Evidence: https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/README.md https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/src/main.s https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/src/game.s https://github.com/ricardoquesada/c128-the-race/tree/4db38ff7adcce1b70794a5468128a0a812fd7ae5 https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/Makefile https://github.com/ricardoquesada/c128-the-race/commit/4ec60078ccbbdd051e8d4e24f4a5aace10e0a600 https://github.com/ricardoquesada/c128-the-race/commit/d6c3980efa1b181d7cf7dd8ae5e13dcea72b71a9 https://github.com/ricardoquesada/c128-the-race/commits/4db38ff7adcce1b70794a5468128a0a812fd7ae5",
+    "github": {
+      "repository": "ricardoquesada/c128-the-race",
+      "created_at": "2016-12-05",
+      "pushed_at": "2016-12-12",
+      "updated_at": "2022-02-12",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "4db38ff7adcce1b70794a5468128a0a812fd7ae5",
+        "date": "2016-12-12",
+        "message": "game: removes some kernal calls",
+        "url": "https://github.com/ricardoquesada/c128-the-race/commit/4db38ff7adcce1b70794a5468128a0a812fd7ae5"
+      }
+    },
+    "last_activity": "2016-12-12"
   },
   {
     "id": "real-ghostbusters-cracktro-amiga",
@@ -172468,6 +173701,98 @@
         "url": "https://github.com/grahambates/uae-dap/commit/e0127d967008c7ded80d6a83266337a3ebcce63d"
       }
     }
+  },
+  {
+    "id": "udump-atari-tos-rom-preservation",
+    "title": "uDump",
+    "upstream_name": "uDump",
+    "display_title": "uDump — native Atari TOS ROM dumper",
+    "subjects": [],
+    "repo": "https://github.com/mikrosk/uDump",
+    "source_platforms": [
+      "Atari ST",
+      "Atari STE",
+      "Atari TT",
+      "Atari Falcon"
+    ],
+    "target_platforms": [
+      "Atari ST",
+      "Atari STE",
+      "Atari TT",
+      "Atari Falcon"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "m68000"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "TOS ROM images"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "rom-tool"
+    ],
+    "types": [
+      "ROM preservation utility"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Creator-released TOS ROM dumper v1.03; native build untested",
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "Atari ST",
+      "Atari TOS",
+      "ROM preservation",
+      "EmuTOS"
+    ],
+    "notes": "Identity: Miro Kropacek/MiKRO identifies uDump 1.03 as a TOS ROM dumping utility for ST, STE, TT and Falcon. The entire five-file tree contains its C implementation, build recipe, author README and license; this is the canonical non-fork repository. Classification: A native preservation tool that obtains the TOS header, identifies version/country and machine cookies, selects ROM size and writes a named image. It handles EmuTOS and CT60 cases and copies ROM through a bounded buffer to avoid a documented extra-read bus error. It does not reconstruct or emulate TOS execution. Source CPU: uDump copies ROM bytes and parses header/cookie metadata rather than disassembling or interpreting the captured instructions. The ROM platform is recorded, but no original CPU analysis is claimed. Target CPU: Makefile uses m68k-atari-mint-gcc with explicit -m68000 and links libcmini startup/runtime into udump.tos. This establishes a native Motorola 68000 target without implying that all supported Atari models have the same minimum RAM or firmware. Build: The Makefile declares a libcmini-based native .tos build. The creator publishes a uDump 1.03 binary archive and earlier release notes explicitly discuss the distributed executable; runnable=true records that released utility, not a local run. The current source build was not reproduced, so compilable remains null and no gameplay or historical byte-match claim is made. Limitations: No cross-compilation, execution, real-machine ROM capture or binary comparison was performed. Runtime profiles: README names ST/STE/TT/Falcon and the source selects TOS ROM sizes and CT60/EmuTOS variants, but it does not specify a complete minimum-memory or OS-version configuration. The 16 KiB transfer buffer and -m68000 flag do not establish a runtime minimum. AI: The full five-file inventory, README, C implementation, Makefile and all 12 returned commits show no explicit generative-AI development disclosure. Usage is unknown, including later maintenance of the historical code. Relationships: uDump depends on libcmini and m68k-atari-mint system bindings; it is a separate focused application, not a duplicate runtime-library or TOS-reconstruction record. Its TOS/EmuTOS/CT60 support describes the data captured and machine handling, not ownership or reimplementation of those systems. Evidence: https://github.com/mikrosk/uDump/blob/11c7ff9492f51918d07251b000133bf9bd12d6bf/README.txt https://github.com/mikrosk/uDump/blob/11c7ff9492f51918d07251b000133bf9bd12d6bf/udump.c https://github.com/mikrosk/uDump/blob/11c7ff9492f51918d07251b000133bf9bd12d6bf/Makefile https://github.com/mikrosk/uDump/releases/tag/1.03 https://github.com/mikrosk/uDump/releases/tag/1.01 https://github.com/mikrosk/uDump/commits/11c7ff9492f51918d07251b000133bf9bd12d6bf",
+    "github": {
+      "repository": "mikrosk/uDump",
+      "created_at": "2018-07-05",
+      "pushed_at": "2025-05-19",
+      "updated_at": "2025-12-16",
+      "checked_at": "2026-10-11",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "quiet",
+      "latest_release": {
+        "tag": "1.03",
+        "name": "uDump 1.03",
+        "published_at": "2025-05-19",
+        "url": "https://github.com/mikrosk/uDump/releases/tag/1.03"
+      },
+      "languages": [
+        "C",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "11c7ff9492f51918d07251b000133bf9bd12d6bf",
+        "date": "2025-05-19",
+        "message": "This is 1.03 release",
+        "url": "https://github.com/mikrosk/uDump/commit/11c7ff9492f51918d07251b000133bf9bd12d6bf"
+      }
+    },
+    "last_activity": "2025-05-19"
   },
   {
     "id": "ue2-c64-ultimate-firmware-emulator",
@@ -184826,1037 +186151,5 @@
       }
     },
     "last_activity": "2024-05-05"
-  },
-  {
-    "id": "krypton-egg-native-go-reconstruction",
-    "title": "Krypton Egg — Go / Ebitengine",
-    "upstream_name": "Krypton Egg — Go / Ebitengine",
-    "display_title": "Krypton Egg — native Go reconstruction",
-    "subjects": [
-      "Krypton Egg"
-    ],
-    "repo": "https://github.com/olivierh59500/krytonegg",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Desktop",
-      "Android"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [
-      "arm64"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "68000 machine code",
-      "game data"
-    ],
-    "reconstructed_languages": [
-      "Go",
-      "Python"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation",
-      "reverse-engineering-derived-port",
-      "data-format-analysis"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "native game reconstruction",
-      "original-data extraction"
-    ],
-    "re_started": null,
-    "last_activity": "2026-10-07",
-    "last_checked": "2026-10-11",
-    "status": "Native desktop and Android rewrite; upstream reports complete campaign; local ADF required",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "source-reviewed",
-      "native rewrite",
-      "Ebitengine"
-    ],
-    "execution_paths": [
-      {
-        "name": "Go/Ebitengine desktop and Android",
-        "method": "native-translation",
-        "status": "playable",
-        "notes": "Upstream-reported native rewrite; original 68000 instructions are used for offline analysis only. Local ADF-derived assets required. No independent run in this review.",
-        "evidence": [
-          "https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/port-status.md",
-          "https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/internal/game/physics.go"
-        ]
-      }
-    ],
-    "notes": "Identity: One coherent repository reconstructs HitSoft's Krypton Egg from a specified Amiga ADF, retaining 60 level layouts, six combats, recovered graphics and audio, and original-format custom levels. The original executable is used for offline investigation only. Classification: This is a native Go/Ebitengine game rewrite derived from original-code and data analysis. The inspected physics.go implements ball motion and collision directly in Go. Port status explicitly says original instructions are neither executed nor interpreted at runtime; FS-UAE and Ghidra are offline reference tools, so this is not a game-specific CPU-emulation wrapper. Source CPU: The fidelity audit identifies an Amiga 500 reference session and an extracted code hunk imported in Ghidra as 68000:BE:32:default. This establishes the original Motorola 68000 source architecture independently of the Go output. Target CPU: The Android environment script defaults to android/arm64 and the build script passes that value to ebitenmobile bind. Record arm64 for that concrete output; the generic desktop build does not establish an exhaustive host CPU list. Build: The README supplies asset-reconstruction, build, test, vet and native smoke commands, and the maintained status describes a complete input-driven 60-round/six-combat campaign. These explicit upstream reports support compilable/runnable/playable capability. A compatible user-owned ADF must regenerate ignored assets before building. The Android physical-device test predates the latest fidelity corrections. Limitations: No local compilation, tests, asset extraction, gameplay or Android-device run was performed. Upstream campaign completion is not independent verification or frame-exact equivalence; byte-exact remains unknown. Runtime profiles: The reviewed README requires Go 1.26+ and a desktop graphics environment for development, while Android scripts configure an arm64/API-23 binding and the status describes an earlier Pixel 10a test. These build settings and one prior device observation do not establish a complete current runnable-hardware minimum; no RAM/CPU/chipset profile is asserted. AI: The complete tree, five available recent commit messages, README, port-status/fidelity documents and selected Go/build files contain no explicit development-AI attribution. The deterministic expert player is game-testing logic and is not evidence of AI-assisted development; usage remains unknown. Relationships: The README credits HitSoft and the original Kral/Vidos/Deneyer team, Ebitengine for host presentation, and go-zikmu for module replay. It keeps the reference ADF and reconstructed assets out of Git; original asset ownership is retained. The modern collision solver and host audio deliberately adapt original behavior, and this reconstruction is distinct from later PC/mobile releases. Evidence: https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/README.md https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/port-status.md https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/internal/game/physics.go https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/fidelity-audit.md https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/scripts/android-env.sh https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/scripts/build-android.sh https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/docs/validation.json https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/Makefile https://github.com/olivierh59500/krytonegg/commit/efe9ae43b29f77b8e6445f59dccab2a29f71801e https://github.com/olivierh59500/krytonegg/commit/1a7b6343f8e07a06832d7220c5be44b6729824f0 https://github.com/olivierh59500/krytonegg/commit/4e03673c6501370f5682177baba3cbe1ff73dcab https://github.com/olivierh59500/krytonegg/blob/efe9ae43b29f77b8e6445f59dccab2a29f71801e/go.mod"
-  },
-  {
-    "id": "stunt-car-racer-amiga-track-toolkit",
-    "title": "Amiga Stunt Car Racer Track Toolkit",
-    "upstream_name": "Amiga Stunt Car Racer Track Toolkit",
-    "display_title": "Stunt Car Racer — Amiga track analysis and editing toolkit",
-    "subjects": [
-      "Stunt Car Racer"
-    ],
-    "repo": "https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Python hosts",
-      "Web browser"
-    ],
-    "source_cpu": [
-      "m68000"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "game data",
-      "68000 machine code"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "JavaScript"
-    ],
-    "record_class": "hybrid",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "data-format-analysis",
-      "binary-analysis",
-      "patching"
-    ],
-    "tool_kinds": [
-      "asset-tool",
-      "disk-filesystem-tool",
-      "binary-analysis"
-    ],
-    "types": [
-      "game-specific reverse-engineering toolkit"
-    ],
-    "re_started": null,
-    "last_activity": "2026-10-01",
-    "last_checked": "2026-10-11",
-    "status": "804-byte track codec and guarded editing tools; exact mesh reconstruction remains bounded",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "source-reviewed",
-      "804-byte track format",
-      "guarded patching"
-    ],
-    "notes": "Identity: The root is an independent Stunt Car Racer Amiga research/toolkit project by Ulf Bertilsson. It combines installable Python commands, disk-evidence inspection, track codecs, guarded patch transactions, Blender import and a standalone browser inspector as one coherent project. Classification: The inspected track.py implements an 804-byte big-endian native track decoder/encoder with preservation of all 100 slots and an editor-native backing record. This materially combines game-data reconstruction with useful asset and disk-analysis tooling; it does not implement a playable game engine. Source CPU: The README explicitly identifies the Amiga/Motorola 68000 source-game context. CPU metadata describes the investigated game, not the CPU on which the Python tools execute. Target CPU: The inspected package targets Python 3.9+ hosts, with browser/Blender inspection helpers. No native CPU-specific game executable is generated; an empty target-CPU list avoids turning Python or the 68000 source-data format into a host architecture claim. Build: The pinned head's GitHub CI completed successfully: it compiles Python sources, runs every tests/*.py script and installs the package under Python 3.12. The README documents CLI installation and use. Compilable/runnable describe this tested toolkit; playable is inapplicable and remains null. The no-op codec round-trip claim concerns an expanded resource, not byte-exact rebuilding of the original game binary. Limitations: No project commands were run locally. Upstream CI cannot establish correctness for all proprietary disks, and full native geometry still depends on external table provenance. Runtime profiles: This is host-side analysis and editing software rather than a runnable Amiga reconstruction. Python >=3.9 is an interpreter dependency, not a verified legacy-machine minimum; no retro CPU/RAM/chipset profile applies. AI: The complete tree, all three available commit messages, README, package metadata, codec and inspected provenance/status documents disclose no actual development-AI assistance. Unknown is preserved; generated-looking documentation or tooling terminology is not evidence of AI use. Relationships: Provenance credits public Multi Stunt Car Track.cpp, a continuation of Stunt Car Remake, and Vesuri's labelled Amiga disassembly. The toolkit requires users to supply compatible source tables and legally obtained game media. Its current codec explicitly distinguishes the 804-byte expanded interchange format from compressed protected-disk streams; preview meshes are analysis aids, not a claim of fully exact native geometry. Evidence: https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/README.md https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/pyproject.toml https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/scrtool/track.py https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/docs/TRACK804_VERIFIED.md https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/.github/workflows/ci.yml https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/actions/runs/36896180023 https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/docs/PROVENANCE_V4.md https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/687701205d83b5e800a94549add1306ca9a5b30f https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/80bcc4a01e8e7c7cd2d1ec0976e18064c7b1185c https://github.com/djayuffe/Amiga-stunt-car-racer-track-toolkit/commit/36ce37f571281a07876a3948e947f52b4182157f https://github.com/djayuffe/amiga-stunt-car-racer-track-toolkit/blob/687701205d83b5e800a94549add1306ca9a5b30f/docs/RE_STATUS.md"
-  },
-  {
-    "id": "symphonie-amiga-tracker-source-restoration",
-    "title": "Symphonie",
-    "upstream_name": "Symphonie",
-    "display_title": "Symphonie — Amiga music-tracker source restoration",
-    "subjects": [
-      "Symphonie"
-    ],
-    "repo": "https://github.com/MastaTabs/Symphonie",
-    "source_platforms": [
-      "Amiga"
-    ],
-    "target_platforms": [
-      "Amiga"
-    ],
-    "source_cpu": [
-      "m68020"
-    ],
-    "target_cpu": [
-      "m68020"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "68020 assembly"
-    ],
-    "reconstructed_languages": [
-      "68020 assembly",
-      "C"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "application"
-    ],
-    "work_kinds": [
-      "source-restoration"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "restored original application source"
-    ],
-    "re_started": null,
-    "last_activity": "2015-10-03",
-    "last_checked": "2026-10-11",
-    "status": "Original tracker source made compilable upstream; current rebuild not independently tested",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "source-reviewed",
-      "music tracker",
-      "68020"
-    ],
-    "notes": "Identity: MastaTabs preserves and reorganizes Patrick Meng's Symphonie Amiga music-tracker source, plugin sources, manuals and historical binaries. The main assembly identifies version 3.3d, and the README describes the 256-channel tracker source as made compilable. Classification: This is restoration/preservation of original tracker application source with a modern assembler/linker build, rather than a decompilation. The main application, DSP plugins and old binaries belong to the same project root and are not split into separate catalogue records. Source CPU: The original main source explicitly selects MC68020, and the English guide says Symphonie was written in modular 68020 assembler. The exact 68020 family member is therefore source-backed. Target CPU: build.sh invokes vasmm68k_mot with -m68020 and links an Amiga Hunk output using vlink and the m68k-amigaos libraries. Its C helper is built with the vbcc aos68k target. This establishes a native 68020 output target independently of any runtime minimum. Build: The README explicitly claims the source was made compilable, supported by the checked-in vbcc/vasm/vlink build script and application source. Compilable records that upstream capability. The script assumes local NDK39 and VBCC paths, and merely storing historical executable files does not independently establish the current reconstruction as runnable or equivalent. Limitations: No local compilation, application execution, DSP test or binary comparison was performed; runnable, playable and byte-exact remain null. Runtime profiles: The bundled English guide specifies MC680EC20+, 4 MB and OS 3.0+ for its documented Symphonie 2.4h release, with larger recommended memory for variants. The inspected main source is 3.3d. No evidence establishes that the older guide's minimum applies unchanged to this restored output, so no current runtime profile is copied from it. AI: The complete tree, README, build script, original source/manual portions and five recent commit messages were checked. No explicit development-AI attribution was found; the 2015 activity date is not used to infer non-use. Relationships: The guide credits Patrick Meng and manual contributor Michel Vissers and retains historical proprietary/shareware variant notices. The repository README links the Aminet Symphonie package; this is a third-party restoration rather than a claim that the maintainer authored the original tracker. No blanket open-source licence for the complete archive was established. Evidence: https://github.com/mastatabs/symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/README.md https://github.com/MastaTabs/Symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/Symphonie%20Source.Assembler https://github.com/MastaTabs/Symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/doc/Symphonie_E.guide https://github.com/mastatabs/symphonie/blob/c7d8854f9c9dafa9f74cb339838009072a20a404/build.sh https://github.com/MastaTabs/Symphonie/commit/c7d8854f9c9dafa9f74cb339838009072a20a404 https://github.com/MastaTabs/Symphonie/commit/9476677effcb532c1ec0650476963d1730f0faf3"
-  },
-  {
-    "id": "dbwrender-windows-source-port",
-    "title": "DBW-Render",
-    "upstream_name": "DBW-Render",
-    "display_title": "DBW-Render — preserved Amiga ray-tracer Windows port",
-    "subjects": [
-      "DBW-Render"
-    ],
-    "repo": "https://github.com/DavidKinder/DBWRender",
-    "source_platforms": [
-      "Amiga",
-      "MS-DOS"
-    ],
-    "target_platforms": [
-      "Windows"
-    ],
-    "source_cpu": [
-      "m68k",
-      "x86"
-    ],
-    "target_cpu": [
-      "x86"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "C"
-    ],
-    "reconstructed_languages": [
-      "C",
-      "C++"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "application"
-    ],
-    "work_kinds": [],
-    "tool_kinds": [],
-    "types": [
-      "source-derived native application port"
-    ],
-    "re_started": null,
-    "last_activity": "2026-02-08",
-    "last_checked": "2026-10-11",
-    "status": "Win32 ray tracer and rewritten image viewer; original Amiga lineage preserved",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "source-reviewed",
-      "ray tracer",
-      "source-derived port"
-    ],
-    "notes": "Identity: David Kinder maintains a Windows port of David Wecker's DBW-Render, through John H. Lowery's MS-DOS adaptation. The root contains the C ray tracer, a rewritten C++ display application, scene files and build projects. The author traces the earlier history to DEC VAX and Amiga. Classification: This is a source-derived native application port and preservation of a legacy ray tracer. The C source retains original 1987 attribution and the IBM-PC port history. No binary-derived decompilation or reverse-engineering methodology is asserted, so the work-kind list is left empty rather than mislabelling a source port. Source CPU: The author identifies the Amiga A500 edition and the intervening MS-DOS port, while the C source header names the IBM-PC/VGA/MCGA adaptation. The catalogue records their broad m68k and x86 families; it does not invent an exact DOS CPU or a verified runtime minimum. Earlier DEC VAX history is contextual rather than another analysed binary target. Target CPU: The Visual Studio solution explicitly defines Debug and Release x86 configurations mapped to Win32 projects. This establishes the produced Windows x86 architecture rather than assuming it from C/C++. Build: The README gives Visual Studio build instructions and reports completed renders with timing comparisons; release r1 publishes the Windows renderer/viewer. These primary statements support compilable and runnable capability. The maintained source changes resolution and color depth and adds a new viewer, so an original-Amiga binary match is not claimed. Limitations: No local Visual Studio build, render, viewer test or original-output comparison was performed. The published Windows release predates the latest project-file update. Runtime profiles: The reviewed README, solution and project files establish Windows/x86 and a Visual Studio build path, but no supported minimum CPU generation, RAM or runtime Windows release. SDK/toolset settings are build dependencies and are not promoted into minimum hardware claims. AI: The complete tree, five recent commit messages, README, source header/implementation and build project files reveal no explicit development-AI attribution. The latest commit changes the Visual Studio toolset, which alone establishes no AI involvement. Relationships: The source header credits David Wecker and John H. Lowery, and the README explains Kinder's limited core changes and independently rewritten display utility. Release r1 also supplies the original Amiga disk image for historical context. All components remain one DBW-Render lineage; the source header refers to the bundled DBW_Render licence rather than asserting modern GPL terms. Evidence: https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/README.md https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/ray.c https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/DBWRender.sln https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/ray.vcxproj https://github.com/davidkinder/dbwrender/blob/748886b74441d6734ec4ae21f1c81a06968ca369/src/display.vcxproj https://github.com/DavidKinder/DBWRender/releases/tag/r1 https://github.com/DavidKinder/DBWRender/commit/748886b74441d6734ec4ae21f1c81a06968ca369 https://github.com/DavidKinder/DBWRender/commit/888be9dee0a31f6c10e316a24e25aded71aa66ba"
-  },
-  {
-    "id": "super-methane-brothers-canonical-conversion",
-    "title": "Super Methane Brothers",
-    "upstream_name": "Super Methane Brothers",
-    "display_title": "Super Methane Brothers — original-author native conversion",
-    "subjects": [
-      "Super Methane Brothers"
-    ],
-    "repo": "https://github.com/rombust/Methane",
-    "source_platforms": [
-      "Amiga",
-      "Amiga CD32"
-    ],
-    "target_platforms": [
-      "Windows",
-      "Linux",
-      "Android"
-    ],
-    "source_cpu": [
-      "m68k"
-    ],
-    "target_cpu": [
-      "x86_64",
-      "arm64"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "Documented Android build",
-        "platform": "Android",
-        "os": "Android 8.0 / API 26 or newer",
-        "notes": "README and Gradle declare arm64-v8a and x86_64 builds and Vulkan 1.1 rendering. No RAM minimum or device validation was established in this review.",
-        "evidence": [
-          "https://github.com/rombust/Methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/README.md",
-          "https://github.com/rombust/Methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/android/app/build.gradle.kts"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "C++",
-      "C"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [],
-    "tool_kinds": [],
-    "types": [
-      "original-author native game conversion"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-16",
-    "last_checked": "2026-10-11",
-    "status": "Canonical C++/Vulkan conversion for desktop and Android; v3.0.3 released",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Amiga",
-      "source-reviewed",
-      "original-author conversion",
-      "Vulkan"
-    ],
-    "notes": "Identity: The canonical repository publishes Super Methane Brothers for Linux, Windows and Android; authors.txt identifies maintainer Mark Page as the original Amiga game's programmer. The old SourceForge developer page links this GitHub root. Current source identifies v3.0.3, matching the October 2026 release. Classification: This is the original programmer's native C++ game conversion, not evidence of a newly discovered assembly decompilation. The inspected game.cpp implements game state directly, and the CMake build links native game, platform and Vulkan sources. Keep all supported outputs under the canonical root and leave reconstruction-method enums empty rather than claiming unproven RE provenance. Source CPU: Primary identity and history name the original Commodore Amiga game and later incorporation of CD32 animation/audio. Record the broad historical m68k family only; no exact original CPU minimum or original-source programming language is claimed from the C++ conversion. Target CPU: Windows presets explicitly select x64, and Android Gradle ABI filters select arm64-v8a and x86_64. Record x86_64 and arm64 for these documented outputs. The generic Linux architecture-handling code is not treated as proof that every detected architecture was tested. Build: The current README documents Linux CMake, Visual Studio and Android Gradle builds plus keyboard, gamepad and touch play. Release v3.0.3 explicitly adds Android, while maintained source and release history establish an existing playable conversion. Compilable/runnable/playable reflect these upstream capabilities, not a local test result. Limitations: No local build, gameplay, input-recording validation or device test was performed. The native conversion and its replay checksums do not establish an original-Amiga byte-exact binary. Runtime profiles: The current README and Gradle configuration explicitly set Android 8.0/API 26 minimum and arm64-v8a/x86_64 ABIs, with Vulkan 1.1 rendering. One Android profile records those declared requirements. No RAM minimum or Windows/Linux minimum CPU/OS is established. AI: The complete tree, five recent commit messages, README, authors/history, selected game source and build configuration were inspected without finding an explicit actual development-AI disclosure. Native input replay and automated state checksums are application/testing functionality, not AI-attribution evidence. Relationships: The original programmer maintains this canonical conversion with original team credits and explicit Apache Software permission to license this conversion under GPL-2.0-or-later; the original Amiga release retains its separate commercial licence. ClanLib-derived portions have their own zlib-style licence. The separately reviewed carstene1ns homebrew tree is an older derivative with distinct console ports; it is not substituted for this canonical record or counted as a second independent reconstruction. Evidence: https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/README.md https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/authors.txt https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/Sources/Game/game.cpp https://methane.sourceforge.net/develop.html https://github.com/rombust/Methane/releases/tag/v3.0.3 https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/CMakeLists.txt https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/history.txt https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/CMakePresets.json https://github.com/rombust/methane/blob/c1694b0e5cac5be4d9002984ac1a722691c47580/android/app/build.gradle.kts https://github.com/rombust/Methane/commit/c1694b0e5cac5be4d9002984ac1a722691c47580 https://github.com/rombust/Methane/commit/5ee918169b7f63d5ea92593f47776d40882da738 https://github.com/rombust/Methane/commit/e376262bb96e7e1f8e8f411bf790d956c84f25d9 https://github.com/carstene1ns/super-methane-brothers/blob/52d931fae033186d791331ad20fd1eb443421f6a/README.md https://github.com/carstene1ns/super-methane-brothers/blob/52d931fae033186d791331ad20fd1eb443421f6a/README"
-  },
-  {
-    "id": "godlib-atari-development-library",
-    "title": "GODLIB",
-    "upstream_name": "GODLIB",
-    "display_title": "GODLIB — Atari ST native development and profiling library",
-    "subjects": [],
-    "repo": "https://github.com/ReservoirGods/GODLIB",
-    "source_platforms": [],
-    "target_platforms": [
-      "Atari ST",
-      "Windows"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "m68000"
-    ],
-    "runtime_profiles": [],
-    "source_language": [],
-    "reconstructed_languages": [
-      "C",
-      "m68k assembly"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "development-environment",
-      "profiler",
-      "asset-tool"
-    ],
-    "types": [
-      "native development library"
-    ],
-    "re_started": null,
-    "last_activity": "2025-07-01",
-    "last_checked": "2026-10-11",
-    "status": "Substantial C/68k library source; build configurations reviewed but untested",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "hardware-register integration",
-      "interrupt-driven profiling"
-    ],
-    "tags": [
-      "Atari ST",
-      "native development",
-      "graphics",
-      "audio",
-      "profiling"
-    ],
-    "github": {
-      "repository": "ReservoirGods/GODLIB",
-      "created_at": "2015-02-01",
-      "pushed_at": "2025-07-01",
-      "updated_at": "2026-07-09",
-      "checked_at": "2026-10-11",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C",
-      "latest_commit": {
-        "sha": "ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9",
-        "date": "2025-07-01",
-        "message": "Fast build bff build files for visual studio 2019 and 2022",
-        "url": "https://github.com/ReservoirGods/GODLIB/commit/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9"
-      }
-    },
-    "notes": "Identity: The root identifies GODLIB as an Atari ST development library. README.TXT credits Pink/RG as main coder and Evil/DHS, GGN, Sage and Scy/tSCc as contributors. The complete untruncated tree contains one coherent library covering graphics, audio, sprites, assets, storage, system bindings and profiling; its components are not counted as separate projects. Classification: Original native development infrastructure, rather than a recovered game or emulator. SYSTEM_S.S saves and restores hardware vectors and accesses Atari registers; PROFILER.C installs interrupt-based function profiling and records samples to PROFILE.PRO. This establishes concrete native development and profiling scope beyond the short README. Source CPU: No historical input binary is being reconstructed in the inspected library. Its original C and assembly implementations are maintained development code; source_cpu remains empty rather than treating its native output architecture as an analysis input. Target CPU: The Atari build selects vasmm68k_mot/vlinkm68k and explicitly passes -m68000 to the assembler and -cpu=68000 to VBCC. The native source independently contains Motorola data/address registers and 68k instructions. Only m68000 is assigned: the Win32/SDL build is evidenced, but its host CPU is not inferred from Windows or general endianness macros. Build: README.TXT documents installation into Pure C. The Atari make configuration provides VBCC/VASM/VLINK TOS output, while GODLIB.MAK builds a Win32/SDL static archive. Both contain environment-specific tool/include locations; the root has unit-test source but no inspected successful current build or test report. All build flags remain unknown. Limitations: No compilation, linked application, unit test or byte comparison was run. Declared build targets and test files are not successful test results. Runtime profiles: GODLIB is a library integrated into downstream programs. Its 68000 build setting is not a verified CPU/RAM minimum for every possible client, and the reviewed documentation does not define a standalone runtime profile. AI: The two root READMEs, complete tree, selected hardware/profiling/build source and latest 20 commit messages disclose no generative-AI use. Usage remains null. Relationships: Author credits and self-contained source identify the Reservoir Gods library as a distinct implementation from the separately tracked smonson-libtos and hildenborg atari-libs. Pure C, VBCC, VASM, VLINK and SDL are development dependencies or host backends, not additional GODLIB subjects. No separate record is proposed for each graphics, packer or profiler directory. Evidence: https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/README.md https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/README.TXT https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/GODLIB.MAK https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/SYSTEM/SYSTEM_S.S https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/PROFILER/PROFILER.C https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/MAKEFILE/PLATFORM/GODLIB_ST.MF https://github.com/ReservoirGods/GODLIB/blob/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9/BASE/BASE.H https://github.com/ReservoirGods/GODLIB/commits/ae600aae192f35c8fe8a7e8164ec0e4caaa7e6e9"
-  },
-  {
-    "id": "pack-ice-atari-compression-library",
-    "title": "pack-ice",
-    "upstream_name": "pack-ice",
-    "display_title": "pack-ice — Atari ICE compression library and utilities",
-    "subjects": [],
-    "repo": "https://github.com/larsbrinkhoff/pack-ice",
-    "source_platforms": [
-      "Atari ST"
-    ],
-    "target_platforms": [],
-    "source_cpu": [],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "ICE compressed data"
-    ],
-    "reconstructed_languages": [
-      "C",
-      "Shell"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "asset-tool"
-    ],
-    "types": [
-      "legacy-format compression tooling"
-    ],
-    "re_started": null,
-    "last_activity": "2025-01-05",
-    "last_checked": "2026-10-11",
-    "status": "C encoder/decoder with algorithm notes and regression fixtures; tests not run",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "bitstream decoding",
-      "look-ahead compression analysis"
-    ],
-    "tags": [
-      "Atari ST",
-      "ICE",
-      "compression",
-      "file formats"
-    ],
-    "github": {
-      "repository": "larsbrinkhoff/pack-ice",
-      "created_at": "2016-01-06",
-      "pushed_at": "2025-01-05",
-      "updated_at": "2025-03-14",
-      "checked_at": "2026-10-11",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C",
-      "latest_commit": {
-        "sha": "1f7da1fe22aeada06770356ac70cc67b00256122",
-        "date": "2025-01-05",
-        "message": "Fix error: implicit declaration of function ‘exit’",
-        "url": "https://github.com/larsbrinkhoff/pack-ice/commit/1f7da1fe22aeada06770356ac70cc67b00256122"
-      }
-    },
-    "notes": "Identity: README identifies pack-ice as an Atari ST compression utility and AUTHORS names Lars Brinkhoff. The root contains libice encoder/decoder source and the icecat, freeze and melt front ends, plus format analysis and six fixture pairs. These form a single codec/tool project. Classification: Directly useful legacy-format tooling: ice_crunch.c and ice_decrunch.c implement variable-length copy/back-reference bitstreams, while HACKING analyzes encoding costs and competing compression choices. It is a C implementation of the ICE format; the inspected material does not establish binary-derived decompilation or original Pack-Ice source provenance, so no such work kind is asserted. Source CPU: The input is an ICE-compressed byte stream, not a CPU instruction stream. Historical Atari ST use establishes platform relevance but does not establish an original CPU under analysis; source_cpu remains empty. Target CPU: The Makefile uses ordinary gcc and ar without architecture selection, and the reviewed C codec is not an embedded CPU core. No specific output CPU or named host OS support matrix is established, so target_cpu and target_platforms are left empty. Build: The Makefile builds libice.a and three command-line tools and provides make check. testcases/check compares generated compressed fixtures and decompressed round trips, but prints failures without an aggregate nonzero exit status. testcases/README flags fixture 005 as problematic for the current compressor; the optional new algorithm is disabled in ice_crunch.c. No current pass is claimed. Limitations: No build or fixture execution was performed. Fixture equality would validate selected codec cases, not byte-exact reconstruction of a historical executable; byte_exact remains null. Runtime profiles: The inspected README, build file and codec source supply no supported host CPU, RAM minimum or operating-system version. Portable-looking C and the Atari association are not used to invent runnable hardware requirements. AI: The complete tree, README/AUTHORS/HACKING, codec/build/test sources and latest 20 commits contain no explicit generative-AI attribution. The algorithmic look-ahead analysis is not AI-development evidence. Relationships: The inspected repository is its own Lars Brinkhoff codec implementation, not a fork according to repository metadata. It is distinct from the already catalogued multi-format Ancient decompressor and L-Packer executable tool. Encoder, decoder, front ends and fixture suite stay together under the root; no unverified claim is made about derivation from Axel Brok/Pack-Ice assembly source. Evidence: https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/README https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/AUTHORS https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/Makefile https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/HACKING https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/testcases/README https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/ice_crunch.c https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/ice_decrunch.c https://github.com/larsbrinkhoff/pack-ice/blob/1f7da1fe22aeada06770356ac70cc67b00256122/testcases/check https://github.com/larsbrinkhoff/pack-ice/commits/1f7da1fe22aeada06770356ac70cc67b00256122"
-  },
-  {
-    "id": "udump-atari-tos-rom-preservation",
-    "title": "uDump",
-    "upstream_name": "uDump",
-    "display_title": "uDump — native Atari TOS ROM dumper",
-    "subjects": [],
-    "repo": "https://github.com/mikrosk/uDump",
-    "source_platforms": [
-      "Atari ST",
-      "Atari STE",
-      "Atari TT",
-      "Atari Falcon"
-    ],
-    "target_platforms": [
-      "Atari ST",
-      "Atari STE",
-      "Atari TT",
-      "Atari Falcon"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "m68000"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "TOS ROM images"
-    ],
-    "reconstructed_languages": [
-      "C"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "rom-tool"
-    ],
-    "types": [
-      "ROM preservation utility"
-    ],
-    "re_started": null,
-    "last_activity": "2025-05-19",
-    "last_checked": "2026-10-11",
-    "status": "Creator-released TOS ROM dumper v1.03; native build untested",
-    "build": {
-      "compilable": null,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [],
-    "tags": [
-      "Atari ST",
-      "Atari TOS",
-      "ROM preservation",
-      "EmuTOS"
-    ],
-    "github": {
-      "repository": "mikrosk/uDump",
-      "created_at": "2018-07-05",
-      "pushed_at": "2025-05-19",
-      "updated_at": "2025-12-16",
-      "checked_at": "2026-10-11",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C",
-      "latest_commit": {
-        "sha": "11c7ff9492f51918d07251b000133bf9bd12d6bf",
-        "date": "2025-05-19",
-        "message": "This is 1.03 release",
-        "url": "https://github.com/mikrosk/uDump/commit/11c7ff9492f51918d07251b000133bf9bd12d6bf"
-      },
-      "latest_release": {
-        "tag": "1.03",
-        "name": "uDump 1.03",
-        "published_at": "2025-05-19",
-        "url": "https://github.com/mikrosk/uDump/releases/tag/1.03"
-      }
-    },
-    "notes": "Identity: Miro Kropacek/MiKRO identifies uDump 1.03 as a TOS ROM dumping utility for ST, STE, TT and Falcon. The entire five-file tree contains its C implementation, build recipe, author README and license; this is the canonical non-fork repository. Classification: A native preservation tool that obtains the TOS header, identifies version/country and machine cookies, selects ROM size and writes a named image. It handles EmuTOS and CT60 cases and copies ROM through a bounded buffer to avoid a documented extra-read bus error. It does not reconstruct or emulate TOS execution. Source CPU: uDump copies ROM bytes and parses header/cookie metadata rather than disassembling or interpreting the captured instructions. The ROM platform is recorded, but no original CPU analysis is claimed. Target CPU: Makefile uses m68k-atari-mint-gcc with explicit -m68000 and links libcmini startup/runtime into udump.tos. This establishes a native Motorola 68000 target without implying that all supported Atari models have the same minimum RAM or firmware. Build: The Makefile declares a libcmini-based native .tos build. The creator publishes a uDump 1.03 binary archive and earlier release notes explicitly discuss the distributed executable; runnable=true records that released utility, not a local run. The current source build was not reproduced, so compilable remains null and no gameplay or historical byte-match claim is made. Limitations: No cross-compilation, execution, real-machine ROM capture or binary comparison was performed. Runtime profiles: README names ST/STE/TT/Falcon and the source selects TOS ROM sizes and CT60/EmuTOS variants, but it does not specify a complete minimum-memory or OS-version configuration. The 16 KiB transfer buffer and -m68000 flag do not establish a runtime minimum. AI: The full five-file inventory, README, C implementation, Makefile and all 12 returned commits show no explicit generative-AI development disclosure. Usage is unknown, including later maintenance of the historical code. Relationships: uDump depends on libcmini and m68k-atari-mint system bindings; it is a separate focused application, not a duplicate runtime-library or TOS-reconstruction record. Its TOS/EmuTOS/CT60 support describes the data captured and machine handling, not ownership or reimplementation of those systems. Evidence: https://github.com/mikrosk/uDump/blob/11c7ff9492f51918d07251b000133bf9bd12d6bf/README.txt https://github.com/mikrosk/uDump/blob/11c7ff9492f51918d07251b000133bf9bd12d6bf/udump.c https://github.com/mikrosk/uDump/blob/11c7ff9492f51918d07251b000133bf9bd12d6bf/Makefile https://github.com/mikrosk/uDump/releases/tag/1.03 https://github.com/mikrosk/uDump/releases/tag/1.01 https://github.com/mikrosk/uDump/commits/11c7ff9492f51918d07251b000133bf9bd12d6bf"
-  },
-  {
-    "id": "rabenstein-daad-original-adventure",
-    "title": "The Curse of Rabenstein",
-    "upstream_name": "The Curse of Rabenstein",
-    "display_title": "The Curse of Rabenstein — original multi-platform DAAD adventure",
-    "subjects": [
-      "The Curse of Rabenstein"
-    ],
-    "repo": "https://github.com/ByteProject/Rabenstein",
-    "source_platforms": [],
-    "target_platforms": [
-      "Commodore 64",
-      "Commodore Plus/4",
-      "Amstrad CPC",
-      "ZX Spectrum",
-      "ZX Spectrum Next",
-      "Amiga",
-      "Atari ST",
-      "DOS"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [],
-    "reconstructed_languages": [
-      "DAAD source",
-      "Shell"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [],
-    "tool_kinds": [],
-    "types": [
-      "native homebrew",
-      "original-source release"
-    ],
-    "re_started": null,
-    "last_activity": "2020-06-02",
-    "last_checked": "2026-10-11",
-    "status": "Released adventure with creator-published DAAD source; archived build needs external setup",
-    "build": {
-      "compilable": null,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "DAAD database compilation",
-      "platform-specific disk packaging"
-    ],
-    "tags": [
-      "Atari ST",
-      "Amiga",
-      "Commodore 64",
-      "homebrew",
-      "interactive fiction"
-    ],
-    "github": {
-      "repository": "ByteProject/Rabenstein",
-      "created_at": "2020-06-02",
-      "pushed_at": "2020-06-02",
-      "updated_at": "2026-05-23",
-      "checked_at": "2026-10-11",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Shell",
-      "latest_commit": {
-        "sha": "8fec1f400bbfcb317dbdc8c7a77789fb781492dc",
-        "date": "2020-06-02",
-        "message": "fixing readme file",
-        "url": "https://github.com/ByteProject/Rabenstein/commit/8fec1f400bbfcb317dbdc8c7a77789fb781492dc"
-      }
-    },
-    "notes": "Identity: Stefan Vogt/Puddle Software publishes the original source of The Curse of Rabenstein. The 3,187-line rabenstein.dsf contains the game vocabulary, locations, objects and command logic; accompanying artwork and target scripts form one multi-platform game repository. The release page is linked by the creator README. Classification: Substantial original homebrew/adventure source, not reverse engineering of an older commercial game. The repository uses DAAD with the DRC compiler and Maluva extensions, and its scripts package platform-specific interpreter/data disk releases. The game root is retained as one project rather than separate ST, Amiga and C64 records. Source CPU: The inspected work is a newly authored DAAD adventure, not a reconstruction from a historical machine-code binary. source_platforms, source_language and source_cpu therefore remain empty. Target CPU: Target scripts compile a DAAD game database and combine it with external machine-specific interpreters. No interpreter assembly source or explicit CPU selection was verified in this game checkout. The platform targets are established, but target_cpu remains empty rather than inferring processor models from machine names. Build: The creator distributes playable releases and supplies launch instructions for Atari ST, Amiga and other targets, supporting creator-reported runnable/playable=true. The source README expressly warns that external tools are omitted and paths are hardcoded; the inspected ST/Amiga/C64 scripts confirm those dependencies. Current checkout compilability remains unknown. Limitations: No compilation, emulator launch, gameplay or byte comparison was performed. Released binaries are not proof that this archived source snapshot rebuilds without modification. Runtime profiles: The source README and reviewed ST/Amiga scripts specify target machines and media but no verified minimum CPU, RAM or OS version. The creator page gives disk-loading instructions rather than complete ST/Amiga hardware minima; no runtime profile is inferred. AI: The complete repository tree, creator README, game-source header and selected logic, three target scripts and both available commit messages contain no explicit AI-development disclosure. Usage remains null; historical dates alone do not prove non-use. Relationships: The README credits Tim Gilberts for DAAD and Uto for Maluva; DRC is a separate compiler. The public source license allows personal educational use but forbids derivative games, so this is not described as permissively licensed. The official release page also lists later MSX/QL ports, a D42 C64 point-and-click edition and a browser edition; those uninspected implementations are not added to this DAAD source record. Evidence: https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/README.md https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/rabenstein.dsf https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/atari_st.sh https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/amiga.sh https://github.com/ByteProject/Rabenstein/blob/8fec1f400bbfcb317dbdc8c7a77789fb781492dc/64.sh https://8bitgames.itch.io/rabenstein https://github.com/ByteProject/Rabenstein/commits/8fec1f400bbfcb317dbdc8c7a77789fb781492dc"
-  },
-  {
-    "id": "jc64dis-java-retro-disassembler",
-    "title": "JC64dis",
-    "upstream_name": "JC64dis",
-    "display_title": "JC64dis — interactive Commodore disassembler and analysis workbench",
-    "subjects": [],
-    "repo": "https://github.com/ice00/jc64",
-    "source_platforms": [
-      "Commodore 64",
-      "Commodore 128",
-      "Commodore 1541",
-      "VIC-20",
-      "Commodore Plus/4",
-      "Atari 8-bit",
-      "Odyssey 2"
-    ],
-    "target_platforms": [
-      "Windows",
-      "Linux",
-      "macOS"
-    ],
-    "source_cpu": [
-      "6510",
-      "6502",
-      "Z80",
-      "8048"
-    ],
-    "target_cpu": [
-      "x86-64"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "machine code"
-    ],
-    "reconstructed_languages": [
-      "Java"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "disassembler",
-      "reassembler",
-      "binary-analysis",
-      "emulator"
-    ],
-    "types": [
-      "interactive disassembler",
-      "software emulator"
-    ],
-    "re_started": null,
-    "last_activity": "2026-07-29",
-    "last_checked": "2026-10-11",
-    "status": "Current disassembler with observed successful upstream JAR/native CI; experimental emulator retained in the same root.",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "interactive labels and comments",
-      "undocumented opcode decoding",
-      "machine memory maps",
-      "AI-generated analysis annotations"
-    ],
-    "tags": [
-      "Commodore 64",
-      "Commodore 128",
-      "6502",
-      "disassembly",
-      "AI-assisted analysis"
-    ],
-    "notes": "Identity: Ice Team/Stefano Tognon’s coherent Java root contains the historical JC64 emulator and the maintained JC64dis graphical disassembler. The old emulator warning in README does not describe the availability of the later JC64dis releases. Repository metadata identifies the root as non-fork; source headers state GPL-2.0-or-later. Classification: Reusable software-archaeology tooling, not a reconstructed game. The inspected 6510 disassembler decodes legal and undocumented opcodes; TargetType dispatches machine-specific disassembly; the integrated agent can request listings and assign labels/comments. The emulator and disassembler remain one root record. Compiler.java dispatches assembler calls to DASM, ACME, ca65, 64tass, KickAssembler, Glass and AS, substantiating the integrated reassembly capability. Source CPU: M6510Dasm implements 6510 instruction decoding. TargetType explicitly dispatches M6502-family Commodore/Atari targets, C128Z to Z80Dasm and Odyssey to the I8048-family decoder. These are analysed guest architectures, not the Java host CPU. AtariDasm’s inspected memory-map dispatch names GTIA/POKEY/ANTIC, establishing Atari 8-bit rather than Atari ST; OdysseyDasm identifies the Odyssey/Videopac BIOS. Target CPU: The inspected native-image workflow explicitly downloads amd64 Liberica toolchains for Linux, Windows and macOS and produces native JC64dis binaries. x86-64 records those documented native output variants; the separately built JVM JAR is not assigned an inferred hardware CPU. Build: Observed upstream CI at the pinned commit: run 30475925046 completed successfully. Its job records show successful Ant JAR compilation and native-image build steps for Windows/macOS, the combined Linux compilation/native-image step, and artifact uploads. Ant’s manifest selects JC64Dis. This is concrete upstream build-step evidence for compilable=true, not merely a generic green workflow. Published 3.2 and latest releases contain JAR/native packages; runnable/playable and byte exactness remain unknown. Limitations: No local compilation, native/JVM launch, emulator compatibility test or byte comparison was performed. Successful CI builds do not prove GUI/runtime correctness. Runtime profiles: The workflow and README establish Java/native host variants and qualitative performance cautions, but no verified minimum RAM, OS version or CPU generation for a runnable distribution. Guest 6510/Z80/8048 support is not a host minimum; no runtime profile is inferred. AI: The inspected DisassemblerAgent.java implements an OpenAI-compatible AI annotation feature and current release notes advertise AI labeling. This establishes a tool capability, not actual AI use in developing JC64dis. No explicit development-use disclosure or AI co-author attribution was found in README, inspected source/build files or the 30 reviewed commit messages; usage stays null. Relationships: README credits VICE for CPU instruction-emulation foundations and other hardware references. JC64dis is an integrated subsystem of this same repository, not a separate game or project-per-example. The release notes describe Regenerator2000 project import as interoperability; that is not evidence of duplicate identity. Evidence: https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/README.md https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/cpu/M6510Dasm.java https://github.com/ice00/jc64/releases/tag/3.2 https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/swing/main/TargetType.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/ai/DisassemblerAgent.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/asm/Compiler.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/machine/AtariDasm.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/src/sw_emulator/software/machine/OdysseyDasm.java https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/.github/workflows/native.yml https://github.com/ice00/jc64/blob/59988b819768e8c48f01664ed2ff082ee428de77/build-github.xml https://github.com/ice00/jc64/actions/runs/30475925046 https://github.com/ice00/jc64/actions/runs/30475925046/job/90657478818 https://github.com/ice00/jc64/actions/runs/30475925046/job/90657478864 https://github.com/ice00/jc64/actions/runs/30475925046/job/90657478865 https://github.com/ice00/jc64/commits/59988b819768e8c48f01664ed2ff082ee428de77"
-  },
-  {
-    "id": "negentropy-c64-html-disassembler",
-    "title": "Negentropy",
-    "upstream_name": "Negentropy",
-    "display_title": "Negentropy — annotated C64 disassembly and linked HTML generator",
-    "subjects": [],
-    "repo": "https://github.com/shewitt-au/negentropy",
-    "source_platforms": [
-      "Commodore 64"
-    ],
-    "target_platforms": [],
-    "source_cpu": [
-      "6502",
-      "6510"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "6502 machine code",
-      "Commodore BASIC"
-    ],
-    "reconstructed_languages": [
-      "Python"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "disassembler",
-      "binary-analysis",
-      "asset-tool"
-    ],
-    "types": [
-      "annotated disassembly generator"
-    ],
-    "re_started": null,
-    "last_activity": "2025-10-12",
-    "last_checked": "2026-10-11",
-    "status": "Python beta disassembler; author reports a successful ACME round-trip example, with current execution untested.",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "configuration-driven labels and comments",
-      "linked disassembly",
-      "BASIC SYS cross-references",
-      "character-set rendering"
-    ],
-    "tags": [
-      "Commodore 64",
-      "HTML",
-      "BASIC",
-      "6502"
-    ],
-    "notes": "Identity: Stephen Hewitt’s Negentropy is a Python 3 console C64 disassembler. setup.py names the same canonical repository, beta version 0.2, author and MIT license; repository metadata marks it non-fork. Classification: One reusable analysis/generation tool, rather than a game reconstruction: README describes linked HTML, BASIC listings and charset images. The inspected M6502 decoder emits structured instructions/labels/comments and the CLI delegates output generation to templates. Source CPU: README explicitly specifies 6502 machine-code disassembly and setup.py names both 6502 and 6510. M6502Decoder interprets instruction operand sizes and addressing modes, resolves branch targets and emits instruction records. The C64-specific symbol map belongs to this analysed architecture. Target CPU: The maintained program runs under Python and primarily produces linked HTML/text analysis; its host processor is not specified. An optional ACME source template is not a separate compiled modern-host or native retro game output, so no target CPU is assigned. Build: setup.py declares Python 3, a negentropy console entry point, and Jinja2/Pillow/Lark dependencies. Historical upstream commit ae5712aa9b1e47b9974286929671deccd61cf001 explicitly reports successfully assembling one disassembled file with ACME and playing that test. That is a dated example round-trip claim, not proof of current package installation, arbitrary output rebuilding or byte identity; current build flags remain unknown. Limitations: No package installation, CLI execution, ACME build or output comparison was performed. The README still calls non-HTML templates incomplete. Runtime profiles: Python 3 and named dependencies are documented. The inspected README, package metadata and CLI do not establish a minimum host CPU/RAM or an OS-specific runnable profile; none is inferred from the C64 input format. AI: No explicit development-AI disclosure was found in the README, package metadata, inspected decoder/CLI files, complete tree inventory or the 30 reviewed commit messages. Python code and a missing disclosure do not establish non-use; usage stays null. Relationships: The canonical non-fork root and setup metadata agree on identity. Jinja2, Pillow and Lark are external dependencies, while BASIC/6502 decoders, image generation and output templates are internal components of the same tool. No separate title-level subjects are created. Evidence: https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/README.md https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/setup.py https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/negentropy/M6502decoder.py https://github.com/shewitt-au/negentropy/blob/04b86f701decad4912dc50cf32c906b9644d4f6f/negentropy/negentropy.py https://github.com/shewitt-au/negentropy/commit/ae5712aa9b1e47b9974286929671deccd61cf001 https://github.com/shewitt-au/negentropy/commits/04b86f701decad4912dc50cf32c906b9644d4f6f https://github.com/shewitt-au/negentropy/tree/04b86f701decad4912dc50cf32c906b9644d4f6f"
-  },
-  {
-    "id": "nsshaft-native-c128-prototype",
-    "title": "Native Commodore 128 NS-Shaft prototype",
-    "upstream_name": "Native Commodore 128 NS-Shaft prototype",
-    "display_title": "NS-Shaft — native C128 descent-game prototype",
-    "subjects": [
-      "NS-Shaft"
-    ],
-    "repo": "https://github.com/Mankind-dvk/nsshaft-c128",
-    "source_platforms": [],
-    "target_platforms": [
-      "Commodore 128"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "8502"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "Native C128 VIC-IIe prototype",
-        "platform": "Commodore 128",
-        "cpu_family": "6502",
-        "min_cpu": "8502",
-        "chipsets": [
-          "VIC-IIe"
-        ],
-        "os": "C128 native mode / BASIC 7 loader",
-        "notes": "Author specifies native 8502 mode at 1 MHz, RAM bank 0, 40-column output and paddle input on control port 1. PAL-oriented frame timing; writable disk needed for persistent scores. No minimum RAM quantity or NTSC compatibility claim is inferred.",
-        "evidence": [
-          "https://github.com/Mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/README.md",
-          "https://github.com/Mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/src/main.s"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "6502 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "native game prototype"
-    ],
-    "re_started": null,
-    "last_activity": "2026-09-28",
-    "last_checked": "2026-10-11",
-    "status": "Substantial native C128 gameplay implementation; documented ca65/ld65 build and VICE launcher, untested in this pass.",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "native 8502 execution",
-      "character-tile scrolling",
-      "SID raster interrupt",
-      "dual-slot high-score persistence"
-    ],
-    "tags": [
-      "Commodore 128",
-      "8502",
-      "VIC-IIe",
-      "prototype"
-    ],
-    "notes": "Identity: The repository identifies an NS-Shaft-style native Commodore 128 prototype, with detailed platform/hazard/character/scoring documentation and a complete subsystem-oriented assembly tree. Its metadata marks it non-fork. No LICENSE file is present in the pinned tree; the included uppercase font has separate classroom-example provenance. Classification: This is a native game reimplementation/prototype, not a game-specific emulator wrapper. The inspected main.s directly initializes C128 MMU/VIC/CIA state, calls gameplay modules and coordinates character selection, physics, scrolling and high-score screens. The README explicitly says it never enters C64 compatibility mode. Source CPU: NS-Shaft is named as gameplay inspiration, but the inspected project does not identify an original binary or recovered source listing being translated. The original subject’s machine architecture and language are therefore left unknown rather than guessed from the new C128 target. Target CPU: README explicitly specifies native C128/8502 execution at 1 MHz. main.s sets ca65’s 6502 instruction subset, starts from a BASIC 7 SYS loader and manipulates C128 MMU registers; 8502 is the evidenced native output CPU, despite the shared 6502 instruction syntax. Build: The PowerShell recipe invokes ca65 and ld65 with c128-prg.cfg to create build/nsshaft-c128.prg; README supplies VICE x128 and real-machine loading instructions. Optional regression sources exist for charset, platforms and leaderboard behavior, including a py65-based high-score harness. These are source/build/test declarations, not observed passing tests. All four build flags remain unknown. Limitations: No assembly, Python regression suite, VICE execution, gameplay test or hardware test was run. README’s byte-identical macro-refactoring discussion does not establish identity with an original NS-Shaft binary. Runtime profiles: A documented native C128 profile is recorded from explicit 8502, 1 MHz, bank-0 and VIC-IIe 40-column statements. README requires paddle input on port 1 and writable disk for saved scores, and describes PAL-oriented timing. The profile records these documented requirements only; no RAM minimum or NTSC compatibility is inferred. Limitations: The documented hardware configuration was not independently exercised. AI: README, inspected assembly/build/test/font files and the 13 visible default-branch commits contain no explicit development-AI attribution. Merged PR 4 uses a codex/docs-source-sync branch but has no description; a branch label alone does not establish actual Codex use. Usage remains null. Relationships: The README describes a native NS-Shaft-style port with newly structured assembly subsystems rather than preserved historical source. Font documentation identifies an unchanged 2048-byte slice of a teacher-provided C64 charset example embedded locally, so that asset has a separate provenance from game logic. No duplicate tracked implementation or independent subproject was established. Limitations: Original game/platform lineage and asset reuse permissions are not fully documented; no source-restoration or clean-room claim is made. Evidence: https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/README.md https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/src/main.s https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/assets/fonts/README.md https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/build.ps1 https://github.com/mankind-dvk/nsshaft-c128/blob/e4e58a56b72ec04256a7f72b6d09eb41e93f9623/tests/test_highscores.py https://github.com/Mankind-dvk/nsshaft-c128/pull/4 https://github.com/Mankind-dvk/nsshaft-c128/commits/e4e58a56b72ec04256a7f72b6d09eb41e93f9623"
-  },
-  {
-    "id": "the-race-c128-reconstruction",
-    "title": "The Race",
-    "upstream_name": "The Race",
-    "display_title": "The Race — C128 binary reconstruction and C64 adaptation",
-    "subjects": [
-      "The Race"
-    ],
-    "repo": "https://github.com/ricardoquesada/c128-the-race",
-    "source_platforms": [
-      "Commodore 128"
-    ],
-    "target_platforms": [
-      "Commodore 128",
-      "Commodore 64"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "6502 machine code"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction",
-      "reverse-engineering-derived-port"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "binary-derived game reconstruction",
-      "native port"
-    ],
-    "re_started": null,
-    "last_activity": "2016-12-12",
-    "last_checked": "2026-10-11",
-    "status": "Annotated reconstruction with C128 and C64 build targets and packaged disks; no current build or gameplay verification.",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "ca65/cl65 assembly",
-      "binary-derived reconstruction",
-      "conditional machine initialization",
-      "VIC raster interrupts"
-    ],
-    "tags": [
-      "Commodore 128",
-      "Commodore 64",
-      "6502"
-    ],
-    "notes": "Identity: Ricardo Quesada’s README states that The Race for C128 is being regenerated from its binary files. The root contains orig PRG/D71 inputs, substantial annotated game/intro/music assembly, editable graphics resources and separate C64/C128 packaged disks. The pinned repository is non-fork; no LICENSE file appears in its tree. Classification: The one-line README establishes binary-derived reconstruction rather than recovered original source. Substantial labelled game logic handles two players, collisions, scrolling, timers and raster IRQs. Conditional initialization and the Makefile extend the same recovered game to native C64, so this is one coherent reconstruction/adaptation lineage. Source CPU: The reconstructed C128 game listing uses the 6502-family instruction set, accumulator/X/Y registers, zero-page state and indirect accesses; only the evidenced 6502 instruction architecture is recorded. No Z80/CP/M game path is present in the inspected assembly. Target CPU: Makefile assembles the same sources with cl65 -t c128 and -t c64. main.s conditionally selects C128 MMU or C64 $01 banking initialization. Both outputs remain native 6502-family code; VICE is merely the external launch/test environment. Build: The root declares cl65, Exomizer and VICE c1541/x128/x64 steps and includes D71/D64 binaries. Historical commits describe working intermediate reconstruction and later C64 support, but do not certify the current two-target build or complete gameplay. The default all target also launches emulators. All build/byte-match flags remain unknown. Limitations: No compilation, resource export, emulator launch, gameplay or original-binary comparison was performed. The Makefile references resource-copy inputs not all present under res; corresponding generated .bin assets are committed under src, but the rebuild path was not exercised. Runtime profiles: C128/C64 build targets and VIC/CIA usage are explicit, but the inspected README/build/source files do not specify a verified minimum RAM, PAL/NTSC compatibility or hardware configuration. No runtime profile is inferred from target names or packaged disk images. AI: No explicit AI-development disclosure or AI co-author attribution was found in README, inspected assembly/Makefile or the 29 returned history entries. Historical dates alone are not proof of non-use; usage remains null. Relationships: The C64 adaptation, C128 reconstruction, intro, cracktro and music modules form the same game repository and are retained as one project. orig contains reconstruction inputs and bin contains outputs; these are not extra project records. The author’s separately reviewed binary-only Erasoft archive is not being counted again. Evidence: https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/README.md https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/src/main.s https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/src/game.s https://github.com/ricardoquesada/c128-the-race/tree/4db38ff7adcce1b70794a5468128a0a812fd7ae5 https://github.com/ricardoquesada/c128-the-race/blob/4db38ff7adcce1b70794a5468128a0a812fd7ae5/Makefile https://github.com/ricardoquesada/c128-the-race/commit/4ec60078ccbbdd051e8d4e24f4a5aace10e0a600 https://github.com/ricardoquesada/c128-the-race/commit/d6c3980efa1b181d7cf7dd8ae5e13dcea72b71a9 https://github.com/ricardoquesada/c128-the-race/commits/4db38ff7adcce1b70794a5468128a0a812fd7ae5"
-  },
-  {
-    "id": "gorilla-cpm-modula2-port",
-    "title": "Gorilla.BAS - CP/M version",
-    "upstream_name": "Gorilla.BAS - CP/M version",
-    "display_title": "Gorillas — Turbo Modula-2 port for C128 and CP/M systems",
-    "subjects": [
-      "Gorillas",
-      "GORILLA.BAS"
-    ],
-    "repo": "https://github.com/sblendorio/gorilla-cpm",
-    "source_platforms": [
-      "DOS"
-    ],
-    "target_platforms": [
-      "CP/M-80",
-      "Commodore 128",
-      "Memotech MTX",
-      "Amstrad CPC",
-      "MSX-DOS"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "QBasic"
-    ],
-    "reconstructed_languages": [
-      "Modula-2"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "reimplementation"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "native game port"
-    ],
-    "re_started": null,
-    "last_activity": "2019-11-07",
-    "last_checked": "2026-10-11",
-    "status": "Author-distributed compiled CP/M game with platform disks and in-game examples; current rebuild and playthrough untested.",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "terminal abstraction",
-      "ballistic projectile simulation",
-      "native CP/M port"
-    ],
-    "tags": [
-      "Commodore 128",
-      "CP/M",
-      "Modula-2",
-      "Gorillas",
-      "Amstrad CPC",
-      "Memotech MTX"
-    ],
-    "notes": "Identity: Francesco Sblendorio’s repository identifies a Turbo Modula-2 reimplementation of Microsoft’s DOS 5.0 GORILLA.BAS. main.mod credits the 1991 QBasic version and the 2015 CP/M version. The non-fork root contains the game, terminal library, compiled .COM and platform disk images; repository metadata identifies GPL-2.0 licensing. Classification: A substantial source-level native game port, not binary-derived decompilation or an embedded CPU-emulation wrapper. The inspected game.mod implements projectile movement, buildings/collisions, alternating players and scoring; xterm.mod provides concrete CP/M terminal behavior. Multiple platform disks distribute the same coherent game. Source CPU: The documented input is the DOS QBasic game at language/game-design level, not an x86 binary disassembly. Original binary CPU does not apply to this source-level port, so source_cpu is empty. Target CPU: The README specifies compiled CP/M-80 .COM output and names a Z80 emulator in the development credits, but the inspected Modula-2 modules do not establish a precise 8080-versus-Z80 output instruction requirement. Target CPU stays empty instead of inferring it solely from the C128 or CP/M platform labels. Build: The author explicitly distributes compiled gorilla.com and bootable C128/MTX/CPC/MSX disk images, with named in-game and intro examples on C128 and CPC. This supports author-reported compilability/runnable/playable status for the distributed game, corroborated by the substantial inspected game loop. The exact fresh-build procedure is not supplied in a build script; Turbo Modula-2 is identified as the compiler. Limitations: No compiler invocation, boot, gameplay session or binary comparison was performed here. True flags describe documented upstream distribution/playability, not an independent test; byte_exact remains null. Runtime profiles: The repository documents CP/M-80, named terminal variants and bootable C128/MTX/CPC distributions. xterm.mod implements C128 color and cursor sequences and fixed 80-column UI assumptions, but no verified minimum CPU/RAM or OS revision is given. No machine-minimum profile is inferred. AI: No explicit development-AI disclosure was found in README, inspected Modula-2 modules, tree inventory or the 30 reviewed commit messages. Their historical dates do not establish non-use; usage stays null. Relationships: The README identifies the original Microsoft QBasic game and this distinct CP/M Modula-2 implementation. The tracked albank1/Commodore-64-Gorillas is a separate C64 BASIC rewrite; shared Gorillas subject alone does not make the CP/M codebase a duplicate. All terminal/platform variants here remain one project. Evidence: https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/README.md https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/source/main.mod https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/source/game.mod https://github.com/sblendorio/gorilla-cpm/blob/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d/source/xterm.mod https://github.com/sblendorio/gorilla-cpm/tree/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d https://github.com/sblendorio/gorilla-cpm/commits/0de936a27ff514c70b43362b5fae6ce3fbdbbf6d"
   }
 ]
