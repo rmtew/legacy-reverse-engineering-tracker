@@ -2007,7 +2007,7 @@
       "created_at": "2019-10-12",
       "pushed_at": "2026-10-04",
       "updated_at": "2026-09-23",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -3492,7 +3492,8 @@
       "evidence": [
         "Claude project instructions/configuration present (configuration only; does not establish AI contribution)",
         "Explicit commit attribution: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>. https://github.com/mdbergmann/ACEBasic/commit/46f50115a7b4dfec2e082dac8ac2768b9ca63387",
-        "Attribution review (2026-10-11): Actual coauthor trailer establishes Claude-family assistance. Existing Claude Code product label came solely from setup/instruction guidance; no independent product-specific contribution claim found in reviewed material. Reviewed README, commit history, existing AI audit and product-specific attribution searches; The broader Claude family is explicit; the interface/product used is unspecified. Evidence: https://github.com/mdbergmann/ACEBasic/commit/46f50115a7b4dfec2e082dac8ac2768b9ca63387 https://github.com/mdbergmann/ACEBasic/blob/3ee454742bff299c208c4b3595b9ac552ca873e8/README.md"
+        "Attribution review (2026-10-11): Actual coauthor trailer establishes Claude-family assistance. Existing Claude Code product label came solely from setup/instruction guidance; no independent product-specific contribution claim found in reviewed material. Reviewed README, commit history, existing AI audit and product-specific attribution searches; The broader Claude family is explicit; the interface/product used is unspecified. Evidence: https://github.com/mdbergmann/ACEBasic/commit/46f50115a7b4dfec2e082dac8ac2768b9ca63387 https://github.com/mdbergmann/ACEBasic/blob/3ee454742bff299c208c4b3595b9ac552ca873e8/README.md",
+        "Claude co-author trailer observed in recent tracked commits: 3 in this scan (example 46f50115a7b4; Claude Opus 4.7 (1M context))"
       ]
     },
     "techniques": [],
@@ -3508,8 +3509,8 @@
       "repository": "mdbergmann/ACEBasic",
       "created_at": "2026-01-14",
       "pushed_at": "2026-06-16",
-      "updated_at": "2026-09-17",
-      "checked_at": "2026-10-10",
+      "updated_at": "2026-10-11",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -11105,7 +11106,7 @@
       "created_at": "2025-10-26",
       "pushed_at": "2026-10-09",
       "updated_at": "2026-10-09",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -11960,6 +11961,98 @@
         "url": "https://github.com/neodyme60/amiga-game-engine/commit/57311f6fa4d2a9d6d035d5e60cebd2fdf398052e"
       }
     }
+  },
+  {
+    "id": "amiga-game-kit-codebase",
+    "title": "Amiga Game Kit",
+    "upstream_name": "Amiga Game Kit",
+    "display_title": "Amiga Game Kit: native game build, test and asset pipeline",
+    "subjects": [],
+    "repo": "https://github.com/codebase/amiga-game-kit",
+    "source_platforms": [],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "68000"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "Python",
+      "C",
+      "Shell"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "development-environment",
+      "compiler-toolchain",
+      "debugger",
+      "profiler",
+      "asset-tool",
+      "automation"
+    ],
+    "types": [
+      "Amiga game development toolkit"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-11",
+    "status": "Source reviewed; no independent build or runtime test",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Retro Diffusion"
+      ],
+      "evidence": [
+        "README explicitly identifies bundled examples as AI-agent-built and selected example art as Retro Diffusion-generated. Named coding agents are advertised supported integrations, not individually established authorship. https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/README.md",
+        "Commit 6acced96fd328458e074f6e303633866ce5dc5aa attributes VOIDRUNNER ship and boss assets to Retro Diffusion.",
+        "Claude project instructions/configuration present (configuration only; does not establish AI contribution)"
+      ]
+    },
+    "techniques": [],
+    "tags": [
+      "amiga",
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Amiga Game Kit is a coherent root-scoped toolkit plus demonstration games, native debug runtime, test scenarios and asset pipelines. The reviewed README, template, build script and profile implementation agree on that scope. Classification: Modern retro-development tooling integrates native C/ACE compilation, reproducible joystick/frame scenarios, golden-image checks, serial state capture and game-asset conversion. Emulator-driven testing is a development aid, not a catalogue entry for an individual game running through a guest CPU wrapper. Example games remain supporting material of this root entry. Source CPU: No historical executable is being recovered by this toolkit. Original-binary platform, CPU and source-language fields stay empty rather than being copied from its Amiga output. Target CPU: tools/build explicitly sets M68K_CPU=68000, M68K_FPU=soft and an m68k-amigaos toolchain. This records the native game output architecture; no host CPU is inferred from Python or Docker. Build: The inspected script invokes Docker/CMake against ACE and creates a bootable OFS ADF. README supplies dependencies and upstream example-test claims, but this pass did not install the toolchain, compile games, execute tests or compare historical binaries. All independent build flags remain unknown. Runtime profiles: Profiles.py documents A500 OCS 512 KiB chip plus 512 KiB slow, ECS/Kickstart 3.1, AROS and experimental A1200 AGA configurations. These are selectable test profiles rather than a universal minimum for every generated game, so no project-wide minimum runtime profile is imposed. AI: The README expressly says several bundled games were built by an AI agent and selected graphics generated with Retro Diffusion; the latest commit corroborates those generated assets. Thus usage is true for this repository. Claude Code, Codex and Cursor appear as supported integrations, which alone does not establish that each authored the toolkit, so only Retro Diffusion is a specifically evidenced tool label. All 55 available commit messages were reviewed; none names Claude, Codex or Cursor as a contributing author. CLAUDE.md is only an @AGENTS.md pointer, while AGENTS.md gives generic repository procedures. Relationships: ACE, bebbo-derived GCC and vAmiga are explicit dependencies. ACE already has its own tracker entry; this repository adds an orchestration/test/asset layer rather than mirroring that library. Root scope covers its integrated examples. README states MIT for AGK, MPL-2.0 for ACE and the used vAmiga core, and MIT for Moira; it says the GPL GUI is not used. These are upstream declarations, not a dependency-wide licensing audit. Evidence: https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/README.md https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/templates/game/CMakeLists.txt https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/tools/build https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/harness/agk/profiles.py https://github.com/codebase/amiga-game-kit/commit/6acced96fd328458e074f6e303633866ce5dc5aa https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/CLAUDE.md https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/AGENTS.md",
+    "github": {
+      "repository": "codebase/amiga-game-kit",
+      "created_at": "2026-09-25",
+      "pushed_at": "2026-09-28",
+      "updated_at": "2026-10-08",
+      "checked_at": "2026-10-11",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python",
+        "C",
+        "CMake",
+        "Shell",
+        "Dockerfile"
+      ],
+      "latest_commit": {
+        "sha": "6acced96fd328458e074f6e303633866ce5dc5aa",
+        "date": "2026-09-28",
+        "message": "voidrunner: the VR-1 and the Warden from Retro Diffusion",
+        "url": "https://github.com/codebase/amiga-game-kit/commit/6acced96fd328458e074f6e303633866ce5dc5aa"
+      }
+    },
+    "last_activity": "2026-09-28"
   },
   {
     "id": "geekychris-amiga-games",
@@ -13024,7 +13117,7 @@
       "created_at": "2026-07-21",
       "pushed_at": "2026-09-11",
       "updated_at": "2026-09-12",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -29385,7 +29478,7 @@
       "created_at": "2012-09-07",
       "pushed_at": "2026-08-02",
       "updated_at": "2026-10-07",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -32100,7 +32193,7 @@
       "created_at": "2026-05-29",
       "pushed_at": "2026-10-01",
       "updated_at": "2026-10-01",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -32196,7 +32289,7 @@
       "created_at": "2026-05-24",
       "pushed_at": "2026-05-30",
       "updated_at": "2026-05-30",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -37350,7 +37443,7 @@
       "created_at": "2026-09-03",
       "pushed_at": "2026-09-03",
       "updated_at": "2026-09-11",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -44730,7 +44823,7 @@
       "created_at": "2026-05-09",
       "pushed_at": "2026-10-04",
       "updated_at": "2026-10-01",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": "client/amiga",
@@ -51720,7 +51813,8 @@
       "evidence": [
         "Claude project instructions/configuration present (configuration only; does not establish AI contribution)",
         "Explicit commit attribution: Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>. https://github.com/dice-nx/dice-nx/commit/8574873f0eaf2a0193f3cfdf880c56d6f379cfb5",
-        "Attribution review (2026-10-11): Actual coauthor trailer establishes Claude-family assistance. Existing Claude Code product label came solely from setup/instruction guidance; no independent product-specific contribution claim found in reviewed material. Reviewed README, commit history, existing AI audit and product-specific attribution searches; The broader Claude family is explicit; the interface/product used is unspecified. Evidence: https://github.com/dice-nx/dice-nx/commit/8574873f0eaf2a0193f3cfdf880c56d6f379cfb5 https://github.com/dice-nx/dice-nx/blob/8574873f0eaf2a0193f3cfdf880c56d6f379cfb5/README.md"
+        "Attribution review (2026-10-11): Actual coauthor trailer establishes Claude-family assistance. Existing Claude Code product label came solely from setup/instruction guidance; no independent product-specific contribution claim found in reviewed material. Reviewed README, commit history, existing AI audit and product-specific attribution searches; The broader Claude family is explicit; the interface/product used is unspecified. Evidence: https://github.com/dice-nx/dice-nx/commit/8574873f0eaf2a0193f3cfdf880c56d6f379cfb5 https://github.com/dice-nx/dice-nx/blob/8574873f0eaf2a0193f3cfdf880c56d6f379cfb5/README.md",
+        "Claude co-author trailer observed in recent tracked commits: 12 in this scan (example 8574873f0eaf; Claude Fable 5.1)"
       ]
     },
     "techniques": [],
@@ -51736,7 +51830,7 @@
       "created_at": "2023-01-13",
       "pushed_at": "2026-09-13",
       "updated_at": "2026-09-16",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -53009,7 +53103,7 @@
       "created_at": "2026-01-06",
       "pushed_at": "2026-01-18",
       "updated_at": "2026-02-19",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "staging",
       "tracking_branch": "staging",
       "tracking_path": null,
@@ -54260,7 +54354,7 @@
       "created_at": "2026-01-18",
       "pushed_at": "2026-04-26",
       "updated_at": "2026-09-12",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -56819,9 +56913,9 @@
       ],
       "evidence": [
         "Claude project instructions/configuration present (configuration only; does not establish AI contribution)",
-        "Claude co-author trailer observed in recent tracked commits: 10 in this scan (example 968752861f1b; Claude Opus 5.5)",
         "Explicit commit attribution: Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>. https://github.com/kswkev/dungeon-master-claude/commit/968752861f1b7e52eb198327c6a3c2d4a67bdf73",
-        "Attribution review (2026-10-11): Actual coauthor trailer establishes Claude-family assistance. Existing Claude Code product label came solely from setup/instruction guidance; no independent product-specific contribution claim found in reviewed material. Reviewed README, commit history, existing AI audit and product-specific attribution searches; The broader Claude family is explicit; the interface/product used is unspecified. Evidence: https://github.com/kswkev/dungeon-master-claude/commit/968752861f1b7e52eb198327c6a3c2d4a67bdf73 https://github.com/kswkev/dungeon-master-claude/blob/f03ade504b708ca246530844234a73a974ca5615/README.md"
+        "Attribution review (2026-10-11): Actual coauthor trailer establishes Claude-family assistance. Existing Claude Code product label came solely from setup/instruction guidance; no independent product-specific contribution claim found in reviewed material. Reviewed README, commit history, existing AI audit and product-specific attribution searches; The broader Claude family is explicit; the interface/product used is unspecified. Evidence: https://github.com/kswkev/dungeon-master-claude/commit/968752861f1b7e52eb198327c6a3c2d4a67bdf73 https://github.com/kswkev/dungeon-master-claude/blob/f03ade504b708ca246530844234a73a974ca5615/README.md",
+        "Claude co-author trailer observed in recent tracked commits: 10 in this scan (example 968752861f1b; Claude Opus 5.5)"
       ]
     },
     "techniques": [
@@ -56859,7 +56953,7 @@
       "created_at": "2026-10-02",
       "pushed_at": "2026-10-09",
       "updated_at": "2026-10-09",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -60417,7 +60511,7 @@
       "created_at": "2026-09-10",
       "pushed_at": "2026-10-07",
       "updated_at": "2026-10-07",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": "src_orig",
@@ -60936,7 +61030,7 @@
       "created_at": "2026-09-10",
       "pushed_at": "2026-10-07",
       "updated_at": "2026-10-07",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -79161,7 +79255,7 @@
       "created_at": "2025-12-31",
       "pushed_at": "2026-10-07",
       "updated_at": "2026-10-07",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -86932,7 +87026,7 @@
       "created_at": "2026-07-22",
       "pushed_at": "2026-07-23",
       "updated_at": "2026-10-07",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -98153,7 +98247,7 @@
       "created_at": "2026-06-10",
       "pushed_at": "2026-07-19",
       "updated_at": "2026-09-12",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -103430,7 +103524,7 @@
       "created_at": "2026-02-09",
       "pushed_at": "2026-02-15",
       "updated_at": "2026-09-05",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "master",
       "tracking_path": null,
@@ -105702,7 +105796,7 @@
       "created_at": "2026-06-19",
       "pushed_at": "2026-08-29",
       "updated_at": "2026-08-29",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -119495,7 +119589,7 @@
       "created_at": "2025-08-20",
       "pushed_at": "2026-05-27",
       "updated_at": "2026-10-02",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -121466,7 +121560,9 @@
       "evidence": [
         "Repository default-branch observation only, not established on the reviewed PCE branch: Claude project instructions/configuration present (configuration only; does not establish AI contribution)",
         "Repository default-branch observation only, not established on the reviewed PCE branch: .github/copilot-instructions.md present (configuration only; does not establish AI contribution)",
-        "Attribution review (2026-10-11): PCE is a separately tracked branch. Latest 700 PCE messages contain no Claude/Copilot/Codex/OpenAI/LLM attribution. All 10 known master-branch Copilot merge commits are on a diverged lineage, not ancestors of the PCE tip (common ancestor b2cc418a6cbdb2a38831d60e7253ef77a841149f). Default-branch settings and Copilot work must not be projected onto PCE. PCE branch README, CLAUDE.md fetch (absent), latest 700 PCE-branch commit messages, plus ancestry comparison against every 10 Copilot merge commit returned by repository search. Evidence: https://github.com/TheGoodDoktor/8BitAnalysers/blob/694d9d9609e3a6c6868e1b439d577945209154f5/README.md https://github.com/TheGoodDoktor/8BitAnalysers/compare/f4f8c2737fe2f82e58e355da076d443e31764315...694d9d9609e3a6c6868e1b439d577945209154f5"
+        "Attribution review (2026-10-11): PCE is a separately tracked branch. Latest 700 PCE messages contain no Claude/Copilot/Codex/OpenAI/LLM attribution. All 10 known master-branch Copilot merge commits are on a diverged lineage, not ancestors of the PCE tip (common ancestor b2cc418a6cbdb2a38831d60e7253ef77a841149f). Default-branch settings and Copilot work must not be projected onto PCE. PCE branch README, CLAUDE.md fetch (absent), latest 700 PCE-branch commit messages, plus ancestry comparison against every 10 Copilot merge commit returned by repository search. Evidence: https://github.com/TheGoodDoktor/8BitAnalysers/blob/694d9d9609e3a6c6868e1b439d577945209154f5/README.md https://github.com/TheGoodDoktor/8BitAnalysers/compare/f4f8c2737fe2f82e58e355da076d443e31764315...694d9d9609e3a6c6868e1b439d577945209154f5",
+        "Claude project instructions/configuration present (configuration only; does not establish AI contribution)",
+        ".github/copilot-instructions.md present (configuration only; does not establish AI contribution)"
       ]
     },
     "techniques": [
@@ -121490,7 +121586,7 @@
       "created_at": "2019-10-12",
       "pushed_at": "2026-10-04",
       "updated_at": "2026-09-23",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "master",
       "tracking_branch": "PCE",
       "tracking_path": null,
@@ -144273,7 +144369,7 @@
       "created_at": "2021-05-16",
       "pushed_at": "2026-10-10",
       "updated_at": "2026-09-28",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -147245,7 +147341,7 @@
       "created_at": "2026-05-18",
       "pushed_at": "2026-09-07",
       "updated_at": "2026-09-07",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -147652,7 +147748,7 @@
       "created_at": "2025-07-22",
       "pushed_at": "2026-08-31",
       "updated_at": "2026-08-31",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -157691,7 +157787,7 @@
       "created_at": "2026-08-02",
       "pushed_at": "2026-10-09",
       "updated_at": "2026-10-09",
-      "checked_at": "2026-10-10",
+      "checked_at": "2026-10-11",
       "default_branch": "main",
       "tracking_branch": "main",
       "tracking_path": null,
@@ -184730,69 +184826,5 @@
       }
     },
     "last_activity": "2024-05-05"
-  },
-  {
-    "id": "amiga-game-kit-codebase",
-    "title": "Amiga Game Kit",
-    "upstream_name": "Amiga Game Kit",
-    "display_title": "Amiga Game Kit: native game build, test and asset pipeline",
-    "subjects": [],
-    "repo": "https://github.com/codebase/amiga-game-kit",
-    "source_platforms": [],
-    "target_platforms": [
-      "Amiga"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "68000"
-    ],
-    "runtime_profiles": [],
-    "source_language": [],
-    "reconstructed_languages": [
-      "Python",
-      "C",
-      "Shell"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "development-environment",
-      "compiler-toolchain",
-      "debugger",
-      "profiler",
-      "asset-tool",
-      "automation"
-    ],
-    "types": [
-      "Amiga game development toolkit"
-    ],
-    "re_started": null,
-    "last_activity": null,
-    "last_checked": "2026-10-11",
-    "status": "Source reviewed; no independent build or runtime test",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Retro Diffusion"
-      ],
-      "evidence": [
-        "README explicitly identifies bundled examples as AI-agent-built and selected example art as Retro Diffusion-generated. Named coding agents are advertised supported integrations, not individually established authorship. https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/README.md",
-        "Commit 6acced96fd328458e074f6e303633866ce5dc5aa attributes VOIDRUNNER ship and boss assets to Retro Diffusion."
-      ]
-    },
-    "techniques": [],
-    "tags": [
-      "amiga",
-      "source-reviewed",
-      "no-independent-build"
-    ],
-    "notes": "Identity: Amiga Game Kit is a coherent root-scoped toolkit plus demonstration games, native debug runtime, test scenarios and asset pipelines. The reviewed README, template, build script and profile implementation agree on that scope. Classification: Modern retro-development tooling integrates native C/ACE compilation, reproducible joystick/frame scenarios, golden-image checks, serial state capture and game-asset conversion. Emulator-driven testing is a development aid, not a catalogue entry for an individual game running through a guest CPU wrapper. Example games remain supporting material of this root entry. Source CPU: No historical executable is being recovered by this toolkit. Original-binary platform, CPU and source-language fields stay empty rather than being copied from its Amiga output. Target CPU: tools/build explicitly sets M68K_CPU=68000, M68K_FPU=soft and an m68k-amigaos toolchain. This records the native game output architecture; no host CPU is inferred from Python or Docker. Build: The inspected script invokes Docker/CMake against ACE and creates a bootable OFS ADF. README supplies dependencies and upstream example-test claims, but this pass did not install the toolchain, compile games, execute tests or compare historical binaries. All independent build flags remain unknown. Runtime profiles: Profiles.py documents A500 OCS 512 KiB chip plus 512 KiB slow, ECS/Kickstart 3.1, AROS and experimental A1200 AGA configurations. These are selectable test profiles rather than a universal minimum for every generated game, so no project-wide minimum runtime profile is imposed. AI: The README expressly says several bundled games were built by an AI agent and selected graphics generated with Retro Diffusion; the latest commit corroborates those generated assets. Thus usage is true for this repository. Claude Code, Codex and Cursor appear as supported integrations, which alone does not establish that each authored the toolkit, so only Retro Diffusion is a specifically evidenced tool label. All 55 available commit messages were reviewed; none names Claude, Codex or Cursor as a contributing author. CLAUDE.md is only an @AGENTS.md pointer, while AGENTS.md gives generic repository procedures. Relationships: ACE, bebbo-derived GCC and vAmiga are explicit dependencies. ACE already has its own tracker entry; this repository adds an orchestration/test/asset layer rather than mirroring that library. Root scope covers its integrated examples. README states MIT for AGK, MPL-2.0 for ACE and the used vAmiga core, and MIT for Moira; it says the GPL GUI is not used. These are upstream declarations, not a dependency-wide licensing audit. Evidence: https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/README.md https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/templates/game/CMakeLists.txt https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/tools/build https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/harness/agk/profiles.py https://github.com/codebase/amiga-game-kit/commit/6acced96fd328458e074f6e303633866ce5dc5aa https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/CLAUDE.md https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/AGENTS.md"
   }
 ]
