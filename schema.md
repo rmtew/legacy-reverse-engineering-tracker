@@ -53,6 +53,14 @@ The UI renders structured classification independently of the display title. `di
 
 `ai` contains `usage` (`true`, `false`, or `null`) and a `tools` array containing only explicitly evidenced tools.
 
+Agent instruction/configuration files (including `CLAUDE.md`, `.claude`,
+`codex.md`, `AGENTS.md`, and Copilot instructions) establish configuration or
+supported integrations, not actual contribution. Their presence can be recorded
+as qualified context in `ai.evidence`, but cannot set `usage` or add tool labels.
+Generic evidence of AI use can establish `usage=true` without establishing any
+named coding tool. Reviewed attribution and explicit co-author trailers remain
+valid evidence; missing attribution means unknown rather than non-use.
+
 Co-author attribution uses the named tool, never an organization or email domain alone. For example, `Pi (GPT-6 Astra) <noreply@openai.com>` identifies Pi, and `Codex (GPT-6) <noreply@openai.com>` identifies Codex. `OpenAI <noreply@openai.com>` does not identify ChatGPT or any other specific tool. Model/provider details are preserved verbatim in `ai.evidence`; they are not additional tool labels.
 
 
@@ -72,7 +80,7 @@ The workflow also refreshes top-level `last_activity` from the latest commit on 
 
 Repository creation is **not** treated as the true reverse-engineering start date. The UI may show it with an asterisk as a fallback while `re_started` is unknown.
 
-AI automation is evidence-only: explicit AI instruction files or AI co-author commit trailers can set `ai.usage=true` and record evidence. Absence of those signals never sets AI usage to false.
+AI automation is evidence-only: explicit AI co-author commit trailers can set `ai.usage=true` and record named tools and evidence. Instruction/configuration files add qualified context only. Absence of contribution evidence never sets AI usage to false.
 
 
 ## Adaptive repository polling
