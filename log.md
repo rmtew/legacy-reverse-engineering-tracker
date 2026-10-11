@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-12 — Packaged-product, emulator-media and native-parity maintenance
+
+Promoted **Amy Chess — ColecoVision chess homebrew** from the Amy Studio multi-project repository as a distinct original-homebrew title: its 3,957-line Amy source, complete-game manifest and separately published 32,767-byte cartridge are explicit, while title-specific AI use remains unknown rather than inheriting Amy Studio's repository-wide credit.
+
+**Commodore Commander — Theia development IDE** now records the successful macOS Apple Silicon package path: Kick Assembler output bytes, SIDScore, bundled VICE frames, a typed BASIC border-colour change and power-off/restart are exercised upstream. ARM64 is recorded as an evidenced output architecture, with no unstated Apple Silicon generation, OS or RAM floor. **Touhou 4: Lotus Land Story — PC-98 source reconstruction** records 71 GNU CTests, seven UBSan contracts, 184,908 original-instruction vectors including 514 divide faults and eight bounded startup/demo routes, without promoting those receipts to whole-picture, physical-timing or byte-exact acceptance.
+
+**Gearcoleco — ColecoVision/ADAM emulator and MCP debugger** now records its 1.7.4 development-head idle-debounced ADAM media persistence and stuck-key cleanup. **Geargrafx — PC Engine emulator and MCP debugger** records the 1.8.3 development-head zipped-CD rejection and CHD guidance. The latest published releases remain 1.7.3 and 1.8.2 respectively. The CPU audit queue was empty before selection; no quota-driven CPU or minimum-hardware values were invented, and no upstream project was built or executed locally.
+
 ## 2026-10-11 — Multi-host builds, replay evidence and canonical-source maintenance
 
 Reviewed four repositories with commits after the latest activity refresh. **CPCSyntaxError v0.6.0** now records successful Windows x64, Linux x86-64 and universal macOS arm64/x86-64 release builds, the explicit macOS 10.15 floor, monitor H/V hold controls and Compendium-backed CRTC timing; upstream still marks the Linux and macOS packages as untested on desktops. **Firestaff v3.0.376** records bounded DM1 Amiga 2.0 resume, an x86-64 AppImage run under QEMU on an ARM64 VM and authenticated DM2 FM Towns selected-hero HUD material without upgrading those receipts to native-hardware or full-parity claims.

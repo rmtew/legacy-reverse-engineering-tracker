@@ -4,6 +4,7 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess | Amy Chess — distinct source-published ColecoVision original homebrew with a complete Amy-language game and standalone 32,767-byte cartridge ROM. |
 | https://github.com/mnaberez/py65 | Py65 — Python 6502/65C02/65Org16 simulator with VICE-like monitor, assembler/disassembler and debugger functions. |
 | https://github.com/mnaberez/bnkcod | BNKCOD — SuperPET option-ROM disassembly with ASXXXX reassembly and original-EPROM SHA-1 comparison. |
 | https://github.com/mnaberez/clcd | Commodore LCD — partial KERNAL ROM disassembly, prototype-hardware analysis and ca65/ld65 comparison build. |
