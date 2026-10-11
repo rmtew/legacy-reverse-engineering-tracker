@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-11T16:25:08Z",
+  "updated_at": "2026-10-11T18:15:04Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -12017,6 +12017,82 @@
         "reverse-engineering tooling"
       ],
       "notes": "Python tools list visible/hidden ROM commands, dump strings with optional XOR decoding and patch Graduate CP/M accessory ROM personal data; analysis is tied to real CPC ROM structures.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "amy-chess-colecovision-homebrew": {
+      "id": "amy-chess-colecovision-homebrew",
+      "title": "Amy Chess",
+      "upstream_name": "Amy Chess",
+      "display_title": "Amy Chess — ColecoVision chess homebrew",
+      "subjects": [
+        "Amy Chess"
+      ],
+      "repo": "https://github.com/amypurple/AmyStudio",
+      "project_url": "https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess",
+      "github_path": "downloads/amy-chess",
+      "github_branch": "main",
+      "source_platforms": [],
+      "target_platforms": [
+        "ColecoVision"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "32 KiB ColecoVision cartridge",
+          "platform": "ColecoVision",
+          "cpu_family": "Z80",
+          "notes": "The project manifest selects the ColecoVision legacy memory profile and the repository publishes a 32,767-byte cartridge ROM. No minimum RAM or model beyond ColecoVision is stated.",
+          "evidence": [
+            "https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/amy-chess.alexis",
+            "https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess",
+            "https://github.com/amypurple/AmyStudio/commit/29e732228d403cda06dfa27a357b21f5e7b88778",
+            "https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Amy"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew game"
+      ],
+      "re_started": null,
+      "status": "complete source-published 32 KiB cartridge game; upstream claims not independently exercised",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "FIDE-aware chess rules",
+        "one- or two-player chess",
+        "CPU opponent",
+        "ZX0 graphics",
+        "VoxPCM speech"
+      ],
+      "tags": [
+        "ColecoVision",
+        "Z80",
+        "Amy language",
+        "chess",
+        "original homebrew"
+      ],
+      "notes": "Identity: The Amy Studio manifest and 3,957-line source identify Amy Chess as a distinct complete game, and the downloads directory publishes a separately named cartridge ROM. Classification: This is substantial original ColecoVision homebrew nested in a development-environment repository, not a reverse-engineered or RE-derived game. Its distinct source and standalone ROM justify a title record rather than folding it into Amy Studio tooling. Source CPU: Amy Chess is original homebrew rather than an analyzed legacy binary, so there is no original source-binary CPU to record. Target CPU: Amy Studio's primary README explicitly defines Amy as a Z80-oriented language for ColecoVision cartridge ROMs, and the Amy Chess project selects the ColecoVision memory profile. Build: The repository contains the complete Amy source, registers it as a complete FIDE-aware game, and publishes a 32,767-byte cartridge ROM. Compilable, runnable and playable are upstream-backed claims; no local compilation or execution was performed, and byte exactness is not applicable to an original game. Limitations: The cartridge was not executed on hardware or an emulator in this pass. Next check: Verify the published cartridge and representative one-player/two-player paths on ColecoVision hardware or a trusted emulator. Runtime profiles: The public artifact is a 32,767-byte ColecoVision cartridge and the source selects the legacy ColecoVision memory profile. No minimum RAM, console revision or expansion requirement is stated, so none is inferred. AI: The repository README credits OpenAI Codex for Amy Studio integration and general example work, but the reviewed Amy Chess source and two title-specific commits do not explicitly attribute development of this game to an AI tool. Project-specific usage remains unknown rather than inheriting the containing toolchain's label. Relationships: Amy Chess is a separately titled game built with and distributed inside Amy Studio. It reuses the IDE's Amy compiler, Z80 runtime, ZX0 and VoxPCM facilities; no predecessor, conversion or reverse-engineered game lineage is claimed. Evidence: https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/index.json https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/amy-chess.alexis https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess https://github.com/amypurple/AmyStudio/commit/29e732228d403cda06dfa27a357b21f5e7b88778 https://github.com/amypurple/AmyStudio/blob/main/README.md https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0",
       "ai": {
         "usage": null,
         "tools": []
@@ -32401,8 +32477,22 @@
         "6502",
         "6510"
       ],
-      "target_cpu": [],
-      "runtime_profiles": [],
+      "target_cpu": [
+        "ARM64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "macOS Apple Silicon packaged product",
+          "platform": "macOS",
+          "cpu_family": "ARM64",
+          "os": "macOS",
+          "notes": "Upstream's successful package lane compiles and checks a PRG, exercises SIDScore, starts bundled VICE with visible frames, runs a BASIC POKE through Electron input, and verifies power-off/restart. No minimum Apple Silicon generation, macOS version or RAM is stated.",
+          "evidence": [
+            "https://github.com/turesheim/commodore-commander/commit/f2f645989b5cd5b60133d9404b75d17afa173db8",
+            "https://github.com/turesheim/commodore-commander/actions/runs/38157335163"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "6502 assembly",
@@ -32428,14 +32518,20 @@
         "development-tool"
       ],
       "re_started": null,
-      "status": "active development/nightly packaging; upstream claims not independently reproduced",
+      "status": "active development; macOS Apple Silicon packaged compiler, SIDScore, VICE and Electron path verified upstream",
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "VICE DAP debugging",
+        "source-mapped disassembly",
+        "packaged-product testing",
+        "emulated display-frame verification",
+        "BASIC keyboard and border-color verification"
+      ],
       "tags": [
         "Commodore 64",
         "Commodore 128",
@@ -32444,10 +32540,9 @@
         "Commodore 16",
         "Commodore PET",
         "Commodore CBM-II",
-        "source-reviewed",
-        "no-independent-build"
+        "source-reviewed"
       ],
-      "notes": "Substantial Eclipse Theia/Electron IDE for Commodore 8-bit development, with Kick Assembler support, graphics/SIDScore editors and a native DAP adapter for VICE. package.json defines workspace build/packaging tasks; vice-debug-session.ts connects source-mapped debugging, live disassembly, trace history, memory and VICE monitor protocols. Machine-profile source explicitly lists c64/c128/vic20/plus4/c16/pet/cbm2/cbm5x0/c64dtv. C64DTV is kept as an exact VICE profile within the canonical Commodore 64 platform family, without creating a second machine alias. Theia/Electron desktop development IDE with Kick Assembler language support, VICE DAP debugging and graphics/SIDScore tools. Generic machine profiles are not proof of equal feature support on every model. README reports nightly macOS/Windows/Linux packages with packaged SIDScore smoke tests, but no particular successful packaging run was verified. All build flags remain unknown; npm task presence is not success evidence. macOS is ad-hoc signed by default and release notarisation remains manual. Node/Theia/Electron development environment with VICE, Kick Assembler and Java 21+ for SIDScore. C64DTV is explicitly the c64dtv/x64dtv VICE machine profile with 65DTV02, MMU/register-file banking and DMA/blitter metadata, kept within the Commodore 64 catalogue family. That is neither a new platform alias nor a claim that the IDE runs on the DTV itself. No host CPU/RAM minimum. Build/tool prerequisites: Node/npm; Theia/Electron workspace; Kick Assembler; VICE (patched embedded or external); Java 21+ for SIDScore. Documented commands: npm run theia:build; npm run theia:start; npm run package:current; npm run package:mac. No build or package smoke test performed. README says macOS bundle ad-hoc signed by default; release notarisation remains manual. IDE includes third-party tooling/ROM-derived symbol material; project licence is not a blanket rights statement. IDE/tool suite built on Theia, VICE and Kick Assembler; includes independently maintained SIDScore integration. GitHub reports fork=false; that metadata alone does not establish independent authorship. Canonical root was screened against the approved 1,320-project catalogue plus discovery-source/decision indexes; no root collision was found. Upstream/related links: https://github.com/turesheim/SIDScore. Rights: Repository metadata/root LICENSE indicate EPL-2.0; bundled VICE, SIDScore, assemblers, ROM-derived resources and other dependencies carry separate terms. AI evidence: No explicit AI development attribution found in the reviewed README, sampled source, and three latest commits. Agent configuration alone is not treated as proof. Reviewed 2026-10-05; no independent build, execution, gameplay, hardware test or byte comparison was performed. Primary evidence: https://github.com/turesheim/commodore-commander/blob/main/README.md https://github.com/turesheim/commodore-commander/blob/main/packages/debug-adapter/src/vice-debug-adapter.ts https://github.com/turesheim/commodore-commander/blob/main/package.json https://github.com/turesheim/commodore-commander/blob/main/packages/debug-adapter/src/vice-debug-session.ts https://github.com/turesheim/commodore-commander/commit/ba2953eb258e45624c443a23417dbbb31c38cb4f https://github.com/turesheim/commodore-commander/commit/59efca67d6c4a8b7381d6baade0b861e9ccfc055 https://github.com/turesheim/commodore-commander/commit/ba8ec339254576737dba271392346105368fa1e0 https://github.com/turesheim/commodore-commander/blob/main/packages/language-support/src/machines/commodore-machine-profiles.ts Supplemental exact-profile review: README and debug source explicitly support NMOS 6502 disassembly and C64 6510 debugging, which are the typed instruction-analysis CPUs. The reviewed machine-profile source additionally describes C128 MOS 8502 with secondary Z80, TED MOS 7501/8501, CBM-II MOS 6509 and C64DTV 65DTV02. These exact reference-profile descriptions are preserved here without treating them as demonstrated instruction-analysis coverage or adding CPU aliases. Evidence: https://github.com/turesheim/commodore-commander/blob/ba2953eb258e45624c443a23417dbbb31c38cb4f/packages/language-support/src/machines/commodore-machine-profiles.ts",
+      "notes": "Identity: Commodore Commander remains the Eclipse Theia/Electron IDE integrating Kick Assembler, VICE debugging, graphics tools and SIDScore. Classification: The new packaged-product tests strengthen the directly relevant development-environment classification; they do not turn the tool into a reconstructed game or imply equal support for every machine profile. Source CPU: Existing primary documentation still explicitly supports NMOS 6502 disassembly and C64 6510 debugging. The package-test changes do not expand the demonstrated guest instruction-analysis set. Target CPU: The packaged-product documentation explicitly identifies the tested macOS Apple Silicon output. ARM64 records that evidenced host-output architecture; it is not a minimum Apple Silicon generation and does not convert guest 6502/6510 CPUs into host targets. Build: A successful upstream nightly package run now covers all package jobs, while the Apple Silicon path compiles a Kick Assembler program and checks its PRG bytes, exercises SIDScore/SRAP/MIDI, launches bundled VICE and Electron, verifies visible Machine pixels and a BASIC border-color POKE, then powers off and restarts. Compilable and runnable are upstream-verified, not locally reproduced. Limitations: The documented full UI product path currently applies to macOS Apple Silicon; Windows/Linux UI and external VICE remain separate development-test lanes. Signing is ad hoc and notarisation remains manual. Next check: Verify equivalent packaged UI paths on Windows/Linux and retain the distinction between embedded and external VICE coverage. Runtime profiles: The Apple Silicon package is an explicitly exercised runnable variant. No minimum Apple Silicon generation, macOS release or RAM is stated, so the profile records only the verified architecture and path. AI: The reviewed README, packaging change and release-priority documentation contain no explicit development-AI attribution. Agent configuration and automation alone are not proof; usage remains unknown. Relationships: The IDE continues to integrate Theia, VICE, Kick Assembler and independently maintained SIDScore. The reviewed changes bundle and test those dependencies but do not establish a new separately titled project. Evidence: https://github.com/turesheim/commodore-commander/blob/main/README.md https://github.com/turesheim/commodore-commander/commit/f2f645989b5cd5b60133d9404b75d17afa173db8 https://github.com/turesheim/commodore-commander/blob/main/packages/debug-adapter/src/vice-debug-adapter.ts https://github.com/turesheim/commodore-commander/actions/runs/38157335163 https://github.com/turesheim/commodore-commander/actions/runs/38157582224 https://github.com/turesheim/commodore-commander/commit/5b9bf467a0a9117dc392aa764366a1c7fb8af43a https://github.com/turesheim/SIDScore",
       "ai": {
         "usage": null,
         "tools": []
@@ -52484,20 +52579,25 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": null,
+      "status": "active; 1.7.4 development head adds safer Coleco ADAM media persistence and libretro input cleanup",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "instruction-level debugging",
+        "MCP automation",
+        "ADAM disk/tape media emulation",
+        "idle-debounced media persistence"
+      ],
       "tags": [
         "ColecoVision",
         "Coleco ADAM",
         "reverse-engineering tooling"
       ],
-      "notes": "ColecoVision and ADAM emulator with integrated debugger and MCP server; an independent target within the Gear family.",
+      "notes": "Identity: Gearcoleco remains the independently targeted ColecoVision/Coleco ADAM emulator, debugger and MCP server in the Gear family. Classification: The new media and libretro changes are core emulator/runtime maintenance and preserve the development-tool classification. Source CPU: Primary documentation continues to identify the emulated Z80 architecture; the reviewed ADAM media change does not alter it. Target CPU: This host-run emulator/debugger has no reconstructed or native retro output CPU. The emulated Z80 stays under source_cpu. Build: The 1.7.4 development head tracks ADAM media writes and flushes dirty working copies after 180 idle frames on desktop and libretro paths, while releasing stuck libretro keyboard state. The implementation diff was reviewed; no build, save/reload cycle or emulator run was performed locally. Limitations: The latest published release remains 1.7.3, so these 1.7.4-head behaviors are not described as released. Runtime profiles: No legacy native minimum-hardware profile applies to the host-run emulator, and the reviewed commits state no minimum host CPU or RAM. AI: Existing GitHub Copilot attribution remains supported by explicit co-author metadata; workflow model settings are not treated as additional development contribution evidence. Relationships: The repository remains an independent target in the Gear emulator/debugger family; no new separately titled project appeared in the reviewed diff. Evidence: https://github.com/drhelius/Gearcoleco/blob/main/README.md https://github.com/drhelius/Gearcoleco/commit/53a9d1f8a325e7b298cf6dcf43cd2425307bc1cc https://github.com/drhelius/Gearcoleco/commit/f14c03820fec8f20bc280ca12103f4c74a24c8cb https://github.com/drhelius/Gearcoleco/commit/a98199837ebc https://github.com/drhelius/Gearcoleco",
       "ai": {
         "usage": true,
         "tools": [
@@ -52551,7 +52651,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active; release 1.8.2 with continuing post-release emulator and libretro fixes",
+      "status": "active; 1.8.3 development head clarifies unsupported zipped CD media while retaining post-1.8.2 runtime fixes",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -52561,7 +52661,8 @@
       "techniques": [
         "deterministic netplay",
         "CD audio streaming",
-        "input-latency control"
+        "input-latency control",
+        "libretro media validation"
       ],
       "tags": [
         "PC Engine",
@@ -52569,7 +52670,7 @@
         "SuperGrafx",
         "reverse-engineering tooling"
       ],
-      "notes": "Cross-platform PC Engine/TurboGrafx-16/SuperGrafx/CD-ROM²/LD-ROM² emulator with an integrated debugger and MCP server. Post-1.8.2 changes fix input-latency handling, profiler counters, held input restoration after state loads, on-demand CD audio-track loading and deterministic libretro netplay by making SCSI reset state reproducible. The README publishes x64 and arm64 host artifacts but states no minimum CPU or RAM; those artifact architectures are not treated as minimum hardware or a retro output CPU. Evidence: https://github.com/drhelius/Geargrafx/blob/main/README.md https://github.com/drhelius/Geargrafx/commit/18852be0e663 https://github.com/drhelius/Geargrafx/commit/7c987a8bc5ab https://github.com/drhelius/Geargrafx/commit/3492b486b9ac",
+      "notes": "Identity: Geargrafx remains the PC Engine/TurboGrafx-16/SuperGrafx/CD-ROM²/LD-ROM² emulator with integrated debugger and MCP server. Classification: The libretro CD-media validation change is emulator runtime maintenance and preserves the development-tool classification. Source CPU: The in-tree core and debugger continue to identify the emulated HuC6280 architecture; the media-loading change introduces no CPU change. Target CPU: This host-run emulator/debugger has no reconstructed retro output CPU. Published host artifact architectures remain runtime variants, not guest or port targets. Build: The 1.8.3 development head detects a zipped CUE in libretro, rejects the unsupported CD-ROM form with a specific user-facing message, and recommends CHD rather than reporting generic corruption. Earlier post-1.8.2 deterministic, CD-audio and input fixes remain current. No build or media load was reproduced locally. Limitations: The latest published release remains 1.8.2, so the 1.8.3-head diagnostic is not described as released. Runtime profiles: README still publishes x64 and arm64 packages but states no minimum CPU generation or RAM. The new media diagnostic supplies no additional hardware requirement. AI: Existing GitHub Copilot attribution remains supported by explicit co-author metadata; workflow model settings are not treated as additional development contribution evidence. Relationships: The repository remains an independent target in the Gear emulator/debugger family; no new separately titled project appeared in the reviewed diff. Evidence: https://github.com/drhelius/Geargrafx/blob/main/README.md https://github.com/drhelius/Geargrafx/commit/b1ca0bff1a11d524c0ba934779725c3abf93dd02 https://github.com/drhelius/Geargrafx/commit/4d174c29a0cbe112ecf186f5712504b6df21b641 https://github.com/drhelius/Geargrafx/releases/tag/1.8.2 https://github.com/drhelius/Geargrafx/commit/c0092458428c https://github.com/drhelius/Geargrafx",
       "ai": {
         "usage": true,
         "tools": [
@@ -120635,7 +120736,7 @@
         "native port"
       ],
       "re_started": null,
-      "status": "DOS reconstruction playable; native x64 port unfinished and development active",
+      "status": "DOS reconstruction playable; native x64 port unfinished with startup/motion parity work active",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -120651,7 +120752,9 @@
         "native porting",
         "original/reconstructed replay comparison",
         "state-pool comparison",
-        "cadence calibration"
+        "cadence calibration",
+        "instruction-vector comparison",
+        "undefined-behavior sanitizer contracts"
       ],
       "tags": [
         "PC-98",
@@ -120661,7 +120764,7 @@
         "DOS",
         "x64"
       ],
-      "notes": "Reconstructs the original Japanese PC-98 Touhou 4 executables MAIN.EXE, OP.EXE, MAINE.EXE and ZUN.COM from maintained source. The primary handoff reports accepted authored-function counts of OP 93/93, MAIN 493/495, MAINE 72/72 and ZUN 3/3, while explicitly separating function acceptance from whole-file exactness. The repository builds a standalone DOS game and maintains a separate unfinished Linux/Windows x64 port. ReC98 is a pinned source-routing and migration input, but product source no longer includes masters.lib or ReC98 product includes. Current upstream evidence reports original/reconstructed DOS agreement across four bundled demos for consumed input, score, RNG, nine complete actor/effect pools and 22 state blocks. Native x64 now uses a 17.723227 ms cadence derived from 15,984 original records; a fresh GNU build reports 69 CTests and scoped Linux/Xvfb routes. Boss combat/death, full raw RGB, physical scanout, broader paired routes and Windows input/audio remain open. Evidence: https://github.com/N0zoM1z0/th04/commit/e6589fe6b74e9583a5634e6759395dc1a80eb543 https://github.com/N0zoM1z0/th04/blob/e6589fe6b74e9583a5634e6759395dc1a80eb543/README.md",
+      "notes": "Identity: Primary README continues to identify the original Japanese Touhou 4 and its MAIN.EXE, OP.EXE, MAINE.EXE and ZUN.COM reconstructions. Classification: The repository remains a PC-98 source reconstruction with a separate unfinished native x64 port; the new work expands bounded native recovery rather than changing that classification. Source CPU: Maintained source and existing primary documentation continue to establish 16-bit x86 PC-98 executables; the new instruction-vector work does not change the source architecture. Target CPU: The project still produces 16-bit x86 DOS targets and maintains a Linux/Windows x64 native port. No additional architecture is introduced by the reviewed commits. Build: The latest verified snapshot reports 71 GNU CTests, seven optimized UBSan contracts, agreement across 184,908 original-instruction vectors including 514 DIV faults, and eight startup/four-demo routes retaining 129 prior outputs at 15,988 selected-state boundaries. These are bounded upstream receipts, not whole-picture, physical-timing or whole-file byte-exact acceptance. Limitations: No build or replay was run locally; boss/death/process coverage, full pictures, physical timing and Windows input/audio remain open. Next check: Re-attest the combined startup/motion and newer renderer producer, then extend paired coverage to boss combat, death/respawn and complete process transitions. Runtime profiles: The refreshed startup/motion handoff still states no safe minimum physical PC-98 CPU/RAM configuration or minimum x64 host configuration. Measured cadence and instruction-vector counts are verification data, not hardware minima. AI: The reviewed primary commit subjects explicitly identify gpt-6.1-sol; the project records AI use without converting a commit label into a broader authorship percentage. Relationships: ReC98 remains a pinned source-routing and migration input while this repository maintains its own standalone product source and native-port verification history. Evidence: https://github.com/N0zoM1z0/th04/blob/main/README.md https://github.com/N0zoM1z0/th04/commit/5e04432eb943c8155c7525cbe93f6211a5ca7414 https://github.com/N0zoM1z0/th04/commit/637273d4da8c24b1e6b7af4f49e860039d14e738 https://github.com/N0zoM1z0/th04/commit/7c982075eb517870e7658198904d0b8dbc823454",
       "ai": {
         "usage": true,
         "tools": []

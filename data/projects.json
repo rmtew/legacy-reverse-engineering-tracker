@@ -16731,6 +16731,114 @@
     }
   },
   {
+    "id": "amy-chess-colecovision-homebrew",
+    "title": "Amy Chess",
+    "upstream_name": "Amy Chess",
+    "display_title": "Amy Chess — ColecoVision chess homebrew",
+    "subjects": [
+      "Amy Chess"
+    ],
+    "repo": "https://github.com/amypurple/AmyStudio",
+    "project_url": "https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess",
+    "github_path": "downloads/amy-chess",
+    "github_branch": "main",
+    "source_platforms": [],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "32 KiB ColecoVision cartridge",
+        "platform": "ColecoVision",
+        "cpu_family": "Z80",
+        "notes": "The project manifest selects the ColecoVision legacy memory profile and the repository publishes a 32,767-byte cartridge ROM. No minimum RAM or model beyond ColecoVision is stated.",
+        "evidence": [
+          "https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/amy-chess.alexis",
+          "https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess",
+          "https://github.com/amypurple/AmyStudio/commit/29e732228d403cda06dfa27a357b21f5e7b88778",
+          "https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "Amy"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "original homebrew game"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-12",
+    "status": "complete source-published 32 KiB cartridge game; upstream claims not independently exercised",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "FIDE-aware chess rules",
+      "one- or two-player chess",
+      "CPU opponent",
+      "ZX0 graphics",
+      "VoxPCM speech"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Amy language",
+      "chess",
+      "original homebrew"
+    ],
+    "notes": "Identity: The Amy Studio manifest and 3,957-line source identify Amy Chess as a distinct complete game, and the downloads directory publishes a separately named cartridge ROM. Classification: This is substantial original ColecoVision homebrew nested in a development-environment repository, not a reverse-engineered or RE-derived game. Its distinct source and standalone ROM justify a title record rather than folding it into Amy Studio tooling. Source CPU: Amy Chess is original homebrew rather than an analyzed legacy binary, so there is no original source-binary CPU to record. Target CPU: Amy Studio's primary README explicitly defines Amy as a Z80-oriented language for ColecoVision cartridge ROMs, and the Amy Chess project selects the ColecoVision memory profile. Build: The repository contains the complete Amy source, registers it as a complete FIDE-aware game, and publishes a 32,767-byte cartridge ROM. Compilable, runnable and playable are upstream-backed claims; no local compilation or execution was performed, and byte exactness is not applicable to an original game. Limitations: The cartridge was not executed on hardware or an emulator in this pass. Next check: Verify the published cartridge and representative one-player/two-player paths on ColecoVision hardware or a trusted emulator. Runtime profiles: The public artifact is a 32,767-byte ColecoVision cartridge and the source selects the legacy ColecoVision memory profile. No minimum RAM, console revision or expansion requirement is stated, so none is inferred. AI: The repository README credits OpenAI Codex for Amy Studio integration and general example work, but the reviewed Amy Chess source and two title-specific commits do not explicitly attribute development of this game to an AI tool. Project-specific usage remains unknown rather than inheriting the containing toolchain's label. Relationships: Amy Chess is a separately titled game built with and distributed inside Amy Studio. It reuses the IDE's Amy compiler, Z80 runtime, ZX0 and VoxPCM facilities; no predecessor, conversion or reverse-engineered game lineage is claimed. Evidence: https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/index.json https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/amy-chess.alexis https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess https://github.com/amypurple/AmyStudio/commit/29e732228d403cda06dfa27a357b21f5e7b88778 https://github.com/amypurple/AmyStudio/blob/main/README.md https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0",
+    "github": {
+      "repository": "amypurple/AmyStudio",
+      "created_at": "2026-06-20",
+      "pushed_at": "2026-10-11",
+      "updated_at": "2026-10-11",
+      "checked_at": "2026-10-11",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "downloads/amy-chess",
+      "archived": false,
+      "fork": false,
+      "primary_language": "JavaScript",
+      "activity_state": "active",
+      "languages": [
+        "JavaScript",
+        "Assembly",
+        "CSS",
+        "HTML",
+        "PowerShell",
+        "C++",
+        "QuickBASIC",
+        "C",
+        "Batchfile"
+      ],
+      "latest_commit": {
+        "sha": "b909ed9a395dda35a78e61dfd402be9aac7b76f0",
+        "date": "2026-10-11",
+        "message": "Publish Amy Chess cartridge ROM",
+        "url": "https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0"
+      }
+    },
+    "last_activity": "2026-10-11"
+  },
+  {
     "id": "amy-studio-colecovision-development-environment",
     "title": "Amy Studio",
     "upstream_name": "Amy Studio",
@@ -44865,10 +44973,10 @@
         "GLSL"
       ],
       "latest_commit": {
-        "sha": "f69020c72a2d82d4e72368f57eaeedbf032ab192",
+        "sha": "5b9bf467a0a9117dc392aa764366a1c7fb8af43a",
         "date": "2026-10-11",
-        "message": "Upgrade bundled SIDScore CLI to 0.8.0 (#105)",
-        "url": "https://github.com/turesheim/commodore-commander/commit/f69020c72a2d82d4e72368f57eaeedbf032ab192"
+        "message": "docs: define 1.0 release priorities and acceptance gates (#115)",
+        "url": "https://github.com/turesheim/commodore-commander/commit/5b9bf467a0a9117dc392aa764366a1c7fb8af43a"
       }
     }
   },
@@ -72291,7 +72399,7 @@
         "GitHub Copilot"
       ],
       "evidence": [
-        "GitHub Copilot co-author trailer observed in recent tracked commits: 1 in this scan (example a98199837ebc)"
+        "GitHub Copilot co-author trailer observed in recent tracked commits: 7 in this scan (example a98199837ebc; Copilot)"
       ]
     },
     "techniques": [
@@ -72339,10 +72447,10 @@
         "Perl"
       ],
       "latest_commit": {
-        "sha": "f2eef94d1a32fc267184cd08a21f3e7010f51ef6",
+        "sha": "f14c03820fec8f20bc280ca12103f4c74a24c8cb",
         "date": "2026-10-11",
-        "message": "Use Copilot auto model and triage only new issues",
-        "url": "https://github.com/drhelius/Gearcoleco/commit/f2eef94d1a32fc267184cd08a21f3e7010f51ef6"
+        "message": "Bump version to 1.7.4",
+        "url": "https://github.com/drhelius/Gearcoleco/commit/f14c03820fec8f20bc280ca12103f4c74a24c8cb"
       }
     }
   },
@@ -72453,10 +72561,10 @@
         "Perl"
       ],
       "latest_commit": {
-        "sha": "fe09c018085ac4f6b6d06b9374b6bf8923889eca",
+        "sha": "4d174c29a0cbe112ecf186f5712504b6df21b641",
         "date": "2026-10-11",
-        "message": "Use Copilot auto model and triage only new issues",
-        "url": "https://github.com/drhelius/Geargrafx/commit/fe09c018085ac4f6b6d06b9374b6bf8923889eca"
+        "message": "Bump version to 1.8.3",
+        "url": "https://github.com/drhelius/Geargrafx/commit/4d174c29a0cbe112ecf186f5712504b6df21b641"
       }
     }
   },
@@ -165859,10 +165967,10 @@
         "Batchfile"
       ],
       "latest_commit": {
-        "sha": "664c97effff9e88d9934a573906fcddd1d7ef9c1",
+        "sha": "692436fcfe2dbed8e33e1732ac4656dcc7feb678",
         "date": "2026-10-11",
-        "message": "gpt-6.1-sol: preserve DOS VSYNC phase and BIOS query order",
-        "url": "https://github.com/N0zoM1z0/th04/commit/664c97effff9e88d9934a573906fcddd1d7ef9c1"
+        "message": "gpt-6.1-sol: Restore DOS Gaiji addresses and return state",
+        "url": "https://github.com/N0zoM1z0/th04/commit/692436fcfe2dbed8e33e1732ac4656dcc7feb678"
       }
     },
     "last_activity": "2026-10-11"
@@ -187416,82 +187524,5 @@
       }
     },
     "last_activity": "2024-05-05"
-  },
-  {
-    "id": "amy-chess-colecovision-homebrew",
-    "title": "Amy Chess",
-    "upstream_name": "Amy Chess",
-    "display_title": "Amy Chess — ColecoVision chess homebrew",
-    "subjects": [
-      "Amy Chess"
-    ],
-    "repo": "https://github.com/amypurple/AmyStudio",
-    "project_url": "https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess",
-    "github_path": "downloads/amy-chess",
-    "github_branch": "main",
-    "source_platforms": [],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "32 KiB ColecoVision cartridge",
-        "platform": "ColecoVision",
-        "cpu_family": "Z80",
-        "notes": "The project manifest selects the ColecoVision legacy memory profile and the repository publishes a 32,767-byte cartridge ROM. No minimum RAM or model beyond ColecoVision is stated.",
-        "evidence": [
-          "https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/amy-chess.alexis",
-          "https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess",
-          "https://github.com/amypurple/AmyStudio/commit/29e732228d403cda06dfa27a357b21f5e7b88778",
-          "https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0"
-        ]
-      }
-    ],
-    "source_language": [],
-    "reconstructed_languages": [
-      "Amy"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [],
-    "tool_kinds": [],
-    "types": [
-      "original homebrew game"
-    ],
-    "re_started": null,
-    "last_activity": "2026-10-11",
-    "last_checked": "2026-10-12",
-    "status": "complete source-published 32 KiB cartridge game; upstream claims not independently exercised",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "FIDE-aware chess rules",
-      "one- or two-player chess",
-      "CPU opponent",
-      "ZX0 graphics",
-      "VoxPCM speech"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Amy language",
-      "chess",
-      "original homebrew"
-    ],
-    "notes": "Identity: The Amy Studio manifest and 3,957-line source identify Amy Chess as a distinct complete game, and the downloads directory publishes a separately named cartridge ROM. Classification: This is substantial original ColecoVision homebrew nested in a development-environment repository, not a reverse-engineered or RE-derived game. Its distinct source and standalone ROM justify a title record rather than folding it into Amy Studio tooling. Source CPU: Amy Chess is original homebrew rather than an analyzed legacy binary, so there is no original source-binary CPU to record. Target CPU: Amy Studio's primary README explicitly defines Amy as a Z80-oriented language for ColecoVision cartridge ROMs, and the Amy Chess project selects the ColecoVision memory profile. Build: The repository contains the complete Amy source, registers it as a complete FIDE-aware game, and publishes a 32,767-byte cartridge ROM. Compilable, runnable and playable are upstream-backed claims; no local compilation or execution was performed, and byte exactness is not applicable to an original game. Limitations: The cartridge was not executed on hardware or an emulator in this pass. Next check: Verify the published cartridge and representative one-player/two-player paths on ColecoVision hardware or a trusted emulator. Runtime profiles: The public artifact is a 32,767-byte ColecoVision cartridge and the source selects the legacy ColecoVision memory profile. No minimum RAM, console revision or expansion requirement is stated, so none is inferred. AI: The repository README credits OpenAI Codex for Amy Studio integration and general example work, but the reviewed Amy Chess source and two title-specific commits do not explicitly attribute development of this game to an AI tool. Project-specific usage remains unknown rather than inheriting the containing toolchain's label. Relationships: Amy Chess is a separately titled game built with and distributed inside Amy Studio. It reuses the IDE's Amy compiler, Z80 runtime, ZX0 and VoxPCM facilities; no predecessor, conversion or reverse-engineered game lineage is claimed. Evidence: https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/index.json https://github.com/amypurple/AmyStudio/blob/main/studio/examples-src/amy-chess.alexis https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess https://github.com/amypurple/AmyStudio/commit/29e732228d403cda06dfa27a357b21f5e7b88778 https://github.com/amypurple/AmyStudio/blob/main/README.md https://github.com/amypurple/AmyStudio/commit/b909ed9a395dda35a78e61dfd402be9aac7b76f0"
   }
 ]
