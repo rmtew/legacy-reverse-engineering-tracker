@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-11 — Multi-host builds, replay evidence and canonical-source maintenance
+
+Reviewed four repositories with commits after the latest activity refresh. **CPCSyntaxError v0.6.0** now records successful Windows x64, Linux x86-64 and universal macOS arm64/x86-64 release builds, the explicit macOS 10.15 floor, monitor H/V hold controls and Compendium-backed CRTC timing; upstream still marks the Linux and macOS packages as untested on desktops. **Firestaff v3.0.376** records bounded DM1 Amiga 2.0 resume, an x86-64 AppImage run under QEMU on an ARM64 VM and authenticated DM2 FM Towns selected-hero HUD material without upgrading those receipts to native-hardware or full-parity claims.
+
+**Touhou 4: Lotus Land Story** corrects its stale paused status and records four-demo original/reconstructed DOS state agreement plus original-derived native cadence and scoped Linux/Xvfb replay evidence. **C64 Studio / RetroDevStudio** records the bounded palette-range serialization fix. **8bitworkshop** now follows its canonical organization repository and closes stale build/runtime/AI audit gaps from its current README while keeping all execution flags and hardware minima unknown.
+
+The CPU audit queue was empty before selection. A commit-level check of 78 recently active repositories found no other post-refresh changes; multi-project and related-project links yielded no new separately titled promotion. No project was independently built or executed.
+
 ## 2026-10-11 — Native targets, media fidelity and compatibility maintenance
 
 Reviewed eleven materially changed records. **cc65 Chess** now includes its directly evidenced native Acorn A3010 build with ARM250, 2 MB RAM and RISC OS 3.11, while remaining classified as original cross-platform homebrew. **POM2 Games** now records the in-progress **Wilderness** reconstruction, its external-original analysis, reference-compared 6502 terrain renderer and explicit Apple II+ 48 KB / DOS 3.3 profile. **CPCSyntaxError v0.5.0** adds cheat search, tape recording/turbo, HFE/IPF media, writeback, real-time floppy timing and additional peripherals.

@@ -5557,19 +5557,21 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-11",
-          "note": "Reviewed the DM1 Amiga 3.6 archive discovery/root-menu test and PC34 soundtrack wiring. These source-owned tests establish bounded routes, not campaign, save, display or audio parity; nothing was independently run.",
+          "note": "Reviewed the v3.0.376 DM1 Amiga 2.0 resume, Linux AppImage/QEMU runtime receipt and DM2 FM Towns selected-hero HUD work. These are source-owned bounded routes; native x86-64 hardware, physical input, full HUD state and visual parity remain unverified. Nothing was independently run.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44",
-            "https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c",
-            "https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1"
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.376",
+            "https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a",
+            "https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e",
+            "https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "v3.0.373 again publishes x86-64 and arm64 packages but gives no minimum CPU generation or RAM requirement. Amiga 2.0/3.3 here identify original-media editions, not host minima, so the existing Apple Silicon smoke remains the only CPU-specific runtime profile.",
+          "checked_at": "2026-10-11",
+          "note": "Added the explicitly evidenced v3.0.376 Linux x86-64 AppImage run under QEMU on an ARM64 VM. It is a runnable configuration, not proof of native x86-64 hardware or a minimum CPU/RAM requirement; published Android/iOS artifacts are not promoted to runnable profiles without execution evidence.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/releases/tag/v3.0.373"
+            "https://github.com/yeager/firestaff/blob/1be613b14f3cef9e2323a3e2b6ed840e13f6c480/DONE-dm1.md",
+            "https://github.com/yeager/firestaff/releases/tag/v3.0.376"
           ]
         },
         "ai": {
@@ -5584,9 +5586,9 @@
         }
       },
       "next_actions": [
-        "Repair and validate the isolated Amiga v2.0 M12 startup through the first Hall frame.",
         "Compare DM1 combat/RNG with an original capture.",
         "Verify audible Atari ST/CSB playback and PSG parity.",
+        "Implement and verify the DM2 FM Towns selected-hero aura and remaining panel state.",
         "Reach DM2 Macintosh dungeon presentation and verify parity.",
         "Verify Theron save restoration and later campaign consumers.",
         "Check predecessor/successor/fork and credited-source relationships."
@@ -38536,13 +38538,13 @@
     },
     {
       "project_id": "8bitworkshop-retro-browser-ide",
-      "last_reviewed": "2026-09-27",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-11",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "8bitworkshop — 8-bit browser development and debugging environment; primary README and/or relevant source inspected."
+          "checked_at": "2026-10-11",
+          "note": "Current primary README confirms the 8bitworkshop identity after the repository moved from sehugg to the 8bitworkshop organization."
         },
         "classification": {
           "state": "reviewed",
@@ -38560,24 +38562,33 @@
           "note": "No native minimum CPU requirement established by this review."
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Upstream build instructions or source observed, but no independent build/run."
+          "state": "reviewed",
+          "checked_at": "2026-10-11",
+          "note": "README documents a Node.js 24/npm/make/Python development build and the headless 8bws build/run/debug CLI. No independent build or execution was performed, so factual build flags remain unknown rather than inferred.",
+          "evidence_urls": [
+            "https://github.com/8bitworkshop/8bitworkshop/blob/master/README.md"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "Representative media and supported variants need independent verification."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-11",
+          "note": "README and local-build requirements were checked. Node.js 24 and Python are development prerequisites, not browser hardware minima; no minimum browser, CPU or RAM requirement is stated.",
+          "evidence_urls": [
+            "https://github.com/8bitworkshop/8bitworkshop/blob/master/README.md"
+          ]
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": null,
-          "note": "No AI use established in reviewed files."
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-11",
+          "note": "Current README discourages LLM-generated code samples but does not identify a specific AI contribution to the project. Configuration or policy is not treated as contribution evidence; development usage remains unknown.",
+          "evidence_urls": [
+            "https://github.com/8bitworkshop/8bitworkshop/blob/master/README.md"
+          ]
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "Independent IDE and bundled emulators; no game-specific provenance asserted."
+          "checked_at": "2026-10-11",
+          "note": "The former sehugg URL redirects to the canonical 8bitworkshop organization repository. README lists separate related tool/index/compiler repositories; none is silently merged into this IDE record."
         }
       },
       "next_actions": [
@@ -40209,25 +40220,30 @@
           "note": "Original CPU is explicit in the inspected listing, source layout or emulator CPU code."
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": null,
-          "note": "No single modern host minimum CPU established or applicable."
+          "state": "reviewed",
+          "checked_at": "2026-10-11",
+          "note": "v0.6.0 publishes explicit Windows/Linux x86-64 and macOS universal x86-64/arm64 artifacts. These are output architectures, not minimum CPU generations.",
+          "evidence_urls": [
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/actions/runs/38114012270"
+          ]
         },
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-11",
-          "note": "The v0.5.0 source commit adds the documented cheat, tape, HFE/IPF, writeback, real-time drive and peripheral paths. No local build, media test or hardware comparison was performed.",
+          "note": "The v0.6.0 workflow completed successfully and published Windows x64, Linux x86-64 and universal macOS packages. This supports compilable=true for those configured outputs; no package was independently run and upstream explicitly marks Linux/macOS desktop testing outstanding.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/35ca66c5bb974eb0b1113e08980ea166cf93362a",
-            "https://github.com/WacKEDmaN/CPCSyntaxError/blob/main/README.md"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/2b74f27e5c466376321eb7aa6587d994e08a6670",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/actions/runs/38114012270"
           ]
         },
         "runtime_profiles": {
-          "state": "no-evidence-found",
+          "state": "reviewed",
           "checked_at": "2026-10-11",
-          "note": "The current README documents host builds and many emulated configurations but no minimum host CPU or RAM. No minimum is inferred from the Windows x64 release artifact.",
+          "note": "Recorded the explicit Linux x86-64 and universal macOS x86-64/arm64 packages plus macOS 10.15 and SDL2/OpenGL requirements. No CPU generation or RAM minimum is stated; Linux/macOS packages remain upstream-marked untested on desktops.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/blob/main/README.md"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0"
           ]
         },
         "ai": {
@@ -40245,7 +40261,7 @@
         }
       },
       "next_actions": [
-        "Independently build one host target and verify representative HFE/IPF, tape and peripheral paths if later authorization permits."
+        "Independently run the v0.6.0 Linux and macOS packages and verify representative HFE/IPF, tape and peripheral paths if later authorization permits."
       ]
     },
     {
@@ -85751,7 +85767,7 @@
     },
     {
       "project_id": "github-georgrottensteiner-c64studio",
-      "last_reviewed": "2026-10-06",
+      "last_reviewed": "2026-10-11",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -85801,13 +85817,14 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "README reports success under PlayOnLinux/Ubuntu and testing under Linux Mint 21.3 with Wine, so runnable=true is an upstream-only compatibility-layer claim. Current csproj frameworks are net10.0-windows, net3.5 and net4.8; the README’s older .NET 6 binary list is not substituted for current project configuration. No compilation was performed. byte_exact remains null; no independent matching test was performed.",
+          "checked_at": "2026-10-11",
+          "note": "README still supports the existing Wine/PlayOnLinux compatibility claim. The newest upstream change applies StartIndex to all palette export channels in both swizzled and interleaved serialization; it is a bounded asset-export correctness fix, not independent build/runtime evidence. No compilation was performed and byte_exact remains unknown.",
           "evidence_urls": [
             "https://github.com/GeorgRottensteiner/C64Studio/blob/master/readme.md",
             "https://github.com/GeorgRottensteiner/C64Studio/blob/master/C64Studio/C64Studio.csproj",
             "https://github.com/GeorgRottensteiner/C64Studio/blob/master/C64Studio/Compiling.cs",
-            "https://github.com/GeorgRottensteiner/C64Studio/blob/master/license.md"
+            "https://github.com/GeorgRottensteiner/C64Studio/blob/master/license.md",
+            "https://github.com/GeorgRottensteiner/C64Studio/commit/6e8e202765704dcc6a3ffcf6d9c8601420e8b454"
           ]
         },
         "runtime_profiles": {
@@ -127899,12 +127916,16 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-11",
-          "note": "README documents a successful four-product local-source build and full-game runtime route; handoff documents playable DOS routes. No independent build or execution was performed, and whole-file byte exactness is explicitly not claimed."
+          "note": "README now reports four-demo original/reconstructed DOS agreement for consumed input, score, RNG, nine actor/effect pools and 22 state blocks; the native branch reports a fresh 69-CTest GNU build and scoped Linux/Xvfb replay. Boss combat/death and broader process transitions remain open. No independent build or execution was performed, and whole-file byte exactness is explicitly not claimed.",
+          "evidence_urls": [
+            "https://github.com/N0zoM1z0/th04/commit/e6589fe6b74e9583a5634e6759395dc1a80eb543",
+            "https://github.com/N0zoM1z0/th04/blob/e6589fe6b74e9583a5634e6759395dc1a80eb543/README.md"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
           "checked_at": "2026-10-11",
-          "note": "README, DOS build entrypoints and current handoff were checked; they do not state a safe minimum physical PC-98 CPU/RAM configuration or minimum x64 host configuration."
+          "note": "README, DOS build entrypoints and current handoff were rechecked after the native cadence update. They still do not state a safe minimum physical PC-98 CPU/RAM configuration or minimum x64 host configuration; 17.723227 ms is an original-derived refresh cadence, not a hardware minimum."
         },
         "ai": {
           "state": "reviewed",
@@ -127917,7 +127938,10 @@
           "note": "README pins ReC98 as a source-routing and migration input while distinguishing this repository's maintained standalone product source."
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Pair Boss combat, death/respawn and complete process transitions across original and reconstructed DOS before widening parity claims.",
+        "Verify full raw RGB, physical scanout and Windows input/audio; retain current Linux/Xvfb receipts as scoped evidence."
+      ]
     },
     {
       "project_id": "valleybell-midi-converters",
