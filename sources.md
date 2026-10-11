@@ -837,6 +837,19 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/nanochess/Atomchess-6502 | Oscar Toledo's documented 1 KiB x86-to-6502 Atomchess port for Atari 2600 |
 | https://github.com/fonic/wcdatool | Watcom-aware DOS executable disassembly workbench with hint-driven code/data analysis and debug-symbol module reconstruction |
 
+| https://github.com/sarnau/macintosh-display-card-8-24-gc | Apple Macintosh Display Card 8•24 GC reverse engineering: annotated 68020 NuBus ROM/control-panel code, Am29000 accelerator firmware and byte-exact regeneration tooling |
+| https://github.com/mnaberez/f2mc8dasm | F2MC-8L/8FX recursive-traversal firmware disassembler with assembler-compatible, author-tested identical reassembly output |
+| https://github.com/mnaberez/interpod | Interpod CBM IEC-to-IEEE-488 bridge hardware research and buildable 6502 firmware reconstruction |
+| https://github.com/mnaberez/k0dasm | NEC/Renesas 78K0 firmware disassembler with as78k0 output and bit-identical reassembly testing |
+| https://github.com/mnaberez/k0emu | NEC/Renesas 78K0 instruction emulator with cycle counting, bus hooks and documented real-firmware execution |
+| https://github.com/ScottTunstall/BinViewer | Windows 1bpp graphics/font viewer and extractor for arcade, Spectrum, C64 and CPC binary data |
+| https://github.com/axelmuhr/OrangePC | Unfinished but substantial 68k disassembly of the OrangePC Macintosh application used for NuBus-board debugging |
+| https://github.com/tony-cruise/colecovision-games-source | Multi-title ColecoVision/Adam source and disassembly collection; title directories require separate review and records |
+| https://github.com/yosshin4004/xdev68k | Integrated X680x0 cross-development environment using modern GCC, historical HAS/HLK tools, converters, runtime libraries and XEiJ-assisted debugging |
+| https://github.com/yosshin4004/x68k_gcc_has_converter | Reviewed xdev68k predecessor whose converter was integrated into the current environment |
+| https://github.com/rururutan/dis | Multi-host X680x0 source-code generator/disassembler covering 68000–68060 and CPU32 instruction sets |
+| https://github.com/masaaki-taguchi/sxpkey | Original SX-WINDOW ADPCM keyboard application with source, binary and xdev68k/native build recipes |
+
 
 ## 2026-10-06 — Amiga-only focused fifth pass
 

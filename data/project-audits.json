@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-11",
+  "indexed_at": "2026-10-12",
   "area_names": [
     "identity",
     "classification",
@@ -131248,6 +131248,769 @@
         }
       },
       "next_actions": []
+    },
+    {
+      "project_id": "macintosh-display-card-824gc-reverse-engineering",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Primary README and coherent repository root identify the card, ROM, control-panel and accelerator firmware scope.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Concrete hardware/firmware and system-software reverse engineering with annotated disassemblies and supporting tools.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/blob/main/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly identifies 68020 ROM/control-panel code and Am29000 coprocessor firmware.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "The regenerated annotated assembly targets the same explicitly identified 68020 and Am29000 instruction sets.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and latest commit document byte-exact annotation regeneration; this pass did not rerun it.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/blob/main/README.md",
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/commit/0ed88ea3b512d715aff0daabc9b8146048598d61"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "README and repository tree state no minimum host, Macintosh model, RAM, ROM or System version for a runnable reconstructed output."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "All ten reviewed recent commits carry Claude Sonnet 5 co-author trailers.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/commit/0ed88ea3b512d715aff0daabc9b8146048598d61"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explains cross-reference against Apple System 7.1 source and unifies the declaration ROM, control panel and accelerator firmware as one card-level project.",
+          "evidence_urls": [
+            "https://github.com/sarnau/macintosh-display-card-8-24-gc/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "f2mc8dasm-f2mc8-disassembler",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and Python package define one coherent f2mc8dasm tool.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/f2mc8dasm/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Generic firmware disassembly/reassembly and analysis tooling, not a reconstruction of the example radio firmware."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly supports F2MC-8L and F2MC-8FX and excludes 16/32-bit families.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/f2mc8dasm/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Assembler-compatible output is author-tested for bit-identical F2MC-8 reassembly.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/f2mc8dasm/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README documents Python 3.8+ installation/CLI and identical reassembly testing; no local execution was performed.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/f2mc8dasm/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "Python version is a development dependency; no minimum runnable hardware profile is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README links development to the VW Premium IV firmware and companion f2mc8dump extraction work.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/f2mc8dasm/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "interpod-cbm-bridge-firmware-reconstruction",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and single firmware listing define the Interpod v1.6 bridge project.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/interpod/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Firmware disassembly plus hardware/memory-map reverse engineering."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and firmware map explicitly identify the MOS 6502.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/interpod/blob/main/README.md",
+            "https://github.com/mnaberez/interpod/blob/main/interpod-1.6.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "The ACME recipe assembles the reconstructed 6502 listing into the bridge ROM image.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/interpod/blob/main/Makefile"
+          ]
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-10-12",
+          "note": "ACME recipe is concrete and supports compilable=true, but its `diff` target only writes two SHA-1 files and never compares them; rerun and compare before claiming byte identity.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/interpod/blob/main/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "README describes power and component behavior but no verified minimum runnable hardware/ROM profile for the reconstructed image."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README identifies the original bridge purpose and credits Chuck Hutchins' firmware dump used by the Makefile.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/interpod/blob/main/README.md",
+            "https://github.com/mnaberez/interpod/blob/main/Makefile"
+          ]
+        }
+      },
+      "next_actions": [
+        "Run the ACME build and explicitly compare its output with the referenced original firmware dump before setting byte_exact."
+      ]
+    },
+    {
+      "project_id": "k0dasm-78k0-disassembler",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and Python package define one coherent k0dasm tool.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0dasm/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Generic firmware disassembly/reassembly tooling."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly identifies NEC/Renesas 78K0 input firmware.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0dasm/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "as78k0 output is author-tested for bit-identical 78K0 reassembly.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0dasm/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README documents Python installation/CLI and bit-identical reassembly testing; no local execution was performed.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0dasm/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No minimum runnable hardware profile is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README links example radio firmware and the companion k0emu project.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0dasm/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "k0emu-78k0-emulator",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and Python package define one coherent k0emu library.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0emu/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Reusable instruction-set emulator and firmware-analysis library rather than a game emulator."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly identifies the emulated NEC/Renesas 78K0 instruction set.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0emu/blob/main/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "The Python library emulates guest instructions and does not produce a native port/output CPU."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README documents installation and reports executing a 60 KiB real firmware image; no local run was performed.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0emu/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "Reported Python/PyPy throughput lacks a minimum host CPU/RAM specification and is not encoded as compatibility."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README identifies k0dasm as the companion disassembler and frames k0emu as a library for emulator authors.",
+          "evidence_urls": [
+            "https://github.com/mnaberez/k0emu/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "binviewer-retro-1bpp-asset-tool",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and solution identify one BinViewer utility.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/BinViewer/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Directly useful binary/data analysis and asset-extraction tooling."
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "The tool examines raw 1bpp data rather than executable instructions; platform examples do not establish an original CPU."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "The tool exports data/text and does not produce a native legacy executable."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README documents Visual Studio 2022/.NET 6 build and use; no local build was performed.",
+          "evidence_urls": [
+            "https://github.com/ScottTunstall/BinViewer/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No minimum Windows host CPU/RAM or legacy hardware requirement is stated; SDK requirements are not runtime minima."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "No predecessor/successor or project dependency is claimed in the reviewed primary material."
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "orangepc-68k-macintosh-disassembly",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and the sole 68k listing identify the OrangePC Macintosh application.",
+          "evidence_urls": [
+            "https://github.com/axelmuhr/OrangePC/blob/master/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Concrete application disassembly used for NuBus hardware debugging; incompleteness does not erase the artifact."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly calls this a 68k Macintosh application disassembly; no narrower processor model is asserted.",
+          "evidence_urls": [
+            "https://github.com/axelmuhr/OrangePC/blob/master/README.md"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "No rebuilt executable or port output is documented; the repository contains a disassembly listing only."
+        },
+        "build": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "README and root inventory contain no build/reassembly recipe or byte-comparison claim."
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No minimum Macintosh model, System version or RAM requirement is stated."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, two-file tree or reviewed commit history."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README directly relates the listing to debugging an OrangePC NuBus board.",
+          "evidence_urls": [
+            "https://github.com/axelmuhr/OrangePC/blob/master/README.md"
+          ]
+        }
+      },
+      "next_actions": [
+        "Locate the original application version and determine whether the listing can be assembled or compared with its source binary."
+      ]
+    },
+    {
+      "project_id": "artillery-duel-colecovision-disassembly",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Title README and dedicated directory identify Artillery Duel as a separate project.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Compilable, annotated game disassembly rather than an umbrella collection record."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Assembly source explicitly declares CPU Z80.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/artillery-duel.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "FNAME and CPU Z80 directives explicitly define the rebuilt ROM output architecture.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/artillery-duel.asm"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README calls the listing compilable and source header states exact byte-match verification; no local build was run.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/README.md",
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/artillery-duel.asm"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No explicit minimum hardware/BIOS/RAM profile beyond the named ColecoVision output is stated."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README credits Claude Code and source header credits Claude Sonnet 4.6 annotation.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/README.md",
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Artillery%20Duel/artillery-duel.asm"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Repository root identifies each game as its own directory; this record is deliberately directory-scoped.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "montezumas-revenge-colecovision-disassembly",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Title README and dedicated directory identify Montezuma's Revenge as a separate project.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Montezuma%27s%20Revenge/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Compilable, annotated game disassembly rather than an umbrella collection record."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Assembly source explicitly declares CPU Z80.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Montezuma%27s%20Revenge/montezumas-revenge.asm"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "FNAME and CPU Z80 directives explicitly define the rebuilt ROM output architecture.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Montezuma%27s%20Revenge/montezumas-revenge.asm"
+          ]
+        },
+        "build": {
+          "state": "needs-research",
+          "checked_at": "2026-10-12",
+          "note": "README calls the listing compilable, but no byte-comparison claim or standalone recipe was found; compilable=true reflects upstream documentation and was not rerun.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Montezuma%27s%20Revenge/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No explicit minimum hardware/BIOS/RAM profile beyond the named ColecoVision output is stated."
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly credits Claude Code alongside Kamshaft.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Montezuma%27s%20Revenge/README.md"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Repository root identifies each game as its own directory; this record is deliberately directory-scoped.",
+          "evidence_urls": [
+            "https://github.com/tony-cruise/colecovision-games-source/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": [
+        "Run the documented assembler path and compare the generated 12 KiB ROM with the original before setting byte_exact."
+      ]
+    },
+    {
+      "project_id": "xdev68k-x68000-cross-development-environment",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and coherent root identify xdev68k as one integrated X680x0 cross-development environment.",
+          "evidence_urls": [
+            "https://github.com/yosshin4004/xdev68k/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Directly useful compiler/assembler/development/debugging tooling for reproducible X680x0 software work."
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "This is a compiler/development environment rather than analysis of one original binary."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly documents m68000, m68020, m68040 and m68060 library/output variants.",
+          "evidence_urls": [
+            "https://github.com/yosshin4004/xdev68k/blob/main/README.md"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Primary README supplies build/install commands and runnable examples; no local 10 GB toolchain build was attempted.",
+          "evidence_urls": [
+            "https://github.com/yosshin4004/xdev68k/blob/main/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "README distinguishes output libraries and build-host disk space but does not state minimum runnable X680x0 CPU/RAM per generated program; compiler variants are not promoted to runtime minima."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README says the predecessor x68k_gcc_has_converter was integrated here and documents dependencies on GCC, HAS060, HLK, run68 and optional XEiJ.",
+          "evidence_urls": [
+            "https://github.com/yosshin4004/xdev68k/blob/main/README.md",
+            "https://github.com/yosshin4004/x68k_gcc_has_converter/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "dis-x68000-source-code-generator",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README, manual and source identify dis version 3.x and this maintained port.",
+          "evidence_urls": [
+            "https://github.com/rururutan/dis/blob/master/README.md",
+            "https://github.com/rururutan/dis/blob/master/README.DOC"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Generic source-code generation/disassembly tooling for X680x0 and related m68k binaries."
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Manual and source enumerate 68000, 68010, 68020, 68030, 68040, 68060 and CPU32 instruction selection.",
+          "evidence_urls": [
+            "https://github.com/rururutan/dis/blob/master/README.DOC",
+            "https://github.com/rururutan/dis/blob/master/src/main.c"
+          ]
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "The generator emits assembly for the explicitly selected m68k/CPU32 instruction set.",
+          "evidence_urls": [
+            "https://github.com/rururutan/dis/blob/master/README.DOC"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Repository provides platform-specific Makefiles and README describes runnable host variants; no local build was performed.",
+          "evidence_urls": [
+            "https://github.com/rururutan/dis/tree/master/src/ports",
+            "https://github.com/rururutan/dis/blob/master/README.md"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No minimum host CPU/RAM or Human68k version is stated for the tool variants."
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, manual, repository tree or ten reviewed recent commit messages."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly points to the original author's X68000 release and identifies this repository as a personal Windows-oriented port.",
+          "evidence_urls": [
+            "https://github.com/rururutan/dis/blob/master/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "sxpkey-x68000-adpcm-keyboard",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "partial",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README, source, distributed SXPKEY.R and SXPKEY.LB identify one coherent application.",
+          "evidence_urls": [
+            "https://github.com/masaaki-taguchi/sxpkey/blob/main/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Substantial original homebrew/music utility; no evidence supports labelling it reverse-engineered or RE-derived."
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-12",
+          "note": "Original homebrew has no original binary architecture being reverse engineered."
+        },
+        "target_cpu": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "README and both makefiles name X680x0/HAS tools but no explicit output CPU model or assembler CPU directive; none is inferred from platform or language."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README and two makefiles document xdev68k and native X680x0 builds to SXPKEY.R; no local build was performed.",
+          "evidence_urls": [
+            "https://github.com/masaaki-taguchi/sxpkey/blob/main/README.md",
+            "https://github.com/masaaki-taguchi/sxpkey/blob/main/src/makefile",
+            "https://github.com/masaaki-taguchi/sxpkey/blob/main/src/makefile.x68k"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly requires SX-WINDOW and describes optional PCM8 or ras68k-ext/pilib paths; no minimum CPU/RAM is stated.",
+          "evidence_urls": [
+            "https://github.com/masaaki-taguchi/sxpkey/blob/main/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-12",
+          "note": "No AI attribution appeared in the README, source tree or sole commit message."
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "README explicitly identifies xdev68k as its cross-build environment and names PCM8/ras68k-ext/pilib runtime integrations.",
+          "evidence_urls": [
+            "https://github.com/masaaki-taguchi/sxpkey/blob/main/README.md"
+          ]
+        }
+      },
+      "next_actions": [
+        "Find an explicit assembler/output CPU declaration before populating target_cpu; do not infer it from X680x0 or HAS usage."
+      ]
     }
   ]
 }

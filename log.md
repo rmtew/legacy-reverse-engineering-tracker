@@ -990,3 +990,9 @@ Closed the stale Snuggsy187 Electron screening task after reconciling all nine n
 ## 2026-10-11 — Add fourteen verified Amiga, Atari ST-family and C64/C128 projects
 
 [Research record](docs/research/2026-10-11-amiga-st-c64-third-discovery.md).
+
+## 2026-10-12 — Macintosh firmware, ColecoVision disassemblies and X680x0 tooling
+
+Promoted twelve primary-source-verified projects from the queued author-profile lane and three rotated fresh-search slices. **Macintosh Display Card 8•24 GC** and **OrangePC** add separate 68k Macintosh hardware/application archaeology; **f2mc8dasm**, **Interpod**, **k0dasm**, **k0emu** and **BinViewer** add firmware, peripheral and asset-analysis tooling. **xdev68k**, **dis** and original-homebrew **SXPKEY.R** expand X680x0 development coverage without inferring SXPKEY.R's CPU from its platform.
+
+The ColecoVision collection was not flattened into one record: **Artillery Duel** and **Montezuma's Revenge** were audited and promoted at their title directories, while the other 22 directories remain a persistent task. The obsolete x68k GCC-to-HAS converter is recorded as xdev68k lineage, and the empty Atari ST video-mod configuration repository is excluded. The preselection CPU queue contained no unresolved existing areas; every new record nevertheless received explicit source/target CPU decisions, including not-applicable and no-evidence-found states where primary sources did not establish an architecture.
