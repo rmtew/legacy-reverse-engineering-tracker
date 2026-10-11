@@ -4,6 +4,72 @@ import copy
 import unittest
 
 from collect_activity import coauthor_tools, detect_ai
+from refresh_github import update_ai_config
+
+
+class ConfigurationAttributionTests(unittest.TestCase):
+    def test_each_instruction_file_is_context_not_contribution(self):
+        for root, github in (([{"name": "CLAUDE.md"}], []),
+                             ([{"name": ".claude", "type": "dir"}], []),
+                             ([{"name": "CODEX.md"}], []),
+                             ([], [{"name": "copilot-instructions.md"}])):
+            for usage in (None, False):
+                with self.subTest(root=root, github=github, usage=usage):
+                    record = {"ai": {"usage": usage, "tools": []}}
+                    update_ai_config([record], root, github)
+                    self.assertIs(record["ai"]["usage"], usage)
+                    self.assertEqual(record["ai"]["tools"], [])
+                    self.assertEqual(len(record["ai"]["evidence"]), 1)
+                    self.assertIn("does not establish AI contribution", record["ai"]["evidence"][0])
+
+    def test_missing_ai_defaults_to_unknown_only_when_configuration_found(self):
+        record = {}
+        update_ai_config([record], [{"name": "AGENTS.md"}, None], [])
+        self.assertEqual(record, {})
+        update_ai_config([record], [{"name": "CLAUDE.md"}], [])
+        self.assertIsNone(record["ai"]["usage"])
+        self.assertEqual(record["ai"]["tools"], [])
+
+    def test_configuration_does_not_add_tools_to_verified_generic_usage(self):
+        record = {"ai": {"usage": True, "tools": ["Retro Diffusion"],
+                         "evidence": ["README credits AI-built examples and Retro Diffusion art"]}}
+        update_ai_config([record], [{"name": "CLAUDE.md"}, {"name": "codex.md"}],
+                         [{"name": "copilot-instructions.md"}])
+        self.assertTrue(record["ai"]["usage"])
+        self.assertEqual(record["ai"]["tools"], ["Retro Diffusion"])
+        self.assertEqual(record["ai"]["evidence"][0],
+                         "README credits AI-built examples and Retro Diffusion art")
+
+    def test_existing_tool_list_never_promotes_unknown_usage(self):
+        record = {"ai": {"usage": None, "tools": ["Claude"]}}
+        update_ai_config([record], [], [])
+        self.assertIsNone(record["ai"]["usage"])
+        update_ai_config([record], [{"name": "CLAUDE.md"}], [])
+        self.assertIsNone(record["ai"]["usage"])
+
+    def test_repeated_scans_qualify_legacy_context_without_duplicate_evidence(self):
+        record = {"ai": {"usage": None, "tools": [],
+                         "evidence": ["Claude project instructions/configuration present"]}}
+        entries = [{"name": "CLAUDE.md"}, {"name": ".claude"}]
+        update_ai_config([record], entries, [])
+        expected = copy.deepcopy(record)
+        update_ai_config([record], entries, [])
+        self.assertEqual(record, expected)
+        self.assertEqual(len(record["ai"]["evidence"]), 1)
+
+    def test_actual_attribution_survives_refresh_in_either_order(self):
+        commit = {"sha": "abc123", "commit": {
+            "message": "Implement feature\n\nCo-authored-by: Claude Code <bot@example.com>"}}
+        for config_first in (True, False):
+            with self.subTest(config_first=config_first):
+                record = {"ai": {"usage": None, "tools": []}}
+                if config_first:
+                    update_ai_config([record], [{"name": "CLAUDE.md"}], [])
+                detect_ai(record, [commit])
+                update_ai_config([record], [{"name": "CLAUDE.md"}], [])
+                self.assertTrue(record["ai"]["usage"])
+                self.assertEqual(record["ai"]["tools"], ["Claude"])
+                self.assertTrue(any("abc123; Claude Code" in e for e in record["ai"]["evidence"]))
 
 
 class CoauthorAttributionTests(unittest.TestCase):

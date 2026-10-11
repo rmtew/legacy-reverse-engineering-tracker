@@ -974,3 +974,7 @@ Closed the stale Snuggsy187 Electron screening task after reconciling all nine n
 ## 2026-10-11 — Add twelve verified Amiga, Atari ST-family and C64/C128 projects
 
 [Research record](docs/research/2026-10-11-amiga-st-c64-second-discovery.md).
+
+## 2026-10-11 — Separate AI configuration from contribution and publish Amiga Game Kit
+
+[Research record](docs/research/2026-10-11-ai-attribution-evidence-fix.md).

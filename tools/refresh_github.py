@@ -328,27 +328,34 @@ def get_json(path, **kwargs):
     return body, headers, status
 
 def update_ai_config(projects, root_entries, github_entries):
+    """Record configuration context without inferring use or tool authorship.
+
+    Instructions can exist before an agent is used, or only document supported
+    integrations. Attribution is supplied by reviewed evidence or explicit
+    commit co-author trailers; neither existing unknown nor false usage should
+    be promoted merely because an instruction file is present.
+    """
     root_names = {e.get("name", "").lower() for e in root_entries if isinstance(e, dict)}
     gh_names = {e.get("name", "").lower() for e in github_entries if isinstance(e, dict)}
+    context = []
+    for filename, tool in AI_CONFIG.items():
+        if filename in root_names:
+            context.append(f"{tool} project instructions/configuration present")
+    if "copilot-instructions.md" in gh_names:
+        context.append(".github/copilot-instructions.md present")
+    if not context:
+        return
     for record in projects:
         ai = record.setdefault("ai", {"usage": None, "tools": []})
-        tools = set(ai.get("tools") or [])
         evidence = list(ai.get("evidence") or [])
-        for filename, tool in AI_CONFIG.items():
-            if filename in root_names:
-                tools.add(tool)
-                phrase = f"{tool} project instructions/configuration present"
-                if phrase not in evidence:
-                    evidence.append(phrase)
-        if "copilot-instructions.md" in gh_names:
-            tools.add("GitHub Copilot")
-            phrase = ".github/copilot-instructions.md present"
-            if phrase not in evidence:
-                evidence.append(phrase)
-        if tools:
-            ai["usage"] = True
-            ai["tools"] = sorted(tools)
-            ai["evidence"] = evidence
+        for phrase in dict.fromkeys(context):
+            qualified = phrase + " (configuration only; does not establish AI contribution)"
+            # Qualify the exact legacy observation without rewriting independent
+            # research evidence or trying to retract existing claims heuristically.
+            evidence = [qualified if item == phrase else item for item in evidence]
+            if qualified not in evidence:
+                evidence.append(qualified)
+        ai["evidence"] = list(dict.fromkeys(evidence))
 
 def update_basic_info(repo, info, repo_projects):
     branch = info.get("default_branch") or "main"
