@@ -883,3 +883,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-07 — Review 32 further Apple II/IIgs game implementations and bounded exclusions
 
 [Research record](docs/research/2026-10-07-apple-ii-games-round3.md).
+
+## 2026-10-11 — Add eleven reviewed Amiga, Atari ST and C64 projects; retain deduplicated and deferred leads
+
+[Research record](docs/research/2026-10-11-amiga-st-c64-focused-discovery.md).

@@ -25070,6 +25070,381 @@
         "juggler-ssg"
       ],
       "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-focused-promote-amiga-game-kit-codebase",
+      "title": "Amiga Game Kit: native game build, test and asset pipeline",
+      "url": "https://github.com/codebase/amiga-game-kit",
+      "decision": "deferred",
+      "reason": "Qualified native Amiga development toolkit, but catalogue promotion is deferred to preserve accurate AI attribution: primary README and commit 6acced96fd328458e074f6e303633866ce5dc5aa explicitly establish agent-built examples and Retro Diffusion art; all 55 available commit messages identify no specific coding-agent author. CLAUDE.md is only an @AGENTS.md pointer, and AGENTS.md documents generic workflow. The current tracker refresh_github.py update_ai_config would nevertheless append Claude solely from the filename. Review/fix that heuristic separately, then publish the researched toolkit with only supported AI labels. This is a publication-integrity blocker, not lack of project substance.",
+      "evidence_urls": [
+        "https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/README.md",
+        "https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/templates/game/CMakeLists.txt",
+        "https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/tools/build",
+        "https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/harness/agk/profiles.py",
+        "https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/CLAUDE.md",
+        "https://github.com/codebase/amiga-game-kit/blob/6acced96fd328458e074f6e303633866ce5dc5aa/AGENTS.md",
+        "https://github.com/rmtew/legacy-reverse-engineering-tracker/blob/c1613cac54ca1c39f1e567e76cfd30174dfd3cf1/tools/refresh_github.py#L330-L351"
+      ],
+      "source_ids": [
+        "github-codebase-amiga-game-kit"
+      ],
+      "project_ids": [],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-focused-promote-no-cpu-amiga-demo-runner",
+      "title": "No-CPU Amiga demo runner and platform specification",
+      "url": "https://github.com/askeksa/NoCpuChallenge",
+      "decision": "promoted",
+      "reason": "Substantive native demo-development tooling, not rules alone: the launcher initializes hardware, loads/decompresses memory images and implements restart/restore behavior. The specification and launcher form one coherent root-scoped work.",
+      "evidence_urls": [
+        "https://github.com/askeksa/NoCpuChallenge/blob/c9a143fb8d31eff53d386ee51a46c96c71e983e5/README.md",
+        "https://github.com/askeksa/NoCpuChallenge/blob/c9a143fb8d31eff53d386ee51a46c96c71e983e5/runner/README.md",
+        "https://github.com/askeksa/NoCpuChallenge/blob/c9a143fb8d31eff53d386ee51a46c96c71e983e5/runner/Runner.S"
+      ],
+      "source_ids": [
+        "github-askeksa-nocpuchallenge"
+      ],
+      "project_ids": [
+        "no-cpu-amiga-demo-runner"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-focused-promote-no-cpu-amiga-demo-framework",
+      "title": "No-CPU Amiga invitation demo and Dart authoring framework",
+      "url": "https://github.com/askeksa/NoCpuDemo",
+      "decision": "promoted",
+      "reason": "A substantial original Amiga demo and reusable authoring package form a coherent hybrid root entry. Dart code builds copperlists, display/blitter/sprite structures, music data and memory placement; it is not an emulator wrapper for an old game and is not a binary-only collection.",
+      "evidence_urls": [
+        "https://github.com/askeksa/NoCpuDemo/blob/15c2b8d63677b861701b50f30f57f5f4529ee95a/README.md",
+        "https://github.com/askeksa/NoCpuDemo/blob/15c2b8d63677b861701b50f30f57f5f4529ee95a/no_cpu/bin/main.dart"
+      ],
+      "source_ids": [
+        "github-askeksa-nocpudemo"
+      ],
+      "project_ids": [
+        "no-cpu-amiga-demo-framework"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-mame106rgb-lineage-review",
+      "title": "Mame106RGB native display branch",
+      "url": "https://github.com/futureretrofusion/Mame106RGB",
+      "decision": "deferred",
+      "reason": "README and ORIGINAL_PROJECT_README identify a branch derived from the already tracked krabobmkd/amigamame. KNOWN_GOOD_V91C3 describes five-mode native screen handover work, but this pass has not compared amiga_video_ham6.cpp and mode-switch changes to the tracked predecessor to establish distinct contribution versus a source snapshot. Compare those implementation paths and revision lineage before promoting a second entry. This is a general emulator port, not a game-specific-wrapper exclusion.",
+      "evidence_urls": [
+        "https://github.com/futureretrofusion/Mame106RGB/blob/4acbcfe213ff28d0065c7dbbe57efdd46a493b8c/README.md",
+        "https://github.com/futureretrofusion/Mame106RGB/blob/4acbcfe213ff28d0065c7dbbe57efdd46a493b8c/docs/ORIGINAL_PROJECT_README.md",
+        "https://github.com/futureretrofusion/Mame106RGB/blob/4acbcfe213ff28d0065c7dbbe57efdd46a493b8c/docs/KNOWN_GOOD_V91C3.md"
+      ],
+      "source_ids": [
+        "github-futureretrofusion-mame106rgb"
+      ],
+      "project_ids": [
+        "mame106-minimix-amiga"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-moonstone-ace-amiga-reconstruction",
+      "title": "Moonstone — native C++ reconstruction for Amiga 1200",
+      "url": "https://github.com/Jarskih/moonstone-ace-public",
+      "decision": "promoted",
+      "reason": "The repository contains one coherent reconstruction of Moonstone: A Hard Days Knight (Mindscape, 1991), including C++ gameplay, ACE runtime, original-data loaders and comparison tooling. README identifies original Amiga disks and the A1200 output. Keep one repository-root record. README and CLAUDE.md document a 68k-disassembly-to-C++ reconstruction. src/engine/scenes.cpp implements frame loops and scene bodies with explicit original program.asm label/line references. Architecture separates native runtime, engine services, game API and rules. The game has been all C++ since milestone 7.1r; the original ASM is not linked. The fight-script VM is game bytecode interpretation, and Unicorn is confined to testing.",
+      "evidence_urls": [
+        "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md",
+        "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/src/engine/scenes.cpp",
+        "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/docs/PUBLISHING.md"
+      ],
+      "source_ids": [
+        "github-jarskih-moonstone-ace-public"
+      ],
+      "project_ids": [
+        "moonstone-ace-amiga-reconstruction"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-goodsoup-comi-amiga-native-interpreter",
+      "title": "Goodsoup — Curse of Monkey Island native Amiga interpreter",
+      "url": "https://github.com/betajaen/goodsoup",
+      "decision": "promoted",
+      "reason": "Robin Southern's Goodsoup is a single native Amiga interpreter/player project for The Curse of Monkey Island. README names the English GOG PC data and version 0.5; the repository has substantive C++ resource, VM, rendering and platform code. Link the repository root. The author identifies a partial fork and reimplementation of ScummVM 0.9.1 SCUMM v8 and NScumm. Reviewed script.cpp reads global/local/object-verb script resources with SCRP, LSCR, ENCD, EXCD and VERB handling; the makefile links dedicated VM, room, codec and SMUSH components. This qualifies at the demonstrated incomplete interpreter scope and does not emulate the original PC CPU.",
+      "evidence_urls": [
+        "https://github.com/betajaen/goodsoup/blob/c2f3a202fa599eed6f85c0cfa906bed7e9126f00/README",
+        "https://github.com/betajaen/goodsoup/blob/c2f3a202fa599eed6f85c0cfa906bed7e9126f00/source/goodsoup/script.cpp"
+      ],
+      "source_ids": [
+        "github-betajaen-goodsoup"
+      ],
+      "project_ids": [
+        "goodsoup-comi-amiga-native-interpreter"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-sevgi-amiga-game-engine-editor",
+      "title": "Sevgi Engine — native Amiga game engine and asset editor",
+      "url": "https://github.com/alpyre/Sevgi_Engine",
+      "decision": "promoted",
+      "reason": "Sevgi Engine is a coherent original Amiga development toolkit comprising the native Sevgi Editor, generated game engine code, asset-conversion tools and genre templates. README and tilemap_creator.c establish substantive editor functionality; retain one repository-root record rather than splitting every generator. This is directly relevant retro-development tooling, with native game-engine boilerplate generation, asset management, palette/sprite/BOB/tile tools and template game projects. The inspected tilemap creator validates Tiled JSON and invokes the dedicated ConvertMap pipeline with project-specific game-object headers. No binary-derived reconstruction claim is made.",
+      "evidence_urls": [
+        "https://github.com/alpyre/Sevgi_Engine/blob/fcf1b2166351911d49baa6641cf7a359075721a2/README.md",
+        "https://github.com/alpyre/Sevgi_Engine/blob/fcf1b2166351911d49baa6641cf7a359075721a2/tilemap_creator.c"
+      ],
+      "source_ids": [
+        "github-alpyre-sevgi-engine"
+      ],
+      "project_ids": [
+        "sevgi-amiga-game-engine-editor"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-idopus-directory-opus-modern-port",
+      "title": "iDOpus — Directory Opus 5 Magellan modern desktop port",
+      "url": "https://github.com/bamsejon/idopus",
+      "decision": "promoted",
+      "reason": "iDOpus is a distinct modern source-guided implementation of Directory Opus 5 Magellan. It contains portable C core/PAL code, macOS AppKit UI and Linux/Windows Qt UI. src/core/dir_buffer.c concretely reproduces the original directory-buffer architecture, sorting and separation behavior. Keep the repository root. This is a native, original-source-guided port/reimplementation, not binary decompilation or CPU emulation. README says Amiga subsystems are replaced with modern APIs; inspected CMake targets build portable libraries plus native platform UIs. The directory-buffer implementation explicitly follows the original buffers_sort.c shell-sort model.",
+      "evidence_urls": [
+        "https://github.com/bamsejon/idopus/blob/7ce1459a11c656f94c62dd8abe51b0bdfebca9ad/README.md",
+        "https://github.com/bamsejon/idopus/blob/7ce1459a11c656f94c62dd8abe51b0bdfebca9ad/src/core/dir_buffer.c",
+        "https://github.com/bamsejon/idopus/blob/7ce1459a11c656f94c62dd8abe51b0bdfebca9ad/CMakeLists.txt"
+      ],
+      "source_ids": [
+        "github-bamsejon-idopus"
+      ],
+      "project_ids": [
+        "idopus-directory-opus-modern-port"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-directory-opus-582-original-amiga-source",
+      "title": "Directory Opus 5.82 — original Amiga source archive",
+      "url": "https://github.com/MrZammler/opus_magellan",
+      "decision": "promoted",
+      "reason": "README preserves Jonathan Potter/GP Software's release announcement dated 2012-11-29, identifying the last commercial release as Directory Opus 5.82. Program/main.c labels itself Original APL release version 5.82 and credits the original authors. Program, Library, Config and modules form one coherent period application/system archive, not independently split projects. This is original-source preservation/restoration of the substantial Amiga file-manager/desktop system. The reviewed startup implementation, 68000 routine and SAS/C link recipe are concrete original source artifacts. There is no evidence of binary-derived reconstruction, so it is not classified as decompilation.",
+      "evidence_urls": [
+        "https://github.com/MrZammler/opus_magellan/blob/ea0352c5573f1af748891f19f2b67be0b3c6d9a3/README.md",
+        "https://github.com/MrZammler/opus_magellan/blob/ea0352c5573f1af748891f19f2b67be0b3c6d9a3/Program/main.c",
+        "https://github.com/MrZammler/opus_magellan/blob/ea0352c5573f1af748891f19f2b67be0b3c6d9a3/Program/makefile"
+      ],
+      "source_ids": [
+        "github-mrzammler-opus-magellan"
+      ],
+      "project_ids": [
+        "directory-opus-582-original-amiga-source"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-smonson-libtos-atari-st",
+      "title": "smonson-libtos: Atari ST TOS bindings and runtime library",
+      "url": "https://github.com/smonson78/smonson-libtos",
+      "decision": "promoted",
+      "reason": "The author's README identifies this as his own libtos for Atari ST projects and explicitly warns that it is incomplete and educational. The root forms a coherent C runtime and TOS/AES/BIOS/XBIOS/Line-A binding library; no recovered historical source provenance is claimed.",
+      "evidence_urls": [
+        "https://github.com/smonson78/smonson-libtos/blob/01c5fda36202e3c5cfa71088fed4124629aa5cf7/README.md",
+        "https://github.com/smonson78/smonson-libtos/blob/01c5fda36202e3c5cfa71088fed4124629aa5cf7/Makefile"
+      ],
+      "source_ids": [
+        "github-smonson78-smonson-libtos",
+        "github-smonson78"
+      ],
+      "project_ids": [
+        "smonson-libtos-atari-st"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-atari-libs-hildenborg",
+      "title": "atari-libs: generated Atari TOS, AES and VDI C libraries",
+      "url": "https://github.com/hildenborg/atari-libs",
+      "decision": "promoted",
+      "reason": "README identifies system-specific C libraries for Atari 16/32-bit computers, generated from XML interface descriptions. The repository owns the specifications, Python generators, custom C implementations and library/test build scripts.",
+      "evidence_urls": [
+        "https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/README.md",
+        "https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/tos_gen.py",
+        "https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/build.sh"
+      ],
+      "source_ids": [
+        "github-hildenborg-atari-libs",
+        "fresh-m68k-atari-dev-hildenborg"
+      ],
+      "project_ids": [
+        "atari-libs-hildenborg"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-c64-misc-ricardoquesada",
+      "title": "c64-misc: C64 raster tests, graphics routines and recovery tools",
+      "url": "https://github.com/ricardoquesada/c64-misc",
+      "decision": "promoted",
+      "reason": "The root README describes the author's reusable C64 tools and routines. Inspected source spans a VIC-II raster-test suite, native Koala graphics viewer, SID metadata/player inspection and a CBM2040 disk-file copier. The root is retained as one development/analysis collection rather than splitting each routine into a project.",
+      "evidence_urls": [
+        "https://github.com/ricardoquesada/c64-misc/blob/8bd2e595400e80629dd0d380de798bafaffd8bbb/README.md",
+        "https://github.com/ricardoquesada/c64-misc/blob/8bd2e595400e80629dd0d380de798bafaffd8bbb/vic_tricks/README.md",
+        "https://github.com/ricardoquesada/c64-misc/blob/8bd2e595400e80629dd0d380de798bafaffd8bbb/viewers/koala.s",
+        "https://github.com/ricardoquesada/c64-misc/blob/8bd2e595400e80629dd0d380de798bafaffd8bbb/tools/cbm2040_to_d64.py",
+        "https://github.com/ricardoquesada/c64-misc/blob/8bd2e595400e80629dd0d380de798bafaffd8bbb/tools/sid_info.py"
+      ],
+      "source_ids": [
+        "github-ricardoquesada-c64-misc",
+        "github-ricardoquesada"
+      ],
+      "project_ids": [
+        "c64-misc-ricardoquesada"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-promote-5plusbuttonsjoystick-c64-software",
+      "title": "5plusbuttonsJoystick: C64 multibutton game patches and tester",
+      "url": "https://github.com/crystalct/5plusbuttonsJoystick",
+      "decision": "promoted",
+      "reason": "The root hardware project includes creator-attributed C64 game-control modifications and an editable Joystick5plus1Test.c tester. Its Impossible Mission 3 component includes instructions, a Python patcher and a 170-byte native payload. This record covers the coherent software companion and authored patch work, not bare PCB fabrication files.",
+      "evidence_urls": [
+        "https://github.com/crystalct/5plusbuttonsJoystick/blob/af9ab6661352acc4354a9adfe042991473c07eed/README.md",
+        "https://github.com/crystalct/5plusbuttonsJoystick/blob/af9ab6661352acc4354a9adfe042991473c07eed/Joystick5plus1Test.c",
+        "https://github.com/crystalct/5plusbuttonsJoystick/blob/af9ab6661352acc4354a9adfe042991473c07eed/IM3_2ndfirePatch/README.md",
+        "https://github.com/crystalct/5plusbuttonsJoystick/blob/af9ab6661352acc4354a9adfe042991473c07eed/IM3_2ndfirePatch/patch.py"
+      ],
+      "source_ids": [
+        "github-crystalct-5plusbuttonsjoystick"
+      ],
+      "project_ids": [
+        "5plusbuttonsjoystick-c64-software"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-exclude-st-256k-rom-hardware",
+      "title": "Atari ST 256K ROM adapter board",
+      "url": "https://github.com/smonson78/atari-st-256k-rom",
+      "decision": "excluded",
+      "reason": "The complete recursive tree contains KiCad schematic/board/library files and fabrication outputs only. No ROM listing, firmware implementation or software recovery/development tool was found; the ROM wording refers to the physical board.",
+      "evidence_urls": [
+        "https://github.com/smonson78/atari-st-256k-rom/tree/main/H4"
+      ],
+      "source_ids": [
+        "github-smonson78"
+      ],
+      "project_ids": [],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-exclude-spritematex-c64-mismatch",
+      "title": "SpriteMateX Commander X16 editor",
+      "url": "https://github.com/OldSkoolCoder/SpriteMateX",
+      "decision": "excluded",
+      "reason": "The README defines a Commander X16-specific editor derived from the already tracked Spritemate, says C64-specific code was commented out and SpritePad C64 import removed. A C64 palette option and ancestry do not establish C64 data-analysis/tool support. This specific lead is outside the historical-platform software scope; the C64 predecessor is already represented.",
+      "evidence_urls": [
+        "https://github.com/OldSkoolCoder/SpriteMateX/blob/main/README.md"
+      ],
+      "source_ids": [
+        "github-oldskoolcoder-c64-re"
+      ],
+      "project_ids": [
+        "github-esshahn-spritemate"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-exclude-unijoysticle-game-aggregation",
+      "title": "Unijoysticle enhanced C64 game aggregation",
+      "url": "https://github.com/ricardoquesada/c64-games-unijoysticle",
+      "decision": "excluded",
+      "reason": "Root README and tree establish a binary collection mixing original C64GS games, CrystalCT modifications, Ricardo Quesada modifications and unidentified third parties, without component-specific source or analysis. The author's tracked Commando/Le Mans/Rambo work and newly reviewed CrystalCT control-patch root retain the demonstrated lineages; this aggregation adds no distinct reconstruction/tool contribution.",
+      "evidence_urls": [
+        "https://github.com/ricardoquesada/c64-games-unijoysticle/blob/main/README.md",
+        "https://github.com/ricardoquesada/c64-games-unijoysticle"
+      ],
+      "source_ids": [
+        "github-ricardoquesada"
+      ],
+      "project_ids": [
+        "commando-c64",
+        "lemans-c64-ricardoquesada",
+        "rambo-c64-ricardoquesada",
+        "5plusbuttonsjoystick-c64-software"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-defer-ataricc-framework-lineage",
+      "title": "ataricc native GEM application framework",
+      "url": "https://github.com/smonson78/ataricc",
+      "decision": "deferred",
+      "reason": "Makefile and app.cpp establish a native 68000 C++ GEM application/window/menu framework with bundled TOS/runtime files overlapping smonson-libtos. Do not add a second runtime-library record from filenames alone. Next check: compare app_window.cpp, MenuBar.cpp and full historical relationship to the newer standalone library, then decide whether the independent C++ framework warrants a separate record.",
+      "evidence_urls": [
+        "https://github.com/smonson78/ataricc/blob/5aec0cb0409428616715eeb8097cb4f6f13f130f/Makefile",
+        "https://github.com/smonson78/ataricc/blob/5aec0cb0409428616715eeb8097cb4f6f13f130f/app.cpp",
+        "https://github.com/smonson78/smonson-libtos"
+      ],
+      "source_ids": [
+        "github-smonson78"
+      ],
+      "project_ids": [
+        "smonson-libtos-atari-st"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-exclude-amor-para-dos-small-intro",
+      "title": "Amor para Dos native C64/DOS polyglot intro",
+      "url": "https://github.com/ricardoquesada/c64-pc-intro-amor-para-dos",
+      "decision": "excluded",
+      "reason": "Primary README and assembly establish an original 256-byte intro whose same binary runs natively on C64 and 80386+ DOS; this is explicitly not an emulator wrapper. It is a very small one-effect demonstration rather than substantial homebrew, a reconstructed legacy title or reusable development tool, consistent with existing small-competition-demo exclusions. Its native polyglot technique remains a useful documented source lead.",
+      "evidence_urls": [
+        "https://github.com/ricardoquesada/c64-pc-intro-amor-para-dos/blob/018e0b3fe8d5336dd656b5870256689898a8466d/README.md",
+        "https://github.com/ricardoquesada/c64-pc-intro-amor-para-dos/blob/018e0b3fe8d5336dd656b5870256689898a8466d/c64/main.asm",
+        "https://github.com/ricardoquesada/c64-pc-intro-amor-para-dos/blob/018e0b3fe8d5336dd656b5870256689898a8466d/dos/main.asm"
+      ],
+      "source_ids": [
+        "github-ricardoquesada"
+      ],
+      "project_ids": [],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-duplicate-8bitworkshop-canonical-owner",
+      "title": "8bitworkshop canonical organization repository",
+      "url": "https://github.com/8bitworkshop/8bitworkshop",
+      "decision": "duplicate",
+      "reason": "GitHub repository lookup for the tracked sehugg/8bitworkshop URL resolves to repository ID 76608522 with canonical owner 8bitworkshop. This is the already tracked browser IDE moved to its organization, not a new project.",
+      "evidence_urls": [
+        "https://github.com/8bitworkshop/8bitworkshop",
+        "https://api.github.com/repos/sehugg/8bitworkshop",
+        "https://github.com/8bitworkshop/8bitworkshop/blob/master/README.md"
+      ],
+      "source_ids": [
+        "intake-sehugg-8bitworkshop"
+      ],
+      "project_ids": [
+        "8bitworkshop-retro-browser-ide"
+      ],
+      "reviewed_at": "2026-10-11"
+    },
+    {
+      "id": "2026-10-11-exclude-backtobasic-sprite-exercises",
+      "title": "C64 BackToBasic sprite examples",
+      "url": "https://github.com/OldSkoolCoder/VSCode.C64.BackToBasic",
+      "decision": "excluded",
+      "reason": "Root inventory contains two sprite exercises, VIC-II constants, a memory diagram and VSCode workspace. Inspected Sprites02.asm shows a BASIC bootstrap and sprite data/example code, not a reconstructed historical subject or substantial reusable development-tool implementation. Retained as educational source rather than an independent project record.",
+      "evidence_urls": [
+        "https://github.com/OldSkoolCoder/VSCode.C64.BackToBasic",
+        "https://github.com/OldSkoolCoder/VSCode.C64.BackToBasic/blob/main/Sprites02.asm"
+      ],
+      "source_ids": [
+        "github-oldskoolcoder-c64-re"
+      ],
+      "project_ids": [],
+      "reviewed_at": "2026-10-11"
     }
   ]
 }

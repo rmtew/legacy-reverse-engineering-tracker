@@ -966,3 +966,7 @@ Reviewed nine material upstream changes. **TRX64** and **C64RE** now align inter
 ## 2026-10-11 — PC-98 reconstruction and game-audio tooling discovery
 
 Closed the stale Snuggsy187 Electron screening task after reconciling all nine named repositories: seven were already promoted and the remaining two already had explicit exclusions. Rotating PC-98, Archimedes and Amiga searches promoted **Touhou 4: Lotus Land Story — PC-98 source reconstruction** and **MIDI Converters — reverse-engineered game-music format toolkit**. Fresh Amiga hits for Compunet Reborn and Eric Graham’s Juggler raytracer resolved to existing project-specific records. The CPU audit queue remained empty; new CPU audits distinguish TH04’s evidenced 16-bit x86 and x64 products from data-only converters where source and target CPUs are not applicable.
+
+## 2026-10-11 — Add eleven reviewed Amiga, Atari ST and C64 projects; retain deduplicated and deferred leads
+
+[Research record](docs/research/2026-10-11-amiga-st-c64-focused-discovery.md).
