@@ -10030,7 +10030,62 @@
       "RISC-V",
       "LoongArch64"
     ],
-    "runtime_profiles": [],
+    "runtime_profiles": [
+      {
+        "name": "v8.4.0 Windows ARM64 binary",
+        "platform": "Windows",
+        "cpu_family": "ARM64",
+        "notes": "Published v8.4.0 release asset. No minimum CPU generation, RAM amount or OS version is stated; this profile records only the explicit runnable build variant.",
+        "evidence": [
+          "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+        ]
+      },
+      {
+        "name": "v8.4.0 Windows x86-64 binary",
+        "platform": "Windows",
+        "cpu_family": "x86-64",
+        "notes": "Published v8.4.0 release asset. No minimum CPU generation, RAM amount or OS version is stated; this profile records only the explicit runnable build variant.",
+        "evidence": [
+          "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+        ]
+      },
+      {
+        "name": "v8.4.0 macOS universal binary",
+        "platform": "macOS",
+        "cpu_family": "ARM64",
+        "notes": "Published v8.4.0 release asset. No minimum CPU generation, RAM amount or OS version is stated; this profile records only the explicit runnable build variant.",
+        "evidence": [
+          "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+        ]
+      },
+      {
+        "name": "v8.4.0 macOS universal binary",
+        "platform": "macOS",
+        "cpu_family": "x86-64",
+        "notes": "Published v8.4.0 release asset. No minimum CPU generation, RAM amount or OS version is stated; this profile records only the explicit runnable build variant.",
+        "evidence": [
+          "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+        ]
+      },
+      {
+        "name": "v8.4.0 Linux ARM64 binary",
+        "platform": "Linux",
+        "cpu_family": "ARM64",
+        "notes": "Published v8.4.0 release asset. No minimum CPU generation, RAM amount or OS version is stated; this profile records only the explicit runnable build variant.",
+        "evidence": [
+          "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+        ]
+      },
+      {
+        "name": "v8.4.0 Linux x86-64 binary",
+        "platform": "Linux",
+        "cpu_family": "x86-64",
+        "notes": "Published v8.4.0 release asset. No minimum CPU generation, RAM amount or OS version is stated; this profile records only the explicit runnable build variant.",
+        "evidence": [
+          "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+        ]
+      }
+    ],
     "source_language": [
       "Amiga hardware and 68000-family machine behavior"
     ],
@@ -10049,11 +10104,11 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-11",
-    "last_checked": "2026-10-06",
-    "status": "Substantive source inspected; build, runtime and equivalence untested",
+    "last_checked": "2026-10-12",
+    "status": "v8.4.0 published with Windows, macOS and Linux ARM64/x86-64 binaries",
     "build": {
-      "compilable": null,
-      "runnable": null,
+      "compilable": true,
+      "runnable": true,
       "playable": null,
       "byte_exact": null
     },
@@ -10072,7 +10127,7 @@
       "Haiku",
       "general Amiga machine emulator"
     ],
-    "notes": "General-purpose Amiga machine emulator built on the UAE/WinUAE core, eligible as system emulation rather than a single-game emulator. src/custom.cpp implements custom-chip event pipelines; src/newcpu.cpp supplies 68000-family execution, cache/MMU and JIT integration. CMake selects C++17/C11 and native host builds; README names Linux, macOS, Windows, Android, FreeBSD and Haiku hosts. Amiga is the emulated source machine, not a claim that the emulator runs natively on a classic Amiga. Host ARM/x86/RISC-V/LoongArch claims do not redefine the guest CPU. Individual model/chipset/ROM combinations were not tested. GPL-3.0 source does not license external Kickstart ROMs, game disks or bundled third-party components. src/newcpu.cpp explicitly identifies MC68000 emulation and contains 68020/030/040/060 cache/MMU state. m68k is the emulated guest family, distinct from the host CPU families. README explicitly names ARM, x86, RISC-V and LoongArch64 host hardware and ARM64/x86-64 JIT paths. Broad family values preserve these direct claims without inferring host minimums from C++ or OS names. CMake selects C++17/C11 and native host builds; README names Linux, macOS, Windows, Android, FreeBSD and Haiku hosts. Build flags remain null because no sufficiently scoped present-tree success was independently established; README historical or compatibility statements remain in notes. byte_exact is null: no comparison was performed. No sufficiently specific runtime minimum was established in the bounded primary review. Build flags and named targets are not silently converted into numeric machine requirements. No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; only candidates explicitly listing commit evidence had commit messages checked. Only the selected files were checked; absence of an attribution is not proof of non-use. Review scope: primary README when present, complete non-truncated recursive tree, selected implementation/build/license excerpts and only explicitly listed commit caches. No candidate was compiled, installed, executed or emulated, and no original-binary comparison was made. Historical release years and GitHub creation dates are not used as reverse-engineering start dates. Evidence: https://github.com/BlitterStudio/amiberry/blob/master/README.md https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp https://github.com/BlitterStudio/amiberry/blob/master/src/newcpu.cpp https://github.com/BlitterStudio/amiberry/blob/master/CMakeLists.txt https://github.com/BlitterStudio/amiberry/blob/master/LICENSE",
+    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md",
     "github": {
       "repository": "BlitterStudio/amiberry",
       "created_at": "2016-08-11",
@@ -14968,8 +15023,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-11",
-    "last_checked": "2026-10-10",
-    "status": "v0.7.8 live on the App Store since 2026-10-08",
+    "last_checked": "2026-10-12",
+    "status": "v0.7.8 live on the App Store; v0.7.9 handed to TestFlight",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -14994,7 +15049,7 @@
       "iPadOS",
       "Apple Silicon"
     ],
-    "notes": "Native Apple-platform WinUAE adaptation with SwiftUI interface, ROM/disk import and configurations spanning classic Amigas. README reports App Store release 0.7.8 and documents arm64 iOS cross-builds. CPU interpretation is a reusable whole-Amiga emulator, so it qualifies as generic tooling. No independent install/runtime test. The 0.7.8 release corrects Apple Pencil coordinates and Wacom scaling in TVPaint and requests current iCloud placeholders on secondary devices; upstream reports full-screen Pencil testing on an M4 iPad but explicitly leaves cross-device iCloud behavior unverified. Evidence: https://github.com/thomas-luebker/Amigo/commit/f03474c4f6d8 https://github.com/thomas-luebker/Amigo/commit/15d8bd257e744bcffb54194df702f18e42fe639f",
+    "notes": "Native Apple-platform WinUAE adaptation with SwiftUI interface, ROM/disk import and classic-Amiga configurations. README documents ARM64 iOS builds; source CPU remains the emulated 68k family. The latest handoff identifies v0.7.9 on TestFlight, while v0.7.8 remains the evidenced live App Store release. A primary performance record for Amigo 0.7.8 on an M4 iPad Pro uses an Amiga Imager OS 3.2.3/Kickstart 47.115 guest configured as 68060+FPU without MMU, RTG 1280x720 and 256 MiB Z3 RAM. Four amibench runs (one discarded) vary by at most 0.8%, and the document reports 14.66 M integer ops/s, 1043.5 MiB/s copy, 2112.8 MiB/s set and 748.5 MiB/s read; guest 68060 selection is within roughly 5% of 68040 on the same device. This is a measured configuration, not a host or guest minimum. No independent install/runtime test was run. Evidence: https://github.com/thomas-luebker/Amigo/commit/760ae33879b42c4e33fb732dbc82f463c6f596a0 https://github.com/thomas-luebker/Amigo/commit/9067cf3e980612f115a288b6e0bc68e29091c71e https://github.com/thomas-luebker/Amigo/commit/c7c3678db457c710aff7e705d04dfcd80f95fd63",
     "github": {
       "repository": "thomas-luebker/Amigo",
       "created_at": "2026-07-19",
@@ -44891,6 +44946,16 @@
           "https://github.com/turesheim/commodore-commander/commit/f2f645989b5cd5b60133d9404b75d17afa173db8",
           "https://github.com/turesheim/commodore-commander/actions/runs/38157335163"
         ]
+      },
+      {
+        "name": "Ubuntu 24.04 packaged product",
+        "platform": "Linux",
+        "os": "Ubuntu 24.04",
+        "notes": "Upstream package workflow installs and starts the product with bundled patched VICE, virtual display and PulseAudio, then runs the VICE debugger path. No CPU architecture, RAM floor or broader Linux minimum is stated.",
+        "evidence": [
+          "https://github.com/turesheim/commodore-commander/commit/921013818a76204cf768ea89614edcde424c200d",
+          "https://github.com/turesheim/commodore-commander/actions/runs/38207565659"
+        ]
       }
     ],
     "source_language": [
@@ -44919,7 +44984,7 @@
     "re_started": null,
     "last_activity": "2026-10-12",
     "last_checked": "2026-10-12",
-    "status": "active development; macOS Apple Silicon packaged compiler, SIDScore, VICE and Electron path verified upstream",
+    "status": "Active; macOS Apple Silicon and Ubuntu 24.04 packaged-product paths verified upstream",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -44947,7 +45012,7 @@
       "Commodore CBM-II",
       "source-reviewed"
     ],
-    "notes": "Identity: Commodore Commander remains the Eclipse Theia/Electron IDE integrating Kick Assembler, VICE debugging, graphics tools and SIDScore. Classification: The new packaged-product tests strengthen the directly relevant development-environment classification; they do not turn the tool into a reconstructed game or imply equal support for every machine profile. Source CPU: Existing primary documentation still explicitly supports NMOS 6502 disassembly and C64 6510 debugging. The package-test changes do not expand the demonstrated guest instruction-analysis set. Target CPU: The packaged-product documentation explicitly identifies the tested macOS Apple Silicon output. ARM64 records that evidenced host-output architecture; it is not a minimum Apple Silicon generation and does not convert guest 6502/6510 CPUs into host targets. Build: A successful upstream nightly package run now covers all package jobs, while the Apple Silicon path compiles a Kick Assembler program and checks its PRG bytes, exercises SIDScore/SRAP/MIDI, launches bundled VICE and Electron, verifies visible Machine pixels and a BASIC border-color POKE, then powers off and restarts. Compilable and runnable are upstream-verified, not locally reproduced. Limitations: The documented full UI product path currently applies to macOS Apple Silicon; Windows/Linux UI and external VICE remain separate development-test lanes. Signing is ad hoc and notarisation remains manual. Next check: Verify equivalent packaged UI paths on Windows/Linux and retain the distinction between embedded and external VICE coverage. Runtime profiles: The Apple Silicon package is an explicitly exercised runnable variant. No minimum Apple Silicon generation, macOS release or RAM is stated, so the profile records only the verified architecture and path. AI: The reviewed README, packaging change and release-priority documentation contain no explicit development-AI attribution. Agent configuration and automation alone are not proof; usage remains unknown. Relationships: The IDE continues to integrate Theia, VICE, Kick Assembler and independently maintained SIDScore. The reviewed changes bundle and test those dependencies but do not establish a new separately titled project. Evidence: https://github.com/turesheim/commodore-commander/blob/main/README.md https://github.com/turesheim/commodore-commander/commit/f2f645989b5cd5b60133d9404b75d17afa173db8 https://github.com/turesheim/commodore-commander/blob/main/packages/debug-adapter/src/vice-debug-adapter.ts https://github.com/turesheim/commodore-commander/actions/runs/38157335163 https://github.com/turesheim/commodore-commander/actions/runs/38157582224 https://github.com/turesheim/commodore-commander/commit/5b9bf467a0a9117dc392aa764366a1c7fb8af43a https://github.com/turesheim/SIDScore",
+    "notes": "Commodore Commander remains the Eclipse Theia/Electron IDE integrating Kick Assembler, VICE debugging, graphics tools and SIDScore. Existing evidence verifies the macOS Apple Silicon package path. The current Linux packaging change pins Ubuntu 24.04, bundles a patched VICE, adds Theia/package helpers and runs the product under Xvfb with virtual PulseAudio; the corresponding VICE Debugger E2E workflow succeeded. That establishes an Ubuntu packaged runtime path without establishing a Linux host CPU or RAM minimum. Source CPU support remains NMOS 6502/C64 6510, while ARM64 remains the only explicitly recorded host output architecture. No new separately titled project appears in the repository. Evidence: https://github.com/turesheim/commodore-commander/commit/921013818a76204cf768ea89614edcde424c200d https://github.com/turesheim/commodore-commander/actions/runs/38207565659 https://github.com/turesheim/commodore-commander/blob/main/README.md",
     "github": {
       "repository": "turesheim/commodore-commander",
       "created_at": "2023-12-30",
@@ -51858,8 +51923,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-12",
-    "last_checked": "2026-09-30",
-    "status": null,
+    "last_checked": "2026-10-12",
+    "status": "Active function-by-function reconstruction; new graphics and view routines reach 100% reccmp matches",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -51872,13 +51937,14 @@
     },
     "techniques": [
       "function-by-function replacement",
-      "symbol analysis"
+      "symbol analysis",
+      "reccmp function matching"
     ],
     "tags": [
       "DOS",
       "Carmageddon"
     ],
-    "notes": "Buildable native Carmageddon reimplementation that replaces original assembly with C function by function. Historical Watcom symbols exist but do not match released-code positions. Current CI builds and tests Windows x86/x64, Linux x64/arm64 and macOS x86_64/arm64 variants; no minimum host hardware is documented. Completeness and playable parity remain unverified.",
+    "notes": "Buildable native Carmageddon reimplementation that replaces original DOS executable assembly with C function by function. Historical Watcom symbols exist but do not match released-code positions. Current CI builds and tests Windows x86/x64, Linux x64/arm64 and macOS x86_64/arm64 variants; no minimum host hardware is documented. The latest reviewed commits report exact reccmp matches for GetGraphicsOptions, ChangingView and drpixelmapcopy, demonstrating incremental function parity rather than whole-program completeness or playable parity. Evidence: https://github.com/dethrace-labs/dethrace/commit/ff723168a9b458252ce40bb6e0ceb008cb4dcc35 https://github.com/dethrace-labs/dethrace/commit/80898db36d16d584d50789a9f8d05cdf2ed8458f https://github.com/dethrace-labs/dethrace/commit/d5b90d885b298c9ca338c9060468f899ca095fab",
     "github": {
       "repository": "dethrace-labs/dethrace",
       "created_at": "2019-10-29",
@@ -74676,8 +74742,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-12",
-    "last_checked": "2026-09-29",
-    "status": null,
+    "last_checked": "2026-10-12",
+    "status": "Active; NES suite passes 29 baseline cases plus three corrected planar-split fixtures",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -74701,7 +74767,8 @@
       "constant-pointer indirect-jump resolution",
       "jump-table bound analysis",
       "single-case oracle defect quarantine",
-      "exhaustive CPU-vector verification"
+      "exhaustive CPU-vector verification",
+      "planar split jump-table bounding"
     ],
     "tags": [
       "Ghidra",
@@ -74713,7 +74780,7 @@
       "SPC700",
       "65C816"
     ],
-    "notes": "Ghidra extension configures banked memory maps, ROMs, hardware registers and symbols for C64/C128/PET PRG and NES iNES analysis, and bundles explicit SPC700 and 65C816 language variants for SNES code. The SPC700 language is decode-capable with p-code still under rewrite; the 65C816 language is disassembly-oriented while its p-code is verified against exhaustive vectors. Current NES work resolves proven constant-pointer indirect jumps and bounds table-after-code jump tables by their switch window; Mega Man and Life Force rows were re-blessed, while Contra, Final Fantasy and TMNT changes remain held for owner review. Its exhaustive 65C816 vector baseline now reports 500 PASS, 8 N/A and 4 FAIL rows after isolating one named SBC (dp,X) test-vector oracle defect. The exception is guarded by tripwires that fail if the case starts passing or disappears, so it cannot mask wider regressions. Build and real-ROM gates therefore demonstrate bounded progress rather than universal correctness claims.",
+    "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad",
     "github": {
       "repository": "CBongo/ghidra-retro-machines",
       "created_at": "2026-07-03",
@@ -92976,8 +93043,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-12",
-    "last_checked": "2026-10-08",
-    "status": null,
+    "last_checked": "2026-10-12",
+    "status": "v6.4.2 plus protocol-v0 binary debugger frontend under active development",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -93001,13 +93068,15 @@
       "flux-image decoding",
       "deterministic record/replay",
       "headless TCP debugger automation",
-      "integrated Z80 assembly and disassembly"
+      "integrated Z80 assembly and disassembly",
+      "binary debugger protocol",
+      "controller leases and event subscriptions"
     ],
     "tags": [
       "Amstrad CPC",
       "reverse-engineering tooling"
     ],
-    "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless IPC for scripted analysis. v6.4.2 fixes debugger stepping/register edits, frame-counted IPC waits and serial routing. Subsequent primary CI changes compile the board-only targets, boot the simulator for 100 frames and exercise the -H process through a persistent IPC connection; these are upstream checks, not an independent build or execution by the tracker.",
+    "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless automation. Beyond v6.4.2, the new protocol-v0 binary frontend on port 6545 implements HELLO/PING/MACHINE_INFO, register and memory reads/writes, PAUSE/RUN/RESET/STEP control, run-state queries and subscribed pushed events. Its design includes a 4096-entry lock-free event ring and controller lease; reviewed commits add server skeleton, reads, writes/control and run/events in successive tested slices. These are upstream implementation receipts, not an independent run by the tracker. No minimum host CPU/RAM was stated. Evidence: https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5 https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21",
     "github": {
       "repository": "ikari-pl/konCePCja",
       "created_at": "2026-07-16",
@@ -101274,8 +101343,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-12",
-    "last_checked": "2026-10-05",
-    "status": "Current combined home of c64m/a2m/am65; author-reported operation with documented media/timing gaps.",
+    "last_checked": "2026-10-12",
+    "status": "Current combined home of c64m/a2m/am65; HostFS PRG/SEQ reads and C64 CLOSE semantics recently corrected",
     "build": {
       "compilable": null,
       "runnable": true,
@@ -101305,7 +101374,7 @@
       "Linux",
       "Windows"
     ],
-    "notes": "Canonical monorepo bringing c64m, a2m and the shared am65 assembler together. The two emulators retain separate applications with a shared debugging shell, manuals and build. Generic emulator/debugger/assembler tooling counted once. Retired StewBC/c64m is recorded as a duplicate alias; Apple II/shared components are included in this root without multiplying the project count. Compatibility-test games/demos are not reconstructed-game records. README/product documentation explicitly reports booting/running guest software and testing on Windows/Linux/macOS, supporting author-reported runnable=true. Root build requires CMake 3.24+, SDL2 and Python; README says C99 while CMake requires C11. Build and CTest were not run. Some C64 tests skip without local assets, and known test failures are documented. c64m lacks complete G64 write/format/copy support and exact pin/open-bus timing; byte_exact remains null. Canonical current home replaces retired StewBC/c64m; count the monorepo once. C64 documentation lists remaining drive/media and timing-accuracy gaps; some tests require unavailable local assets and skip when absent. AI disclosure applies specifically to c64m, not automatically every Apple II/shared component. No build/tests or gameplay were run. Root LICENSE uses the Unlicense with vendored/external font/library exceptions. Product documentation says C64 ROMs ship in roms and Apple II ROMs are embedded; do not infer that the source license relicenses those historical ROMs. StewBC/c64m is explicitly frozen; StewBC/machines brings together a2m, c64m and am65. Current and predecessor roots were checked against all catalogue files and are absent. c64m is described as almost entirely written with coding agents; explicitly names Codex, Claude Code and Grok, with CPU/assembler/external-code qualifications. This disclosure covers c64m specifically, with CPU/assembler/external-code qualifications; it does not establish that every a2m/shared component was AI-written. Reviewed on 2026-10-05; no independent build, execution or byte comparison was performed. Evidence: https://github.com/StewBC/machines/blob/master/README.md https://github.com/StewBC/machines/blob/master/doc/README-C64.md https://github.com/StewBC/machines/blob/master/src/c64/machine/c64.c https://github.com/StewBC/machines/blob/master/CMakeLists.txt https://github.com/StewBC/machines/blob/master/doc/README-A2M.md https://github.com/StewBC/machines/blob/master/LICENSE Latest upstream commit: https://github.com/StewBC/machines/commit/f2cfdf2c5708f9232841190203fe436eeb10cc53",
+    "notes": "Canonical monorepo bringing c64m, a2m and the shared am65 assembler together. The two emulators retain separate applications with a shared debugging shell, manuals and build. Generic emulator/debugger/assembler tooling counted once. Retired StewBC/c64m is recorded as a duplicate alias; Apple II/shared components are included in this root without multiplying the project count. Compatibility-test games/demos are not reconstructed-game records. README/product documentation explicitly reports booting/running guest software and testing on Windows/Linux/macOS, supporting author-reported runnable=true. Root build requires CMake 3.24+, SDL2 and Python; README says C99 while CMake requires C11. Build and CTest were not run. Some C64 tests skip without local assets, and known test failures are documented. c64m lacks complete G64 write/format/copy support and exact pin/open-bus timing; byte_exact remains null. Canonical current home replaces retired StewBC/c64m; count the monorepo once. C64 documentation lists remaining drive/media and timing-accuracy gaps; some tests require unavailable local assets and skip when absent. AI disclosure applies specifically to c64m, not automatically every Apple II/shared component. No build/tests or gameplay were run. Root LICENSE uses the Unlicense with vendored/external font/library exceptions. Product documentation says C64 ROMs ship in roms and Apple II ROMs are embedded; do not infer that the source license relicenses those historical ROMs. StewBC/c64m is explicitly frozen; StewBC/machines brings together a2m, c64m and am65. Current and predecessor roots were checked against all catalogue files and are absent. c64m is described as almost entirely written with coding agents; explicitly names Codex, Claude Code and Grok, with CPU/assembler/external-code qualifications. This disclosure covers c64m specifically, with CPU/assembler/external-code qualifications; it does not establish that every a2m/shared component was AI-written. Reviewed on 2026-10-05; no independent build, execution or byte comparison was performed. Evidence: https://github.com/StewBC/machines/blob/master/README.md https://github.com/StewBC/machines/blob/master/doc/README-C64.md https://github.com/StewBC/machines/blob/master/src/c64/machine/c64.c https://github.com/StewBC/machines/blob/master/CMakeLists.txt https://github.com/StewBC/machines/blob/master/doc/README-A2M.md https://github.com/StewBC/machines/blob/master/LICENSE Latest upstream commit: https://github.com/StewBC/machines/commit/f2cfdf2c5708f9232841190203fe436eeb10cc53 Current HostFS work adds SEQ/PRG channel reads, includes the two-byte PRG load address, strips PC64 headers and optionally enforces file type. A follow-up fixes C64 CLOSE to use the accumulator's logical file number rather than X and adds coverage with deliberately distinct register values. These are scoped upstream behavior tests; incomplete G64 writes and exact pin/open-bus timing remain documented gaps. Evidence: https://github.com/StewBC/machines/commit/a0a150a5cebaceb52ed6e916c24b630ff8ef3258 https://github.com/StewBC/machines/commit/d0c1971706010d43466096226ec19993c41bb6db",
     "github": {
       "repository": "StewBC/machines",
       "created_at": "2026-08-29",
@@ -165907,7 +165976,7 @@
     ],
     "re_started": null,
     "last_checked": "2026-10-12",
-    "status": "DOS reconstruction playable; native x64 port unfinished with startup/motion parity work active",
+    "status": "DOS reconstruction playable; native x64 producer at 545 programs with registration-route parity; broader gameplay and physical timing remain open",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -165932,7 +166001,8 @@
       "state-pool comparison",
       "cadence calibration",
       "instruction-vector comparison",
-      "undefined-behavior sanitizer contracts"
+      "undefined-behavior sanitizer contracts",
+      "registration-route parity testing"
     ],
     "tags": [
       "PC-98",
@@ -165942,7 +166012,7 @@
       "DOS",
       "x64"
     ],
-    "notes": "Identity: Primary README continues to identify the original Japanese Touhou 4 and its MAIN.EXE, OP.EXE, MAINE.EXE and ZUN.COM reconstructions. Classification: The repository remains a PC-98 source reconstruction with a separate unfinished native x64 port; the new work expands bounded native recovery rather than changing that classification. Source CPU: Maintained source and existing primary documentation continue to establish 16-bit x86 PC-98 executables; the new instruction-vector work does not change the source architecture. Target CPU: The project still produces 16-bit x86 DOS targets and maintains a Linux/Windows x64 native port. No additional architecture is introduced by the reviewed commits. Build: The latest verified snapshot reports 71 GNU CTests, seven optimized UBSan contracts, agreement across 184,908 original-instruction vectors including 514 DIV faults, and eight startup/four-demo routes retaining 129 prior outputs at 15,988 selected-state boundaries. These are bounded upstream receipts, not whole-picture, physical-timing or whole-file byte-exact acceptance. Limitations: No build or replay was run locally; boss/death/process coverage, full pictures, physical timing and Windows input/audio remain open. Next check: Re-attest the combined startup/motion and newer renderer producer, then extend paired coverage to boss combat, death/respawn and complete process transitions. Runtime profiles: The refreshed startup/motion handoff still states no safe minimum physical PC-98 CPU/RAM configuration or minimum x64 host configuration. Measured cadence and instruction-vector counts are verification data, not hardware minima. AI: The reviewed primary commit subjects explicitly identify gpt-6.1-sol; the project records AI use without converting a commit label into a broader authorship percentage. Relationships: ReC98 remains a pinned source-routing and migration input while this repository maintains its own standalone product source and native-port verification history. Evidence: https://github.com/N0zoM1z0/th04/blob/main/README.md https://github.com/N0zoM1z0/th04/commit/5e04432eb943c8155c7525cbe93f6211a5ca7414 https://github.com/N0zoM1z0/th04/commit/637273d4da8c24b1e6b7af4f49e860039d14e738 https://github.com/N0zoM1z0/th04/commit/7c982075eb517870e7658198904d0b8dbc823454",
+    "notes": "Identity and classification remain a PC-98 reconstruction of Touhou 4 with a separate unfinished Linux/Windows x64 port. The current native producer reports 545 programs at b4519b50, 84 GNU and optimized-UBSan build programs, and 82 passing CTests. Upstream now retains 544 original controls and exercises 30 seeded saves/restarts, 24 score and 24 complete Ending registration routes plus eight Extra routes per compiler; independent component images and eight default Demo profiles also pass. These are bounded upstream receipts, not whole-game, physical-scanout or Windows acceptance. Other waits, malformed-score unsafe graphics, real active-PMD timing, broader gameplay and Windows remain open. No safe minimum physical PC-98 or x64 host CPU/RAM profile is stated. Primary commits continue to identify gpt-6.1-sol. Evidence: https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977 https://github.com/N0zoM1z0/th04/commit/db797001d42f1ff3298a87dd4e6d33bdb2dfb775 https://github.com/N0zoM1z0/th04/blob/main/README.md",
     "github": {
       "repository": "N0zoM1z0/th04",
       "created_at": "2026-09-06",

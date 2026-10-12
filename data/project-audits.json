@@ -30831,7 +30831,7 @@
     },
     {
       "project_id": "dos-dethrace",
-      "last_reviewed": "2026-09-30",
+      "last_reviewed": "2026-10-12",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -30853,7 +30853,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-12",
+          "note": "Three current commits report 100% reccmp matches for GetGraphicsOptions, ChangingView and drpixelmapcopy. These are exact function-level receipts, not whole-executable equivalence or playable-completeness evidence.",
+          "evidence_urls": [
+            "https://github.com/dethrace-labs/dethrace/commit/ff723168a9b458252ce40bb6e0ceb008cb4dcc35",
+            "https://github.com/dethrace-labs/dethrace/commit/80898db36d16d584d50789a9f8d05cdf2ed8458f",
+            "https://github.com/dethrace-labs/dethrace/commit/d5b90d885b298c9ca338c9060468f899ca095fab"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -31501,7 +31507,7 @@
     },
     {
       "project_id": "ghidra-retro-machines",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-12",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31526,8 +31532,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Commit 03a034d classifies one named 65C816 E1.E corpus case as an oracle defect, producing 500 PASS / 8 N/A / 4 FAIL rows and adding pass/disappearance tripwires; this is not represented as a language fix."
+          "checked_at": "2026-10-12",
+          "note": "Upstream reports SUITE OK and 29 NES baseline passes plus corrected Dodge, River City Ransom and Mega Man 2 planar-split cases after bounding pointer tables by the next section gap. These are bounded regression receipts, not a claim that every ROM or processor semantic is correct.",
+          "evidence_urls": [
+            "https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -31536,8 +31545,11 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Current commits explicitly include Claude co-author trailers and Claude session links; repository project-agent instructions also remain present."
+          "checked_at": "2026-10-12",
+          "note": "The reviewed planar-split commit explicitly carries a Claude Opus 5.5 co-author trailer and session reference.",
+          "evidence_urls": [
+            "https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -35248,7 +35260,7 @@
     },
     {
       "project_id": "koncepcja-cpc-emulator-debugger",
-      "last_reviewed": "2026-10-08",
+      "last_reviewed": "2026-10-12",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -35257,7 +35269,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-27"
+          "checked_at": "2026-10-12",
+          "note": "The binary frontend materially expands the emulator's IPC/debugging surface; it remains a CPC/Plus emulator and debugger rather than a reconstructed game.",
+          "evidence_urls": [
+            "https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
@@ -35269,11 +35285,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-08",
-          "note": "README provides source/release run instructions. Commit 4f3e086 adds Linux/macOS CI that builds board-only simulator and rig targets, runs 100-frame simulator/bench smokes and drives the -H executable over IPC. Tracker did not independently execute them.",
+          "checked_at": "2026-10-12",
+          "note": "Successive primary commits implement and test protocol-v0 server setup, register/memory reads and writes, control operations, run-state transitions and pushed events. The tracker did not independently build or exercise the server.",
           "evidence_urls": [
-            "https://github.com/ikari-pl/konCePCja/blob/master/README.md",
-            "https://github.com/ikari-pl/konCePCja/commit/4f3e0867f6f1e2cfce7f83254757ef3b9ee80a7f"
+            "https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5",
+            "https://github.com/ikari-pl/konCePCja/commit/d5a6b012ea54dd746906009ec95c4641a17d9750",
+            "https://github.com/ikari-pl/konCePCja/commit/69e2d30afc9bb9a49ee83fb1310842a50501f02f",
+            "https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21"
           ]
         },
         "runtime_profiles": {
@@ -57227,7 +57245,7 @@
     },
     {
       "project_id": "amigo-ios-amiga-emulator",
-      "last_reviewed": "2026-10-10",
+      "last_reviewed": "2026-10-12",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -57268,29 +57286,27 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-10",
-          "note": "v0.7.8 is live; upstream documents Apple Pencil/Wacom coordinate fixes and an iCloud download-request fix, with cross-device iCloud verification still explicitly open.",
+          "checked_at": "2026-10-12",
+          "note": "The current handoff identifies v0.7.9 as a TestFlight build; v0.7.8 remains the evidenced live App Store release. The status preserves that distinction rather than treating TestFlight as public App Store availability.",
           "evidence_urls": [
-            "https://github.com/thomas-luebker/Amigo/commit/f03474c4f6d8",
-            "https://github.com/thomas-luebker/Amigo/commit/15d8bd257e744bcffb54194df702f18e42fe639f"
+            "https://github.com/thomas-luebker/Amigo/commit/9067cf3e980612f115a288b6e0bc68e29091c71e",
+            "https://github.com/thomas-luebker/Amigo/commit/c7c3678db457c710aff7e705d04dfcd80f95fd63"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "Reviewed README and build evidence for requirements. No explicit runnable minimum CPU/RAM established; compiler flags and emulated memory sizes are not promoted to host minima.",
+          "checked_at": "2026-10-12",
+          "note": "The performance record verifies one M4 iPad/68060 guest configuration and explicitly compares guest 68040/68060 selections. It does not state a minimum host CPU, host RAM or minimum guest configuration, so no runtime minimum is inferred.",
           "evidence_urls": [
-            "https://github.com/thomas-luebker/Amigo/blob/main/README.md",
-            "https://github.com/thomas-luebker/Amigo/blob/main/CLAUDE.md"
+            "https://github.com/thomas-luebker/Amigo/commit/760ae33879b42c4e33fb732dbc82f463c6f596a0"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Latest commit explicitly contains a Claude co-author trailer; repository also has a project-specific CLAUDE.md guide.",
+          "checked_at": "2026-10-12",
+          "note": "The reviewed performance-document commit explicitly carries a Claude Opus 5.5 co-author trailer.",
           "evidence_urls": [
-            "https://github.com/thomas-luebker/Amigo/commit/a5a89850672148f10892d3e9b6b9bbd6d5f6234a",
-            "https://github.com/thomas-luebker/Amigo/blob/main/CLAUDE.md"
+            "https://github.com/thomas-luebker/Amigo/commit/760ae33879b42c4e33fb732dbc82f463c6f596a0"
           ]
         },
         "relationships": {
@@ -67280,7 +67296,7 @@
     },
     {
       "project_id": "machines-c64m-a2m-emulator-suite",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-12",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -67329,13 +67345,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README/product documentation explicitly reports booting/running guest software and testing on Windows/Linux/macOS, supporting author-reported runnable=true. Root build requires CMake 3.24+, SDL2 and Python; README says C99 while CMake requires C11. Build and CTest were not run. Some C64 tests skip without local assets, and known test failures are documented. c64m lacks complete G64 write/format/copy support and exact pin/open-bus timing; byte_exact remains null.",
+          "checked_at": "2026-10-12",
+          "note": "Current primary commits add tested HostFS SEQ/PRG channel reads (including PRG load addresses and PC64-header handling) and correct C64 CLOSE to use the accumulator's logical file number. These are bounded behavior tests; complete G64 writes and exact pin/open-bus timing remain open, and the tracker did not build or run the suite.",
           "evidence_urls": [
-            "https://github.com/StewBC/machines/blob/master/README.md",
-            "https://github.com/StewBC/machines/blob/master/doc/README-C64.md",
-            "https://github.com/StewBC/machines/blob/master/src/c64/machine/c64.c",
-            "https://github.com/StewBC/machines/blob/master/CMakeLists.txt"
+            "https://github.com/StewBC/machines/commit/a0a150a5cebaceb52ed6e916c24b630ff8ef3258",
+            "https://github.com/StewBC/machines/commit/d0c1971706010d43466096226ec19993c41bb6db"
           ]
         },
         "runtime_profiles": {
@@ -72855,20 +72869,19 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-12",
-          "note": "A successful upstream nightly package run now covers all package jobs, while the Apple Silicon path compiles a Kick Assembler program and checks its PRG bytes, exercises SIDScore/SRAP/MIDI, launches bundled VICE and Electron, verifies visible Machine pixels and a BASIC border-color POKE, then powers off and restarts. Compilable and runnable are upstream-verified, not locally reproduced. Limitations: The documented full UI product path currently applies to macOS Apple Silicon; Windows/Linux UI and external VICE remain separate development-test lanes. Signing is ad hoc and notarisation remains manual. Next check: Verify equivalent packaged UI paths on Windows/Linux and retain the distinction between embedded and external VICE coverage.",
+          "note": "The Linux packaging change pins Ubuntu 24.04, bundles patched VICE and adds product-package/Theia tests under Xvfb and virtual PulseAudio. The corresponding VICE Debugger E2E workflow succeeded. This complements, rather than replaces, the previously reviewed macOS Apple Silicon package lane.",
           "evidence_urls": [
-            "https://github.com/turesheim/commodore-commander/commit/f2f645989b5cd5b60133d9404b75d17afa173db8",
-            "https://github.com/turesheim/commodore-commander/actions/runs/38157335163",
-            "https://github.com/turesheim/commodore-commander/actions/runs/38157582224"
+            "https://github.com/turesheim/commodore-commander/commit/921013818a76204cf768ea89614edcde424c200d",
+            "https://github.com/turesheim/commodore-commander/actions/runs/38207565659"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
           "checked_at": "2026-10-12",
-          "note": "The Apple Silicon package is an explicitly exercised runnable variant. No minimum Apple Silicon generation, macOS release or RAM is stated, so the profile records only the verified architecture and path.",
+          "note": "An Ubuntu 24.04 packaged-product profile is now explicit alongside macOS Apple Silicon. The Linux workflow states no CPU ISA, RAM floor or broader distro minimum, so those fields remain absent.",
           "evidence_urls": [
-            "https://github.com/turesheim/commodore-commander/commit/f2f645989b5cd5b60133d9404b75d17afa173db8",
-            "https://github.com/turesheim/commodore-commander/actions/runs/38157335163"
+            "https://github.com/turesheim/commodore-commander/commit/921013818a76204cf768ea89614edcde424c200d",
+            "https://github.com/turesheim/commodore-commander/actions/runs/38207565659"
           ]
         },
         "ai": {
@@ -72892,7 +72905,7 @@
         }
       },
       "next_actions": [
-        "Verify equivalent packaged UI paths on Windows/Linux and retain the distinction between embedded and external VICE coverage."
+        "Verify equivalent packaged UI coverage on Windows while retaining embedded versus external VICE distinctions."
       ]
     },
     {
@@ -89045,8 +89058,8 @@
     },
     {
       "project_id": "amiberry-system-emulator",
-      "last_reviewed": "2026-10-06",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-12",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -89092,20 +89105,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "CMake selects C++17/C11 and native host builds; README names Linux, macOS, Windows, Android, FreeBSD and Haiku hosts. Build flags remain null because no sufficiently scoped present-tree success was independently established; README historical or compatibility statements remain in notes. byte_exact is null: no comparison was performed.",
+          "checked_at": "2026-10-12",
+          "note": "The v8.4.0 release publishes runnable Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets. This establishes upstream compilable/runnable outputs; the tracker did not execute them and makes no playable or equivalence claim.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/blob/master/CMakeLists.txt",
-            "https://github.com/BlitterStudio/amiberry/blob/master/README.md"
+            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
           ]
         },
         "runtime_profiles": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-06",
-          "note": "No sufficiently specific runtime minimum was established in the bounded primary review. Build flags and named targets are not silently converted into numeric machine requirements.",
+          "state": "reviewed",
+          "checked_at": "2026-10-12",
+          "note": "Six explicit v8.4.0 release-asset architecture variants are recorded for Windows, macOS and Linux on ARM64/x86-64. The release states no minimum CPU generation, RAM or OS version, so the profiles contain no invented minima.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/blob/master/README.md",
-            "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp"
+            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
           ]
         },
         "ai": {
@@ -89132,8 +89143,7 @@
       },
       "next_actions": [
         "Resolve the explicitly noted license, inherited-component or asset-rights caveats before redistribution.",
-        "Seek explicit output-specific runtime requirements without deriving minimums from platform or compiler labels.",
-        "Revisit upstream build/completeness claims when new primary evidence appears; current review did not build or run this candidate."
+        "Seek explicit output-specific minimum hardware requirements without deriving them from release asset labels."
       ]
     },
     {
@@ -127939,27 +127949,26 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-12",
-          "note": "The latest verified snapshot reports 71 GNU CTests, seven optimized UBSan contracts, agreement across 184,908 original-instruction vectors including 514 DIV faults, and eight startup/four-demo routes retaining 129 prior outputs at 15,988 selected-state boundaries. These are bounded upstream receipts, not whole-picture, physical-timing or whole-file byte-exact acceptance. Limitations: No build or replay was run locally; boss/death/process coverage, full pictures, physical timing and Windows input/audio remain open. Next check: Re-attest the combined startup/motion and newer renderer producer, then extend paired coverage to boss combat, death/respawn and complete process transitions.",
+          "note": "Current migration handoff reports 545 native programs, 84 GNU/optimized-UBSan build programs, 82 passing CTests, 544 retained original controls, seeded save/restart coverage and complete score/Ending/Extra registration routes across both compilers. Independent component images and eight default Demo profiles pass. This is bounded upstream evidence; physical scanout, active-PMD timing, broader gameplay and Windows remain open.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/5e04432eb943c8155c7525cbe93f6211a5ca7414",
-            "https://github.com/N0zoM1z0/th04/commit/637273d4da8c24b1e6b7af4f49e860039d14e738"
+            "https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977",
+            "https://github.com/N0zoM1z0/th04/commit/db797001d42f1ff3298a87dd4e6d33bdb2dfb775"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
           "checked_at": "2026-10-12",
-          "note": "The refreshed startup/motion handoff still states no safe minimum physical PC-98 CPU/RAM configuration or minimum x64 host configuration. Measured cadence and instruction-vector counts are verification data, not hardware minima.",
+          "note": "The current migration documentation gives verification counts but no safe minimum physical PC-98 CPU/RAM or minimum x64 host configuration. Test counts and measured routes are not hardware minima.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/5e04432eb943c8155c7525cbe93f6211a5ca7414"
+            "https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977"
           ]
         },
         "ai": {
           "state": "reviewed",
           "checked_at": "2026-10-12",
-          "note": "The reviewed primary commit subjects explicitly identify gpt-6.1-sol; the project records AI use without converting a commit label into a broader authorship percentage.",
+          "note": "The current migration-status commit explicitly identifies gpt-6.1-sol; the record does not infer an authorship percentage from that attribution.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/5e04432eb943c8155c7525cbe93f6211a5ca7414",
-            "https://github.com/N0zoM1z0/th04/commit/7c982075eb517870e7658198904d0b8dbc823454"
+            "https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977"
           ]
         },
         "relationships": {
@@ -127972,7 +127981,7 @@
         }
       },
       "next_actions": [
-        "Re-attest the combined startup/motion and newer renderer producer, then extend paired coverage to boss combat, death/respawn and complete process transitions."
+        "Extend paired coverage to broader gameplay, active-PMD timing, physical scanout and Windows."
       ]
     },
     {
