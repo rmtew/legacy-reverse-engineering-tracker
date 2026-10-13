@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-14 — ColecoVision queue and TI-99/IIgs/TRS-80 discovery
+
+Added thirteen primary-source-reviewed projects. The ColecoVision queue contributed separate records for **B.C.’s Quest for Tires**, **Boulder Dash**, **BurgerTime**, **Carnival**, **Centipede**, **Choplifter**, **Defender** and **Donkey Kong**. B.C.’s Quest for Tires and Boulder Dash explicitly claim byte-exact output; Carnival explicitly remains playable with graphical errors. AI attribution is recorded only where the title documentation credits Claude or Claude Code. Ten of the collection’s 24 title directories are now reviewed, leaving fourteen queued rather than treating the monorepo as one project.
+
+The fresh slice added **West Bank — Spectrum-disassembly-derived TI-99/4A port**, **Atic Atac — Spectrum-disassembly-derived TI-99/4A port**, **GSplus — cross-platform Apple IIgs emulator and debugger**, **TRS-80 Diagnostic ROM — native RAM/VRAM test firmware** and **Color Computer ROMs — bit-exact 6809 source reconstruction**. The exact routes were repository and code searches for `TI-99/4A disassembly reconstruction`, `TI-99`, `TI-99/4A disassembly`, `Apple IIgs disassembly source`, `Apple IIgs`, `Apple IIgs disassembly`, `TRS-80 homebrew development tool`, `TRS-80` and `TRS-80 homebrew`. Space Ace IIgs and RetroGhidra resolved to existing records and were logged as duplicates.
+
+The CPU audit queue was empty before selection. Source/target CPU and runtime fields use direct README, build or source evidence; undocumented host architectures and hardware minima remain unknown. TRS-80 Diagnostic ROM is explicitly original firmware, not RE-derived. No candidate was independently assembled, built or executed.
+
 ## 2026-10-12 — Packaged-product, emulator-media and native-parity maintenance
 
 Promoted **Amy Chess — ColecoVision chess homebrew** from the Amy Studio multi-project repository as a distinct original-homebrew title: its 3,957-line Amy source, complete-game manifest and separately published 32,767-byte cartridge are explicit, while title-specific AI use remains unknown rather than inheriting Amy Studio's repository-wide credit.

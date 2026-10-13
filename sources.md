@@ -4,6 +4,19 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/B.C.'s%20Quest%20for%20Tires | B.C.’s Quest for Tires — byte-exact ColecoVision Z80 disassembly, with project-documented Claude-assisted annotation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/Boulder%20Dash | Boulder Dash — byte-exact ColecoVision Z80 disassembly, with project-documented Claude-assisted annotation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/BurgerTime | BurgerTime — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/Carnival | Carnival — compilable and playable ColecoVision Z80 disassembly with documented graphical errors. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/Centipede | Centipede — compilable ColecoVision Z80 disassembly. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/Choplifter | Choplifter — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/Defender | Defender — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/Donkey%20Kong | Donkey Kong — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
+| https://github.com/Rasmus-M/westbank | West Bank — native TI-99/4A TMS9900 port derived from a ZX Spectrum Z80 disassembly. |
+| https://github.com/Rasmus-M/aticatac | Atic Atac — native TI-99/4A TMS9900 port derived from a ZX Spectrum Z80 disassembly. |
+| https://github.com/digarok/gsplus | GSplus — cross-platform Apple IIgs emulator with a terminal 65816 debugger and documented ROM requirements. |
+| https://github.com/misterblack1/trs80-diagnosticrom | TRS-80 Diagnostic ROM — original native Z80 RAM/VRAM diagnostic firmware for multiple TRS-80 models. |
+| https://github.com/tomctomc/coco_roms | Color Computer ROMs — buildable, expected-hash-checked 6809 source reconstructions of Color BASIC-family ROMs. |
 | https://github.com/amypurple/AmyStudio/tree/main/downloads/amy-chess | Amy Chess — distinct source-published ColecoVision original homebrew with a complete Amy-language game and standalone 32,767-byte cartridge ROM. |
 | https://github.com/mnaberez/py65 | Py65 — Python 6502/65C02/65Org16 simulator with VICE-like monitor, assembler/disassembler and debugger functions. |
 | https://github.com/mnaberez/bnkcod | BNKCOD — SuperPET option-ROM disassembly with ASXXXX reassembly and original-EPROM SHA-1 comparison. |
