@@ -5528,7 +5528,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-13",
+      "last_reviewed": "2026-10-14",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5556,21 +5556,24 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-13",
-          "note": "Reviewed native Mac mini M4 DM1 title/door pacing into runtime, authenticated FM Towns startup checks for DM1/CSB/DM2, and four current French Atari ST runs. These remain bounded upstream receipts; physical display/input, palette, audible output and historical causation of the earlier French failure remain unverified.",
+          "checked_at": "2026-10-14",
+          "note": "Reviewed native Mac mini M4 DM1 title/door pacing into runtime, authenticated FM Towns startup checks for DM1/CSB/DM2, and four current French Atari ST runs. These remain bounded upstream receipts; physical display/input, palette, audible output and historical causation of the earlier French failure remain unverified. Current-main receipts add absolute-deadline DM1 Amiga title pacing and authenticated CSB FM Towns save-state assertions; these do not establish whole-game parity.",
           "evidence_urls": [
             "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
             "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
-            "https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3"
+            "https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3",
+            "https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87",
+            "https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-13",
-          "note": "Expanded the Apple Silicon profile to the explicitly named Mac mini M4 native/headless receipts. This is a verified configuration, not a minimum Apple Silicon generation, CPU, RAM or macOS requirement.",
+          "checked_at": "2026-10-14",
+          "note": "Expanded the Apple Silicon profile to the explicitly named Mac mini M4 native/headless receipts. This is a verified configuration, not a minimum Apple Silicon generation, CPU, RAM or macOS requirement. A native Mac mini M4 Cocoa run measured the authentic Amiga v2.0 title route, but does not establish a minimum machine, HiDPI/pixel parity or beam timing.",
           "evidence_urls": [
             "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
-            "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9"
+            "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
+            "https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e"
           ]
         },
         "ai": {
@@ -16547,7 +16550,7 @@
     },
     {
       "project_id": "winuae-amiga-emulator",
-      "last_reviewed": "2026-09-23",
+      "last_reviewed": "2026-10-14",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -16557,8 +16560,13 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-23",
-          "note": "Seeded from record_class and structured kind fields."
+          "checked_at": "2026-10-14",
+          "note": "Seeded from record_class and structured kind fields. The optional local GDB server, range stepping and physical memory-map export strengthen WinUAE's debugger/tooling role.",
+          "evidence_urls": [
+            "https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1",
+            "https://github.com/tonioni/WinUAE/commit/d7dc9b0ef7e19b016f36a18ad494d1f48e40aeda",
+            "https://github.com/tonioni/WinUAE/commit/5afd2b2111e4340bad2c017c7082586b46c35b4d"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
@@ -16570,7 +16578,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-10-14",
+          "note": "Current main integrates the GDB server into Windows and Unix builds with a protocol unit test; no local build or GDB session was performed.",
+          "evidence_urls": [
+            "https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -31512,7 +31524,7 @@
     },
     {
       "project_id": "ghidra-retro-machines",
-      "last_reviewed": "2026-10-13",
+      "last_reviewed": "2026-10-14",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31522,8 +31534,12 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Machine-aware loader, processor-language and static-analysis tooling; no reconstructed game output is claimed."
+          "checked_at": "2026-10-14",
+          "note": "Machine-aware loader, processor-language and static-analysis tooling; no reconstructed game output is claimed. Current analyzer work remains core software-archaeology tooling: it tracks analyzer-owned overlay-reference provenance and clears only provably dead conditional fall-throughs.",
+          "evidence_urls": [
+            "https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
@@ -31537,10 +31553,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-13",
-          "note": "Upstream reports 33 NES tests passing after extending save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls. The analyzer still conservatively declines unresolved overlay-bank paths, and the Dragon Power symbol-output flap remains documented.",
+          "checked_at": "2026-10-14",
+          "note": "Upstream reports 33 NES tests passing after extending save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls. The analyzer still conservatively declines unresolved overlay-bank paths, and the Dragon Power symbol-output flap remains documented. Upstream reports passing synthetic/JUnit gates and deterministic NES corpus updates for both changes; no local build was performed.",
           "evidence_urls": [
-            "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4"
           ]
         },
         "runtime_profiles": {
@@ -44426,7 +44444,7 @@
     },
     {
       "project_id": "lanthorn-interactive-fiction-archive",
-      "last_reviewed": "2026-10-08",
+      "last_reviewed": "2026-10-14",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -44436,8 +44454,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-29",
-          "note": "Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering."
+          "checked_at": "2026-10-14",
+          "note": "Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. The release deepens multi-format interpretation, original-disk/CD parsing and map inference without changing the project's tooling classification.",
+          "evidence_urls": [
+            "https://github.com/sharkusk/lanthorn/blob/main/CHANGELOG.md"
+          ]
         },
         "source_cpu": {
           "state": "no-evidence-found",
@@ -44451,10 +44472,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-08",
-          "note": "v0.9.3 publishes Linux x86-64/aarch64, macOS universal and Windows x86-64 archives and documents bounded story/media handling plus platform-directory migration.",
+          "checked_at": "2026-10-14",
+          "note": "v0.9.3 publishes Linux x86-64/aarch64, macOS universal and Windows x86-64 archives and documents bounded story/media handling plus platform-directory migration. The v0.9.5 changelog documents a published runnable release; the following compass styling remains unreleased and is not folded into the release status.",
           "evidence_urls": [
-            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.3"
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.3",
+            "https://github.com/sharkusk/lanthorn/blob/main/CHANGELOG.md",
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.5"
           ]
         },
         "runtime_profiles": {
@@ -77157,17 +77180,18 @@
     },
     {
       "project_id": "megast-mega65-freemchr",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-14",
       "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Primary README, implementation/build excerpts, repository metadata and latest inspected commit identify MegaST at this repository root. 0.4.7 beta; author-tested on MEGA65 R6, further hardware modes untested. No repository-root collision was found against the hash-verified 1,380-project baseline.",
+          "checked_at": "2026-10-14",
+          "note": "Primary README, implementation/build excerpts and repository metadata identify MegaST at this repository root. The current README identifies v1.0 as the first stable release, with R6 and tester-reported R3A operation; R4/R5 remain untested. No repository-root collision was found against the reviewed baseline.",
           "evidence_urls": [
             "https://github.com/freemchr/MegaST/blob/master/README.md",
             "https://github.com/freemchr/MegaST",
-            "https://github.com/freemchr/MegaST/commit/95772ca6716785689687836345762557ae8fc8cb"
+            "https://github.com/freemchr/MegaST/commit/95772ca6716785689687836345762557ae8fc8cb",
+            "https://github.com/freemchr/MegaST/releases/tag/v1.0"
           ]
         },
         "classification": {
@@ -77207,19 +77231,20 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README identifies 0.4.7 beta and explicitly reports real MEGA65 R6 tests of TOS, floppy/hard disks, peripherals and named games. runnable=true records that upstream R6 report only. Vivado/QNICE build and simulation instructions are documented but were not executed; no explicit current source-build/byte-match claim is promoted. Generic emulator compatibility is not game-subject playability. No independent candidate execution or binary comparison was performed.",
+          "checked_at": "2026-10-14",
+          "note": "README identifies v1.0 as stable and reports real MEGA65 R6 tests of TOS, floppy/hard disks, peripherals and named games plus tester-reported R3A hard-disk operation. runnable=true records those upstream reports only. Vivado/QNICE build and simulation instructions are documented but were not executed; no byte-match or game-subject playability claim is promoted. R4/R5 remain untested.",
           "evidence_urls": [
             "https://github.com/freemchr/MegaST/blob/master/doc/DEVELOPMENT.md",
             "https://github.com/freemchr/MegaST/blob/master/CORE/CORE-R6.xpr",
             "https://github.com/freemchr/MegaST/blob/master/README.md",
-            "https://github.com/freemchr/MegaST/blob/master/CORE/verilog/atarist_m65.sv"
+            "https://github.com/freemchr/MegaST/blob/master/CORE/verilog/atarist_m65.sv",
+            "https://github.com/freemchr/MegaST/releases/tag/v1.0"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "One MEGA65 profile records only the explicit R6 test context and required SDRAM/SD/TOS/media. R4/R5 are advertised requirements but remain untested; R3/R3A are unsupported. Configurable 512 KiB–14 MiB guest ST RAM is not host minimum RAM. No unverified variants are given additional profiles.",
+          "checked_at": "2026-10-14",
+          "note": "Profiles distinguish the evidenced R6 and R3/R3A variants and their SD/TOS/media requirements. The R3/R3A 512 KiB value is guest ST RAM held in FPGA block RAM, not host minimum RAM. R4/R5 remain unprofiled because current primary documentation says they are untested.",
           "evidence_urls": [
             "https://github.com/freemchr/MegaST/blob/master/doc/DEVELOPMENT.md",
             "https://github.com/freemchr/MegaST/blob/master/CORE/CORE-R6.xpr",
@@ -77257,7 +77282,7 @@
         }
       },
       "next_actions": [
-        "Recheck R4/R5 and optional-device compatibility only after explicit upstream tests; track 0.4.7 cold-boot and media-format caveats."
+        "Recheck R4/R5 and optional-device compatibility only after explicit upstream tests."
       ]
     },
     {
@@ -89096,7 +89121,7 @@
     },
     {
       "project_id": "amiberry-system-emulator",
-      "last_reviewed": "2026-10-12",
+      "last_reviewed": "2026-10-14",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -89112,12 +89137,14 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Curated as tooling with no legacy target-kind claim. general Amiga machine emulator. src/custom.cpp implements custom-chip event pipelines; src/newcpu.cpp supplies 68000-family execution, cache/MMU and JIT integration. No independent reverse-engineering method is invented for this native/source-derived work.",
+          "checked_at": "2026-10-14",
+          "note": "Curated as tooling with no legacy target-kind claim. general Amiga machine emulator. src/custom.cpp implements custom-chip event pipelines; src/newcpu.cpp supplies 68000-family execution, cache/MMU and JIT integration. No independent reverse-engineering method is invented for this native/source-derived work. CIA timing and 68030/68040/68060 MMU cache-inhibit corrections remain general machine-emulation work.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/amiberry/blob/master/README.md",
             "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp",
-            "https://github.com/BlitterStudio/amiberry/blob/master/src/newcpu.cpp"
+            "https://github.com/BlitterStudio/amiberry/blob/master/src/newcpu.cpp",
+            "https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe",
+            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27"
           ]
         },
         "source_cpu": {
@@ -89143,10 +89170,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "The v8.4.0 release publishes runnable Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets. This establishes upstream compilable/runnable outputs; the tracker did not execute them and makes no playable or equivalence claim.",
+          "checked_at": "2026-10-14",
+          "note": "The v8.4.0 release publishes runnable Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets. This establishes upstream compilable/runnable outputs; the tracker did not execute them and makes no playable or equivalence claim. Post-v8.4.0 current main restores USE_PPC=OFF linking and corrects libretro preboot save restoration; these are source-level fixes, not a new published release or local execution result.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0",
+            "https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a",
+            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27"
           ]
         },
         "runtime_profiles": {
@@ -128233,8 +128262,8 @@
     },
     {
       "project_id": "moonstone-ace-amiga-reconstruction",
-      "last_reviewed": "2026-10-11",
-      "overall_state": "reviewed",
+      "last_reviewed": "2026-10-14",
+      "overall_state": "partial",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -128269,30 +128298,34 @@
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "BUILD.md specifies Bartman GCC with M68K_CPU=68020 and vasm -m68020; the README names the A1200/68020 target.",
+          "checked_at": "2026-10-14",
+          "note": "BUILD.md specifies Bartman GCC with M68K_CPU=68020 and vasm -m68020; the README names the A1200/68020 target. m68020 remains explicit for the A1200 release. No Windows output CPU is documented, so it is not inferred from the host platform or compiler.",
           "evidence_urls": [
             "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/BUILD.md",
-            "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md"
+            "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md",
+            "https://github.com/Jarskih/moonstone-ace-public/blob/main/README.md"
           ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "docs/PUBLISHING.md section 7 reports a public-tree export built in Release and Debug with original-dependent reference material absent, then staged to a hard disk. It also records successful boot regression. README reports playable game flow and controls. These explicit upstream reports support compilable/runnable/playable=true. Original-data parity checks and same-project build comparisons do not establish equality to the original game's executable, so byte_exact remains null. Limitations: No independent build, boot, playthrough, hardware test or original-binary comparison was performed. Some oracle tests need developer-only IRA listings; public-checkout tests can skip those. A few setup paths remain developer-specific.",
+          "checked_at": "2026-10-14",
+          "note": "docs/PUBLISHING.md section 7 reports a public-tree export built in Release and Debug with original-dependent reference material absent, then staged to a hard disk. It also records successful boot regression. README reports playable game flow and controls. These explicit upstream reports support compilable/runnable/playable=true. Original-data parity checks and same-project build comparisons do not establish equality to the original game's executable, so byte_exact remains null. Limitations: No independent build, boot, playthrough, hardware test or original-binary comparison was performed. Some oracle tests need developer-only IRA listings; public-checkout tests can skip those. A few setup paths remain developer-specific. Version 0.2.0 is an Amiga-only HD-install release with upstream-reported local/network multiplayer. The Windows SDL build is explicitly not ready for play and is not part of the release.",
           "evidence_urls": [
             "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/docs/PUBLISHING.md",
             "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md",
-            "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/BUILD.md"
+            "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/BUILD.md",
+            "https://github.com/Jarskih/moonstone-ace-public/blob/main/README.md",
+            "https://github.com/Jarskih/moonstone-ace-public/commit/c0534bfa6956f928bde7c04d8353b4feefc69a0a"
           ]
         },
         "runtime_profiles": {
-          "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "README specifies A1200 or equivalent WinUAE: 68020, AGA, Kickstart 3.x, 2 MB chip RAM; fast RAM is recommended but not required for the release. CLAUDE.md separately says debug requires fast RAM. Profile describes the author's stated release requirements, not an independent hardware validation.",
+          "state": "needs-research",
+          "checked_at": "2026-10-14",
+          "note": "README specifies A1200 or equivalent WinUAE: 68020, AGA, Kickstart 3.x, 2 MB chip RAM; fast RAM is recommended but not required for the release. CLAUDE.md separately says debug requires fast RAM. Profile describes the author's stated release requirements, not an independent hardware validation. The A1200 profile remains explicitly evidenced. Windows is now an in-progress target, but upstream supplies no runnable Windows release, output CPU or runtime minimum yet.",
           "evidence_urls": [
             "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md",
-            "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/CLAUDE.md"
+            "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/CLAUDE.md",
+            "https://github.com/Jarskih/moonstone-ace-public/blob/main/README.md"
           ]
         },
         "ai": {
@@ -128316,7 +128349,9 @@
           ]
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Verify the Windows SDL port and record an output CPU/runtime profile only after upstream publishes an explicitly runnable build."
+      ]
     },
     {
       "project_id": "goodsoup-comi-amiga-native-interpreter",

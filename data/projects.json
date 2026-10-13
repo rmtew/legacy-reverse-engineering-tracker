@@ -10104,8 +10104,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-12",
-    "status": "v8.4.0 published with Windows, macOS and Linux ARM64/x86-64 binaries",
+    "last_checked": "2026-10-14",
+    "status": "v8.4.0 published; current development fixes libretro saves, CIA timing and MMU cache handling",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -10132,7 +10132,7 @@
       "Haiku",
       "general Amiga machine emulator"
     ],
-    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md",
+    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27",
     "github": {
       "repository": "BlitterStudio/amiberry",
       "created_at": "2016-08-11",
@@ -67782,8 +67782,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-13",
-    "status": "active; bounded original-media startup and native Apple Silicon pacing tests",
+    "last_checked": "2026-10-14",
+    "status": "active; authenticated Amiga title pacing and FM Towns CSB resume-state coverage",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -67814,7 +67814,8 @@
       "source-frame byte comparison",
       "native save-format analysis",
       "bounded in-memory media decoding",
-      "cross-platform startup matrix testing"
+      "cross-platform startup matrix testing",
+      "source-clock timing calibration"
     ],
     "tags": [
       "game engine",
@@ -67823,7 +67824,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3",
+    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-13",
@@ -67906,7 +67907,7 @@
         "name": "Apple Silicon Mac mini M4 native runtime",
         "platform": "macOS",
         "cpu_family": "arm64",
-        "notes": "Upstream ran current main natively on a Mac mini M4 with authenticated FM Towns media: DM1 completed title/door pacing into runtime, while headless CTests covered DM1, CSB and DM2 startup. These are verified configurations, not minimum CPU/RAM, physical-display, palette, HiDPI or audible-speaker claims.",
+        "notes": "Upstream ran current main natively on a Mac mini M4 with authenticated media. DM1 Amiga v2.0 completed all five title fades in a measured 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); headless checks also cover DM1, CSB and DM2 startup. This is a verified configuration, not a minimum CPU/RAM, HiDPI, pixel-parity, beam-timing or audible-speaker claim.",
         "evidence": [
           {
             "source": "DONE-dm1.md",
@@ -67917,6 +67918,11 @@
             "source": "DONE-dm1.md / DONE-csb.md / DONE-dm2.md",
             "url": "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
             "excerpt": "authentic FM Towns startup tests passed on the Mac mini M4"
+          },
+          {
+            "source": "TODO-dm1.md",
+            "url": "https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e",
+            "excerpt": "authentic-media native Cocoa run on the Mac mini M4 completed all five fades in 1,698 ms"
           }
         ]
       }
@@ -75634,8 +75640,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-13",
-    "status": "Active; save-slot proofs now cross function jumps and bounded save-helper calls",
+    "last_checked": "2026-10-14",
+    "status": "Active; deterministic overlay-reference cleanup and decided-branch dead-code analysis",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -75662,7 +75668,9 @@
       "exhaustive CPU-vector verification",
       "planar split jump-table bounding",
       "cross-function predecessor analysis",
-      "save-slot dataflow proofs"
+      "save-slot dataflow proofs",
+      "analysis provenance tracking",
+      "dead-code reachability cleanup"
     ],
     "tags": [
       "Ghidra",
@@ -75674,7 +75682,7 @@
       "SPC700",
       "65C816"
     ],
-    "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
+    "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44 The latest bank-analysis passes persist provenance for analyzer-created overlay references so later rounds retract stale targets without deleting user-owned references, and remove fall-through code only when a conditional branch is provably taken and no flow, entry point, function or user label preserves the old path. Upstream reports deterministic NES corpus updates and passing synthetic/JUnit gates; these are bounded analyzer-correctness receipts, not universal decompilation correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4",
     "github": {
       "repository": "CBongo/ghidra-retro-machines",
       "created_at": "2026-07-03",
@@ -95057,8 +95065,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-08",
-    "status": null,
+    "last_checked": "2026-10-14",
+    "status": "v0.9.5; runnable multi-format interactive-fiction and disk-image interpreter",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -95075,13 +95083,17 @@
         "Claude co-author trailer observed in recent tracked commits: 11 in this scan (example 6443afe60173; Claude Opus 5.5)"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "disk-image format parsing",
+      "map inference",
+      "multi-format interpretation"
+    ],
     "tags": [
       "Amiga",
       "Apple II",
       "Atari ST"
     ],
-    "notes": "Runnable Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. v0.9.3 moves new installations to platform-standard data folders, adds a migration command and Glulx border defaults, and bounds runaway stories plus damaged media/image/audio handling. This is historical story/media format implementation, not a claim of recovered game source.",
+    "notes": "Runnable Rust terminal interpreter for Z-machine, Glulx and Scott Adams formats, with loaders for original ADF, ST, D64, DSK and other disk images, automapping and artwork rendering. v0.9.3 moves new installations to platform-standard data folders, adds a migration command and Glulx border defaults, and bounds runaway stories plus damaged media/image/audio handling. This is historical story/media format implementation, not a claim of recovered game source. v0.9.5 adds game-probed automap exits and non-cardinal room placement, Scott Adams autocomplete, and single-pass/lazy media reads that reduce a documented 354 MiB CD launch from repeated full-image reads to about 27 MiB. It also corrects narrower-window save restoration, multi-command mapping and platform data-folder migration. The following unreleased compass styling is not promoted into the release status. Evidence: https://github.com/sharkusk/lanthorn/blob/main/CHANGELOG.md https://github.com/sharkusk/lanthorn/releases/tag/v0.9.5",
     "github": {
       "repository": "sharkusk/lanthorn",
       "created_at": "2026-06-22",
@@ -107521,9 +107533,18 @@
     "target_cpu": [],
     "runtime_profiles": [
       {
-        "name": "MEGA65 R6 (upstream-tested beta)",
+        "name": "MegaST v1.0 on MEGA65 R6",
         "platform": "MEGA65",
-        "notes": "README explicitly reports 0.4.7 beta tested on a real R6. Requires the board’s SDRAM, SD card, tos.img and user media. R4/R5 projects are advertised but explicitly untested; R3/R3A are unsupported. No 45GS02 requirement or guest ST-RAM size is used as a host CPU/RAM minimum.",
+        "notes": "Primary README reports stable real-hardware R6 operation with floppy/hard-disk images, TOS 1.04, named games and additional tester-reported TOS/game configurations. Requires an SD card, tos.img and user media. No 45GS02 requirement or guest ST-RAM size is treated as a host CPU/RAM minimum.",
+        "evidence": [
+          "https://github.com/freemchr/MegaST/blob/master/README.md",
+          "https://github.com/freemchr/MegaST/releases/tag/v1.0"
+        ]
+      },
+      {
+        "name": "MegaST v1.0 on MEGA65 R3/R3A",
+        "platform": "MEGA65 R3/R3A",
+        "notes": "The dedicated R3/R3A core keeps 512 KiB of guest ST RAM in FPGA block RAM because HyperRAM is too slow for cycle-exact timing. Upstream reports R3A operation including hard-disk images. Viking and STEroids modes are unavailable. The 512 KiB value is guest configuration, not host minimum RAM.",
         "evidence": [
           "https://github.com/freemchr/MegaST/blob/master/README.md"
         ]
@@ -107549,8 +107570,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-05",
-    "status": "0.4.7 beta; author-tested on MEGA65 R6, further hardware modes untested",
+    "last_checked": "2026-10-14",
+    "status": "v1.0 stable; upstream-tested on MEGA65 R6 and R3A; R4/R5 untested",
     "build": {
       "compilable": null,
       "runnable": true,
@@ -107577,7 +107598,7 @@
       "AI-assisted",
       "ROM-required"
     ],
-    "notes": "Ports the tracked MiSTer AtariST/MiSTery core to MEGA65 with MiSTer2MEGA65. Substantial new machine wrapper, Xilinx SDRAM controller, hardware ACSI controller, keyboard, TOS loader, RTC, video scaling and virtual-drive integration justify treating it as a distinct target port rather than a mirror. README reports beta operation on real MEGA65 R6 for TOS, floppy/hard disk, peripherals and several games. Development guide specifies QNICE toolchain, Vivado 2022.2+ and source-level simulation/test entrypoints. Implementation commit 511656547998b71ec6a3ed7d300f8af3905051b8 records the native keyboard fix and hardware test with a literal Claude Opus 5.5 co-author trailer; HDMI changes have the same attribution. Requires MEGA65 R4/R5/R6 SDRAM; R3/R3A unsupported. R4/R5, cartridges, PMOD ports and several optional devices are explicitly not yet tested. TOS image and media required; EmuTOS ships with releases but Atari TOS ROM is not in the repository. FDC cannot format images; memory-size changes require cold boot in 0.4.7; other compatibility caveats retained in README. GPL v3 aggregate with upstream GPL v2-or-later parts and FX68K GPL v3. No synthesis, simulation, ROM use or hardware test performed here. AI tool/model wording is recorded as repository attribution only; it is not an independent product/version verification. Chris Freeman’s substantial MEGA65 port of MiSTer-devel/AtariST_MiSTer using MiSTer2MEGA65. Link to existing catalogue atari-st-mister-fpga-port and its ancestor mistery-atari-st-fpga-core: the machine wrapper, Xilinx SDRAM/ACSI controller, native keyboard, TOS loader and video integration establish a distinct target port, not independent original chip reconstruction. GPL v3 aggregate includes upstream GPL v2-or-later and FX68K GPL v3 parts. EmuTOS ships in release archives; proprietary Atari TOS and user media remain separate. AUTHORS explicitly identifies the FX68K cycle-accurate 68000 CPU; the machine wrapper documents the Atari ST/STE core adaptation. The IKBD controller is separately credited as HD63701 (README describes HD6301); this detail is retained in notes rather than inventing an unsupported CPU label. The output is a MEGA65 FPGA bitstream and framework firmware, not a program targeting MEGA65’s default 45GS02 CPU. QNICE toolchain/firmware and FPGA implementation are documented but are not coerced into an unsupported CPU value. MiSTer is upstream lineage, not this port’s output platform. README identifies 0.4.7 beta and explicitly reports real MEGA65 R6 tests of TOS, floppy/hard disks, peripherals and named games. runnable=true records that upstream R6 report only. Vivado/QNICE build and simulation instructions are documented but were not executed; no explicit current source-build/byte-match claim is promoted. Generic emulator compatibility is not game-subject playability. One MEGA65 profile records only the explicit R6 test context and required SDRAM/SD/TOS/media. R4/R5 are advertised requirements but remain untested; R3/R3A are unsupported. Configurable 512 KiB–14 MiB guest ST RAM is not host minimum RAM. No unverified variants are given additional profiles. Implementation commits 511656547998b71ec6a3ed7d300f8af3905051b8 and 65685cbe94ef900f20fe9147327d19d42b3264c1 contain literal Claude Opus 5.5 co-author attribution for keyboard/HDMI work. usage=true records explicit upstream AI-assistance evidence; the model/version wording is not independently verified. The README calls the IKBD CPU HD6301 while AUTHORS credits the HD63701 core; neither creates a new CPU-filter label. Literal Claude Opus 5.5 commit wording is preserved only as repository attribution, not independent product/version verification. Review scope: bounded README, metadata/tree, selected implementation/build/license excerpts and recent default-branch commits; tree-only files were not treated as fully read. No independent compilation, installation, synthesis, simulation, code execution, playtest, hardware test or original-binary comparison was performed. Repository creation and original software-development dates are not reverse-engineering start dates. Wider author/reference graphs remain partial. Evidence: https://github.com/freemchr/MegaST/blob/master/README.md https://github.com/freemchr/MegaST/blob/master/CORE/verilog/atarist_m65.sv https://github.com/freemchr/MegaST/blob/master/doc/DEVELOPMENT.md https://github.com/freemchr/MegaST/blob/master/AUTHORS https://github.com/freemchr/MegaST/blob/master/CORE/CORE-R6.xpr https://github.com/freemchr/MegaST/blob/master/LICENSE https://github.com/freemchr/MegaST/commit/511656547998b71ec6a3ed7d300f8af3905051b8 https://github.com/freemchr/MegaST/commit/65685cbe94ef900f20fe9147327d19d42b3264c1 https://github.com/freemchr/MegaST/commit/95772ca6716785689687836345762557ae8fc8cb https://github.com/MiSTer-devel/AtariST_MiSTer https://github.com/gyurco/MiSTery https://github.com/sy2002/MiSTer2MEGA65 https://github.com/ijor/fx68k",
+    "notes": "Ports the tracked MiSTer AtariST/MiSTery core to MEGA65 with MiSTer2MEGA65. Its machine wrapper, SDRAM/ACSI controller, native keyboard, TOS loader, RTC, video scaling and virtual-drive integration establish a distinct target port rather than a mirror. Version 1.0 is the first stable release. Primary documentation reports real R6 operation, tester-reported R3A hard-disk support, TOS 1.62 and named games; R4/R5 and several optional devices remain untested. The R3/R3A core keeps 512 KiB of guest ST RAM in FPGA block RAM because HyperRAM is too slow for cycle-exact timing; that is not a host RAM minimum. Releases through 0.4.10 could damage hard-disk images when writing. v1.0 restores remembered media, centres additional HDMI modes and ships distinct R3/R3A, R4, R5 and R6 core files. TOS and user media are required; EmuTOS ships in release archives, while proprietary Atari TOS remains separate. AUTHORS identifies the FX68K cycle-accurate 68000 CPU. The output is an FPGA bitstream/framework integration, not a program targeting the MEGA65’s default 45GS02 CPU, so no target CPU is inferred. GPL v3 aggregate includes upstream GPL v2-or-later and FX68K GPL v3 components. Selected implementation commits explicitly credit Claude Opus 5.5; that wording is retained as repository attribution only. No synthesis, simulation, ROM execution or hardware testing was performed here. Evidence: https://github.com/freemchr/MegaST/releases/tag/v1.0 https://github.com/freemchr/MegaST/blob/master/README.md https://github.com/freemchr/MegaST/blob/master/doc/DEVELOPMENT.md https://github.com/freemchr/MegaST/blob/master/AUTHORS https://github.com/freemchr/MegaST/commit/63c86eddc8ed7922474d41469d420b72406eee2b https://github.com/MiSTer-devel/AtariST_MiSTer https://github.com/gyurco/MiSTery https://github.com/sy2002/MiSTer2MEGA65 https://github.com/ijor/fx68k",
     "github": {
       "repository": "freemchr/MegaST",
       "created_at": "2026-09-26",
@@ -112072,7 +112093,8 @@
       "Amiga"
     ],
     "target_platforms": [
-      "Amiga"
+      "Amiga",
+      "Windows"
     ],
     "source_cpu": [
       "m68k"
@@ -112091,10 +112113,10 @@
           "AGA"
         ],
         "os": "Kickstart 3.x",
-        "notes": "Author specifies Amiga 1200 or WinUAE configured as one. Fast RAM recommended but not required for release; debug executable requires fast RAM. Three original game disks required.",
+        "notes": "Author specifies Amiga 1200 or WinUAE configured as one: 68020, AGA, Kickstart 3.x and 2 MiB chip RAM. Fast RAM is recommended but not required for release; debug requires fast RAM. Three original game disks are required. Network play additionally needs bsdsocket.library from WinUAE or an Amiga TCP/IP stack.",
         "evidence": [
-          "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md",
-          "https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/CLAUDE.md"
+          "https://github.com/Jarskih/moonstone-ace-public/blob/main/README.md",
+          "https://github.com/Jarskih/moonstone-ace-public/commit/c0534bfa6956f928bde7c04d8353b4feefc69a0a"
         ]
       }
     ],
@@ -112120,8 +112142,8 @@
       "native Amiga reconstruction"
     ],
     "re_started": null,
-    "last_checked": "2026-10-11",
-    "status": "Upstream-reported playable A1200 reconstruction; original disks required; public-build proof documented.",
+    "last_checked": "2026-10-14",
+    "status": "v0.2.0 Amiga HD release; playable A1200 reconstruction with local/network co-op; Windows SDL port in progress",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -112142,7 +112164,10 @@
     "techniques": [
       "decompilation",
       "source-reconstruction",
-      "reimplementation"
+      "reimplementation",
+      "differential testing",
+      "automated emulator replay",
+      "original-data leak scanning"
     ],
     "tags": [
       "Amiga"
@@ -112161,7 +112186,7 @@
         ]
       }
     ],
-    "notes": "Identity: The repository contains one coherent reconstruction of Moonstone: A Hard Days Knight (Mindscape, 1991), including C++ gameplay, ACE runtime, original-data loaders and comparison tooling. README identifies original Amiga disks and the A1200 output. Keep one repository-root record. Limitations: Original game data must be supplied by the player. No repository-root license file was present in the inspected listing; source availability is not a claim of unrestricted reuse. Classification: README and CLAUDE.md document a 68k-disassembly-to-C++ reconstruction. src/engine/scenes.cpp implements frame loops and scene bodies with explicit original program.asm label/line references. Architecture separates native runtime, engine services, game API and rules. The game has been all C++ since milestone 7.1r; the original ASM is not linked. The fight-script VM is game bytecode interpretation, and Unicorn is confined to testing. Source CPU: README explicitly identifies original 68k machine code, and the source transcribes original program.asm operations and register-oriented interfaces. Store broad m68k; no minimum original CPU is inferred from Amiga branding. Target CPU: BUILD.md specifies Bartman GCC with M68K_CPU=68020 and vasm -m68020; the README names the A1200/68020 target. Build: docs/PUBLISHING.md section 7 reports a public-tree export built in Release and Debug with original-dependent reference material absent, then staged to a hard disk. It also records successful boot regression. README reports playable game flow and controls. These explicit upstream reports support compilable/runnable/playable=true. Original-data parity checks and same-project build comparisons do not establish equality to the original game's executable, so byte_exact remains null. Limitations: No independent build, boot, playthrough, hardware test or original-binary comparison was performed. Some oracle tests need developer-only IRA listings; public-checkout tests can skip those. A few setup paths remain developer-specific. Runtime profiles: README specifies A1200 or equivalent WinUAE: 68020, AGA, Kickstart 3.x, 2 MB chip RAM; fast RAM is recommended but not required for the release. CLAUDE.md separately says debug requires fast RAM. Profile describes the author's stated release requirements, not an independent hardware validation. AI: The first public commit explicitly includes Co-Authored-By: Claude Opus 5.5. This is direct usage attribution, independently of the CLAUDE.md filename. CLAUDE.md contents describe guidance for Claude Code; the typed tool label is conservatively Claude and preserves the model in evidence. Relationships: ACE is the pinned engine dependency. CLAUDE.md says the moonshard C ports are cross-checks and identifies the original IRA listing as behavior reference. This repository's native A1200 gameplay implementation is distinct from the catalogue's Undine1/Moonstone-A-Hard-Days-Knight-2026 Windows game-specific-emulation record. No independent tracked equivalent was found by root and Moonstone subject checks. Limitations: The wider moonshard lineage was not exhaustively mapped; the source identifies its role as reference material. Evidence: https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/src/engine/scenes.cpp https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/docs/PUBLISHING.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/CLAUDE.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/docs/ARCHITECTURE.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/BUILD.md https://github.com/Jarskih/moonstone-ace-public/commit/55332f6f8cde577cb8ac3e96bb07d5f27f42448d https://github.com/AmigaPorts/ACE",
+    "notes": "Identity: The repository contains one coherent reconstruction of Moonstone: A Hard Days Knight (Mindscape, 1991), including C++ gameplay, ACE runtime, original-data loaders and comparison tooling. README identifies original Amiga disks and the A1200 output. Keep one repository-root record. Limitations: Original game data must be supplied by the player. No repository-root license file was present in the inspected listing; source availability is not a claim of unrestricted reuse. Classification: README and CLAUDE.md document a 68k-disassembly-to-C++ reconstruction. src/engine/scenes.cpp implements frame loops and scene bodies with explicit original program.asm label/line references. Architecture separates native runtime, engine services, game API and rules. The game has been all C++ since milestone 7.1r; the original ASM is not linked. The fight-script VM is game bytecode interpretation, and Unicorn is confined to testing. Source CPU: README explicitly identifies original 68k machine code, and the source transcribes original program.asm operations and register-oriented interfaces. Store broad m68k; no minimum original CPU is inferred from Amiga branding. Target CPU: BUILD.md specifies Bartman GCC with M68K_CPU=68020 and vasm -m68020; the README names the A1200/68020 target. Build: docs/PUBLISHING.md section 7 reports a public-tree export built in Release and Debug with original-dependent reference material absent, then staged to a hard disk. It also records successful boot regression. README reports playable game flow and controls. These explicit upstream reports support compilable/runnable/playable=true. Original-data parity checks and same-project build comparisons do not establish equality to the original game's executable, so byte_exact remains null. Limitations: No independent build, boot, playthrough, hardware test or original-binary comparison was performed. Some oracle tests need developer-only IRA listings; public-checkout tests can skip those. A few setup paths remain developer-specific. Runtime profiles: README specifies A1200 or equivalent WinUAE: 68020, AGA, Kickstart 3.x, 2 MB chip RAM; fast RAM is recommended but not required for the release. CLAUDE.md separately says debug requires fast RAM. Profile describes the author's stated release requirements, not an independent hardware validation. AI: The first public commit explicitly includes Co-Authored-By: Claude Opus 5.5. This is direct usage attribution, independently of the CLAUDE.md filename. CLAUDE.md contents describe guidance for Claude Code; the typed tool label is conservatively Claude and preserves the model in evidence. Relationships: ACE is the pinned engine dependency. CLAUDE.md says the moonshard C ports are cross-checks and identifies the original IRA listing as behavior reference. This repository's native A1200 gameplay implementation is distinct from the catalogue's Undine1/Moonstone-A-Hard-Days-Knight-2026 Windows game-specific-emulation record. No independent tracked equivalent was found by root and Moonstone subject checks. Limitations: The wider moonshard lineage was not exhaustively mapped; the source identifies its role as reference material. Evidence: https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/README.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/src/engine/scenes.cpp https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/docs/PUBLISHING.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/CLAUDE.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/docs/ARCHITECTURE.md https://github.com/Jarskih/moonstone-ace-public/blob/2bc43a2e673819cc9c71a50a800e5676edcacfb3/BUILD.md https://github.com/Jarskih/moonstone-ace-public/commit/55332f6f8cde577cb8ac3e96bb07d5f27f42448d https://github.com/AmigaPorts/ACE Release 0.2.0 publishes an Amiga HD-install archive with a ready WinUAE configuration and no original game data; players supply three original disks. The current README documents up to four-player local or network co-op/competitive play with reconnect support and the existing A1200 floor of 68020, AGA, Kickstart 3.x and 2 MiB chip RAM. A separate PC/Windows SDL build is explicitly not ready for play and is not part of 0.2.0, so no Windows CPU or runtime minimum is inferred. Evidence: https://github.com/Jarskih/moonstone-ace-public/blob/main/README.md https://github.com/Jarskih/moonstone-ace-public/commit/c0534bfa6956f928bde7c04d8353b4feefc69a0a https://github.com/Jarskih/moonstone-ace-public/commit/89f6a696008d7268a0a3033ff4003a3fbaddfb8f",
     "github": {
       "repository": "Jarskih/moonstone-ace-public",
       "created_at": "2026-10-07",
@@ -183095,8 +183120,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-09-23",
-    "status": "active",
+    "last_checked": "2026-10-14",
+    "status": "active; optional loopback GDB server with range stepping and memory-map reporting",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -183116,7 +183141,9 @@
       "hardware emulation",
       "compatibility testing",
       "debugging",
-      "state inspection"
+      "state inspection",
+      "GDB remote debugging",
+      "physical memory-map reporting"
     ],
     "tags": [
       "Amiga",
@@ -183124,7 +183151,7 @@
       "reverse-engineering tooling",
       "retro development"
     ],
-    "notes": "Actively maintained Windows Amiga emulator and a key compatibility/debugging tool for Amiga reverse engineering and retro development. Tracked as adjacent tooling rather than as a source-reconstruction target.",
+    "notes": "Actively maintained Windows Amiga emulator and a key compatibility/debugging tool for Amiga reverse engineering and retro development. Tracked as adjacent tooling rather than as a source-reconstruction target. Current main adds an opt-in, unauthenticated loopback GDB remote server shared by Windows and Unix builds. It exposes 18 m68k integer registers, physical RAM/ROM access, stepping, PC breakpoints and bounded data watchpoints; subsequent commits add standard vCont range stepping and complete RAM/ROM XML memory maps. It is disabled by default, single-client and local-only, and its memory addresses are physical rather than guest-MMU translations. Evidence: https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1 https://github.com/tonioni/WinUAE/commit/d7dc9b0ef7e19b016f36a18ad494d1f48e40aeda https://github.com/tonioni/WinUAE/commit/5afd2b2111e4340bad2c017c7082586b46c35b4d",
     "github": {
       "repository": "tonioni/WinUAE",
       "created_at": "2010-02-22",

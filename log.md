@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-14 — Releases, debugger integration and runtime maintenance
+
+Reviewed seven materially changed projects. **Moonstone — native C++ reconstruction for Amiga 1200** now records its 0.2.0 Amiga HD release, explicit local/network co-op support and the still-unplayable Windows SDL target without inferring a Windows CPU. **Lanthorn v0.9.5** records its map inference, Scott Adams autocomplete, save-restoration fixes and reduced disk/CD reads. **MegaST v1.0** replaces the stale beta description with stable R6 and tester-reported R3A operation; R4/R5 remain untested, and the R3/R3A core’s 512 KiB is guest ST RAM rather than a host minimum.
+
+**WinUAE** now records its opt-in loopback GDB server, standard range stepping and complete RAM/ROM memory-map export. **Amiberry** records post-8.4.0 libretro preboot-save, CIA timing, MMU cache-inhibit and `USE_PPC=OFF` fixes. **Ghidra Retro Machines** records deterministic stale-overlay-reference retraction and conservative decided-branch dead-code cleanup. **Firestaff** records measured source-clock Amiga title pacing and authenticated FM Towns CSB resume-state assertions while retaining explicit HiDPI, pixel-parity and beam-timing limits.
+
+The CPU audit queue was empty before selection. Oscar64’s isolated multiplication reorder and Heart of Africa’s workflow/retrospective updates were screened but not curated. No upstream project was independently built or executed.
+
 ## 2026-10-14 — ColecoVision queue and TI-99/IIgs/TRS-80 discovery
 
 Added thirteen primary-source-reviewed projects. The ColecoVision queue contributed separate records for **B.C.’s Quest for Tires**, **Boulder Dash**, **BurgerTime**, **Carnival**, **Centipede**, **Choplifter**, **Defender** and **Donkey Kong**. B.C.’s Quest for Tires and Boulder Dash explicitly claim byte-exact output; Carnival explicitly remains playable with graphical errors. AI attribution is recorded only where the title documentation credits Claude or Claude Code. Ten of the collection’s 24 title directories are now reviewed, leaving fourteen queued rather than treating the monorepo as one project.
