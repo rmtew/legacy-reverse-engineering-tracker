@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-13T03:51:49Z",
+  "updated_at": "2026-10-13T06:17:33Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -8351,7 +8351,17 @@
         "m68000"
       ],
       "target_cpu": [],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "DevBench host server",
+          "platform": "Linux / macOS / Windows",
+          "os": "Python 3.10+; Git; WSL for bash scripts on Windows",
+          "notes": "README requirements for the host server. A real target additionally needs an emulator or Amiga with the bridge and user-supplied ROM/OS; Docker is needed only for cross-compilation. No minimum host CPU or RAM is stated.",
+          "evidence": [
+            "https://github.com/geekychris/amiga_mcp/blob/main/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "Amiga hardware/OS behavior"
@@ -8374,7 +8384,7 @@
         "MCP server"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "active; bridge v1.21 and end-to-end MCP/Amiga live-test path",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -8396,7 +8406,7 @@
         "debugger",
         "reverse-engineering tooling"
       ],
-      "notes": "Host/target bridge over serial to a real or FS-UAE Amiga, with memory/register inspection, breakpoints, remote execution, a web dashboard and MCP tools. The optional patched FS-UAE enables a separate emulator-level debugger; ordinary FS-UAE still supports the serial bridge. Docker is used for the 68k cross compiler. The environment now includes a reproducible AmigaOS 4.1 PPC/newlib build of Mesa 7.8.2 OSMesa for fixed-function software rendering, an on-guest self-test, an opt-in ES1370 QEMU audio route, and updated examples pins for three PPC ports. Upstream reports the OSMesa self-test passes in the QEMU guest; this was not independently reproduced. Evidence: https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d https://github.com/geekychris/amiga_mcp/commit/9242be4af0",
+      "notes": "Host/target bridge over serial to a real or FS-UAE Amiga, with memory/register inspection, breakpoints, remote execution, a web dashboard and MCP tools. The optional patched FS-UAE enables a separate emulator-level debugger; ordinary FS-UAE still supports the serial bridge. Docker is used for the 68k cross compiler. The environment now includes a reproducible AmigaOS 4.1 PPC/newlib build of Mesa 7.8.2 OSMesa for fixed-function software rendering, an on-guest self-test, an opt-in ES1370 QEMU audio route, and updated examples pins for three PPC ports. Upstream reports the OSMesa self-test passes in the QEMU guest; this was not independently reproduced. Evidence: https://github.com/geekychris/amiga_mcp/commit/1195f1277048a803c7e11ab0f0ebe292c357a28d https://github.com/geekychris/amiga_mcp/commit/9242be4af0 Bridge v1.21 now signals the task owning the registered reply port before falling back to a name lookup, preventing an older same-named task from consuming STOP. A new live-test script exercises the same MCP path used by clients through sysinfo, file transfer with CRC, launch, variable read/write, screenshot and STOP on classic 68k or AmigaOS 4 targets. This is executable test infrastructure and commit-level evidence, not an independently observed passing run. Evidence: https://github.com/geekychris/amiga_mcp/commit/73ce765b8b32fe968518da2d205897754062199b https://github.com/geekychris/amiga_mcp/commit/c605e4a12e2ac374da9ece533570cd1107a634de",
       "ai": {
         "usage": true,
         "tools": [
@@ -40435,7 +40445,8 @@
         "NES",
         "Game Boy Advance",
         "Playdate",
-        "3DO"
+        "3DO",
+        "CD-i"
       ],
       "source_cpu": [
         "6809"
@@ -40477,7 +40488,7 @@
         "multi-platform-game-port"
       ],
       "re_started": null,
-      "status": "Alpha native reconstruction with upstream-playable ports; close rather than exact fidelity, original ROM required, and SG-1000 physical banking unverified.",
+      "status": "Active alpha native reconstruction; CD-i port in progress; upstream-playable ports remain close rather than exact",
       "build": {
         "compilable": null,
         "runnable": true,
@@ -40506,9 +40517,10 @@
         "Playdate",
         "3DO",
         "native-game-reconstruction",
-        "multi-platform-game-port"
+        "multi-platform-game-port",
+        "CD-i"
       ],
-      "notes": "Native C/C++ game logic derived from Downland_RE, with a separate game_8bit implementation and platform layers. player.c implements physics, hazards, pickups, doors and game flow rather than interpreting original 6809 instructions. The research repository is a predecessor, not a second C port. Reconstruction of Downland graphics, physics, hazards, climbing, pickups, room timers, and repeated-game difficulty. Shared normal and 8-bit C game implementations with native platform layers. Windows graphics filters and numerous console/handheld targets documented upstream. game/player.c contains native player-death, sprite, pickup, door, and game-loop logic rather than a 6809 interpreter. Repository has distinct game_8bit implementation and platform-specific source/build trees. SG-1000 Makefile links SDCC, SGlib, PSGlib, and crt0_sg. Based on the author's Downland_RE research; this C runtime is meaningful separate implementation. Original Downland v1.1 ROM supplies resources and is required; console asset pipelines extract and convert those resources. Inspected SG-1000 README and Makefile: requires devkitSMS, SDCC, DLExporter, convertToC.bat, and adjusted local SDK path; output uses .sms extension for banked SG-1000 ROMs. Windows Visual Studio projects and other target makefiles are present. No target built or tested in this review. README explicitly labels this Alpha, documents controls/game completion behavior and says it is close rather than fully accurate; alpha prereleases and the SG-1000 author emulator-test report support upstream-reported runnable/playable=true. The source/recipes do not prove a current reproducible build on all targets, so compilable remains null. ROM assets and local SDK/exporter prerequisites are required. Downland_RE claims about recreating an original ROM are not transferred into this different native C port; byte_exact stays null. Original Downland v1.1 ROM is mandatory, either loaded by the runtime or extracted for console assets. SG-1000 uses banked ROM and was tested only in an emulator upstream; a physical cartridge needs banking and .sms is used to enable banking in emulators. Playdate requires its real console or SDK simulator; no CPU/RAM minimum beyond these target identities is documented. Build flags and heap/stack allocations are not converted into minimum hardware profiles. README explicitly calls this Alpha and says close rather than 100% accurate to original. SG-1000 author has tested only in an emulator; a physical cartridge needs banking. This caveat must accompany SG-1000 support. Latest GitHub releases are 2025 alpha prereleases; source is newer, with September 2026 rendering changes. Playdate and experimental slow ESP32 CYD are also claimed, but those names are new to baseline and flagged separately. MIT for reconstruction code. Original ROM/resource rights are separate, and users must supply the ROM. No explicit AI-assistance declaration found in the README, selected source/build files, and reviewed recent commits. This is a bounded observation, not proof of human-only authorship. Downland_RE is credited as basis. No baseline Downland title/root found; do not count future discovery of RE documentation as a second native C port. Playdate is a distinct supported machine established by its dedicated README, Playdate SDK 2.7.5 device/simulator workflow, CMake armgcc branch and pd_api.h C platform layer. It is added as a new canonical platform label. The Playdate README/CMake use Downland.pdx, while its separate Makefile still says HelloWorld.pdx; current build consistency is unverified. ESP32 Cheap Yellow Display is retained in notes as the exact ESP32-2432S028 board: Arduino/Visual Micro, TFT_eSPI and XPT2046_Touchscreen, v1.1 ROM on SD, experimental below-half-speed full-screen blitting, rudimentary touch controls and empty sound functions. No ESP32 platform alias or ISA is invented. CD-i folder presence is not promoted to supported target. SG-1000 requires devkitSMS, SDCC, SGlib/PSGlib, DLExporter, convertToC.bat and adjusted local SDK paths. No independent compilation, installation, tests, execution, playtest or original-program binary comparison was performed. Positive build/runtime flags are limited to the explicit upstream claims described above; unknown facts stay null. Evidence: https://github.com/pw32x/downland_c https://github.com/pw32x/downland_c/blob/main/README.md https://github.com/pw32x/Downland_C/blob/main/platforms/sg1000/readme.MD https://github.com/pw32x/Downland_C/blob/main/platforms/sg1000/build/Makefile https://github.com/pw32x/Downland_C/blob/main/game/player.c https://github.com/pw32x/Downland_C/blob/main/LICENSE https://github.com/pw32x/Downland_C/releases/tag/v0_81_alpha https://github.com/pw32x/Downland_RE https://github.com/pw32x/Downland_C/commit/6b4dfd6b9cb93ac3c5394a7d8c975c2d915165b6 https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/README.md https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/Makefile https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/CMakeLists.txt https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/src/main.c https://github.com/pw32x/Downland_C/blob/main/platforms/esp32_cyd/readme.md https://github.com/pw32x/Downland_C/blob/main/platforms/esp32_cyd/esp32_cyd.ino https://github.com/pw32x/Downland_C/blob/main/platforms/saturn/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/32X/build/Makefile_32X https://github.com/pw32x/Downland_C/blob/main/platforms/genesis/build/makefile.gen https://github.com/pw32x/Downland_C/blob/main/platforms/nes/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/gba/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/3do/build/Makefile https://github.com/pw32x/Downland_C/blob/main/platforms/win32_classic/Downland_C.vcxproj https://github.com/pw32x/Downland_C/blob/main/platforms/dreamcast/build/Makefile https://github.com/pw32x/Downland_RE/blob/main/exported_asm/downland.asm",
+      "notes": "Native C/C++ game logic derived from Downland_RE, with a separate game_8bit implementation and platform layers. player.c implements physics, hazards, pickups, doors and game flow rather than interpreting original 6809 instructions. The research repository is a predecessor, not a second C port. Reconstruction of Downland graphics, physics, hazards, climbing, pickups, room timers, and repeated-game difficulty. Shared normal and 8-bit C game implementations with native platform layers. Windows graphics filters and numerous console/handheld targets documented upstream. game/player.c contains native player-death, sprite, pickup, door, and game-loop logic rather than a 6809 interpreter. Repository has distinct game_8bit implementation and platform-specific source/build trees. SG-1000 Makefile links SDCC, SGlib, PSGlib, and crt0_sg. Based on the author's Downland_RE research; this C runtime is meaningful separate implementation. Original Downland v1.1 ROM supplies resources and is required; console asset pipelines extract and convert those resources. Inspected SG-1000 README and Makefile: requires devkitSMS, SDCC, DLExporter, convertToC.bat, and adjusted local SDK path; output uses .sms extension for banked SG-1000 ROMs. Windows Visual Studio projects and other target makefiles are present. No target built or tested in this review. README explicitly labels this Alpha, documents controls/game completion behavior and says it is close rather than fully accurate; alpha prereleases and the SG-1000 author emulator-test report support upstream-reported runnable/playable=true. The source/recipes do not prove a current reproducible build on all targets, so compilable remains null. ROM assets and local SDK/exporter prerequisites are required. Downland_RE claims about recreating an original ROM are not transferred into this different native C port; byte_exact stays null. Original Downland v1.1 ROM is mandatory, either loaded by the runtime or extracted for console assets. SG-1000 uses banked ROM and was tested only in an emulator upstream; a physical cartridge needs banking and .sms is used to enable banking in emulators. Playdate requires its real console or SDK simulator; no CPU/RAM minimum beyond these target identities is documented. Build flags and heap/stack allocations are not converted into minimum hardware profiles. README explicitly calls this Alpha and says close rather than 100% accurate to original. SG-1000 author has tested only in an emulator; a physical cartridge needs banking. This caveat must accompany SG-1000 support. Latest GitHub releases are 2025 alpha prereleases; source is newer, with September 2026 rendering changes. Playdate and experimental slow ESP32 CYD are also claimed, but those names are new to baseline and flagged separately. MIT for reconstruction code. Original ROM/resource rights are separate, and users must supply the ROM. No explicit AI-assistance declaration found in the README, selected source/build files, and reviewed recent commits. This is a bounded observation, not proof of human-only authorship. Downland_RE is credited as basis. No baseline Downland title/root found; do not count future discovery of RE documentation as a second native C port. Playdate is a distinct supported machine established by its dedicated README, Playdate SDK 2.7.5 device/simulator workflow, CMake armgcc branch and pd_api.h C platform layer. It is added as a new canonical platform label. The Playdate README/CMake use Downland.pdx, while its separate Makefile still says HelloWorld.pdx; current build consistency is unverified. ESP32 Cheap Yellow Display is retained in notes as the exact ESP32-2432S028 board: Arduino/Visual Micro, TFT_eSPI and XPT2046_Touchscreen, v1.1 ROM on SD, experimental below-half-speed full-screen blitting, rudimentary touch controls and empty sound functions. No ESP32 platform alias or ISA is invented. The earlier folder-only CD-i signal was not promoted; current active source changes now establish it as an in-progress target. SG-1000 requires devkitSMS, SDCC, SGlib/PSGlib, DLExporter, convertToC.bat and adjusted local SDK paths. No independent compilation, installation, tests, execution, playtest or original-program binary comparison was performed. Positive build/runtime flags are limited to the explicit upstream claims described above; unknown facts stay null. Evidence: https://github.com/pw32x/downland_c https://github.com/pw32x/downland_c/blob/main/README.md https://github.com/pw32x/Downland_C/blob/main/platforms/sg1000/readme.MD https://github.com/pw32x/Downland_C/blob/main/platforms/sg1000/build/Makefile https://github.com/pw32x/Downland_C/blob/main/game/player.c https://github.com/pw32x/Downland_C/blob/main/LICENSE https://github.com/pw32x/Downland_C/releases/tag/v0_81_alpha https://github.com/pw32x/Downland_RE https://github.com/pw32x/Downland_C/commit/6b4dfd6b9cb93ac3c5394a7d8c975c2d915165b6 https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/README.md https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/Makefile https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/CMakeLists.txt https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/src/main.c https://github.com/pw32x/Downland_C/blob/main/platforms/esp32_cyd/readme.md https://github.com/pw32x/Downland_C/blob/main/platforms/esp32_cyd/esp32_cyd.ino https://github.com/pw32x/Downland_C/blob/main/platforms/saturn/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/32X/build/Makefile_32X https://github.com/pw32x/Downland_C/blob/main/platforms/genesis/build/makefile.gen https://github.com/pw32x/Downland_C/blob/main/platforms/nes/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/gba/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/3do/build/Makefile https://github.com/pw32x/Downland_C/blob/main/platforms/win32_classic/Downland_C.vcxproj https://github.com/pw32x/Downland_C/blob/main/platforms/dreamcast/build/Makefile https://github.com/pw32x/Downland_RE/blob/main/exported_asm/downland.asm Active source now establishes an in-progress CD-i platform layer: the system initializes before ROM validation and input was simplified around one pointer device, with an on-screen diagnostic fallback because logging is unreliable. CD-i is therefore recorded as a target under development, not as a published supported/playable port; no CPU, minimum hardware or successful build is inferred from the platform name. Evidence: https://github.com/pw32x/Downland_C/commit/6330a95c9ebd0fc4d5965909b3fff21f1fd6a4ef https://github.com/pw32x/Downland_C/commit/6a233ba5f4ea721b764fca46bd983c9eff461f78 https://github.com/pw32x/Downland_C/commit/2542482e6e3dcac5dbb62a5474400658fd813ebd",
       "ai": {
         "usage": null,
         "tools": []
@@ -48677,15 +48689,20 @@
           ]
         },
         {
-          "name": "Apple Silicon macOS host smoke",
+          "name": "Apple Silicon Mac mini M4 native runtime",
           "platform": "macOS",
           "cpu_family": "arm64",
-          "notes": "PROJECT_STATUS explicitly records a native macOS host smoke and Apple Silicon macOS boot for Dungeon Master 1. This is a verified host configuration, not a general minimum CPU or memory requirement for Firestaff.",
+          "notes": "Upstream ran current main natively on a Mac mini M4 with authenticated FM Towns media: DM1 completed title/door pacing into runtime, while headless CTests covered DM1, CSB and DM2 startup. These are verified configurations, not minimum CPU/RAM, physical-display, palette, HiDPI or audible-speaker claims.",
           "evidence": [
             {
-              "source": "docs/PROJECT_STATUS.md",
-              "url": "https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md",
-              "excerpt": "Dungeon Master 1 | Playable/source-locked V1; native macOS host smoke verified ... Apple Silicon macOS boot"
+              "source": "DONE-dm1.md",
+              "url": "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
+              "excerpt": "native Cocoa run ... on a Mac mini M4 ... startup reached dm1-runtime"
+            },
+            {
+              "source": "DONE-dm1.md / DONE-csb.md / DONE-dm2.md",
+              "url": "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
+              "excerpt": "authentic FM Towns startup tests passed on the Mac mini M4"
             }
           ]
         }
@@ -48714,7 +48731,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "active; v3.0.376 bounded original-media startup and FM Towns HUD work",
+      "status": "active; bounded original-media startup and native Apple Silicon pacing tests",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -48744,7 +48761,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480",
+      "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3",
       "ai": {
         "usage": true,
         "tools": [
@@ -54221,7 +54238,7 @@
         "Ghidra machine-aware loaders"
       ],
       "re_started": null,
-      "status": "Active; NES suite passes 29 baseline cases plus three corrected planar-split fixtures",
+      "status": "Active; save-slot proofs now cross function jumps and bounded save-helper calls",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -54236,7 +54253,9 @@
         "jump-table bound analysis",
         "single-case oracle defect quarantine",
         "exhaustive CPU-vector verification",
-        "planar split jump-table bounding"
+        "planar split jump-table bounding",
+        "cross-function predecessor analysis",
+        "save-slot dataflow proofs"
       ],
       "tags": [
         "Ghidra",
@@ -54248,7 +54267,7 @@
         "SPC700",
         "65C816"
       ],
-      "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad",
+      "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
       "ai": {
         "usage": true,
         "tools": [
@@ -81449,7 +81468,7 @@
         "original DOS binary emulator with host DOS and BIOS API translation"
       ],
       "re_started": null,
-      "status": "Substantive source reviewed; build and runtime independently untested",
+      "status": "active maintained vt branch; current VM86 I/O and VGA/console work source-reviewed; build/runtime independently untested",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -81457,7 +81476,9 @@
         "byte_exact": null
       },
       "techniques": [
-        "reimplementation"
+        "reimplementation",
+        "VM86 I/O-bitmap emulation",
+        "VGA and CRTC device emulation"
       ],
       "tags": [
         "MS-DOS",
@@ -81466,7 +81487,7 @@
         "OS-API-translation",
         "source-reviewed"
       ],
-      "notes": "Takeda Toshiya’s MS-DOS Player family, represented by cracyc’s maintained vt branch, runs original DOS command-line utilities directly against Windows files and console services. The official site and maintained fork are one counted project family. readme.txt explicitly targets 16-bit DOS command-line utilities and demonstrates msdos lcc sample.c followed by msdos sample.exe. msdos.cpp identifies Takeda as author, loads MZ/ZM EXEs with relocation and otherwise uses the COM entry at 0x100. The selected maintained source root is cracyc/msdos-player, default branch vt. Its README credits imported fixes from the cracyc fork; the official Takeda distribution is lineage/context, not a second project. Root and record ID are absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior dedup index. Inspected vt tip: b3ebaa8452be478afec604361db32e9451eb43e2. Emulator/development tooling with CPU execution plus DOS/BIOS service translation. The INT 21h dispatch sends 3Dh/3Fh/40h/4Bh to host-backed open/read/write/execute handling. The direct console workflow does not boot a DOS disk image, but this is not a CPU-only layer: text-mode hardware scaffolding, memory services and optional driver/VDD support exist. README excludes Win16, graphics/sound hardware and gaming as the project’s goal; protected-mode capabilities vary by CPU build. Original COM/MZ DOS binaries are x86 guests. README lists separate 8086, 80286, 80386, 80486, Pentium4, NEC V30 and IA32 emulation variants, including protected-mode capabilities and an optional V30 8080 mode. Canonical source_cpu=x86 describes the principal DOS guest ISA without mistaking the emulated model labels for host CPU requirements or claiming full PC compatibility. README explicitly distinguishes _x86 binaries for 32/64-bit Windows and _x64 binaries for 64-bit Windows; msdos.vcxproj independently contains Win32 and x64 output configurations. These support host target_cpu x86 and x86-64. The i86/i286/i386 suffixes and HAS_I286 macro select the emulated guest core, not the native output ISA. No native Linux or macOS support is established by these Windows/MinGW recipes. Source includes Visual C++ projects and build batch routes, plus MinGW Makefile.mingw. Current CI is configured on windows-latest for i86, V30, i286, i386 and i486 variants; it is configuration evidence rather than an observed successful run. The older simple Makefile selects an i586-mingw32msvc cross compiler and Windows libraries, so it does not establish a native Unix build. README’s packaged-binary count says 12 but lists 14 variants; record variant names rather than repeating that count. All four build flags remain null; no candidate compilation, guest execution, emulation, gameplay or byte comparison was performed. Two host-output profiles retain explicit _x86 versus _x64 Windows requirements from the README. No Windows version or numerical host RAM minimum is established from the reviewed pinned material. The emulated 1/16/32 MB memory configuration is guest memory, not host RAM. Direct commands use host paths; original COMMAND.COM is needed for batch execution. VDD support is limited to selected 32-bit process builds with companion ntvdm.exe and is not available in x64 process builds. For MS-DOS Player, review of 30 latest available default-branch commit metadata/messages (requested 30), the complete non-truncated 957-entry tree, and selected documentation, implementation/build and license sources found no affirmative development-AI attribution. ai.usage remains null and ai.tools empty. This bounded search is not proof of non-use; agent/config filenames, provider/bot emails, gameplay AI and project age are not evidence. Older history beyond this 30-commit window was not exhausted. One family combines Takeda’s MS-DOS Player and the cracyc maintained fork; GitHub fork=false is hosting metadata and does not negate the documented lineage. README licenses source under GPL v2 and credits MAME CPU cores, Neko Project 21/W, DOSBox/DOSBox-X, DOSVAXJ3 and ReactOS-derived portions; component notices need preservation. Guest DOS compilers, commands, libraries and COMMAND.COM retain separate rights and must be supplied lawfully. This is neither Microsoft’s original NTVDM nor davidly/ntvdm. The official Takeda URL was retained from prior discovery, but this publication recheck received HTTP 403 and therefore does not newly verify its release/test claims. Overall source/author/dependency graph coverage remains partial. Last activity is the latest default-branch commit committer date 2026-09-27T17:20:47Z, not GitHub pushed_at. Repository creation and upstream release/version dates do not establish a reverse-engineering start date. Overall audit and source coverage remain partial. Evidence: https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/Makefile.mingw https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/Makefile https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/.github/workflows/ccpp.yml https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/readme.txt https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/msdos.vcxproj https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/license/COPYING.txt https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/msdos.cpp https://github.com/cracyc/msdos-player/tree/b3ebaa8452be478afec604361db32e9451eb43e2 https://github.com/cracyc/msdos-player/commit/b3ebaa8452be478afec604361db32e9451eb43e2",
+      "notes": "Takeda Toshiya’s MS-DOS Player family, represented by cracyc’s maintained vt branch, runs original DOS command-line utilities directly against Windows files and console services. The official site and maintained fork are one counted project family. readme.txt explicitly targets 16-bit DOS command-line utilities and demonstrates msdos lcc sample.c followed by msdos sample.exe. msdos.cpp identifies Takeda as author, loads MZ/ZM EXEs with relocation and otherwise uses the COM entry at 0x100. The selected maintained source root is cracyc/msdos-player, default branch vt. Its README credits imported fixes from the cracyc fork; the official Takeda distribution is lineage/context, not a second project. Root and record ID are absent from the fresh 1702-project baseline at ac4ea751fcdb273322cfdac18cd679b83f03a90f and the prior dedup index. Inspected vt tip: b3ebaa8452be478afec604361db32e9451eb43e2. Emulator/development tooling with CPU execution plus DOS/BIOS service translation. The INT 21h dispatch sends 3Dh/3Fh/40h/4Bh to host-backed open/read/write/execute handling. The direct console workflow does not boot a DOS disk image, but this is not a CPU-only layer: text-mode hardware scaffolding, memory services and optional driver/VDD support exist. README excludes Win16, graphics/sound hardware and gaming as the project’s goal; protected-mode capabilities vary by CPU build. Original COM/MZ DOS binaries are x86 guests. README lists separate 8086, 80286, 80386, 80486, Pentium4, NEC V30 and IA32 emulation variants, including protected-mode capabilities and an optional V30 8080 mode. Canonical source_cpu=x86 describes the principal DOS guest ISA without mistaking the emulated model labels for host CPU requirements or claiming full PC compatibility. README explicitly distinguishes _x86 binaries for 32/64-bit Windows and _x64 binaries for 64-bit Windows; msdos.vcxproj independently contains Win32 and x64 output configurations. These support host target_cpu x86 and x86-64. The i86/i286/i386 suffixes and HAS_I286 macro select the emulated guest core, not the native output ISA. No native Linux or macOS support is established by these Windows/MinGW recipes. Source includes Visual C++ projects and build batch routes, plus MinGW Makefile.mingw. Current CI is configured on windows-latest for i86, V30, i286, i386 and i486 variants; it is configuration evidence rather than an observed successful run. The older simple Makefile selects an i586-mingw32msvc cross compiler and Windows libraries, so it does not establish a native Unix build. README’s packaged-binary count says 12 but lists 14 variants; record variant names rather than repeating that count. All four build flags remain null; no candidate compilation, guest execution, emulation, gameplay or byte comparison was performed. Two host-output profiles retain explicit _x86 versus _x64 Windows requirements from the README. No Windows version or numerical host RAM minimum is established from the reviewed pinned material. The emulated 1/16/32 MB memory configuration is guest memory, not host RAM. Direct commands use host paths; original COMMAND.COM is needed for batch execution. VDD support is limited to selected 32-bit process builds with companion ntvdm.exe and is not available in x64 process builds. For MS-DOS Player, review of 30 latest available default-branch commit metadata/messages (requested 30), the complete non-truncated 957-entry tree, and selected documentation, implementation/build and license sources found no affirmative development-AI attribution. ai.usage remains null and ai.tools empty. This bounded search is not proof of non-use; agent/config filenames, provider/bot emails, gameplay AI and project age are not evidence. Older history beyond this 30-commit window was not exhausted. One family combines Takeda’s MS-DOS Player and the cracyc maintained fork; GitHub fork=false is hosting metadata and does not negate the documented lineage. README licenses source under GPL v2 and credits MAME CPU cores, Neko Project 21/W, DOSBox/DOSBox-X, DOSVAXJ3 and ReactOS-derived portions; component notices need preservation. Guest DOS compilers, commands, libraries and COMMAND.COM retain separate rights and must be supplied lawfully. This is neither Microsoft’s original NTVDM nor davidly/ntvdm. The official Takeda URL was retained from prior discovery, but this publication recheck received HTTP 403 and therefore does not newly verify its release/test claims. Overall source/author/dependency graph coverage remains partial. Last activity is the latest default-branch commit committer date 2026-09-27T17:20:47Z, not GitHub pushed_at. Repository creation and upstream release/version dates do not establish a reverse-engineering start date. Overall audit and source coverage remain partial. Evidence: https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/Makefile.mingw https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/Makefile https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/.github/workflows/ccpp.yml https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/readme.txt https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/msdos.vcxproj https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/license/COPYING.txt https://github.com/cracyc/msdos-player/blob/b3ebaa8452be478afec604361db32e9451eb43e2/msdos.cpp https://github.com/cracyc/msdos-player/tree/b3ebaa8452be478afec604361db32e9451eb43e2 https://github.com/cracyc/msdos-player/commit/b3ebaa8452be478afec604361db32e9451eb43e2 The 2026-10-13 vt merge from upstream adds an explicit VM86 I/O-bitmap trap predictor, expands CRTC/VGA register and VRAM handlers, and corrects a console replacement write-result assignment. These are current source changes; they do not establish a successful build, guest execution or broader graphics compatibility. Evidence: https://github.com/cracyc/msdos-player/commit/f099d05020efe32912b18f3ad9ae17fc3dba05b7 https://github.com/cracyc/msdos-player/commit/091eae587fabf6780945cacdce6c560093e59bc2",
       "ai": {
         "usage": null,
         "tools": []
@@ -129974,8 +129995,10 @@
       "id": "virtualjaguar-libretro",
       "title": "Virtual Jaguar libretro",
       "upstream_name": "Virtual Jaguar libretro",
-      "display_title": "Virtual Jaguar libretro",
-      "subjects": [],
+      "display_title": "Virtual Jaguar — Jaguar/Jaguar CD libretro emulator",
+      "subjects": [
+        "Virtual Jaguar"
+      ],
       "repo": "https://github.com/libretro/virtualjaguar-libretro",
       "project_url": null,
       "github_path": null,
@@ -129984,13 +130007,100 @@
         "Atari Jaguar"
       ],
       "target_platforms": [
-        "libretro"
+        "libretro",
+        "Linux",
+        "macOS",
+        "Windows",
+        "Android",
+        "iOS",
+        "tvOS",
+        "WebAssembly",
+        "PS Vita",
+        "Nintendo Switch",
+        "Raspberry Pi"
       ],
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "x86",
+        "x86-64",
+        "ARM",
+        "arm64",
+        "WebAssembly"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "v3.8.0 Linux x86-64",
+          "platform": "Linux",
+          "cpu_family": "x86-64",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum CPU, RAM or Linux version is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        },
+        {
+          "name": "v3.8.0 Linux aarch64",
+          "platform": "Linux",
+          "cpu_family": "arm64",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum CPU, RAM or Linux version is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        },
+        {
+          "name": "v3.8.0 Linux i686",
+          "platform": "Linux",
+          "cpu_family": "x86",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum CPU, RAM or Linux version is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        },
+        {
+          "name": "v3.8.0 macOS Apple Silicon",
+          "platform": "macOS",
+          "cpu_family": "arm64",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum macOS version or RAM is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        },
+        {
+          "name": "v3.8.0 macOS Intel",
+          "platform": "macOS",
+          "cpu_family": "x86-64",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum Intel model, macOS version or RAM is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        },
+        {
+          "name": "v3.8.0 Windows x86",
+          "platform": "Windows",
+          "cpu_family": "x86",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum Windows version, CPU model or RAM is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        },
+        {
+          "name": "v3.8.0 Windows x64",
+          "platform": "Windows",
+          "cpu_family": "x86-64",
+          "notes": "Published libretro core; requires a compatible frontend. No minimum Windows version, CPU model or RAM is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "historical executable/data or platform behavior"
@@ -130008,18 +130118,27 @@
         "development tool"
       ],
       "re_started": null,
-      "status": null,
+      "status": "active; v3.8.0 Correct by default release",
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
-      "tags": [
-        "Atari Jaguar"
+      "techniques": [
+        "hardware emulation",
+        "headless regression corpus",
+        "savestate compatibility",
+        "SIMD acceleration",
+        "per-title compatibility presets"
       ],
-      "notes": "Maintained Jaguar and Jaguar CD libretro emulator. Repository documents processor/peripheral models and hardware-behavior test suite; no claim of new reverse engineering of a particular game.",
+      "tags": [
+        "Atari Jaguar",
+        "Jaguar CD",
+        "libretro",
+        "emulator"
+      ],
+      "notes": "Maintained Jaguar and Jaguar CD libretro emulator continuing the original Virtual Jaguar lineage. v3.8.0 adds cartridge mirroring, BIOS-mode startup corrections, HLE DSP interrupt timing, a default-safe 68000-only blitter timing option, GameDrive SD-card support and savestate v17 with backward loading. The README and release workflow explicitly publish x86, x86-64, ARM, arm64 and WebAssembly variants across desktop, mobile and console hosts. Release notes distinguish headless-only verification and preserve known JaGol/JaguarDemos regressions, so playable remains unknown and no universal compatibility is claimed. Claude Opus 5.5 is explicitly credited on the release-notes commit; configuration-only Copilot evidence is retained separately. Evidence: https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0 https://github.com/libretro/virtualjaguar-libretro/commit/e166e0e1fd36d87d85cf16a81db119bb14c0225b",
       "ai": {
         "usage": true,
         "tools": [
