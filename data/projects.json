@@ -1106,10 +1106,11 @@
         "name": "Q8 accelerated-emulation qualification",
         "platform": "Commodore 64 (accelerated 6510 emulation)",
         "cpu_family": "6510",
-        "notes": "Upstream recommends Q8 only above 20 MHz. v1.8.0 reports Turbo6510 64 MHz measurements on public PAL cube scenes: Mode 2 precise/hybrid 23.70/25.05 FPS, Mode 5 27.00/27.45 FPS, and distant-cube Mode 7 standard/fast/fast+LOD 3.10/6.95/11.50 FPS. These are scene-specific emulator measurements, not minima, general guarantees or physical-hardware qualification.",
+        "notes": "Upstream recommends Q8 only above 20 MHz. v1.8.0 reports Turbo6510 64 MHz measurements on public PAL cube scenes: Mode 2 precise/hybrid 23.70/25.05 FPS, Mode 5 27.00/27.45 FPS, and distant-cube Mode 7 standard/fast/fast+LOD 3.10/6.95/11.50 FPS. These are scene-specific emulator measurements, not minima, general guarantees or physical-hardware qualification. The v1.10.2 stable qualification additionally reports Mode 4 stock/turbo results of 0.649958/30.186113 FPS with defaults and 0.749952/38.484510 FPS with arithmetic, camera and visibility experiments; Mode 7 defaults report 0.044442/3.091013 FPS and arithmetic+UV 0.061107/3.703647 FPS. These remain emulator measurements, not physical-hardware or minimum-machine claims.",
         "evidence": [
           "https://github.com/Librologica/3Dvibe64/releases/tag/v1.8.0",
-          "https://github.com/Librologica/3Dvibe64/blob/v1.8.0/RELEASE-NOTES-1.8.0.md"
+          "https://github.com/Librologica/3Dvibe64/blob/v1.8.0/RELEASE-NOTES-1.8.0.md",
+          "https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2"
         ]
       }
     ],
@@ -1134,8 +1135,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-09-27",
-    "status": "v1.9.0 source SDK released; experimental Normalized16 geometry remains opt-in and physically unverified",
+    "last_checked": "2026-10-14",
+    "status": "v1.10.2 stable source SDK released; optional Q8 experiments remain emulator-qualified and physical hardware remains untested",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -1156,7 +1157,9 @@
       "gradual texture LOD",
       "hybrid Bresenham line raster",
       "safe raster presentation",
-      "normalized signed-16 geometry generation"
+      "normalized signed-16 geometry generation",
+      "Q8 fixed-point experiments",
+      "reproducible package qualification"
     ],
     "tags": [
       "Commodore 64",
@@ -1164,7 +1167,7 @@
       "raycasting",
       "SDK"
     ],
-    "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine. v1.9.0 adds an explicit experimental Normalized16 build and bounded signed-16 geometry generators while preserving the Q8 defaults unless the optional hook is selected. Native benchmark and qualification tooling are included; this does not change the recorded physical-hardware limitation. Evidence: https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94 https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc",
+    "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine. v1.9.0 adds an explicit experimental Normalized16 build and bounded signed-16 geometry generators while preserving the Q8 defaults unless the optional hook is selected. Native benchmark and qualification tooling are included; this does not change the recorded physical-hardware limitation. Evidence: https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94 https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc v1.10.2 promotes the qualified development line to a stable source SDK without changing default runtime options. Its optional Q8 arithmetic, UV, camera-table and visibility experiments remain disabled by default; upstream reports PAL-emulated Mode 4 and Mode 7 measurements, complete source/package regeneration gates and Windows/VICE qualification, while explicitly leaving Linux and physical hardware untested. Evidence: https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2",
     "github": {
       "repository": "Librologica/3Dvibe64",
       "created_at": "2026-08-08",
@@ -10105,7 +10108,7 @@
     "re_started": null,
     "last_activity": "2026-10-13",
     "last_checked": "2026-10-14",
-    "status": "v8.4.0 published; current development fixes libretro saves, CIA timing and MMU cache handling",
+    "status": "v8.4.0 published; current development adds an optional GDB remote server and MacPorts packaging",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -10115,13 +10118,18 @@
     "ai": {
       "usage": true,
       "tools": [
-        "Claude"
+        "Claude",
+        "ChatGPT"
       ],
       "evidence": [
-        "Claude co-author trailer observed in recent tracked commits: 7 in this scan (example 8baf372fca78; Claude Opus 5 (1M context))"
+        "Claude co-author trailer observed in recent tracked commits: 7 in this scan (example 8baf372fca78; Claude Opus 5 (1M context))",
+        "Explicit upstream commit credit for substantial MacPorts assistance: https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "GDB remote debugging",
+      "guest physical-memory inspection"
+    ],
     "tags": [
       "Amiga",
       "Linux",
@@ -10132,7 +10140,7 @@
       "Haiku",
       "general Amiga machine emulator"
     ],
-    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27",
+    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27 Current main ports WinUAE's optional loopback GDB remote server, disabled by default and unavailable with the threaded CPU, with m68k registers, physical RAM/ROM, stepping, breakpoints, watchpoints and memory-map support. A separate MacPorts integration covers Apple Silicon and x86 hosts and explicitly credits ChatGPT for substantial assistance; this extends the AI record without implying whole-project generation. Evidence: https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15",
     "github": {
       "repository": "BlitterStudio/amiberry",
       "created_at": "2016-08-11",
@@ -67783,7 +67791,7 @@
     "re_started": null,
     "last_activity": "2026-10-14",
     "last_checked": "2026-10-14",
-    "status": "active; authenticated Amiga title pacing and FM Towns CSB resume-state coverage",
+    "status": "active; authenticated DM2 Amiga/DOS display gates and fresh-weather RNG bootstrap coverage",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -67815,7 +67823,9 @@
       "native save-format analysis",
       "bounded in-memory media decoding",
       "cross-platform startup matrix testing",
-      "source-clock timing calibration"
+      "source-clock timing calibration",
+      "authenticated viewport-region gates",
+      "deterministic RNG bootstrap verification"
     ],
     "tags": [
       "game engine",
@@ -67824,7 +67834,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20",
+    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20 Current-main receipts add an authenticated DM2 Amiga viewport gate, bounded DOS viewport/HUD checks and a locked three-draw fresh-weather RNG bootstrap. Separate native Mac M4 tests keep live Retina input unresolved despite controlled 2x/mixed-geometry tests, and real-media startup reruns use dummy video/audio, so they do not establish physical display, input or speaker parity. Evidence: https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809 https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33 https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882 https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-14",
@@ -73464,8 +73474,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-12",
-    "status": "active; 1.8.3 development head clarifies unsupported zipped CD media while retaining post-1.8.2 runtime fixes",
+    "last_checked": "2026-10-14",
+    "status": "active; post-1.8.2 development head improves CD pregap, WAV chunk and relative CUE media handling",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -73485,7 +73495,9 @@
       "deterministic netplay",
       "CD audio streaming",
       "input-latency control",
-      "libretro media validation"
+      "libretro media validation",
+      "CD image layout parsing",
+      "bounded RIFF chunk traversal"
     ],
     "tags": [
       "PC Engine",
@@ -73493,7 +73505,7 @@
       "SuperGrafx",
       "reverse-engineering tooling"
     ],
-    "notes": "Identity: Geargrafx remains the PC Engine/TurboGrafx-16/SuperGrafx/CD-ROM²/LD-ROM² emulator with integrated debugger and MCP server. Classification: The libretro CD-media validation change is emulator runtime maintenance and preserves the development-tool classification. Source CPU: The in-tree core and debugger continue to identify the emulated HuC6280 architecture; the media-loading change introduces no CPU change. Target CPU: This host-run emulator/debugger has no reconstructed retro output CPU. Published host artifact architectures remain runtime variants, not guest or port targets. Build: The 1.8.3 development head detects a zipped CUE in libretro, rejects the unsupported CD-ROM form with a specific user-facing message, and recommends CHD rather than reporting generic corruption. Earlier post-1.8.2 deterministic, CD-audio and input fixes remain current. No build or media load was reproduced locally. Limitations: The latest published release remains 1.8.2, so the 1.8.3-head diagnostic is not described as released. Runtime profiles: README still publishes x64 and arm64 packages but states no minimum CPU generation or RAM. The new media diagnostic supplies no additional hardware requirement. AI: Existing GitHub Copilot attribution remains supported by explicit co-author metadata; workflow model settings are not treated as additional development contribution evidence. Relationships: The repository remains an independent target in the Gear emulator/debugger family; no new separately titled project appeared in the reviewed diff. Evidence: https://github.com/drhelius/Geargrafx/blob/main/README.md https://github.com/drhelius/Geargrafx/commit/b1ca0bff1a11d524c0ba934779725c3abf93dd02 https://github.com/drhelius/Geargrafx/commit/4d174c29a0cbe112ecf186f5712504b6df21b641 https://github.com/drhelius/Geargrafx/releases/tag/1.8.2 https://github.com/drhelius/Geargrafx/commit/c0092458428c https://github.com/drhelius/Geargrafx",
+    "notes": "Identity: Geargrafx remains the PC Engine/TurboGrafx-16/SuperGrafx/CD-ROM²/LD-ROM² emulator with integrated debugger and MCP server. Classification: The libretro CD-media validation change is emulator runtime maintenance and preserves the development-tool classification. Source CPU: The in-tree core and debugger continue to identify the emulated HuC6280 architecture; the media-loading change introduces no CPU change. Target CPU: This host-run emulator/debugger has no reconstructed retro output CPU. Published host artifact architectures remain runtime variants, not guest or port targets. Build: The 1.8.3 development head detects a zipped CUE in libretro, rejects the unsupported CD-ROM form with a specific user-facing message, and recommends CHD rather than reporting generic corruption. Earlier post-1.8.2 deterministic, CD-audio and input fixes remain current. No build or media load was reproduced locally. Limitations: The latest published release remains 1.8.2, so the 1.8.3-head diagnostic is not described as released. Runtime profiles: README still publishes x64 and arm64 packages but states no minimum CPU generation or RAM. The new media diagnostic supplies no additional hardware requirement. AI: Existing GitHub Copilot attribution remains supported by explicit co-author metadata; workflow model settings are not treated as additional development contribution evidence. Relationships: The repository remains an independent target in the Gear emulator/debugger family; no new separately titled project appeared in the reviewed diff. Evidence: https://github.com/drhelius/Geargrafx/blob/main/README.md https://github.com/drhelius/Geargrafx/commit/b1ca0bff1a11d524c0ba934779725c3abf93dd02 https://github.com/drhelius/Geargrafx/commit/4d174c29a0cbe112ecf186f5712504b6df21b641 https://github.com/drhelius/Geargrafx/releases/tag/1.8.2 https://github.com/drhelius/Geargrafx/commit/c0092458428c https://github.com/drhelius/Geargrafx Later development-head fixes play stored audio pregaps between audio tracks, locate WAV format chunks by bounded RIFF traversal rather than assuming a fixed 44-byte header, and resolve bare relative image paths next to the CUE file. These are source-level media-correctness fixes after 1.8.2, not a new release or a local playback result. Evidence: https://github.com/drhelius/Geargrafx/commit/cb3ed1465b774ebc4de927d7bcb8a97cf1024c03 https://github.com/drhelius/Geargrafx/commit/dabb5cf88780aac0ad9181efbc447440758ec4b1 https://github.com/drhelius/Geargrafx/commit/efb31097898d36d2319ce210a7d5304de0282f1e",
     "github": {
       "repository": "drhelius/Geargrafx",
       "created_at": "2024-01-02",
@@ -75643,7 +75655,7 @@
     "re_started": null,
     "last_activity": "2026-10-13",
     "last_checked": "2026-10-14",
-    "status": "Active; deterministic overlay-reference cleanup and decided-branch dead-code analysis",
+    "status": "Active; analysis-order-independent jump-table overrides and deterministic unpinned NES corpus analysis",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -75672,7 +75684,9 @@
       "cross-function predecessor analysis",
       "save-slot dataflow proofs",
       "analysis provenance tracking",
-      "dead-code reachability cleanup"
+      "dead-code reachability cleanup",
+      "analysis-order determinism",
+      "parallel corpus reproducibility"
     ],
     "tags": [
       "Ghidra",
@@ -75684,7 +75698,7 @@
       "SPC700",
       "65C816"
     ],
-    "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44 The latest bank-analysis passes persist provenance for analyzer-created overlay references so later rounds retract stale targets without deleting user-owned references, and remove fall-through code only when a conditional branch is provably taken and no flow, entry point, function or user label preserves the old path. Upstream reports deterministic NES corpus updates and passing synthetic/JUnit gates; these are bounded analyzer-correctness receipts, not universal decompilation correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4",
+    "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44 The latest bank-analysis passes persist provenance for analyzer-created overlay references so later rounds retract stale targets without deleting user-owned references, and remove fall-through code only when a conditional branch is provably taken and no flow, entry point, function or user label preserves the old path. Upstream reports deterministic NES corpus updates and passing synthetic/JUnit gates; these are bounded analyzer-correctness receipts, not universal decompilation correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4 The newest passes write jump-table overrides once a containing function exists, eliminating first-reference analysis-order sensitivity, then remove the default single-thread pin while retaining GRM_THREAD_PIN=1 as a diagnostic. Upstream reports byte-identical results across all 34 NES fixtures at 12, 4 and 2 threads plus passing synthetic gates; this is bounded corpus determinism rather than universal analysis correctness. The reviewed commits explicitly credit Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/2a15e0df8abeeccc0842b212a00e1d08d2316e41 https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d",
     "github": {
       "repository": "CBongo/ghidra-retro-machines",
       "created_at": "2026-07-03",
@@ -102012,8 +102026,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-09-24",
-    "status": "active",
+    "last_checked": "2026-10-14",
+    "status": "active; register-liveness diagnostics and conservative save/restore auto-fixes under development",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -102036,7 +102050,9 @@
       "cycle counting",
       "linting",
       "language-server protocol",
-      "formatting"
+      "formatting",
+      "register-liveness analysis",
+      "safe multi-site autofix"
     ],
     "tags": [
       "68k",
@@ -102046,7 +102062,7 @@
       "language server",
       "retro development"
     ],
-    "notes": "Motorola 68000 assembly tooling used across retro-development workflows: parser, formatter, cycle counter, static-analysis/lint libraries and language servers with CLI, VS Code and web front ends. Tracked as adjacent m68k development/analysis infrastructure rather than a platform-specific reconstruction project.",
+    "notes": "Motorola 68000 assembly tooling used across retro-development workflows: parser, formatter, cycle counter, static-analysis/lint libraries and language servers with CLI, VS Code and web front ends. Tracked as adjacent m68k development/analysis infrastructure rather than a platform-specific reconstruction project. Current source preserves saved registers as possibly live when routine analysis encounters unknown code and distinguishes unknown availability from definitely unavailable values. A subsequent safe multi-edit fix trims an unnecessary register from matching save/restore sites, while leaving word-sized saves manual because of sign-extension semantics. Evidence: https://github.com/grahambates/m68k-tools/commit/03d58430ca99f1ca8a415af63f0a784f03aad11a https://github.com/grahambates/m68k-tools/commit/5170da4d67258ee9caf3641d84db11d081078f14",
     "github": {
       "repository": "grahambates/m68k-tools",
       "created_at": "2022-03-20",
@@ -131245,11 +131261,11 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-09-27",
-    "status": null,
+    "last_checked": "2026-10-14",
+    "status": "active; distributed compiler available while the m68k backend remains experimental and adopts word-packed argument slots",
     "build": {
-      "compilable": null,
-      "runnable": null,
+      "compilable": true,
+      "runnable": true,
       "playable": null,
       "byte_exact": null
     },
@@ -131257,14 +131273,17 @@
       "usage": null,
       "tools": []
     },
-    "techniques": [],
+    "techniques": [
+      "native code generation",
+      "m68k stack-frame lowering"
+    ],
     "tags": [
       "Commodore 64",
       "Commander X16",
       "Amiga",
       "reverse-engineering tooling"
     ],
-    "notes": "Structured low-level language/compiler for 6502-family computers and 68000, with experimental Amiga 500/1200 targets; README says the m68k targets are not yet production-ready.",
+    "notes": "Structured low-level language/compiler for 6502-family computers and 68000, with experimental Amiga 500/1200 targets; README says the m68k targets are not yet production-ready. The current README documents official runnable compiler distributions, source builds and explicit 65xx/m68k output targets. IR format 8 now uses word-packed byte/bool/word argument slots and four-byte long/pointer/float slots across the experimental Amiga 500, Amiga 1200 and QEMU m68k targets. This does not promote the m68k targets to production-ready or establish target-machine RAM minima. Evidence: https://github.com/irmen/prog8/blob/master/README.md https://github.com/irmen/prog8/commit/0b902f06b55356b76b0c0f5fee5e207a87c33dfc",
     "github": {
       "repository": "irmen/prog8",
       "created_at": "2019-01-09",
@@ -188902,8 +188921,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-13",
-    "last_checked": "2026-10-06",
-    "status": "Substantive source reviewed; independent build, runtime and byte equivalence untested",
+    "last_checked": "2026-10-14",
+    "status": "active; current main bounds firmware-update stalls and validates configuration grammar against documentation",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -188919,12 +188938,15 @@
         "https://github.com/BlitterStudio/zz9000-drivers/commit/6944da9d4777a96192b64cd1f910ce80839ad829"
       ]
     },
-    "techniques": [],
+    "techniques": [
+      "hardware-driver timeout hardening",
+      "configuration schema validation"
+    ],
     "tags": [
       "Amiga",
       "native Amiga hardware-driver continuation"
     ],
-    "notes": "Independent continuation of MNT’s ZZ9000 Amiga-side driver suite, with RTG, network/audio/USB/SD and native control utilities. Network device.c implements native SANA-II Amiga driver dispatch and hardware access; rtg/mntgfx-gcc.c implements graphics-card integration. README identifies the original MNT source and independent fork status, with firmware and ARM-side logic in separate repositories. Top-level build invokes pinned Amiga toolchain workflows; net/Makefile sets68020 and includes host-side test targets elsewhere in the suite. A reviewed code-fix commit explicitly credits Codex review; attribution is limited to review assistance. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. Maintained Amiga-side hardware driver source, not a reconstruction of a historical original binary. No source CPU is inferred from the modern hardware family. net/Makefile explicitly defaults to CPU=68020 and soft float. This records the inspected native network-driver target; other suite components can vary. The board ARM/FPGA firmware lives elsewhere and is not the Amiga driver CPU. Amiga-side m68k toolchain; inspected network component default 68020 and soft float. Board FPGA/ARM firmware separate from host driver CPU. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. No complete independently verified hardware matrix is asserted. GPL-3.0-or-later for driver tree with retained MNT/contributor and third-party notices; external payload licenses remain separate. Multiple sampled commits explicitly credit Codex review. Commit 6944da9 fixes a concrete ZZDiag control-flow problem identified in that review; no broad claim that all driver code is AI-generated. Role: code review. No broad AI-generated-code claim. Snapshot: 701ee6e9bf96f19e302d874b166e22e06952e0b6. Repository creation is not a verified RE start date. Evidence: https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/device.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/LICENSE https://github.com/BlitterStudio/zz9000-drivers",
+    "notes": "Independent continuation of MNT’s ZZ9000 Amiga-side driver suite, with RTG, network/audio/USB/SD and native control utilities. Network device.c implements native SANA-II Amiga driver dispatch and hardware access; rtg/mntgfx-gcc.c implements graphics-card integration. README identifies the original MNT source and independent fork status, with firmware and ARM-side logic in separate repositories. Top-level build invokes pinned Amiga toolchain workflows; net/Makefile sets68020 and includes host-side test targets elsewhere in the suite. A reviewed code-fix commit explicitly credits Codex review; attribution is limited to review assistance. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. Maintained Amiga-side hardware driver source, not a reconstruction of a historical original binary. No source CPU is inferred from the modern hardware family. net/Makefile explicitly defaults to CPU=68020 and soft float. This records the inspected native network-driver target; other suite components can vary. The board ARM/FPGA firmware lives elsewhere and is not the Amiga driver CPU. Amiga-side m68k toolchain; inspected network component default 68020 and soft float. Board FPGA/ARM firmware separate from host driver CPU. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. No complete independently verified hardware matrix is asserted. GPL-3.0-or-later for driver tree with retained MNT/contributor and third-party notices; external payload licenses remain separate. Multiple sampled commits explicitly credit Codex review. Commit 6944da9 fixes a concrete ZZDiag control-flow problem identified in that review; no broad claim that all driver code is AI-generated. Role: code review. No broad AI-generated-code claim. Snapshot: 701ee6e9bf96f19e302d874b166e22e06952e0b6. Repository creation is not a verified RE start date. Evidence: https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/device.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/LICENSE https://github.com/BlitterStudio/zz9000-drivers Current main avoids a potentially indefinite Amiga-bus read when the firmware-update status mirror is frozen, and expands configuration-key tooling to compare the documented grammar with the parser, sample and editor. These are source/test-backed robustness changes, not independent hardware execution. Evidence: https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857 https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41",
     "github": {
       "repository": "BlitterStudio/zz9000-drivers",
       "created_at": "2026-04-20",

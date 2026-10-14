@@ -5557,23 +5557,28 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-14",
-          "note": "Reviewed native Mac mini M4 DM1 title/door pacing into runtime, authenticated FM Towns startup checks for DM1/CSB/DM2, and four current French Atari ST runs. These remain bounded upstream receipts; physical display/input, palette, audible output and historical causation of the earlier French failure remain unverified. Current-main receipts add absolute-deadline DM1 Amiga title pacing and authenticated CSB FM Towns save-state assertions; these do not establish whole-game parity.",
+          "note": "Reviewed authenticated DM2 Amiga viewport, DOS viewport/HUD and fresh-weather RNG assertions. The receipts are bounded automated/source-owned checks and do not establish whole-game visual or behavioral parity.",
           "evidence_urls": [
             "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
             "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
             "https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3",
             "https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87",
-            "https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20"
+            "https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20",
+            "https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809",
+            "https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33",
+            "https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
           "checked_at": "2026-10-14",
-          "note": "Expanded the Apple Silicon profile to the explicitly named Mac mini M4 native/headless receipts. This is a verified configuration, not a minimum Apple Silicon generation, CPU, RAM or macOS requirement. A native Mac mini M4 Cocoa run measured the authentic Amiga v2.0 title route, but does not establish a minimum machine, HiDPI/pixel parity or beam timing.",
+          "note": "Native Mac M4 controlled geometry tests cover Retina 2x and mixed dimensions, but the live drawable did not expose the expected 2x relationship; physical Retina input remains open. Real-media startup reruns used dummy video/audio. No minimum Mac hardware is inferred.",
           "evidence_urls": [
             "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
             "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
-            "https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e"
+            "https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e",
+            "https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a",
+            "https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a"
           ]
         },
         "ai": {
@@ -5593,7 +5598,8 @@
         "Implement and verify the DM2 FM Towns selected-hero aura and remaining panel state.",
         "Reach DM2 Macintosh dungeon presentation and verify parity.",
         "Verify Theron save restoration and later campaign consumers.",
-        "Check predecessor/successor/fork and credited-source relationships."
+        "Check predecessor/successor/fork and credited-source relationships.",
+        "Verify live Retina 2x input mapping on physical Apple Silicon hardware."
       ]
     },
     {
@@ -10130,7 +10136,7 @@
     },
     {
       "project_id": "m68k-tools-grahambates",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-14",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -10140,8 +10146,12 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-24",
-          "note": "Seeded from record_class and structured kind fields."
+          "checked_at": "2026-10-14",
+          "note": "Current linter/language-server work analyzes routine register liveness and offers conservative coordinated save/restore edits, reinforcing the existing retro-development tooling classification.",
+          "evidence_urls": [
+            "https://github.com/grahambates/m68k-tools/commit/03d58430ca99f1ca8a415af63f0a784f03aad11a",
+            "https://github.com/grahambates/m68k-tools/commit/5170da4d67258ee9caf3641d84db11d081078f14"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
@@ -10153,7 +10163,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-24"
+          "checked_at": "2026-10-14",
+          "note": "Reviewed source and test-backed changes for unknown-register reporting and coordinated register-save fixes. The repository documents its Node/pnpm checks, but no local build or package execution was performed.",
+          "evidence_urls": [
+            "https://github.com/grahambates/m68k-tools/commit/03d58430ca99f1ca8a415af63f0a784f03aad11a",
+            "https://github.com/grahambates/m68k-tools/commit/5170da4d67258ee9caf3641d84db11d081078f14",
+            "https://github.com/grahambates/m68k-tools/blob/main/README.md"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -31535,10 +31551,12 @@
         "classification": {
           "state": "reviewed",
           "checked_at": "2026-10-14",
-          "note": "Machine-aware loader, processor-language and static-analysis tooling; no reconstructed game output is claimed. Current analyzer work remains core software-archaeology tooling: it tracks analyzer-owned overlay-reference provenance and clears only provably dead conditional fall-throughs.",
+          "note": "Current machine-aware static-analysis work makes switch overrides independent of first-reference ordering and verifies deterministic unpinned corpus output; the record remains tooling rather than a reconstructed game.",
           "evidence_urls": [
             "https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/2a15e0df8abeeccc0842b212a00e1d08d2316e41",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d"
           ]
         },
         "source_cpu": {
@@ -31554,11 +31572,12 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-14",
-          "note": "Upstream reports 33 NES tests passing after extending save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls. The analyzer still conservatively declines unresolved overlay-bank paths, and the Dragon Power symbol-output flap remains documented. Upstream reports passing synthetic/JUnit gates and deterministic NES corpus updates for both changes; no local build was performed.",
+          "note": "Upstream reports 34/34 NES dumps byte-identical at 12, 4 and 2 analysis threads plus passing synthetic gates. No local Ghidra build or corpus run was performed.",
           "evidence_urls": [
             "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
             "https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d"
           ]
         },
         "runtime_profiles": {
@@ -31568,10 +31587,12 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-13",
-          "note": "The reviewed cross-function save-slot proof commit explicitly carries a Claude Opus 5.5 co-author trailer and session reference.",
+          "checked_at": "2026-10-14",
+          "note": "The two reviewed commits explicitly credit Claude Opus 5.5; existing affirmative Claude attribution remains evidence-backed.",
           "evidence_urls": [
-            "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/2a15e0df8abeeccc0842b212a00e1d08d2316e41",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d"
           ]
         },
         "relationships": {
@@ -34647,7 +34668,7 @@
     },
     {
       "project_id": "prog8-retro-compiler",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-14",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -34656,7 +34677,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-27"
+          "checked_at": "2026-10-14",
+          "note": "Current documentation continues to describe a structured native-code language/compiler for 65xx machines and experimental 68000/68020 targets; no RE-derived output claim is added.",
+          "evidence_urls": [
+            "https://github.com/irmen/prog8/blob/master/README.md"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
@@ -34667,16 +34692,30 @@
           "checked_at": "2026-09-27"
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-14",
+          "note": "README documents official runnable releases, package-manager installations and source-build instructions; this supports compilable/runnable tool flags. No compiler build or generated program was executed locally, and playable/byte-exact remain unknown.",
+          "evidence_urls": [
+            "https://github.com/irmen/prog8/blob/master/README.md",
+            "https://github.com/irmen/prog8/releases/tag/v12.3.4"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-14",
+          "note": "README names output CPUs and experimental Amiga/QEMU targets but does not state target-machine minimum RAM or hardware requirements. Java 11+ is a compiler-host software requirement, not a hardware minimum; no runtime profile is invented.",
+          "evidence_urls": [
+            "https://github.com/irmen/prog8/blob/master/README.md"
+          ]
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-14",
+          "note": "README plus repository commit searches for Claude, ChatGPT and Codex produced no explicit development attribution. This bounded search is not proof of non-use, so project ai.usage remains unknown.",
+          "evidence_urls": [
+            "https://github.com/irmen/prog8/blob/master/README.md",
+            "https://github.com/irmen/prog8/commits/master"
+          ]
         },
         "relationships": {
           "state": "needs-research",
@@ -34684,7 +34723,8 @@
         }
       },
       "next_actions": [
-        "Check build/AI/runtime evidence and source relationships beyond the initial README review"
+        "Check predecessor, successor, fork and credited-source relationships.",
+        "Revisit m68k runtime evidence when upstream marks those targets production-ready."
       ]
     },
     {
@@ -34850,7 +34890,7 @@
     },
     {
       "project_id": "geargrafx-pce-mcp-debugger",
-      "last_reviewed": "2026-10-12",
+      "last_reviewed": "2026-10-14",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -34863,10 +34903,13 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "The libretro CD-media validation change is emulator runtime maintenance and preserves the development-tool classification.",
+          "checked_at": "2026-10-14",
+          "note": "Pregap, WAV-chunk and relative-CUE fixes remain emulator media/runtime maintenance within the existing emulator/debugger classification.",
           "evidence_urls": [
-            "https://github.com/drhelius/Geargrafx/commit/b1ca0bff1a11d524c0ba934779725c3abf93dd02"
+            "https://github.com/drhelius/Geargrafx/commit/b1ca0bff1a11d524c0ba934779725c3abf93dd02",
+            "https://github.com/drhelius/Geargrafx/commit/cb3ed1465b774ebc4de927d7bcb8a97cf1024c03",
+            "https://github.com/drhelius/Geargrafx/commit/dabb5cf88780aac0ad9181efbc447440758ec4b1",
+            "https://github.com/drhelius/Geargrafx/commit/efb31097898d36d2319ce210a7d5304de0282f1e"
           ]
         },
         "source_cpu": {
@@ -34887,11 +34930,14 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "The 1.8.3 development head detects a zipped CUE in libretro, rejects the unsupported CD-ROM form with a specific user-facing message, and recommends CHD rather than reporting generic corruption. Earlier post-1.8.2 deterministic, CD-audio and input fixes remain current. No build or media load was reproduced locally. Limitations: The latest published release remains 1.8.2, so the 1.8.3-head diagnostic is not described as released.",
+          "checked_at": "2026-10-14",
+          "note": "Current development head adds stored audio-pregap playback, bounded WAV RIFF-chunk discovery and CUE-relative image resolution. The latest published release remains 1.8.2, and no media was loaded locally.",
           "evidence_urls": [
             "https://github.com/drhelius/Geargrafx/commit/b1ca0bff1a11d524c0ba934779725c3abf93dd02",
-            "https://github.com/drhelius/Geargrafx/commit/4d174c29a0cbe112ecf186f5712504b6df21b641"
+            "https://github.com/drhelius/Geargrafx/commit/4d174c29a0cbe112ecf186f5712504b6df21b641",
+            "https://github.com/drhelius/Geargrafx/commit/cb3ed1465b774ebc4de927d7bcb8a97cf1024c03",
+            "https://github.com/drhelius/Geargrafx/commit/dabb5cf88780aac0ad9181efbc447440758ec4b1",
+            "https://github.com/drhelius/Geargrafx/commit/efb31097898d36d2319ce210a7d5304de0282f1e"
           ]
         },
         "runtime_profiles": {
@@ -37795,7 +37841,7 @@
     },
     {
       "project_id": "3dvibe64-c64-graphics-sdk",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-14",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -37817,19 +37863,21 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "v1.9.0 adds an opt-in Normalized16 configuration, bounded generators, tests and native benchmarks while leaving Q8 defaults unchanged. No local build or runtime test was performed.",
+          "checked_at": "2026-10-14",
+          "note": "v1.10.2 is the stable source-SDK promotion of the qualified development line. Upstream reports 258 source files qualified, representative PRG regeneration and package/report gates; no local build was performed.",
           "evidence_urls": [
             "https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94",
-            "https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc"
+            "https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc",
+            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The new Normalized16 path is a build-time geometry profile, not a documented new hardware minimum. Existing emulator measurements and physical-hardware caveat remain unchanged.",
+          "checked_at": "2026-10-14",
+          "note": "Recorded the release's explicit PAL-emulator measurements and retained its physical-hardware and Linux caveats. No CPU generation, RAM floor or physical C64 minimum is inferred from the 6510 target or Turbo6510 measurements.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/commit/133957958bf649080e9581d5b632e62f028d24d6"
+            "https://github.com/Librologica/3Dvibe64/commit/133957958bf649080e9581d5b632e62f028d24d6",
+            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2"
           ]
         },
         "ai": {
@@ -89138,13 +89186,14 @@
         "classification": {
           "state": "reviewed",
           "checked_at": "2026-10-14",
-          "note": "Curated as tooling with no legacy target-kind claim. general Amiga machine emulator. src/custom.cpp implements custom-chip event pipelines; src/newcpu.cpp supplies 68000-family execution, cache/MMU and JIT integration. No independent reverse-engineering method is invented for this native/source-derived work. CIA timing and 68030/68040/68060 MMU cache-inhibit corrections remain general machine-emulation work.",
+          "note": "The optional WinUAE-derived GDB remote server is directly useful emulator/debugger tooling: it exposes m68k registers, physical guest memory, stepping, breakpoints, watchpoints and a memory map. It remains disabled by default and is incompatible with the threaded CPU mode.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/amiberry/blob/master/README.md",
             "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp",
             "https://github.com/BlitterStudio/amiberry/blob/master/src/newcpu.cpp",
             "https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe",
-            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27"
+            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27",
+            "https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d"
           ]
         },
         "source_cpu": {
@@ -89171,11 +89220,13 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-14",
-          "note": "The v8.4.0 release publishes runnable Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets. This establishes upstream compilable/runnable outputs; the tracker did not execute them and makes no playable or equivalence claim. Post-v8.4.0 current main restores USE_PPC=OFF linking and corrects libretro preboot save restoration; these are source-level fixes, not a new published release or local execution result.",
+          "note": "Current main wires the GDB server into CMake/libretro builds and adds MacPorts support for Apple Silicon and x86 hosts. These are post-v8.4.0 source changes; no package was built or run locally.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0",
             "https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a",
-            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27"
+            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27",
+            "https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d",
+            "https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15"
           ]
         },
         "runtime_profiles": {
@@ -89187,12 +89238,13 @@
           ]
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-06",
-          "note": "No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; only candidates explicitly listing commit evidence had commit messages checked. Only the selected files were checked; absence of an attribution is not proof of non-use.",
+          "state": "reviewed",
+          "checked_at": "2026-10-14",
+          "note": "Existing Claude co-author metadata and the MacPorts commit's explicit ChatGPT assistance credit establish affirmative AI use. Attribution is scoped to the evidenced commits and does not imply whole-project generation.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/amiberry/blob/master/README.md",
-            "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp"
+            "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp",
+            "https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15"
           ]
         },
         "relationships": {
@@ -103714,7 +103766,7 @@
     },
     {
       "project_id": "zz9000-amigaos-driver-suite",
-      "last_reviewed": "2026-10-06",
+      "last_reviewed": "2026-10-14",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -103729,12 +103781,14 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "native Amiga hardware-driver continuation. Network device.c implements native SANA-II Amiga driver dispatch and hardware access; rtg/mntgfx-gcc.c implements graphics-card integration. README identifies the original MNT source and independent fork status, with firmware and ARM-side logic in separate repositories. Top-level build invokes pinned Amiga toolchain workflows; net/Makefile sets68020 and includes host-side test targets elsewhere in the suite. A reviewed code-fix commit explicitly credits Codex review; attribution is limited to review assistance. Structured class subject preserves ordinary original source/port work without inventing binary decompilation.",
+          "checked_at": "2026-10-14",
+          "note": "Firmware-update timeout hardening and configuration grammar checks remain native Amiga hardware-driver/tooling maintenance; no reverse-engineered-original claim is introduced.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md",
             "https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/device.c",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c"
+            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41"
           ]
         },
         "source_cpu": {
@@ -103759,12 +103813,14 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Network device.c implements native SANA-II Amiga driver dispatch and hardware access; rtg/mntgfx-gcc.c implements graphics-card integration. README identifies the original MNT source and independent fork status, with firmware and ARM-side logic in separate repositories. Top-level build invokes pinned Amiga toolchain workflows; net/Makefile sets68020 and includes host-side test targets elsewhere in the suite. A reviewed code-fix commit explicitly credits Codex review; attribution is limited to review assistance. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. No candidate was built, run or byte-compared. All build flags remain unknown; checked-in binaries, build recipes and upstream claims are not independent tests.",
+          "checked_at": "2026-10-14",
+          "note": "Reviewed tests and source for frozen-status timeout behavior and documentation/parser/sample/editor configuration-key consistency. No driver build, firmware update or physical-board run was performed; build flags remain unknown.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile",
             "https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md"
+            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41"
           ]
         },
         "runtime_profiles": {

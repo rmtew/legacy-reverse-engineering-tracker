@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-14 — Stable SDK, debugger and media/toolchain maintenance
+
+Reviewed eight materially changed projects. **3Dvibe64 v1.10.2** is now recorded as a stable source-SDK release with optional Q8 experiments and explicit Windows/VICE-only qualification; its physical-hardware and Linux gaps remain open. **Firestaff** adds authenticated DM2 Amiga/DOS display gates and deterministic fresh-weather RNG coverage while retaining the live Retina-input and physical audio/display caveats. **Ghidra Retro Machines** now records analysis-order-independent jump-table overrides and byte-identical 34-ROM results across unpinned thread counts.
+
+**Geargrafx** records development-head CD pregap, bounded WAV-chunk and relative-CUE fixes without describing them as released. **m68k-tools** adds conservative register-liveness reporting and coordinated save/restore fixes. **Amiberry** adds an optional WinUAE-derived GDB server and MacPorts packaging; the latter explicitly credits ChatGPT, correcting the stale AI audit while keeping attribution scoped to the evidenced work. **Prog8** closes its build and AI audit gaps from current documentation and bounded commit searches, while preserving unknown AI use and experimental m68k status. **ZZ9000** records firmware-update timeout hardening and documentation/parser configuration-schema checks.
+
+The CPU audit queue was empty before selection, so no quota-driven CPU edits were made. Hardware minima were not inferred from targets, package names or languages, and no upstream project was independently built or executed.
+
 ## 2026-10-14 — Releases, debugger integration and runtime maintenance
 
 Reviewed seven materially changed projects. **Moonstone — native C++ reconstruction for Amiga 1200** now records its 0.2.0 Amiga HD release, explicit local/network co-op support and the still-unplayable Windows SDL target without inferring a Windows CPU. **Lanthorn v0.9.5** records its map inference, Scott Adams autocomplete, save-restoration fixes and reduced disk/CD reads. **MegaST v1.0** replaces the stale beta description with stable R6 and tester-reported R3A operation; R4/R5 remain untested, and the R3/R3A core’s 512 KiB is guest ST RAM rather than a host minimum.
