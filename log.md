@@ -1042,3 +1042,9 @@ The ColecoVision collection was not flattened into one record: **Artillery Duel*
 Reviewed six material upstream changes. **Virtual Jaguar** reaches v3.8.0 with an explicit multi-architecture release matrix, bounded compatibility fixes and a completed audit; **Amiga DevBench** adds bridge v1.21 and an end-to-end MCP/Amiga live-test path; and **Downland** gains active but not yet published CD-i platform work. **Ghidra Retro Machines** extends conservative save-slot proofs across cross-function jumps and save helpers, **MS-DOS Player** merges new VM86 I/O and VGA/CRTC paths, and **Firestaff** records bounded native Mac mini M4 and authenticated FM Towns/Atari startup receipts.
 
 The CPU audit queue was empty. No CPU or minimum hardware was inferred for CD-i or any other broad platform; Virtual Jaguar host CPUs come from its explicit build/release matrix.
+
+## 2026-10-15 — Reconstruction, firmware UI and runtime maintenance
+
+Reviewed ten material upstream advances. **c64-re-tools** now spans deterministic byte-identical ACME source generation, a ten-stage reconstruction workflow, runtime provenance and platform-symbol export. **FlashFloppy** adds ffemu, a host-side firmware UI/UX emulator with an explicit no-floppy-data-flow boundary and explicit Claude attribution. **Astronaut Jet Pac** now has an implemented 68020 output target alongside its default 68000 build, without treating that target as a minimum machine.
+
+**Firestaff**, **sdltrs-MultiHDC**, **volamos**, **Copperline**, **Ambermoon.net**, **ASE** and **StarCraft — AmiSC 68K** received bounded updates for source-locked presentation, controller-state safety, Amiga runtime/debug compatibility, capture and drive fidelity, data verification, joystick/library integration and v0.8.2's low-resolution path. The CPU audit queue was empty; no project was independently built or run, and no unstated CPU or RAM minimum was inferred.

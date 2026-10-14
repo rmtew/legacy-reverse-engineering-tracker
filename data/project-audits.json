@@ -735,7 +735,7 @@
     },
     {
       "project_id": "ambermoon-net",
-      "last_reviewed": "2026-09-29",
+      "last_reviewed": "2026-10-15",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -759,7 +759,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-10-15",
+          "note": "The v1.14.0 source/version commit and Advanced 1.33 data-fix script tests were reviewed. Existing compile/run/playable flags remain based on upstream evidence; no local build or game run was performed.",
+          "evidence_urls": [
+            "https://github.com/Pyrdacor/Ambermoon.net/commit/943dd901565bfe91567788dfea8c92a5e284c23a",
+            "https://github.com/Pyrdacor/Ambermoon.net/commit/920ca802e43d89a0e5ef7b9d47980c382c6505f9"
+          ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
@@ -1008,7 +1013,7 @@
     },
     {
       "project_id": "amisc-amiga",
-      "last_reviewed": "2026-10-02",
+      "last_reviewed": "2026-10-15",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -1032,12 +1037,20 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-10-15",
+          "note": "v0.8.2 is published as Amiga binary archives and documents the new 320x240 menu/campaign path plus bounded mission/UI fixes. Runnable/playable remain upstream claims; no local execution or source compilation was possible from the binary/documentation repository.",
+          "evidence_urls": [
+            "https://github.com/angree/AmiSC/releases/tag/v0.8.2",
+            "https://github.com/angree/AmiSC/commit/1fdee2e0aa306af94d56473117fd1a144dda6355"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-02",
-          "note": "Captured the explicit AmigaOS 3.0+, 68020, AGA/RTG requirements and recommendations without converting the approximate sprite working set into a RAM minimum."
+          "checked_at": "2026-10-15",
+          "note": "Retained the explicit AmigaOS 3.0+, 68020, AGA/RTG requirements and recommendations. Added only the README's 2 MB Shell stack and 320x240 slower-machine guidance; the approximate graphics/sample working set is still not converted into an exact RAM minimum.",
+          "evidence_urls": [
+            "https://github.com/angree/AmiSC/blob/1fdee2e0aa306af94d56473117fd1a144dda6355/README.md"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
@@ -3133,7 +3146,7 @@
     },
     {
       "project_id": "copperline-amiga-emulator",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-15",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -3156,10 +3169,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Native screenshot, WinUAE-compatible memory-write and capability-gated WASM resource-write changes include targeted tests; existing release/source build paths remain valid.",
+          "checked_at": "2026-10-15",
+          "note": "Reviewed the tested AGA DDF-stop, native interlaced capture, settings persistence and serialized drive-event/sample-set changes. Existing compile/run evidence remains valid; no local build, save-state replay or netplay run was performed.",
           "evidence_urls": [
-            "https://github.com/CopperlineHQ/Copperline/commit/7a83745d6c6159bc74ab0471578ffc8bc244e66e"
+            "https://github.com/CopperlineHQ/Copperline/commit/9e8359ea6cce6fc5e5028d1f4e31b960b53f7da6",
+            "https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2"
           ]
         },
         "runtime_profiles": {
@@ -3168,11 +3182,11 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README and commit history explicitly document Claude Code, GitHub Copilot and OpenAI Codex contributions.",
+          "checked_at": "2026-10-15",
+          "note": "Existing affirmative Claude/Copilot/Codex evidence remains valid. The floppy-sound change also received an explicit Copilot-review follow-up; attribution remains scoped to evidenced work.",
           "evidence_urls": [
-            "https://github.com/CopperlineHQ/Copperline/blob/main/README.md",
-            "https://github.com/CopperlineHQ/Copperline/commit/7269b7df8323"
+            "https://github.com/CopperlineHQ/Copperline/commit/272e6f779f0d7afdbdf273ab5ca478596301840a",
+            "https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2"
           ]
         },
         "relationships": {
@@ -5528,7 +5542,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-15",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5556,29 +5570,22 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Reviewed authenticated DM2 Amiga viewport, DOS viewport/HUD and fresh-weather RNG assertions. The receipts are bounded automated/source-owned checks and do not establish whole-game visual or behavioral parity.",
+          "checked_at": "2026-10-15",
+          "note": "Reviewed the source-owned FM Towns title-sampling, native-height viewport-flip, entrance cadence and authenticated DOS selector gates. Upstream reports targeted tests and a native Xcode-configured build; no independent build or original-frame comparison was performed.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
-            "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
-            "https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3",
-            "https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87",
-            "https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20",
-            "https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809",
-            "https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33",
-            "https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882"
+            "https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0",
+            "https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d",
+            "https://github.com/yeager/firestaff/commit/41b103f29b4d7439d7445fb4e3578f9985e5cfab",
+            "https://github.com/yeager/firestaff/commit/3085c2f6d56e8088279b5207bfd46744a1dbbd24"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Native Mac M4 controlled geometry tests cover Retina 2x and mixed dimensions, but the live drawable did not expose the expected 2x relationship; physical Retina input remains open. Real-media startup reruns used dummy video/audio. No minimum Mac hardware is inferred.",
+          "checked_at": "2026-10-15",
+          "note": "The new Mac mini M4 source-lock/native-build receipts refine FM Towns presentation behavior but do not establish a minimum Mac, CPU or RAM requirement. Original FM Towns frame comparison and full visual parity remain open.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868",
-            "https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9",
-            "https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e",
-            "https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a",
-            "https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a"
+            "https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d",
+            "https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0"
           ]
         },
         "ai": {
@@ -26984,7 +26991,7 @@
     },
     {
       "project_id": "flashfloppy-amiga-st",
-      "last_reviewed": "2026-09-27",
+      "last_reviewed": "2026-10-15",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -26994,8 +27001,12 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-27",
-          "note": "The project is embedded drive-emulation tooling, not a reconstructed Amiga or Atari program."
+          "checked_at": "2026-10-15",
+          "note": "FlashFloppy remains embedded drive-emulation firmware, and the new ffemu component is directly relevant host-side firmware UI/UX development tooling. Its documented no-data-flow boundary is preserved.",
+          "evidence_urls": [
+            "https://github.com/keirf/flashfloppy/commit/ef97d8db661c30c6bab4af894f857005d1ea1c32",
+            "https://github.com/keirf/flashfloppy/blob/master/ffemu/README.md"
+          ]
         },
         "source_cpu": {
           "state": "not-applicable",
@@ -27008,9 +27019,13 @@
           "note": "README explicitly identifies Cortex-M3 STM32F105/AT32F415 and Cortex-M4 AT32F435 firmware targets: https://github.com/keirf/flashfloppy/blob/master/README"
         },
         "build": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-27",
-          "note": "README documents downloadable firmware files and update paths, but this pass found no explicit successful source-build claim to curate."
+          "state": "reviewed",
+          "checked_at": "2026-10-15",
+          "note": "ffemu documents a concrete `make -C ffemu` build using a C compiler, objcopy, Python 3 and wide-character ncurses; later commits wire it into the ordinary build and CI. Existing firmware build flags are unchanged; no local build was performed.",
+          "evidence_urls": [
+            "https://github.com/keirf/flashfloppy/blob/master/ffemu/README.md",
+            "https://github.com/keirf/flashfloppy/commit/e612c58fbb6fbb6337944c46552dc54e7c5f5be3"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
@@ -27018,9 +27033,13 @@
           "note": "Captured the three explicitly documented MCU/RAM variants without treating host-computer architecture as a firmware requirement."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-27",
-          "note": "README and reviewed primary source material contain no explicit AI-use evidence; this does not establish non-use."
+          "state": "reviewed",
+          "checked_at": "2026-10-15",
+          "note": "ffemu's primary README explicitly says the program was written with Claude's help. Attribution is limited to ffemu and does not imply that all FlashFloppy firmware was AI-generated.",
+          "evidence_urls": [
+            "https://github.com/keirf/flashfloppy/commit/884a6748c51197bc86033b19fd59165b2aa37309",
+            "https://github.com/keirf/flashfloppy/blob/master/ffemu/README.md"
+          ]
         },
         "relationships": {
           "state": "needs-research",
@@ -53637,7 +53656,7 @@
     },
     {
       "project_id": "sdltrs-multihdc-trs80-archaeology-emulator",
-      "last_reviewed": "2026-10-03",
+      "last_reviewed": "2026-10-15",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -53674,10 +53693,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-03",
-          "note": "README documents CMake and autotools build paths and two verified boot scenarios.",
+          "checked_at": "2026-10-15",
+          "note": "Reviewed the OMTI/Xebec save-state validation, bad-sector-size rejection and end-of-media FORMAT guard. The commits include controller-level tests; no local emulator build or GDOS/CP/M boot was performed.",
           "evidence_urls": [
-            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/blob/main/README.md"
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/7c3afc7522d5602bbc009d7fa94bc6a6094536b6",
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/04cb5608ff82ed03c288d1c8eda0904e34a92287",
+            "https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/d2dc33e437d38a0a81cc682c8e730fbc2aac68df"
           ]
         },
         "runtime_profiles": {
@@ -56214,7 +56235,7 @@
     },
     {
       "project_id": "volamos-amiga-cli-runtime",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-15",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -56291,10 +56312,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The reviewed SetFunction implementation and test cover patch, chain-through and restore behavior. Its documented single-invocation scope is retained; no local build or run was performed.",
+          "checked_at": "2026-10-15",
+          "note": "v0.10 is published, and reviewed source/tests cover non-AUTOINIT disk libraries plus opt-in UAE and Emu68 debug ports. No local build or guest-binary execution was performed.",
           "evidence_urls": [
-            "https://github.com/sidick/volamos/commit/018fd8f047d27fa3f85948b1595f44acf3f6f596"
+            "https://github.com/sidick/volamos/releases/tag/v0.10",
+            "https://github.com/sidick/volamos/commit/2ee28f5f2759a9ea5096ba7f0068c4ec4cf94011",
+            "https://github.com/sidick/volamos/commit/359f762476c061b3b487cdcaf1dc86acdc786dd9",
+            "https://github.com/sidick/volamos/commit/fcec136d6f7f416b89af11d6bb76f6c89c96a8f5"
           ]
         },
         "runtime_profiles": {
@@ -56317,10 +56341,10 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The SetFunction commit carries explicit Claude Sonnet 5 co-author and session metadata.",
+          "checked_at": "2026-10-15",
+          "note": "The non-AUTOINIT library commit carries explicit Claude co-author metadata. Existing affirmative Claude attribution remains scoped to evidenced commits rather than the whole project.",
           "evidence_urls": [
-            "https://github.com/sidick/volamos/commit/018fd8f047d27fa3f85948b1595f44acf3f6f596"
+            "https://github.com/sidick/volamos/commit/2ee28f5f2759a9ea5096ba7f0068c4ec4cf94011"
           ]
         },
         "relationships": {
@@ -59087,7 +59111,7 @@
     },
     {
       "project_id": "ase-atari-system-emulator",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-15",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -59137,14 +59161,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README supplies Moira build and dotnet publish instructions, says ready-to-use releases exist, and reports Windows/macOS execution. True flags reflect upstream evidence, not an independent build. Linux remains untested upstream.",
+          "checked_at": "2026-10-15",
+          "note": "Current source marks v1.13 and implements hard-drive-adapted game-library entries plus configurable joystick ports. Existing Windows/macOS and source-build claims remain upstream evidence; no local build/run or Linux verification was performed.",
           "evidence_urls": [
-            "https://github.com/thebitculture/ase/blob/main/README.MD",
-            "https://github.com/thebitculture/ase/blob/main/ASE/ASE.csproj",
-            "https://github.com/thebitculture/ase/blob/main/ASE/CPU.cs",
-            "https://github.com/thebitculture/ase/blob/main/ASE/Memory.cs",
-            "https://github.com/thebitculture/ase/commit/4a60df85090ad3485c5bd6dec73b26ab8664d42a"
+            "https://github.com/thebitculture/ase/commit/cac0f6093cdc32fdcd747a325860b7e8c69c6aa4",
+            "https://github.com/thebitculture/ase/blob/cac0f6093cdc32fdcd747a325860b7e8c69c6aa4/README.MD"
           ]
         },
         "runtime_profiles": {
@@ -71196,7 +71217,7 @@
     },
     {
       "project_id": "github-henols-c64-re-tools",
-      "last_reviewed": "2026-10-10",
+      "last_reviewed": "2026-10-15",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -71213,13 +71234,12 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "General-purpose C64 reverse-engineering/development tooling. The MCP controls a stock VICE process; this is neither a game reconstruction nor a game-specific emulator wrapper.",
+          "checked_at": "2026-10-15",
+          "note": "M14.13-M14.17 extend the general-purpose C64 reverse-engineering toolkit with deterministic source generation, an end-to-end reconstruction workflow and provenance reports; it remains tooling rather than a title-specific reconstruction.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/blob/main/README.md",
-            "https://github.com/henols/c64-re-tools/blob/main/package.json",
-            "https://github.com/henols/c64-re-tools/blob/main/src/c64.ts",
-            "https://github.com/henols/c64-re-tools/blob/main/src/mcp/server.ts"
+            "https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341",
+            "https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078",
+            "https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc"
           ]
         },
         "source_cpu": {
@@ -71246,21 +71266,21 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-10",
-          "note": "package.json and plugin manifests are prepared as 2.0.0 with publishable CLI/MCP/host bins, but the primary roadmap still leaves npm trusted-publisher setup, tagging and verification of the published package open. Build/runtime flags therefore remain unknown.",
+          "checked_at": "2026-10-15",
+          "note": "Upstream reports real ACME/Ghidra/VICE checks for byte-identical generated source, loader entry-state restoration, scripted original-versus-rebuild scenarios and release comparison. These are source-owned checks; no independent tracker build or run was performed, and the 2.0.0 publication gate remains open.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/blob/main/README.md",
-            "https://github.com/henols/c64-re-tools/blob/main/package.json",
-            "https://github.com/henols/c64-re-tools/commit/11987768d056"
+            "https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341",
+            "https://github.com/henols/c64-re-tools/commit/70fe0844131495aa4fd3b3992a844986bdc5c1c2",
+            "https://github.com/henols/c64-re-tools/commit/8e7e4f0091242ef351d2b19ccd66667642289f71"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-10",
-          "note": "C64RT_TRACE adds field diagnostics but does not state host hardware requirements. Node.js 24+, VICE 3.9+, ROMs and optional analysis tools remain software prerequisites; no CPU or RAM minimum was found.",
+          "checked_at": "2026-10-15",
+          "note": "Reviewed the new workflow, source-generation and provenance documentation. It adds software/tool prerequisites and live checks but no host CPU, RAM or minimum machine profile.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/blob/main/README.md",
-            "https://github.com/henols/c64-re-tools/commit/5ceac29bb61b"
+            "https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078",
+            "https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc"
           ]
         },
         "ai": {
@@ -71286,7 +71306,8 @@
         }
       },
       "next_actions": [
-        "Verify the documented Node/VICE prerequisites and opted-in integration tests before strengthening build/runtime claims."
+        "Verify the documented Node/VICE prerequisites and opted-in integration tests before strengthening build/runtime claims.",
+        "Track the still-open trusted-publisher, tag and published-package verification gate."
       ]
     },
     {
@@ -105023,7 +105044,7 @@
     },
     {
       "project_id": "astronaut-jet-pac-amiga",
-      "last_reviewed": "2026-10-06",
+      "last_reviewed": "2026-10-15",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -105060,28 +105081,28 @@
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Makefile defaults CPU to 68000 and passes it to hasc, VASM and vbccm68k, then VLINK emits Amiga hunk executables. Record m68000 for the default output. A help-string CPU=68020 override is not treated as an independently validated variant.",
+          "checked_at": "2026-10-15",
+          "note": "The Makefile now implements `build-68020`, uses a separate build directory and passes CPU=68020 to HASC, VASM and VBCC before producing Amiga hunk executables. m68020 is therefore an explicit output CPU alongside the default m68000, not a hardware minimum.",
           "evidence_urls": [
-            "https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/Makefile",
-            "https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/jetpac.has"
+            "https://github.com/rozensoftware/astronautjetpac/commit/6514258c474f112d155feccce5a4961b18d555f5",
+            "https://github.com/rozensoftware/astronautjetpac/blob/6514258c474f112d155feccce5a4961b18d555f5/Makefile"
           ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Makefile runs Python hasc.cli from sibling highamigaassembler (Lark dependency), VASM, VLINK, VBCC, external library directory and asset assembly; default CPU=68000. Not a plain standalone assembly build. The default HAS compilation also links separately assembled asset/library objects and VBCC-generated star.c assembly; optional 68020 help text is not build verification. All four build flags remain null; no independent compilation, run, gameplay or byte comparison was performed.",
+          "checked_at": "2026-10-15",
+          "note": "The implemented 68020 target reuses the documented HASC/VASM/VLINK/VBCC pipeline in a separate output directory. This is source evidence for a build variant; all build/runtime flags remain unknown because no tracker-side compilation or execution was performed.",
           "evidence_urls": [
-            "https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/Makefile",
-            "https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/jetpac.has"
+            "https://github.com/rozensoftware/astronautjetpac/commit/6514258c474f112d155feccce5a4961b18d555f5",
+            "https://github.com/rozensoftware/astronautjetpac/blob/6514258c474f112d155feccce5a4961b18d555f5/Makefile"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-06",
-          "note": "No profile is populated. Default -m68000 and kick1hunks describe build output; HEAP_MEMORY and a 320x256/32-colour prompt describe implementation choices, not a documented machine-memory/OS/chipset minimum. No actual hardware compatibility test was performed.",
+          "checked_at": "2026-10-15",
+          "note": "The new CPU=68020 build variant identifies emitted code, not a minimum runnable Amiga. The reviewed Makefile still states no RAM, chipset, OS/ROM or minimum-compatible-CPU profile, and no hardware/emulator run was performed.",
           "evidence_urls": [
-            "https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/README.md"
+            "https://github.com/rozensoftware/astronautjetpac/blob/6514258c474f112d155feccce5a4961b18d555f5/Makefile"
           ]
         },
         "ai": {

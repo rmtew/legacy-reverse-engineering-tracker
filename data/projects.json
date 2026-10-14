@@ -9692,8 +9692,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-09-29",
-    "status": null,
+    "last_checked": "2026-10-15",
+    "status": "current source identifies v1.14.0; playable cross-platform engine reimplementation",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -9706,14 +9706,16 @@
     },
     "techniques": [
       "behaviour reconstruction",
-      "binary analysis"
+      "binary analysis",
+      "data-consistency scripting",
+      "versioned data-fix regression tests"
     ],
     "tags": [
       "game",
       "amber",
       "cross-platform"
     ],
-    "notes": "Modern reimplementation substantially informed by reverse engineering of original Ambermoon behaviour and data. The publish profiles explicitly name win-x86, win-x64, linux-x64, linux-arm64, osx-x64 and osx-arm64 outputs; no minimum host CPU or RAM was found in the reviewed project files.",
+    "notes": "Modern reimplementation substantially informed by reverse engineering of original Ambermoon behaviour and data. The publish profiles explicitly name win-x86, win-x64, linux-x64, linux-arm64, osx-x64 and osx-arm64 outputs; no minimum host CPU or RAM was found in the reviewed project files. Current source identifies version 1.14.0 and adds a quest log for the original game and Ambermoon Advanced, original data version 1.22 support, disease-driven daily attribute loss and more detailed extended-curse tooltips. New script commands and tests inspect attributes, spell-learning points, names/text, goto points, map flags and walkable tiles to lock Ambermoon Advanced 1.33 data fixes. This records current source state, not a separately verified release asset or gameplay run. Evidence: https://github.com/Pyrdacor/Ambermoon.net/commit/943dd901565bfe91567788dfea8c92a5e284c23a https://github.com/Pyrdacor/Ambermoon.net/commit/920ca802e43d89a0e5ef7b9d47980c382c6505f9",
     "github": {
       "repository": "Pyrdacor/Ambermoon.net",
       "created_at": "2020-06-19",
@@ -21402,8 +21404,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-05",
-    "status": "Upstream provides releases and build instructions; Linux support is described as expected but untested.",
+    "last_checked": "2026-10-15",
+    "status": "current source marks v1.13 with hard-drive game-library and joystick-port configuration; Linux remains described as untested",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -21414,13 +21416,16 @@
       "usage": null,
       "tools": []
     },
-    "techniques": [],
+    "techniques": [
+      "IKBD input emulation",
+      "hard-drive game-library integration"
+    ],
     "tags": [
       "Windows",
       "macOS",
       "Linux"
     ],
-    "notes": "Primary README describes a C# Atari ST-family emulator using Moira, partly derived from the author's 1990s emulator and Hatari. Substantial machine implementation and .NET project are present. README supplies Moira wrapper build and dotnet publish commands. Generic system emulation, not a game-specific CPU wrapper. Linux support is described as expected but untested by the author; no local build or compatibility validation. README supplies Moira build and dotnet publish instructions, says ready-to-use releases exist, and reports Windows/macOS execution. True flags reflect upstream evidence, not an independent build. Linux remains untested upstream. No independent compilation, execution or benchmarking was performed during this catalogue review. Evidence: https://github.com/thebitculture/ase/blob/main/README.MD https://github.com/thebitculture/ase/blob/main/ASE/ASE.csproj https://github.com/thebitculture/ase/blob/main/ASE/CPU.cs https://github.com/thebitculture/ase/blob/main/ASE/Memory.cs https://github.com/thebitculture/ase/commit/4a60df85090ad3485c5bd6dec73b26ab8664d42a",
+    "notes": "Primary README describes a C# Atari ST-family emulator using Moira, partly derived from the author's 1990s emulator and Hatari. Substantial machine implementation and .NET project are present. README supplies Moira wrapper build and dotnet publish commands. Generic system emulation, not a game-specific CPU wrapper. Linux support is described as expected but untested by the author; no local build or compatibility validation. README supplies Moira build and dotnet publish instructions, says ready-to-use releases exist, and reports Windows/macOS execution. True flags reflect upstream evidence, not an independent build. Linux remains untested upstream. No independent compilation, execution or benchmarking was performed during this catalogue review. Evidence: https://github.com/thebitculture/ase/blob/main/README.MD https://github.com/thebitculture/ase/blob/main/ASE/ASE.csproj https://github.com/thebitculture/ase/blob/main/ASE/CPU.cs https://github.com/thebitculture/ase/blob/main/ASE/Memory.cs https://github.com/thebitculture/ase/commit/4a60df85090ad3485c5bd6dec73b26ab8664d42a The v1.13 source commit adds hard-drive-adapted games to the library and configurable Atari joystick ports, separating port state and mouse/joystick button-line behavior in the IKBD path. The repository's previously documented Windows/macOS execution and untested-Linux boundary remain; this pass did not observe or execute a new release asset. Evidence: https://github.com/thebitculture/ase/commit/cac0f6093cdc32fdcd747a325860b7e8c69c6aa4 https://github.com/thebitculture/ase/blob/cac0f6093cdc32fdcd747a325860b7e8c69c6aa4/README.MD",
     "github": {
       "repository": "thebitculture/ase",
       "created_at": "2026-01-30",
@@ -21744,7 +21749,8 @@
     ],
     "source_cpu": [],
     "target_cpu": [
-      "m68000"
+      "m68000",
+      "m68020"
     ],
     "runtime_profiles": [],
     "source_language": [],
@@ -21764,8 +21770,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-06",
-    "status": "Partial source review; build, runtime and binary parity independently untested",
+    "last_checked": "2026-10-15",
+    "status": "source-reviewed original Amiga homebrew; explicit m68000 and m68020 build variants, runtime independently untested",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -21782,7 +21788,7 @@
       "source-reviewed",
       "native Amiga homebrew/JetPac-inspired game"
     ],
-    "notes": "Substantial JetPac-inspired Amiga game in high-level HAS syntax; reviewed gameplay applies joystick thrust/gravity, wrapping, tile collisions and landing state, with m68k asset assembly. Authored JetPac-inspired native Amiga game. jetpac.has supplies high-level HAS gameplay for thrust, gravity, wrapping, collision and landing; Makefile transpiles HAS to m68k assembly and also compiles star.c with VBCC. HAS, assembly and C describe the maintained implementation, not a recovered original JetPac language. Astronaut Jet Pac is a newly authored JetPac-inspired game using HAS. Reviewed material does not identify a particular original executable being reconstructed; source_cpu is not applicable. The Makefile’s CPU setting belongs to emitted Amiga output. Makefile defaults CPU to 68000 and passes it to hasc, VASM and vbccm68k, then VLINK emits Amiga hunk executables. Record m68000 for the default output. A help-string CPU=68020 override is not treated as an independently validated variant. Makefile runs Python hasc.cli from sibling highamigaassembler (Lark dependency), VASM, VLINK, VBCC, external library directory and asset assembly; default CPU=68000. Not a plain standalone assembly build. The default HAS compilation also links separately assembled asset/library objects and VBCC-generated star.c assembly; optional 68020 help text is not build verification. All four build flags remain null; no independent compilation, run, gameplay or byte comparison was performed. No profile is populated. Default -m68000 and kick1hunks describe build output; HEAP_MEMORY and a 320x256/32-colour prompt describe implementation choices, not a documented machine-memory/OS/chipset minimum. No actual hardware compatibility test was performed. Agent-feature prompt content explicitly describes code-generation workflow; that demonstrates an agent prompt, not that shipped code was generated. AI usage stays unknown. HAS compiler/library sibling is an external prerequisite. The included agent prompt is development-workflow material; it does not grant permissions or establish authorship. Music credits remain separate from project code terms. License/asset scope: Custom restrictive license permits use/study/modification for personal/internal/maintenance purposes, preserves attribution, and restricts selling/sublicensing/publishing/redistributing under a different name/author without permission. Not standard MIT/GPL. Music credits GrOgOn/CdS and cartoon. Wider dependency/author and asset provenance review remains partial. The inspected .github/prompts/jetpac-clone-68000.prompt.md describes an agent feature-generation workflow, but does not establish that shipped code was generated or identify actual tool execution. Prompt content, agent metadata and filenames alone cannot set usage=true or name a tool; usage stays unknown. Reviewed commit 3fed73a65b23736af83b5fa5719af2dd4148aa8e; actual root Git tree 32c276792379cb7158342a235be097709e77f10f, recorded by the immutable commit API. Repository creation, historical development dates and releases are not evidence of a reverse-engineering start date. Evidence: https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/README.md https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/LICENSE https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/jetpac.has https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/Makefile https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/.github/prompts/jetpac-clone-68000.prompt.md https://api.github.com/repos/rozensoftware/astronautjetpac/git/commits/3fed73a65b23736af83b5fa5719af2dd4148aa8e",
+    "notes": "Substantial JetPac-inspired Amiga game in high-level HAS syntax; reviewed gameplay applies joystick thrust/gravity, wrapping, tile collisions and landing state, with m68k asset assembly. Authored JetPac-inspired native Amiga game. jetpac.has supplies high-level HAS gameplay for thrust, gravity, wrapping, collision and landing; Makefile transpiles HAS to m68k assembly and also compiles star.c with VBCC. HAS, assembly and C describe the maintained implementation, not a recovered original JetPac language. Astronaut Jet Pac is a newly authored JetPac-inspired game using HAS. Reviewed material does not identify a particular original executable being reconstructed; source_cpu is not applicable. The Makefile’s CPU setting belongs to emitted Amiga output. Makefile defaults CPU to 68000 and passes it to hasc, VASM and vbccm68k, then VLINK emits Amiga hunk executables. Record m68000 for the default output. A help-string CPU=68020 override is not treated as an independently validated variant. Makefile runs Python hasc.cli from sibling highamigaassembler (Lark dependency), VASM, VLINK, VBCC, external library directory and asset assembly; default CPU=68000. Not a plain standalone assembly build. The default HAS compilation also links separately assembled asset/library objects and VBCC-generated star.c assembly; optional 68020 help text is not build verification. All four build flags remain null; no independent compilation, run, gameplay or byte comparison was performed. No profile is populated. Default -m68000 and kick1hunks describe build output; HEAP_MEMORY and a 320x256/32-colour prompt describe implementation choices, not a documented machine-memory/OS/chipset minimum. No actual hardware compatibility test was performed. Agent-feature prompt content explicitly describes code-generation workflow; that demonstrates an agent prompt, not that shipped code was generated. AI usage stays unknown. HAS compiler/library sibling is an external prerequisite. The included agent prompt is development-workflow material; it does not grant permissions or establish authorship. Music credits remain separate from project code terms. License/asset scope: Custom restrictive license permits use/study/modification for personal/internal/maintenance purposes, preserves attribution, and restricts selling/sublicensing/publishing/redistributing under a different name/author without permission. Not standard MIT/GPL. Music credits GrOgOn/CdS and cartoon. Wider dependency/author and asset provenance review remains partial. The inspected .github/prompts/jetpac-clone-68000.prompt.md describes an agent feature-generation workflow, but does not establish that shipped code was generated or identify actual tool execution. Prompt content, agent metadata and filenames alone cannot set usage=true or name a tool; usage stays unknown. Reviewed commit 3fed73a65b23736af83b5fa5719af2dd4148aa8e; actual root Git tree 32c276792379cb7158342a235be097709e77f10f, recorded by the immutable commit API. Repository creation, historical development dates and releases are not evidence of a reverse-engineering start date. Evidence: https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/README.md https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/LICENSE https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/jetpac.has https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/Makefile https://github.com/rozensoftware/astronautjetpac/blob/3fed73a65b23736af83b5fa5719af2dd4148aa8e/.github/prompts/jetpac-clone-68000.prompt.md https://api.github.com/repos/rozensoftware/astronautjetpac/git/commits/3fed73a65b23736af83b5fa5719af2dd4148aa8e Commit 6514258 promotes 68020 from help text to an explicit `build-68020` target with a separate output directory; the selected CPU is passed through HASC, VASM and VBCC before VLINK emits Amiga hunk executables. This establishes an m68020 output variant, not a minimum compatible machine or a successful independent build/run. Evidence: https://github.com/rozensoftware/astronautjetpac/commit/6514258c474f112d155feccce5a4961b18d555f5 https://github.com/rozensoftware/astronautjetpac/blob/6514258c474f112d155feccce5a4961b18d555f5/Makefile",
     "github": {
       "repository": "rozensoftware/astronautjetpac",
       "created_at": "2026-07-19",
@@ -37696,8 +37702,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-10",
-    "status": "active; package metadata is prepared as 2.0.0, but the upstream release gate still lists trusted-publisher setup, tagging and published-package verification as open",
+    "last_checked": "2026-10-15",
+    "status": "active; M14.17 completes a deterministic reconstruction pipeline, while the upstream 2.0.0 publication gate remains open",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -37718,14 +37724,19 @@
       "binary-analysis",
       "data-format-analysis",
       "MCP",
-      "field tracing"
+      "field tracing",
+      "byte-identical source generation",
+      "scripted rebuild validation",
+      "runtime provenance comparison",
+      "one-release provenance separation",
+      "platform-symbol export"
     ],
     "tags": [
       "Commodore 64",
       "source-reviewed",
       "no-independent-build"
     ],
-    "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b",
+    "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b Current M14 work now generates byte-identical ACME source from an unpacked image or PRG, curated knowledge and Ghidra instructions; an optional loader is run in VICE and checked at the recovered entry state. The documented ten-stage workflow adds explicit acceptance criteria, exit checks, deliverables and coverage reporting. Release comparison can attach first-access/runtime-change evidence to differing bytes, single-release separation reports unpack/access/reachability provenance, and platform symbols can be exported as an ACME include. These are upstream live-tool checks rather than an independent tracker run, and they do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341 https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078 https://github.com/henols/c64-re-tools/commit/b80796c63719f7eeb4fd694afd689fe5a926cd8b https://github.com/henols/c64-re-tools/commit/1c0070e068b719314a4ee47b56de189916b0a6d6 https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc",
     "github": {
       "repository": "henols/c64-re-tools",
       "created_at": "2026-08-09",
@@ -47183,7 +47194,7 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-05",
+    "last_checked": "2026-10-15",
     "status": "active",
     "build": {
       "compilable": true,
@@ -47215,7 +47226,10 @@
       "persistent media write-through",
       "reverse stepping",
       "source debugging",
-      "state import"
+      "state import",
+      "interlaced field weaving",
+      "drive-mechanism event serialization",
+      "WinUAE/FS-UAE sample-set compatibility"
     ],
     "tags": [
       "Amiga",
@@ -47225,7 +47239,7 @@
       "AI-assisted",
       "retro development"
     ],
-    "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through.",
+    "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through. Current main preserves AGA Alice's hard $D8 bitplane-fetch stop, weaves both chipset fields into full-height native interlaced screenshots and persists menu-only settings without discarding launcher-less keys. A second change adds CYL.SIDE display plus WinUAE/FS-UAE floppy sample-set playback while serializing mechanism events so save states, run-ahead and netplay checksums do not depend on installed host sounds. These are targeted fidelity/tooling improvements rather than universal compatibility proof. Evidence: https://github.com/CopperlineHQ/Copperline/commit/9e8359ea6cce6fc5e5028d1f4e31b960b53f7da6 https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2",
     "github": {
       "repository": "CopperlineHQ/Copperline",
       "created_at": "2026-06-14",
@@ -68511,8 +68525,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-14",
-    "status": "active; authenticated DM2 Amiga/DOS display gates and fresh-weather RNG bootstrap coverage",
+    "last_checked": "2026-10-15",
+    "status": "active; current main tightens authenticated DM1 FM Towns presentation and DOS selector reconstruction",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -68546,7 +68560,10 @@
       "cross-platform startup matrix testing",
       "source-clock timing calibration",
       "authenticated viewport-region gates",
-      "deterministic RNG bootstrap verification"
+      "deterministic RNG bootstrap verification",
+      "source-locked fixed-point sampling",
+      "authenticated packed-selector decoding",
+      "source-timed VBlank cadence"
     ],
     "tags": [
       "game engine",
@@ -68555,7 +68572,7 @@
       "software archaeology",
       "preservation"
     ],
-    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20 Current-main receipts add an authenticated DM2 Amiga viewport gate, bounded DOS viewport/HUD checks and a locked three-draw fresh-weather RNG bootstrap. Separate native Mac M4 tests keep live Retina input unresolved despite controlled 2x/mixed-geometry tests, and real-media startup reruns use dummy video/audio, so they do not establish physical display, input or speaker parity. Evidence: https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809 https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33 https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882 https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a",
+    "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20 Current-main receipts add an authenticated DM2 Amiga viewport gate, bounded DOS viewport/HUD checks and a locked three-draw fresh-weather RNG bootstrap. Separate native Mac M4 tests keep live Retina input unresolved despite controlled 2x/mixed-geometry tests, and real-media startup reruns use dummy video/audio, so they do not establish physical display, input or speaker parity. Evidence: https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809 https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33 https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882 https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a The newest DM1 pass ports FM Towns title shrink sampling from the documented 6-bit fixed-point source path, flips floor/ceiling graphics at their loaded native heights, and restores the entrance-door step to three 60 Hz VBlank intervals. A separate authenticated PC 3.4 path decodes the LZEXE-packed DOS selector preview. Targeted source-lock/native-build checks pass upstream, but the author explicitly retains original-frame comparison and full cross-platform visual parity as open. Evidence: https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0 https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d https://github.com/yeager/firestaff/commit/41b103f29b4d7439d7445fb4e3578f9985e5cfab https://github.com/yeager/firestaff/commit/3085c2f6d56e8088279b5207bfd46744a1dbbd24",
     "github": {
       "repository": "yeager/firestaff",
       "checked_at": "2026-10-14",
@@ -68977,8 +68994,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-09-25",
-    "status": null,
+    "last_checked": "2026-10-15",
+    "status": "active; firmware plus ffemu host-side UI/UX development emulator",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -68986,13 +69003,22 @@
       "byte_exact": null
     },
     "ai": {
-      "usage": null,
-      "tools": []
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "ffemu's primary README explicitly states that the program was written with Claude's help: https://github.com/keirf/flashfloppy/commit/884a6748c51197bc86033b19fd59165b2aa37309"
+      ]
     },
     "techniques": [
       "floppy interface emulation",
       "disk-image parsing",
-      "track-layout configuration"
+      "track-layout configuration",
+      "firmware UI host emulation",
+      "FAT volume emulation",
+      "scripted firmware UI testing",
+      "configuration flash extraction"
     ],
     "tags": [
       "Amiga",
@@ -69001,7 +69027,7 @@
       "ADF",
       "ST"
     ],
-    "notes": "Open firmware for Gotek hardware exposes USB disk images as a floppy drive to Amiga and Atari ST hosts. Official documentation lists ADF and ST support. This is drive emulation rather than a title reconstruction; compatibility with protection/extended formats varies and should not be inferred from ordinary ADF/ST support. Firmware is built for explicit ARM Cortex-M3 and Cortex-M4 Gotek-class microcontrollers; these are firmware output CPUs, not properties of the ADF/ST/HFE inputs.",
+    "notes": "Open firmware for Gotek hardware exposes USB disk images as a floppy drive to Amiga and Atari ST hosts. Official documentation lists ADF and ST support. This is drive emulation rather than a title reconstruction; compatibility with protection/extended formats varies and should not be inferred from ordinary ADF/ST support. Firmware is built for explicit ARM Cortex-M3 and Cortex-M4 Gotek-class microcontrollers; these are firmware output CPUs, not properties of the ADF/ST/HFE inputs. The new ffemu subtool compiles FlashFloppy's own UI, display, FatFS and image-handler code for Windows or Linux and runs it against emulated Gotek controls, flash state, USB media and display hardware in a terminal. Current support includes Shugart and Apple II firmware variants, OLED/HD44780/7-segment displays, scripted testing and FF.CFG/FLASH.DMP configuration workflows; the documentation explicitly says floppy-interface data flow is not emulated. Its README explicitly credits Claude assistance. Evidence: https://github.com/keirf/flashfloppy/commit/ef97d8db661c30c6bab4af894f857005d1ea1c32 https://github.com/keirf/flashfloppy/blob/master/ffemu/README.md https://github.com/keirf/flashfloppy/commit/884a6748c51197bc86033b19fd59165b2aa37309",
     "github": {
       "repository": "keirf/flashfloppy",
       "created_at": "2014-10-20",
@@ -148712,8 +148738,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-03",
-    "status": "active",
+    "last_checked": "2026-10-15",
+    "status": "active; OMTI/Xebec save-state and media-bound validation hardened",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -148728,7 +148754,9 @@
       "live disassembly",
       "controller-protocol reconstruction",
       "DAP source debugging",
-      "boot verification"
+      "boot verification",
+      "save-state validation",
+      "controller media-bound enforcement"
     ],
     "tags": [
       "TRS-80",
@@ -148737,7 +148765,7 @@
       "CP/M",
       "SASI"
     ],
-    "notes": "TRS-80/TCS Genie IIIs emulator derived from SDL2TRS/xtrs with independently implemented OMTI, WD1000/1010 and Xebec S1410 hard-disk paths. Primary documentation records live Z80-driver disassembly, recovered controller behavior, verified CP/M/GDOS boots and a zbx DAP bridge.",
+    "notes": "TRS-80/TCS Genie IIIs emulator derived from SDL2TRS/xtrs with independently implemented OMTI, WD1000/1010 and Xebec S1410 hard-disk paths. Primary documentation records live Z80-driver disassembly, recovered controller behavior, verified CP/M/GDOS boots and a zbx DAP bridge. Current controller work rejects out-of-range OMTI/Xebec save-state fields before fixed-buffer use, rebuilds the Xebec format pattern locally, rejects invalid OMTI sector sizes and prevents FORMAT commands beyond the last cylinder from extending an HDV image. These are bounded controller correctness/safety changes, not broader boot-compatibility proof. Evidence: https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/7c3afc7522d5602bbc009d7fa94bc6a6094536b6 https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/04cb5608ff82ed03c288d1c8eda0904e34a92287 https://github.com/Egbert-Azure/sdltrs-MultiHDC/commit/d2dc33e437d38a0a81cc682c8e730fbc2aac68df",
     "github": {
       "repository": "Egbert-Azure/sdltrs-MultiHDC",
       "created_at": "2026-07-18",
@@ -160743,8 +160771,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-02",
-    "status": "alpha",
+    "last_checked": "2026-10-15",
+    "status": "alpha; v0.8.2 published with 320x240 original-menu path and campaign fixes",
     "build": {
       "compilable": null,
       "runnable": true,
@@ -160767,7 +160795,7 @@
       "StarCraft",
       "binary release"
     ],
-    "notes": "Native Amiga 68k StarCraft port that reads the user's original MPQ-derived game data and supports playable skirmishes. The repository currently publishes binaries/documentation but not the port source, so implementation provenance cannot be audited from source.",
+    "notes": "Native Amiga 68k StarCraft port that reads the user's original MPQ-derived game data and supports playable skirmishes. The repository currently publishes binaries/documentation but not the port source, so implementation provenance cannot be audited from source. v0.8.2 adds an original-menu path that keeps menus, campaign screens, briefings and the in-game menu at 320x240, with one-time smoothed conversion to menu-lores.pack, plus bounded Terran mission/UI fixes. The README says the icon supplies a 2 MB stack and recommends 320x240 on slower machines; these details refine usage guidance without turning the approximate graphics/sample working set into an exact RAM minimum. The repository still publishes binaries/documentation rather than auditable port source. Evidence: https://github.com/angree/AmiSC/releases/tag/v0.8.2 https://github.com/angree/AmiSC/commit/1fdee2e0aa306af94d56473117fd1a144dda6355 https://github.com/angree/AmiSC/blob/1fdee2e0aa306af94d56473117fd1a144dda6355/README.md",
     "github": {
       "repository": "angree/AmiSC",
       "created_at": "2026-08-13",
@@ -160818,7 +160846,7 @@
           "RTG / Picasso96"
         ],
         "os": "AmigaOS 3.0 or later",
-        "notes": "README states 68020 minimum with no FPU, AGA or RTG graphics, and enough memory for about 20 MB of sprite graphics plus sound samples. That working-set description is not treated as an exact total-RAM minimum; 68060 is recommended for AGA and a fast 68040 for RTG.",
+        "notes": "README states 68020 minimum with no FPU, AGA or RTG graphics, and enough memory for about 20 MB of sprite graphics plus sound samples. That working-set description is not treated as an exact total-RAM minimum; 68060 is recommended for AGA and a fast 68040 for RTG. v0.8.2 recommends 320x240 on slower machines, and Shell launches require the documented 2 MB stack that the icon already supplies.",
         "evidence": [
           {
             "source": "README.md",
@@ -181764,8 +181792,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-14",
-    "last_checked": "2026-10-05",
-    "status": "active",
+    "last_checked": "2026-10-15",
+    "status": "v0.10 published; current main adds non-AUTOINIT disk libraries and opt-in UAE/Emu68 guest debug ports",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -181791,7 +181819,9 @@
       "memory sanitization",
       "library-call tracing",
       "vamos and Kickstart differential testing",
-      "Amiga library jump-table patch emulation"
+      "Amiga library jump-table patch emulation",
+      "Amiga disk-library initialization emulation",
+      "guest debug-port emulation"
     ],
     "tags": [
       "Amiga",
@@ -181802,7 +181832,7 @@
       "retro development",
       "AI-assisted"
     ],
-    "notes": "Wine-style host runtime for classic AmigaOS m68k command-line tools: interprets guest instructions (optional m68k-crate trace JIT) and reimplements OS library calls in Rust. No Kickstart ROM is needed for normal use. It is generic development/analysis tooling, not a native reconstruction of a specific game; graphics, custom chips, Workbench GUI and games are explicitly out of scope. Linux/macOS build and guest execution are corroborated by current CI logs; published Windows x86-64 binaries compile but Windows/Wine runtime remains unverified. Interpreter/JIT parity covers six fixtures; comparison with vamos includes three documented known divergences, so it is not universal compatibility proof. The math-library shims now return comparison/test results in both D0 and 68k condition codes, matching the documented ROM calling behavior needed by SAS/C's scmieee.lib; before the fix, SAS/C double comparisons appeared equal and exp() overflow checks returned HUGE_VAL. Evidence: https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564 exec.library SetFunction now installs executable guest JMP entries, returns a synthesized callable stub for the previous host-backed handler, supports hook chaining and restoration, and is covered by an end-to-end guest test. The patch is deliberately limited to one guest invocation and does not emulate AmigaOS-wide persistent hooks. Evidence: https://github.com/sidick/volamos/commit/018fd8f047d27fa3f85948b1595f44acf3f6f596",
+    "notes": "Wine-style host runtime for classic AmigaOS m68k command-line tools: interprets guest instructions (optional m68k-crate trace JIT) and reimplements OS library calls in Rust. No Kickstart ROM is needed for normal use. It is generic development/analysis tooling, not a native reconstruction of a specific game; graphics, custom chips, Workbench GUI and games are explicitly out of scope. Linux/macOS build and guest execution are corroborated by current CI logs; published Windows x86-64 binaries compile but Windows/Wine runtime remains unverified. Interpreter/JIT parity covers six fixtures; comparison with vamos includes three documented known divergences, so it is not universal compatibility proof. The math-library shims now return comparison/test results in both D0 and 68k condition codes, matching the documented ROM calling behavior needed by SAS/C's scmieee.lib; before the fix, SAS/C double comparisons appeared equal and exp() overflow checks returned HUGE_VAL. Evidence: https://github.com/sidick/volamos/commit/de321627fd5f1c16ca6cc76020222d7f3c18d564 exec.library SetFunction now installs executable guest JMP entries, returns a synthesized callable stub for the previous host-backed handler, supports hook chaining and restoration, and is covered by an end-to-end guest test. The patch is deliberately limited to one guest invocation and does not emulate AmigaOS-wide persistent hooks. Evidence: https://github.com/sidick/volamos/commit/018fd8f047d27fa3f85948b1595f44acf3f6f596 v0.10 incorporates non-AUTOINIT disk-library loading and the MakeLibrary/AddLibrary/InitStruct/MakeFunctions exec paths. Current main also adds opt-in CLI handling for UAE's formatted debug port at $BFFF00 and Emu68's byte debug port at $DEADBEEF, routing guest diagnostics to stderr without claiming broader GUI/custom-chip emulation. Evidence: https://github.com/sidick/volamos/releases/tag/v0.10 https://github.com/sidick/volamos/commit/2ee28f5f2759a9ea5096ba7f0068c4ec4cf94011 https://github.com/sidick/volamos/commit/359f762476c061b3b487cdcaf1dc86acdc786dd9 https://github.com/sidick/volamos/commit/fcec136d6f7f416b89af11d6bb76f6c89c96a8f5",
     "github": {
       "repository": "sidick/volamos",
       "created_at": "2026-08-18",
