@@ -189104,5 +189104,797 @@
       }
     },
     "last_activity": "2024-05-05"
+  },
+  {
+    "id": "amiganarrator-amiga-speech-runtime",
+    "title": "AmigaNarrator",
+    "upstream_name": "AmigaNarrator",
+    "display_title": "AmigaNarrator — host runtime for narrator.device and translator.library",
+    "subjects": [
+      "Amiga narrator.device",
+      "Amiga translator.library"
+    ],
+    "repo": "https://github.com/nicodex/AmigaNarrator",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "development host"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Amiga 680x0 binaries"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis"
+    ],
+    "tool_kinds": [
+      "emulator",
+      "development-environment"
+    ],
+    "types": [
+      "binary compatibility runtime",
+      "speech development tool"
+    ],
+    "re_started": 2024,
+    "last_activity": "2026-05-08",
+    "last_checked": "2026-10-15",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "680x0 CPU emulation",
+      "Amiga Exec API simulation",
+      "binary-compatible device and library hosting"
+    ],
+    "tags": [
+      "Amiga",
+      "m68k",
+      "speech synthesis",
+      "Musashi"
+    ],
+    "notes": "Host-side runtime for original Amiga narrator.device and translator.library binaries. The README credits Arthur Choung for almost all code, explains that the project was detached after the upstream repository was deleted, and documents Musashi 680x0 emulation plus the subset of exec.library required by the binaries. The proprietary Amiga files are not supplied."
+  },
+  {
+    "id": "acorn-1770-dfs-multi-version-disassembly",
+    "title": "Acorn 1770 DFS",
+    "upstream_name": "acorn_1770_dfs_disassembly",
+    "display_title": "Acorn 1770 DFS — multi-version byte-exact ROM disassembly",
+    "subjects": [
+      "Acorn 1770 DFS ROMs"
+    ],
+    "repo": "https://github.com/tom-seddon/acorn_1770_dfs_disassembly",
+    "source_platforms": [
+      "BBC Micro",
+      "BBC Master"
+    ],
+    "target_platforms": [
+      "BBC Micro",
+      "BBC Master"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "ROM disassembly"
+    ],
+    "re_started": 2024,
+    "last_activity": "2026-09-21",
+    "last_checked": "2026-10-15",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "multi-version disassembly",
+      "symbol and comment reconstruction",
+      "automated binary comparison"
+    ],
+    "tags": [
+      "Acorn",
+      "BBC Micro",
+      "BBC Master",
+      "6502",
+      "DFS"
+    ],
+    "notes": "Disassembly covering multiple Acorn 1770 DFS releases, including DFS 2.20–2.45 and SRAM variants. The Python/64tass build produces ten ROM images and checks them against included originals; the build was reviewed but not rerun here. The work is based on Greg Cook's DFS 2.24 disassembly."
+  },
+  {
+    "id": "electron-os-multi-version-disassembly",
+    "title": "Electron OS",
+    "upstream_name": "electron_os_disassembly",
+    "display_title": "Electron OS — multi-version Acorn Electron ROM disassembly",
+    "subjects": [
+      "Acorn Electron OS ROM"
+    ],
+    "repo": "https://github.com/tom-seddon/electron_os_disassembly",
+    "source_platforms": [
+      "Acorn Electron"
+    ],
+    "target_platforms": [
+      "Acorn Electron"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom",
+      "system-software"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "ROM disassembly"
+    ],
+    "re_started": 2023,
+    "last_activity": "2026-07-15",
+    "last_checked": "2026-10-15",
+    "status": "work in progress",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "multi-version disassembly",
+      "code and data separation",
+      "symbol and comment reconstruction",
+      "binary comparison"
+    ],
+    "tags": [
+      "Acorn Electron",
+      "6502",
+      "OS ROM"
+    ],
+    "notes": "Work-in-progress disassembly of Acorn Electron OS 1.00, Slogger OS 3.00 and unreleased variants. The documented initial goal is complete code/data separation and labels; the 64tass build is silent when its outputs match the original ROMs. Based on J.G. Harston's Electron OS disassembly."
+  },
+  {
+    "id": "clock-signal-multi-system-emulator",
+    "title": "Clock Signal",
+    "upstream_name": "CLK",
+    "display_title": "Clock Signal (CLK) — multi-system signal-level emulator",
+    "subjects": [],
+    "repo": "https://github.com/TomHarte/CLK",
+    "source_platforms": [
+      "Acorn Electron",
+      "Amstrad CPC",
+      "Apple II",
+      "Atari 2600",
+      "Atari ST",
+      "BBC Micro",
+      "ColecoVision",
+      "Commodore Plus/4",
+      "Commodore VIC-20",
+      "Macintosh",
+      "MSX",
+      "Oric",
+      "Sega Master System",
+      "ZX Spectrum",
+      "ZX80",
+      "ZX81"
+    ],
+    "target_platforms": [
+      "macOS",
+      "Linux",
+      "FreeBSD"
+    ],
+    "source_cpu": [
+      "6502",
+      "Z80",
+      "m68000",
+      "6809",
+      "ARM2",
+      "x86"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "legacy machine code and media"
+    ],
+    "reconstructed_languages": [
+      "C++",
+      "Objective-C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "binary-analysis",
+      "debugger"
+    ],
+    "types": [
+      "multi-system emulator",
+      "media analyser",
+      "development tool"
+    ],
+    "re_started": 2015,
+    "last_activity": "2026-10-14",
+    "last_checked": "2026-10-15",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Commit f5221e7ac0e3 explicitly carries a Claude Opus 5.5 co-author trailer."
+      ]
+    },
+    "techniques": [
+      "signal-level emulation",
+      "runtime media analysis",
+      "automatic machine selection",
+      "cycle-accurate timing"
+    ],
+    "tags": [
+      "emulator",
+      "signal processing",
+      "multi-system",
+      "retro development",
+      "Claude"
+    ],
+    "notes": "Current Clock Signal/CLK emulator spanning many 8-, 16- and 32-bit systems. The README describes runtime media analysis, automatic machine configuration and signal-oriented hardware models, with native macOS and SDL/Qt Unix front ends. Less mature Archimedes, Amiga and early-PC support is documented separately from the rounded systems."
+  },
+  {
+    "id": "cpm-for-os-x-native-runtime",
+    "title": "CP/M for OS X",
+    "upstream_name": "CP-M-for-OS-X",
+    "display_title": "CP/M for OS X — native macOS CP/M-80 runtime",
+    "subjects": [
+      "CP/M-80"
+    ],
+    "repo": "https://github.com/TomHarte/CP-M-for-OS-X",
+    "source_platforms": [
+      "CP/M"
+    ],
+    "target_platforms": [
+      "macOS"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "CP/M-80 binaries"
+    ],
+    "reconstructed_languages": [
+      "Objective-C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [
+      "system-software"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [
+      "emulator",
+      "development-environment"
+    ],
+    "types": [
+      "CP/M runtime",
+      "Z80 emulator"
+    ],
+    "re_started": 2012,
+    "last_activity": "2025-10-20",
+    "last_checked": "2026-10-15",
+    "status": "maintained",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 emulation",
+      "CP/M-80 reimplementation",
+      "native host integration"
+    ],
+    "tags": [
+      "CP/M",
+      "Z80",
+      "macOS"
+    ],
+    "notes": "Native macOS environment for CP/M-80 software. The project describes itself as a Z80 emulator plus CP/M-80 reimplementation, supports disk-image drag and drop and native text integration, and documents an xcodebuild build."
+  },
+  {
+    "id": "electrem-acorn-electron-emulator",
+    "title": "ElectrEm",
+    "upstream_name": "ElectrEm",
+    "display_title": "ElectrEm — cycle-accurate Acorn Electron emulator",
+    "subjects": [],
+    "repo": "https://github.com/TomHarte/ElectrEm",
+    "source_platforms": [
+      "Acorn Electron"
+    ],
+    "target_platforms": [
+      "macOS",
+      "Windows"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Acorn Electron software and media"
+    ],
+    "reconstructed_languages": [
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger"
+    ],
+    "types": [
+      "emulator"
+    ],
+    "re_started": 2012,
+    "last_activity": "2016-09-29",
+    "last_checked": "2026-10-15",
+    "status": "archived",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "event-based emulation",
+      "cycle-accurate hardware timing",
+      "printer emulation"
+    ],
+    "tags": [
+      "Acorn Electron",
+      "6502",
+      "emulator"
+    ],
+    "notes": "Archived Acorn Electron emulator whose Readme.rtf describes event-based cycle-accurate emulation, SDL core code, macOS and Windows front ends, and FX-80 printer emulation. Checked-in Xcode and Visual Studio projects support the documented build targets; no build was rerun here."
+  },
+  {
+    "id": "commodore-pet-keychip-rom",
+    "title": "Keychip ROM",
+    "upstream_name": "keychip",
+    "display_title": "Commodore PET Keychip ROM — 6502 source reconstruction",
+    "subjects": [
+      "Commodore PET Keychip ROM"
+    ],
+    "repo": "https://github.com/mnaberez/keychip",
+    "source_platforms": [
+      "Commodore PET"
+    ],
+    "target_platforms": [
+      "Commodore PET"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "ROM source reconstruction"
+    ],
+    "re_started": 2017,
+    "last_activity": "2022-10-29",
+    "last_checked": "2026-10-15",
+    "status": "archived",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "ROM disassembly",
+      "manual source reconstruction",
+      "SHA-1 recording"
+    ],
+    "tags": [
+      "Commodore PET",
+      "6502",
+      "Keychip",
+      "ROM"
+    ],
+    "notes": "Reverse engineering of the Commodore PET Keychip ROM. The source is 6502 assembly at $9000 and the Makefile uses ACME 0.97 to emit a 2 KiB image. It records both the original and generated SHA-1 values but does not automatically compare them, so byte identity is left unclaimed."
+  },
+  {
+    "id": "m740dasm-mitsubishi-740-disassembler",
+    "title": "m740dasm",
+    "upstream_name": "m740dasm",
+    "display_title": "m740dasm — Mitsubishi 740 recursive disassembler",
+    "subjects": [],
+    "repo": "https://github.com/mnaberez/m740dasm",
+    "source_platforms": [
+      "Mitsubishi 740 firmware"
+    ],
+    "target_platforms": [
+      "development host"
+    ],
+    "source_cpu": [
+      "Mitsubishi 740"
+    ],
+    "target_cpu": [],
+    "source_language": [
+      "Mitsubishi 740 machine code"
+    ],
+    "reconstructed_languages": [
+      "as740-compatible assembly",
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis"
+    ],
+    "types": [
+      "recursive disassembler",
+      "source-reconstruction tool"
+    ],
+    "re_started": 2018,
+    "last_activity": "2026-06-22",
+    "last_checked": "2026-10-15",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "recursive traversal disassembly",
+      "code/data separation",
+      "symbol generation",
+      "identical-reassembly fuzz testing"
+    ],
+    "tags": [
+      "Mitsubishi 740",
+      "disassembler",
+      "firmware analysis"
+    ],
+    "notes": "Python recursive-traversal disassembler for Mitsubishi 740 binaries. The README documents as740-compatible output, code/data distinction, generated symbols, unit tests and identical-reassembly testing against firmware and randomized input. It also links the related m740recon project."
+  },
+  {
+    "id": "pedisk-ii-controller-reconstruction",
+    "title": "PEDISK II",
+    "upstream_name": "pedisk2",
+    "display_title": "PEDISK II — Commodore PET disk-controller reconstruction",
+    "subjects": [
+      "CGRS Microtech PEDISK II"
+    ],
+    "repo": "https://github.com/mnaberez/pedisk2",
+    "source_platforms": [
+      "Commodore PET"
+    ],
+    "target_platforms": [
+      "Commodore PET"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "source_language": [
+      "6502 ROM and disk software machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom",
+      "system-software"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [
+      "disk-filesystem-tool"
+    ],
+    "types": [
+      "controller ROM reconstruction",
+      "disk software recovery",
+      "image tooling"
+    ],
+    "re_started": 2013,
+    "last_activity": "2022-10-29",
+    "last_checked": "2026-10-15",
+    "status": "maintained archive",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "EPROM dumping",
+      "ROM disassembly",
+      "disk recovery",
+      "media image tooling",
+      "PCB reverse engineering",
+      "identical reassembly"
+    ],
+    "tags": [
+      "Commodore PET",
+      "6502",
+      "floppy disk",
+      "firmware preservation"
+    ],
+    "notes": "Reverse engineering and preservation of the CGRS Microtech PEDISK II floppy controller for Commodore PET/CBM computers. The repository combines the dumped EPROM and disassembly, recovered 5.25-inch DOS code adapted for 8-inch disks, image tools and hardware-reconstruction credits. The README says the ACME build should reproduce the original binary; that claim was not independently rerun."
+  },
+  {
+    "id": "astrocade-dev-homebrew-tools",
+    "title": "ASTROCADE DEV",
+    "upstream_name": "astrocade",
+    "display_title": "ASTROCADE DEV — Bally Astrocade homebrew and graphics tools",
+    "subjects": [
+      "Bally Astrocade homebrew demos",
+      "Astroimg",
+      "Astropaint"
+    ],
+    "repo": "https://github.com/hxlnt/astrocade",
+    "source_platforms": [],
+    "target_platforms": [
+      "Bally Astrocade"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Bally Astrocade hardware build",
+        "platform": "Bally Astrocade",
+        "cpu_family": "Z80",
+        "notes": "README identifies the target hardware as a 1.7 MHz Z80 system with 4 KiB RAM; these are platform facts rather than an independently benchmarked minimum.",
+        "evidence": [
+          "https://github.com/hxlnt/astrocade/blob/master/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "original JavaScript and Z80 source"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly",
+      "JavaScript"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game",
+      "demo"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [
+      "asset-tool",
+      "development-environment"
+    ],
+    "types": [
+      "original homebrew",
+      "graphics tool",
+      "development toolkit"
+    ],
+    "re_started": 2018,
+    "last_activity": "2019-01-14",
+    "last_checked": "2026-10-15",
+    "status": "archived homebrew collection",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 cross-assembly",
+      "bitmap conversion",
+      "browser graphics editing",
+      "MAME-assisted testing"
+    ],
+    "tags": [
+      "Bally Astrocade",
+      "Z80",
+      "homebrew",
+      "graphics tools"
+    ],
+    "notes": "Original Bally Astrocade homebrew demos and development tools, including Astroimg image conversion and the Astropaint browser editor. The README documents HVGLIB/Zmac builds and MAME launch helpers. This is explicitly tracked as original homebrew/tooling, not as reverse-engineered or RE-derived work."
+  },
+  {
+    "id": "vecforth-vectrex-forth-environment",
+    "title": "VecForth",
+    "upstream_name": "VecForth",
+    "display_title": "VecForth — Vectrex Forth environment and 6809 cross-compiler",
+    "subjects": [
+      "CamelForth/6809",
+      "VecForth"
+    ],
+    "repo": "https://github.com/phillipeaton/VecForth",
+    "source_platforms": [
+      "CamelForth/6809"
+    ],
+    "target_platforms": [
+      "Vectrex"
+    ],
+    "source_cpu": [
+      "6809"
+    ],
+    "target_cpu": [
+      "6809"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Physical Vectrex development",
+        "platform": "Vectrex",
+        "cpu_family": "6809",
+        "min_ram_kib": 1,
+        "notes": "README says a working Vectrex plus a multicart or EPROM emulator is the minimum physical setup and separately notes the Vectrex's 1 KiB RAM; VecFever is recommended, not required.",
+        "evidence": [
+          "https://github.com/phillipeaton/VecForth/blob/master/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "CamelForth 6809 source"
+    ],
+    "reconstructed_languages": [
+      "Forth",
+      "6809 assembly"
+    ],
+    "record_class": "hybrid",
+    "target_kinds": [
+      "system-software",
+      "development-tool"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "assembler-toolchain",
+      "development-environment"
+    ],
+    "types": [
+      "Forth environment",
+      "cross-compiler",
+      "Vectrex development toolkit"
+    ],
+    "re_started": 2020,
+    "last_activity": "2021-08-19",
+    "last_checked": "2026-10-15",
+    "status": "usable development environment",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "6809 source porting",
+      "Forth cross-compilation",
+      "Vectrex BIOS binding",
+      "standalone ROM generation"
+    ],
+    "tags": [
+      "Vectrex",
+      "6809",
+      "Forth",
+      "cross-compiler",
+      "homebrew"
+    ],
+    "notes": "Port of CamelForth/6809 to Vectrex with a Forth-to-BIOS API, interactive terminal, Gforth-hosted cross-compiler, 6809 assembler, emulator symbols and standalone ROM output. The README distinguishes recommended VecFever hardware from the minimum physical setup and an emulator-only option."
   }
 ]

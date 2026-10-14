@@ -863,6 +863,18 @@ A lead becomes a record in `data/projects.json` once there is a concrete source 
 | https://github.com/yosshin4004/x68k_gcc_has_converter | Reviewed xdev68k predecessor whose converter was integrated into the current environment |
 | https://github.com/rururutan/dis | Multi-host X680x0 source-code generator/disassembler covering 68000–68060 and CPU32 instruction sets |
 | https://github.com/masaaki-taguchi/sxpkey | Original SX-WINDOW ADPCM keyboard application with source, binary and xdev68k/native build recipes |
+| https://github.com/nicodex/AmigaNarrator | Host runtime for original Amiga narrator.device and translator.library binaries using Musashi 680x0 emulation and a bounded Exec API shim. |
+| https://github.com/tom-seddon/acorn_1770_dfs_disassembly | Multi-version Acorn 1770 DFS 6502 ROM disassembly with ten checked reconstruction outputs. |
+| https://github.com/tom-seddon/electron_os_disassembly | Work-in-progress multi-version Acorn Electron OS 6502 ROM disassembly with comparison builds. |
+| https://github.com/TomHarte/CLK | Current Clock Signal multi-system signal-level emulator, media analyser and debugging tool. |
+| https://github.com/TomHarte/CP-M-for-OS-X | Native macOS Z80 emulator and CP/M-80 reimplementation. |
+| https://github.com/TomHarte/ElectrEm | Archived event-based, cycle-accurate Acorn Electron emulator for macOS and Windows. |
+| https://github.com/mnaberez/keychip | Commodore PET Keychip ROM reverse engineering with buildable 6502 assembly. |
+| https://github.com/mnaberez/m740dasm | Mitsubishi 740 recursive disassembler with assembler-compatible output and identical-reassembly testing. |
+| https://github.com/mnaberez/pedisk2 | PEDISK II controller ROM/DOS recovery, image tooling and hardware reconstruction for Commodore PET/CBM systems. |
+| https://github.com/hxlnt/astrocade | Original Bally Astrocade homebrew demos plus Astroimg/Astropaint graphics-development tools. |
+| https://github.com/phillipeaton/VecForth | CamelForth/6809-derived Vectrex Forth environment, cross-compiler and standalone-ROM workflow. |
+| https://github.com/paulvern/JSD | Deferred browser-emulator hub requiring per-core provenance and implementation review. |
 
 
 ## 2026-10-06 — Amiga-only focused fifth pass

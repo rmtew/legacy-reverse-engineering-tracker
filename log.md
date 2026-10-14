@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-15 — Acorn ROMs, emulator lineages and homebrew toolchains
+
+Promoted eleven primary-source-reviewed projects from the saved nicodex, Tom Seddon, Tom Harte and Mike Naberezny queues plus fresh Vectrex and Astrocade searches. **AmigaNarrator** executes original Amiga speech-system binaries through Musashi; **Acorn 1770 DFS** and **Electron OS** add multi-version, comparison-built 6502 ROM disassemblies; **Clock Signal (CLK)**, **CP/M for OS X** and **ElectrEm** add current and historical emulator/runtime tooling. **Commodore PET Keychip ROM**, **m740dasm** and **PEDISK II** add firmware disassembly, architecture tooling and disk-controller archaeology.
+
+The fresh-search slice promoted original-homebrew/tooling **ASTROCADE DEV** and the CamelForth-derived **VecForth** environment without mislabelling either as reverse-engineered. The older `TomHarte/Clock-Signal` repository is recorded as the lineage represented by current CLK, `mnaberez/lgbemu` is excluded as a lightly modified redistribution, and JSD Emulator Hub remains deferred until its eighteen cores receive provenance and implementation review. The PC-88 slice yielded no promotable new candidate.
+
+The CPU audit queue was empty before selection. Every new record nevertheless has explicit source/target CPU decisions; hardware minima are included only where the primary README states them, and PEDISK II byte identity remains unknown because its documentation says the build *should* match rather than reporting a verified comparison. No upstream candidate was independently built or executed.
+
 ## 2026-10-14 — Stable SDK, debugger and media/toolchain maintenance
 
 Reviewed eight materially changed projects. **3Dvibe64 v1.10.2** is now recorded as a stable source-SDK release with optional Q8 experiments and explicit Windows/VICE-only qualification; its physical-hardware and Linux gaps remain open. **Firestaff** adds authenticated DM2 Amiga/DOS display gates and deterministic fresh-weather RNG coverage while retaining the live Retina-input and physical audio/display caveats. **Ghidra Retro Machines** now records analysis-order-independent jump-table overrides and byte-identical 34-ROM results across unpinned thread counts.
