@@ -4,6 +4,20 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Donkey%20Kong%20Jr | Donkey Kong Jr. — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Frenzy | Frenzy — compilable ColecoVision Z80 disassembly. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Gateway%20To%20Apshai | Gateway to Apshai — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/H.E.R.O | H.E.R.O. — byte-exact ColecoVision Z80 disassembly with project-documented Claude-assisted annotation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Mouse-Trap | Mouse Trap — compilable ColecoVision Z80 disassembly. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Mr-Do | Mr. Do! — compilable ColecoVision Z80 disassembly. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Nova%20Blast | Nova Blast — byte-exact ColecoVision Z80 disassembly with project-documented Claude-assisted annotation. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/QBert-Cubes | Q*bert’s Qubes — compilable ColecoVision Z80 disassembly. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Slither | Slither — compilable ColecoVision Z80 disassembly with an explicit Roller Controller requirement. |
+| https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Smurf-Rescue-In-Gargamels-Castle | Smurf: Rescue in Gargamel’s Castle — compilable ColecoVision Z80 disassembly. |
+| https://github.com/lhsazevedo/river-raid-wiz | River Raid Wiz — Atari 2600 Wiz reconstruction with 6502 source evidence and original-ROM SHA-1 comparison. |
+| https://github.com/michalhucik/mz800emu | mz800emu — Sharp MZ-800/700/1500 emulator with cycle-accurate Z80A execution, debugger and code-coverage tooling. |
+| https://github.com/ti-kid/8xk-Disasm | 8xk-Disasm — TI-83+/84+ application disassembler with Intel HEX paging and TI bcall annotation. |
+| https://github.com/jfjlaros/mzf2wav | MZF2WAV — Sharp MZ image-to-cassette WAV converter with conventional, fast and turbo modes. |
 | https://github.com/tony-cruise/colecovision-games-source/tree/main/B.C.'s%20Quest%20for%20Tires | B.C.’s Quest for Tires — byte-exact ColecoVision Z80 disassembly, with project-documented Claude-assisted annotation. |
 | https://github.com/tony-cruise/colecovision-games-source/tree/main/Boulder%20Dash | Boulder Dash — byte-exact ColecoVision Z80 disassembly, with project-documented Claude-assisted annotation. |
 | https://github.com/tony-cruise/colecovision-games-source/tree/main/BurgerTime | BurgerTime — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |

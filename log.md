@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-16 — ColecoVision queue, Atari 2600, Sharp MZ and TI discovery
+
+Reviewed ten more title directories from the saved ColecoVision source queue and promoted separate records for **Donkey Kong Jr.**, **Frenzy**, **Gateway to Apshai**, **H.E.R.O.**, **Mouse Trap**, **Mr. Do!**, **Nova Blast**, **Q*bert’s Qubes**, **Slither** and **Smurf: Rescue in Gargamel’s Castle**. H.E.R.O. and Nova Blast explicitly report byte-exact output and Claude Sonnet 4.6 annotation; Donkey Kong Jr. and Gateway to Apshai credit Claude Code. Slither’s Roller Controller requirement is recorded without inferring wider hardware minima. Four collection directories remain queued: Space Panic, Squish-em Featuring Sam, Star Wars Arcade and The Heist.
+
+The fresh-search slice promoted **River Raid Wiz — byte-checked Atari 2600 Wiz reconstruction**, **mz800emu — Sharp MZ-800/700/1500 emulator and debugger**, **8xk-Disasm — TI-83+/84+ application disassembler** and **MZF2WAV — Sharp MZ image-to-cassette audio converter**. Searches rotated through `Atari 2600 disassembly reassembly source`, `Sharp MZ homebrew development`, `TI-83 calculator disassembly reconstruction`, `atari 2600 disassembly`, `sharp mz` and `ti83 disassembly`, followed by scoped repository-code checks. `brpocock/atari-vcs-disassembly` was excluded as an unchanged fork of an already excluded source, while `toymak3r/haunted_house_disassembly` was recorded as a duplicate of the tracked Haunted House project.
+
+The CPU audit queue was empty before selection. Every promoted project nevertheless has explicit source/target CPU decisions based on primary documentation or source; MZF2WAV’s data-to-audio transformation is marked not applicable rather than assigned a platform CPU. No candidate was independently assembled, built or executed.
+
 ## 2026-10-15 — Acorn ROMs, emulator lineages and homebrew toolchains
 
 Promoted eleven primary-source-reviewed projects from the saved nicodex, Tom Seddon, Tom Harte and Mike Naberezny queues plus fresh Vectrex and Astrocade searches. **AmigaNarrator** executes original Amiga speech-system binaries through Musashi; **Acorn 1770 DFS** and **Electron OS** add multi-version, comparison-built 6502 ROM disassemblies; **Clock Signal (CLK)**, **CP/M for OS X** and **ElectrEm** add current and historical emulator/runtime tooling. **Commodore PET Keychip ROM**, **m740dasm** and **PEDISK II** add firmware disassembly, architecture tooling and disk-controller archaeology.
