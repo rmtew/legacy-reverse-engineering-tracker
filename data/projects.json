@@ -191662,5 +191662,600 @@
       }
     },
     "last_activity": "2024-05-05"
+  },
+  {
+    "id": "lander-bbc-micro-ebenupton",
+    "title": "Lander for the BBC Micro",
+    "upstream_name": "Lander for the BBC Micro",
+    "display_title": "Lander: BBC Micro port of the Archimedes demo",
+    "subjects": [
+      "Lander for the BBC Micro"
+    ],
+    "repo": "https://github.com/ebenupton/lander",
+    "source_platforms": [
+      "Acorn Archimedes"
+    ],
+    "target_platforms": [
+      "BBC Micro"
+    ],
+    "source_cpu": [
+      "ARM"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Upstream Model B requirements",
+        "platform": "BBC Micro",
+        "cpu_family": "6502",
+        "min_cpu": "6502",
+        "os": "DFS",
+        "notes": "Model B with 64 KB sideways RAM: four writable 16 KB banks, ROMSEL or Watford/Solidisk write-select. This is additional banked RAM, not a claimed total RAM minimum. README recommends BBC B with 8271 (DFS 1.2) in jsbeeb.",
+        "evidence": [
+          "https://github.com/ebenupton/lander/blob/8f2f11833d28254719264e496bd2f74bec02700c/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "ARM assembly"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "native port"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        {
+          "type": "commit",
+          "url": "https://github.com/ebenupton/lander/commit/8f2f11833d28254719264e496bd2f74bec02700c",
+          "detail": "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+        }
+      ]
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Eben Upton ports David Braben's 1987 Lander demo, including landscape, ship, flight model, landing, fuel, map and sound. Classification: Native 6502 implementation informed by Mark Moxon's annotated ARM reconstruction; not an original-source release or an embedded ARM emulation host. Source CPU: ref/lander/NOTES.md identifies Lander.arm as the reconstructed Archimedes source, and flight.py explicitly transcribes its routines and 32-bit arithmetic. ARM source and 6502 output are distinct. Target CPU: README explicitly targets a 2 MHz 6502; src/land.s implements the native renderer and sideways-RAM loader. Build: README supplies lander.ssd and cc65/Python/numpy build instructions, with py65 reference comparisons. Its deterministic match is to the port's checked-in disk, not the original Archimedes executable. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: README requires BBC Micro Model B, four writable 16 KB sideways-RAM banks and DFS. No independent hardware validation. AI: The inspected head commit explicitly credits Claude Fable 5.1. This applies to Upton's port, independently of the predecessor's AI policy. Relationships: README and ref/lander/NOTES.md credit Mark Moxon's lander-source-code-acorn-archimedes and lander.bbcelite.com; loader and disk builder derive from ebenupton/beebgame. No blanket licensing claim is made. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/ebenupton/lander/blob/8f2f11833d28254719264e496bd2f74bec02700c/README.md https://github.com/ebenupton/lander/blob/8f2f11833d28254719264e496bd2f74bec02700c/src/land.s https://github.com/ebenupton/lander/blob/8f2f11833d28254719264e496bd2f74bec02700c/ref/lander/NOTES.md https://github.com/ebenupton/lander/blob/8f2f11833d28254719264e496bd2f74bec02700c/ref/lander/flight.py https://github.com/ebenupton/lander/blob/8f2f11833d28254719264e496bd2f74bec02700c/build.sh https://github.com/ebenupton/lander/commit/8f2f11833d28254719264e496bd2f74bec02700c"
+  },
+  {
+    "id": "amiga-mcp-zz9000-debugger",
+    "title": "Amiga MCP Debugger",
+    "upstream_name": "Amiga MCP Debugger",
+    "display_title": "Amiga MCP Debugger: cooperative ZZ9000 ARM debugging",
+    "subjects": [],
+    "repo": "https://github.com/SkiltonUSA/Amiga-MCP-Debugger",
+    "source_platforms": [],
+    "target_platforms": [
+      "Amiga",
+      "macOS"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "m68k",
+      "ARM Cortex-A9"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "debugger",
+      "automation",
+      "development-environment"
+    ],
+    "types": [
+      "debugger extension"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Extends Amiga DevBench with instrumented ZZ9000 ARM debugging, shared-memory computation and integrated fractal demonstrations. Classification: Tooling with cooperative checkpoints, watched memory and logs; does not attach to arbitrary ARM code or provide instruction-level stepping. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: Build scripts explicitly target ARM Cortex-A9 and m68k-amigaos-gcc with 68020/68030 flags. Tested 68060 hardware is not inferred as a universal minimum. Build: Upstream reports physical A4000TX/TF4060/ZZ9000 acceptance, release artifacts and native tests; developer builds require the pinned bridge/SDK and firmware environment. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: Distinct cooperative debugging/compute implementation extends tracked geekychris/amiga_mcp; XANI XACP supplies firmware interfaces, not this debugger protocol. SDL2 fixes live separately. Vendor licences remain separate. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/SkiltonUSA/Amiga-MCP-Debugger/blob/3acafebba8951f60e85a941b4c8cfb60be611002/README.md https://github.com/SkiltonUSA/Amiga-MCP-Debugger/blob/3acafebba8951f60e85a941b4c8cfb60be611002/scripts/build_arm_debug.py https://github.com/SkiltonUSA/Amiga-MCP-Debugger/blob/3acafebba8951f60e85a941b4c8cfb60be611002/scripts/build_zz9000_debug.py https://github.com/SkiltonUSA/Amiga-MCP-Debugger/blob/3acafebba8951f60e85a941b4c8cfb60be611002/docs/amiga-arm-debugging.md https://github.com/SkiltonUSA/Amiga-MCP-Debugger/commit/3acafebba8951f60e85a941b4c8cfb60be611002"
+  },
+  {
+    "id": "dctelnet-amiga-maintained-source",
+    "title": "DCTelnet",
+    "upstream_name": "DCTelnet",
+    "display_title": "DCTelnet: maintained Amiga Telnet and BBS client",
+    "subjects": [
+      "DCTelnet"
+    ],
+    "repo": "https://github.com/bruno-frederic/dctelnet",
+    "source_platforms": [
+      "Amiga"
+    ],
+    "target_platforms": [
+      "Amiga"
+    ],
+    "source_cpu": [
+      "68020"
+    ],
+    "target_cpu": [
+      "68000",
+      "68020"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Upstream classic requirements",
+        "platform": "Amiga",
+        "cpu_family": "m68k",
+        "min_cpu": "68000",
+        "os": "AmigaOS 2.0+",
+        "notes": "Requires compatible TCP/IP stack; Kickstart 2.00/2.02 require supplied compatible library variants. Separate optimized 68020 output exists.",
+        "evidence": [
+          "https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "C"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [
+      "source-restoration",
+      "patching"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source maintenance"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Maintained version of Zed's DCTelnet with BBS terminal support, ZModem and a restored 68000-compatible build. Classification: Source maintenance and portability fixes based on published DCTelnet 1.5/1.6 sources; not a binary-derived reconstruction. Source CPU: README explicitly says the original 1.5/1.6 releases were compiled for 68020+; this source-maintenance lineage is distinguished from the new 68000 output. Target CPU: src/Makefile explicitly builds separate 68000 and 68020 variants using VBCC or GCC. Build: README describes recompiled releases since 1.7 and src/Makefile implements both CPU builds. Current C99 versions cannot be built with historical SAS/C. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The runtime profile records the documented requirement, not an independent hardware test. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: Credits Zed's Aminet sources, Bruno Frederic and spotUP improvements, and third-party ReqTools/XPR/XEM sources. LICENSE states original code remains all rights reserved. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/README.md https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/src/Makefile https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/src/DCTelnet.c https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/LICENSE https://github.com/bruno-frederic/dctelnet/commit/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94"
+  },
+  {
+    "id": "libcmini-atari-runtime",
+    "title": "libcmini",
+    "upstream_name": "libcmini",
+    "display_title": "libcmini: small-footprint Atari C runtime",
+    "subjects": [],
+    "repo": "https://github.com/freemint/libcmini",
+    "source_platforms": [],
+    "target_platforms": [
+      "Atari ST"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "68000",
+      "ColdFire"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "m68k assembly"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "development-environment"
+    ],
+    "types": [
+      "C runtime library"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Small-footprint C runtime and startup code for m68k-atari-mint/mintelf programs. Classification: Development runtime for small GEM programs; not an independent reconstruction of TOS or a duplicate compiler. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: Makefile explicitly supports ONLY_68K and ColdFire multilib; crt0.S handles 680x0/ColdFire startup and sources/puts.c supplies C library implementation. Build: README gives make/install and explicit linkage with crt0.o, libcmini and libgcc, plus release/snapshot links. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: Alternative to mintlib for smaller GEM programs. sources/puts.c retains GNU C Library attribution and LGPL terms; repository LICENSE.txt is LGPL 2.1. Resolves the open libcmini runtime backlog check. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/freemint/libcmini/blob/77eb5e1e0129c5dad932e08e50d893cf792a5347/README.md https://github.com/freemint/libcmini/blob/77eb5e1e0129c5dad932e08e50d893cf792a5347/Makefile https://github.com/freemint/libcmini/blob/77eb5e1e0129c5dad932e08e50d893cf792a5347/sources/crt0.S https://github.com/freemint/libcmini/blob/77eb5e1e0129c5dad932e08e50d893cf792a5347/sources/puts.c https://github.com/freemint/libcmini/blob/77eb5e1e0129c5dad932e08e50d893cf792a5347/LICENSE.txt https://github.com/freemint/libcmini/commit/77eb5e1e0129c5dad932e08e50d893cf792a5347"
+  },
+  {
+    "id": "adpcm-68k-codec-replayer",
+    "title": "IMA ADPCM codec and 68k decoder",
+    "upstream_name": "IMA ADPCM codec and 68k decoder",
+    "display_title": "IMA ADPCM: Amiga/ST decoder and Paula replay library",
+    "subjects": [],
+    "repo": "https://github.com/Kalmalyzer/adpcm-68k",
+    "source_platforms": [],
+    "target_platforms": [
+      "Amiga",
+      "Atari ST",
+      "Windows"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Paula replay screen-mode constraint",
+        "platform": "Amiga",
+        "notes": "PaulaOutput.s requires standard PAL interlaced or noninterlaced modes; NTSC and DBLPAL are unsupported by its playback-position calculation. No application RAM/CPU minimum established.",
+        "evidence": [
+          "https://github.com/Kalmalyzer/adpcm-68k/blob/69361d82f03fed8cf667a46a98344f26fca790d9/AmigaReplay/PaulaOutput.s"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "m68k assembly",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "asset-tool"
+    ],
+    "types": [
+      "audio codec and replay library"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Mikael Kalms' 68000 ADPCM decoder, Amiga Paula replay code and host WAV/ADPCM conversion utility. Classification: Reusable audio development tools and decoder library; no historical game or game-specific emulation host. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: Decoder header explicitly targets 68000 and documents A500/ST timings; no host CPU inferred from the Windows executable. Build: Native assembly decoder/replay source and a Visual Studio codec project/executable are included; upstream reports measured throughput. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: PaulaOutput.s requires PAL interlaced or noninterlaced screen modes and explicitly excludes NTSC/DBLPAL for its playback-position calculation. No complete CPU/RAM minimum for the replay application was established. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: 68k code is credited to Mikael Kalms and MIT licensed; reference codec provenance is Stichting Mathematisch Centrum with its own notices. Keep the coherent codec/replay system together. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/Kalmalyzer/adpcm-68k/blob/69361d82f03fed8cf667a46a98344f26fca790d9/README.md https://github.com/Kalmalyzer/adpcm-68k/blob/69361d82f03fed8cf667a46a98344f26fca790d9/Decode68k/ADPCMDecoder68000.s https://github.com/Kalmalyzer/adpcm-68k/blob/69361d82f03fed8cf667a46a98344f26fca790d9/AmigaReplay/PaulaOutput.s https://github.com/Kalmalyzer/adpcm-68k/blob/69361d82f03fed8cf667a46a98344f26fca790d9/Codec/codec.cpp https://github.com/Kalmalyzer/adpcm-68k/blob/69361d82f03fed8cf667a46a98344f26fca790d9/LICENSE.md https://github.com/Kalmalyzer/adpcm-68k/commit/69361d82f03fed8cf667a46a98344f26fca790d9"
+  },
+  {
+    "id": "sndh-ym-archive-player",
+    "title": "SNDH and YM Archive Player",
+    "upstream_name": "SNDH and YM Archive Player",
+    "display_title": "SNDH/YM Archive Player: Atari music inspection and WAV export",
+    "subjects": [],
+    "repo": "https://github.com/arnaud-carre/sndh-player",
+    "source_platforms": [
+      "Atari ST"
+    ],
+    "target_platforms": [
+      "Windows",
+      "macOS"
+    ],
+    "source_cpu": [
+      "m68k"
+    ],
+    "target_cpu": [
+      "ARM64"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "m68k machine code"
+    ],
+    "reconstructed_languages": [
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "asset-tool"
+    ],
+    "types": [
+      "music inspection and export tool"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Leonard/Oxygene's SNDH/YM archive browser/player with per-voice visualization, seeking and WAV export. Classification: Tool for inspecting and exporting historical Atari music using the separate AtariAudio library; not a game-specific host. Source CPU: README describes execution of Atari SNDH music through Musashi 68k and AtariAudio. YM register-dump data itself is not executable CPU code. Target CPU: README explicitly identifies macOS Arm prebuilt output. Windows architecture is not inferred from the C++ source. Build: README documents prebuilt Windows/macOS players and CMake compilation; WavWriter.cpp implements export. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: AtariAudio is an explicit separate dependency; README describes Musashi 68k and YM/MFP/STE DAC emulation lineage. This record is the archive inspection application, not another record for its core. MIT licence. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/arnaud-carre/sndh-player/blob/8f1b0ca6d28088743725628d19db180f62cb1202/README.md https://github.com/arnaud-carre/sndh-player/blob/8f1b0ca6d28088743725628d19db180f62cb1202/CMakeLists.txt https://github.com/arnaud-carre/sndh-player/blob/8f1b0ca6d28088743725628d19db180f62cb1202/SndhArchivePlayer/WavWriter.cpp https://github.com/arnaud-carre/sndh-player/blob/8f1b0ca6d28088743725628d19db180f62cb1202/SndhArchivePlayer/AsyncSndhStream.cpp https://github.com/arnaud-carre/sndh-player/blob/8f1b0ca6d28088743725628d19db180f62cb1202/LICENSE https://github.com/arnaud-carre/sndh-player/commit/8f1b0ca6d28088743725628d19db180f62cb1202"
+  },
+  {
+    "id": "rvncd-amiga-vnc-server",
+    "title": "rVNCd",
+    "upstream_name": "rVNCd",
+    "display_title": "rVNCd: native Amiga VNC server",
+    "subjects": [
+      "rVNCd"
+    ],
+    "repo": "https://github.com/rolsen74/rvncd",
+    "source_platforms": [],
+    "target_platforms": [
+      "Amiga",
+      "AmigaOS 4"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "m68k",
+      "PowerPC"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native application source"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Native Amiga VNC server with screen, input, clipboard and ARexx integration. Classification: Original native application; AmigaOS 4 support is documented, while AmigaOS 3 remains work in progress. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: makefile selects vbcc/vasmm68k_mot for AOS3 and ppc-amigaos-gcc for AOS4. These targets do not establish a working AOS3 build. Build: Makefile provides AOS3/AOS4, graphics and GUI variants; README describes native AOS4 operation and ongoing AOS3 support. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: One server with platform/backend variants; retain at repository root. GPLv3 repository licence; no predecessor-binary derivation claimed. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/rolsen74/rvncd/blob/6a433c0216357c61abdf6fa95686aab229cdb09a/README.md https://github.com/rolsen74/rvncd/blob/6a433c0216357c61abdf6fa95686aab229cdb09a/makefile https://github.com/rolsen74/rvncd/blob/6a433c0216357c61abdf6fa95686aab229cdb09a/src/rVNCd.c https://github.com/rolsen74/rvncd/blob/6a433c0216357c61abdf6fa95686aab229cdb09a/LICENSE https://github.com/rolsen74/rvncd/commit/6a433c0216357c61abdf6fa95686aab229cdb09a"
+  },
+  {
+    "id": "c64-monster-attack",
+    "title": "Commodore 64 Monster Attack",
+    "upstream_name": "Commodore 64 Monster Attack",
+    "display_title": "Monster Attack: C64 adventure-engine game",
+    "subjects": [
+      "Commodore 64 Monster Attack"
+    ],
+    "repo": "https://github.com/JPEWdev/c64-monster-attack",
+    "source_platforms": [],
+    "target_platforms": [
+      "Commodore 64"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "6502 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native homebrew game"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Joshua Watt's monster-fighting game with weapons, coins, store and an adventure-engine demonstration. Classification: Substantive native homebrew; upstream calls it a playable technology demo rather than a completed adventure. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: README explicitly names the 6502 compiler family and handwritten interrupts; CMake selects llvm-mos-sdk platform c64. Build: CMake/Ninja builds PRG/D64 and VICE debug targets; README offers releases and explicitly says the game is playable, with more progression/enemies planned. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: Original coherent game/engine project; llvm-mos, VICE and PETSCII Editor are dependencies, not predecessor games. MIT licensed. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/JPEWdev/c64-monster-attack/blob/29ef2d84e2a20b4ef8e4af20a2037b3fd6accb1b/README.md https://github.com/JPEWdev/c64-monster-attack/blob/29ef2d84e2a20b4ef8e4af20a2037b3fd6accb1b/CMakeLists.txt https://github.com/JPEWdev/c64-monster-attack/blob/29ef2d84e2a20b4ef8e4af20a2037b3fd6accb1b/src/main.c https://github.com/JPEWdev/c64-monster-attack/blob/29ef2d84e2a20b4ef8e4af20a2037b3fd6accb1b/src/screen.S https://github.com/JPEWdev/c64-monster-attack/blob/29ef2d84e2a20b4ef8e4af20a2037b3fd6accb1b/LICENSE https://github.com/JPEWdev/c64-monster-attack/commit/29ef2d84e2a20b4ef8e4af20a2037b3fd6accb1b"
+  },
+  {
+    "id": "storm-chase-c64-source",
+    "title": "Storm Chase",
+    "upstream_name": "Storm Chase",
+    "display_title": "Storm Chase: C64 source and 64tass conversion",
+    "subjects": [
+      "Storm Chase"
+    ],
+    "repo": "https://github.com/RichardTND/Storm-Chase",
+    "source_platforms": [],
+    "target_platforms": [
+      "Commodore 64"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native homebrew game source"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Richard/TND's 2020 rain-catching game, built originally using native C64 tools and published with assets and source. Classification: Author source release converted from Turbo Assembler to 64tass; no binary-derived disassembly claim. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: stormchase.asm implements 6502 instructions and C64 VIC/SID accesses; buildit.bat invokes 64tass for the native PRG. Build: Committed PRG/assets and a Windows-specific 64tass/Exomizer/VICE batch workflow exist; the script contains local paths and is not independently validated. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: README credits Richard/TND and permits exploration/modification with credit, describing it as freeware; no generic OSI licence is inferred. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/RichardTND/Storm-Chase/blob/620e3e02faaf27050a89519b954135a74b5ba405/README.md https://github.com/RichardTND/Storm-Chase/blob/620e3e02faaf27050a89519b954135a74b5ba405/StormChase/stormchase.asm https://github.com/RichardTND/Storm-Chase/blob/620e3e02faaf27050a89519b954135a74b5ba405/StormChase/buildit.bat https://github.com/RichardTND/Storm-Chase/commit/620e3e02faaf27050a89519b954135a74b5ba405"
+  },
+  {
+    "id": "tigermoth-c64-source",
+    "title": "Tiger Moth",
+    "upstream_name": "Tiger Moth",
+    "display_title": "Tiger Moth: C64 assembly game source",
+    "subjects": [
+      "Tiger Moth"
+    ],
+    "repo": "https://github.com/pmprog/TigerMothC64",
+    "source_platforms": [],
+    "target_platforms": [
+      "Commodore 64"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "6502 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "native homebrew game source"
+    ],
+    "re_started": null,
+    "last_activity": null,
+    "last_checked": "2026-10-15",
+    "status": "Primary source and build workflow reviewed; independent execution unverified",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [],
+    "tags": [
+      "source-reviewed",
+      "no-independent-build"
+    ],
+    "notes": "Identity: Marq Watkin/Polymath's C64 game source snapshot includes title/game loops, levels, player health, bullets, sprites and scoring. Classification: Substantive native game implementation; no README or completion claim is required for inclusion. Source CPU: This is newly authored native software or development tooling, not analysis of a predecessor binary. Source platform/CPU/language are intentionally empty; output architecture is recorded separately. Target CPU: Compile.bat selects TASM -65; tigermoth.asm uses 6502 instructions, VIC address $D000 and a C64 BASIC startup stub. Build: Compile.bat builds a PRG then launches WinVICE using local relative tool paths; no compiled release or successful independent run was established. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The inspected documentation and build/implementation samples do not establish a complete minimum runnable hardware profile. No RAM or minimum CPU is inferred from platform or compiler target. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: Coherent author game source with shared local routines, MIT copyright 2017 Marq Watkin. No predecessor or copied game lineage identified in the inspected source. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/pmprog/TigerMothC64/blob/1acaeb7d5faf069f3406cfd68dbdb6c6a88344df/tigermoth.asm https://github.com/pmprog/TigerMothC64/blob/1acaeb7d5faf069f3406cfd68dbdb6c6a88344df/screen_game.inc https://github.com/pmprog/TigerMothC64/blob/1acaeb7d5faf069f3406cfd68dbdb6c6a88344df/Compile.bat https://github.com/pmprog/TigerMothC64/blob/1acaeb7d5faf069f3406cfd68dbdb6c6a88344df/LICENSE https://github.com/pmprog/TigerMothC64/commit/1acaeb7d5faf069f3406cfd68dbdb6c6a88344df"
   }
 ]

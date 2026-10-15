@@ -952,3 +952,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-11 — Add fourteen verified Amiga, Atari ST-family and C64/C128 projects
 
 [Research record](docs/research/2026-10-11-amiga-st-c64-third-discovery.md).
+
+## 2026-10-15 — Add ten verified Amiga, Atari ST, C64 and BBC Micro projects
+
+[Research record](docs/research/2026-10-15-amiga-st-c64-and-lander.md).

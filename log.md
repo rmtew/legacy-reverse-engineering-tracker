@@ -1064,3 +1064,7 @@ The CPU audit queue was empty. No CPU or minimum hardware was inferred for CD-i 
 Reviewed ten material upstream advances. **c64-re-tools** now spans deterministic byte-identical ACME source generation, a ten-stage reconstruction workflow, runtime provenance and platform-symbol export. **FlashFloppy** adds ffemu, a host-side firmware UI/UX emulator with an explicit no-floppy-data-flow boundary and explicit Claude attribution. **Astronaut Jet Pac** now has an implemented 68020 output target alongside its default 68000 build, without treating that target as a minimum machine.
 
 **Firestaff**, **sdltrs-MultiHDC**, **volamos**, **Copperline**, **Ambermoon.net**, **ASE** and **StarCraft — AmiSC 68K** received bounded updates for source-locked presentation, controller-state safety, Amiga runtime/debug compatibility, capture and drive fidelity, data verification, joystick/library integration and v0.8.2's low-resolution path. The CPU audit queue was empty; no project was independently built or run, and no unstated CPU or RAM minimum was inferred.
+
+## 2026-10-15 — Add ten verified Amiga, Atari ST, C64 and BBC Micro projects
+
+[Research record](docs/research/2026-10-15-amiga-st-c64-and-lander.md).
