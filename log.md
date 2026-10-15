@@ -1068,3 +1068,7 @@ Reviewed ten material upstream advances. **c64-re-tools** now spans deterministi
 ## 2026-10-15 — Add ten verified Amiga, Atari ST, C64 and BBC Micro projects
 
 [Research record](docs/research/2026-10-15-amiga-st-c64-and-lander.md).
+
+## 2026-10-15 — Normalize Lander AI evidence for the activity collector
+
+[Research record](docs/research/2026-10-15-lander-ai-evidence-format.md).
