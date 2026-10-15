@@ -2442,6 +2442,98 @@
     "last_activity": "2026-10-12"
   },
   {
+    "id": "8xk-disasm-ti-calculator-tool",
+    "title": "8xk-Disasm",
+    "upstream_name": "8xk-Disasm",
+    "display_title": "8xk-Disasm — TI-83+/84+ application disassembler",
+    "subjects": [
+      "TI-83 Plus applications",
+      "TI-84 Plus applications"
+    ],
+    "repo": "https://github.com/ti-kid/8xk-Disasm",
+    "source_platforms": [
+      "TI-83 Plus",
+      "TI-84 Plus"
+    ],
+    "target_platforms": [
+      "development host"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "TI 8xk Z80 applications"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly",
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis"
+    ],
+    "tool_kinds": [
+      "disassembler"
+    ],
+    "types": [
+      "application-format disassembler"
+    ],
+    "re_started": 2026,
+    "last_checked": "2026-10-16",
+    "status": "source available",
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Intel HEX parsing",
+      "16 KiB page extraction",
+      "Z80 disassembly",
+      "TI bcall opcode annotation"
+    ],
+    "tags": [
+      "TI-83 Plus",
+      "TI-84 Plus",
+      "Z80",
+      "8xk",
+      "disassembler"
+    ],
+    "notes": "Python tool that parses TI 8xk application containers, extracts 16 KiB pages, locates the first code sequence and invokes z80dismblr with TI bcall annotation to emit assembly. The repository also bundles an x86 Linux disassembler binary; no minimum host CPU or OS version is claimed.",
+    "github": {
+      "repository": "ti-kid/8xk-Disasm",
+      "created_at": "2026-02-15",
+      "pushed_at": "2026-02-15",
+      "updated_at": "2026-02-15",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "recent",
+      "languages": [
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "25a7037f4b862afe43cf745a16a1a94b5b956d51",
+        "date": "2026-02-15",
+        "message": "Added code",
+        "url": "https://github.com/ti-kid/8xk-Disasm/commit/25a7037f4b862afe43cf745a16a1a94b5b956d51"
+      }
+    },
+    "last_activity": "2026-02-15"
+  },
+  {
     "id": "9918-adventures-assembly-starter",
     "title": "9918 Adventures",
     "upstream_name": "9918 Adventures",
@@ -56036,6 +56128,103 @@
     "last_activity": "2026-05-10"
   },
   {
+    "id": "donkey-kong-jr-colecovision-disassembly",
+    "title": "Donkey Kong Jr.",
+    "upstream_name": "Donkey Kong Jr.",
+    "display_title": "Donkey Kong Jr. — ColecoVision disassembly",
+    "subjects": [
+      "Donkey Kong Jr."
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Donkey%20Kong%20Jr",
+    "github_path": "games/Donkey Kong Jr",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude Code"
+      ],
+      "evidence": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Donkey Kong Jr.",
+      "Claude Code"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The title README explicitly credits Kamshaft and Claude Code. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Donkey Kong Jr",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "1e6cd70e8170c8c7499eaa186e7080b4b17698e5",
+        "date": "2026-05-10",
+        "message": "Add files via upload",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/1e6cd70e8170c8c7499eaa186e7080b4b17698e5"
+      }
+    },
+    "last_activity": "2026-05-10"
+  },
+  {
     "id": "jotd-donkey-kong-amiga",
     "title": "Donkey Kong — Amiga arcade transcode",
     "upstream_name": "Donkey Kong",
@@ -70660,6 +70849,99 @@
     ]
   },
   {
+    "id": "frenzy-colecovision-disassembly",
+    "title": "Frenzy",
+    "upstream_name": "Frenzy",
+    "display_title": "Frenzy — ColecoVision disassembly",
+    "subjects": [
+      "Frenzy"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Frenzy",
+    "github_path": "games/Frenzy",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Frenzy"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and assembly header credit Captain Cozmos. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Frenzy",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "45eb117430cf57e4778ed075aa22991f403e46b1",
+        "date": "2026-04-06",
+        "message": "Add remainder of Captain Cosmos dissassemblies",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/45eb117430cf57e4778ed075aa22991f403e46b1"
+      }
+    },
+    "last_activity": "2026-04-06"
+  },
+  {
     "id": "frogalot-amstrad-cpc-cngsoft",
     "title": "Frogalot — Amstrad CPC native game source",
     "upstream_name": "Frogalot",
@@ -73676,6 +73958,102 @@
         "url": "https://github.com/garglk/garglk/commit/9e06211c20bee35026744424a57f50375cdc29db"
       }
     }
+  },
+  {
+    "id": "gateway-to-apshai-colecovision-disassembly",
+    "title": "Gateway to Apshai",
+    "upstream_name": "Gateway to Apshai",
+    "display_title": "Gateway to Apshai — ColecoVision disassembly",
+    "subjects": [
+      "Gateway to Apshai"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Gateway%20To%20Apshai",
+    "github_path": "games/Gateway To Apshai",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude Code"
+      ]
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Gateway to Apshai",
+      "Claude Code"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The title README explicitly credits Kamshaft and Claude Code. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Gateway To Apshai",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "fb87f2ae5584cb87f9e286a3bc42becf53829deb",
+        "date": "2026-04-16",
+        "message": "Create README.md",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/fb87f2ae5584cb87f9e286a3bc42becf53829deb"
+      }
+    },
+    "last_activity": "2026-04-16"
   },
   {
     "id": "gateway-to-apshai-x-libgdx",
@@ -81001,6 +81379,105 @@
         ]
       }
     ]
+  },
+  {
+    "id": "hero-colecovision-disassembly",
+    "title": "H.E.R.O.",
+    "upstream_name": "H.E.R.O.",
+    "display_title": "H.E.R.O. — ColecoVision byte-exact disassembly",
+    "subjects": [
+      "H.E.R.O."
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/H.E.R.O",
+    "github_path": "games/H.E.R.O",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "byte-exact game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "byte-exact compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude Code",
+        "Claude Sonnet 4.6"
+      ]
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction",
+      "byte comparison"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "H.E.R.O.",
+      "Claude Code",
+      "Claude Sonnet 4.6"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Kamshaft and Claude Code; the source header separately credits Claude Sonnet 4.6 annotation and reports an exact match to hero.rom. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/H.E.R.O",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "4fb479284e33e7c0eeb6d9aa83258106f8844a2f",
+        "date": "2026-04-16",
+        "message": "Create README.md",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/4fb479284e33e7c0eeb6d9aa83258106f8844a2f"
+      }
+    },
+    "last_activity": "2026-04-16"
   },
   {
     "id": "habitat-cpc6128-colony-game",
@@ -113479,6 +113956,99 @@
     }
   },
   {
+    "id": "mouse-trap-colecovision-disassembly",
+    "title": "Mouse Trap",
+    "upstream_name": "Mouse Trap",
+    "display_title": "Mouse Trap — ColecoVision disassembly",
+    "subjects": [
+      "Mouse Trap"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Mouse-Trap",
+    "github_path": "games/Mouse-Trap",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Mouse Trap"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Captain Cozmos and calls the listing a compilable disassembly. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Mouse-Trap",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "45eb117430cf57e4778ed075aa22991f403e46b1",
+        "date": "2026-04-06",
+        "message": "Add remainder of Captain Cosmos dissassemblies",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/45eb117430cf57e4778ed075aa22991f403e46b1"
+      }
+    },
+    "last_activity": "2026-04-06"
+  },
+  {
     "id": "github-teruk-movbizz",
     "title": "MovBizz — Movie Business server-backed web remake",
     "upstream_name": "MovBizz",
@@ -113873,6 +114443,99 @@
         "url": "https://github.com/plasticbugs/mrdoarcade/commit/5a630b47022a3cf305ab124b279c0f0ef0d72050"
       }
     }
+  },
+  {
+    "id": "mr-do-colecovision-disassembly",
+    "title": "Mr. Do!",
+    "upstream_name": "Mr. Do!",
+    "display_title": "Mr. Do! — ColecoVision disassembly",
+    "subjects": [
+      "Mr. Do!"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Mr-Do",
+    "github_path": "games/Mr-Do",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Mr. Do!"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Captain Cozmos and calls the listing a compilable disassembly. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Mr-Do",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "45eb117430cf57e4778ed075aa22991f403e46b1",
+        "date": "2026-04-06",
+        "message": "Add remainder of Captain Cosmos dissassemblies",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/45eb117430cf57e4778ed075aa22991f403e46b1"
+      }
+    },
+    "last_activity": "2026-04-06"
   },
   {
     "id": "mr-do-amiga-jotd",
@@ -115233,6 +115896,216 @@
         "url": "https://github.com/vs-sr-dev/cd32-myth-doc/commit/3fc1503b6d8f2a1e13ecc334bed73d7bd024a5c5"
       }
     }
+  },
+  {
+    "id": "mz800emu-sharp-mz-emulator-debugger",
+    "title": "mz800emu",
+    "upstream_name": "mz800emu",
+    "display_title": "mz800emu — Sharp MZ-800/700/1500 emulator and debugger",
+    "subjects": [
+      "Sharp MZ-800",
+      "Sharp MZ-700",
+      "Sharp MZ-1500"
+    ],
+    "repo": "https://github.com/michalhucik/mz800emu",
+    "source_platforms": [
+      "Sharp MZ-800",
+      "Sharp MZ-700",
+      "Sharp MZ-1500"
+    ],
+    "target_platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "Sharp MZ Z80A software"
+    ],
+    "reconstructed_languages": [
+      "C",
+      "C++",
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis"
+    ],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "development-environment",
+      "profiler"
+    ],
+    "types": [
+      "cycle-accurate emulator",
+      "source debugger",
+      "MCP-enabled analysis environment"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "active",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "cycle-accurate Z80A emulation",
+      "breakpoints and watchpoints",
+      "execution profiling",
+      "memory heatmaps",
+      "MCP debugger automation"
+    ],
+    "tags": [
+      "Sharp MZ-800",
+      "Sharp MZ-700",
+      "Sharp MZ-1500",
+      "Z80",
+      "SDL3",
+      "MCP"
+    ],
+    "notes": "Open-source Sharp MZ emulator with cycle-accurate Z80A execution, chip/peripheral emulation, a built-in debugger and an MCP bridge exposing screenshots, coverage, profiling and analysis controls. Primary docs provide Linux, Windows and macOS build paths; no minimum host CPU or RAM is stated. Claude client configuration documents a supported integration, not evidence that AI authored the project.",
+    "github": {
+      "repository": "michalhucik/mz800emu",
+      "created_at": "2026-05-22",
+      "pushed_at": "2026-10-15",
+      "updated_at": "2026-10-15",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "latest_release": {
+        "tag": "v2.0.6",
+        "name": "mz800emu v2.0.6 (2026-10-14)",
+        "published_at": "2026-10-14",
+        "url": "https://github.com/michalhucik/mz800emu/releases/tag/v2.0.6"
+      },
+      "languages": [
+        "C",
+        "C++",
+        "Python",
+        "CMake",
+        "Shell",
+        "Makefile",
+        "Perl"
+      ],
+      "latest_commit": {
+        "sha": "1c1866d8efc6e9d30e979e388b1bd9ec18d6042e",
+        "date": "2026-10-15",
+        "message": "Faster resume from pause, idle headless main thread, video timebase fix",
+        "url": "https://github.com/michalhucik/mz800emu/commit/1c1866d8efc6e9d30e979e388b1bd9ec18d6042e"
+      }
+    },
+    "last_activity": "2026-10-15"
+  },
+  {
+    "id": "mzf2wav-sharp-mz-tape-tool",
+    "title": "MZF2WAV",
+    "upstream_name": "MZF2WAV",
+    "display_title": "MZF2WAV — Sharp MZ image-to-cassette audio converter",
+    "subjects": [
+      "Sharp MZ MZF tape images"
+    ],
+    "repo": "https://github.com/jfjlaros/mzf2wav",
+    "source_platforms": [
+      "Sharp MZ series"
+    ],
+    "target_platforms": [
+      "development host"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "MZF tape images"
+    ],
+    "reconstructed_languages": [
+      "C"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "asset-tool"
+    ],
+    "types": [
+      "tape-image converter",
+      "preservation transfer tool"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "maintained",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "MZF parsing",
+      "cassette waveform synthesis",
+      "turbo-loader generation",
+      "pulse timing customization"
+    ],
+    "tags": [
+      "Sharp MZ",
+      "MZF",
+      "cassette",
+      "WAV",
+      "preservation"
+    ],
+    "notes": "Host utility that converts Sharp MZ MZF images to cassette-compatible WAV audio. Primary documentation covers conventional, fast and turbo modes, custom pulse timing and Linux/Windows source builds. It is original transfer/development tooling, not a reverse-engineered game; source and target CPU do not sensibly apply.",
+    "github": {
+      "repository": "jfjlaros/mzf2wav",
+      "created_at": "2018-03-01",
+      "pushed_at": "2026-05-23",
+      "updated_at": "2026-05-23",
+      "checked_at": "2026-10-15",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "recent",
+      "latest_release": {
+        "tag": "v2.0.1",
+        "name": "mzf2wav version 2.0.1.",
+        "published_at": "2026-01-11",
+        "url": "https://github.com/jfjlaros/mzf2wav/releases/tag/v2.0.1"
+      },
+      "languages": [
+        "C",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "3351a392e002c17a1b3fdbd90a0b10e1c88864a4",
+        "date": "2026-05-23",
+        "message": "Added contributor.",
+        "url": "https://github.com/jfjlaros/mzf2wav/commit/3351a392e002c17a1b3fdbd90a0b10e1c88864a4"
+      }
+    },
+    "last_activity": "2026-05-23"
   },
   {
     "id": "mzm2met-embedded-nes-extractor",
@@ -118433,6 +119306,105 @@
         "url": "https://github.com/xet7/notegame/commit/8b7eb4e57ad4554b49b26a0125a1424df25a2d75"
       }
     }
+  },
+  {
+    "id": "nova-blast-colecovision-disassembly",
+    "title": "Nova Blast",
+    "upstream_name": "Nova Blast",
+    "display_title": "Nova Blast — ColecoVision byte-exact disassembly",
+    "subjects": [
+      "Nova Blast"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Nova%20Blast",
+    "github_path": "games/Nova Blast",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "byte-exact game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "byte-exact compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude Code",
+        "Claude Sonnet 4.6"
+      ]
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction",
+      "byte comparison"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Nova Blast",
+      "Claude Code",
+      "Claude Sonnet 4.6"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Kamshaft and Claude Code; the source header separately credits Claude Sonnet 4.6 annotation and reports an exact match to nova-blast-1983.rom. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Nova Blast",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "4292641d846892ab63eccfaaf2a8c00d1d2aa0df",
+        "date": "2026-04-16",
+        "message": "Create README.md",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/4292641d846892ab63eccfaaf2a8c00d1d2aa0df"
+      }
+    },
+    "last_activity": "2026-04-16"
   },
   {
     "id": "novamesa-amiga",
@@ -134798,6 +135770,99 @@
     ]
   },
   {
+    "id": "qberts-qubes-colecovision-disassembly",
+    "title": "Q*bert's Qubes",
+    "upstream_name": "Q*bert's Cubes",
+    "display_title": "Q*bert's Qubes — ColecoVision disassembly",
+    "subjects": [
+      "Q*bert's Qubes"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/QBert-Cubes",
+    "github_path": "games/QBert-Cubes",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Q*bert's Qubes"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and assembly header credit Captain Cozmos; the source header says a couple of data references remain unlinked. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/QBert-Cubes",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "f57577f8937e91661b43fa2aedcee1f34f82f931",
+        "date": "2026-04-06",
+        "message": "Add games to front readme, fix typos",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/f57577f8937e91661b43fa2aedcee1f34f82f931"
+      }
+    },
+    "last_activity": "2026-04-06"
+  },
+  {
     "id": "quake-ii-q2tools-220",
     "title": "q2tools-220 — Quake II Valve-220 map compiler tools",
     "upstream_name": "q2tools-220",
@@ -142096,6 +143161,100 @@
       "source-reconstruction"
     ],
     "tool_kinds": []
+  },
+  {
+    "id": "river-raid-wiz-atari2600-reconstruction",
+    "title": "River Raid Wiz",
+    "upstream_name": "river-raid-wiz",
+    "display_title": "River Raid Wiz — byte-checked Atari 2600 Wiz reconstruction",
+    "subjects": [
+      "River Raid"
+    ],
+    "repo": "https://github.com/lhsazevedo/river-raid-wiz",
+    "source_platforms": [
+      "Atari 2600"
+    ],
+    "target_platforms": [
+      "Atari 2600"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "6502 machine code",
+      "6502 assembly"
+    ],
+    "reconstructed_languages": [
+      "Wiz"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "source-reconstruction",
+      "reverse-engineering-derived-port"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "source-faithful language port",
+      "ROM reconstruction"
+    ],
+    "re_started": 2021,
+    "last_checked": "2026-10-16",
+    "status": "byte-checked source reconstruction",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": true
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "6502 disassembly translation",
+      "Wiz reconstruction",
+      "SHA-1 output comparison",
+      "instruction diffing"
+    ],
+    "tags": [
+      "Atari 2600",
+      "6502",
+      "River Raid",
+      "Wiz"
+    ],
+    "notes": "Wiz-language reconstruction of Thomas Jentzsch's analyzed River Raid Atari 2600 disassembly. The original listing explicitly selects processor 6502; the Wiz build emits a 4 KiB .a26 image and checks it against the documented REV0 SHA-1, while compare.sh offers instruction-level comparison. This pass did not run the compiler, comparison, emulator or game.",
+    "github": {
+      "repository": "lhsazevedo/river-raid-wiz",
+      "created_at": "2021-04-09",
+      "pushed_at": "2021-04-19",
+      "updated_at": "2021-04-19",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "2fbd46cd85f2099e9bfac38ef404647d7201e53b",
+        "date": "2021-04-19",
+        "message": "Update wiz source",
+        "url": "https://github.com/lhsazevedo/river-raid-wiz/commit/2fbd46cd85f2099e9bfac38ef404647d7201e53b"
+      }
+    },
+    "last_activity": "2021-04-19"
   },
   {
     "id": "rnc-propack-decompiled-lab313ru",
@@ -153684,6 +154843,109 @@
     }
   },
   {
+    "id": "slither-colecovision-disassembly",
+    "title": "Slither",
+    "upstream_name": "Slither",
+    "display_title": "Slither — ColecoVision disassembly",
+    "subjects": [
+      "Slither"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Slither",
+    "github_path": "games/Slither",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "ColecoVision cartridge ROM",
+        "platform": "ColecoVision",
+        "cpu_family": "Z80",
+        "notes": "The title README states that the Coleco Roller Controller is required; no RAM or console-revision minimum is stated.",
+        "evidence": [
+          "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Slither/README.md"
+        ]
+      }
+    ],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Slither"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and source header credit Captain Cozmos; the README states that the game requires the Coleco Roller Controller. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Slither",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "45eb117430cf57e4778ed075aa22991f403e46b1",
+        "date": "2026-04-06",
+        "message": "Add remainder of Captain Cosmos dissassemblies",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/45eb117430cf57e4778ed075aa22991f403e46b1"
+      }
+    },
+    "last_activity": "2026-04-06"
+  },
+  {
     "id": "slopay-spectrum-cpc-ay-player-dpt",
     "title": "SlopAY & MIDIAY",
     "subjects": [],
@@ -154929,6 +156191,99 @@
         "url": "https://github.com/Bedazzle/Smugglers_cove/commit/a5a00384d0921326aa9ea50ef49faadeada75be4"
       }
     }
+  },
+  {
+    "id": "smurf-rescue-colecovision-disassembly",
+    "title": "Smurf: Rescue in Gargamel's Castle",
+    "upstream_name": "Smurf Rescue in Gargamel's Castle",
+    "display_title": "Smurf: Rescue in Gargamel's Castle — ColecoVision disassembly",
+    "subjects": [
+      "Smurf: Rescue in Gargamel's Castle"
+    ],
+    "repo": "https://github.com/tony-cruise/colecovision-games-source",
+    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Smurf-Rescue-In-Gargamels-Castle",
+    "github_path": "games/Smurf-Rescue-In-Gargamels-Castle",
+    "github_branch": null,
+    "source_platforms": [
+      "ColecoVision"
+    ],
+    "target_platforms": [
+      "ColecoVision"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "execution_paths": null,
+    "source_language": [
+      "Z80 machine code"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "compilable game disassembly"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-16",
+    "status": "compilable disassembly",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "Z80 disassembly",
+      "control-flow annotation",
+      "ROM reconstruction"
+    ],
+    "tags": [
+      "ColecoVision",
+      "Z80",
+      "Smurf: Rescue in Gargamel's Castle"
+    ],
+    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and assembly header credit Captain Cozmos. This pass did not rerun the assembler or execute the ROM.",
+    "github": {
+      "repository": "tony-cruise/colecovision-games-source",
+      "created_at": "2024-11-14",
+      "pushed_at": "2026-05-10",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-15",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": "games/Smurf-Rescue-In-Gargamels-Castle",
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "recent",
+      "languages": [
+        "Assembly"
+      ],
+      "latest_commit": {
+        "sha": "45eb117430cf57e4778ed075aa22991f403e46b1",
+        "date": "2026-04-06",
+        "message": "Add remainder of Captain Cosmos dissassemblies",
+        "url": "https://github.com/tony-cruise/colecovision-games-source/commit/45eb117430cf57e4778ed075aa22991f403e46b1"
+      }
+    },
+    "last_activity": "2026-04-06"
   },
   {
     "id": "sn76489-testrom-sega-psg-diagnostics",
@@ -190248,1017 +191603,5 @@
       }
     },
     "last_activity": "2024-05-05"
-  },
-  {
-    "id": "donkey-kong-jr-colecovision-disassembly",
-    "title": "Donkey Kong Jr.",
-    "upstream_name": "Donkey Kong Jr.",
-    "display_title": "Donkey Kong Jr. — ColecoVision disassembly",
-    "subjects": [
-      "Donkey Kong Jr."
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Donkey%20Kong%20Jr",
-    "github_path": "games/Donkey Kong Jr",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude Code"
-      ]
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Donkey Kong Jr.",
-      "Claude Code"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The title README explicitly credits Kamshaft and Claude Code. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "frenzy-colecovision-disassembly",
-    "title": "Frenzy",
-    "upstream_name": "Frenzy",
-    "display_title": "Frenzy — ColecoVision disassembly",
-    "subjects": [
-      "Frenzy"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Frenzy",
-    "github_path": "games/Frenzy",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Frenzy"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and assembly header credit Captain Cozmos. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "gateway-to-apshai-colecovision-disassembly",
-    "title": "Gateway to Apshai",
-    "upstream_name": "Gateway to Apshai",
-    "display_title": "Gateway to Apshai — ColecoVision disassembly",
-    "subjects": [
-      "Gateway to Apshai"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Gateway%20To%20Apshai",
-    "github_path": "games/Gateway To Apshai",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude Code"
-      ]
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Gateway to Apshai",
-      "Claude Code"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The title README explicitly credits Kamshaft and Claude Code. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "hero-colecovision-disassembly",
-    "title": "H.E.R.O.",
-    "upstream_name": "H.E.R.O.",
-    "display_title": "H.E.R.O. — ColecoVision byte-exact disassembly",
-    "subjects": [
-      "H.E.R.O."
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/H.E.R.O",
-    "github_path": "games/H.E.R.O",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "byte-exact game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "byte-exact compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude Code",
-        "Claude Sonnet 4.6"
-      ]
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction",
-      "byte comparison"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "H.E.R.O.",
-      "Claude Code",
-      "Claude Sonnet 4.6"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Kamshaft and Claude Code; the source header separately credits Claude Sonnet 4.6 annotation and reports an exact match to hero.rom. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "mouse-trap-colecovision-disassembly",
-    "title": "Mouse Trap",
-    "upstream_name": "Mouse Trap",
-    "display_title": "Mouse Trap — ColecoVision disassembly",
-    "subjects": [
-      "Mouse Trap"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Mouse-Trap",
-    "github_path": "games/Mouse-Trap",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Mouse Trap"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Captain Cozmos and calls the listing a compilable disassembly. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "mr-do-colecovision-disassembly",
-    "title": "Mr. Do!",
-    "upstream_name": "Mr. Do!",
-    "display_title": "Mr. Do! — ColecoVision disassembly",
-    "subjects": [
-      "Mr. Do!"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Mr-Do",
-    "github_path": "games/Mr-Do",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Mr. Do!"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Captain Cozmos and calls the listing a compilable disassembly. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "nova-blast-colecovision-disassembly",
-    "title": "Nova Blast",
-    "upstream_name": "Nova Blast",
-    "display_title": "Nova Blast — ColecoVision byte-exact disassembly",
-    "subjects": [
-      "Nova Blast"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Nova%20Blast",
-    "github_path": "games/Nova Blast",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "byte-exact game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "byte-exact compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": true,
-      "tools": [
-        "Claude Code",
-        "Claude Sonnet 4.6"
-      ]
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction",
-      "byte comparison"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Nova Blast",
-      "Claude Code",
-      "Claude Sonnet 4.6"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README credits Kamshaft and Claude Code; the source header separately credits Claude Sonnet 4.6 annotation and reports an exact match to nova-blast-1983.rom. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "qberts-qubes-colecovision-disassembly",
-    "title": "Q*bert's Qubes",
-    "upstream_name": "Q*bert's Cubes",
-    "display_title": "Q*bert's Qubes — ColecoVision disassembly",
-    "subjects": [
-      "Q*bert's Qubes"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/QBert-Cubes",
-    "github_path": "games/QBert-Cubes",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Q*bert's Qubes"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and assembly header credit Captain Cozmos; the source header says a couple of data references remain unlinked. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "slither-colecovision-disassembly",
-    "title": "Slither",
-    "upstream_name": "Slither",
-    "display_title": "Slither — ColecoVision disassembly",
-    "subjects": [
-      "Slither"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Slither",
-    "github_path": "games/Slither",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [
-      {
-        "name": "ColecoVision cartridge ROM",
-        "platform": "ColecoVision",
-        "cpu_family": "Z80",
-        "notes": "The title README states that the Coleco Roller Controller is required; no RAM or console-revision minimum is stated.",
-        "evidence": [
-          "https://github.com/tony-cruise/colecovision-games-source/blob/main/games/Slither/README.md"
-        ]
-      }
-    ],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Slither"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and source header credit Captain Cozmos; the README states that the game requires the Coleco Roller Controller. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "smurf-rescue-colecovision-disassembly",
-    "title": "Smurf: Rescue in Gargamel's Castle",
-    "upstream_name": "Smurf Rescue in Gargamel's Castle",
-    "display_title": "Smurf: Rescue in Gargamel's Castle — ColecoVision disassembly",
-    "subjects": [
-      "Smurf: Rescue in Gargamel's Castle"
-    ],
-    "repo": "https://github.com/tony-cruise/colecovision-games-source",
-    "project_url": "https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Smurf-Rescue-In-Gargamels-Castle",
-    "github_path": "games/Smurf-Rescue-In-Gargamels-Castle",
-    "github_branch": null,
-    "source_platforms": [
-      "ColecoVision"
-    ],
-    "target_platforms": [
-      "ColecoVision"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "execution_paths": null,
-    "source_language": [
-      "Z80 machine code"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "compilable game disassembly"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-10",
-    "last_checked": "2026-10-16",
-    "status": "compilable disassembly",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Z80 disassembly",
-      "control-flow annotation",
-      "ROM reconstruction"
-    ],
-    "tags": [
-      "ColecoVision",
-      "Z80",
-      "Smurf: Rescue in Gargamel's Castle"
-    ],
-    "notes": "Directory-scoped ColecoVision reconstruction, kept separate from the repository's other games. The title README calls it a compilable disassembly and the assembly source explicitly declares CPU Z80 and a ROM output. The README and assembly header credit Captain Cozmos. This pass did not rerun the assembler or execute the ROM."
-  },
-  {
-    "id": "river-raid-wiz-atari2600-reconstruction",
-    "title": "River Raid Wiz",
-    "upstream_name": "river-raid-wiz",
-    "display_title": "River Raid Wiz — byte-checked Atari 2600 Wiz reconstruction",
-    "subjects": [
-      "River Raid"
-    ],
-    "repo": "https://github.com/lhsazevedo/river-raid-wiz",
-    "source_platforms": [
-      "Atari 2600"
-    ],
-    "target_platforms": [
-      "Atari 2600"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "6502 machine code",
-      "6502 assembly"
-    ],
-    "reconstructed_languages": [
-      "Wiz"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "game"
-    ],
-    "work_kinds": [
-      "source-reconstruction",
-      "reverse-engineering-derived-port"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "source-faithful language port",
-      "ROM reconstruction"
-    ],
-    "re_started": 2021,
-    "last_activity": "2021-04-19",
-    "last_checked": "2026-10-16",
-    "status": "byte-checked source reconstruction",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": true
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "6502 disassembly translation",
-      "Wiz reconstruction",
-      "SHA-1 output comparison",
-      "instruction diffing"
-    ],
-    "tags": [
-      "Atari 2600",
-      "6502",
-      "River Raid",
-      "Wiz"
-    ],
-    "notes": "Wiz-language reconstruction of Thomas Jentzsch's analyzed River Raid Atari 2600 disassembly. The original listing explicitly selects processor 6502; the Wiz build emits a 4 KiB .a26 image and checks it against the documented REV0 SHA-1, while compare.sh offers instruction-level comparison. This pass did not run the compiler, comparison, emulator or game."
-  },
-  {
-    "id": "mz800emu-sharp-mz-emulator-debugger",
-    "title": "mz800emu",
-    "upstream_name": "mz800emu",
-    "display_title": "mz800emu — Sharp MZ-800/700/1500 emulator and debugger",
-    "subjects": [
-      "Sharp MZ-800",
-      "Sharp MZ-700",
-      "Sharp MZ-1500"
-    ],
-    "repo": "https://github.com/michalhucik/mz800emu",
-    "source_platforms": [
-      "Sharp MZ-800",
-      "Sharp MZ-700",
-      "Sharp MZ-1500"
-    ],
-    "target_platforms": [
-      "Linux",
-      "Windows"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "Sharp MZ Z80A software"
-    ],
-    "reconstructed_languages": [
-      "C",
-      "C++",
-      "Python"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis"
-    ],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "development-environment",
-      "profiler"
-    ],
-    "types": [
-      "cycle-accurate emulator",
-      "source debugger",
-      "MCP-enabled analysis environment"
-    ],
-    "re_started": null,
-    "last_activity": "2026-10-15",
-    "last_checked": "2026-10-16",
-    "status": "active",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "cycle-accurate Z80A emulation",
-      "breakpoints and watchpoints",
-      "execution profiling",
-      "memory heatmaps",
-      "MCP debugger automation"
-    ],
-    "tags": [
-      "Sharp MZ-800",
-      "Sharp MZ-700",
-      "Sharp MZ-1500",
-      "Z80",
-      "SDL3",
-      "MCP"
-    ],
-    "notes": "Open-source Sharp MZ emulator with cycle-accurate Z80A execution, chip/peripheral emulation, a built-in debugger and an MCP bridge exposing screenshots, coverage, profiling and analysis controls. Primary docs provide Linux, Windows and macOS build paths; no minimum host CPU or RAM is stated. Claude client configuration documents a supported integration, not evidence that AI authored the project."
-  },
-  {
-    "id": "8xk-disasm-ti-calculator-tool",
-    "title": "8xk-Disasm",
-    "upstream_name": "8xk-Disasm",
-    "display_title": "8xk-Disasm — TI-83+/84+ application disassembler",
-    "subjects": [
-      "TI-83 Plus applications",
-      "TI-84 Plus applications"
-    ],
-    "repo": "https://github.com/ti-kid/8xk-Disasm",
-    "source_platforms": [
-      "TI-83 Plus",
-      "TI-84 Plus"
-    ],
-    "target_platforms": [
-      "development host"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "TI 8xk Z80 applications"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly",
-      "Python"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis"
-    ],
-    "tool_kinds": [
-      "disassembler"
-    ],
-    "types": [
-      "application-format disassembler"
-    ],
-    "re_started": 2026,
-    "last_activity": "2026-02-15",
-    "last_checked": "2026-10-16",
-    "status": "source available",
-    "build": {
-      "compilable": null,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "Intel HEX parsing",
-      "16 KiB page extraction",
-      "Z80 disassembly",
-      "TI bcall opcode annotation"
-    ],
-    "tags": [
-      "TI-83 Plus",
-      "TI-84 Plus",
-      "Z80",
-      "8xk",
-      "disassembler"
-    ],
-    "notes": "Python tool that parses TI 8xk application containers, extracts 16 KiB pages, locates the first code sequence and invokes z80dismblr with TI bcall annotation to emit assembly. The repository also bundles an x86 Linux disassembler binary; no minimum host CPU or OS version is claimed."
-  },
-  {
-    "id": "mzf2wav-sharp-mz-tape-tool",
-    "title": "MZF2WAV",
-    "upstream_name": "MZF2WAV",
-    "display_title": "MZF2WAV — Sharp MZ image-to-cassette audio converter",
-    "subjects": [
-      "Sharp MZ MZF tape images"
-    ],
-    "repo": "https://github.com/jfjlaros/mzf2wav",
-    "source_platforms": [
-      "Sharp MZ series"
-    ],
-    "target_platforms": [
-      "development host"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "MZF tape images"
-    ],
-    "reconstructed_languages": [
-      "C"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "data-format-analysis"
-    ],
-    "tool_kinds": [
-      "asset-tool"
-    ],
-    "types": [
-      "tape-image converter",
-      "preservation transfer tool"
-    ],
-    "re_started": null,
-    "last_activity": "2026-05-23",
-    "last_checked": "2026-10-16",
-    "status": "maintained",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "MZF parsing",
-      "cassette waveform synthesis",
-      "turbo-loader generation",
-      "pulse timing customization"
-    ],
-    "tags": [
-      "Sharp MZ",
-      "MZF",
-      "cassette",
-      "WAV",
-      "preservation"
-    ],
-    "notes": "Host utility that converts Sharp MZ MZF images to cassette-compatible WAV audio. Primary documentation covers conventional, fast and turbo modes, custom pulse timing and Linux/Windows source builds. It is original transfer/development tooling, not a reverse-engineered game; source and target CPU do not sensibly apply."
   }
 ]
