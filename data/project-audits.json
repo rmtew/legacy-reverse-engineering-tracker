@@ -16573,7 +16573,7 @@
     },
     {
       "project_id": "winuae-amiga-emulator",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-16",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -16583,12 +16583,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Seeded from record_class and structured kind fields. The optional local GDB server, range stepping and physical memory-map export strengthen WinUAE's debugger/tooling role.",
+          "checked_at": "2026-10-16",
+          "note": "The new GDB and display/RTG corrections reinforce WinUAE’s adjacent emulator/debugger role without changing project identity or reconstruction classification.",
           "evidence_urls": [
-            "https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1",
-            "https://github.com/tonioni/WinUAE/commit/d7dc9b0ef7e19b016f36a18ad494d1f48e40aeda",
-            "https://github.com/tonioni/WinUAE/commit/5afd2b2111e4340bad2c017c7082586b46c35b4d"
+            "https://github.com/tonioni/WinUAE/commit/342d5030ef7f4ea6a5be82647576072a25050d43",
+            "https://github.com/tonioni/WinUAE/commit/2ab1c5acdfc3f94d287a943a71a57e698772fcd6"
           ]
         },
         "source_cpu": {
@@ -16601,10 +16600,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Current main integrates the GDB server into Windows and Unix builds with a protocol unit test; no local build or GDB session was performed.",
+          "checked_at": "2026-10-16",
+          "note": "Primary source commits and their checked-in changes cover watch-range validation, debugger reset preservation and display/RTG fixes. No local build, GDB session or graphics regression run was performed.",
           "evidence_urls": [
-            "https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1"
+            "https://github.com/tonioni/WinUAE/commit/342d5030ef7f4ea6a5be82647576072a25050d43",
+            "https://github.com/tonioni/WinUAE/commit/dacbc08d5620b4b8660cb8d6d6c4f5d5ba06ec4f",
+            "https://github.com/tonioni/WinUAE/commit/2ab1c5acdfc3f94d287a943a71a57e698772fcd6"
           ]
         },
         "runtime_profiles": {
@@ -28791,7 +28792,7 @@
     },
     {
       "project_id": "c64re-mcp-workbench",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28817,26 +28818,32 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "Primary commits add VIC-20/TED BASIC and cartridge semantics and correct outside-image and relocated-block label emission. Tests are checked in; no local build or execution was performed.",
+          "checked_at": "2026-10-16",
+          "note": "Source/package 0.9.1 pins TRX64 0.13.1. Upstream reports 126/126 gates for preserving hand-written NEXT.md and giving human zero-page labels precedence while retaining byte-identical rebuilds; no local fixture or package run occurred.",
           "evidence_urls": [
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/38f1292610839c16db44f06a565a0ee4e49693f5",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/86f2e560ae1608c751018daac2abf2af5c63120e",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/be6a640cbcd7d217562502fdd3b28f7cb613af52"
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/82e1341556341e74644d876ed50f07c4736ae761",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/ec27379fe04a90c8a1cd3abb854b0b427aefee5a"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-10",
-          "note": "Node.js 22+, TRX64 0.12.9 and user-supplied Commodore ROMs are documented. No minimum host CPU or RAM is stated.",
+          "checked_at": "2026-10-16",
+          "note": "Current package metadata pins TRX64 0.13.1 alongside Node.js 22+ and user-supplied ROMs. No minimum host CPU or RAM is stated.",
           "evidence_urls": [
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/README.md",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec"
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/package.json"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-25"
+          "checked_at": "2026-10-16",
+          "note": "The 0.9.1 and subsequent ownership/label fixes explicitly credit Claude Opus 5.5. Existing Codex/LLM evidence remains affirmative and scoped to evidenced work.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/82e1341556341e74644d876ed50f07c4736ae761",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/ec27379fe04a90c8a1cd3abb854b0b427aefee5a"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -28847,11 +28854,13 @@
           ]
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Distinguish source/package version 0.9.1 from any future published release artifact; no independent package run has been performed."
+      ]
     },
     {
       "project_id": "trx64-reverse-debugger",
-      "last_reviewed": "2026-10-10",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28872,35 +28881,39 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-10",
-          "note": "v0.12.9 fixes execution breakpoints at interrupt-handler entry, checkpoint persistence of that stop, and step/step-over/step-return behavior through IRQ/NMI and RTI. Upstream tests are evidence of the bounded debugger behavior; no local run was performed.",
+          "checked_at": "2026-10-16",
+          "note": "v0.13.1 is published with platform archives. Post-release upstream tests show caller budgets and real instruction counts for until/step operations; no local archive or daemon run was performed.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/releases/tag/v0.12.9",
-            "https://github.com/Jondalar/TRX64/commit/db224337d341",
-            "https://github.com/Jondalar/TRX64/commit/1e6f73894427",
-            "https://github.com/Jondalar/TRX64/commit/212ebaf46857"
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.13.1",
+            "https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-10",
-          "note": "v0.12.9 release archives remain documented for Windows, Linux and macOS on x86_64 and arm64, with user-supplied ROMs. No minimum host CPU generation or RAM is stated, so none is inferred.",
+          "checked_at": "2026-10-16",
+          "note": "The v0.13.1 release again supplies Linux, macOS and Windows builds for x86-64 and ARM64 with user-supplied ROMs. No CPU-generation or RAM minimum is stated.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/blob/main/README.md",
-            "https://github.com/Jondalar/TRX64/releases/tag/v0.12.9"
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.13.1",
+            "https://github.com/Jondalar/TRX64/blob/main/README.md"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-04",
-          "note": "v0.12.3 commits explicitly include Claude Opus co-author trailers and session links."
+          "checked_at": "2026-10-16",
+          "note": "The v0.13.1 release commit and the post-release budget/instruction fix explicitly credit Claude Opus 5.5. Attribution remains scoped to the evidenced changes.",
+          "evidence_urls": [
+            "https://github.com/Jondalar/TRX64/commit/26dfc96c849d73a922412834e912824d104aff68",
+            "https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891"
+          ]
         },
         "relationships": {
           "state": "reviewed",
           "checked_at": "2026-09-25"
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Track post-v0.13.1 debugger semantics separately from the published archive baseline."
+      ]
     },
     {
       "project_id": "pacman-c64-radare2-sajattack",
@@ -67615,7 +67628,7 @@
     },
     {
       "project_id": "swift64-macos-c64-emulator",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -67655,47 +67668,37 @@
           ]
         },
         "target_cpu": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "Package.swift sets macOS 14 and Swift 5.9 tooling, but no fixed host CPU ISA is established by the reviewed evidence. Swift/Metal does not by itself prove Apple Silicon-only or Intel compatibility; target_cpu stays empty.",
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "The v0.4.2 release explicitly states that the universal macOS application includes Apple Silicon and Intel binaries, establishing ARM64 and x86-64 output architectures. Intel is build-verified only; that runtime limit is preserved separately.",
           "evidence_urls": [
-            "https://github.com/peercom/swift64/blob/main/README.md",
-            "https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift",
-            "https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift",
-            "https://github.com/peercom/swift64/blob/main/Package.swift",
-            "https://github.com/peercom/swift64/blob/main/Swift64.xcodeproj/project.pbxproj"
+            "https://github.com/peercom/swift64/releases/tag/v0.4.2"
           ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README explicitly says it boots to BASIC and links packaged v0.3.0, supporting runnable=true only as an upstream-reported partial emulator. Xcode and SwiftPM build instructions were inspected but not executed. Many games/demos still fail; true-drive/protected-media, analogue SID and flux behavior remain incomplete. No downloaded release or game was executed; compilable/playable/byte_exact stay null.",
+          "checked_at": "2026-10-16",
+          "note": "Upstream reports 757/768 release regressions passing with 11 opt-in skips, 49/50 bounded VIC programs passing and an Apple Silicon BASIC READY package run. Blackmail FLI and broad compatibility remain open; no tracker-side build/run occurred.",
           "evidence_urls": [
-            "https://github.com/peercom/swift64/blob/main/README.md",
-            "https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift",
-            "https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift",
-            "https://github.com/peercom/swift64/blob/main/Package.swift",
-            "https://github.com/peercom/swift64/blob/main/Swift64.xcodeproj/project.pbxproj"
+            "https://github.com/peercom/swift64/releases/tag/v0.4.2",
+            "https://github.com/peercom/swift64/commit/112adfa283882a6effacc68a2e3901c0343074d6"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README and Package.swift explicitly require macOS 14+. User-supplied BASIC, KERNAL and character ROMs are needed; 1541 ROM is optional for fast-load but required for true-drive mode. No host ISA/RAM minimum or broad game compatibility is established.",
+          "checked_at": "2026-10-16",
+          "note": "v0.4.2 requires macOS 14+ and supplies universal ARM64/x86-64 binaries. Apple Silicon reached BASIC READY upstream; Intel is explicitly build-verified only. No CPU-generation or RAM floor is stated.",
           "evidence_urls": [
-            "https://github.com/peercom/swift64/blob/main/README.md",
-            "https://github.com/peercom/swift64/blob/main/Package.swift"
+            "https://github.com/peercom/swift64/releases/tag/v0.4.2"
           ]
         },
         "ai": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-05",
-          "note": "No explicit AI development attribution was found in the reviewed documentation/source and commit evidence. This limited check does not establish non-use; ai.usage remains null.",
+          "checked_at": "2026-10-16",
+          "note": "Current README/changelog/release material and bounded Claude/ChatGPT commit searches found no explicit development-AI attribution. This does not establish non-use; ai.usage remains unknown.",
           "evidence_urls": [
-            "https://github.com/peercom/swift64/commit/030be2250cc44beb86aa1aa8015d696f4916bbab",
-            "https://github.com/peercom/swift64/blob/main/README.md",
-            "https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift",
-            "https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift"
+            "https://github.com/peercom/swift64/releases/tag/v0.4.2",
+            "https://github.com/peercom/swift64/blob/main/CHANGELOG.md"
           ]
         },
         "relationships": {
@@ -67714,7 +67717,8 @@
         }
       },
       "next_actions": [
-        "Build/run the macOS package with lawful ROMs and validate the desired compatibility case before treating the preservation roadmap or media-format list as complete support."
+        "Runtime-test the Intel slice and retain its current build-verified-only qualification.",
+        "Track the Blackmail FLI expected failure and broader game/demo/chip-revision gaps before strengthening compatibility claims."
       ]
     },
     {
@@ -71217,7 +71221,7 @@
     },
     {
       "project_id": "github-henols-c64-re-tools",
-      "last_reviewed": "2026-10-15",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -71234,12 +71238,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "M14.13-M14.17 extend the general-purpose C64 reverse-engineering toolkit with deterministic source generation, an end-to-end reconstruction workflow and provenance reports; it remains tooling rather than a title-specific reconstruction.",
+          "checked_at": "2026-10-16",
+          "note": "M17 extends the general-purpose C64 reconstruction toolkit with CIA entry-state restoration and bounded host-operation logging; it remains tooling rather than a title-specific reconstruction.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341",
-            "https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078",
-            "https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc"
+            "https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b",
+            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06"
           ]
         },
         "source_cpu": {
@@ -71266,21 +71269,20 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "Upstream reports real ACME/Ghidra/VICE checks for byte-identical generated source, loader entry-state restoration, scripted original-versus-rebuild scenarios and release comparison. These are source-owned checks; no independent tracker build or run was performed, and the 2.0.0 publication gate remains open.",
+          "checked_at": "2026-10-16",
+          "note": "Upstream live tests verify CIA timer restoration at the recovered entry and unit tests cover host logging. No tracker-side VICE run was performed; unresolved SID/TOD/interrupt-state limits and the open 2.0.0 publication gate remain explicit.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341",
-            "https://github.com/henols/c64-re-tools/commit/70fe0844131495aa4fd3b3992a844986bdc5c1c2",
-            "https://github.com/henols/c64-re-tools/commit/8e7e4f0091242ef351d2b19ccd66667642289f71"
+            "https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b",
+            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-15",
-          "note": "Reviewed the new workflow, source-generation and provenance documentation. It adds software/tool prerequisites and live checks but no host CPU, RAM or minimum machine profile.",
+          "checked_at": "2026-10-16",
+          "note": "M17 adds software behavior and tests but no host CPU, RAM or minimum-machine evidence. Node/VICE prerequisites remain software requirements rather than a hardware profile.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078",
-            "https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc"
+            "https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b",
+            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06"
           ]
         },
         "ai": {
@@ -71307,7 +71309,8 @@
       },
       "next_actions": [
         "Verify the documented Node/VICE prerequisites and opted-in integration tests before strengthening build/runtime claims.",
-        "Track the still-open trusted-publisher, tag and published-package verification gate."
+        "Track the still-open trusted-publisher, tag and published-package verification gate.",
+        "Retain the documented SID/TOD/interrupt-state limits when evaluating generated loaders."
       ]
     },
     {
@@ -79253,7 +79256,7 @@
     },
     {
       "project_id": "github-patrickvonmassow-heart-of-africa-remake",
-      "last_reviewed": "2026-10-05",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -79269,14 +79272,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "From-scratch native TypeScript/React/Three.js reimplementation of The Heart of Africa, with explicit incomplete proof-of-concept scope. Economy and state code implement game rules; Kokoro speech synthesis is a runtime feature, not the basis for classifying AI-assisted development.",
+          "checked_at": "2026-10-16",
+          "note": "The villager motion/garment work is an implementation pipeline inside the same incomplete browser remake; it does not create a separate project or establish source-faithful reconstruction.",
           "evidence_urls": [
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/README.md",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/src/systems/economy.ts",
-            "https://github.com/patrickvonmassow/heart-of-africa-remake/blob/main/src/state/store.ts",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/package.json",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/LICENSE"
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/c8307c0ff6ec59e20b7365b6f9932ac53b53075d",
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/571c7d8b498f34a5bc55092a93aedaaef65455ad"
           ]
         },
         "source_cpu": {
@@ -79303,13 +79303,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README explicitly calls the linked browser PoC playable, so runnable/playable=true record an upstream-only partial-demo claim, not a completed game. The core gameplay loop is explicitly not fully developed. package.json and README provide npm build and test commands but no compilation/test result was independently reproduced; compilable remains null. Byte-exact status is null for every output; no binary matching was performed.",
+          "checked_at": "2026-10-16",
+          "note": "Upstream records runtime-pose round trips, garment measurements and a green unit run. The tracker did not build, render or compare the browser PoC; open asset rebuild and review work prevents a broader completion claim.",
           "evidence_urls": [
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/README.md",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/package.json",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/src/systems/economy.ts",
-            "https://github.com/patrickvonmassow/heart-of-africa-remake/blob/main/src/state/store.ts"
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/4b89b0d8acb71b80c5df742c38d17ff6fa247357",
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/cc2355148414ca9e368e2565e1d82ed76d02f261",
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/571c7d8b498f34a5bc55092a93aedaaef65455ad"
           ]
         },
         "runtime_profiles": {
@@ -79325,13 +79324,11 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README explicitly describes Claude reviewing Astra-authored work and Astra reviewing Claude-authored work; the tree also contains Claude configuration. ai.usage=true and the explicitly named Claude, Astra and Codex CLI are recorded. The separate runtime Kokoro TTS feature is not treated as development attribution.",
+          "checked_at": "2026-10-16",
+          "note": "Recent commits explicitly credit Claude Opus 5.5 and identify GPT-6 Astra review findings. This supplements the existing Claude/Astra/Codex workflow evidence and remains scoped to the reviewed work.",
           "evidence_urls": [
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/README.md",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/src/systems/economy.ts",
-            "https://github.com/patrickvonmassow/heart-of-africa-remake/blob/main/src/state/store.ts",
-            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/package.json"
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/8026711ff2cda0e1dc9dbbb5bdca0b003c574648",
+            "https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/571c7d8b498f34a5bc55092a93aedaaef65455ad"
           ]
         },
         "relationships": {
@@ -79349,7 +79346,8 @@
         }
       },
       "next_actions": [
-        "Verify the current PoC build and browser regression results before strengthening runtime/completeness claims."
+        "Verify the current PoC build and browser regression results before strengthening runtime/completeness claims.",
+        "Track the explicitly retained villager asset-rebuild and visual-review follow-ups."
       ]
     },
     {
@@ -89190,7 +89188,7 @@
     },
     {
       "project_id": "amiberry-system-emulator",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -89206,15 +89204,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "The optional WinUAE-derived GDB remote server is directly useful emulator/debugger tooling: it exposes m68k registers, physical guest memory, stepping, breakpoints, watchpoints and a memory map. It remains disabled by default and is incompatible with the threaded CPU mode.",
+          "checked_at": "2026-10-16",
+          "note": "WHDLoad guest configuration and IPC hardening remain emulator/runtime maintenance; database-selected 68030/68040 models are guest CPUs, not host output architectures.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/blob/master/README.md",
-            "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp",
-            "https://github.com/BlitterStudio/amiberry/blob/master/src/newcpu.cpp",
-            "https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe",
-            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27",
-            "https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d"
+            "https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7",
+            "https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c"
           ]
         },
         "source_cpu": {
@@ -89240,14 +89234,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Current main wires the GDB server into CMake/libretro builds and adds MacPorts support for Apple Silicon and x86 hosts. These are post-v8.4.0 source changes; no package was built or run locally.",
+          "checked_at": "2026-10-16",
+          "note": "Upstream tests cover Android/native WHDLoad configuration and source changes bound IPC clients, requests and per-frame work. No independent build, WHDLoad launch or IPC stress run was performed.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0",
-            "https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a",
-            "https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27",
-            "https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d",
-            "https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15"
+            "https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7",
+            "https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c"
           ]
         },
         "runtime_profiles": {
@@ -89282,8 +89273,8 @@
         }
       },
       "next_actions": [
-        "Resolve the explicitly noted license, inherited-component or asset-rights caveats before redistribution.",
-        "Seek explicit output-specific minimum hardware requirements without deriving them from release asset labels."
+        "Retain the v8.4.0 release matrix as the published baseline while tracking development-head fixes separately.",
+        "Reproduce WHDLoad database and concurrent IPC behavior only if an independent runtime pass is authorized."
       ]
     },
     {
@@ -103787,7 +103778,7 @@
     },
     {
       "project_id": "zz9000-amigaos-driver-suite",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-16",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -103802,14 +103793,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Firmware-update timeout hardening and configuration grammar checks remain native Amiga hardware-driver/tooling maintenance; no reverse-engineered-original claim is introduced.",
+          "checked_at": "2026-10-16",
+          "note": "The ZZTop redesign and network-driver work remain native Amiga hardware support and control tooling; no historical-binary reconstruction claim is introduced.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/device.c",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c",
-            "https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857",
-            "https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41"
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/7f0b9d5dd14d72207d8eff4954fcd5aca3b36aa5",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/92acc80a6f5ac3c3a081c9f6868e7b73909617b6"
           ]
         },
         "source_cpu": {
@@ -103834,33 +103822,31 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Reviewed tests and source for frozen-status timeout behavior and documentation/parser/sample/editor configuration-key consistency. No driver build, firmware update or physical-board run was performed; build flags remain unknown.",
+          "checked_at": "2026-10-16",
+          "note": "Source and host tests cover the modular ZZTop settings path, four-slot asynchronous transmit, serial-first receive and bounded fallback behavior. No Amiga build, physical-board execution or throughput reproduction was performed.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md",
-            "https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857",
-            "https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41"
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/7f0b9d5dd14d72207d8eff4954fcd5aca3b36aa5",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/92acc80a6f5ac3c3a081c9f6868e7b73909617b6",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/34ad8852834b8d3052f58788a957358b04f9f25e"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-06",
-          "note": "Amiga-side m68k toolchain; inspected network component default 68020 and soft float. Board FPGA/ARM firmware separate from host driver CPU. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. No complete independently verified hardware matrix is asserted.",
+          "checked_at": "2026-10-16",
+          "note": "The upstream A3000/68060 iperf measurements are bounded test configurations, not stated minimum hardware. Matched ZZ9000 firmware/bitstream requirements remain version-sensitive and no complete minimum matrix is documented.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile"
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/92acc80a6f5ac3c3a081c9f6868e7b73909617b6",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/34ad8852834b8d3052f58788a957358b04f9f25e"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-06",
-          "note": "Multiple sampled commits explicitly credit Codex review. Commit 6944da9 fixes a concrete ZZDiag control-flow problem identified in that review; no broad claim that all driver code is AI-generated. Role: code review. No broad AI-generated-code claim.",
+          "checked_at": "2026-10-16",
+          "note": "The reviewed network commits explicitly credit Claude Opus 5.5; earlier commits retain scoped Codex review attribution. This establishes assistance on the evidenced changes, not whole-project generation.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/zz9000-drivers/commit/6944da9d4777a96192b64cd1f910ce80839ad829",
-            "https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md"
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/e84b85a490715768662e110469017ca6f8ae3afb",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/a5bbc3be89a57421f296e8d3ed5d1a300f1dadc5",
+            "https://github.com/BlitterStudio/zz9000-drivers/commit/6944da9d4777a96192b64cd1f910ce80839ad829"
           ]
         },
         "relationships": {
@@ -103876,8 +103862,8 @@
         }
       },
       "next_actions": [
-        "Resolve remaining source/dependency/license and asset-rights caveats before redistribution or deployment.",
-        "If separately authorized, reproduce the documented build and output-specific runtime behavior; preserve unknown flags until tested."
+        "Resolve the remaining firmware/bitstream/SDK relationship and asset-rights caveats before redistribution or deployment.",
+        "If separately authorized, reproduce ZZTop and network-driver behavior on matched ZZ9000 hardware; do not treat the recorded A3000/68060 measurements as a minimum."
       ]
     },
     {
@@ -124684,7 +124670,7 @@
     },
     {
       "project_id": "pom2games-native-apple-ii-collection",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -124698,11 +124684,11 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "Wilderness is explicitly a reimplementation informed by original-media analysis, unlike the collection's original-homebrew entries; the mixed repository distinctions are preserved.",
+          "checked_at": "2026-10-16",
+          "note": "Neowilderness remains a reconstruction-informed subject inside the established mixed POM2 collection; its original-homebrew siblings are not relabelled as reverse-engineered.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/main/wilderness/README.md",
-            "https://github.com/habib256/pom2games/blob/main/wilderness/docs/ANALYSE.md"
+            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605",
+            "https://github.com/habib256/pom2games/blob/main/neowilderness/README.md"
           ]
         },
         "source_cpu": {
@@ -124737,37 +124723,27 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The Wilderness tree includes a build, bootable disk output and bit-for-bit renderer comparisons against a reference model. These are upstream artifacts/tests; no local build or execution was performed.",
+          "checked_at": "2026-10-16",
+          "note": "Upstream supplies updated 140 KiB and XL 800 KiB images plus ROM-probed crafting and gameplay tests. No tracker-side assembly, boot or hardware run was performed.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338",
-            "https://github.com/habib256/pom2games/blob/main/wilderness/Makefile"
+            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "README and Wilderness Makefile explicitly state Apple II+, 48 KB and DOS 3.3. The profile records the author-stated configuration without claiming independent minimum verification.",
+          "checked_at": "2026-10-16",
+          "note": "The Neowilderness README explicitly documents two 128 KiB delivery profiles: a 140 KiB Disk II edition for enhanced IIe/IIc and an 800 KiB edition for enhanced IIe with supported 3.5-inch controller or SmartPort-capable IIc/IIc Plus. These are author-stated requirements, not independently verified minima.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/main/README.md",
-            "https://github.com/habib256/pom2games/blob/main/wilderness/Makefile"
+            "https://github.com/habib256/pom2games/blob/main/neowilderness/README.md",
+            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-07",
-          "note": "The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI.",
+          "checked_at": "2026-10-16",
+          "note": "The Neowilderness lot-3 commit explicitly credits Claude Opus 5.5; this is development attribution and remains distinct from any in-game AI.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile",
-            "https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE",
-            "https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288",
-            "https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288"
+            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
           ]
         },
         "relationships": {
@@ -124780,7 +124756,9 @@
           ]
         }
       },
-      "next_actions": []
+      "next_actions": [
+        "Boot both Neowilderness disk variants on the stated machine/storage paths before treating the upstream compatibility matrix as independently verified."
+      ]
     },
     {
       "project_id": "wheres-askey-pmwasson-apple-ii",

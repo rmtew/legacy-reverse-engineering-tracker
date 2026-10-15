@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-16 — Runtime variants, debugger correctness and reconstruction workflow
+
+Reviewed nine materially changed projects. **Swift64 v0.4.2** now records its explicit universal ARM64/x86-64 outputs, Apple Silicon BASIC run, Intel build-only qualification and bounded 49/50 VIC-program result without promoting one known FLI failure or broader compatibility. **TRX64 v0.13.1** and **C64RE 0.9.1** record aligned runtime requirements, caller-controlled debugger budgets, real instruction counts and guards that preserve human analysis files and labels. **POM2 Games** adds separately documented 128 KiB Neowilderness and NeoWildernessXL delivery profiles plus its ROM-probed crafting and survival work.
+
+**c64-re-tools** records CIA timer/latch/mask restoration in generated loaders and bounded host-operation logging while retaining the open 2.0.0 publication gate. **ZZ9000** records its 640x256 GadTools ZZTop rewrite and bounded asynchronous network paths; reported A3000/68060 throughput remains a test setup rather than a minimum. **The Heart of Africa**, **WinUAE** and **Amiberry** capture measured villager-pipeline work, debugger/display fixes, WHDLoad configuration correctness and nonblocking multi-client IPC without upgrading incomplete or independently untested claims.
+
+The CPU audit queue was empty before selection. Swift64’s newly explicit universal release supplied the only new CPU evidence; emulated guest selections, source languages and measurement hosts were not converted into output architectures or hardware minima. No upstream project was independently built, executed or tested on hardware.
+
 ## 2026-10-16 — ColecoVision queue, Atari 2600, Sharp MZ and TI discovery
 
 Reviewed ten more title directories from the saved ColecoVision source queue and promoted separate records for **Donkey Kong Jr.**, **Frenzy**, **Gateway to Apshai**, **H.E.R.O.**, **Mouse Trap**, **Mr. Do!**, **Nova Blast**, **Q*bert’s Qubes**, **Slither** and **Smurf: Rescue in Gargamel’s Castle**. H.E.R.O. and Nova Blast explicitly report byte-exact output and Claude Sonnet 4.6 annotation; Donkey Kong Jr. and Gateway to Apshai credit Claude Code. Slither’s Roller Controller requirement is recorded without inferring wider hardware minima. Four collection directories remain queued: Space Panic, Squish-em Featuring Sam, Star Wars Arcade and The Heist.

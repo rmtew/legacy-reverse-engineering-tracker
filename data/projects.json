@@ -10298,8 +10298,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-14",
-    "status": "v8.4.0 published; current development adds an optional GDB remote server and MacPorts packaging",
+    "last_checked": "2026-10-16",
+    "status": "v8.4.0 published; development head improves WHDLoad CPU/cycle configuration and bounded multi-client IPC",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -10319,7 +10319,9 @@
     },
     "techniques": [
       "GDB remote debugging",
-      "guest physical-memory inspection"
+      "guest physical-memory inspection",
+      "WHDLoad database-driven CPU configuration",
+      "bounded nonblocking multi-client IPC"
     ],
     "tags": [
       "Amiga",
@@ -10331,7 +10333,7 @@
       "Haiku",
       "general Amiga machine emulator"
     ],
-    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27 Current main ports WinUAE's optional loopback GDB remote server, disabled by default and unavailable with the threaded CPU, with m68k registers, physical RAM/ROM, stepping, breakpoints, watchpoints and memory-map support. A separate MacPorts integration covers Apple Silicon and x86 hosts and explicitly credits ChatGPT for substantial assistance; this extends the AI record without implying whole-project generation. Evidence: https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15",
+    "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27 Current main ports WinUAE's optional loopback GDB remote server, disabled by default and unavailable with the threaded CPU, with m68k registers, physical RAM/ROM, stepping, breakpoints, watchpoints and memory-map support. A separate MacPorts integration covers Apple Silicon and x86 hosts and explicitly credits ChatGPT for substantial assistance; this extends the AI record without implying whole-project generation. Evidence: https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15 Development head now honors database-requested 68040 AGA configurations, disables cycle-exact mode when requested, aligns Android previews with the launched CPU/FPU configuration and follows with 68030 database handling. IPC was redesigned to keep up to 16 clients across frames, bound per-frame work, cap requests at 64 KiB and queue replies without blocking the emulation thread. These guest CPU selections are emulated configurations, not Amiberry host target CPUs or minimum machines. No tracker-side WHDLoad or IPC run was performed. Evidence: https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7 https://github.com/BlitterStudio/amiberry/commit/69b4be8173 https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c",
     "github": {
       "repository": "BlitterStudio/amiberry",
       "created_at": "2016-08-11",
@@ -37795,8 +37797,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-15",
-    "status": "active; M14.17 completes a deterministic reconstruction pipeline, while the upstream 2.0.0 publication gate remains open",
+    "last_checked": "2026-10-16",
+    "status": "active; M17 restores CIA timer/latch/mask state in generated loaders while the 2.0.0 publication gate remains open",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -37822,14 +37824,16 @@
       "scripted rebuild validation",
       "runtime provenance comparison",
       "one-release provenance separation",
-      "platform-symbol export"
+      "platform-symbol export",
+      "CIA entry-state capture and restoration",
+      "bounded host request logging"
     ],
     "tags": [
       "Commodore 64",
       "source-reviewed",
       "no-independent-build"
     ],
-    "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b Current M14 work now generates byte-identical ACME source from an unpacked image or PRG, curated knowledge and Ghidra instructions; an optional loader is run in VICE and checked at the recovered entry state. The documented ten-stage workflow adds explicit acceptance criteria, exit checks, deliverables and coverage reporting. Release comparison can attach first-access/runtime-change evidence to differing bytes, single-release separation reports unpack/access/reachability provenance, and platform symbols can be exported as an ACME include. These are upstream live-tool checks rather than an independent tracker run, and they do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341 https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078 https://github.com/henols/c64-re-tools/commit/b80796c63719f7eeb4fd694afd689fe5a926cd8b https://github.com/henols/c64-re-tools/commit/1c0070e068b719314a4ee47b56de189916b0a6d6 https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc",
+    "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b Current M14 work now generates byte-identical ACME source from an unpacked image or PRG, curated knowledge and Ghidra instructions; an optional loader is run in VICE and checked at the recovered entry state. The documented ten-stage workflow adds explicit acceptance criteria, exit checks, deliverables and coverage reporting. Release comparison can attach first-access/runtime-change evidence to differing bytes, single-release separation reports unpack/access/reachability provenance, and platform symbols can be exported as an ACME include. These are upstream live-tool checks rather than an independent tracker run, and they do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341 https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078 https://github.com/henols/c64-re-tools/commit/b80796c63719f7eeb4fd694afd689fe5a926cd8b https://github.com/henols/c64-re-tools/commit/1c0070e068b719314a4ee47b56de189916b0a6d6 https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc M17 now captures CIA timer latches and interrupt masks that ordinary register reads cannot recover, programs generated loaders to restore the reachable timer state, and compares counters, latches, controls and masks at the entry jump. An upstream live test distinguishes the repaired loader from one without CIA restoration. The host also records each skill-script operation and outcome while keeping verbose MCP/VICE tracing opt-in. These are upstream tests; no local VICE run was performed, SID voice 3, TOD phase and interrupt flags remain documented limits, and the npm publication gate remains open. Evidence: https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06",
     "github": {
       "repository": "henols/c64-re-tools",
       "created_at": "2026-08-09",
@@ -38565,8 +38569,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-10",
-    "status": "active; pins TRX64 0.12.9 and can drive a C64 Ultimate through a shared bridge daemon",
+    "last_checked": "2026-10-16",
+    "status": "source/package version 0.9.1 pins TRX64 0.13.1 and preserves human analysis files and labels through generated updates",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -38593,14 +38597,16 @@
       "byte-diff verification",
       "C64 Ultimate bridge daemon",
       "multi-machine ROM semantics",
-      "relocated-label recovery"
+      "relocated-label recovery",
+      "human-annotation precedence",
+      "generated-file ownership guards"
     ],
     "tags": [
       "Commodore 64",
       "MCP",
       "reverse engineering"
     ],
-    "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and now pins TRX64 0.12.9 with user-supplied ROMs. The current changes use execution breakpoints for reachability claims, prevent duplicate equate definitions in relocated listings, preserve byte-identical rebuilds, and scope negative knowledge claims to their owning evidence coverage. A separately running C64 Ultimate bridge exposes the TRX64 wire protocol to multiple clients; hardware execution remains gated on a successful emulator run of the same bytes. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/74fe38185ca5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/cbfcadbf92b3 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/f68fe3d28d92 The current platform pass adds explicit VIC-20 and TED-machine tags, Plus/4 BASIC 3.5 listing/tokenization, VIC-20/TED BASIC-stub recognition and signature-based raw-cartridge placement. Follow-up fixes emit outside-image addresses as equates and place names inside relocated blocks at the defining instruction while preserving every reference. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/38f1292610839c16db44f06a565a0ee4e49693f5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/86f2e560ae1608c751018daac2abf2af5c63120e https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/be6a640cbcd7d217562502fdd3b28f7cb613af52",
+    "notes": "C64 forensic and semantic-disassembly workbench. The Node.js 22+ application verifies reconstructed assembly with byte diffs and now pins TRX64 0.12.9 with user-supplied ROMs. The current changes use execution breakpoints for reachability claims, prevent duplicate equate definitions in relocated listings, preserve byte-identical rebuilds, and scope negative knowledge claims to their owning evidence coverage. A separately running C64 Ultimate bridge exposes the TRX64 wire protocol to multiple clients; hardware execution remains gated on a successful emulator run of the same bytes. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/74fe38185ca5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/cbfcadbf92b3 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/f68fe3d28d92 The current platform pass adds explicit VIC-20 and TED-machine tags, Plus/4 BASIC 3.5 listing/tokenization, VIC-20/TED BASIC-stub recognition and signature-based raw-cartridge placement. Follow-up fixes emit outside-image addresses as equates and place names inside relocated blocks at the defining instruction while preserving every reference. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/38f1292610839c16db44f06a565a0ee4e49693f5 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/86f2e560ae1608c751018daac2abf2af5c63120e https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/be6a640cbcd7d217562502fdd3b28f7cb613af52 The source/package version is now 0.9.1 and pins TRX64 0.13.1. Subsequent fixes keep a hand-written knowledge/NEXT.md byte-identical across step recording and sandbox completion, while human zero-page labels suppress redundant KERNAL/BASIC platform hints without changing reconstructed bytes; upstream reports its 126/126 gate for both changes. No local package or Neuromancer/IM2 fixture run was performed. Evidence: https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/82e1341556341e74644d876ed50f07c4736ae761 https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/ec27379fe04a90c8a1cd3abb854b0b427aefee5a",
     "github": {
       "repository": "Jondalar/C64ReverseEngineeringMCP",
       "created_at": "2026-04-01",
@@ -38635,13 +38641,14 @@
       {
         "name": "C64RE workbench",
         "platform": "Windows, Linux or macOS",
-        "os": "Node.js 22 or newer; TRX64 0.12.9; user-supplied Commodore ROMs",
+        "os": "Node.js 22 or newer; TRX64 0.13.1; user-supplied Commodore ROMs",
         "notes": "No minimum host CPU or RAM is stated.",
         "evidence": [
           "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/README.md",
           "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/package.json",
           "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/af17add6f5d5",
-          "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec"
+          "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/669c1346e4ec",
+          "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae"
         ]
       }
     ]
@@ -131599,6 +131606,30 @@
           "https://github.com/habib256/pom2games/blob/main/wilderness/Makefile",
           "https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338"
         ]
+      },
+      {
+        "name": "Neowilderness 140 KiB edition",
+        "platform": "Apple IIe enhanced or Apple IIc",
+        "cpu_family": "65C02",
+        "min_ram_kib": 128,
+        "os": "ProDOS 8; 5.25-inch Disk II",
+        "notes": "The title README states a 128 KiB enhanced IIe or IIc and a 140 KiB 5.25-inch image. This edition contains Sierra Nevada and five save slots; it is an upstream requirement, not independent hardware validation.",
+        "evidence": [
+          "https://github.com/habib256/pom2games/blob/main/neowilderness/README.md",
+          "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
+        ]
+      },
+      {
+        "name": "NeoWildernessXL 800 KiB edition",
+        "platform": "Apple IIe enhanced, Apple IIc or Apple IIc Plus",
+        "cpu_family": "65C02",
+        "min_ram_kib": 128,
+        "os": "ProDOS 8; UniDisk 3.5/Liron/SuperDrive controller or SmartPort",
+        "notes": "The title README states a 128 KiB enhanced IIe with supported 3.5-inch controller, or a SmartPort-capable IIc/IIc Plus, for the 800 KiB six-scenario edition. This is upstream-stated compatibility, not an independently measured minimum.",
+        "evidence": [
+          "https://github.com/habib256/pom2games/blob/main/neowilderness/README.md",
+          "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
+        ]
       }
     ],
     "source_language": [
@@ -131623,8 +131654,8 @@
       "native source port"
     ],
     "re_started": null,
-    "last_checked": "2026-10-10",
-    "status": "Native game collection with bootable outputs and upstream tests; independently unbuilt",
+    "last_checked": "2026-10-16",
+    "status": "native Apple II collection; Neowilderness now has 140 KiB and XL 800 KiB 128 KiB builds with substantial reconstructed survival systems",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -131645,14 +131676,17 @@
       "SMALLDOS format analysis",
       "WOZ/A2R flux decoding",
       "6502 voxel ray casting",
-      "reference-model differential testing"
+      "reference-model differential testing",
+      "ROM-probed crafting reconstruction",
+      "resident ProDOS module architecture",
+      "DHGR interface reconstruction"
     ],
     "tags": [
       "source-reviewed",
       "apple-ii-discovery",
       "no-independent-build"
     ],
-    "notes": "Identity: The creator’s repository contains eight native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not eight inflated entries. Classification: Native Apple II source collection and ports. Arkabreakout assembles a standalone BRUN binary and DOS 3.3 disk; ChromaBreak builds a ProDOS system file. The bundled a2run/a2shot emulator code serves tests and is not embedded in the games. LOGO, demos and generic dev tooling are incidental to this game-scoped record. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null. Runtime profiles: Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed. AI: The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Relationships: The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality. Evidence: https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games Maintenance 2026-10-09: commit 76e48cf renames the prior flipper directory/output to Pinball, keeps the Bill Budge Pinball Construction Set adaptation in the repository collection, moves fixed-sector disk construction into shared checked tooling, and extends the checked AppleMouse/DOS paths. The root README states Apple II+ 48 KB or //c with mouse or joystick; this is an upstream requirement, not an independent run. Evidence: https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md The repository now includes MCS, a Music Construction Set-inspired two-staff HGR editor with speaker playback, save/reload support and its own build/test target, and Arkabreakout has expanded to 60 sectors with joystick, paddle and AppleMouse II control. Evidence: https://github.com/habib256/pom2games/commit/e58ca7f35a89 https://github.com/habib256/pom2games/blob/main/README.md The collection now includes an in-progress Wilderness: A Survival Adventure reimplementation based on analysis of external WOZ/A2R images: SMALLDOS layout, parser vocabulary, TOPO maps and the SURV3D view were documented, while a new 6502 terrain renderer is compared bit-for-bit with a Python reference on fixed and randomized inputs. The original images remain out of git. Evidence: https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338 https://github.com/habib256/pom2games/blob/main/wilderness/docs/ANALYSE.md",
+    "notes": "Identity: The creator’s repository contains eight native Apple II games, including original Arkabreakout/ChromaBreak and ports of POM1 games. Reviewed concrete Arkabreakout gameplay assembly, Snake C implementation, ChromaBreak bootstrap/build, and Chess documentation. This is one repository-level collection record, not eight inflated entries. Classification: Native Apple II source collection and ports. Arkabreakout assembles a standalone BRUN binary and DOS 3.3 disk; ChromaBreak builds a ProDOS system file. The bundled a2run/a2shot emulator code serves tests and is not embedded in the games. LOGO, demos and generic dev tooling are incidental to this game-scoped record. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The reviewed game Makefiles invoke ca65/ld65 or cl65 and construct bootable DOS 3.3/ProDOS disks. The README claims deterministic rebuilds and emulator-based tests, but those claims were not independently reproduced; byte_exact remains null. Limitations: Static primary-source review only. No candidate code, build, emulator, gameplay, hardware test or byte comparison was executed; all independent build flags remain null. Runtime profiles: Upstream describes II+ 48 KB/DOS 3.3 for Arkabreakout/classic ports and enhanced IIe or IIc 128 KB/ProDOS for ChromaBreak, with keyboard/paddle or AppleMouse controls. The bootstrap explicitly rejects NMOS machines for ChromaBreak. These are source/author requirements, not independently verified runnable minima. Limitations: Profiles preserve directly observed requirements/author claims only; no independent runtime hardware validation was performed. AI: The latest commit explicitly includes Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>; the same named tool is present in the inspected recent commit sample. This is development-AI evidence, separate from the chess opponent AI. Relationships: The README and source headers explicitly derive the classic games from VERHILLE Arnaud’s POM1 work. Chess credits cc65-Chess for board/piece art and its Apple II port, but identifies its engine as POM1 rules code; this is not another copy of the already catalogued cc65-chess-stewbc-native. GPL-3.0 code, Skinner Microban levels, CC-BY-3.0 sprites and separate Apple ROM/DOS rights are disclosed. No blanket original-authorship or permissive-license claim is made. Normalized roots were screened programmatically against prior-roots.json before file review; current catalogue titles/subjects were checked for aliases. This is bounded lineage review, not proof of complete originality. Evidence: https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games/commits/29909a924977e84636b4000d7341beafb6e3d288 https://github.com/habib256/pom2games Maintenance 2026-10-09: commit 76e48cf renames the prior flipper directory/output to Pinball, keeps the Bill Budge Pinball Construction Set adaptation in the repository collection, moves fixed-sector disk construction into shared checked tooling, and extends the checked AppleMouse/DOS paths. The root README states Apple II+ 48 KB or //c with mouse or joystick; this is an upstream requirement, not an independent run. Evidence: https://github.com/habib256/pom2games/commit/76e48cf163cfcc52b2c99a9533f4875fd257ca8e https://github.com/habib256/pom2games/blob/9b83dc0c9f56c11a19c02a25fe78e2f5c492e8ea/README.md The repository now includes MCS, a Music Construction Set-inspired two-staff HGR editor with speaker playback, save/reload support and its own build/test target, and Arkabreakout has expanded to 60 sectors with joystick, paddle and AppleMouse II control. Evidence: https://github.com/habib256/pom2games/commit/e58ca7f35a89 https://github.com/habib256/pom2games/blob/main/README.md The collection now includes an in-progress Wilderness: A Survival Adventure reimplementation based on analysis of external WOZ/A2R images: SMALLDOS layout, parser vocabulary, TOPO maps and the SURV3D view were documented, while a new 6502 terrain renderer is compared bit-for-bit with a Python reference on fixed and randomized inputs. The original images remain out of git. Evidence: https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338 https://github.com/habib256/pom2games/blob/main/wilderness/docs/ANALYSE.md Neowilderness now ships a 140 KiB Disk II edition for enhanced Apple IIe/IIc 128 KiB and an 800 KiB XL edition for Apple IIe with a 3.5-inch controller or SmartPort-capable IIc/IIc Plus. The latest lot adds ROM-probed crafting, shelters, weapons/tools, persistent fire-until-DOUSE behavior, visible animals and MouseText XL pages; the README continues to document remaining work. The commit explicitly credits Claude Opus 5.5. No disk image was booted by the tracker. Evidence: https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605 https://github.com/habib256/pom2games/blob/main/neowilderness/README.md",
     "github": {
       "repository": "habib256/pom2games",
       "created_at": "2026-09-15",
@@ -166723,17 +166757,30 @@
     "source_cpu": [
       "6502"
     ],
-    "target_cpu": [],
+    "target_cpu": [
+      "ARM64",
+      "x86-64"
+    ],
     "runtime_profiles": [
       {
-        "name": "Swift64 macOS application",
+        "name": "Swift64 v0.4.2 Apple Silicon application",
         "platform": "macOS",
-        "notes": "README and Package.swift explicitly require macOS 14+. User-supplied BASIC, KERNAL and character ROMs are needed; 1541 ROM is optional for fast-load but required for true-drive mode. No host ISA/RAM minimum or broad game compatibility is established.",
+        "cpu_family": "ARM64",
+        "os": "macOS 14 or later",
+        "notes": "The universal release was packaged and run to BASIC READY on Apple Silicon. User-supplied BASIC, KERNAL and character ROMs are required; 1541 media/ROM support varies by mode. No CPU-generation or RAM minimum is stated.",
         "evidence": [
-          "https://github.com/peercom/swift64/blob/main/README.md",
-          "https://github.com/peercom/swift64/blob/main/Package.swift"
-        ],
-        "os": "macOS 14 or later"
+          "https://github.com/peercom/swift64/releases/tag/v0.4.2"
+        ]
+      },
+      {
+        "name": "Swift64 v0.4.2 Intel application slice",
+        "platform": "macOS",
+        "cpu_family": "x86-64",
+        "os": "macOS 14 or later",
+        "notes": "The universal release explicitly includes an Intel binary, but upstream labels it build-verified rather than runtime-tested. User-supplied ROMs are required; no CPU-generation or RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/peercom/swift64/releases/tag/v0.4.2"
+        ]
       }
     ],
     "source_language": [
@@ -166758,8 +166805,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-05",
-    "status": "Packaged macOS emulator with upstream-reported BASIC boot; many games/demos and true-drive cases remain incomplete.",
+    "last_checked": "2026-10-16",
+    "status": "v0.4.2 published; 49/50 bounded public VIC programs pass while broader compatibility and one FLI case remain open",
     "build": {
       "compilable": null,
       "runnable": true,
@@ -166774,14 +166821,17 @@
       "cycle-stepped CPU emulation",
       "C64 chip/drive models",
       "memory inspection",
-      "breakpoints and CPU tracing"
+      "breakpoints and CPU tracing",
+      "PAL/NTSC color-latch regression corpus",
+      "exact reference-image comparison",
+      "universal macOS packaging"
     ],
     "tags": [
       "Commodore 64",
       "macOS",
       "NES secondary core"
     ],
-    "notes": "Swift macOS C64 emulator with shared Emu6502 core, C64 chip/1541 models, debugger and Metal/AVFoundation application. The same root also contains a secondary, earlier-stage NES emulator. Generic machine emulator/debugger tooling. Named games and compatibility media are tests, not game reconstructions; the secondary NES core does not imply mature NES compatibility. README explicitly says it boots to BASIC and links packaged v0.3.0, supporting runnable=true only as an upstream-reported partial emulator. Xcode and SwiftPM build instructions were inspected but not executed. Many games/demos still fail; true-drive/protected-media, analogue SID and flux behavior remain incomplete. No downloaded release or game was executed; compilable/playable/byte_exact stay null. Work in progress: README says many games/demos do not yet run correctly, true-drive compatibility needs validation, and analogue SID/flux behavior remains approximate. ROMs/commercial media are not supplied. No build, packaged release execution or compatibility testing was performed. Do not promote referenced games as game reconstructions. Root LICENSE is MIT. Copyrighted ROMs and commercial media are not supplied; the application imports user-provided copies.   Reviewed on 2026-10-05; no independent build, execution or byte comparison was performed. Evidence: https://github.com/peercom/swift64/blob/main/README.md https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift https://github.com/peercom/swift64/blob/main/Package.swift https://github.com/peercom/swift64/blob/main/Swift64.xcodeproj/project.pbxproj https://github.com/peercom/swift64/blob/main/LICENSE Latest upstream commit: https://github.com/peercom/swift64/commit/030be2250cc44beb86aa1aa8015d696f4916bbab",
+    "notes": "Swift macOS C64 emulator with shared Emu6502 core, C64 chip/1541 models, debugger and Metal/AVFoundation application. The same root also contains a secondary, earlier-stage NES emulator. Generic machine emulator/debugger tooling. Named games and compatibility media are tests, not game reconstructions; the secondary NES core does not imply mature NES compatibility. README explicitly says it boots to BASIC and links packaged v0.3.0, supporting runnable=true only as an upstream-reported partial emulator. Xcode and SwiftPM build instructions were inspected but not executed. Many games/demos still fail; true-drive/protected-media, analogue SID and flux behavior remain incomplete. No downloaded release or game was executed; compilable/playable/byte_exact stay null. Work in progress: README says many games/demos do not yet run correctly, true-drive compatibility needs validation, and analogue SID/flux behavior remains approximate. ROMs/commercial media are not supplied. No build, packaged release execution or compatibility testing was performed. Do not promote referenced games as game reconstructions. Root LICENSE is MIT. Copyrighted ROMs and commercial media are not supplied; the application imports user-provided copies.   Reviewed on 2026-10-05; no independent build, execution or byte comparison was performed. Evidence: https://github.com/peercom/swift64/blob/main/README.md https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift https://github.com/peercom/swift64/blob/main/Package.swift https://github.com/peercom/swift64/blob/main/Swift64.xcodeproj/project.pbxproj https://github.com/peercom/swift64/blob/main/LICENSE Latest upstream commit: https://github.com/peercom/swift64/commit/030be2250cc44beb86aa1aa8015d696f4916bbab The v0.4.2 universal macOS release explicitly contains Apple Silicon and Intel binaries and requires macOS 14+. Upstream reports 768 release regressions with 757 passes and 11 opt-in slow-drive skips; 49/50 bounded VIC programs pass, including 45 exact image comparisons, while Blackmail FLI retains 5,558 differing pixels. The packaged app reached BASIC READY on Apple Silicon; Intel is build-verified only. Broader game/demo and chip-revision compatibility remains open. No tracker-side package run occurred. Evidence: https://github.com/peercom/swift64/releases/tag/v0.4.2 https://github.com/peercom/swift64/commit/112adfa283882a6effacc68a2e3901c0343074d6",
     "github": {
       "repository": "peercom/swift64",
       "created_at": "2026-03-27",
@@ -170842,8 +170892,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-05",
-    "status": "active proof of concept; explicitly incomplete; source-reviewed, no independent build or runtime verification",
+    "last_checked": "2026-10-16",
+    "status": "active incomplete browser proof of concept; current work rebuilds villager motion and garment assets with measured pipeline checks",
     "build": {
       "compilable": null,
       "runnable": true,
@@ -170863,14 +170913,17 @@
       ]
     },
     "techniques": [
-      "reimplementation"
+      "reimplementation",
+      "runtime-pose export and round-trip validation",
+      "measured garment penetration analysis",
+      "cross-model review workflow"
     ],
     "tags": [
       "Web browser",
       "source-reviewed",
       "no-independent-build"
     ],
-    "notes": "From-scratch native TypeScript/React/Three.js reimplementation of The Heart of Africa, with explicit incomplete proof-of-concept scope. Economy and state code implement game rules; Kokoro speech synthesis is a runtime feature, not the basis for classifying AI-assisted development. README identifies a from-scratch 3D remake of the 1985 Ozark Softscape game. TypeScript economy implementation calculates treasures, regional trading and ferry passages; the tree includes world, movement, settlement, survival, state and test modules. Vite/React/Three.js package provides build, unit-test and browser-verification scripts. Limitations: README explicitly says the core gameplay loop is not fully developed; claimed acceptance/test results were not independently run. README says original game assets are not used; MIT applies to the project's own work, with third-party data/libraries separately licensed. Kokoro journal speech synthesis is a runtime feature, distinct from the documented AI-assisted development. README explicitly calls the linked browser PoC playable, so runnable/playable=true record an upstream-only partial-demo claim, not a completed game. The core gameplay loop is explicitly not fully developed. package.json and README provide npm build and test commands but no compilation/test result was independently reproduced; compilable remains null. README requires Node.js 20+ for development and describes WebGPU rendering with WebGL 2 fallback and lazy-loaded Kokoro TTS. These software/graphics capabilities establish no minimum CPU or RAM; no hardware runtime profile is asserted. Primary identity evidence establishes the historical C64 game subject and the remake lineage. It does not explicitly establish the original executable CPU or show a verified original-binary CPU analysis. source_cpu remains empty; no 6510/Z80 value is inferred from platform names or the new implementation language. React/Three.js/Vite and browser scripts establish a browser output, but neither TypeScript nor WebGPU identifies a host CPU architecture; target_cpu remains empty. No current same-title/alias project found in title, subjects, upstream name, repository and notes comparison; metadata reports non-fork. This is a bounded comparison, not an exhaustive code-provenance audit. The canonical repository root was compared with the hash-verified 1,380-project baseline and discovery indexes at 44558101462cd67db1951803eaeea07aafdff930; no canonical-root collision was found. GitHub fork=false is metadata, not proof of independent authorship. Rights: MIT for original project work. README says original game assets are not used; MIT applies to the project's own work, with third-party data/libraries separately licensed. AI evidence: README explicitly describes Claude reviewing Astra-authored work and Astra reviewing Claude-authored work; the tree also contains Claude configuration. ai.usage=true and the explicitly named Claude, Astra and Codex CLI are recorded. The separate runtime Kokoro TTS feature is not treated as development attribution. Repository pushed_at was observed as 2026-10-05T23:09:10Z; last_activity is left null pending a commit-level activity check. No independent compilation, execution, gameplay, hardware test or original-binary comparison was performed. Primary evidence: https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/README.md https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/src/systems/economy.ts https://github.com/patrickvonmassow/heart-of-africa-remake/blob/main/src/state/store.ts https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/package.json https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/LICENSE",
+    "notes": "From-scratch native TypeScript/React/Three.js reimplementation of The Heart of Africa, with explicit incomplete proof-of-concept scope. Economy and state code implement game rules; Kokoro speech synthesis is a runtime feature, not the basis for classifying AI-assisted development. README identifies a from-scratch 3D remake of the 1985 Ozark Softscape game. TypeScript economy implementation calculates treasures, regional trading and ferry passages; the tree includes world, movement, settlement, survival, state and test modules. Vite/React/Three.js package provides build, unit-test and browser-verification scripts. Limitations: README explicitly says the core gameplay loop is not fully developed; claimed acceptance/test results were not independently run. README says original game assets are not used; MIT applies to the project's own work, with third-party data/libraries separately licensed. Kokoro journal speech synthesis is a runtime feature, distinct from the documented AI-assisted development. README explicitly calls the linked browser PoC playable, so runnable/playable=true record an upstream-only partial-demo claim, not a completed game. The core gameplay loop is explicitly not fully developed. package.json and README provide npm build and test commands but no compilation/test result was independently reproduced; compilable remains null. README requires Node.js 20+ for development and describes WebGPU rendering with WebGL 2 fallback and lazy-loaded Kokoro TTS. These software/graphics capabilities establish no minimum CPU or RAM; no hardware runtime profile is asserted. Primary identity evidence establishes the historical C64 game subject and the remake lineage. It does not explicitly establish the original executable CPU or show a verified original-binary CPU analysis. source_cpu remains empty; no 6510/Z80 value is inferred from platform names or the new implementation language. React/Three.js/Vite and browser scripts establish a browser output, but neither TypeScript nor WebGPU identifies a host CPU architecture; target_cpu remains empty. No current same-title/alias project found in title, subjects, upstream name, repository and notes comparison; metadata reports non-fork. This is a bounded comparison, not an exhaustive code-provenance audit. The canonical repository root was compared with the hash-verified 1,380-project baseline and discovery indexes at 44558101462cd67db1951803eaeea07aafdff930; no canonical-root collision was found. GitHub fork=false is metadata, not proof of independent authorship. Rights: MIT for original project work. README says original game assets are not used; MIT applies to the project's own work, with third-party data/libraries separately licensed. AI evidence: README explicitly describes Claude reviewing Astra-authored work and Astra reviewing Claude-authored work; the tree also contains Claude configuration. ai.usage=true and the explicitly named Claude, Astra and Codex CLI are recorded. The separate runtime Kokoro TTS feature is not treated as development attribution. Repository pushed_at was observed as 2026-10-05T23:09:10Z; last_activity is left null pending a commit-level activity check. No independent compilation, execution, gameplay, hardware test or original-binary comparison was performed. Primary evidence: https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/README.md https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/src/systems/economy.ts https://github.com/patrickvonmassow/heart-of-africa-remake/blob/main/src/state/store.ts https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/package.json https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/blob/main/LICENSE The current villager pipeline exports composed runtime poses for eight subjects, round-trips bone/morph transforms with a 1e-4 tolerance, and packages fitted garments in a quantized 6.90 MB GLB loaded only for medium/high settlements. Recent handover commits report a green unit run while explicitly retaining asset-rebuild and review follow-ups; this is bounded pipeline evidence, not proof that the incomplete remake is finished. Claude Opus 5.5 co-author trailers and GPT-6 Astra review findings make the AI role explicit. No browser build or visual comparison was reproduced by the tracker. Evidence: https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/c8307c0ff6ec59e20b7365b6f9932ac53b53075d https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/4b89b0d8acb71b80c5df742c38d17ff6fa247357 https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/85c37d01d99e3b8f94ca03caad3669bfd96b98c8 https://github.com/PatrickVonMassow/Heart-of-Africa-Remake/commit/571c7d8b498f34a5bc55092a93aedaaef65455ad",
     "execution_paths": [
       {
         "name": "Native browser remake",
@@ -177063,8 +177116,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-10",
-    "status": "v0.12.9 fixes interrupt-entry breakpoints and monitor stepping across IRQ/NMI/RTI while retaining the runnable PAL/NTSC C64C models introduced in v0.12.8",
+    "last_checked": "2026-10-16",
+    "status": "v0.13.1 published; caller budgets and real instruction counts now govern until/step operations",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -177091,7 +177144,7 @@
       "Commodore 64",
       "6502"
     ],
-    "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.9 makes an execution breakpoint on the first interrupt-handler instruction fire, persists interrupt-entry stops through checkpoints, and aligns step, step-over and step-return behavior around IRQ/NMI and RTI with VICE monitor expectations. ROMs remain user-supplied; no host CPU or RAM minimum is stated. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.12.9 https://github.com/Jondalar/TRX64/commit/db224337d341 https://github.com/Jondalar/TRX64/commit/1e6f73894427 https://github.com/Jondalar/TRX64/commit/212ebaf46857",
+    "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.9 makes an execution breakpoint on the first interrupt-handler instruction fire, persists interrupt-entry stops through checkpoints, and aligns step, step-over and step-return behavior around IRQ/NMI and RTI with VICE monitor expectations. ROMs remain user-supplied; no host CPU or RAM minimum is stated. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.12.9 https://github.com/Jondalar/TRX64/commit/db224337d341 https://github.com/Jondalar/TRX64/commit/1e6f73894427 https://github.com/Jondalar/TRX64/commit/212ebaf46857 TRX64 0.13.1 publishes Linux, macOS and Windows archives for x86-64 and ARM64. Development immediately after the release makes until and stepOver honor caller-supplied cycle budgets and changes instructionsElapsed from a mislabeled cycle total to a true retired-instruction count, with real-binary and headless tests. This is upstream evidence only; the tracker did not execute the archives. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.13.1 https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891",
     "github": {
       "repository": "Jondalar/TRX64",
       "created_at": "2026-06-24",
@@ -185660,8 +185713,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-14",
-    "status": "active; optional loopback GDB server with range stepping and memory-map reporting",
+    "last_checked": "2026-10-16",
+    "status": "active; optional loopback GDB server plus current display-filter and RTG correctness fixes",
     "build": {
       "compilable": true,
       "runnable": true,
@@ -185683,7 +185736,10 @@
       "debugging",
       "state inspection",
       "GDB remote debugging",
-      "physical memory-map reporting"
+      "physical memory-map reporting",
+      "GDB watch-range validation",
+      "display-filter border gating",
+      "RTG pixel-format correction"
     ],
     "tags": [
       "Amiga",
@@ -185691,7 +185747,7 @@
       "reverse-engineering tooling",
       "retro development"
     ],
-    "notes": "Actively maintained Windows Amiga emulator and a key compatibility/debugging tool for Amiga reverse engineering and retro development. Tracked as adjacent tooling rather than as a source-reconstruction target. Current main adds an opt-in, unauthenticated loopback GDB remote server shared by Windows and Unix builds. It exposes 18 m68k integer registers, physical RAM/ROM access, stepping, PC breakpoints and bounded data watchpoints; subsequent commits add standard vCont range stepping and complete RAM/ROM XML memory maps. It is disabled by default, single-client and local-only, and its memory addresses are physical rather than guest-MMU translations. Evidence: https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1 https://github.com/tonioni/WinUAE/commit/d7dc9b0ef7e19b016f36a18ad494d1f48e40aeda https://github.com/tonioni/WinUAE/commit/5afd2b2111e4340bad2c017c7082586b46c35b4d",
+    "notes": "Actively maintained Windows Amiga emulator and a key compatibility/debugging tool for Amiga reverse engineering and retro development. Tracked as adjacent tooling rather than as a source-reconstruction target. Current main adds an opt-in, unauthenticated loopback GDB remote server shared by Windows and Unix builds. It exposes 18 m68k integer registers, physical RAM/ROM access, stepping, PC breakpoints and bounded data watchpoints; subsequent commits add standard vCont range stepping and complete RAM/ROM XML memory maps. It is disabled by default, single-client and local-only, and its memory addresses are physical rather than guest-MMU translations. Evidence: https://github.com/tonioni/WinUAE/commit/bdb195ec7bbea8ca43c37d30976e0f8ffd51d7b1 https://github.com/tonioni/WinUAE/commit/d7dc9b0ef7e19b016f36a18ad494d1f48e40aeda https://github.com/tonioni/WinUAE/commit/5afd2b2111e4340bad2c017c7082586b46c35b4d Subsequent mainline changes bound GDB range-watch values to supported memwatch widths and preserve debugger-requested resets at restart. Display work makes filter border blanking optional, adds its GUI control, corrects 15-bit low-resolution PCem/86Box RTG output and follows with an NTSC drawing fix. These are narrow debugger/display corrections; no compatibility-wide claim or tracker-side build is made. Evidence: https://github.com/tonioni/WinUAE/commit/342d5030ef7f4ea6a5be82647576072a25050d43 https://github.com/tonioni/WinUAE/commit/dacbc08d5620b4b8660cb8d6d6c4f5d5ba06ec4f https://github.com/tonioni/WinUAE/commit/2ab1c5acdfc3f94d287a943a71a57e698772fcd6 https://github.com/tonioni/WinUAE/commit/9c56300a6482f538071188ae49d7f57adfa8814b",
     "github": {
       "repository": "tonioni/WinUAE",
       "created_at": "2010-02-22",
@@ -191440,8 +191496,8 @@
     ],
     "re_started": null,
     "last_activity": "2026-10-15",
-    "last_checked": "2026-10-14",
-    "status": "active; current main bounds firmware-update stalls and validates configuration grammar against documentation",
+    "last_checked": "2026-10-16",
+    "status": "active; ZZTop is rebuilt for a 640x256 GadTools window and the network driver has bounded asynchronous RX/TX paths",
     "build": {
       "compilable": null,
       "runnable": null,
@@ -191461,13 +191517,16 @@
     },
     "techniques": [
       "hardware-driver timeout hardening",
-      "configuration schema validation"
+      "configuration schema validation",
+      "asynchronous four-slot network transmit",
+      "serial-first receive validation",
+      "GadTools control-application redesign"
     ],
     "tags": [
       "Amiga",
       "native Amiga hardware-driver continuation"
     ],
-    "notes": "Independent continuation of MNT’s ZZ9000 Amiga-side driver suite, with RTG, network/audio/USB/SD and native control utilities. Network device.c implements native SANA-II Amiga driver dispatch and hardware access; rtg/mntgfx-gcc.c implements graphics-card integration. README identifies the original MNT source and independent fork status, with firmware and ARM-side logic in separate repositories. Top-level build invokes pinned Amiga toolchain workflows; net/Makefile sets68020 and includes host-side test targets elsewhere in the suite. A reviewed code-fix commit explicitly credits Codex review; attribution is limited to review assistance. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. Maintained Amiga-side hardware driver source, not a reconstruction of a historical original binary. No source CPU is inferred from the modern hardware family. net/Makefile explicitly defaults to CPU=68020 and soft float. This records the inspected native network-driver target; other suite components can vary. The board ARM/FPGA firmware lives elsewhere and is not the Amiga driver CPU. Amiga-side m68k toolchain; inspected network component default 68020 and soft float. Board FPGA/ARM firmware separate from host driver CPU. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. No complete independently verified hardware matrix is asserted. GPL-3.0-or-later for driver tree with retained MNT/contributor and third-party notices; external payload licenses remain separate. Multiple sampled commits explicitly credit Codex review. Commit 6944da9 fixes a concrete ZZDiag control-flow problem identified in that review; no broad claim that all driver code is AI-generated. Role: code review. No broad AI-generated-code claim. Snapshot: 701ee6e9bf96f19e302d874b166e22e06952e0b6. Repository creation is not a verified RE start date. Evidence: https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/device.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/LICENSE https://github.com/BlitterStudio/zz9000-drivers Current main avoids a potentially indefinite Amiga-bus read when the firmware-update status mirror is frozen, and expands configuration-key tooling to compare the documented grammar with the parser, sample and editor. These are source/test-backed robustness changes, not independent hardware execution. Evidence: https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857 https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41",
+    "notes": "Independent continuation of MNT’s ZZ9000 Amiga-side driver suite, with RTG, network/audio/USB/SD and native control utilities. Network device.c implements native SANA-II Amiga driver dispatch and hardware access; rtg/mntgfx-gcc.c implements graphics-card integration. README identifies the original MNT source and independent fork status, with firmware and ARM-side logic in separate repositories. Top-level build invokes pinned Amiga toolchain workflows; net/Makefile sets68020 and includes host-side test targets elsewhere in the suite. A reviewed code-fix commit explicitly credits Codex review; attribution is limited to review assistance. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. Maintained Amiga-side hardware driver source, not a reconstruction of a historical original binary. No source CPU is inferred from the modern hardware family. net/Makefile explicitly defaults to CPU=68020 and soft float. This records the inspected native network-driver target; other suite components can vary. The board ARM/FPGA firmware lives elsewhere and is not the Amiga driver CPU. Amiga-side m68k toolchain; inspected network component default 68020 and soft float. Board FPGA/ARM firmware separate from host driver CPU. Requires ZZ9000 ZorroII/III hardware; ZZ9000AX audio and Picasso96/USB/network dependencies vary by component. Matched firmware/bitstream/SDK versions matter, especially ZorroII memory-layout negotiation; driver source alone does not provide a complete setup. The board’s ARM coprocessors are not the CPU executing the Amiga-side network driver; retain separate roles. No independent hardware/runtime/test execution; original MNT lineage is one family, not an extra project count. No complete independently verified hardware matrix is asserted. GPL-3.0-or-later for driver tree with retained MNT/contributor and third-party notices; external payload licenses remain separate. Multiple sampled commits explicitly credit Codex review. Commit 6944da9 fixes a concrete ZZDiag control-flow problem identified in that review; no broad claim that all driver code is AI-generated. Role: code review. No broad AI-generated-code claim. Snapshot: 701ee6e9bf96f19e302d874b166e22e06952e0b6. Repository creation is not a verified RE start date. Evidence: https://github.com/BlitterStudio/zz9000-drivers/blob/master/README.md https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/device.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/rtg/mntgfx-gcc.c https://github.com/BlitterStudio/zz9000-drivers/blob/master/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/net/Makefile https://github.com/BlitterStudio/zz9000-drivers/blob/master/LICENSE https://github.com/BlitterStudio/zz9000-drivers Current main avoids a potentially indefinite Amiga-bus read when the firmware-update status mirror is frozen, and expands configuration-key tooling to compare the documented grammar with the parser, sample and editor. These are source/test-backed robustness changes, not independent hardware execution. Evidence: https://github.com/BlitterStudio/zz9000-drivers/commit/b47ab43acb39dbc38b42028f4a1a467623c3f857 https://github.com/BlitterStudio/zz9000-drivers/commit/a96ca04b8269b137eacc9dc5ea0424c410476f41 Current main replaces the monolithic ZZTop implementation with a one-window GadTools design intended to fit a 640x256 screen, with separated capture, audio, display, firmware, status and tuning modules plus host-side settings tests. The network driver adds four-slot asynchronous transmit with bounded reuse, shifted placement for supported firmware, serial-first Zorro II receive with legacy-firmware gating and bounded priority-drain behavior. Upstream reports A3000/68060 iperf measurements for selected paths; those are test setups, not minimum hardware. No tracker-side build or ZZ9000 hardware run was performed. Evidence: https://github.com/BlitterStudio/zz9000-drivers/commit/7f0b9d5dd14d72207d8eff4954fcd5aca3b36aa5 https://github.com/BlitterStudio/zz9000-drivers/commit/92acc80a6f5ac3c3a081c9f6868e7b73909617b6 https://github.com/BlitterStudio/zz9000-drivers/commit/11108219ded527edff9c173a7ec7ed06468e5680 https://github.com/BlitterStudio/zz9000-drivers/commit/34ad8852834b8d3052f58788a957358b04f9f25e",
     "github": {
       "repository": "BlitterStudio/zz9000-drivers",
       "created_at": "2026-04-20",
