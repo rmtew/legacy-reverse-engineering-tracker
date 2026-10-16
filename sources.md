@@ -984,3 +984,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-17 — Add fourteen game projects from developer-following and catalogue-to-source routes, including Populous creature fixes, native games and editors.
 
 [Research record](docs/research/2026-10-17-developer-catalogue-game-discovery.md).
+
+## 2026-10-17 — Add thirteen source-available Amstrad CPC game projects, including preserved Crazy Worm source, native arcade/puzzle games and development projects.
+
+[Research record](docs/research/2026-10-17-cpc-game-discovery.md).
