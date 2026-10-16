@@ -3146,7 +3146,7 @@
     },
     {
       "project_id": "copperline-amiga-emulator",
-      "last_reviewed": "2026-10-15",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -3169,16 +3169,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "Reviewed the tested AGA DDF-stop, native interlaced capture, settings persistence and serialized drive-event/sample-set changes. Existing compile/run evidence remains valid; no local build, save-state replay or netplay run was performed.",
+          "checked_at": "2026-10-17",
+          "note": "Fat Gary now distinguishes warm reset from power-on for COLDBOOT, with chip/bus/CPU regressions covering A3000/A4000 Kickstart warm-state behavior.",
           "evidence_urls": [
-            "https://github.com/CopperlineHQ/Copperline/commit/9e8359ea6cce6fc5e5028d1f4e31b960b53f7da6",
-            "https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2"
+            "https://github.com/CopperlineHQ/Copperline/commit/535fb60a828d88c292935c536b269ac512d301af"
           ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
-          "checked_at": "2026-09-23"
+          "checked_at": "2026-10-17",
+          "note": "The Gary reset correction adds no host CPU, RAM or OS requirement.",
+          "evidence_urls": [
+            "https://github.com/CopperlineHQ/Copperline/commit/535fb60a828d88c292935c536b269ac512d301af"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -5542,7 +5545,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5573,19 +5576,21 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Current main decodes and launches original Apple IIGS worlds through the CLI/M12 route and connects native mirror recruitment. These source-owned receipts establish a live IIGS path, not complete campaign, presentation or audio parity.",
+          "checked_at": "2026-10-17",
+          "note": "Authenticated PC34 regressions now cover overlapping champion portrait/hand routing and selector input handling. Separate instrumentation reports input-to-source/present timing while explicitly leaving physical scanout unmeasured.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b",
-            "https://github.com/yeager/firestaff/commit/26f1361e5b3d18512db35b7b0791b84f4e4385da"
+            "https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373",
+            "https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The reviewed IIGS material establishes original-world execution and feature coverage but does not state a primary-source minimum RAM or host configuration. No runtime minimum is added.",
+          "checked_at": "2026-10-17",
+          "note": "The reviewed IIGS material establishes original-world execution and feature coverage but does not state a primary-source minimum RAM or host configuration. No runtime minimum is added. The champion-routing and latency instrumentation add no minimum original machine or host requirement.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b"
+            "https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b",
+            "https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373",
+            "https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44"
           ]
         },
         "ai": {
@@ -28802,7 +28807,7 @@
     },
     {
       "project_id": "c64re-mcp-workbench",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28828,31 +28833,31 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Source/package 0.9.1 pins TRX64 0.13.1. Upstream reports 126/126 gates for preserving hand-written NEXT.md and giving human zero-page labels precedence while retaining byte-identical rebuilds; no local fixture or package run occurred.",
+          "checked_at": "2026-10-17",
+          "note": "Gate coverage now includes every e2e/smoke/test/probe script or requires a reasoned exception; 96 scripts joined and the empty exception list is statically checked. The worker pool preserves bounded runtime concurrency and reports per-step logs/timings.",
           "evidence_urls": [
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/82e1341556341e74644d876ed50f07c4736ae761",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/ec27379fe04a90c8a1cd3abb854b0b427aefee5a"
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/8b09b50a5aec44d9b56017a7890f0ac4f415aaaa",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/c66d81639073b40d09abc447848b346fcfb556ac"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Current package metadata pins TRX64 0.13.1 alongside Node.js 22+ and user-supplied ROMs. No minimum host CPU or RAM is stated.",
+          "checked_at": "2026-10-17",
+          "note": "Current package metadata pins TRX64 0.13.1 alongside Node.js 22+ and user-supplied ROMs. No minimum host CPU or RAM is stated. The gate-coverage changes add no minimum host CPU, RAM or OS requirement.",
           "evidence_urls": [
             "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/package.json"
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/blob/master/package.json",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/8b09b50a5aec44d9b56017a7890f0ac4f415aaaa",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/c66d81639073b40d09abc447848b346fcfb556ac"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The 0.9.1 and subsequent ownership/label fixes explicitly credit Claude Opus 5.5. Existing Codex/LLM evidence remains affirmative and scoped to evidenced work.",
+          "checked_at": "2026-10-17",
+          "note": "Both gate commits explicitly credit Claude Sonnet 5.5; the existing affirmative AI record remains evidence-backed.",
           "evidence_urls": [
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/829f623063d6da0abdef9f228abd613324e8c4ae",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/82e1341556341e74644d876ed50f07c4736ae761",
-            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/ec27379fe04a90c8a1cd3abb854b0b427aefee5a"
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/8b09b50a5aec44d9b56017a7890f0ac4f415aaaa",
+            "https://github.com/Jondalar/C64ReverseEngineeringMCP/commit/c66d81639073b40d09abc447848b346fcfb556ac"
           ]
         },
         "relationships": {
@@ -28870,7 +28875,7 @@
     },
     {
       "project_id": "trx64-reverse-debugger",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28891,29 +28896,31 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "v0.13.1 is published with platform archives. Post-release upstream tests show caller budgets and real instruction counts for until/step operations; no local archive or daemon run was performed.",
+          "checked_at": "2026-10-17",
+          "note": "Development head adds Action Replay V5/V6 banking and freeze/return state, with real-image daemon regressions for four variants plus deterministic restore/trace checks. Corpus absence is a loud skip, not a passing substitute.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/releases/tag/v0.13.1",
-            "https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891"
+            "https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084",
+            "https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The v0.13.1 release again supplies Linux, macOS and Windows builds for x86-64 and ARM64 with user-supplied ROMs. No CPU-generation or RAM minimum is stated.",
+          "checked_at": "2026-10-17",
+          "note": "The v0.13.1 release again supplies Linux, macOS and Windows builds for x86-64 and ARM64 with user-supplied ROMs. No CPU-generation or RAM minimum is stated. The Action Replay emulation changes do not alter the v0.13.1 release matrix or state a new CPU-generation/RAM minimum.",
           "evidence_urls": [
             "https://github.com/Jondalar/TRX64/releases/tag/v0.13.1",
-            "https://github.com/Jondalar/TRX64/blob/main/README.md"
+            "https://github.com/Jondalar/TRX64/blob/main/README.md",
+            "https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084",
+            "https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The v0.13.1 release commit and the post-release budget/instruction fix explicitly credit Claude Opus 5.5. Attribution remains scoped to the evidenced changes.",
+          "checked_at": "2026-10-17",
+          "note": "The Action Replay implementation and specification commits explicitly credit Claude Sonnet/Opus 5.5 and include Claude session links.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/commit/26dfc96c849d73a922412834e912824d104aff68",
-            "https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891"
+            "https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084",
+            "https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a"
           ]
         },
         "relationships": {
@@ -30906,7 +30913,7 @@
     },
     {
       "project_id": "dos-dethrace",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -30928,19 +30935,21 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Four merged PRs reconstruct SwingCamera, ObjectGrooveBastard, PathGrooveBastard and FunkThoseTronics. PathGrooveBastard reports 100% matching; the remaining claims are equivalent/effective matches and are not promoted to byte identity.",
+          "checked_at": "2026-10-17",
+          "note": "Two post-cutoff reconstruction commits distinguish a 100% DrawLine2D match from a behavior-equivalent FollowCheatyPath result; neither is promoted to whole-program equivalence.",
           "evidence_urls": [
-            "https://github.com/dethrace-labs/dethrace/pull/1191",
-            "https://github.com/dethrace-labs/dethrace/pull/1192",
-            "https://github.com/dethrace-labs/dethrace/pull/1193",
-            "https://github.com/dethrace-labs/dethrace/pull/1194"
+            "https://github.com/dethrace-labs/dethrace/commit/d16bdad486c66fd77e7ac69231526ea22c3df753",
+            "https://github.com/dethrace-labs/dethrace/commit/50c1e867f2d4d44224d3f527f70ffd7f1c93614e"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-30",
-          "note": "README and CI were checked; they define supported host builds but no minimum runnable CPU, RAM or OS profile."
+          "checked_at": "2026-10-17",
+          "note": "README and CI were checked; they define supported host builds but no minimum runnable CPU, RAM or OS profile. The two function-reconstruction commits add no host CPU, RAM or OS requirement.",
+          "evidence_urls": [
+            "https://github.com/dethrace-labs/dethrace/commit/d16bdad486c66fd77e7ac69231526ea22c3df753",
+            "https://github.com/dethrace-labs/dethrace/commit/50c1e867f2d4d44224d3f527f70ffd7f1c93614e"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -40431,7 +40440,7 @@
     },
     {
       "project_id": "cpc-syntax-error-emulator",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -40460,27 +40469,27 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "v0.6.3 publishes the existing Windows x64, Linux x86-64 and universal macOS package families while adding CRT effects and reorganized media/ROM windows. No independent package execution was performed.",
+          "checked_at": "2026-10-17",
+          "note": "v0.6.5 development head adds deterministic rewind/input replay, signal analysis and raster diagnostics while reporting unchanged frame hashes and byte-identical SHAKER screens after optimization. This is upstream evidence; no local package run was performed.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3",
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/f87aa174c50c6bb56a2e8c3ca4b4ddbaa7650f4a"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The release retains the same explicit Linux x86-64 and macOS universal output architectures. No new CPU generation or RAM minimum is stated.",
+          "checked_at": "2026-10-17",
+          "note": "The release retains the same explicit Linux x86-64 and macOS universal output architectures. No new CPU generation or RAM minimum is stated. The v0.6.5 development changes do not alter the existing release-architecture profiles or state a CPU-generation/RAM minimum.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The v0.6.3 implementation commit explicitly credits Claude Opus 5.5; attribution remains scoped to that commit.",
+          "checked_at": "2026-10-17",
+          "note": "The v0.6.5 development commit explicitly credits Claude Opus 5.5.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/f87aa174c50c6bb56a2e8c3ca4b4ddbaa7650f4a"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c"
           ]
         },
         "relationships": {
@@ -71255,7 +71264,7 @@
     },
     {
       "project_id": "github-henols-c64-re-tools",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -71303,20 +71312,24 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Upstream live tests verify CIA timer restoration at the recovered entry and unit tests cover host logging. No tracker-side VICE run was performed; unresolved SID/TOD/interrupt-state limits and the open 2.0.0 publication gate remain explicit.",
+          "checked_at": "2026-10-17",
+          "note": "M23/M24 add non-stopping evidence traces, source maps, generated/linked reference documentation and explicit run-file ownership. Bruce Lee field-run counts are upstream acceptance evidence; npm 2.0.0 publication remains open.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b",
-            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06"
+            "https://github.com/henols/c64-re-tools/commit/4c209ab6e79cbb0a34e3b818bf33d8b6fb92f0ba",
+            "https://github.com/henols/c64-re-tools/commit/7a45b671dc7b6efc1f0c6b905e57ae1839a8ce3a",
+            "https://github.com/henols/c64-re-tools/commit/9caaff4bf206b429d389fcdf5e94d42919600cd9"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-16",
-          "note": "M17 adds software behavior and tests but no host CPU, RAM or minimum-machine evidence. Node/VICE prerequisites remain software requirements rather than a hardware profile.",
+          "checked_at": "2026-10-17",
+          "note": "M17 adds software behavior and tests but no host CPU, RAM or minimum-machine evidence. Node/VICE prerequisites remain software requirements rather than a hardware profile. The new tracing and documentation tools add no host CPU or RAM minimum; existing Node/VICE prerequisites remain software requirements.",
           "evidence_urls": [
             "https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b",
-            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06"
+            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06",
+            "https://github.com/henols/c64-re-tools/commit/4c209ab6e79cbb0a34e3b818bf33d8b6fb92f0ba",
+            "https://github.com/henols/c64-re-tools/commit/7a45b671dc7b6efc1f0c6b905e57ae1839a8ce3a",
+            "https://github.com/henols/c64-re-tools/commit/9caaff4bf206b429d389fcdf5e94d42919600cd9"
           ]
         },
         "ai": {
@@ -89215,7 +89228,7 @@
     },
     {
       "project_id": "amiberry-system-emulator",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -89261,19 +89274,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Upstream tests cover Android/native WHDLoad configuration and source changes bound IPC clients, requests and per-frame work. No independent build, WHDLoad launch or IPC stress run was performed.",
+          "checked_at": "2026-10-17",
+          "note": "Development head expands the WinUAE-derived GDB monitor with remote execution/task/exception/DMA/input/checkpoint features and bounded failure handling. It is not a new v8.4.0 artifact and was not independently executed.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7",
-            "https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c"
+            "https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "Six explicit v8.4.0 release-asset architecture variants are recorded for Windows, macOS and Linux on ARM64/x86-64. The release states no minimum CPU generation, RAM or OS version, so the profiles contain no invented minima.",
+          "checked_at": "2026-10-17",
+          "note": "Six explicit v8.4.0 release-asset architecture variants are recorded for Windows, macOS and Linux on ARM64/x86-64. The release states no minimum CPU generation, RAM or OS version, so the profiles contain no invented minima. The GDB-monitor extensions do not alter the six published v8.4.0 architecture variants or state a new CPU-generation/RAM/OS minimum.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0"
+            "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0",
+            "https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d"
           ]
         },
         "ai": {
@@ -124697,7 +124710,7 @@
     },
     {
       "project_id": "pom2games-native-apple-ii-collection",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -124750,19 +124763,20 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "Upstream supplies updated 140 KiB and XL 800 KiB images plus ROM-probed crafting and gameplay tests. No tracker-side assembly, boot or hardware run was performed.",
+          "checked_at": "2026-10-17",
+          "note": "NeoWildernessXL adds joystick navigation, object/equipment transactions and a separate TMAP program. Upstream reports 21 test-xl scripts and 96 archipelago cases; no disk was booted locally.",
           "evidence_urls": [
-            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
+            "https://github.com/habib256/pom2games/commit/d1b369198dbeb50be199be735d1831ca4d417f71"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The Neowilderness README explicitly documents two 128 KiB delivery profiles: a 140 KiB Disk II edition for enhanced IIe/IIc and an 800 KiB edition for enhanced IIe with supported 3.5-inch controller or SmartPort-capable IIc/IIc Plus. These are author-stated requirements, not independently verified minima.",
+          "checked_at": "2026-10-17",
+          "note": "The Neowilderness README explicitly documents two 128 KiB delivery profiles: a 140 KiB Disk II edition for enhanced IIe/IIc and an 800 KiB edition for enhanced IIe with supported 3.5-inch controller or SmartPort-capable IIc/IIc Plus. These are author-stated requirements, not independently verified minima. The new XL functionality does not change the two documented 128 KiB Neowilderness delivery profiles; no lower minimum is inferred.",
           "evidence_urls": [
             "https://github.com/habib256/pom2games/blob/main/neowilderness/README.md",
-            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605"
+            "https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605",
+            "https://github.com/habib256/pom2games/commit/d1b369198dbeb50be199be735d1831ca4d417f71"
           ]
         },
         "ai": {
@@ -128059,7 +128073,7 @@
     },
     {
       "project_id": "th04-lotus-land-story-reconstruction",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -128096,26 +128110,30 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The latest paired MAIN route runs the reconstructed and original programs for 8,000 updates through Continue/resume and matches consumed input, 36 fields, 3,042 RNG calls, nine pools and 22 states. Upstream still reports 263 post-reset input differences, so this is not promoted to whole-game parity.",
+          "checked_at": "2026-10-17",
+          "note": "Reviewed the title/GRCG differential receipts, including 8,000 state boundaries, two 7,895-case component loads and a preserved one-pixel negative. Complete natural pictures, campaign coverage and physical timing remain open.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85"
+            "https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a",
+            "https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-16",
-          "note": "The new route supplies execution parity counts but no minimum physical PC-98 or x64 host CPU/RAM requirement.",
+          "checked_at": "2026-10-17",
+          "note": "The new route supplies execution parity counts but no minimum physical PC-98 or x64 host CPU/RAM requirement. The title/GRCG receipts add no minimum physical PC-98 or x64 host CPU/RAM evidence.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85"
+            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85",
+            "https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a",
+            "https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The reviewed commit explicitly identifies gpt-6.1-sol; no contribution percentage is inferred.",
+          "checked_at": "2026-10-17",
+          "note": "The reviewed commits explicitly identify gpt-6.1-sol; attribution remains scoped to the evidenced title-work commits.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85"
+            "https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a",
+            "https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3"
           ]
         },
         "relationships": {

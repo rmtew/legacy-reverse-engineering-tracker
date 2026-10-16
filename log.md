@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-17 — Reverse-debugging, reconstruction and emulator correctness
+
+Reviewed ten materially changed projects. **CPCSyntaxError — CPC/Plus cycle-level emulator** adds deterministic rewind, input movies, a logic analyser and raster-timing overlay while preserving byte-identical SHAKER output. **Amiberry — general Amiga machine emulator** expands its WinUAE-derived remote monitor, and **TRX64 — C64 reverse-debugging emulator/runtime** adds Action Replay V5/V6 freeze/return behavior with real-image state regressions. **Copperline — Amiga emulator & reverse debugger** corrects Fat Gary warm-reset COLDBOOT semantics.
+
+Reconstruction and research tooling also advanced: **Touhou 4: Lotus Land Story — PC-98 source reconstruction** adds bounded title/GRCG differential evidence while preserving a failed one-pixel counterexample and natural-picture gap; **Carmageddon — incremental DOS executable reconstruction** distinguishes one exact routine from one behavior-equivalent result; **c64-re-tools — agent-oriented C64 engineering toolkit** adds evidence-bearing traces and generated linked reference documentation; and **C64RE — MCP-assisted C64 software analysis workbench** brings every test/probe script under an explicit gate with bounded parallel execution. **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** adds authenticated champion-selection and input-to-present instrumentation, while **POM2 Games: native Apple II game collection** extends NeoWildernessXL navigation, equipment and TMAP.
+
+The CPU audit queue was empty before selection. No CPU, RAM, OS minimum or runtime architecture was inferred from platform, language, emulator guest configuration or package metadata. Existing profiles remain bounded to prior primary evidence, and no upstream project was independently built or executed.
+
 ## 2026-10-17 — Static recompilers, PC-88 clean-room work and cross-development toolchains
 
 Promoted eleven primary-source-reviewed projects. The saved source queue contributed **b2 — BBC Micro-family emulator and debugger**, the sibling **7800kit**, **saturnkit** and **ndskit** static-recompilation/runtime toolkits, **premium5 — Volkswagen Premium 5 firmware emulator**, **Acornsoft Lisp v4.06 — BBC Micro ROM disassembly**, and the archived **Z-RAM — Commodore PET/CBM CP/M expansion research**. The three vs-sr-dev toolkits keep their original SALLY/6502, SH-2/68000 and ARM946E-S/ARM7TDMI CPUs distinct from unspecified native-host output architectures.
