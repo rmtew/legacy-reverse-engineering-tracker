@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-16T23:13:56Z",
+  "updated_at": "2026-10-16T23:43:40Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -24280,6 +24280,81 @@
         "tools": []
       }
     },
+    "blower-amiga-port": {
+      "id": "blower-amiga-port",
+      "title": "Blower",
+      "upstream_name": "Blower",
+      "display_title": "Blower",
+      "subjects": [
+        "Blower"
+      ],
+      "repo": "https://github.com/youenchene/blower",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented Amiga requirement",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_chip_ram_kib": 1024,
+          "notes": "README says compatible with all Amigas with 1 MiB Chip RAM and reports A500/A1200/CDTV tests; not independently tested.",
+          "evidence": [
+            "https://github.com/youenchene/blower/blob/03a91c4201e093e5a31c7fc55cf1b7638ce5dce4/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Pascal",
+        "x86 assembly"
+      ],
+      "reconstructed_languages": [
+        "Blitz Basic"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "catalogue-to-source"
+      ],
+      "notes": "Identity: Four-player local combat game ported from the author’s 1996–1997 DOS Pascal/x86 game for the Amiga Blitz Basic Game Jam. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Readable blower.bba and assets accompany ADF, hard-disk, CDTV and CD32 releases. README documents Ultimate Blitz Basic 2.1 and testing on A500/A1200/CDTV. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: README says compatible with all Amigas with 1 MiB Chip RAM and reports A500/A1200/CDTV tests; not independently tested. AI: README explicitly credits Midjourney for the title screen alongside Grafx2; this does not establish AI-generated game code. Relationships: Distinct source-available game; current catalogue and prior decision URLs were screened before addition. Evidence: https://github.com/youenchene/blower/blob/03a91c4201e093e5a31c7fc55cf1b7638ce5dce4/README.md https://github.com/youenchene/blower/blob/03a91c4201e093e5a31c7fc55cf1b7638ce5dce4/blower.bba https://github.com/youenchene/blower/commit/03a91c4201e093e5a31c7fc55cf1b7638ce5dce4 https://youenchene.itch.io/blower",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Midjourney"
+        ]
+      }
+    },
     "blues-brothers-engine-cyxx": {
       "id": "blues-brothers-engine-cyxx",
       "title": "Blues Brothers — reimplemented Titus game engine",
@@ -29499,6 +29574,64 @@
         "source-reviewed"
       ],
       "notes": "Identity: The author identifies this as a fan rewrite/port of the freeware PC game Cave Story for Mega Drive/Genesis, with the main story described as finished and bugfixes remaining. The source main loop handles title/save selection, gameplay and credits, supporting a substantive game rather than a tech demo. Classification: This is a native console reimplementation using its own C/68000 engine, SGDK-derived XGM sound driver and NXEngine-derived gameplay behavior routines. The cited material does not establish a byte-faithful decompilation or original-PC CPU interpreter. Source CPU: The reviewed project identifies Cave Story as a PC game and acknowledges NXEngine-derived C routines, but it does not establish the ISA of an original binary actually analyzed by this port. Source CPU is left empty rather than inferred from the PC label or desktop tools. Target CPU: Makefile explicitly selects m68k-elf GCC/assembler with -m68000 and separately assembles a Z80 XGM driver. Host C/C++ asset tools are distinct from these two console processors; C23 is a compiler language mode, not a hardware requirement. Build: README calls for build-essential, libpng-dev and an m68k-elf cross toolchain such as Marsdev; Makefile builds bundled asset tools and native ROM data. The tree includes source and game resources, but end-to-end input completeness is untested. The detailed license overrides the README’s shorthand: most engine/XGM code is MIT, src/ai routines are GPLv3 via NXEngine, music covers are CC-BY-NC, and Pixel-owned art/story/characters are explicitly used without permission. Font licenses vary. This is not an all-MIT or freely commercializable package. Limitations: No compilation, game execution or gameplay test was performed. Rights restrictions and third-party components must remain visible before any redistribution. Runtime profiles: The compatibility document reports beatable/saving results for several flash cartridges and emulators, with BlastEm most tested and specific saving/graphics exceptions. It states saves use 8 KiB cartridge SRAM at odd addresses, while the header declares a larger range for compatibility. These are attributed compatibility/save-layout reports, not independently verified console RAM minima, so runtime_profiles remains empty. AI: The inspected documentation, complete tree filename inventory and latest observed commit contain no explicit development-AI tool attribution. Here src/ai and NXEngine AI explicitly mean enemy/NPC gameplay logic; they do not identify generative development tooling. This bounded check is not a complete history or provenance audit, so usage remains unknown. Relationships: No Cave Story or NXEngine subject alias was present in the current catalogue. NXEngine gameplay code and SGDK XGM are acknowledged upstream components of this single native port, and the Japanese/English README variants and translated ROMs are not counted separately. CSE2 is mentioned as an accuracy-oriented alternative, not as this project’s identity. Evidence: https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/README.md https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/doc/FAQ.md https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/src/main.c https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/README-ja.md https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/doc/LICENSE.md https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/Makefile https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/src/ai/bat.c https://github.com/andwn/cave-story-md/blob/9c27c6607a1c26edc7ff6e980925b5a294433e4a/doc/COMPATIBILITY.md https://github.com/andwn/cave-story-md/commit/9c27c6607a1c26edc7ff6e980925b5a294433e4a",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "caveman-lionel-commodore-ports": {
+      "id": "caveman-lionel-commodore-ports",
+      "title": "Caveman – Lionel Cross-Platform Versions",
+      "upstream_name": "Caveman – Lionel Cross-Platform Versions",
+      "display_title": "Caveman – Lionel Cross-Platform Versions",
+      "subjects": [
+        "Caveman – Lionel Cross-Platform Versions"
+      ],
+      "repo": "https://github.com/1888games/Caveman-C64VIC20Plus4PET",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Commodore 64",
+        "Commodore VIC-20",
+        "Commodore Plus/4",
+        "Commodore PET"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Cross-platform Caveman implementation using the author’s Lionel library for C64, VIC-20, Plus/4 and PET. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: No identified predecessor binary is reconstructed; original source platform and CPU are left empty. Target CPU: Native Commodore 64 output on the 6502 family is established by the README and reviewed source; Python/Java build tools are host-side. Build: KickAssembler source selects the machine in scripts/main.asm. README says VIC-20 and Plus/4 are complete and C64 should run but lacks sound; the later pinned head commit explicitly reports PET version complete. These are upstream claims, not independently reproduced build/play results. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Related to already tracked 1888games/Caveman-C64 but this is a distinct cross-platform source tree/library experiment, not a URL alias or fork. Preserve differing completeness for each machine. Evidence: https://github.com/1888games/Caveman-C64VIC20Plus4PET/blob/343f6f0420f12bd53a7dd17659802a54b0850768/README.md https://github.com/1888games/Caveman-C64VIC20Plus4PET/blob/343f6f0420f12bd53a7dd17659802a54b0850768/scripts/main.asm https://github.com/1888games/Caveman-C64VIC20Plus4PET/commit/343f6f0420f12bd53a7dd17659802a54b0850768",
       "ai": {
         "usage": null,
         "tools": []
@@ -50049,6 +50182,69 @@
         "tools": []
       }
     },
+    "fatman-amiga-gus0650": {
+      "id": "fatman-amiga-gus0650",
+      "title": "Fatman",
+      "upstream_name": "Fatman",
+      "display_title": "Fatman",
+      "subjects": [
+        "Fatman"
+      ],
+      "repo": "https://github.com/gus0650/Fatman",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "AmigaBASIC"
+      ],
+      "reconstructed_languages": [
+        "Blitz Basic"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Amiga game originally written in AmigaBASIC in 1990 and later converted to Blitz Basic. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Readable fatman.bba and tokenized BB2 source, assets, executable and ADF are supplied. Source header identifies Blitz Basic 2.1; display code directly uses Amiga bitmaps, blits and audio. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct source-available game; current catalogue and prior decision URLs were screened before addition. Evidence: https://github.com/gus0650/Fatman/blob/85849f70fc72489e7ac86cb35df6fe2e34dd03f6/README.md https://github.com/gus0650/Fatman/blob/85849f70fc72489e7ac86cb35df6fe2e34dd03f6/fatman.bba https://github.com/gus0650/Fatman/commit/85849f70fc72489e7ac86cb35df6fe2e34dd03f6 https://gus0650.itch.io/",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "faxanadu-nes-mstan-recomp": {
       "id": "faxanadu-nes-mstan-recomp",
       "title": "FaxanaduRecomp",
@@ -59928,6 +60124,69 @@
         "tools": []
       }
     },
+    "gusgames64-basic-archive": {
+      "id": "gusgames64-basic-archive",
+      "title": "GusGames64",
+      "upstream_name": "GusGames64",
+      "display_title": "GusGames64",
+      "subjects": [
+        "GusGames64"
+      ],
+      "repo": "https://github.com/gus0650/GusGames64",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Commodore BASIC"
+      ],
+      "reconstructed_languages": [
+        "Commodore BASIC"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Coherent collection of small C64 games written by Gustaf Stechmann during 1984–1985. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Commodore 64 output on the 6502 family is established by the README and reviewed source; Python/Java build tools are host-side. Build: The src/*.prg files are tokenized BASIC source, not automatically dismissed as opaque binaries: inspected Moonlander starts at $0801 with linked BASIC lines and REM title/author text. Other entries include Antares, Hangman, Planetoids and Skyhawk. D64 releases are also supplied. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: One authored game collection, retained at repository root rather than creating a separate entry for every BASIC file. No independent restoration from machine code is claimed. Evidence: https://github.com/gus0650/GusGames64/blob/734a310c88060b9200606c5ff1bf5b21253ef374/README.md https://github.com/gus0650/GusGames64/blob/734a310c88060b9200606c5ff1bf5b21253ef374/src/moonlander.prg https://github.com/gus0650/GusGames64/commit/734a310c88060b9200606c5ff1bf5b21253ef374",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "jotd-gyruss-amiga": {
       "id": "jotd-gyruss-amiga",
       "title": "Gyruss — Amiga arcade transcode",
@@ -63238,6 +63497,82 @@
         "SkoolKit"
       ],
       "notes": "Complete maintained RAM disassembly.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "hunter-amiga-68060-performance": {
+      "id": "hunter-amiga-68060-performance",
+      "title": "Hunter 68060 Performance Patch",
+      "upstream_name": "Hunter 68060 Performance Patch",
+      "display_title": "Hunter 68060 Performance Patch",
+      "subjects": [
+        "Hunter 68060 Performance Patch"
+      ],
+      "repo": "https://github.com/timoheimonen/amiga-hunter-performance-68060",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Upstream documented emulator configuration",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_cpu": "68060",
+          "os": "Kickstart 3.1",
+          "notes": "README specifies FS-UAE, 2 MiB Chip RAM and emulated Blizzard 1260 with default 32 MiB accelerator RAM. Treat this as documented configuration, not an independently measured RAM minimum.",
+          "evidence": [
+            "https://github.com/timoheimonen/amiga-hunter-performance-68060/blob/4114ba01fa99f3f4ee0dd50a121bbc223d6f39c9/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Accelerator-targeted Hunter patch with instruction-cache support, Fast RAM allocations, terrain/polygon optimizations and an expanded terrain depth window. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Python applies embedded patches to a matching user ADF; source and patch details are supplied. README documents FS-UAE/Blizzard 1260 setup rather than proving broad real-hardware compatibility. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: README specifies FS-UAE, 2 MiB Chip RAM and emulated Blizzard 1260 with default 32 MiB accelerator RAM. Treat this as documented configuration, not an independently measured RAM minimum. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct game-specific project; current catalogue and prior decision URLs were screened before addition. Original game files are not included in these patch repositories. Evidence: https://github.com/timoheimonen/amiga-hunter-performance-68060/blob/4114ba01fa99f3f4ee0dd50a121bbc223d6f39c9/README.md https://github.com/timoheimonen/amiga-hunter-performance-68060/blob/4114ba01fa99f3f4ee0dd50a121bbc223d6f39c9/PATCH.md https://github.com/timoheimonen/amiga-hunter-performance-68060/commit/4114ba01fa99f3f4ee0dd50a121bbc223d6f39c9",
       "ai": {
         "usage": null,
         "tools": []
@@ -72208,6 +72543,83 @@
         "tools": []
       }
     },
+    "lemmings-amiga-ingame-editor": {
+      "id": "lemmings-amiga-ingame-editor",
+      "title": "Lemmings and Holiday Lemmings In-Game Editor",
+      "upstream_name": "Lemmings and Holiday Lemmings In-Game Editor",
+      "display_title": "Lemmings and Holiday Lemmings In-Game Editor",
+      "subjects": [
+        "Lemmings and Holiday Lemmings In-Game Editor"
+      ],
+      "repo": "https://github.com/timoheimonen/Amiga-Lemmings-Editor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Lemmings floppy editor baseline",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_chip_ram_kib": 512,
+          "os": "Kickstart 1.3",
+          "notes": "README requires PAL A500 with 512 KiB Chip plus 512 KiB slow RAM; Holiday Lemmings requires 512 KiB Chip plus 512 KiB other memory. Upstream supplies real-A500 photographs; not independently tested.",
+          "evidence": [
+            "https://github.com/timoheimonen/Amiga-Lemmings-Editor/blob/1e64e68957fb5bb5ad44af5da968896846971d50/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Adds custom levels and an in-game level editor to original Lemmings and Holiday Lemmings 1994, with floppy and WHDLoad installations. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: build.py assembles native editor variants with vasm and embeds outputs into patch.py. User-supplied checksum-matched disks are required; source documents native level files and disk exchange. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: README requires PAL A500 with 512 KiB Chip plus 512 KiB slow RAM; Holiday Lemmings requires 512 KiB Chip plus 512 KiB other memory. Upstream supplies real-A500 photographs; not independently tested. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct from the already tracked Lemmings 2 editor. Lemmings and Holiday Lemmings share this coherent repository and are kept as one entry. Evidence: https://github.com/timoheimonen/Amiga-Lemmings-Editor/blob/1e64e68957fb5bb5ad44af5da968896846971d50/README.md https://github.com/timoheimonen/Amiga-Lemmings-Editor/blob/1e64e68957fb5bb5ad44af5da968896846971d50/build.py https://github.com/timoheimonen/Amiga-Lemmings-Editor/commit/1e64e68957fb5bb5ad44af5da968896846971d50",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "lemmings-amiga-html5-editor": {
       "id": "lemmings-amiga-html5-editor",
       "title": "Lemmings — Amiga game-data editor",
@@ -73181,6 +73593,61 @@
         "AMMX"
       ],
       "notes": "SDL 1.2.14-derived AmigaOS3 library with bug fixes, rewritten 68k blitting routines and optional Apollo AMMX acceleration. README describes successful GCC builds and a libnix-oriented static-library target. No independent build or application-level runtime test.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "light-cycle-duel-c64": {
+      "id": "light-cycle-duel-c64",
+      "title": "Light Cycle Duel",
+      "upstream_name": "Light Cycle Duel",
+      "display_title": "Light Cycle Duel",
+      "subjects": [
+        "Light Cycle Duel"
+      ],
+      "repo": "https://github.com/fuzzybad/trse/tree/main/c64/LightCycles",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Turbo Rascal"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "catalogue-to-source"
+      ],
+      "notes": "Identity: One- or two-player C64 light-cycle game with a computer opponent, published with editable TRSE sources. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: No identified predecessor binary is reconstructed; original source platform and CPU are left empty. Target CPU: Native Commodore 64 output on the 6502 family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Inspected main.ras implements input, positions, collision, game state and drawing; supporting .ras files and PRGs are supplied. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Use the game-specific subdirectory because repository root is a mixed collection of PET/C128 demos, utilities and experiments. This entry covers original Light Cycle Duel, not the separately advertised Deluxe edition. Evidence: https://github.com/fuzzybad/trse/blob/1ef444209650bfa15e73e1ea88a15803fcb182ad/README.md https://github.com/fuzzybad/trse/blob/1ef444209650bfa15e73e1ea88a15803fcb182ad/c64/LightCycles/main.ras https://github.com/fuzzybad/trse/commit/1ef444209650bfa15e73e1ea88a15803fcb182ad https://fuzzybad.itch.io/c64-light-cycle-duel",
       "ai": {
         "usage": null,
         "tools": []
@@ -97818,6 +98285,134 @@
         "tools": []
       }
     },
+    "populous-amiga-creature-fix": {
+      "id": "populous-amiga-creature-fix",
+      "title": "Populous Amiga Creature Fix",
+      "upstream_name": "Populous Amiga Creature Fix",
+      "display_title": "Populous Amiga Creature Fix",
+      "subjects": [
+        "Populous Amiga Creature Fix"
+      ],
+      "repo": "https://github.com/timoheimonen/Populous-Amiga-funny-creature-fix",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Game-specific restoration of wizard, swamp-monster and rock-monster spawning; documents missing stack argument, off-map position, repeated paused spawning and invalid table-full check. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Readable 68000 patch source and Python disk patcher; optional vasm comparison verifies embedded patch bytes. User must supply the exact supported disk image. Upstream behavioral measurements are reported, not independently reproduced. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Separate platform-specific patch implementation, not a mirror of the other platform or the existing tetracorp/populous disassembly. No original game files supplied; linked two-player games require matching versions. Evidence: https://github.com/timoheimonen/Populous-Amiga-funny-creature-fix/blob/beed7c79a5762dde63daef53ea1f79df5fc0fc94/README.md https://github.com/timoheimonen/Populous-Amiga-funny-creature-fix/blob/beed7c79a5762dde63daef53ea1f79df5fc0fc94/src/funny_fix.s https://github.com/timoheimonen/Populous-Amiga-funny-creature-fix/commit/beed7c79a5762dde63daef53ea1f79df5fc0fc94",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "populous-atari-st-creature-fix": {
+      "id": "populous-atari-st-creature-fix",
+      "title": "Populous Atari ST Creature Fix",
+      "upstream_name": "Populous Atari ST Creature Fix",
+      "display_title": "Populous Atari ST Creature Fix",
+      "subjects": [
+        "Populous Atari ST Creature Fix"
+      ],
+      "repo": "https://github.com/timoheimonen/Populous-Atari-funny-creature-fix",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Game-specific restoration of wizard, swamp-monster and rock-monster spawning; documents missing stack argument, off-map position, repeated paused spawning and invalid table-full check. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Atari ST output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Readable 68000 patch source and Python disk patcher; optional vasm comparison verifies embedded patch bytes. User must supply the exact supported disk image. Upstream behavioral measurements are reported, not independently reproduced. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Separate platform-specific patch implementation, not a mirror of the other platform or the existing tetracorp/populous disassembly. No original game files supplied; linked two-player games require matching versions. Evidence: https://github.com/timoheimonen/Populous-Atari-funny-creature-fix/blob/88ddd56c2629f67c56112bc5e4265c1258625ead/README.md https://github.com/timoheimonen/Populous-Atari-funny-creature-fix/blob/88ddd56c2629f67c56112bc5e4265c1258625ead/src/funny_fix.s https://github.com/timoheimonen/Populous-Atari-funny-creature-fix/commit/88ddd56c2629f67c56112bc5e4265c1258625ead",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "poseidon-usb-amiga-os3-source": {
       "id": "poseidon-usb-amiga-os3-source",
       "title": "Poseidon USB — standalone AmigaOS3 source restoration",
@@ -106502,6 +107097,62 @@
         "tools": []
       }
     },
+    "robo-gems-c64": {
+      "id": "robo-gems-c64",
+      "title": "Robo Gems",
+      "upstream_name": "Robo Gems",
+      "display_title": "Robo Gems",
+      "subjects": [
+        "Robo Gems"
+      ],
+      "repo": "https://github.com/kdebczynski/c64-robo-gems",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "KickC",
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "catalogue-to-source"
+      ],
+      "notes": "Identity: Two-player competitive platform game with twelve maps, released as a learning project with its complete KickC code. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: No identified predecessor binary is reconstructed; original source platform and CPU are left empty. Target CPU: Native Commodore 64 output on the 6502 family is established by the README and reviewed source; Python/Java build tools are host-side. Build: README identifies KickC 0.8.6 beta plus KickAssembler and Java. Entry source includes C64 hardware, joystick, sprite, SID and screen modules. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct source-available game; current catalogue and prior decision URLs were screened before addition. Evidence: https://github.com/kdebczynski/c64-robo-gems/blob/915a566b9c9df0dfe9be51e4fd173b65da3f3381/README.md https://github.com/kdebczynski/c64-robo-gems/blob/915a566b9c9df0dfe9be51e4fd173b65da3f3381/robo-gems.c https://github.com/kdebczynski/c64-robo-gems/commit/915a566b9c9df0dfe9be51e4fd173b65da3f3381 https://kdebczynski.itch.io/robo-gems",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "robocod-trsi-trainer": {
       "id": "robocod-trsi-trainer",
       "title": "Robocod — TRSI trainer menu reconstruction",
@@ -112022,6 +112673,71 @@
         "cross-platform-discovery"
       ],
       "notes": "Identity: SFEditor is Christopher Bazley’s RISC OS desktop map and mission editor for Star Fighter 3000. Mission.c reads/writes mission structures, and the tree contains substantial map/object/trigger/ship/briefing editing modules rather than a placeholder viewer. Classification: A native game-data authoring and editing tool, not a game reconstruction or full-machine emulator. It works with Star Fighter 3000 mission/map data and desktop UI; no original game executable is translated or embedded in the reviewed path. Source CPU: No legacy CPU instructions are being reconstructed by this data-editing tool. The historical game-data subject does not justify assigning its machine ISA to source_cpu; that field remains empty. Target CPU: The native Makefile produces AIF output using Acorn C/APCS 3/32, and CTransFunc.s implements an ARM register/conditional-instruction callback. ARM is therefore an evidenced native output family. CMake host compile checks do not establish x86/macOS/Linux runnable ports. Build: The legacy Acorn toolchain path links RISC OS Toolbox/Wimp and multiple CB libraries. CMake requires 3.11, C99 and several external libraries from moving main branches. It explicitly creates a runnable executable only when CMAKE_SYSTEM_NAME is RISCOS; all other systems compile an object target without linking. The workflow’s host matrices are compile validation. Limitations: No dependency fetching, compilation, link, RISC OS desktop launch or editor interaction was performed. A current complete application-resource/package layout was not verified. Runtime profiles: RISC OS is the sole documented runnable platform in the inspected CMake configuration, using desktop Toolbox/Wimp libraries. No explicit minimum RISC OS version, ARM model or RAM quantity was established, so host CI environments are not converted into runtime profiles. AI: The reviewed source, README, CMake, Acorn build rules and workflow contain no affirmative development-AI attribution. Compiler/static-analysis tooling and configuration filenames alone do not establish AI-assisted authorship. Relationships: This non-fork editor root is counted once; SF3KLib and the CB libraries are dependencies, not duplicate game records. Source headers specify GPL version 2 or later, consistent with the supplied GPLv2 text. Game data and external dependency rights are separate from this source license. Root and named game/tool family were fresh against prior records. Evidence: https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/README.md https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/Mission.c https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/Main.c https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/Makefile https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/CTransFunc.s https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/CMakeLists.txt https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/MakeCommon https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/.github/workflows/cmake-multi-platform.yml https://github.com/chrisbazley/sfeditor/blob/b05dd606a86686d4051c0ad4c9db0e1f9ef1ea44/LICENSE",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sg-invaders-c64": {
+      "id": "sg-invaders-c64",
+      "title": "SG Invaders MMXXVI",
+      "upstream_name": "SG Invaders MMXXVI",
+      "display_title": "SG Invaders MMXXVI",
+      "subjects": [
+        "SG Invaders MMXXVI"
+      ],
+      "repo": "https://github.com/sveinjo/Space-Invaders-64",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "8080"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "8080 assembly"
+      ],
+      "reconstructed_languages": [
+        "Turbo Rascal",
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "source-available game"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "catalogue-to-source"
+      ],
+      "notes": "Identity: Native C64 Space Invaders adaptation using raster-driven sprite multiplexing, with Intel 8080 disassembly/analysis material in the repository. Classification: Source-available native game or authored port; no byte-exact binary reconstruction claim. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Commodore 64 output on the 6502 family is established by the README and reviewed source; Python/Java build tools are host-side. Build: TRSE project, Turbo Rascal source and generated assembly plus PRG releases are present. README still describes an early engine stage; linked release page describes a released PAL/NTSC game. Those differing descriptions do not establish independently tested playability. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: Release page declares no generative AI, while repository contains Copilot guidance. Configuration alone proves neither use nor non-use in development; leave development-AI usage unknown. Relationships: Native C64 adaptation, not a browser-only remake: bundled browser emulator is a distribution wrapper. Original arcade analysis is separate from the authored C64 runtime. Evidence: https://github.com/sveinjo/Space-Invaders-64/blob/2a729bebdd6fbaeb4b75c57f577dc3ae5aa066a3/README.md https://github.com/sveinjo/Space-Invaders-64/blob/2a729bebdd6fbaeb4b75c57f577dc3ae5aa066a3/SpaceInvaders64.ras https://github.com/sveinjo/Space-Invaders-64/blob/2a729bebdd6fbaeb4b75c57f577dc3ae5aa066a3/.github/copilot-instructions.md https://github.com/sveinjo/Space-Invaders-64/commit/2a729bebdd6fbaeb4b75c57f577dc3ae5aa066a3 https://sveinacious-g.itch.io/invaders",
       "ai": {
         "usage": null,
         "tools": []
@@ -121481,6 +122197,87 @@
         "tools": []
       }
     },
+    "street-rod-2-amiga-68060-patch": {
+      "id": "street-rod-2-amiga-68060-patch",
+      "title": "Street Rod 2 68060 Performance Patch",
+      "upstream_name": "Street Rod 2 68060 Performance Patch",
+      "display_title": "Street Rod 2 68060 Performance Patch",
+      "subjects": [
+        "Street Rod 2 68060 Performance Patch"
+      ],
+      "repo": "https://github.com/timoheimonen/amiga-sr2-060-performance-patch",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented patch requirement",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_cpu": "68060",
+          "min_chip_ram_kib": 2048,
+          "min_fast_ram_kib": 2048,
+          "chipsets": [
+            "AGA"
+          ],
+          "os": "Kickstart 3.1 A1200 rev 40.68",
+          "notes": "README explicitly requires PAL A1200/AGA and MC68060; primarily intended for emulation.",
+          "evidence": [
+            "https://github.com/timoheimonen/amiga-sr2-060-performance-patch/blob/1f1ff97e31a5627f5253fe8cf9ce60bbe3d779c5/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Accelerator-focused Street Rod 2 update covering audio timing, road-buffer timing/frame cap, drawing optimizations and instruction-cache handling. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Python patcher embeds native HUNK payloads; PATCH.md describes assembly helpers and expected/replacement byte manifest. Author primarily targets emulator play. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: README explicitly requires PAL A1200/AGA and MC68060; primarily intended for emulation. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct game-specific project; current catalogue and prior decision URLs were screened before addition. Original game files are not included in these patch repositories. Evidence: https://github.com/timoheimonen/amiga-sr2-060-performance-patch/blob/1f1ff97e31a5627f5253fe8cf9ce60bbe3d779c5/README.md https://github.com/timoheimonen/amiga-sr2-060-performance-patch/blob/1f1ff97e31a5627f5253fe8cf9ce60bbe3d779c5/PATCH.md https://github.com/timoheimonen/amiga-sr2-060-performance-patch/commit/1f1ff97e31a5627f5253fe8cf9ce60bbe3d779c5",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "street-rod-kylofon-sdl3": {
       "id": "street-rod-kylofon-sdl3",
       "title": "Street Rod — native VGA SDL3 reconstruction",
@@ -123813,6 +124610,88 @@
         "macintosh-68k-discovery"
       ],
       "notes": "Identity: Repository preserves the original shareware RPG/game system, its 1997 readme, Pascal engine and scenario-maker source, localized data and scenarios. Game.p implements the event/game flow and Engine3D.p the QuickDraw-facing renderer. Classification: Original-source archive with scenario tools, not binary-derived reconstruction. Toolbox/QuickDraw units and classic resource types remain integral; the presence of scenario editors is kept within the same game-system record. Source CPU: Original requirements explicitly name 68040 for 3D and 68020 for 2D, and describe acceleration for Power Macintosh. Thus m68k is directly documented rather than inferred from “classic Mac”; PowerPC is a separate supported historical variant. Target CPU: Preserved output is the classic Macintosh 68k/PowerPC application and associated scenario tools. Separate Maker68k/MakerPPC project names support, but do not independently prove, those documented targets; no modern macOS output is claimed. Build: The Pascal source depends on classic Macintosh Toolbox units, resource files and an unpinned vintage compiler/project setup. Several project files, including Dream.µ, have zero-byte data forks in the Git tree, so complete project metadata/resource forks are not established. A binary DMG is present but was not opened or tested. Limitations: No game compilation, dependency installation, launch, gameplay, hardware test or binary comparison was performed. Upstream claims remain separate from independently verified build flags. Legacy text decoding is preserved via pinned URLs when returned Unicode cannot reproduce Git blob bytes. Runtime profiles: The original readme states 3D: 68040-or-better, 8 MB RAM, System 7.0+, QuickTime and a 256-color 14-inch display; thousands of colors is recommended. A separate 2D-only mode allows 68020 and 4 MB. QuickTime 2.0 is required for soundtrack, with 2.5/Musical Instruments recommended. AI: The inspected README, source/build files and up to twenty latest commit messages contain no affirmative development-AI attribution. This bounded negative search does not establish non-use; historic code dates and filenames are not treated as AI evidence. Relationships: Engine, scenario maker, localizations and bundled adventures form one Sword Dream family. The current root supplies AGPLv3, while original scenario notices/localized resources may have separate authors; no per-asset rights audit was performed. Existing-name/root screening found no prior project. Evidence: https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/README.md https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/Engine3D.p https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/Game.p https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/ScenarioMaker/README https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/web/requirements.html https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/Dream.p https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/Binaries/README https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/Dream.µ https://github.com/misterakko/sword-dream/blob/600c510b6aad6f2e033ed21c902655afb06b1989/LICENSE",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "swos-9697-amiga-ingame-editors": {
+      "id": "swos-9697-amiga-ingame-editors",
+      "title": "SWOS 96–97 In-Game Editors",
+      "upstream_name": "SWOS 96–97 In-Game Editors",
+      "display_title": "SWOS 96–97 In-Game Editors",
+      "subjects": [
+        "SWOS 96–97 In-Game Editors"
+      ],
+      "repo": "https://github.com/timoheimonen/amiga-swos-9697-editor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Documented editor baseline",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_cpu": "68020",
+          "min_chip_ram_kib": 2048,
+          "min_fast_ram_kib": 2048,
+          "chipsets": [
+            "AGA"
+          ],
+          "os": "Kickstart 3.1; WHDLoad 17+",
+          "notes": "README requires A1200-compatible system; tested in emulation with 4 MiB Fast RAM, not on real hardware.",
+          "evidence": [
+            "https://github.com/timoheimonen/amiga-swos-9697-editor/blob/fbf093b808683dc3f7089686ce2b3330bc7cdf23/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Integrated editors for teams, players, tactics, tournaments and the game database, with CSV/JSON exchange and match logs. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Amiga output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: build.py assembles/links native editor modules and WHDLoad slave using vasm/vlink and validates locations against user-supplied game data. README reports emulated A1200 testing only. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: README requires A1200-compatible system; tested in emulation with 4 MiB Fast RAM, not on real hardware. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct game-specific project; current catalogue and prior decision URLs were screened before addition. Original game files are not included in these patch repositories. Evidence: https://github.com/timoheimonen/amiga-swos-9697-editor/blob/fbf093b808683dc3f7089686ce2b3330bc7cdf23/README.md https://github.com/timoheimonen/amiga-swos-9697-editor/blob/fbf093b808683dc3f7089686ce2b3330bc7cdf23/build.py https://github.com/timoheimonen/amiga-swos-9697-editor/commit/fbf093b808683dc3f7089686ce2b3330bc7cdf23",
       "ai": {
         "usage": null,
         "tools": []
@@ -132948,6 +133827,70 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "ultima-v-atari-st-inn-fix": {
+      "id": "ultima-v-atari-st-inn-fix",
+      "title": "Ultima V Atari ST Inn Fix",
+      "upstream_name": "Ultima V Atari ST Inn Fix",
+      "display_title": "Ultima V Atari ST Inn Fix",
+      "subjects": [
+        "Ultima V Atari ST Inn Fix"
+      ],
+      "repo": "https://github.com/timoheimonen/atari-st-ultima-5-inn-fix",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k machine code"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game enhancement"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/play test not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build",
+        "developer-following"
+      ],
+      "notes": "Identity: Fixes active-party-member index corruption when leaving a companion at an inn, which causes merchants to read an invalid buyer and charge maximum prices. Classification: Native game-specific enhancement, not a complete original-binary restoration. Source CPU: Source lineage/platform is documented in the linked README and reviewed source; source CPU is distinct from host-side tooling. Target CPU: Native Atari ST output on the m68k family is established by the README and reviewed source; Python/Java build tools are host-side. Build: Six-byte replacement described in readable 68000 source and applied by Python to a checksum-matched user disk. README reports before/after Hatari measurements; original game and emulator not run in this review. No independent rebuild, gameplay test or byte-exact comparison was performed. Runtime profiles: No full minimum hardware profile was established in the inspected material; platform does not imply an exact minimum configuration. AI: No explicit development-AI attribution found in inspected README, selected source/build files and head commit; non-use is not inferred. Relationships: Distinct game-specific project; current catalogue and prior decision URLs were screened before addition. Original game files are not included in these patch repositories. Evidence: https://github.com/timoheimonen/atari-st-ultima-5-inn-fix/blob/0914000555cf78b029007d2819d5d4e83ffeff66/README.md https://github.com/timoheimonen/atari-st-ultima-5-inn-fix/blob/0914000555cf78b029007d2819d5d4e83ffeff66/src/inn_fix.s https://github.com/timoheimonen/atari-st-ultima-5-inn-fix/commit/0914000555cf78b029007d2819d5d4e83ffeff66",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "github-drunella-u5remastered": {
