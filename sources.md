@@ -976,3 +976,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-17 — Add seven game projects across Amiga, Atari ST and C64; defer hardware-emulation port and scaffold-only candidate.
 
 [Research record](docs/research/2026-10-17-amiga-st-c64-game-discovery.md).
+
+## 2026-10-17 — Add eight source-available Amiga, Atari ST and C64 games and in-game editors; defer binary-only Ashheart.
+
+[Research record](docs/research/2026-10-17-amiga-st-c64-game-discovery-2.md).
