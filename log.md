@@ -1096,3 +1096,7 @@ Reviewed ten material upstream advances. **c64-re-tools** now spans deterministi
 ## 2026-10-15 — Normalize Lander AI evidence for the activity collector
 
 [Research record](docs/research/2026-10-15-lander-ai-evidence-format.md).
+
+## 2026-10-17 — Add seven game projects across Amiga, Atari ST and C64; defer hardware-emulation port and scaffold-only candidate.
+
+[Research record](docs/research/2026-10-17-amiga-st-c64-game-discovery.md).
