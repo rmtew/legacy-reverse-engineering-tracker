@@ -4,6 +4,18 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/tom-seddon/b2 | b2 — BBC Micro-family emulator with integrated debugger and HTTP remote-control API. |
+| https://github.com/vs-sr-dev/7800kit | 7800kit — Atari 7800 SALLY/6502 analysis, static recompilation and replacement-runtime toolkit. |
+| https://github.com/vs-sr-dev/saturnkit | saturnkit — shared Sega Saturn SH-2/68000 analysis, recompilation and native-port runtime. |
+| https://github.com/vs-sr-dev/ndskit | ndskit — Nintendo DS ARM946E-S/ARM7TDMI analysis, recompilation and native-port runtime. |
+| https://github.com/mnaberez/premium5 | premium5 — Volkswagen Premium 5 78K0 firmware emulator with register-level peripherals and live debugging. |
+| https://github.com/TobyLobster/lisp | Acornsoft Lisp v4.06 — BBC Micro 6502 ROM disassembly and dual-assembler reassembly. |
+| https://github.com/7800-devtools/7800basic | 7800basic — original Atari 7800 BASIC-like compiler and 6502 cartridge toolchain. |
+| https://github.com/yaul-org/libyaul | Yaul — open-source Sega Saturn SDK using an SH-2 cross-toolchain. |
+| https://github.com/barbeque/pc88-disk-tools | pc88-disk-tools — NEC PC-8801 D88 image inspection, extraction and conversion utilities. |
+| https://github.com/uraraworks/PC88Behavior | PC88Behavior — clean-room Z80 replacement ROM built from measured NEC PC-8801 behaviour. |
+| https://github.com/mnaberez/z-ram | Z-RAM — archived Commodore PET/CBM CP/M expansion firmware research and annotated disassembly. |
+| https://github.com/sarnau/sony-camera-protocol | Excluded after review: current Sony α7R V protocol research rather than retro-development or legacy-software archaeology. |
 | https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Donkey%20Kong%20Jr | Donkey Kong Jr. — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
 | https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Frenzy | Frenzy — compilable ColecoVision Z80 disassembly. |
 | https://github.com/tony-cruise/colecovision-games-source/tree/main/games/Gateway%20To%20Apshai | Gateway to Apshai — compilable ColecoVision Z80 disassembly with Claude Code credited in the title documentation. |
