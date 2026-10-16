@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-16 — Reconstruction parity, releases and runtime evidence
+
+Reviewed eleven materially changed projects. **Touhou 4: Lotus Land Story — PC-98 source reconstruction** adds a bounded 8,000-update Continue/resume comparison without promoting 263 remaining post-reset input differences. **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** now launches original Apple IIGS worlds and gains explicit 65C816 source evidence. **Ghidra Retro Machines — bank-aware loaders and retro CPU languages** records a conservative cross-function dataflow correction with the other 34 NES corpus rows byte-identical. **Carmageddon/dethrace — DOS executable reconstruction** distinguishes one exact routine match from behavior-equivalent matches and closes its AI audit from four explicit PR disclosures.
+
+**png2amiga — multiplatform retro asset converter** records locked-palette correctness and separately tuned/verified OCS dithering. **ALYNXDJ — native Atari Lynx music tracker** v0.60 records dense-pattern timing repair, real-hardware verification and the exact 2 KiB persistence boundary. **3Dvibe64 — C64 graphics SDK**, **CPCSyntaxError — CPC/Plus cycle-level emulator**, **Fantasm — 6502 disassembly/reassembly toolkit** and **MegaST — Atari ST/STE MiSTery-derived FPGA core for MEGA65** advance to their newest evidenced releases while retaining source-only, host-package or untested-hardware caveats. **Gopher2600 — Atari 2600 emulator and debugger** closes its build, runtime, relationship and AI-review gaps with explicit x86-64/arm64 packages and bounded macOS deployment targets.
+
+The CPU audit queue was empty before selection. Firestaff's original Apple IIGS material and Gopher2600's published host packages supplied the only new CPU facts; no minimum hardware was inferred from platform, language or emulation. No upstream project was independently built or executed.
+
 ## 2026-10-16 — Runtime variants, debugger correctness and reconstruction workflow
 
 Reviewed nine materially changed projects. **Swift64 v0.4.2** now records its explicit universal ARM64/x86-64 outputs, Apple Silicon BASIC run, Intel build-only qualification and bounded 49/50 VIC-program result without promoting one known FLI failure or broader compatibility. **TRX64 v0.13.1** and **C64RE 0.9.1** record aligned runtime requirements, caller-controlled debugger budgets, real instruction counts and guards that preserve human analysis files and labels. **POM2 Games** adds separately documented 128 KiB Neowilderness and NeoWildernessXL delivery profiles plus its ROM-probed crafting and survival work.

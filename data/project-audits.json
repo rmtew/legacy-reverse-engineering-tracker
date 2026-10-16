@@ -5542,7 +5542,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-15",
+      "last_reviewed": "2026-10-16",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5557,8 +5557,11 @@
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Legacy source architectures remain edition/platform-specific and are already represented in the project record."
+          "checked_at": "2026-10-16",
+          "note": "Recovered primary Apple IIGS documentation explicitly identifies code embedded in graphics.dat as 65C816 code. The project record adds 65C816 without inferring any host or minimum runtime architecture.",
+          "evidence_urls": [
+            "https://github.com/yeager/firestaff/blob/439213c5ba9fbd79d0753d6143a3b86ff9f0d90f/reference/dmweb-community-docs/html/community/documentation/dungeon-master-and-chaos-strikes-back/graphics.dat-hidden-code.html"
+          ]
         },
         "target_cpu": {
           "state": "reviewed",
@@ -5570,22 +5573,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "Reviewed the source-owned FM Towns title-sampling, native-height viewport-flip, entrance cadence and authenticated DOS selector gates. Upstream reports targeted tests and a native Xcode-configured build; no independent build or original-frame comparison was performed.",
+          "checked_at": "2026-10-16",
+          "note": "Current main decodes and launches original Apple IIGS worlds through the CLI/M12 route and connects native mirror recruitment. These source-owned receipts establish a live IIGS path, not complete campaign, presentation or audio parity.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0",
-            "https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d",
-            "https://github.com/yeager/firestaff/commit/41b103f29b4d7439d7445fb4e3578f9985e5cfab",
-            "https://github.com/yeager/firestaff/commit/3085c2f6d56e8088279b5207bfd46744a1dbbd24"
+            "https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b",
+            "https://github.com/yeager/firestaff/commit/26f1361e5b3d18512db35b7b0791b84f4e4385da"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "The new Mac mini M4 source-lock/native-build receipts refine FM Towns presentation behavior but do not establish a minimum Mac, CPU or RAM requirement. Original FM Towns frame comparison and full visual parity remain open.",
+          "checked_at": "2026-10-16",
+          "note": "The reviewed IIGS material establishes original-world execution and feature coverage but does not state a primary-source minimum RAM or host configuration. No runtime minimum is added.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d",
-            "https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0"
+            "https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b"
           ]
         },
         "ai": {
@@ -24088,7 +24088,7 @@
     },
     {
       "project_id": "png2amiga-multiplatform-asset-converter",
-      "last_reviewed": "2026-09-25",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -24113,18 +24113,28 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "README documents native CMake builds, WebAssembly build steps, pre-built releases and a live web application."
+          "checked_at": "2026-10-16",
+          "note": "Reviewed the shared copper/EHB unlocked-slot fix and the OCS sliced-dither retuning. Upstream used a 34-image tuning set and separate 21-image verification set; no local build or image-quality reproduction was performed.",
+          "evidence_urls": [
+            "https://github.com/tinic/png2amiga/commit/64a1844fa1cd7d207a1bd80be71865dcc0648f19"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "Captured the explicit AVX2 requirement for standard x86-64 binaries; the compatibility build is noted without inventing a lower CPU model."
+          "checked_at": "2026-10-16",
+          "note": "The conversion changes do not alter the existing README-stated AVX2 standard-build requirement or compatibility-build qualification.",
+          "evidence_urls": [
+            "https://github.com/tinic/png2amiga/blob/main/README.md",
+            "https://github.com/tinic/png2amiga/commit/64a1844fa1cd7d207a1bd80be71865dcc0648f19"
+          ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-09-25",
-          "note": "The v1.109.0 development commits explicitly carry Claude Opus 5.5 co-author trailers."
+          "checked_at": "2026-10-16",
+          "note": "The reviewed implementation commit explicitly credits Claude Opus 5.5; attribution remains scoped to the evidenced commit.",
+          "evidence_urls": [
+            "https://github.com/tinic/png2amiga/commit/64a1844fa1cd7d207a1bd80be71865dcc0648f19"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -30896,7 +30906,7 @@
     },
     {
       "project_id": "dos-dethrace",
-      "last_reviewed": "2026-10-12",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -30918,12 +30928,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "Three current commits report 100% reccmp matches for GetGraphicsOptions, ChangingView and drpixelmapcopy. These are exact function-level receipts, not whole-executable equivalence or playable-completeness evidence.",
+          "checked_at": "2026-10-16",
+          "note": "Four merged PRs reconstruct SwingCamera, ObjectGrooveBastard, PathGrooveBastard and FunkThoseTronics. PathGrooveBastard reports 100% matching; the remaining claims are equivalent/effective matches and are not promoted to byte identity.",
           "evidence_urls": [
-            "https://github.com/dethrace-labs/dethrace/commit/ff723168a9b458252ce40bb6e0ceb008cb4dcc35",
-            "https://github.com/dethrace-labs/dethrace/commit/80898db36d16d584d50789a9f8d05cdf2ed8458f",
-            "https://github.com/dethrace-labs/dethrace/commit/d5b90d885b298c9ca338c9060468f899ca095fab"
+            "https://github.com/dethrace-labs/dethrace/pull/1191",
+            "https://github.com/dethrace-labs/dethrace/pull/1192",
+            "https://github.com/dethrace-labs/dethrace/pull/1193",
+            "https://github.com/dethrace-labs/dethrace/pull/1194"
           ]
         },
         "runtime_profiles": {
@@ -30932,9 +30943,15 @@
           "note": "README and CI were checked; they define supported host builds but no minimum runnable CPU, RAM or OS profile."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-09-30",
-          "note": "README, repository configuration and current workflow were checked; no explicit AI-use evidence was found."
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "Each reviewed PR explicitly labels the work AI generated and reports time/token totals. No tool or model is named, so tools remains empty.",
+          "evidence_urls": [
+            "https://github.com/dethrace-labs/dethrace/pull/1191",
+            "https://github.com/dethrace-labs/dethrace/pull/1192",
+            "https://github.com/dethrace-labs/dethrace/pull/1193",
+            "https://github.com/dethrace-labs/dethrace/pull/1194"
+          ]
         },
         "relationships": {
           "state": "reviewed",
@@ -31572,7 +31589,7 @@
     },
     {
       "project_id": "ghidra-retro-machines",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31603,13 +31620,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Upstream reports 34/34 NES dumps byte-identical at 12, 4 and 2 analysis threads plus passing synthetic gates. No local Ghidra build or corpus run was performed.",
+          "checked_at": "2026-10-16",
+          "note": "The shared-tail dataflow fix changes Castlevania III's bank split and diagnostics while leaving the other 34 NES rows byte-identical; upstream reports build-and-test SUITE OK. Related overlay-state and corpus-runner fixes remain conservative and bounded.",
           "evidence_urls": [
-            "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/101dc785283b69672728d98a318af579d2f5f7ff",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/9ab5515",
+            "https://github.com/CBongo/ghidra-retro-machines/commit/2950474"
           ]
         },
         "runtime_profiles": {
@@ -31619,12 +31635,10 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "The two reviewed commits explicitly credit Claude Opus 5.5; existing affirmative Claude attribution remains evidence-backed.",
+          "checked_at": "2026-10-16",
+          "note": "The reviewed analyzer commit explicitly credits Claude Opus 5.5; the record does not infer an authorship share.",
           "evidence_urls": [
-            "https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/2a15e0df8abeeccc0842b212a00e1d08d2316e41",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/101dc785283b69672728d98a318af579d2f5f7ff"
           ]
         },
         "relationships": {
@@ -34761,8 +34775,8 @@
     },
     {
       "project_id": "gopher2600-atari-debugger",
-      "last_reviewed": "2026-09-27",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-16",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -34777,29 +34791,52 @@
           "checked_at": "2026-09-27"
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "Release v0.57.2 explicitly publishes Linux/Windows amd64, macOS Intel and macOS Apple Silicon packages. The record therefore adds x86-64 and arm64 output architectures.",
+          "evidence_urls": [
+            "https://github.com/JetSetIlly/Gopher2600/releases/tag/v0.57.2",
+            "https://github.com/JetSetIlly/Gopher2600/blob/master/.github/workflows/build.yml"
+          ]
         },
         "build": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "Current go.mod requires Go 1.27.2, the release workflow documents the desktop package matrix and v0.57.2 publishes those assets. No local build was performed.",
+          "evidence_urls": [
+            "https://github.com/JetSetIlly/Gopher2600/blob/master/go.mod",
+            "https://github.com/JetSetIlly/Gopher2600/blob/master/.github/workflows/build.yml",
+            "https://github.com/JetSetIlly/Gopher2600/releases/tag/v0.57.2"
+          ]
         },
         "runtime_profiles": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "Profiles record the published x86-64/arm64 variants and the workflow's explicit macOS 10.11 Intel and 11.0 Apple Silicon deployment targets. No RAM or CPU-generation minimum is inferred, and packages were not independently executed.",
+          "evidence_urls": [
+            "https://github.com/JetSetIlly/Gopher2600/releases/tag/v0.57.2",
+            "https://github.com/JetSetIlly/Gopher2600/blob/master/.github/workflows/build.yml"
+          ]
         },
         "ai": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-16",
+          "note": "Current repository code and commit searches for Claude and ChatGPT returned no development-AI attribution. Project AI use therefore remains unknown rather than false.",
+          "evidence_urls": [
+            "https://github.com/JetSetIlly/Gopher2600/commits/master",
+            "https://github.com/JetSetIlly/Gopher2600"
+          ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "The README identifies Stella as a visual reference and source for CDF/audio/cartridge fingerprints, plus 6502.ts as an audio reference. This is documented reference lineage, not evidence that Gopher2600 is a fork or derived code base.",
+          "evidence_urls": [
+            "https://github.com/JetSetIlly/Gopher2600/blob/master/README.md"
+          ]
         }
       },
-      "next_actions": [
-        "Check build/AI/runtime evidence and source relationships beyond the initial README review"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "gearboy-gameboy-mcp-debugger",
@@ -35216,7 +35253,7 @@
     },
     {
       "project_id": "fantasm-6502-reassembly-toolkit",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -35237,38 +35274,35 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "Version 1.2.1 adds AST-backed annotation parsing and tested comment checks for py8dis/dasmos drivers. Source and tests were inspected; the package was not independently installed or run.",
+          "checked_at": "2026-10-16",
+          "note": "Version 1.3.0 adds target/layout configuration, existing-project adoption, Acorn .inf parsing, verify --all, environment variables and per-target driver working directories. Source and upstream tests were reviewed; the package was not independently run.",
           "evidence_urls": [
-            "https://github.com/acornaeology/fantasm/commit/7c8b51870d2c817d8e2d20e70c7a5259b6b6bb2b",
-            "https://github.com/acornaeology/fantasm/commit/2b0cf0947c4f2d7329ca3bc918a5ea11ca459554",
-            "https://github.com/acornaeology/fantasm/commit/9f2734b37f5015221b34554d7e9b748a05fcf39f"
+            "https://github.com/acornaeology/fantasm/commit/b9286c31a80ff68050cd878d6c61feee39cb569e"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "pyproject.toml explicitly requires Python 3.12 or newer; no host CPU or RAM minimum is stated.",
+          "checked_at": "2026-10-16",
+          "note": "pyproject.toml continues to require Python 3.12 or newer; version 1.3.0 states no host CPU or RAM minimum.",
           "evidence_urls": [
             "https://github.com/acornaeology/fantasm/blob/main/pyproject.toml"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The substantive 1.2.0/1.2.1 annotation and comment-check commits carry explicit Claude Opus 5.5 co-author trailers.",
+          "checked_at": "2026-10-16",
+          "note": "The substantive 1.3.0 commit explicitly credits Claude Opus 5.5.",
           "evidence_urls": [
-            "https://github.com/acornaeology/fantasm/commit/7c8b51870d2c817d8e2d20e70c7a5259b6b6bb2b",
-            "https://github.com/acornaeology/fantasm/commit/2b0cf0947c4f2d7329ca3bc918a5ea11ca459554"
+            "https://github.com/acornaeology/fantasm/commit/b9286c31a80ff68050cd878d6c61feee39cb569e"
           ]
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "Fantasm is the common CLI/API over py8dis or dasmos drivers and is now explicitly required at 1.2.1 by the tracked acorn-nfs reconstruction.",
+          "checked_at": "2026-10-16",
+          "note": "Fantasm remains the common py8dis/dasmos project layer; the tracked acorn-nfs reconstruction now explicitly requires Fantasm 1.3.0.",
           "evidence_urls": [
             "https://github.com/acornaeology/fantasm/blob/main/README.md",
-            "https://github.com/acornaeology/acorn-nfs/commit/5b58991161d5a5bac86e1e58d235c7bffa0f8e82"
+            "https://github.com/acornaeology/acorn-nfs/commit/147128ef"
           ]
         }
       },
@@ -37873,7 +37907,7 @@
     },
     {
       "project_id": "3dvibe64-c64-graphics-sdk",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -37895,31 +37929,27 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "v1.10.2 is the stable source-SDK promotion of the qualified development line. Upstream reports 258 source files qualified, representative PRG regeneration and package/report gates; no local build was performed.",
+          "checked_at": "2026-10-16",
+          "note": "v1.11.0 is a source-only SDK package with 794 source files, 34 bilingual manual pairs, 41 release gates and 15 byte-identical checkpoint rebuilds. Windows/VICE is qualified; no compiled demos/media are shipped and Linux/physical hardware remain unverified.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94",
-            "https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc",
-            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2"
+            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.11.0",
+            "https://github.com/Librologica/3Dvibe64/commit/fd7cdcafb452407faf29bd5a2115998b2a998f8d"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Recorded the release's explicit PAL-emulator measurements and retained its physical-hardware and Linux caveats. No CPU generation, RAM floor or physical C64 minimum is inferred from the 6510 target or Turbo6510 measurements.",
+          "checked_at": "2026-10-16",
+          "note": "The v1.11.0 release retains emulator-qualified C64 execution and explicitly leaves Linux and physical hardware unverified. No CPU generation or RAM floor is inferred.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/commit/133957958bf649080e9581d5b632e62f028d24d6",
-            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2"
+            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.11.0"
           ]
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-07",
-          "note": "README and dedicated manuals explicitly teach users how to create 3Dvibe64 demos with Codex. That is downstream SDK usage guidance, not evidence that generative AI developed the engine itself. No engine-development attribution was found in the reviewed README, changelog, release notes, dedicated manuals or latest 30 commit messages; project ai.usage remains unknown.",
+          "state": "reviewed",
+          "checked_at": "2026-10-16",
+          "note": "The v1.11.0 release commit is explicitly authored by the GitHub account Codex. This supports usage=true and tool Codex, without inferring the amount or nature of contribution.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/README.md",
-            "https://github.com/Librologica/3Dvibe64/blob/84491d4b25ce20154d95ad24585d1d344ddba2e1/VIBE-CODING-GUIDE.en.md",
-            "https://github.com/Librologica/3Dvibe64/commits/main"
+            "https://github.com/Librologica/3Dvibe64/commit/fd7cdcafb452407faf29bd5a2115998b2a998f8d"
           ]
         },
         "relationships": {
@@ -40401,7 +40431,7 @@
     },
     {
       "project_id": "cpc-syntax-error-emulator",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -40430,28 +40460,27 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The v0.6.0 workflow completed successfully and published Windows x64, Linux x86-64 and universal macOS packages. This supports compilable=true for those configured outputs; no package was independently run and upstream explicitly marks Linux/macOS desktop testing outstanding.",
+          "checked_at": "2026-10-16",
+          "note": "v0.6.3 publishes the existing Windows x64, Linux x86-64 and universal macOS package families while adding CRT effects and reorganized media/ROM windows. No independent package execution was performed.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/2b74f27e5c466376321eb7aa6587d994e08a6670",
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0",
-            "https://github.com/WacKEDmaN/CPCSyntaxError/actions/runs/38114012270"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/f87aa174c50c6bb56a2e8c3ca4b4ddbaa7650f4a"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "Recorded the explicit Linux x86-64 and universal macOS x86-64/arm64 packages plus macOS 10.15 and SDL2/OpenGL requirements. No CPU generation or RAM minimum is stated; Linux/macOS packages remain upstream-marked untested on desktops.",
+          "checked_at": "2026-10-16",
+          "note": "The release retains the same explicit Linux x86-64 and macOS universal output architectures. No new CPU generation or RAM minimum is stated.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-11",
-          "note": "The v0.5.0 implementation commit carries an explicit Claude Opus 5.5 co-author trailer.",
+          "checked_at": "2026-10-16",
+          "note": "The v0.6.3 implementation commit explicitly credits Claude Opus 5.5; attribution remains scoped to that commit.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/35ca66c5bb974eb0b1113e08980ea166cf93362a"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/f87aa174c50c6bb56a2e8c3ca4b4ddbaa7650f4a"
           ]
         },
         "relationships": {
@@ -54943,7 +54972,7 @@
       "project_id": "super-mario-bros-atari-lynx-port"
     },
     {
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -54972,16 +55001,21 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "README documents cc65/ca65 builds, headless verification, releases and real-hardware execution.",
+          "checked_at": "2026-10-16",
+          "note": "v0.60 publishes production ROM assets and reports a passing full ROM/editor/audio/save/MIDI/sync suite plus a dense-pattern timing regression. No independent build was performed.",
           "evidence_urls": [
-            "https://github.com/little-scale/alynxdj/blob/main/README.md"
+            "https://github.com/little-scale/alynxdj/releases/tag/v0.60",
+            "https://github.com/little-scale/alynxdj/commit/4efe61b541f9e6efd130e9a27209b827dc0e3913"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "Primary design documentation states a 65C02 with 64 KiB unified RAM; README separately documents 2 KiB EEPROM for song persistence."
+          "checked_at": "2026-10-16",
+          "note": "Upstream explicitly verified v0.60 on real Atari Lynx hardware. The existing 65C02/64 KiB profile is retained, and persistence is bounded to full 2 KiB 93C86-compatible storage with RetroHQ GameDrive verified; ElCheapoSD cannot save.",
+          "evidence_urls": [
+            "https://github.com/little-scale/alynxdj/releases/tag/v0.60",
+            "https://github.com/little-scale/alynxdj/blob/main/DESIGN.md"
+          ]
         },
         "ai": {
           "state": "reviewed",
@@ -77252,7 +77286,7 @@
     },
     {
       "project_id": "megast-mega65-freemchr",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-16",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -77303,26 +77337,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "README identifies v1.0 as stable and reports real MEGA65 R6 tests of TOS, floppy/hard disks, peripherals and named games plus tester-reported R3A hard-disk operation. runnable=true records those upstream reports only. Vivado/QNICE build and simulation instructions are documented but were not executed; no byte-match or game-subject playability claim is promoted. R4/R5 remain untested.",
+          "checked_at": "2026-10-16",
+          "note": "v1.1 implements read-only internal-drive A support with WD1772 commands, copy-protected layouts, pulse retiming and bounded CRC retry. Upstream reports an original Jim Power disk booting/loading on R6; the feature remains untested on R3/R3A, R4 and R5.",
           "evidence_urls": [
-            "https://github.com/freemchr/MegaST/blob/master/doc/DEVELOPMENT.md",
-            "https://github.com/freemchr/MegaST/blob/master/CORE/CORE-R6.xpr",
-            "https://github.com/freemchr/MegaST/blob/master/README.md",
-            "https://github.com/freemchr/MegaST/blob/master/CORE/verilog/atarist_m65.sv",
-            "https://github.com/freemchr/MegaST/releases/tag/v1.0"
+            "https://github.com/freemchr/MegaST/releases/tag/v1.1",
+            "https://github.com/freemchr/MegaST/commit/1f057d4d5505edd1b0964554feb1dde47048c2dc"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Profiles distinguish the evidenced R6 and R3/R3A variants and their SD/TOS/media requirements. The R3/R3A 512 KiB value is guest ST RAM held in FPGA block RAM, not host minimum RAM. R4/R5 remain unprofiled because current primary documentation says they are untested.",
+          "checked_at": "2026-10-16",
+          "note": "The R6 profile now includes upstream-verified read-only internal-drive operation with an original disk. No profile is added for R3/R3A, R4 or R5 internal-drive support because upstream says those variants are untested.",
           "evidence_urls": [
-            "https://github.com/freemchr/MegaST/blob/master/doc/DEVELOPMENT.md",
-            "https://github.com/freemchr/MegaST/blob/master/CORE/CORE-R6.xpr",
-            "https://github.com/freemchr/MegaST/blob/master/README.md",
-            "https://github.com/freemchr/MegaST/blob/master/CORE/verilog/atarist_m65.sv",
-            "https://github.com/freemchr/MegaST/blob/master/AUTHORS"
+            "https://github.com/freemchr/MegaST/releases/tag/v1.1"
           ]
         },
         "ai": {
@@ -77354,7 +77381,7 @@
         }
       },
       "next_actions": [
-        "Recheck R4/R5 and optional-device compatibility only after explicit upstream tests."
+        "Recheck R3/R3A, R4 and R5 internal-drive compatibility only after explicit upstream tests."
       ]
     },
     {
@@ -128032,7 +128059,7 @@
     },
     {
       "project_id": "th04-lotus-land-story-reconstruction",
-      "last_reviewed": "2026-10-12",
+      "last_reviewed": "2026-10-16",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -128069,27 +128096,26 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "Current migration handoff reports 545 native programs, 84 GNU/optimized-UBSan build programs, 82 passing CTests, 544 retained original controls, seeded save/restart coverage and complete score/Ending/Extra registration routes across both compilers. Independent component images and eight default Demo profiles pass. This is bounded upstream evidence; physical scanout, active-PMD timing, broader gameplay and Windows remain open.",
+          "checked_at": "2026-10-16",
+          "note": "The latest paired MAIN route runs the reconstructed and original programs for 8,000 updates through Continue/resume and matches consumed input, 36 fields, 3,042 RNG calls, nine pools and 22 states. Upstream still reports 263 post-reset input differences, so this is not promoted to whole-game parity.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977",
-            "https://github.com/N0zoM1z0/th04/commit/db797001d42f1ff3298a87dd4e6d33bdb2dfb775"
+            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-12",
-          "note": "The current migration documentation gives verification counts but no safe minimum physical PC-98 CPU/RAM or minimum x64 host configuration. Test counts and measured routes are not hardware minima.",
+          "checked_at": "2026-10-16",
+          "note": "The new route supplies execution parity counts but no minimum physical PC-98 or x64 host CPU/RAM requirement.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977"
+            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "The current migration-status commit explicitly identifies gpt-6.1-sol; the record does not infer an authorship percentage from that attribution.",
+          "checked_at": "2026-10-16",
+          "note": "The reviewed commit explicitly identifies gpt-6.1-sol; no contribution percentage is inferred.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977"
+            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85"
           ]
         },
         "relationships": {
