@@ -1941,6 +1941,206 @@
     }
   },
   {
+    "id": "7800basic-atari-toolchain",
+    "title": "7800basic",
+    "upstream_name": "7800basic",
+    "display_title": "7800basic — Atari 7800 BASIC compiler and cartridge toolchain",
+    "subjects": [],
+    "repo": "https://github.com/7800-devtools/7800basic",
+    "source_platforms": [],
+    "target_platforms": [
+      "Atari 7800"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "6502 assembly",
+      "BASIC-like language"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "assembler-toolchain",
+      "language-tooling",
+      "development-environment"
+    ],
+    "types": [
+      "BASIC-like cross-compiler",
+      "Atari 7800 cartridge toolchain"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-17",
+    "status": "active toolchain with Wasmtime and native-host distributions",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "BASIC-to-assembly compilation",
+      "DASM assembly",
+      "cartridge image construction",
+      "WebAssembly distribution"
+    ],
+    "tags": [
+      "Atari 7800",
+      "6502",
+      "BASIC",
+      "compiler",
+      "homebrew tooling"
+    ],
+    "notes": "Original cross-development toolchain derived from batari Basic. It compiles a BASIC-like language to assembly and DASM-built cartridge binaries for emulators, flash carts or real Atari 7800 hardware. The generated assembly header explicitly selects processor 6502; source_cpu is not applicable because the tool does not analyse an original binary. Evidence: https://github.com/7800-devtools/7800basic/blob/master/README.txt https://github.com/7800-devtools/7800basic/blob/master/includes/7800basicheader.asm",
+    "github": {
+      "repository": "7800-devtools/7800basic",
+      "created_at": "2020-02-14",
+      "pushed_at": "2026-10-10",
+      "updated_at": "2026-10-10",
+      "checked_at": "2026-10-16",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "latest_release": {
+        "tag": "v0.41",
+        "name": "v0.41",
+        "published_at": "2026-07-11",
+        "url": "https://github.com/7800-devtools/7800basic/releases/tag/v0.41"
+      },
+      "languages": [
+        "C",
+        "Roff",
+        "Assembly",
+        "Shell",
+        "Lex",
+        "Batchfile",
+        "Makefile"
+      ],
+      "latest_commit": {
+        "sha": "e7c18d2ecdc6c208974048299597e8be2c7dd3ff",
+        "date": "2026-10-10",
+        "message": "fix: bankram correctly written to a78 header",
+        "url": "https://github.com/7800-devtools/7800basic/commit/e7c18d2ecdc6c208974048299597e8be2c7dd3ff"
+      }
+    },
+    "last_activity": "2026-10-10"
+  },
+  {
+    "id": "vs-sr-7800kit",
+    "title": "7800kit",
+    "upstream_name": "7800kit",
+    "display_title": "7800kit — Atari 7800 static-recompilation toolkit",
+    "subjects": [],
+    "repo": "https://github.com/vs-sr-dev/7800kit",
+    "source_platforms": [
+      "Atari 7800"
+    ],
+    "target_platforms": [
+      "Native PC host"
+    ],
+    "source_cpu": [
+      "SALLY (NMOS 6502)"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "Atari 7800 cartridge machine code"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "translation",
+      "reimplementation"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis",
+      "compiler-toolchain",
+      "emulator",
+      "cycle-analysis"
+    ],
+    "types": [
+      "static recompilation toolkit",
+      "Atari 7800 runtime"
+    ],
+    "re_started": 2026,
+    "last_checked": "2026-10-17",
+    "status": "upstream reports all 135 good dumps recompiled and lockstep-tested",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude co-author trailer observed in recent tracked commits: 1 in this scan (example ae43e9328cf3; Claude Opus 5.5 (1M context))"
+      ]
+    },
+    "techniques": [
+      "6502-to-C++ static recompilation",
+      "lockstep interpreter comparison",
+      "mapper tracing",
+      "MARIA runtime replacement"
+    ],
+    "tags": [
+      "Atari 7800",
+      "SALLY",
+      "6502",
+      "static recompilation",
+      "native port tooling"
+    ],
+    "notes": "Game-agnostic Atari 7800 analysis and native-port toolkit. The README identifies SALLY as the console's NMOS 6502, describes cartridge/mappers, a tracer, 6502-to-C++ translation and a replacement runtime, and reports 6,000-frame lockstep checks for 135 dumps with 127 staying fully native. No fixed host ISA is documented. Evidence: https://github.com/vs-sr-dev/7800kit/blob/main/README.md",
+    "github": {
+      "repository": "vs-sr-dev/7800kit",
+      "created_at": "2026-10-11",
+      "pushed_at": "2026-10-11",
+      "updated_at": "2026-10-11",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "active",
+      "languages": [
+        "C++",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "ae43e9328cf319e25b28925820a09be9c27153a5",
+        "date": "2026-10-11",
+        "message": "Atari 7800 recomp kit: tracer, 6502-to-C++ recompiler, runtime",
+        "url": "https://github.com/vs-sr-dev/7800kit/commit/ae43e9328cf319e25b28925820a09be9c27153a5"
+      }
+    },
+    "last_activity": "2026-10-11"
+  },
+  {
     "id": "8bit-analysers",
     "title": "8-Bit Analysers",
     "upstream_name": "8-Bit Analysers",
@@ -4903,6 +5103,102 @@
         "url": "https://github.com/ZornsLemma/iso-pascal-disassembly/commit/e7ea0f2b9c92afa406d42d671f2156bd7c5e3b6a"
       }
     }
+  },
+  {
+    "id": "acornsoft-lisp406-disassembly",
+    "title": "Acornsoft Lisp",
+    "upstream_name": "Acornsoft Lisp v4.06",
+    "display_title": "Acornsoft Lisp v4.06 — BBC Micro ROM disassembly and reassembly",
+    "subjects": [
+      "Acornsoft Lisp v4.06"
+    ],
+    "repo": "https://github.com/TobyLobster/lisp",
+    "source_platforms": [
+      "BBC Micro"
+    ],
+    "target_platforms": [
+      "BBC Micro"
+    ],
+    "source_cpu": [
+      "6502"
+    ],
+    "target_cpu": [
+      "6502"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "6502 ROM machine code"
+    ],
+    "reconstructed_languages": [
+      "6502 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application",
+      "firmware-rom"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "source-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "language ROM disassembly",
+      "reassembly"
+    ],
+    "re_started": 2023,
+    "last_checked": "2026-10-17",
+    "status": "disassembled and reassembled for ACME and beebasm",
+    "build": {
+      "compilable": true,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "py8dis-assisted disassembly",
+      "symbol and comment restoration",
+      "dual-assembler output",
+      "binary diff reporting"
+    ],
+    "tags": [
+      "BBC Micro",
+      "6502",
+      "Acornsoft",
+      "Lisp",
+      "ROM disassembly"
+    ],
+    "notes": "Disassembly/reassembly of the 1983 Acornsoft Lisp 4.06 ROM. The py8dis driver explicitly loads the original as 6502 code; generated sources target ACME and beebasm. The build script reassembles and reports binary differences, but does not fail on differences, so byte identity remains unclaimed. Evidence: https://github.com/TobyLobster/lisp/blob/main/README.md https://github.com/TobyLobster/lisp/blob/main/source/LISP406.py https://github.com/TobyLobster/lisp/blob/main/tools/build.py",
+    "github": {
+      "repository": "TobyLobster/lisp",
+      "created_at": "2023-06-22",
+      "pushed_at": "2024-03-06",
+      "updated_at": "2026-01-06",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Assembly",
+      "activity_state": "dormant",
+      "languages": [
+        "Assembly",
+        "Python"
+      ],
+      "latest_commit": {
+        "sha": "c363f157b5ae2f75d4b7517bc32a093c1963acd2",
+        "date": "2024-03-06",
+        "message": "Update README.md",
+        "url": "https://github.com/TobyLobster/lisp/commit/c363f157b5ae2f75d4b7517bc32a093c1963acd2"
+      }
+    },
+    "last_activity": "2024-03-06"
   },
   {
     "id": "action-replay-5-amiga",
@@ -26198,6 +26494,124 @@
       }
     },
     "last_activity": "2026-04-16"
+  },
+  {
+    "id": "b2-bbc-micro-emulator",
+    "title": "b2",
+    "upstream_name": "b2",
+    "display_title": "b2 — BBC Micro-family emulator and debugger",
+    "subjects": [],
+    "repo": "https://github.com/tom-seddon/b2",
+    "source_platforms": [
+      "BBC Micro",
+      "BBC Master 128",
+      "BBC Master Compact",
+      "Olivetti PC 128 S"
+    ],
+    "target_platforms": [
+      "Windows",
+      "Linux",
+      "macOS"
+    ],
+    "source_cpu": [
+      "6502",
+      "65C12"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "6502/65C12 machine code and machine behaviour"
+    ],
+    "reconstructed_languages": [
+      "C++",
+      "C",
+      "Python"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "binary-analysis",
+      "automation"
+    ],
+    "types": [
+      "cross-platform emulator",
+      "integrated debugger"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-17",
+    "status": "active emulator with separate debug build",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "cycle-level emulation",
+      "integrated debugging",
+      "HTTP remote control"
+    ],
+    "tags": [
+      "BBC Micro",
+      "BBC Master",
+      "6502",
+      "65C12",
+      "emulator",
+      "debugger"
+    ],
+    "notes": "Cross-platform emulator for four BBC Micro-family systems. The debug build provides an integrated debugger and HTTP remote-control API; source and model code explicitly cover 6502/65C12 execution. The README documents Windows, Linux and macOS builds but no minimum host CPU or RAM. Evidence: https://github.com/tom-seddon/b2/blob/master/README.md https://github.com/tom-seddon/b2/tree/master/src/6502",
+    "github": {
+      "repository": "tom-seddon/b2",
+      "created_at": "2017-05-12",
+      "pushed_at": "2026-10-15",
+      "updated_at": "2026-10-13",
+      "checked_at": "2026-10-16",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "recent",
+      "latest_release": {
+        "tag": "b2-20260322-193052-51e70d7",
+        "name": "b2-20260322-193052-51e70d7",
+        "published_at": "2026-03-22",
+        "url": "https://github.com/tom-seddon/b2/releases/tag/b2-20260322-193052-51e70d7"
+      },
+      "languages": [
+        "C++",
+        "HTML",
+        "Assembly",
+        "Hack",
+        "C",
+        "Python",
+        "CMake",
+        "Objective-C++",
+        "CSS",
+        "Makefile",
+        "Roff",
+        "Rebol",
+        "Vim Script",
+        "Perl",
+        "Batchfile",
+        "PLSQL"
+      ],
+      "latest_commit": {
+        "sha": "e1c9b84a9460909d4dc2030ad1d4e050012b1910",
+        "date": "2026-03-24",
+        "message": "Fix a couple of SDL 2.0.20 build issues on Windows.",
+        "url": "https://github.com/tom-seddon/b2/commit/e1c9b84a9460909d4dc2030ad1d4e050012b1910"
+      }
+    },
+    "last_activity": "2026-03-24"
   },
   {
     "id": "b2t80s-z80-6502-emulator-debugger",
@@ -117114,6 +117528,126 @@
     }
   },
   {
+    "id": "vs-sr-ndskit",
+    "title": "ndskit",
+    "upstream_name": "ndskit",
+    "display_title": "ndskit — Nintendo DS reverse-engineering and native-port toolkit",
+    "subjects": [],
+    "repo": "https://github.com/vs-sr-dev/ndskit",
+    "source_platforms": [
+      "Nintendo DS"
+    ],
+    "target_platforms": [
+      "Native PC host"
+    ],
+    "source_cpu": [
+      "ARM946E-S",
+      "ARM7TDMI"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "C++ runtime",
+        "platform": "Native PC host",
+        "chipsets": [
+          "OpenGL 4.5-capable GPU"
+        ],
+        "notes": "The README requires C++20, SDL3 and OpenGL 4.5 with CMake, Ninja and clang; it states no minimum CPU or RAM.",
+        "evidence": [
+          "https://github.com/vs-sr-dev/ndskit/blob/main/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "Nintendo DS ARM/Thumb machine code",
+      "Nintendo DS cartridge images"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "data-format-analysis",
+      "translation",
+      "reimplementation"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis",
+      "compiler-toolchain",
+      "emulator",
+      "rom-tool"
+    ],
+    "types": [
+      "static recompilation toolkit",
+      "Nintendo DS replacement runtime"
+    ],
+    "re_started": 2026,
+    "last_checked": "2026-10-17",
+    "status": "used by three documented native-port projects; still expanding hardware coverage",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude co-author trailer observed in recent tracked commits: 24 in this scan (example 5ee24aff2ed0; Claude Opus 5.5 (1M context))"
+      ]
+    },
+    "techniques": [
+      "ARM/Thumb-to-C++ static recompilation",
+      "overlay discovery",
+      "Nitro format extraction",
+      "hardware replacement runtime",
+      "savestate comparison"
+    ],
+    "tags": [
+      "Nintendo DS",
+      "ARM946E-S",
+      "ARM7TDMI",
+      "static recompilation",
+      "native port tooling"
+    ],
+    "notes": "Game-independent Nintendo DS toolkit for cartridge filesystems, SDK formats, ARM/Thumb analysis, C++ translation and a runtime replacing both CPUs, graphics and sound hardware. arm.py explicitly identifies the ARM946E-S/ARMv5TE and ARM7TDMI/ARMv4T CPUs. The README documents three consuming ports and extensive comparison tests. Evidence: https://github.com/vs-sr-dev/ndskit/blob/main/README.md https://github.com/vs-sr-dev/ndskit/blob/main/arm.py",
+    "github": {
+      "repository": "vs-sr-dev/ndskit",
+      "created_at": "2026-10-09",
+      "pushed_at": "2026-10-10",
+      "updated_at": "2026-10-16",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "active",
+      "languages": [
+        "C++",
+        "Python",
+        "C",
+        "Java",
+        "CMake"
+      ],
+      "latest_commit": {
+        "sha": "5ee24aff2ed0dfe8359fc0ade4477a25e4eb954f",
+        "date": "2026-10-10",
+        "message": "ndskit: the README with its third game",
+        "url": "https://github.com/vs-sr-dev/ndskit/commit/5ee24aff2ed0dfe8359fc0ade4477a25e4eb954f"
+      }
+    },
+    "last_activity": "2026-10-10"
+  },
+  {
     "id": "nebulus-spectrum",
     "title": "Nebulus",
     "upstream_name": "Nebulus",
@@ -127188,6 +127722,201 @@
     "last_activity": "2026-09-11"
   },
   {
+    "id": "pc88-disk-tools",
+    "title": "pc88-disk-tools",
+    "upstream_name": "pc88-disk-tools",
+    "display_title": "pc88-disk-tools — NEC PC-8801 D88 disk-image utilities",
+    "subjects": [],
+    "repo": "https://github.com/barbeque/pc88-disk-tools",
+    "source_platforms": [
+      "NEC PC-8801"
+    ],
+    "target_platforms": [
+      "Python 3 host"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "D88 disk-image structures"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "Shell"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "disk-filesystem-tool",
+      "binary-analysis"
+    ],
+    "types": [
+      "D88 disk-image inspector and converter"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-17",
+    "status": "usable utility suite; uncommon D88 variants may be unsupported",
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "D88 header analysis",
+      "boot-sector extraction",
+      "disk-image flattening",
+      "z80dasm handoff"
+    ],
+    "tags": [
+      "NEC PC-8801",
+      "D88",
+      "disk image",
+      "Python"
+    ],
+    "notes": "Python utilities for inspecting, renaming and flattening NEC PC-8801 D88 images and extracting a boot sector for optional z80dasm analysis. Because the project transforms disk data rather than a specific executable and does not emit target-machine code, source_cpu and target_cpu are not applicable. Evidence: https://github.com/barbeque/pc88-disk-tools/blob/master/README.md",
+    "github": {
+      "repository": "barbeque/pc88-disk-tools",
+      "created_at": "2019-06-23",
+      "pushed_at": "2026-03-24",
+      "updated_at": "2026-07-20",
+      "checked_at": "2026-10-16",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "recent",
+      "languages": [
+        "Python",
+        "Shell"
+      ],
+      "latest_commit": {
+        "sha": "e23cdb44423adc048cd20ddfba0cf324fbd6b942",
+        "date": "2026-03-24",
+        "message": "Merge pull request #2 from f-fix/master",
+        "url": "https://github.com/barbeque/pc88-disk-tools/commit/e23cdb44423adc048cd20ddfba0cf324fbd6b942"
+      }
+    },
+    "last_activity": "2026-03-24"
+  },
+  {
+    "id": "pc88behavior-clean-room-rom",
+    "title": "PC88Behavior",
+    "upstream_name": "PC88Behavior",
+    "display_title": "PC88Behavior — clean-room NEC PC-8801 replacement ROM",
+    "subjects": [
+      "NEC PC-8801 ROM"
+    ],
+    "repo": "https://github.com/uraraworks/PC88Behavior",
+    "source_platforms": [
+      "NEC PC-8801"
+    ],
+    "target_platforms": [
+      "NEC PC-8801"
+    ],
+    "source_cpu": [
+      "Z80"
+    ],
+    "target_cpu": [
+      "Z80"
+    ],
+    "runtime_profiles": [],
+    "source_language": [
+      "externally observed PC-8801 ROM behaviour"
+    ],
+    "reconstructed_languages": [
+      "Z80 assembly",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom",
+      "operating-system"
+    ],
+    "work_kinds": [
+      "reimplementation",
+      "subsystem-reconstruction"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "clean-room replacement ROM",
+      "behavioural reimplementation"
+    ],
+    "re_started": 2026,
+    "last_checked": "2026-10-17",
+    "status": "partial but runnable replacement: IPL/font complete, representative BASIC goal met; address compatibility unstarted",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude",
+        "Codex"
+      ],
+      "evidence": [
+        "Claude project instructions/configuration present (configuration only; does not establish AI contribution)",
+        "Claude co-author trailer observed in recent tracked commits: 1413 in this scan (example ab0fea65562d; Claude Opus 5.5)",
+        "Codex co-author trailer observed in recent tracked commits: 28 in this scan (example 082645d62189; Codex)"
+      ]
+    },
+    "techniques": [
+      "clean-room behavioural measurement",
+      "conformance testing",
+      "measurement-log redaction",
+      "custom Z80 assembler",
+      "replacement ROM construction"
+    ],
+    "tags": [
+      "NEC PC-8801",
+      "Z80",
+      "clean room",
+      "replacement ROM"
+    ],
+    "notes": "Clean-room PC-8801 ROM reimplementation derived from externally observed behaviour rather than original ROM code or disassembly. The published custom assembler explicitly encodes documented Z80 instructions. As of the reviewed README, IPL and font layers are complete, representative BASIC tests pass 8/8 and roughly 207 self-tests pass, while full compatibility and address compatibility remain incomplete. CLAUDE.md and .claude permissions configure a Claude-oriented clean-room workflow, but configuration alone does not establish AI-authored contributions. Evidence: https://github.com/uraraworks/PC88Behavior/blob/main/README.md https://github.com/uraraworks/PC88Behavior/blob/main/tools/asm/z80text.py https://github.com/uraraworks/PC88Behavior/blob/main/CLAUDE.md",
+    "github": {
+      "repository": "uraraworks/PC88Behavior",
+      "created_at": "2026-08-07",
+      "pushed_at": "2026-10-14",
+      "updated_at": "2026-10-14",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "languages": [
+        "Python",
+        "Shell",
+        "Assembly",
+        "C",
+        "Makefile",
+        "BASIC"
+      ],
+      "latest_commit": {
+        "sha": "ab0fea65562da6339a0bd2064508eb4ca068886f",
+        "date": "2026-10-14",
+        "message": "修正: c1のmain配置で常駐末尾・測定ROM空き・SQR陰性対照を復元",
+        "url": "https://github.com/uraraworks/PC88Behavior/commit/ab0fea65562da6339a0bd2064508eb4ca068886f"
+      }
+    },
+    "last_activity": "2026-10-14"
+  },
+  {
     "id": "pce-analyser-8bit-analysers",
     "title": "PCE Analyser",
     "upstream_name": "PCEAnalyser",
@@ -133160,6 +133889,116 @@
         "url": "https://github.com/cyxx/prehistorik_js/commit/bcd6499f05eeafc1a26836da3520b0c3926aeecb"
       }
     }
+  },
+  {
+    "id": "premium5-vw-radio-emulator",
+    "title": "premium5",
+    "upstream_name": "premium5",
+    "display_title": "premium5 — Volkswagen Premium 5 firmware emulator and debugger",
+    "subjects": [],
+    "repo": "https://github.com/mnaberez/premium5",
+    "source_platforms": [
+      "Volkswagen Premium 5 car radio"
+    ],
+    "target_platforms": [
+      "POSIX Python/PyPy host"
+    ],
+    "source_cpu": [
+      "NEC/Renesas 78K0 (µPD78F0831Y)"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "real-time firmware emulation",
+        "platform": "POSIX Python/PyPy host",
+        "min_cpu": "modern CPU with strong single-threaded performance",
+        "os": "POSIX",
+        "notes": "PyPy is required by the README to emulate the original 4.19 MHz firmware in real time; no RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/mnaberez/premium5/blob/main/README.md",
+          "https://github.com/mnaberez/premium5/blob/main/pyproject.toml"
+        ]
+      }
+    ],
+    "source_language": [
+      "78K0 firmware machine code"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "JavaScript",
+      "HTML",
+      "CSS"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "reimplementation"
+    ],
+    "tool_kinds": [
+      "emulator",
+      "debugger",
+      "disassembler",
+      "binary-analysis"
+    ],
+    "types": [
+      "embedded firmware emulator",
+      "live debugger"
+    ],
+    "re_started": 2026,
+    "last_checked": "2026-10-17",
+    "status": "alpha; runs all known original firmware versions without patches",
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "register-level MCU emulation",
+      "timing-aware peripheral models",
+      "live disassembly",
+      "vehicle-system behavioural models"
+    ],
+    "tags": [
+      "78K0",
+      "embedded firmware",
+      "emulator",
+      "debugger",
+      "Volkswagen"
+    ],
+    "notes": "Low-level emulator for the Delco Volkswagen Premium 5 radio, including its undocumented µPD78F0831Y 78K0 MCU, LCD controller, EEPROM and vehicle interfaces. It runs original firmware unpatched and exposes live disassembly, registers and memory. The related vwradio repository can build a byte-identical firmware image, but that is not a byte-identity claim for this emulator. Evidence: https://github.com/mnaberez/premium5/blob/main/README.md https://github.com/mnaberez/premium5/blob/main/premium5/mcu.py",
+    "github": {
+      "repository": "mnaberez/premium5",
+      "created_at": "2026-04-29",
+      "pushed_at": "2026-07-16",
+      "updated_at": "2026-10-12",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "recent",
+      "languages": [
+        "Python",
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "latest_commit": {
+        "sha": "f6713c5e4af2c07cf4936f1e0454c338b6c77fdf",
+        "date": "2026-07-16",
+        "message": "All classes are new-style classes on py3",
+        "url": "https://github.com/mnaberez/premium5/commit/f6713c5e4af2c07cf4936f1e0454c338b6c77fdf"
+      }
+    },
+    "last_activity": "2026-07-16"
   },
   {
     "id": "vs-sr-cd32-prey",
@@ -148437,6 +149276,125 @@
       }
     },
     "last_activity": "2024-10-07"
+  },
+  {
+    "id": "vs-sr-saturnkit",
+    "title": "saturnkit",
+    "upstream_name": "saturnkit",
+    "display_title": "saturnkit — Sega Saturn reverse-engineering and native-port toolkit",
+    "subjects": [],
+    "repo": "https://github.com/vs-sr-dev/saturnkit",
+    "source_platforms": [
+      "Sega Saturn"
+    ],
+    "target_platforms": [
+      "Native PC host"
+    ],
+    "source_cpu": [
+      "SH-2",
+      "Motorola 68000"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "C++ runtime",
+        "platform": "Native PC host",
+        "chipsets": [
+          "OpenGL 4.5-capable GPU"
+        ],
+        "notes": "The README requires C++20, SDL3 and OpenGL 4.5 with CMake, Ninja and clang; it states no minimum CPU or RAM.",
+        "evidence": [
+          "https://github.com/vs-sr-dev/saturnkit/blob/main/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "Saturn SH-2 and 68000 machine code",
+      "Saturn disc images"
+    ],
+    "reconstructed_languages": [
+      "Python",
+      "C++"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "data-format-analysis",
+      "translation",
+      "reimplementation"
+    ],
+    "tool_kinds": [
+      "disassembler",
+      "binary-analysis",
+      "compiler-toolchain",
+      "emulator",
+      "disk-filesystem-tool"
+    ],
+    "types": [
+      "static recompilation toolkit",
+      "Sega Saturn replacement runtime"
+    ],
+    "re_started": 2026,
+    "last_checked": "2026-10-17",
+    "status": "used by six documented native-port projects; interfaces remain in development",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude"
+      ],
+      "evidence": [
+        "Claude co-author trailer observed in recent tracked commits: 51 in this scan (example 1b345ef949e1; Claude Opus 5.5 (1M context))"
+      ]
+    },
+    "techniques": [
+      "SH-2-to-C++ static recompilation",
+      "disc extraction",
+      "function discovery",
+      "hardware replacement runtime",
+      "interpreter-oracle testing"
+    ],
+    "tags": [
+      "Sega Saturn",
+      "SH-2",
+      "68000",
+      "static recompilation",
+      "native port tooling"
+    ],
+    "notes": "Game-independent Saturn toolkit covering disc formats, SH7604 analysis, SH-2-to-C++ translation, interpreters and a runtime replacing both SH-2s, VDP1/2, SCU, SMPC, CD block and the 68000/SCSP sound side. The README documents six consuming ports and extensive module checks. Host ISA remains unspecified. Evidence: https://github.com/vs-sr-dev/saturnkit/blob/main/README.md",
+    "github": {
+      "repository": "vs-sr-dev/saturnkit",
+      "created_at": "2026-09-26",
+      "pushed_at": "2026-10-12",
+      "updated_at": "2026-10-12",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C++",
+      "activity_state": "active",
+      "languages": [
+        "C++",
+        "Python",
+        "CMake",
+        "Java"
+      ],
+      "latest_commit": {
+        "sha": "1b345ef949e1fa258ce3f693f03c0df8acdfb40d",
+        "date": "2026-10-12",
+        "message": "README: DoDonPachi in the ports table",
+        "url": "https://github.com/vs-sr-dev/saturnkit/commit/1b345ef949e1fa258ce3f693f03c0df8acdfb40d"
+      }
+    },
+    "last_activity": "2026-10-12"
   },
   {
     "id": "save-the-cows-mac512k",
@@ -189575,6 +190533,94 @@
     }
   },
   {
+    "id": "libyaul-sega-saturn-sdk",
+    "title": "Yaul",
+    "upstream_name": "Yaul / libyaul",
+    "display_title": "Yaul — open-source Sega Saturn development kit",
+    "subjects": [],
+    "repo": "https://github.com/yaul-org/libyaul",
+    "source_platforms": [],
+    "target_platforms": [
+      "Sega Saturn"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "SH-2"
+    ],
+    "runtime_profiles": [],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "SH-2 assembly",
+      "Makefile"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "assembler-toolchain",
+      "development-environment"
+    ],
+    "types": [
+      "open-source SDK",
+      "hardware abstraction library"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-17",
+    "status": "released development kit with source-build and packaged installation routes",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "cross-compilation",
+      "hardware abstraction",
+      "emulator-assisted testing"
+    ],
+    "tags": [
+      "Sega Saturn",
+      "SH-2",
+      "SDK",
+      "homebrew tooling"
+    ],
+    "notes": "Open-source Saturn SDK providing lightweight hardware abstractions, examples and build tooling. The README and environment files use the sh2eb-elf cross-toolchain, explicitly evidencing SH-2 output. It is original development tooling, not reverse-engineered game code. Evidence: https://github.com/yaul-org/libyaul/blob/develop/README.md https://github.com/yaul-org/libyaul/blob/develop/yaul.env.in",
+    "github": {
+      "repository": "yaul-org/libyaul",
+      "created_at": "2013-02-01",
+      "pushed_at": "2025-10-23",
+      "updated_at": "2026-09-15",
+      "checked_at": "2026-10-16",
+      "default_branch": "develop",
+      "tracking_branch": "develop",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "recent",
+      "languages": [
+        "C",
+        "Makefile",
+        "Shell",
+        "Python",
+        "C++"
+      ],
+      "latest_commit": {
+        "sha": "6012f79f237773378c8014e70d8998ad95a38d98",
+        "date": "2025-10-23",
+        "message": "Fix multitap and peripheral support (#109)",
+        "url": "https://github.com/yaul-org/libyaul/commit/6012f79f237773378c8014e70d8998ad95a38d98"
+      }
+    },
+    "last_activity": "2025-10-23"
+  },
+  {
     "id": "yawi-sg1000-sc3000",
     "title": "Yawi",
     "upstream_name": "Yawi",
@@ -190020,6 +191066,90 @@
         "url": "https://github.com/mstan/YoshisCookieRecomp/commit/1f24c8b73d8835beaa35fce2f1e7d9b07324b343"
       }
     }
+  },
+  {
+    "id": "z-ram-pet-cpm-research",
+    "title": "Z-RAM",
+    "upstream_name": "z-ram",
+    "display_title": "Z-RAM — Commodore PET/CBM CP/M expansion reverse engineering",
+    "subjects": [
+      "Z-RAM CP/M expansion"
+    ],
+    "repo": "https://github.com/mnaberez/z-ram",
+    "source_platforms": [
+      "Commodore PET/CBM with Z-RAM"
+    ],
+    "target_platforms": [],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [],
+    "source_language": [
+      "Z-RAM firmware binary"
+    ],
+    "reconstructed_languages": [
+      "annotated disassembly",
+      "BASIC listing"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "firmware-rom",
+      "system-software"
+    ],
+    "work_kinds": [
+      "disassembly",
+      "binary-analysis"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "firmware disassembly",
+      "hardware/software archaeology"
+    ],
+    "re_started": null,
+    "last_checked": "2026-10-17",
+    "status": "archived research snapshot",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "firmware disassembly",
+      "buffer and memory-map annotation"
+    ],
+    "tags": [
+      "Commodore PET",
+      "CP/M",
+      "Z-RAM",
+      "firmware archaeology"
+    ],
+    "notes": "Archived repository described by its author as reverse engineering the Z-RAM CP/M system for Commodore PET/CBM computers. It contains a 4,821-byte firmware dump, a 64 KiB annotated disassembly and an MCT BASIC listing. The repository has no README and the checked description, tree and text files do not explicitly identify the firmware CPU, so no CPU value is inferred from CP/M or platform. Evidence: https://github.com/mnaberez/z-ram https://github.com/mnaberez/z-ram/blob/main/6000.disasm",
+    "github": {
+      "repository": "mnaberez/z-ram",
+      "created_at": "2013-11-28",
+      "pushed_at": "2022-06-12",
+      "updated_at": "2023-01-27",
+      "checked_at": "2026-10-16",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": true,
+      "fork": false,
+      "primary_language": null,
+      "activity_state": "dormant",
+      "languages": [],
+      "latest_commit": {
+        "sha": "cde212c0b01b75c24055f12b109f8e76e87efa2a",
+        "date": "2013-05-03",
+        "message": "Found more buffer areas",
+        "url": "https://github.com/mnaberez/z-ram/commit/cde212c0b01b75c24055f12b109f8e76e87efa2a"
+      }
+    },
+    "last_activity": "2013-05-03"
   },
   {
     "id": "z80-smart-disassembler-cormacj",
@@ -192614,1081 +193744,5 @@
       }
     },
     "last_activity": "2024-05-05"
-  },
-  {
-    "id": "b2-bbc-micro-emulator",
-    "title": "b2",
-    "upstream_name": "b2",
-    "display_title": "b2 — BBC Micro-family emulator and debugger",
-    "subjects": [],
-    "repo": "https://github.com/tom-seddon/b2",
-    "source_platforms": [
-      "BBC Micro",
-      "BBC Master 128",
-      "BBC Master Compact",
-      "Olivetti PC 128 S"
-    ],
-    "target_platforms": [
-      "Windows",
-      "Linux",
-      "macOS"
-    ],
-    "source_cpu": [
-      "6502",
-      "65C12"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "6502/65C12 machine code and machine behaviour"
-    ],
-    "reconstructed_languages": [
-      "C++",
-      "C",
-      "Python"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "binary-analysis",
-      "automation"
-    ],
-    "types": [
-      "cross-platform emulator",
-      "integrated debugger"
-    ],
-    "re_started": null,
-    "last_activity": "2026-03-24",
-    "last_checked": "2026-10-17",
-    "status": "active emulator with separate debug build",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "cycle-level emulation",
-      "integrated debugging",
-      "HTTP remote control"
-    ],
-    "tags": [
-      "BBC Micro",
-      "BBC Master",
-      "6502",
-      "65C12",
-      "emulator",
-      "debugger"
-    ],
-    "notes": "Cross-platform emulator for four BBC Micro-family systems. The debug build provides an integrated debugger and HTTP remote-control API; source and model code explicitly cover 6502/65C12 execution. The README documents Windows, Linux and macOS builds but no minimum host CPU or RAM. Evidence: https://github.com/tom-seddon/b2/blob/master/README.md https://github.com/tom-seddon/b2/tree/master/src/6502",
-    "github": {
-      "repository": "tom-seddon/b2",
-      "created_at": "2017-05-12",
-      "pushed_at": "2026-10-15",
-      "updated_at": "2026-10-13",
-      "checked_at": "2026-10-17",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C++",
-      "activity_state": "quiet",
-      "languages": [
-        "C++",
-        "C",
-        "Python",
-        "CMake"
-      ],
-      "latest_commit": {
-        "sha": "e1c9b84a9460909d4dc2030ad1d4e050012b1910",
-        "date": "2026-03-24",
-        "message": "Fix a couple of SDL 2.0.20 build issues on Windows.",
-        "url": "https://github.com/tom-seddon/b2/commit/e1c9b84a9460909d4dc2030ad1d4e050012b1910"
-      }
-    }
-  },
-  {
-    "id": "vs-sr-7800kit",
-    "title": "7800kit",
-    "upstream_name": "7800kit",
-    "display_title": "7800kit — Atari 7800 static-recompilation toolkit",
-    "subjects": [],
-    "repo": "https://github.com/vs-sr-dev/7800kit",
-    "source_platforms": [
-      "Atari 7800"
-    ],
-    "target_platforms": [
-      "Native PC host"
-    ],
-    "source_cpu": [
-      "SALLY (NMOS 6502)"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "Atari 7800 cartridge machine code"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "C++"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis",
-      "translation",
-      "reimplementation"
-    ],
-    "tool_kinds": [
-      "disassembler",
-      "binary-analysis",
-      "compiler-toolchain",
-      "emulator",
-      "cycle-analysis"
-    ],
-    "types": [
-      "static recompilation toolkit",
-      "Atari 7800 runtime"
-    ],
-    "re_started": 2026,
-    "last_activity": "2026-10-11",
-    "last_checked": "2026-10-17",
-    "status": "upstream reports all 135 good dumps recompiled and lockstep-tested",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "6502-to-C++ static recompilation",
-      "lockstep interpreter comparison",
-      "mapper tracing",
-      "MARIA runtime replacement"
-    ],
-    "tags": [
-      "Atari 7800",
-      "SALLY",
-      "6502",
-      "static recompilation",
-      "native port tooling"
-    ],
-    "notes": "Game-agnostic Atari 7800 analysis and native-port toolkit. The README identifies SALLY as the console's NMOS 6502, describes cartridge/mappers, a tracer, 6502-to-C++ translation and a replacement runtime, and reports 6,000-frame lockstep checks for 135 dumps with 127 staying fully native. No fixed host ISA is documented. Evidence: https://github.com/vs-sr-dev/7800kit/blob/main/README.md",
-    "github": {
-      "repository": "vs-sr-dev/7800kit",
-      "created_at": "2026-10-11",
-      "pushed_at": "2026-10-11",
-      "updated_at": "2026-10-11",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C++",
-      "activity_state": "active",
-      "languages": [
-        "C++",
-        "Python",
-        "CMake"
-      ],
-      "latest_commit": {
-        "sha": "ae43e9328cf319e25b28925820a09be9c27153a5",
-        "date": "2026-10-11",
-        "message": "Atari 7800 recomp kit: tracer, 6502-to-C++ recompiler, runtime",
-        "url": "https://github.com/vs-sr-dev/7800kit/commit/ae43e9328cf319e25b28925820a09be9c27153a5"
-      }
-    }
-  },
-  {
-    "id": "vs-sr-saturnkit",
-    "title": "saturnkit",
-    "upstream_name": "saturnkit",
-    "display_title": "saturnkit — Sega Saturn reverse-engineering and native-port toolkit",
-    "subjects": [],
-    "repo": "https://github.com/vs-sr-dev/saturnkit",
-    "source_platforms": [
-      "Sega Saturn"
-    ],
-    "target_platforms": [
-      "Native PC host"
-    ],
-    "source_cpu": [
-      "SH-2",
-      "Motorola 68000"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "C++ runtime",
-        "platform": "Native PC host",
-        "chipsets": [
-          "OpenGL 4.5-capable GPU"
-        ],
-        "notes": "The README requires C++20, SDL3 and OpenGL 4.5 with CMake, Ninja and clang; it states no minimum CPU or RAM.",
-        "evidence": [
-          "https://github.com/vs-sr-dev/saturnkit/blob/main/README.md"
-        ]
-      }
-    ],
-    "source_language": [
-      "Saturn SH-2 and 68000 machine code",
-      "Saturn disc images"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "C++"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis",
-      "data-format-analysis",
-      "translation",
-      "reimplementation"
-    ],
-    "tool_kinds": [
-      "disassembler",
-      "binary-analysis",
-      "compiler-toolchain",
-      "emulator",
-      "disk-filesystem-tool"
-    ],
-    "types": [
-      "static recompilation toolkit",
-      "Sega Saturn replacement runtime"
-    ],
-    "re_started": 2026,
-    "last_activity": "2026-10-12",
-    "last_checked": "2026-10-17",
-    "status": "used by six documented native-port projects; interfaces remain in development",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "SH-2-to-C++ static recompilation",
-      "disc extraction",
-      "function discovery",
-      "hardware replacement runtime",
-      "interpreter-oracle testing"
-    ],
-    "tags": [
-      "Sega Saturn",
-      "SH-2",
-      "68000",
-      "static recompilation",
-      "native port tooling"
-    ],
-    "notes": "Game-independent Saturn toolkit covering disc formats, SH7604 analysis, SH-2-to-C++ translation, interpreters and a runtime replacing both SH-2s, VDP1/2, SCU, SMPC, CD block and the 68000/SCSP sound side. The README documents six consuming ports and extensive module checks. Host ISA remains unspecified. Evidence: https://github.com/vs-sr-dev/saturnkit/blob/main/README.md",
-    "github": {
-      "repository": "vs-sr-dev/saturnkit",
-      "created_at": "2026-09-26",
-      "pushed_at": "2026-10-12",
-      "updated_at": "2026-10-12",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C++",
-      "activity_state": "active",
-      "languages": [
-        "C++",
-        "Python",
-        "CMake"
-      ],
-      "latest_commit": {
-        "sha": "1b345ef949e1fa258ce3f693f03c0df8acdfb40d",
-        "date": "2026-10-12",
-        "message": "README: DoDonPachi in the ports table",
-        "url": "https://github.com/vs-sr-dev/saturnkit/commit/1b345ef949e1fa258ce3f693f03c0df8acdfb40d"
-      }
-    }
-  },
-  {
-    "id": "vs-sr-ndskit",
-    "title": "ndskit",
-    "upstream_name": "ndskit",
-    "display_title": "ndskit — Nintendo DS reverse-engineering and native-port toolkit",
-    "subjects": [],
-    "repo": "https://github.com/vs-sr-dev/ndskit",
-    "source_platforms": [
-      "Nintendo DS"
-    ],
-    "target_platforms": [
-      "Native PC host"
-    ],
-    "source_cpu": [
-      "ARM946E-S",
-      "ARM7TDMI"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "C++ runtime",
-        "platform": "Native PC host",
-        "chipsets": [
-          "OpenGL 4.5-capable GPU"
-        ],
-        "notes": "The README requires C++20, SDL3 and OpenGL 4.5 with CMake, Ninja and clang; it states no minimum CPU or RAM.",
-        "evidence": [
-          "https://github.com/vs-sr-dev/ndskit/blob/main/README.md"
-        ]
-      }
-    ],
-    "source_language": [
-      "Nintendo DS ARM/Thumb machine code",
-      "Nintendo DS cartridge images"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "C++"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis",
-      "data-format-analysis",
-      "translation",
-      "reimplementation"
-    ],
-    "tool_kinds": [
-      "disassembler",
-      "binary-analysis",
-      "compiler-toolchain",
-      "emulator",
-      "rom-tool"
-    ],
-    "types": [
-      "static recompilation toolkit",
-      "Nintendo DS replacement runtime"
-    ],
-    "re_started": 2026,
-    "last_activity": "2026-10-10",
-    "last_checked": "2026-10-17",
-    "status": "used by three documented native-port projects; still expanding hardware coverage",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": true,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "ARM/Thumb-to-C++ static recompilation",
-      "overlay discovery",
-      "Nitro format extraction",
-      "hardware replacement runtime",
-      "savestate comparison"
-    ],
-    "tags": [
-      "Nintendo DS",
-      "ARM946E-S",
-      "ARM7TDMI",
-      "static recompilation",
-      "native port tooling"
-    ],
-    "notes": "Game-independent Nintendo DS toolkit for cartridge filesystems, SDK formats, ARM/Thumb analysis, C++ translation and a runtime replacing both CPUs, graphics and sound hardware. arm.py explicitly identifies the ARM946E-S/ARMv5TE and ARM7TDMI/ARMv4T CPUs. The README documents three consuming ports and extensive comparison tests. Evidence: https://github.com/vs-sr-dev/ndskit/blob/main/README.md https://github.com/vs-sr-dev/ndskit/blob/main/arm.py",
-    "github": {
-      "repository": "vs-sr-dev/ndskit",
-      "created_at": "2026-10-09",
-      "pushed_at": "2026-10-10",
-      "updated_at": "2026-10-16",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C++",
-      "activity_state": "active",
-      "languages": [
-        "C++",
-        "Python",
-        "CMake"
-      ],
-      "latest_commit": {
-        "sha": "5ee24aff2ed0dfe8359fc0ade4477a25e4eb954f",
-        "date": "2026-10-10",
-        "message": "ndskit: the README with its third game",
-        "url": "https://github.com/vs-sr-dev/ndskit/commit/5ee24aff2ed0dfe8359fc0ade4477a25e4eb954f"
-      }
-    }
-  },
-  {
-    "id": "premium5-vw-radio-emulator",
-    "title": "premium5",
-    "upstream_name": "premium5",
-    "display_title": "premium5 — Volkswagen Premium 5 firmware emulator and debugger",
-    "subjects": [],
-    "repo": "https://github.com/mnaberez/premium5",
-    "source_platforms": [
-      "Volkswagen Premium 5 car radio"
-    ],
-    "target_platforms": [
-      "POSIX Python/PyPy host"
-    ],
-    "source_cpu": [
-      "NEC/Renesas 78K0 (µPD78F0831Y)"
-    ],
-    "target_cpu": [],
-    "runtime_profiles": [
-      {
-        "name": "real-time firmware emulation",
-        "platform": "POSIX Python/PyPy host",
-        "min_cpu": "modern CPU with strong single-threaded performance",
-        "os": "POSIX",
-        "notes": "PyPy is required by the README to emulate the original 4.19 MHz firmware in real time; no RAM minimum is stated.",
-        "evidence": [
-          "https://github.com/mnaberez/premium5/blob/main/README.md",
-          "https://github.com/mnaberez/premium5/blob/main/pyproject.toml"
-        ]
-      }
-    ],
-    "source_language": [
-      "78K0 firmware machine code"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "JavaScript",
-      "HTML",
-      "CSS"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "binary-analysis",
-      "reimplementation"
-    ],
-    "tool_kinds": [
-      "emulator",
-      "debugger",
-      "disassembler",
-      "binary-analysis"
-    ],
-    "types": [
-      "embedded firmware emulator",
-      "live debugger"
-    ],
-    "re_started": 2026,
-    "last_activity": "2026-07-16",
-    "last_checked": "2026-10-17",
-    "status": "alpha; runs all known original firmware versions without patches",
-    "build": {
-      "compilable": null,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "register-level MCU emulation",
-      "timing-aware peripheral models",
-      "live disassembly",
-      "vehicle-system behavioural models"
-    ],
-    "tags": [
-      "78K0",
-      "embedded firmware",
-      "emulator",
-      "debugger",
-      "Volkswagen"
-    ],
-    "notes": "Low-level emulator for the Delco Volkswagen Premium 5 radio, including its undocumented µPD78F0831Y 78K0 MCU, LCD controller, EEPROM and vehicle interfaces. It runs original firmware unpatched and exposes live disassembly, registers and memory. The related vwradio repository can build a byte-identical firmware image, but that is not a byte-identity claim for this emulator. Evidence: https://github.com/mnaberez/premium5/blob/main/README.md https://github.com/mnaberez/premium5/blob/main/premium5/mcu.py",
-    "github": {
-      "repository": "mnaberez/premium5",
-      "created_at": "2026-04-29",
-      "pushed_at": "2026-07-16",
-      "updated_at": "2026-10-12",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Python",
-      "activity_state": "recent",
-      "languages": [
-        "Python",
-        "JavaScript",
-        "HTML",
-        "CSS"
-      ],
-      "latest_commit": {
-        "sha": "f6713c5e4af2c07cf4936f1e0454c338b6c77fdf",
-        "date": "2026-07-16",
-        "message": "All classes are new-style classes on py3",
-        "url": "https://github.com/mnaberez/premium5/commit/f6713c5e4af2c07cf4936f1e0454c338b6c77fdf"
-      }
-    }
-  },
-  {
-    "id": "acornsoft-lisp406-disassembly",
-    "title": "Acornsoft Lisp",
-    "upstream_name": "Acornsoft Lisp v4.06",
-    "display_title": "Acornsoft Lisp v4.06 — BBC Micro ROM disassembly and reassembly",
-    "subjects": [
-      "Acornsoft Lisp v4.06"
-    ],
-    "repo": "https://github.com/TobyLobster/lisp",
-    "source_platforms": [
-      "BBC Micro"
-    ],
-    "target_platforms": [
-      "BBC Micro"
-    ],
-    "source_cpu": [
-      "6502"
-    ],
-    "target_cpu": [
-      "6502"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "6502 ROM machine code"
-    ],
-    "reconstructed_languages": [
-      "6502 assembly",
-      "Python"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "application",
-      "firmware-rom"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "source-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "language ROM disassembly",
-      "reassembly"
-    ],
-    "re_started": 2023,
-    "last_activity": "2024-03-06",
-    "last_checked": "2026-10-17",
-    "status": "disassembled and reassembled for ACME and beebasm",
-    "build": {
-      "compilable": true,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "py8dis-assisted disassembly",
-      "symbol and comment restoration",
-      "dual-assembler output",
-      "binary diff reporting"
-    ],
-    "tags": [
-      "BBC Micro",
-      "6502",
-      "Acornsoft",
-      "Lisp",
-      "ROM disassembly"
-    ],
-    "notes": "Disassembly/reassembly of the 1983 Acornsoft Lisp 4.06 ROM. The py8dis driver explicitly loads the original as 6502 code; generated sources target ACME and beebasm. The build script reassembles and reports binary differences, but does not fail on differences, so byte identity remains unclaimed. Evidence: https://github.com/TobyLobster/lisp/blob/main/README.md https://github.com/TobyLobster/lisp/blob/main/source/LISP406.py https://github.com/TobyLobster/lisp/blob/main/tools/build.py",
-    "github": {
-      "repository": "TobyLobster/lisp",
-      "created_at": "2023-06-22",
-      "pushed_at": "2024-03-06",
-      "updated_at": "2026-01-06",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Assembly",
-      "activity_state": "dormant",
-      "languages": [
-        "Assembly",
-        "Python"
-      ],
-      "latest_commit": {
-        "sha": "c363f157b5ae2f75d4b7517bc32a093c1963acd2",
-        "date": "2024-03-06",
-        "message": "Update README.md",
-        "url": "https://github.com/TobyLobster/lisp/commit/c363f157b5ae2f75d4b7517bc32a093c1963acd2"
-      }
-    }
-  },
-  {
-    "id": "7800basic-atari-toolchain",
-    "title": "7800basic",
-    "upstream_name": "7800basic",
-    "display_title": "7800basic — Atari 7800 BASIC compiler and cartridge toolchain",
-    "subjects": [],
-    "repo": "https://github.com/7800-devtools/7800basic",
-    "source_platforms": [],
-    "target_platforms": [
-      "Atari 7800"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "6502"
-    ],
-    "runtime_profiles": [],
-    "source_language": [],
-    "reconstructed_languages": [
-      "C",
-      "6502 assembly",
-      "BASIC-like language"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "compiler-toolchain",
-      "assembler-toolchain",
-      "language-tooling",
-      "development-environment"
-    ],
-    "types": [
-      "BASIC-like cross-compiler",
-      "Atari 7800 cartridge toolchain"
-    ],
-    "re_started": null,
-    "last_activity": "2026-10-10",
-    "last_checked": "2026-10-17",
-    "status": "active toolchain with Wasmtime and native-host distributions",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "BASIC-to-assembly compilation",
-      "DASM assembly",
-      "cartridge image construction",
-      "WebAssembly distribution"
-    ],
-    "tags": [
-      "Atari 7800",
-      "6502",
-      "BASIC",
-      "compiler",
-      "homebrew tooling"
-    ],
-    "notes": "Original cross-development toolchain derived from batari Basic. It compiles a BASIC-like language to assembly and DASM-built cartridge binaries for emulators, flash carts or real Atari 7800 hardware. The generated assembly header explicitly selects processor 6502; source_cpu is not applicable because the tool does not analyse an original binary. Evidence: https://github.com/7800-devtools/7800basic/blob/master/README.txt https://github.com/7800-devtools/7800basic/blob/master/includes/7800basicheader.asm",
-    "github": {
-      "repository": "7800-devtools/7800basic",
-      "created_at": "2020-02-14",
-      "pushed_at": "2026-10-10",
-      "updated_at": "2026-10-10",
-      "checked_at": "2026-10-17",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C",
-      "activity_state": "active",
-      "languages": [
-        "C",
-        "Assembly",
-        "Shell",
-        "Batchfile",
-        "Makefile",
-        "WebAssembly"
-      ],
-      "latest_commit": {
-        "sha": "e7c18d2ecdc6c208974048299597e8be2c7dd3ff",
-        "date": "2026-10-10",
-        "message": "fix: bankram correctly written to a78 header",
-        "url": "https://github.com/7800-devtools/7800basic/commit/e7c18d2ecdc6c208974048299597e8be2c7dd3ff"
-      }
-    }
-  },
-  {
-    "id": "libyaul-sega-saturn-sdk",
-    "title": "Yaul",
-    "upstream_name": "Yaul / libyaul",
-    "display_title": "Yaul — open-source Sega Saturn development kit",
-    "subjects": [],
-    "repo": "https://github.com/yaul-org/libyaul",
-    "source_platforms": [],
-    "target_platforms": [
-      "Sega Saturn"
-    ],
-    "source_cpu": [],
-    "target_cpu": [
-      "SH-2"
-    ],
-    "runtime_profiles": [],
-    "source_language": [],
-    "reconstructed_languages": [
-      "C",
-      "SH-2 assembly",
-      "Makefile"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [],
-    "tool_kinds": [
-      "compiler-toolchain",
-      "assembler-toolchain",
-      "development-environment"
-    ],
-    "types": [
-      "open-source SDK",
-      "hardware abstraction library"
-    ],
-    "re_started": null,
-    "last_activity": "2025-10-23",
-    "last_checked": "2026-10-17",
-    "status": "released development kit with source-build and packaged installation routes",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "cross-compilation",
-      "hardware abstraction",
-      "emulator-assisted testing"
-    ],
-    "tags": [
-      "Sega Saturn",
-      "SH-2",
-      "SDK",
-      "homebrew tooling"
-    ],
-    "notes": "Open-source Saturn SDK providing lightweight hardware abstractions, examples and build tooling. The README and environment files use the sh2eb-elf cross-toolchain, explicitly evidencing SH-2 output. It is original development tooling, not reverse-engineered game code. Evidence: https://github.com/yaul-org/libyaul/blob/develop/README.md https://github.com/yaul-org/libyaul/blob/develop/yaul.env.in",
-    "github": {
-      "repository": "yaul-org/libyaul",
-      "created_at": "2013-02-01",
-      "pushed_at": "2025-10-23",
-      "updated_at": "2026-09-15",
-      "checked_at": "2026-10-17",
-      "default_branch": "develop",
-      "tracking_branch": "develop",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "C",
-      "activity_state": "quiet",
-      "languages": [
-        "C",
-        "Assembly",
-        "Makefile",
-        "Shell"
-      ],
-      "latest_commit": {
-        "sha": "6012f79f237773378c8014e70d8998ad95a38d98",
-        "date": "2025-10-23",
-        "message": "Fix multitap and peripheral support (#109)",
-        "url": "https://github.com/yaul-org/libyaul/commit/6012f79f237773378c8014e70d8998ad95a38d98"
-      }
-    }
-  },
-  {
-    "id": "pc88-disk-tools",
-    "title": "pc88-disk-tools",
-    "upstream_name": "pc88-disk-tools",
-    "display_title": "pc88-disk-tools — NEC PC-8801 D88 disk-image utilities",
-    "subjects": [],
-    "repo": "https://github.com/barbeque/pc88-disk-tools",
-    "source_platforms": [
-      "NEC PC-8801"
-    ],
-    "target_platforms": [
-      "Python 3 host"
-    ],
-    "source_cpu": [],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "D88 disk-image structures"
-    ],
-    "reconstructed_languages": [
-      "Python",
-      "Shell"
-    ],
-    "record_class": "tooling",
-    "target_kinds": [],
-    "work_kinds": [
-      "data-format-analysis"
-    ],
-    "tool_kinds": [
-      "disk-filesystem-tool",
-      "binary-analysis"
-    ],
-    "types": [
-      "D88 disk-image inspector and converter"
-    ],
-    "re_started": null,
-    "last_activity": "2026-03-24",
-    "last_checked": "2026-10-17",
-    "status": "usable utility suite; uncommon D88 variants may be unsupported",
-    "build": {
-      "compilable": null,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "D88 header analysis",
-      "boot-sector extraction",
-      "disk-image flattening",
-      "z80dasm handoff"
-    ],
-    "tags": [
-      "NEC PC-8801",
-      "D88",
-      "disk image",
-      "Python"
-    ],
-    "notes": "Python utilities for inspecting, renaming and flattening NEC PC-8801 D88 images and extracting a boot sector for optional z80dasm analysis. Because the project transforms disk data rather than a specific executable and does not emit target-machine code, source_cpu and target_cpu are not applicable. Evidence: https://github.com/barbeque/pc88-disk-tools/blob/master/README.md",
-    "github": {
-      "repository": "barbeque/pc88-disk-tools",
-      "created_at": "2019-06-23",
-      "pushed_at": "2026-03-24",
-      "updated_at": "2026-07-20",
-      "checked_at": "2026-10-17",
-      "default_branch": "master",
-      "tracking_branch": "master",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Python",
-      "activity_state": "quiet",
-      "languages": [
-        "Python",
-        "Shell"
-      ],
-      "latest_commit": {
-        "sha": "e23cdb44423adc048cd20ddfba0cf324fbd6b942",
-        "date": "2026-03-24",
-        "message": "Merge pull request #2 from f-fix/master",
-        "url": "https://github.com/barbeque/pc88-disk-tools/commit/e23cdb44423adc048cd20ddfba0cf324fbd6b942"
-      }
-    }
-  },
-  {
-    "id": "pc88behavior-clean-room-rom",
-    "title": "PC88Behavior",
-    "upstream_name": "PC88Behavior",
-    "display_title": "PC88Behavior — clean-room NEC PC-8801 replacement ROM",
-    "subjects": [
-      "NEC PC-8801 ROM"
-    ],
-    "repo": "https://github.com/uraraworks/PC88Behavior",
-    "source_platforms": [
-      "NEC PC-8801"
-    ],
-    "target_platforms": [
-      "NEC PC-8801"
-    ],
-    "source_cpu": [
-      "Z80"
-    ],
-    "target_cpu": [
-      "Z80"
-    ],
-    "runtime_profiles": [],
-    "source_language": [
-      "externally observed PC-8801 ROM behaviour"
-    ],
-    "reconstructed_languages": [
-      "Z80 assembly",
-      "Python"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "firmware-rom",
-      "operating-system"
-    ],
-    "work_kinds": [
-      "reimplementation",
-      "subsystem-reconstruction"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "clean-room replacement ROM",
-      "behavioural reimplementation"
-    ],
-    "re_started": 2026,
-    "last_activity": "2026-10-14",
-    "last_checked": "2026-10-17",
-    "status": "partial but runnable replacement: IPL/font complete, representative BASIC goal met; address compatibility unstarted",
-    "build": {
-      "compilable": true,
-      "runnable": true,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "clean-room behavioural measurement",
-      "conformance testing",
-      "measurement-log redaction",
-      "custom Z80 assembler",
-      "replacement ROM construction"
-    ],
-    "tags": [
-      "NEC PC-8801",
-      "Z80",
-      "clean room",
-      "replacement ROM"
-    ],
-    "notes": "Clean-room PC-8801 ROM reimplementation derived from externally observed behaviour rather than original ROM code or disassembly. The published custom assembler explicitly encodes documented Z80 instructions. As of the reviewed README, IPL and font layers are complete, representative BASIC tests pass 8/8 and roughly 207 self-tests pass, while full compatibility and address compatibility remain incomplete. CLAUDE.md and .claude permissions configure a Claude-oriented clean-room workflow, but configuration alone does not establish AI-authored contributions. Evidence: https://github.com/uraraworks/PC88Behavior/blob/main/README.md https://github.com/uraraworks/PC88Behavior/blob/main/tools/asm/z80text.py https://github.com/uraraworks/PC88Behavior/blob/main/CLAUDE.md",
-    "github": {
-      "repository": "uraraworks/PC88Behavior",
-      "created_at": "2026-08-07",
-      "pushed_at": "2026-10-14",
-      "updated_at": "2026-10-14",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": false,
-      "fork": false,
-      "primary_language": "Python",
-      "activity_state": "active",
-      "languages": [
-        "Python",
-        "Assembly",
-        "Shell"
-      ],
-      "latest_commit": {
-        "sha": "ab0fea65562da6339a0bd2064508eb4ca068886f",
-        "date": "2026-10-14",
-        "message": "修正: c1のmain配置で常駐末尾・測定ROM空き・SQR陰性対照を復元",
-        "url": "https://github.com/uraraworks/PC88Behavior/commit/ab0fea65562da6339a0bd2064508eb4ca068886f"
-      }
-    }
-  },
-  {
-    "id": "z-ram-pet-cpm-research",
-    "title": "Z-RAM",
-    "upstream_name": "z-ram",
-    "display_title": "Z-RAM — Commodore PET/CBM CP/M expansion reverse engineering",
-    "subjects": [
-      "Z-RAM CP/M expansion"
-    ],
-    "repo": "https://github.com/mnaberez/z-ram",
-    "source_platforms": [
-      "Commodore PET/CBM with Z-RAM"
-    ],
-    "target_platforms": [],
-    "source_cpu": [],
-    "target_cpu": [],
-    "runtime_profiles": [],
-    "source_language": [
-      "Z-RAM firmware binary"
-    ],
-    "reconstructed_languages": [
-      "annotated disassembly",
-      "BASIC listing"
-    ],
-    "record_class": "subject",
-    "target_kinds": [
-      "firmware-rom",
-      "system-software"
-    ],
-    "work_kinds": [
-      "disassembly",
-      "binary-analysis"
-    ],
-    "tool_kinds": [],
-    "types": [
-      "firmware disassembly",
-      "hardware/software archaeology"
-    ],
-    "re_started": null,
-    "last_activity": "2013-05-03",
-    "last_checked": "2026-10-17",
-    "status": "archived research snapshot",
-    "build": {
-      "compilable": null,
-      "runnable": null,
-      "playable": null,
-      "byte_exact": null
-    },
-    "ai": {
-      "usage": null,
-      "tools": []
-    },
-    "techniques": [
-      "firmware disassembly",
-      "buffer and memory-map annotation"
-    ],
-    "tags": [
-      "Commodore PET",
-      "CP/M",
-      "Z-RAM",
-      "firmware archaeology"
-    ],
-    "notes": "Archived repository described by its author as reverse engineering the Z-RAM CP/M system for Commodore PET/CBM computers. It contains a 4,821-byte firmware dump, a 64 KiB annotated disassembly and an MCT BASIC listing. The repository has no README and the checked description, tree and text files do not explicitly identify the firmware CPU, so no CPU value is inferred from CP/M or platform. Evidence: https://github.com/mnaberez/z-ram https://github.com/mnaberez/z-ram/blob/main/6000.disasm",
-    "github": {
-      "repository": "mnaberez/z-ram",
-      "created_at": "2013-11-28",
-      "pushed_at": "2022-06-12",
-      "updated_at": "2023-01-27",
-      "checked_at": "2026-10-17",
-      "default_branch": "main",
-      "tracking_branch": "main",
-      "tracking_path": null,
-      "archived": true,
-      "fork": false,
-      "primary_language": null,
-      "activity_state": "dormant",
-      "languages": [],
-      "latest_commit": {
-        "sha": "cde212c0b01b75c24055f12b109f8e76e87efa2a",
-        "date": "2013-05-03",
-        "message": "Found more buffer areas",
-        "url": "https://github.com/mnaberez/z-ram/commit/cde212c0b01b75c24055f12b109f8e76e87efa2a"
-      }
-    }
   }
 ]
