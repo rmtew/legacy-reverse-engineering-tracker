@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-17T17:24:33Z",
+  "updated_at": "2026-10-17T19:20:14Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -3385,6 +3385,70 @@
         ]
       }
     },
+    "acorn-hdfloppy-adfs-half-speed-patch": {
+      "id": "acorn-hdfloppy-adfs-half-speed-patch",
+      "title": "Acorn Archimedes ADFS high-density patch",
+      "upstream_name": "Acorn Archimedes ADFS high-density patch",
+      "display_title": "Acorn Archimedes ADFS high-density patch",
+      "subjects": [
+        "Acorn Archimedes ADFS high-density patch"
+      ],
+      "repo": "https://github.com/rhalkyard/acorn-hdfloppy",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Acorn Archimedes",
+        "RISC OS 3"
+      ],
+      "target_platforms": [
+        "Acorn Archimedes",
+        "RISC OS 3"
+      ],
+      "source_cpu": [
+        "ARM"
+      ],
+      "target_cpu": [
+        "ARM"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "BBC BASIC",
+        "ARM assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software"
+      ],
+      "work_kinds": [
+        "patching",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: BBC BASIC/inline ARM patches add half-speed high-density floppy support to original Archimedes 1772-based ADFS module. Software patch work distinct from linked drive PCB project. Classification: Readable commented ARM branch insertion, format-detection heuristic, controller bitmap and timeout modifications. Existing ADFS remains opaque binary substrate. README explicitly links corresponding RISC OS 3.6 original sources and credits Boris Leppin’s earlier patch approach. No explicit license found. Original ADFS and linked hardware retain separate rights. Source CPU: Documented source/input platforms: Acorn Archimedes, RISC OS 3. Processor scope: ARM. Target CPU: Documented output/support targets: Acorn Archimedes, RISC OS 3. Processor scope: ARM. Build: Run ModuleSave.bas to save current ADFS, then MkHDADFS.bas patches original binary and appends ARM routines. Hard-coded original offsets: not a standalone complete ADFS source build, not version-agnostic. No patch/run performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: A300/A400/A540/A3000 1772 hardware with HDDLW half-speed drive or suitably configured FlashFloppy. HD detection assumes >6144 track data bytes; unusual formats can be false negatives; doubled timeout changes sector-list duplication and modified drive reliability is not guaranteed. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: external half-speed hardware required for physical-drive path https://github.com/schlae/amiga-hddlw already-tracked alternative floppy-device platform https://github.com/keirf/flashfloppy Evidence: https://github.com/rhalkyard/acorn-hdfloppy/blob/8451849eb64ff431b419e4f5d0d8ed9be34fe3ba/README.md https://github.com/rhalkyard/acorn-hdfloppy/blob/8451849eb64ff431b419e4f5d0d8ed9be34fe3ba/MkHDADFS.bas",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "acorn-econet-bridge-acornaeology": {
       "id": "acorn-econet-bridge-acornaeology",
       "title": "Acorn Econet Bridge — firmware reconstruction",
@@ -3852,6 +3916,74 @@
         "ROM disassembly"
       ],
       "notes": "Disassembly/reassembly of the 1983 Acornsoft Lisp 4.06 ROM. The py8dis driver explicitly loads the original as 6502 code; generated sources target ACME and beebasm. The build script reassembles and reports binary differences, but does not fail on differences, so byte identity remains unclaimed. Evidence: https://github.com/TobyLobster/lisp/blob/main/README.md https://github.com/TobyLobster/lisp/blob/main/source/LISP406.py https://github.com/TobyLobster/lisp/blob/main/tools/build.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "acspro-reconstructed-development-system": {
+      "id": "acspro-reconstructed-development-system",
+      "title": "ACSpro reconstructed development system",
+      "upstream_name": "ACSpro reconstructed development system",
+      "display_title": "ACSpro reconstructed development system",
+      "subjects": [
+        "ACSpro reconstructed development system"
+      ],
+      "repo": "https://github.com/th-otto/acs",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST",
+        "Atari TOS"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari TOS"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "Motorola 68000 assembly",
+        "Pascal"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "disassembly"
+      ],
+      "tool_kinds": [
+        "ide",
+        "language-tooling"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Reconstructed ACSpro GEM application-development environment, editor and runtime library; keep root intact rather than splitting every included module. Classification: Meaningful named C functions, data structures, per-editor units and headers; corresponding annotated original assembly retained for study. Not merely a binary wrapper. No full semantic-coverage or byte-matching claim verified. Historical legal documentation retains shareware rights and distribution restrictions; no blanket open-source license established. Public source availability is not a free-use grant. Source CPU: Documented source/input platforms: Atari ST, Atari TOS. Processor scope: m68k. Target CPU: Documented output/support targets: Atari ST, Atari TOS. Processor scope: m68k. Build: Pure-C .prj recipe lists substantial C editor/runtime units and assembly startup; absolute C:\\pc\\include and historical Pure-C libraries required. No modern portable build established. Includes original/symbolized APP binaries, not proof of reconstructed build success. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Native GEM/TOS development environment; exact CPU/RAM/OS minimum not verified. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: separate dated ACSpro reconstruction also in portfolio; not promoted as duplicate version in this pass https://github.com/th-otto/acs2003 Evidence: https://github.com/th-otto/acs/blob/65e1da2ee4d28a41d9cd2f10784ca3c7e591a166/src/acs.prj https://github.com/th-otto/acs/blob/65e1da2ee4d28a41d9cd2f10784ca3c7e591a166/src/acsbase.c",
       "ai": {
         "usage": null,
         "tools": []
@@ -12340,6 +12472,71 @@
         "tools": []
       }
     },
+    "amok-vic20-raspberrypioneer-disassembly": {
+      "id": "amok-vic20-raspberrypioneer-disassembly",
+      "title": "Amok — VIC-20 annotated disassembly",
+      "upstream_name": "Amok — VIC-20 annotated disassembly",
+      "display_title": "Amok — VIC-20 annotated disassembly",
+      "subjects": [
+        "Amok — VIC-20 annotated disassembly"
+      ],
+      "repo": "https://github.com/raspberrypioneer/Vic-20-Amok",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore VIC-20"
+      ],
+      "target_platforms": [
+        "Commodore VIC-20"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Disassembly of Roger L. Merritt/UMI Amok (1981/82), plus expanded-memory relocation variant. Classification: Rich labelled code explains double buffering, shared object structures, self-modification and original initialization anomalies; data !byte blocks retained. README describes byte-comparison workflow but does not establish independent current output equivalence. No LICENSE in inspected tree; original game rights and reuse permission unknown. Source CPU: Documented source/input platforms: Commodore VIC-20. Processor scope: 6502. Target CPU: Documented output/support targets: Commodore VIC-20. Processor scope: 6502. Build: ACME supplied as Windows executable; a_build.bat selects unexpanded or USE_8k_MEMORY_LAYOUT and adds PRG header, then Python disk-image tool. Hardcoded Python path requires adjustment. No build performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Unexpanded VIC-20 and 8K+ expanded layout documented; VICE run script supplied. Relocation is same game logic, not separate subject. AI: README explicitly says mostly hand-disassembled, finished with AI (VS Code and Codex / ChatGPT). Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/raspberrypioneer/Vic-20-Amok/blob/31d9dcfc0aa40ed8701840294bdde9d8ddee3716/README.md https://github.com/raspberrypioneer/Vic-20-Amok/blob/31d9dcfc0aa40ed8701840294bdde9d8ddee3716/main.asm",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "ChatGPT",
+          "Codex"
+        ]
+      }
+    },
     "amos-professional-official-original-source": {
       "id": "amos-professional-official-original-source",
       "title": "AMOS Professional — official Amiga BASIC source release",
@@ -18114,6 +18311,73 @@
         "tools": []
       }
     },
+    "atari8bitre-franknally-workshop": {
+      "id": "atari8bitre-franknally-workshop",
+      "title": "Atari8BitRE — disassembler and annotation workshop",
+      "upstream_name": "Atari8BitRE — disassembler and annotation workshop",
+      "display_title": "Atari8BitRE — disassembler and annotation workshop",
+      "subjects": [
+        "Atari8BitRE — disassembler and annotation workshop"
+      ],
+      "repo": "https://github.com/franknally2026/Atari8BitRE",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari 8-bit computers"
+      ],
+      "target_platforms": [
+        "Atari 8-bit computers",
+        "POSIX hosts"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Python",
+        "6502 assembly"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "disassembler",
+        "static-analysis",
+        "automation"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Reusable Atari 8-bit 6502 disassembler/analysis workshop bundled with River Raid and Inside annotated projects; one coherent hybrid record. Classification: Actual Python opcode table and recursive-descent design inspected. Untraced and unsupported/undocumented opcodes emitted as .byte; round-trip equality does not prove executable coverage. River Raid README reports byte-exact SHA256 dc55bef6fa336003772643e68b9bfade7155ff4dde1aad814e1cf56ad818805f; not independently verified. Coverage document says 5536/8192 bytes annotated (67.6%), 2656 bare; source explicitly marks hypotheses with ??/(inferred), NEXT_STEPS retains unresolved verification items. README completion marks must not become semantic-completeness claim. No LICENSE file in inspected tree; README educational/fair-use assertions are not a general license. Game instruction rights remain publisher-owned; docs reference GPLv2+ Altirra provenance. Source CPU: Documented source/input platforms: Atari 8-bit computers. Processor scope: 6502. Target CPU: Documented output/support targets: Atari 8-bit computers, POSIX hosts. Processor scope: 6502. Build: Python 3.10+, MADS 2.1+ and cmp. User-supplied ROM required; no ROMs committed. Dynamic verification depends on external AltirraSDL test-mode branch with mem_read support. Client defaults to a developer-specific ~/git/AltirraSDL path, overridable by ALTIRRA_SDL. No code run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Disassembler is host Python tooling; generated MADS assembly targets Atari8 6502. Runtime validation harness uses Unix domain sockets/external emulator. Machine-wide docs include 5200 but inspected game is Atari computer cartridge, not proof 5200 game compatibility. AI: CLAUDE.md is present but configuration alone is not contribution evidence. Initial commit has no explicit AI attribution; usage unknown. Relationships: Uses external AltirraSDL IPC tooling; hardware reference distilled from Altirra, official Atari OS listings and scanned manuals. River Raid and Inside remain within this workspace record; avoid speculative splitting without separate completeness review. Evidence: https://github.com/franknally2026/Atari8BitRE/blob/7d9c2e9e759728d4f84613a2967831ac0566ba9f/README.md https://github.com/franknally2026/Atari8BitRE/blob/7d9c2e9e759728d4f84613a2967831ac0566ba9f/tools/disasm.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "atari-m68000-disasmb-codaway": {
       "id": "atari-m68000-disasmb-codaway",
       "title": "AtariM68000_DisAsmb — Atari ST disassembler",
@@ -19302,6 +19566,72 @@
         "binary analysis"
       ],
       "notes": "Substantial title-specific ZX Spectrum analysis project. The aufmonty directory contains an approximately 2538 KiB Analysis.json annotation database plus four custom Lua viewers/analysis scripts. Tracked as binary-analysis/analysis-state work; no byte-exact reconstruction claim is inferred.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "avserver-aman-reconstructed-gem-services": {
+      "id": "avserver-aman-reconstructed-gem-services",
+      "title": "AV-Server / A-Man reconstructed GEM services",
+      "upstream_name": "AV-Server / A-Man reconstructed GEM services",
+      "display_title": "AV-Server / A-Man reconstructed GEM services",
+      "subjects": [
+        "AV-Server / A-Man reconstructed GEM services"
+      ],
+      "repo": "https://github.com/th-otto/avserver",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST",
+        "Atari TOS",
+        "MagiC"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari TOS",
+        "MagiC"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "Motorola 68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software",
+        "application"
+      ],
+      "work_kinds": [
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Reconstructed AV-Server desktop interoperability service, A-Man accessory manager and AV-Test application, retained as one coherent root. Classification: AV-server.c has ~1900 lines of named client/window/protocol logic; A-Man installs XBIOS/cookie handlers in readable C+assembly. Comments identify original bugs and unused fields. Original AV-Server copyright/all-rights-reserved notices and Borland startup copyrights remain; no repository-wide permissive grant found. Source CPU: Documented source/input platforms: Atari ST, Atari TOS, MagiC. Processor scope: m68k. Target CPU: Documented output/support targets: Atari ST, Atari TOS, MagiC. Processor scope: m68k. Build: Pure-C project files and GEM/TOS C libraries required. Native startup and AES/XBIOS assembly hooks included. Original .ori files provide comparisons, not verified rebuilt outputs. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: A-Man expects AUTO-folder startup; AV services depend on GEM desktop/OS capabilities. No exact minimum hardware established. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/th-otto/avserver/blob/6804b52b319404c842963918f66c53f2fc08c1bc/avserver.c https://github.com/th-otto/avserver/blob/6804b52b319404c842963918f66c53f2fc08c1bc/avserver.prj",
       "ai": {
         "usage": null,
         "tools": []
@@ -25855,6 +26185,70 @@
         "BBC Micro"
       ],
       "notes": "Commented Beebasm/ACME reconstructions of Andrew Bennett’s BBC Boulder Dash with original disk and tools; README reports byte-for-byte identity, not independently rerun here.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "boulder-dash-oric-raspberrypioneer": {
+      "id": "boulder-dash-oric-raspberrypioneer",
+      "title": "Boulder Dash — Oric RE-derived port",
+      "upstream_name": "Boulder Dash — Oric RE-derived port",
+      "display_title": "Boulder Dash — Oric RE-derived port",
+      "subjects": [
+        "Boulder Dash — Oric RE-derived port"
+      ],
+      "repo": "https://github.com/raspberrypioneer/Oric-BoulderDash",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "Acorn Electron"
+      ],
+      "target_platforms": [
+        "Oric-1",
+        "Oric Atmos"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Native Oric port derived from TobyLobster BBC/Electron Boulder Dash disassembly, with six cave sets sharing a single engine. Classification: Actual ROM-specific Oric addresses and gameplay logic inspected. Cave assets remain binary in caves_bin, with conversion utilities and JSON sources for some sets. Six content variants are not six new game-engine records. MIT for repository author work; original Boulder Dash and externally supplied cave content rights should not be inferred from root license. Source CPU: Documented source/input platforms: BBC Micro, Acorn Electron. Processor scope: 6502. Target CPU: Documented output/support targets: Oric-1, Oric Atmos. Processor scope: 6502. Build: OSDK XA/linker/header plus taptap/pictconv and batch orchestration. Existing cave binaries combined with sprites/screens into TAP. No build attempted. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Author reports real Oric-1 and Oricutron testing. Default Atmos ROM v1.1; separate Oric-1 build switch. Keyboard-only controls documented; joystick support described as future. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Derived from tracked TobyLobster/Boulderdash; sibling ports raspberrypioneer/Vic-20-BoulderDash, C16-BoulderDash, Acorn-BoulderDash are separate follow-up source leads. Evidence: https://github.com/raspberrypioneer/Oric-BoulderDash/blob/6250f89141895427429eb169d77cfb78be8b3359/README.md https://github.com/raspberrypioneer/Oric-BoulderDash/blob/6250f89141895427429eb169d77cfb78be8b3359/main.s",
       "ai": {
         "usage": null,
         "tools": []
@@ -33664,6 +34058,74 @@
         "tools": []
       }
     },
+    "cloudpilot-emu": {
+      "id": "cloudpilot-emu",
+      "title": "CloudpilotEmu — PalmOS device emulator and debugger",
+      "upstream_name": "CloudpilotEmu",
+      "display_title": "CloudpilotEmu — PalmOS device emulator and debugger",
+      "subjects": [],
+      "repo": "https://github.com/cloudpilot-emu/cloudpilot-emu",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Palm OS"
+      ],
+      "target_platforms": [
+        "Web",
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "m68k",
+        "ARM"
+      ],
+      "target_cpu": [
+        "WebAssembly",
+        "x86",
+        "x86-64"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Motorola 68000 machine code",
+        "ARM machine code"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "C",
+        "TypeScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: General-purpose PalmOS emulator, with DragonBall PalmOS 1–4 and ARM Tungsten E2/PalmOS 5 emulation, a browser frontend and native developer/debugger applications. Not a game-specific wrapper. Classification: README documents supported devices, known emulation limitations and GDB/CLI support. Native OS4 developer frontend omits skins/audio. OS5 keyboard, clipboard and networking integration are not yet available. EmCPU68K.cpp contains the actual POSE/UAE guest instruction infrastructure, distinct from host output CPU. Browser/modern native portability is not evidence of any original-handheld runnable output. README declares GPL-3.0-or-later for project; preserved EmCPU68K.cpp carries Palm POSE GPL-2.0-or-later header; bundled components have separate licenses. Source CPU: Documented source/input platforms: Palm OS. Processor scope: m68k, ARM. Target CPU: Documented output/support targets: Web, Linux, macOS, Windows. Processor scope: WebAssembly, x86, x86-64. Build: README documents Emscripten 4.0.10 make emscripten, then Node/yarn Angular/Ionic frontend generation; native make bin needs SDL2, SDL2_image, libcurl and recursive submodules. src/Makefile recursively builds native and Emscripten outputs. Dockerfile.build-mingw explicitly selects i686-w64-mingw32 and x86_64-w64-mingw32 output triples. No build or execution performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: README advises fast hosts for native OS5 applications, with examples including recent iOS/Apple Silicon and fast x86 desktops, but no complete minimum CPU/RAM profile is specified. ROM must be separately supplied. Web app is client-side; HTTPS needed for some features including PCM audio. AI: No explicit AI contribution attribution found in the inspected README/build/source snippets and latest commit; bounded inspection does not establish non-use. Relationships: Derived from POSE with partly rewritten timing/UI infrastructure; OS5 fork derives from Dmitry Grinberg's uARM; credits Mu for SDCTL emulation. Different general emulator from ROM-free PumpkinOS. All three assigned repository URLs screened against current tracker with no match. Evidence: https://github.com/cloudpilot-emu/cloudpilot-emu/blob/064d5d578bcd1f9072de384d05aa217f83db2f7f/README.md https://github.com/cloudpilot-emu/cloudpilot-emu/blob/064d5d578bcd1f9072de384d05aa217f83db2f7f/src/Makefile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "cobra-spectrum-analyser": {
       "id": "cobra-spectrum-analyser",
       "title": "Cobra",
@@ -34000,6 +34462,74 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "colin-mcrae-rally-2-pc-decomp": {
+      "id": "colin-mcrae-rally-2-pc-decomp",
+      "title": "Colin McRae Rally 2.0 PC Decompilation",
+      "upstream_name": "Colin McRae Rally 2.0 PC Decompilation",
+      "display_title": "Colin McRae Rally 2.0 PC Decompilation",
+      "subjects": [
+        "Colin McRae Rally 2.0 PC Decompilation"
+      ],
+      "repo": "https://github.com/pablocpas/CMR2Decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "C",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Matching C++ reconstruction of the 2000 Win32 rally game with per-function byte audits and original-vs-rebuilt differential tests. Classification: README says3364 identified functions have C++ source; most but not all byte-identical. Committed bytes.json explicitly includes nonmatching entries, and provenance build commit0e8f7cf differs from inspected tip with source_changed=true. Do not promote whole-binary byte_exact=true or treat saved metrics as verified tip build. Names/types/comments are best-effort. GPL-3.0 LICENSE in repository; original assets, MSVC and DirectX/Bink SDK inputs retain separate rights. Source CPU: Documented source/input platforms: Windows. Processor scope: x86. Target CPU: Documented output/support targets: Windows. Processor scope: x86. Build: MSVC6 SP3 build8447, SDK submodules, original CMR2.exe and game data; Windows build or Linux/Wine documented. Build script/manifests, concrete game functions and Unicorn differential harness inspected. No compiler/game/test execution here. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Author documents boots/menu/rally playable on original game data, with known bugs. SDL3/native Linux/macOS port is a future goal, not an available target; current Linux path uses Wine. AI: README explicitly says most decompiled source, tooling and documentation were written by Anthropic Claude and OpenAI Codex under human direction. Correctness relies on automated checks; this is actual usage evidence, not instruction-file inference. Relationships: Comparison tool dependency, separately catalogued tooling. https://github.com/isledecomp/reccmp Evidence: https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Codex"
+        ]
       }
     },
     "color-flood-cpc-cpcitor": {
@@ -38742,6 +39272,63 @@
         "tools": []
       }
     },
+    "dasm80-trs80-z80-gmesoft": {
+      "id": "dasm80-trs80-z80-gmesoft",
+      "title": "DASM80 — TRS-80 symbolic Z80 disassembler",
+      "upstream_name": "DASM80 — TRS-80 symbolic Z80 disassembler",
+      "display_title": "DASM80 — TRS-80 symbolic Z80 disassembler",
+      "subjects": [
+        "DASM80 — TRS-80 symbolic Z80 disassembler"
+      ],
+      "repo": "https://github.com/GmEsoft/DASM80",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TRS-80"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disassembler",
+        "binary-analysis"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Reusable command-line binary-analysis tool, not a disassembly of one game. Classification: Actual implementation has screening segments for code/byte/word/character/jump-table data, symbols, relocation offsets and LS-DOS SVC handling. User classification is needed; documentation claim of all-Z80 support not exhaustively validated. Root GPL-3.0 text coexists with README freeware/not-public-domain/all-copyrights-retained wording; preserve discrepancy. Source CPU: Documented source/input platforms: TRS-80. Processor scope: Z80. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Old Visual C++ 8 Win32 project; conio.h, dos.h and sys\\stat.h are present. No portable build inferred; not built or run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Windows CLI documented. Host CPU minimum unknown. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Used by GmEsoft/TRS80_LSDOS631L DISASSEM.BAT workflow. Evidence: https://github.com/GmEsoft/DASM80/blob/e48c052fb2150974b981c4d3a21488143bb7bb12/README.md https://github.com/GmEsoft/DASM80/blob/e48c052fb2150974b981c4d3a21488143bb7bb12/DASM80/DASM80.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "dasmos-6502-tracing-disassembler": {
       "id": "dasmos-6502-tracing-disassembler",
       "title": "dasmos",
@@ -41827,6 +42414,67 @@
         "tooling"
       ],
       "notes": "Modernizes W. de Waal’s public-domain 1991 disassembler for modern compilers, command-line use, and configurable ROM load/execution addresses via map files. Generic 68000 input; it does not claim Amiga or Atari ST executable-container awareness.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dis86-8086-dos-decompiler": {
+      "id": "dis86-8086-dos-decompiler",
+      "title": "Dis86",
+      "upstream_name": "Dis86",
+      "display_title": "Dis86",
+      "subjects": [
+        "Dis86"
+      ],
+      "repo": "https://github.com/xorvoid/dis86",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "8086 machine code"
+      ],
+      "reconstructed_languages": [
+        "Rust",
+        "C",
+        "C++",
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disassembler",
+        "binary-analysis",
+        "static-analysis"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Specialized decompiler/disassembler for 16-bit real-mode DOS code, including SSA IR and C generation. Classification: README expressly calls this WIP, optimized for author projects. Decompiler accepts a raw text-segment region rather than common MZ input; incomplete opcode/IR/control-flow handling. Generating binary-equivalent recompilations is explicitly a non-goal. Separate emu86 MZ loader files do not establish full decompiler MZ support. No LICENSE file or Cargo license declaration found; distribution/reuse grant remains unknown. Source CPU: Documented source/input platforms: DOS. Processor scope: x86. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Rust/Cargo, just build and test recipes inspected; just build additionally builds Hydra. Cargo manifest also includes SDL2 for an emu86 component. Source entry calls the actual dis86 application pipeline. No build/tests run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Tool emits disassembly, initial/final IR, Graphviz control flow, AST and C. Hydra integration is a documented design goal; do not infer finished playable client ports. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Bundled experimental hybrid runtime; retained within this root, not promoted as a separate game. https://github.com/xorvoid/dis86/tree/8fc52ffcad2d47277bd0e7b1e426bc59c0fd2ad1/hydra Evidence: https://github.com/xorvoid/dis86/blob/8fc52ffcad2d47277bd0e7b1e426bc59c0fd2ad1/README.md https://github.com/xorvoid/dis86/blob/8fc52ffcad2d47277bd0e7b1e426bc59c0fd2ad1/justfile",
       "ai": {
         "usage": null,
         "tools": []
@@ -53494,6 +54142,72 @@
         "tools": []
       }
     },
+    "freedos-debug-debugx": {
+      "id": "freedos-debug-debugx",
+      "title": "FreeDOS DEBUG / DEBUGX",
+      "upstream_name": "FreeDOS DEBUG / DEBUGX",
+      "display_title": "FreeDOS DEBUG / DEBUGX",
+      "subjects": [
+        "FreeDOS DEBUG / DEBUGX"
+      ],
+      "repo": "https://github.com/FDOS/debug",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "FreeDOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": null,
+      "reconstructed_languages": [
+        "x86 assembly",
+        "C"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [
+        "debugger",
+        "disassembler",
+        "assembler-toolchain"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Source reimplementation of MS-DOS DEBUG, extending real-mode and DPMI debugging and built-in assembly/disassembly. Classification: Reimplements rather than restores Microsoft DEBUG source. Documents missing .HEX loading, CPU-aware instructions through P6, FPU and partial DEBUGX MMX; 32-bit registers need 386+. Last public mirror tip is 2010, so do not present as newly maintained latest FreeDOS release. debug.asm Paul Vojta permissive MIT-style grant, Japheth extensions declared public domain; original Microsoft implementation not included. Source CPU: Documented source/input platforms: DOS. Processor scope: x86. Target CPU: Documented output/support targets: DOS, FreeDOS. Processor scope: x86. Build: Actual debug.asm header gives JWasm -DPM=0/-DPM=1 flat-binary commands for DEBUG.COM/DEBUGX.COM; README documents JWasm/MASM and OpenWatcom16 mktables generator. Real assembler source, opcode table inputs and DPMI samples inspected. No build/execution performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Native DOS debugger variants; DEBUGX needs DPMI and can integrate optional WinXP NTVDM VDD. 8088-appropriate instruction mode exists, but no blanket claim all DEBUGX functionality runs on 8086. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/FDOS/debug/blob/f73c7858cd2d4d470c09fce78645f0c9ac5ff047/readme.txt https://github.com/FDOS/debug/blob/f73c7858cd2d4d470c09fce78645f0c9ac5ff047/debug.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "freedroid-classic": {
       "id": "freedroid-classic",
       "title": "Freedroid Classic — high-level remake of C64 Paradroid",
@@ -54841,6 +55555,71 @@
         "native original shooter"
       ],
       "notes": "Original C++ Amiga 68k shooter inspired by Geometry Wars; README explicitly says it is not a Geometry Wars port. Amiga startup handles Workbench/Shell directories and rejects a stack below 300000 bytes; world/display code uses SDL/OpenGL and the author’s PolyNova lineage. README requires SDL 1.2, SDL_mixer and an OpenGL-capable SDL build, plus resources from the separate Amiga release. No build script was found. The linked Aminet release page returned 403, so its additional hardware requirements were not independently retrieved. GPL-3.0 root license coexists with GNU Library GPL v2-or-later source headers; preserve component notices and separate asset rights. 300000 bytes is stack, not total RAM. Source portability aspiration is not evidence of non-Amiga target support. This is original native software or modern support infrastructure; no older binary/source CPU is being reconstructed. Its current output architecture, when evidenced, is recorded separately. README explicitly names Amiga 68k; native startup uses Amiga task/Workbench APIs. Portability hopes are not extra target ISA evidence. README requires SDL 1.2, SDL_mixer and OpenGL support plus external release resources. No build script found; linked Aminet page was blocked. The 300000-byte stack check is not proof of build or execution success. Build flags remain null because no sufficiently scoped present-tree success was independently established; README historical or compatibility statements remain in notes. byte_exact is null: no comparison was performed. Startup enforces a stack of at least 300000 bytes. This is not total RAM. SDL 1.2/SDL_mixer and software OpenGL dependencies are documented; exact machine/chipset minimum remains unverified. No explicit generative-AI attribution found in the selected README/source/build/license evidence. This bounded review is not proof of non-use; only candidates explicitly listing commit evidence had commit messages checked. Only the selected files were checked; absence of an attribution is not proof of non-use. Review scope: primary README when present, complete non-truncated recursive tree, selected implementation/build/license excerpts and only explicitly listed commit caches. No candidate was compiled, installed, executed or emulated, and no original-binary comparison was made. Historical release years and GitHub creation dates are not used as reverse-engineering start dates. Evidence: https://github.com/NovaCoderX/G-WARS/blob/main/README.md https://github.com/NovaCoderX/G-WARS/blob/main/src/amiga_main.c https://github.com/NovaCoderX/G-WARS/blob/main/src/nova_main.cpp https://github.com/NovaCoderX/G-WARS/blob/main/src/display_manager.cpp https://github.com/NovaCoderX/G-WARS/blob/main/LICENSE",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "gist-reconstructed-atari-sound-driver": {
+      "id": "gist-reconstructed-atari-sound-driver",
+      "title": "G.I.S.T reconstructed Atari sound driver",
+      "upstream_name": "G.I.S.T reconstructed Atari sound driver",
+      "display_title": "G.I.S.T reconstructed Atari sound driver",
+      "subjects": [
+        "G.I.S.T reconstructed Atari sound driver"
+      ],
+      "repo": "https://github.com/th-otto/gist",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "Atari TOS"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "Motorola 68000 assembly",
+        "GFA BASIC"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software",
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "subsystem-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Reconstructed GISTDRVR.PRG from historical G.I.S.T GI Sound Tool, with modern C-callable driver and C/GFA soundboard examples. Original editor/application remains a binary in disk/. Classification: Readable 3-voice synthesis state, pitch/frequency/mixer tables, timer interrupt assembly and C bindings. Some fields intentionally retain cryptic names. This reconstructs sound driver, not full G.I.S.T editor. Binary-embedded driver option is one documented path; direct source linkage also exists. README explicitly states all contents uploaded with G.I.S.T author permission; original 1986 Synthetic Software copyright retained. No general open-source license established. Source CPU: Documented source/input platforms: Atari ST. Processor scope: m68k. Target CPU: Documented output/support targets: Atari ST, Atari TOS. Processor scope: m68k. Build: Historical Alcyon binaries in bin/linux support original-driver rebuild; README describes identical verification intent, but no comparison was run. Pure-C .prj builds readable driver routines directly. src/GNUmakefile appears stale: refers to install/osbind inputs not present in src; prefer documented .prj/direct-link paths for future validation. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Native Atari PSG/timer driver; C API supports external loading, embedding driver binary, or direct source linkage. GFA sample uses external driver. No minimum RAM verified. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: supplies alternative-host historical build-tool binaries; already tracked separately https://github.com/th-otto/tos1x Evidence: https://github.com/th-otto/gist/blob/5b760dfcff59c7f02c75ecbcded286fd5dbb58a9/README.md https://github.com/th-otto/gist/blob/5b760dfcff59c7f02c75ecbcded286fd5dbb58a9/src/sndsubs.c",
       "ai": {
         "usage": null,
         "tools": []
@@ -56228,6 +57007,71 @@
         "macOS"
       ],
       "notes": "FreePascal/Lazarus source models Gauntlet maze blocks and exports MSX, ZX Spectrum and Amstrad CPC data formats. udata.pas contains native maze serialization/import/export, compression/map processing and explicit CPC version enum; source includes save/export UI. README gives compiler/package requirements and a maze library originating in Gauntlet and Deeper Dungeons releases. Not a game remake or emulator; supports editing data for specific original game versions. Bundled original maze data has separate provenance from MIT editor code. README says ready-to-play tape creation is future work, while code contains some tape-export UI paths; do not promise tested finished tape output. Requires multiple Lazarus packages and Qt6 deployment dependencies on Linux. README explicitly calls the supported MSX/ZX/CPC Gauntlet versions Z80-based. This establishes the original versions’ CPU; the editor reads maze data, and no original implementation language is assigned. FreePascal/Lazarus source and cross-platform declarations do not establish a specific host CPU. No target architecture is inferred from the compiler or desktop OS list. udata.pas and save/export UI implement maze blocks, compression and native/raw MSX/ZX/CPC formats. README calls ready-to-play tape creation future work despite some tape-export paths in source; no finished tested tape-output claim or successful build is asserted. Build requirements explicitly include FreePascal >=3.2.2, Lazarus >=3.8 and several packages, with Qt6 deployment dependencies on Linux. These are software/build dependencies, not verified host CPU/RAM minima. Editor of existing Gauntlet/Deeper Dungeons maze formats, not a game remake or emulator. MIT covers the editor, while imported original maze library and third-party UI packages have separate provenance. No explicit AI-development evidence observed in the README, tree and selected source/build/license files reviewed. This is not evidence of no AI use. No independent compilation, execution, gameplay, real-hardware or byte-exact verification was performed. Evidence: https://github.com/Colpocorto/gauntlet-editor https://github.com/Colpocorto/gauntlet-editor/blob/main/README.md https://github.com/Colpocorto/gauntlet-editor/blob/main/udata.pas https://github.com/Colpocorto/gauntlet-editor/blob/main/usaveexport.pas https://github.com/Colpocorto/gauntlet-editor/blob/main/gauntletEditor.lpi https://github.com/Colpocorto/gauntlet-editor/blob/main/LICENSE https://github.com/Colpocorto/gauntlet-editor/blob/main/gauntletEditor.lpr",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "gba-bios-cult-of-gba-replacement": {
+      "id": "gba-bios-cult-of-gba-replacement",
+      "title": "gba-bios — ARM replacement Game Boy Advance firmware",
+      "upstream_name": "gba-bios — ARM replacement Game Boy Advance firmware",
+      "display_title": "gba-bios — ARM replacement Game Boy Advance firmware",
+      "subjects": [
+        "gba-bios — ARM replacement Game Boy Advance firmware"
+      ],
+      "repo": "https://github.com/Cult-of-GBA/BIOS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Game Boy Advance"
+      ],
+      "target_platforms": [
+        "Game Boy Advance"
+      ],
+      "source_cpu": [
+        "ARM7TDMI"
+      ],
+      "target_cpu": [
+        "ARM7TDMI"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "GBA firmware behavior and ARM machine code references"
+      ],
+      "reconstructed_languages": [
+        "ARM assembly",
+        "Shell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "system-software"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "subsystem-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: gba-bios — ARM replacement Game Boy Advance firmware Classification: README explicitly says high accuracy is a non-goal and remaining BIOS calls (mainly audio), BIOS read protection and wider game testing are TODO. Source is genuine ARM firmware implementation, not a binary-only redistributable. bios_calls/audio.s includes a decompiled-from-official-BIOS comment and reconstructed lookup tables; describe as replacement/reimplementation with RE-informed components, not proven clean-room or complete official BIOS restoration. MIT-style permission grant, copyright DenSinH and fleroviux. Keep source provenance/compatibility caveats separate from license label. Source CPU: Documented source/input platforms: Game Boy Advance. Processor scope: ARM7TDMI. Target CPU: Documented output/support targets: Game Boy Advance. Processor scope: ARM7TDMI. Build: make.sh invokes DEVKITARM arm-none-eabi-as -mcpu=arm7tdmi on entrypoint.s, then objcopy to bios.bin. Source includes individual CPU/memory/math/decompression/power/audio SWI modules and boot screen. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Firmware aimed principally at emulators according to entrypoint.s comments; compatible with some commercial games is a goal, not verified universal compatibility. No hardware flashing or games were tested. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/Cult-of-GBA/BIOS/blob/a30e9a96df083628b650724b7d4d7112b4070b98/README.md https://github.com/Cult-of-GBA/BIOS/blob/a30e9a96df083628b650724b7d4d7112b4070b98/entrypoint.s",
       "ai": {
         "usage": null,
         "tools": []
@@ -57661,6 +58505,64 @@
         "binary-analysis"
       ],
       "notes": "Dreamcast binary loader extension for Ghidra; Java extension/build inventory. No independent runtime or SDK compatibility test.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "ghidra-human68k-x68000-loader-analyzers": {
+      "id": "ghidra-human68k-x68000-loader-analyzers",
+      "title": "Ghidra Human68k executable analyzers",
+      "upstream_name": "Ghidra Human68k executable analyzers",
+      "display_title": "Ghidra Human68k executable analyzers",
+      "subjects": [
+        "Ghidra Human68k executable analyzers"
+      ],
+      "repo": "https://github.com/erique/ghidra-human68k",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp X68000",
+        "Human68k"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Java",
+        "Gradle"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "binary-analysis",
+        "disassembler",
+        "static-analysis"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Ghidra extension for Human68k .X/.R programs and .SYS drivers, including relocation/symbol support and DOS/IOCS annotations. Classification: Actual loaders parse headers, create sections and symbols, relocate X files and chained modules; driver-header recognition and analyzers continue through DOS F-line instructions and resolve IOCS trap #15 values. No native reconstruction implied. No repository-level license file or source grant found; Ghidra/Gradle wrapper licensing does not establish extension licensing. Source CPU: Documented source/input platforms: Sharp X68000, Human68k. Processor scope: m68k. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Java21+/Gradle and GHIDRA_INSTALL_DIR required. Uses Ghidra buildExtension.gradle; installation requires extension zip/restart. No build/import tested. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Requires compatible Ghidra API; pinned loader explicitly selects 68000:BE:32:default. Exact Ghidra release compatibility not established. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: same-author complementary cross-development toolchain https://github.com/erique/human68k-gcc Evidence: https://github.com/erique/ghidra-human68k/blob/608cab76bbd650119ca5b1e2396e3a4485ba64da/README.md https://github.com/erique/ghidra-human68k/blob/608cab76bbd650119ca5b1e2396e3a4485ba64da/build.gradle",
       "ai": {
         "usage": null,
         "tools": []
@@ -64736,6 +65638,75 @@
         "tools": []
       }
     },
+    "human68k-gcc-erique-development-toolchain": {
+      "id": "human68k-gcc-erique-development-toolchain",
+      "title": "Human68k GCC development toolchain",
+      "upstream_name": "Human68k GCC development toolchain",
+      "display_title": "Human68k GCC development toolchain",
+      "subjects": [
+        "Human68k GCC development toolchain"
+      ],
+      "repo": "https://github.com/erique/human68k-gcc",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp X68000",
+        "Human68k"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Sharp X68000",
+        "Human68k"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Make",
+        "Shell",
+        "C",
+        "C++",
+        "Motorola 68000 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "assembler-toolchain",
+        "debugger",
+        "development-environment"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Cross-development orchestration for Sharp X68000 Human68k with native ELF-to-X executable conversion and GDB-to-HudsonBug debugging bridge. Classification: 701-line ELF relocation/X-header converter and substantial serial/TCP debugger bridge inspected, plus IOCS/DOS tests. Not merely tool links. README compares ABI/tradeoffs with other toolchains. Tests are supplied, no observed passing result from this audit. No top-level license found for orchestration/custom converter/bridge; fetched GNU/newlib/vasm components have their own licenses. Do not assign one blanket GPL license. Source CPU: Documented source/input platforms: Sharp X68000, Human68k. Processor scope: m68k. Target CPU: Documented output/support targets: Linux, macOS, Sharp X68000, Human68k. Processor scope: m68k. Build: Build recipes cover Linux/macOS/Docker/Tart; root is orchestration plus converter/bridge sources, not a vendored GCC tree. Fetches gcc/binutils/newlib/run68x/vasm branches from default-repos, so root SHA alone does not lock full build. Needs compiler dependencies listed in COMPILING. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Outputs Human68k .X files; bridge requires DB.X 3.00 on real X68000 or MAME and serial/TCP connection. vasm can emit X-files or ELF. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: documented alternative toolchain, already tracked https://github.com/yosshin4004/xdev68k test execution dependency, already tracked https://github.com/kg68k/run68x same author complementary executable-analysis extension https://github.com/erique/ghidra-human68k Evidence: https://github.com/erique/human68k-gcc/blob/a6fd54b5e092ec274db2db6fa5614042ccbfb798/README.md https://github.com/erique/human68k-gcc/blob/a6fd54b5e092ec274db2db6fa5614042ccbfb798/COMPILING.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "hunchback-c64-mark": {
       "id": "hunchback-c64-mark",
       "title": "Hunchback",
@@ -65998,6 +66969,76 @@
         "reverse-engineering tooling"
       ],
       "notes": "Multi-console IDA toolkit containing C++ loaders for iNES/FDS, Game Boy and Master System images, source and prebuilt loader binaries, CDL import/autorun scripts for NES, Game Boy, SNES and Genesis, and numerous title-specific analysis scripts. The source also includes 65816, m68000 and SH-4-oriented helpers. Visual Studio project files establish a source build path, but supported IDA/Windows versions were not documented.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "ido-static-recomp-irix-toolchain": {
+      "id": "ido-static-recomp-irix-toolchain",
+      "title": "IDO Static Recompilation",
+      "upstream_name": "IDO Static Recompilation",
+      "display_title": "IDO Static Recompilation",
+      "subjects": [
+        "IDO Static Recompilation"
+      ],
+      "repo": "https://github.com/decompals/ido-static-recomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SGI IRIX"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows",
+        "FreeBSD"
+      ],
+      "source_cpu": [
+        "MIPS"
+      ],
+      "target_cpu": [
+        "x86-64",
+        "AArch64"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "MIPS machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "binary-analysis"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Static translation of historical SGI IDO 5.3/7.1 toolchain binaries, also reusable compilation-preservation tooling. Classification: Concrete multi-program target lists and compilation pipeline. Makefile says IDO7.1 copt currently does not build. This is static translation of old compiler programs, not a native rewrite of the compiler source and not a game-specific CPU wrapper. No root license grant found in inspected tree; original proprietary compiler inputs and embedded/vendor components need separate rights review. Source CPU: Documented source/input platforms: SGI IRIX. Processor scope: MIPS. Target CPU: Documented output/support targets: Linux, macOS, Windows, FreeBSD. Processor scope: x86-64, AArch64. Build: README documents make setup then VERSION=5.3/7.1. Inspected C++ ELF/MIPS translator, libc host support and Makefile; CI defines Linux, Linux ARM64, universal macOS and MSYS2 Windows builds. FreeBSD host detection exists in Makefile and was tip change. Not built or executed in this review. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Modern-host native outputs. Original IDO programs/binary inputs remain required; source tree includes ido inputs and per-program metadata. Linux/macOS README paths; Windows CI; FreeBSD initial support should remain qualified. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Alternative historical IRIX-userland execution path, not this project architecture. https://github.com/n64decomp/qemu-irix N64Recomp documentation credits the IDO static-recompilation technique as inspiration. https://github.com/N64Recomp/N64Recomp Evidence: https://github.com/decompals/ido-static-recomp/blob/d5aec59932034b8a20f23f471297a55c45dcbc45/README.md https://github.com/decompals/ido-static-recomp/blob/d5aec59932034b8a20f23f471297a55c45dcbc45/Makefile",
       "ai": {
         "usage": null,
         "tools": []
@@ -71115,6 +72156,77 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "kallistios-dreamcast-sdk": {
+      "id": "kallistios-dreamcast-sdk",
+      "title": "KallistiOS — independent Dreamcast OS and development SDK",
+      "upstream_name": "KallistiOS — independent Dreamcast OS and development SDK",
+      "display_title": "KallistiOS — independent Dreamcast OS and development SDK",
+      "subjects": [
+        "KallistiOS — independent Dreamcast OS and development SDK"
+      ],
+      "repo": "https://github.com/KallistiOS/KallistiOS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Dreamcast"
+      ],
+      "target_platforms": [
+        "Sega Dreamcast"
+      ],
+      "source_cpu": [
+        "Hitachi SH-4",
+        "ARM7DI"
+      ],
+      "target_cpu": [
+        "Hitachi SH-4",
+        "ARM7DI"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Original independent C/C++ and SH-4/ARM assembly OS/SDK sources"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "SH-4 assembly",
+        "ARM assembly",
+        "Make"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "development-environment",
+        "debugger",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: KallistiOS — independent Dreamcast OS and development SDK Classification: Independent open development library/OS, not a reconstruction of Sega proprietary Katana SDK or BIOS. Real hardware PVR initialization C source inspected. Threads, filesystem, network, GDB, AICA and peripheral support documented. Useful supporting retro infrastructure despite no claim of game decompilation. BSD-like KOS license with required attribution; distribution also contains code under other free-software licenses. Source CPU: Documented source/input platforms: Sega Dreamcast. Processor scope: Hitachi SH-4, ARM7DI. Target CPU: Documented output/support targets: Sega Dreamcast. Processor scope: Hitachi SH-4, ARM7DI. Build: Root Makefile builds utils/kernel/addons after sourcing KOS environment. Repository provides kos-chain scripts for GCC/Binutils/Newlib cross-toolchains and many native examples. No software executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Native Dreamcast SH-4 SDK and ARM AICA sound support. README documents optional 32 MB RAM modification support; that is not a minimum requirement. No exact minimum build/runtime profile imported. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: README-linked package collection for supporting libraries https://github.com/KallistiOS/kos-ports Official README getting-started route https://dreamcast.wiki/Getting_Started_with_Dreamcast_development Evidence: https://github.com/KallistiOS/KallistiOS/blob/8e704086ecd4990627b85fb4905770dfffe29c00/README.md https://github.com/KallistiOS/KallistiOS/blob/8e704086ecd4990627b85fb4905770dfffe29c00/Makefile",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "GitHub Copilot"
+        ]
       }
     },
     "jotd-karate-champ-amiga": {
@@ -76709,6 +77821,76 @@
         "tools": []
       }
     },
+    "lsdos631l-gmesoft-restoration": {
+      "id": "lsdos631l-gmesoft-restoration",
+      "title": "LS-DOS 6.3.1L — Model 4 source restoration",
+      "upstream_name": "LS-DOS 6.3.1L — Model 4 source restoration",
+      "display_title": "LS-DOS 6.3.1L — Model 4 source restoration",
+      "subjects": [
+        "LS-DOS 6.3.1L — Model 4 source restoration"
+      ],
+      "repo": "https://github.com/GmEsoft/TRS80_LSDOS631L",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TRS-80 Model 4",
+        "TRS-80 Model 4P"
+      ],
+      "target_platforms": [
+        "TRS-80 Model 4",
+        "TRS-80 Model 4P"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly",
+        "JCL",
+        "C"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "JCL",
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "operating-system"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "disassembly",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Modern reconstruction/enhancement of Peter Cervasio LS-DOS sources, with US/French/German keyboard selection and Matthew Reed date patches through 2079. Classification: SYSRES contains substantial labelled OS code and includes file positioning, loader, tasker and initialization modules. README explicitly says BREF/TED sources were not reconstructed by predecessor. Some 6.3.1 changes remain incompletely commented. Root GPL-3.0 does not resolve embedded rights: Roy Soltoff allows use/redistribution with notice, reserves other rights; README quotes Frank Durda IV no-mirroring restriction on incorporated keyboard source. Source CPU: Documented source/input platforms: TRS-80 Model 4, TRS-80 Model 4P. Processor scope: Z80. Target CPU: Documented output/support targets: TRS-80 Model 4, TRS-80 Model 4P. Processor scope: Z80. Build: BUILD.BAT invokes included SimZ80 with boot/source/output disk images; MRAS/XREF and JCL build paths documented. Source is also plain text. Binary-identical predecessor claims must not be generalized to every Level L flavor; no build attempted. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Model 4/4P native OS; host emulator path supplied, not executed. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Derived from Cervasio 6.3.1H restoration and published The Source listings; Matthew Reed patches; Frank Durda IV international driver. Evidence: https://github.com/GmEsoft/TRS80_LSDOS631L/blob/f97394d482116a234930b57ab6c657d59793529b/README.md https://github.com/GmEsoft/TRS80_LSDOS631L/blob/f97394d482116a234930b57ab6c657d59793529b/LSDOS631L/lsdos631/sysres.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "lsk-m6t912f-floppy-duplicator": {
       "id": "lsk-m6t912f-floppy-duplicator",
       "title": "LSK M6T912F Floppy Duplicator firmware",
@@ -78463,6 +79645,72 @@
         ]
       }
     },
+    "m68kdis-christopher-phillips-preserved-tool": {
+      "id": "m68kdis-christopher-phillips-preserved-tool",
+      "title": "m68kdis preserved 68000-family disassembler",
+      "upstream_name": "m68kdis preserved 68000-family disassembler",
+      "display_title": "m68kdis preserved 68000-family disassembler",
+      "subjects": [
+        "m68kdis preserved 68000-family disassembler"
+      ],
+      "repo": "https://github.com/cr1901/m68kdis",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh 68k"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Perl",
+        "Shell"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Perl",
+        "Shell"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [
+        "disassembler",
+        "static-analysis",
+        "binary-analysis"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Christopher G. Phillips 1994 disassembler preserved by cr1901, with modern build fix and dedicated Macintosh resource-fork helpers. Distinct from W. de Waal dis68k. Classification: Substantive multi-pass instruction/data discrimination and user-specified entry/data hints, 68851/68881/68882 support; Mac A-line tables and resource-fork output pipeline. README warns heuristic errors and incomplete Mac A-line knowledge; output not guaranteed source-equivalent. Source headers explicitly grant use/copy/modify/distribute for any purpose without fee with copyright/permission notices retained; not just all-rights-reserved. No SPDX label asserted. Source CPU: Documented source/input platforms: Macintosh 68k. Processor scope: m68k. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: ANSI C compiler/make and libm; Mac-specific tools additionally require Perl and MAC subdirectory make. Pinned 2026 commit fixes modern-compiler build and floating-point typo; no build performed in this audit. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Command-line host tool; -odd supports code at odd offsets within intact resource forks, not claim that actual 68000 instruction fetch allows odd addresses. No host CPU requirement inferred. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: already tracked different 68000 disassembler, not a fork of this code https://github.com/TomHarte/dis68k Evidence: https://github.com/cr1901/m68kdis/blob/40edb81b42626100d23c9bd104417d3f9be71195/README https://github.com/cr1901/m68kdis/blob/40edb81b42626100d23c9bd104417d3f9be71195/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "m740dasm-mitsubishi-740-disassembler": {
       "id": "m740dasm-mitsubishi-740-disassembler",
       "title": "m740dasm",
@@ -79047,6 +80295,74 @@
         "C64 cartridge-loader library"
       ],
       "notes": "Native KickAssembler bootstrap and loader implement CBM80 startup, relocation and banked Magic Desk cartridge data copying. Loader code switches banks via $DE00 and copies from consecutive 8 KiB banks; author states it was written for Tony: Montezuma’s Gold. Requires correct C64 memory mapping and cartridge visibility. This is a developer library, not a new emulator or a recovered commercial ROM. MIT code license does not automatically establish rights in all bundled film/comic-inspired slideshow images. Original development library for Magic Desk cartridges, not disassembly of a historical cartridge ROM. source_cpu is not applicable. Bootstrap and loader emit native 6502 code with a CBM80 signature and $DE00 bank switching. target_cpu=6502 describes C64-resident code; Java 17 and cartconv are build-host tools. README requires Java 17+; gradlew build and build-crt are documented, with VICE cartconv needed for examples. All flags remain unknown: documentation, bundled binaries, source presence and author release claims were not treated as independently verified successful builds/runs. No candidate was built, run or byte-compared. Loader assumes correct memory mapping and visible cartridge banks, organized as 8 KiB slots. Those format constraints are not a verified total RAM/CPU minimum; no independent cartridge hardware test was performed. Originally written for Tony: Montezuma’s Gold and released as a separate reusable MIT code library. Example slideshow images may have third-party rights; the code license is not an automatic license to commercial film/comic artwork. No AI-use attribution established from inspected documentation, selected source files, complete file-path tree and up to 30 recent commits; this is not proof of non-use. Repository creation is not a verified reverse-engineering start date. Evidence: https://github.com/c64lib/magic-desk-crt/blob/main/README.md https://github.com/c64lib/magic-desk-crt/blob/main/lib/bootstrap.asm https://github.com/c64lib/magic-desk-crt/blob/main/lib/loader.asm https://github.com/c64lib/magic-desk-crt/blob/main/LICENSE https://github.com/c64lib/magic-desk-crt/blob/main/build.gradle.kts https://api.github.com/repos/c64lib/magic-desk-crt",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "magxnet-reconstructed-network-system": {
+      "id": "magxnet-reconstructed-network-system",
+      "title": "MagiCNet reconstructed network system and tools",
+      "upstream_name": "MagiCNet reconstructed network system and tools",
+      "display_title": "MagiCNet reconstructed network system and tools",
+      "subjects": [
+        "MagiCNet reconstructed network system and tools"
+      ],
+      "repo": "https://github.com/th-otto/magxnet",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST",
+        "MagiC"
+      ],
+      "target_platforms": [
+        "Atari ST",
+        "MagiC"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Motorola 68000 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Motorola 68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software",
+        "application"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Root states reconstructed MagiCNet tools and includes networking kernel, socket library, GlueSTiK gateway, configuration tools and drivers. Do not imply every bundled component was decompiled. Classification: Large readable networking source tree rather than opaque executable payload. Kernel/socket/gateway provenance is mixed reconstructed and inherited source. No claim of byte-identical complete original package. Mixed licensing: GlueSTiK explicitly GPL-2.0-or-later; ping carries historical four-clause BSD notice. No single uniform root license asserted. Source CPU: Documented source/input platforms: Atari ST, MagiC. Processor scope: m68k. Target CPU: Documented output/support targets: Atari ST, MagiC. Processor scope: m68k. Build: GNU make recursive build uses m68k-atari-mint-gcc with -mshort; Pure-C projects also present. Requires Atari cross toolchain and historical MiNT/GEM headers/libs. Build not attempted. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: MagiC networking environment; GlueSTiK README describes TSR installation and STIK_CFG requirements; no hardware minimum verified. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: related MagiC OS source portfolio; not audited in this pass https://github.com/th-otto/MagicMac Evidence: https://github.com/th-otto/magxnet/blob/c37d23e54c46212e426f0d2e18bc6092a1e47a92/Makefile https://github.com/th-otto/magxnet/blob/c37d23e54c46212e426f0d2e18bc6092a1e47a92/configvars",
       "ai": {
         "usage": null,
         "tools": []
@@ -83864,6 +85180,66 @@
         "tools": []
       }
     },
+    "microdisc-rom-oric-disassembly": {
+      "id": "microdisc-rom-oric-disassembly",
+      "title": "Microdisc ROM — Oric annotated firmware disassembly",
+      "upstream_name": "Microdisc ROM — Oric annotated firmware disassembly",
+      "display_title": "Microdisc ROM — Oric annotated firmware disassembly",
+      "subjects": [
+        "Microdisc ROM — Oric annotated firmware disassembly"
+      ],
+      "repo": "https://github.com/oric-software/Microdisc-ROM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Oric Microdisc"
+      ],
+      "target_platforms": [
+        "Oric Microdisc"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: F. Frances disassembly with jede comments/XA conversion of 8KB Microdisc EPROM at E000-FFFF. Classification: Actual boot vectors, FDC and Sedoric symbols inspected. Many absolute addresses and opaque Lxxxx labels persist; explicit TODO. No incbin found in inspected assembly, but complete semantic understanding not established. No license or README in inspected five-file tree; rights unknown. Source CPU: Documented source/input platforms: Oric Microdisc. Processor scope: 6502. Target CPU: Documented output/support targets: Oric Microdisc. Processor scope: 6502. Build: make.bat runs OSDK xa.exe and prints md5sums for output and MICRODIS.ROM; it does not assert equality or provide a verified matching result. Included md5sums executable not executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Oric with Microdisc hardware; overlay mapping C000-DFFF RAM and E000-FFFF EPROM documented in source. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Source credits F. Frances, jede, and Sedoric à nu; same organization hosts ftdos/sedoric for later review. Evidence: https://github.com/oric-software/Microdisc-ROM/blob/2ed03613c316b6b96f3d06f81a50308e382cacc1/microdisc.asm https://github.com/oric-software/Microdisc-ROM/blob/2ed03613c316b6b96f3d06f81a50308e382cacc1/fdc1793.h",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "micropython-amiga-ooze": {
       "id": "micropython-amiga-ooze",
       "title": "MicroPython for AmigaOS",
@@ -86581,6 +87957,69 @@
         "no-independent-build"
       ],
       "notes": "Native PHP/Laravel reimplementation of C64 Movie Business. Production-quality calculations and turn logic implement loans, charts, awards, events and income; this is a server-backed web game, not a static browser bundle or C64 source recovery. README explicitly identifies a text-based Movie Business remake. PHP production quality calculations and turn controller handle players, loans, random events, income, charts and awards. Laravel 4.2/Composer build and database migration/seed setup are documented; test sources are included. Limitations: Requires a PHP/Laravel server and database; not a standalone static browser game. Old Laravel/dependency versions and linked live demo were not run or verified. README assigns MIT to MovBizz; project is a remake rather than original C64 source recovery. README links a demo and documents current movie-production, loan, advertisement, chart, award and random-event features. Runnable=true is an upstream-only interactive-demo claim; the demo was not visited, and complete playability remains unknown. Composer/database migration/seed instructions are a setup recipe, not an independently verified successful build. Requires a PHP/Laravel 4.2 server and configured database plus a browser client. The legacy dependency stack and linked demo were not exercised; no host CPU/RAM minimum is stated. Primary identity evidence establishes the historical C64 game subject and the remake lineage. It does not explicitly establish the original executable CPU or show a verified original-binary CPU analysis. source_cpu remains empty; no 6510/Z80 value is inferred from platform names or the new implementation language. PHP server code and JavaScript clients do not establish either server or client CPU architecture. No current same-title/alias project found in title, subjects, upstream name, repository and notes comparison; metadata reports non-fork. This is a bounded comparison, not an exhaustive code-provenance audit. The canonical repository root was compared with the hash-verified 1,380-project baseline and discovery indexes at 44558101462cd67db1951803eaeea07aafdff930; no canonical-root collision was found. GitHub fork=false is metadata, not proof of independent authorship. Rights: MIT.  AI evidence: No affirmative AI-assistance evidence observed in the reviewed README/source/build/license sample; absence of evidence is not evidence of no use. Usage stays null and no model/tool is inferred from absence of evidence. Repository pushed_at was observed as 2015-06-02T12:55:45Z; last_activity is left null pending a commit-level activity check. No independent compilation, execution, gameplay, hardware test or original-binary comparison was performed. Primary evidence: https://github.com/teruk/movbizz/blob/master/readme.md https://github.com/teruk/movbizz/blob/master/app/MovBizz/Production/CalculateQualityCommandHandler.php https://github.com/teruk/movbizz/blob/master/app/controllers/TurnController.php https://github.com/teruk/movbizz/blob/master/composer.json https://github.com/teruk/movbizz/blob/master/LICENSE.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "mps-macintosh-programmers-workshop-vm": {
+      "id": "mps-macintosh-programmers-workshop-vm",
+      "title": "mps Macintosh Programmer’s Workshop VM",
+      "upstream_name": "mps Macintosh Programmer’s Workshop VM",
+      "display_title": "mps Macintosh Programmer’s Workshop VM",
+      "subjects": [
+        "mps Macintosh Programmer’s Workshop VM"
+      ],
+      "repo": "https://github.com/elliotnunn/mps",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh 68k",
+        "Classic Mac OS"
+      ],
+      "target_platforms": [
+        "Unix",
+        "Windows"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Go",
+        "Motorola 68000 assembly",
+        "Rez",
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "development-environment",
+        "compiler-toolchain"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Go implementation of MPW shell/tool execution environment using a 68k interpreter and Classic Mac Toolbox/OS compatibility functions, enabling historical compiler/tool execution. Classification: Real interpreter, resource/file/memory manager compatibility layer and substantial assembly/C test corpus. Specialized historical tool runner rather than native decompilation of MPW; original MPW machine code executes. Not a game-specific CPU emulation promotion. MIT for mps; third-party Apple MPW binaries have separate rights and are not relicensed by mps. Source CPU: Documented source/input platforms: Macintosh 68k, Classic Mac OS. Processor scope: m68k. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: go.mod specifies Go 1.16; Go source has embedded System.r and platform files. MPW 3.5 binaries must be installed separately; installer knows external mirrors and checks SHA256. No compiler/build/installation executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: CLI interactive/batch MPW shell; host path/fork semantics implemented per OS. Guest CPU support evidenced by interpreter/test corpus. No modern host CPU requirement inferred. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: same author’s older Mini vMac-based MPW approach; distinct architecture, not promoted here https://github.com/elliotnunn/empw Evidence: https://github.com/elliotnunn/mps/blob/e2b8c66e08caaf31e527e3dbecacd0926e11a47c/go.mod https://github.com/elliotnunn/mps/blob/e2b8c66e08caaf31e527e3dbecacd0926e11a47c/main.go",
       "ai": {
         "usage": null,
         "tools": []
@@ -90984,6 +92423,76 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "ocarina-of-time-zeldaret-decompilation": {
+      "id": "ocarina-of-time-zeldaret-decompilation",
+      "title": "Ocarina of Time — zeldaret matching N64-source reconstruction",
+      "upstream_name": "Ocarina of Time — zeldaret matching N64-source reconstruction",
+      "display_title": "Ocarina of Time — zeldaret matching N64-source reconstruction",
+      "subjects": [
+        "Ocarina of Time — zeldaret matching N64-source reconstruction"
+      ],
+      "repo": "https://github.com/zeldaret/oot",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Nintendo 64",
+        "iQue Player"
+      ],
+      "target_platforms": [
+        "Nintendo 64",
+        "iQue Player"
+      ],
+      "source_cpu": [
+        "MIPS R4300i"
+      ],
+      "target_cpu": [
+        "MIPS R4300i"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "N64 MIPS machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "MIPS assembly",
+        "Python",
+        "Make"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Ocarina of Time — zeldaret matching N64-source reconstruction Classification: README explicitly calls this WIP and warns some ROM parts may not be shiftable. Actual named C gameplay/actor source and configurable original-platform link/build rules verified. No numeric completeness percentage independently checked. Do not infer full-source completeness or a desktop port from checksum-compatible ROM rebuilding; retained original low-level assembly and extracted assets are not claimed recovered C. No project-wide license established from root inspection; the pinned head references CC0 contribution work but that does not establish licensing of the entire game reconstruction or assets. Source CPU: Documented source/input platforms: Nintendo 64, iQue Player. Processor scope: MIPS R4300i. Target CPU: Documented output/support targets: Nintendo 64, iQue Player. Processor scope: MIPS R4300i. Build: Linux/WSL/macOS setup requires a supported input ROM, Python 3.10+, MIPS binutils and IDO toolchain or GCC variant. make setup extracts assets; make compares output checksums. Multiple retail, debug, Master Quest and iQue ROM variants documented. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Produces N64-format ROMs. The GameCube editions listed upstream are N64 software builds originally distributed inside the GameCube emulated release, not PowerPC-native outputs. README explicitly says it does not produce a PC port. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: Upstream detailed progress site; live figures were not imported https://zelda.deco.mp/games/oot Evidence: https://github.com/zeldaret/oot/blob/8a3634ca774a9b58d822cbc2cc09309f31eac6a4/README.md https://github.com/zeldaret/oot/blob/8a3634ca774a9b58d822cbc2cc09309f31eac6a4/Makefile",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "GitHub Copilot"
+        ]
       }
     },
     "octan-spectrum-analyser": {
@@ -97010,6 +98519,79 @@
         ]
       }
     },
+    "perqemu-workstation-archaeology": {
+      "id": "perqemu-workstation-archaeology",
+      "title": "PERQemu",
+      "upstream_name": "PERQemu",
+      "display_title": "PERQemu",
+      "subjects": [
+        "PERQemu"
+      ],
+      "repo": "https://github.com/jdersch/PERQemu",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ICL/Three Rivers PERQ"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "Unix",
+        "macOS"
+      ],
+      "source_cpu": [
+        "PERQ custom microcoded CPU",
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "PERQ microcode",
+        "Pascal"
+      ],
+      "reconstructed_languages": [
+        "C#",
+        "Pascal",
+        "PERQ microcode",
+        "Perl"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "operating-system",
+        "system-software"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "disassembler"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: PERQ workstation emulator/debugger with preserved POS Pascal/microcode sources and documented POS F.15 source-review/rebuild. Classification: Whole-system archaeology tooling, not a game-specific wrapper. CPU, microinstruction stepping, memory state machine and RasterOp implementation documented. OS restoration and emulator are distinct outputs; POS source included under Docs is historical, not automatically GPL merely because emulator is GPL. C# emulator GPL-3.0-or-later per CPU.cs. Historical POS files retain Three Rivers copyright; ROM/disk/OS rights need separate review. Source CPU: Documented source/input platforms: ICL/Three Rivers PERQ. Processor scope: PERQ custom microcoded CPU, Z80. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Readme-source reports Visual Studio2010 and MonoDevelop builds. Project/CPU C# source and actual 1983 POS VolumeSystem Pascal source inspected. Documentation says POS F.15 was rebuilt from comprehensive F.1 source review, with development disk source/tools. Not built, booted or validated here. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Windows .NET2.0 or Unix/Linux/macOS Mono; docs describe POS D.61/F.1/F.15, Accent S4 and PNX operation, bundled boot ROM/disk-image dependencies and debugger. PERQ 4K/16K CPU emulation and 1/2MB guest-memory variants are documented; no modern host CPU minimum established. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Readme-source names maintainer fork for newer POS F.15 work. https://github.com/skeezicsb/PERQemu Evidence: https://github.com/jdersch/PERQemu/blob/59f3017adeadca087aac5c23b07a218334ed2f1e/PERQemu/Readme.txt https://github.com/jdersch/PERQemu/blob/59f3017adeadca087aac5c23b07a218334ed2f1e/PERQemu/Readme-source.txt",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "pet-frogger-original-source": {
       "id": "pet-frogger-original-source",
       "title": "PET Frogger — recovered original source",
@@ -98602,6 +100184,73 @@
         ]
       }
     },
+    "pitfall-msx-antxiko-disassembly": {
+      "id": "pitfall-msx-antxiko-disassembly",
+      "title": "Pitfall! — MSX commented disassembly",
+      "upstream_name": "Pitfall! — MSX commented disassembly",
+      "display_title": "Pitfall! — MSX commented disassembly",
+      "subjects": [
+        "Pitfall! — MSX commented disassembly"
+      ],
+      "repo": "https://github.com/antxiko/Pitfall-MSX-disassembly",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX1"
+      ],
+      "target_platforms": [
+        "MSX1"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python",
+        "Tcl",
+        "Shell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: 1984 Activision MSX1 cartridge disassembly with source-address comments, flow tracing, data boundaries and analysis scripts. Classification: Actual INIT/interrupt hook instructions, explicit cartridge data blocks, make verification and sanity checks inspected. Zero unassigned bytes is an ownership/classification metric, not proof complete semantic understanding: 16 bytes at BAA2 lack known consumer, victory condition not found, optimal route not play-validated. MIT only for tools, comments, analysis and documentation. Activision game instructions/graphics/sound excluded; original cartridge not distributed. Source CPU: Documented source/input platforms: MSX1. Processor scope: Z80. Target CPU: Documented output/support targets: MSX1. Processor scope: Z80. Build: Requires user-supplied 16KB pitfall.rom SHA256 4d899d6258a8b06dfae8c91a8c57230fa23ff364136d6a243fafeaf282c8be58, pasmo, z80dasm and Python3. Verification script compares assembled SHA256 to ROM. Upstream reports exact match; not rerun here. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: MSX1 cartridge mapped 8000-BFFF; source shows RAM E000+ and interrupt-driven game. No CPU-emulation port promoted. AI: Latest commit explicitly Co-Authored-By: Claude Opus 5.5; preserve tool label Claude and model wording, no inference of Claude Code. Relationships: One representative from prolific antxiko/MSX-disassembly-database cluster; other disassemblies deferred rather than mechanically promoted. Evidence: https://github.com/antxiko/Pitfall-MSX-disassembly/blob/35529442925c53635803b82ecb33efadfd95cb71/README.md https://github.com/antxiko/Pitfall-MSX-disassembly/blob/35529442925c53635803b82ecb33efadfd95cb71/src/pitfall.asm",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "pixdeluxe-amiga-iff-manager-ginnov": {
       "id": "pixdeluxe-amiga-iff-manager-ginnov",
       "title": "PixDeluxe",
@@ -99807,6 +101456,70 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "pokemon-red-blue-pret-disassembly": {
+      "id": "pokemon-red-blue-pret-disassembly",
+      "title": "Pokémon Red and Blue — pret Game Boy disassembly",
+      "upstream_name": "Pokémon Red and Blue — pret Game Boy disassembly",
+      "display_title": "Pokémon Red and Blue — pret Game Boy disassembly",
+      "subjects": [
+        "Pokémon Red and Blue — pret Game Boy disassembly"
+      ],
+      "repo": "https://github.com/pret/pokered",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Nintendo Game Boy"
+      ],
+      "target_platforms": [
+        "Nintendo Game Boy"
+      ],
+      "source_cpu": [
+        "Sharp LR35902"
+      ],
+      "target_cpu": [
+        "Sharp LR35902"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Game Boy LR35902 machine code"
+      ],
+      "reconstructed_languages": [
+        "LR35902 assembly",
+        "C (host tools)",
+        "Make"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Pokémon Red and Blue — pret Game Boy disassembly Classification: Substantial named and commented assembly, e.g. full BattleCore logic, with separate data/graphics/sound inputs. This is a source disassembly, not a game-specific CPU-emulation wrapper. Exact output hashes are documented upstream; byte-exactness was not independently reproduced. No project-wide license was found among the root entries reviewed. Reconstructed commercial game code/assets do not acquire a permissive license from being public. Source CPU: Documented source/input platforms: Nintendo Game Boy. Processor scope: Sharp LR35902. Target CPU: Documented output/support targets: Nintendo Game Boy. Processor scope: Sharp LR35902. Build: RGBDS assembler/linker toolchain; INSTALL.md and Makefile document source build and compare target. README identifies Red, Blue, debug and Virtual Console patch outputs with original hashes. No build was run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Original-platform Game Boy ROMs. No minimum hardware profile separately established. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: README project-family catalogue, with many additional GB/GBC/GBA candidates https://pret.github.io/ README-linked companion assembly-analysis tooling https://github.com/pret/gb-asm-tools Evidence: https://github.com/pret/pokered/blob/af519899719f0754965776faac0e836a3b906e6d/README.md https://github.com/pret/pokered/blob/af519899719f0754965776faac0e836a3b906e6d/INSTALL.md",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     },
     "polymax-poly-201-rom-reverse-engineering": {
@@ -101803,6 +103516,76 @@
         "tools": []
       }
     },
+    "ps2sdk-open-console-libraries": {
+      "id": "ps2sdk-open-console-libraries",
+      "title": "PS2SDK — open PlayStation 2 SDK libraries and tools",
+      "upstream_name": "PS2SDK — open PlayStation 2 SDK libraries and tools",
+      "display_title": "PS2SDK — open PlayStation 2 SDK libraries and tools",
+      "subjects": [
+        "PS2SDK — open PlayStation 2 SDK libraries and tools"
+      ],
+      "repo": "https://github.com/ps2dev/ps2sdk",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PlayStation 2"
+      ],
+      "target_platforms": [
+        "PlayStation 2"
+      ],
+      "source_cpu": [
+        "MIPS R5900",
+        "MIPS R3000A"
+      ],
+      "target_cpu": [
+        "MIPS R5900",
+        "MIPS R3000A"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Original open C and MIPS assembly SDK/library sources"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "MIPS assembly",
+        "Make"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "development-environment",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: PS2SDK — open PlayStation 2 SDK libraries and tools Classification: Long-running source SDK consolidating ps2lib, ps2drv, libhdd, ps2ip and ps2hid. Actual EE kernel syscall assembly verified, not opaque original SDK binaries. Provides open alternatives and system interfaces rather than claiming restoration of Sony SDK source or an entire PS2 BIOS. Independent full dependency/provenance audit not performed. Academic Free License 2.0 according to README/LICENSE; third-party incorporated components require their own review. Source CPU: Documented source/input platforms: PlayStation 2. Processor scope: MIPS R5900, MIPS R3000A. Target CPU: Documented output/support targets: PlayStation 2. Processor scope: MIPS R5900, MIPS R3000A. Build: Make tree builds host tools/common/IOP/EE/samples with PS2DEV cross-toolchains and environment variables; libraries, IOP loadable IRX modules and sample native outputs. README documents source/release structure. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: EE and IOP outputs run on the corresponding PS2 processors; host development tools run separately. Networking, HDD filesystem, memory card, USB, CD/DVD, libc glue and sound subsystems documented. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: SDK project family and getting-started guide https://ps2dev.github.io/ Discovered native PS2-port consumer in this pass https://github.com/SAT-R/sa2 Evidence: https://github.com/ps2dev/ps2sdk/blob/329e2bb43287e16af16c4dde1c614e2662c24468/README.md https://github.com/ps2dev/ps2sdk/blob/329e2bb43287e16af16c4dde1c614e2662c24468/LICENSE",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "psgplay-atari-st-sndh-tools": {
       "id": "psgplay-atari-st-sndh-tools",
       "title": "psgplay",
@@ -101856,6 +103639,77 @@
         "reverse-engineering tooling"
       ],
       "notes": "SNDH/PSG player with 68000 emulation, tracing and reachability-guided SNDH disassembly; output can be edited and reassembled to alter metadata or code.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "psn00bsdk-open-playstation-sdk": {
+      "id": "psn00bsdk-open-playstation-sdk",
+      "title": "PSn00bSDK — open PlayStation SDK and native toolchain",
+      "upstream_name": "PSn00bSDK — open PlayStation SDK and native toolchain",
+      "display_title": "PSn00bSDK — open PlayStation SDK and native toolchain",
+      "subjects": [
+        "PSn00bSDK — open PlayStation SDK and native toolchain"
+      ],
+      "repo": "https://github.com/Lameguy64/PSn00bSDK",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sony PlayStation",
+        "Konami System 573"
+      ],
+      "target_platforms": [
+        "Sony PlayStation",
+        "Konami System 573"
+      ],
+      "source_cpu": [
+        "MIPS R3000A"
+      ],
+      "target_cpu": [
+        "MIPS R3000A"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Original open C/C++ and MIPS assembly sources",
+        "some Sony GTE assembly copied according to README"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "MIPS assembly",
+        "CMake"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "development-environment",
+        "asset-tool",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: PSn00bSDK — open PlayStation SDK and native toolchain Classification: Implements core Sony SDK-like functionality with hardware-level GPU/GTE/CD/MDEC/serial APIs. README says this is not a complete or drop-in official SDK replacement. System 573 support is preliminary. Major provenance caveat: README explicitly says parts of libpsxgte assembly were lifted as-is from Sony libraries and calls the project a legal gray area. MPL 2.0 core; examples/template additional reuse exception; mkpsxiso/dumpsxiso GPLv2+ and bundled GCC GPLv3. Preserve upstream lifted-Sony-code warning alongside license labels. Source CPU: Documented source/input platforms: Sony PlayStation, Konami System 573. Processor scope: MIPS R3000A. Target CPU: Documented output/support targets: Sony PlayStation, Konami System 573. Processor scope: MIPS R3000A. Build: CMake 3.21+ superbuild, mipsel-none-elf GCC toolchain, libpsn00b libraries, examples, image packing and asset conversion tools. Windows/Linux binary packages documented. Actual GPU drawing source and build definition verified. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Produces native PS1 code; relies on console BIOS for parts of interrupt/controller support. Cross-build host platform is not the target hardware. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: Separate GPL CD image packing/extraction companion https://github.com/Lameguy64/mkpsxiso README credits emulator/OpenBIOS as development references https://github.com/grumpycoders/pcsx-redux Evidence: https://github.com/Lameguy64/PSn00bSDK/blob/5d9aa2d3dfc7d6e51c2eb942ab4cdbae5571a40a/README.md https://github.com/Lameguy64/PSn00bSDK/blob/5d9aa2d3dfc7d6e51c2eb942ab4cdbae5571a40a/LICENSE.md",
       "ai": {
         "usage": null,
         "tools": []
@@ -102514,6 +104368,80 @@
         "no-independent-build"
       ],
       "notes": "Identity: Rhythm/action game about evading solar storms, originally identified as a Spectrum 48K game and also ported to CPC. Classification: Native game project or adaptation, with no byte-exact original-binary reconstruction claimed. Source CPU: No identified original machine-code input is reconstructed here; source CPU/platform are left empty rather than copied from output-platform metadata. Target CPU: Reviewed native source and build declarations establish Amstrad CPC, ZX Spectrum outputs with z80 family targets. Host tools are not output CPU evidence. Build: Makefile explicitly builds CPC DSK/CDT and Spectrum TAP using SDCC -mz80, native assembly and a host-side image converter. main.c has distinct CPC and ZXS hardware paths. No independent build, gameplay or byte comparison was performed. Runtime profiles: No complete minimum RAM/model profile established from the inspected material. Machine-family targeting is recorded without inventing exact hardware requirements. AI: No explicit development-AI attribution found in inspected README, selected source/build files and pinned head commit. Absence is not evidence of non-use. Relationships: The sparse README mentions only Spectrum; CPC support is established by the build targets and release page, avoiding a description-only false negative. Evidence: https://github.com/snauts/pulzar/blob/895eb8b18208f8d1837dae482648dcc7bd962709/README https://github.com/snauts/pulzar/blob/895eb8b18208f8d1837dae482648dcc7bd962709/main.c https://github.com/snauts/pulzar/blob/895eb8b18208f8d1837dae482648dcc7bd962709/Makefile https://github.com/snauts/pulzar/commit/895eb8b18208f8d1837dae482648dcc7bd962709 https://snauts.itch.io/pulzar",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "pumpkinos": {
+      "id": "pumpkinos",
+      "title": "PumpkinOS — ROM-free PalmOS reimplementation",
+      "upstream_name": "PumpkinOS",
+      "display_title": "PumpkinOS — ROM-free PalmOS reimplementation",
+      "subjects": [
+        "PalmOS"
+      ],
+      "repo": "https://github.com/migueletto/PumpkinOS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Palm OS"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "Haiku",
+        "Web"
+      ],
+      "source_cpu": [
+        "m68k",
+        "ARM"
+      ],
+      "target_cpu": [
+        "x86",
+        "x86-64",
+        "ARM",
+        "AArch64",
+        "WebAssembly"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "PalmOS API interfaces",
+        "Motorola 68000 machine code",
+        "ARM machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Lua"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "operating-system",
+        "system-software"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: PalmOS API/system reimplementation for modern hosts, running legacy PalmOS applications without an original PalmOS ROM. Native C subsystem implementations coexist with embedded 68K and ARM application execution. Classification: README labels system experimental. It explicitly says no PalmOS ROM is required and m68K applications can run. Event.c is actual native event subsystem implementation; libpumpkin/Makefile lists extensive native API modules and ARM/68K emulator sources. armemu.c initializes a PXA255-compatible ARM guest and calls cpuCycle, so ARM is guest scope as well as a separately documented modern host family. Do not classify this as original Palm ROM source restoration or pure hardware emulator. README declares GPL v3 and points to component license directory; third-party Palm SDK/application and emulator licenses must be retained. Not a claim that original PalmOS source or ROM is redistributed under GPL. Source CPU: Documented source/input platforms: Palm OS. Processor scope: m68k, ARM. Target CPU: Documented output/support targets: Linux, Windows, Haiku, Web. Processor scope: x86, x86-64, ARM, AArch64, WebAssembly. Build: README documents GCC/binutils/make/git and SDL2, src make producing pumpkin executable, libraries and PRCs; Linux/WSL2 and MSYS2/MINGW64 instructions. Current src/Makefile also explicitly selects Haiku and Emscripten modules. common.mak names x86/ARM/AArch64 machine cases and Emscripten output; these are build-config support, not tested outputs. libpumpkin/Makefile links native PalmOS manager implementations together with 68K and ARM compatibility code. No build or execution performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: README provides desktop startup/PRC installation procedure but no complete minimum CPU/RAM requirement. Its instructions focus on 64-bit Windows/Linux; additional CPU branches in common.mak do not establish minimum hardware. Native 68K/ARM cores execute guest application instructions, not native target outputs. AI: No explicit AI contribution attribution found in bounded README/build/source/latest-commit inspection; usage remains unknown. Relationships: Uses third-party Musashi, uARM and optional Unicorn components, evidenced by licenses and libpumpkin build/source. Distinct from hardware/ROM-based CloudpilotEmu. No current tracker URL match. Evidence: https://github.com/migueletto/PumpkinOS/blob/afb8e080a849595ffa14e207137cdd1a2583e511/README.md https://github.com/migueletto/PumpkinOS/blob/afb8e080a849595ffa14e207137cdd1a2583e511/src/Makefile",
       "ai": {
         "usage": null,
         "tools": []
@@ -106161,6 +108089,72 @@
         "tools": []
       }
     },
+    "reccmp-decompilation-toolchain": {
+      "id": "reccmp-decompilation-toolchain",
+      "title": "reccmp",
+      "upstream_name": "reccmp",
+      "display_title": "reccmp",
+      "subjects": [
+        "reccmp"
+      ],
+      "repo": "https://github.com/isledecomp/reccmp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "x86 machine code",
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "TypeScript",
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "binary-analysis",
+        "static-analysis",
+        "automation"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Recompilation comparison and verification suite extracted from LEGO Island matching decompilation. Classification: Checks function/code similarity, globals, vtables, stack layout and exports; code annotation/CSV inputs and PDB metadata. README scope is old-MSVC 32-bit x86 C++; do not broaden to arbitrary languages/architectures from parser tests alone. Presence of CI is not a verified passing run. AGPL-3.0 root COPYING; bundled third-party binary licenses are separately referenced in pyproject. Source CPU: Documented source/input platforms: Windows. Processor scope: x86. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Python >=3.10, pip install reccmp, documented project creation/detection and comparison commands. Actual comparison engine and CI matrix inspected; Windows/Linux Python 3.10-3.14 unit tests plus binary fixtures, Ghidra and Playwright workflows exist. No tests run here. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Runs on modern Python hosts; requires original and recompiled binaries plus PDB for principal comparison path. Binary matching is a tool capability, not a claim that every client project is exact. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Originating client project. https://github.com/isledecomp/isle Independent matching-decompilation client; included separately as a legacy game subject. https://github.com/pablocpas/CMR2Decomp Evidence: https://github.com/isledecomp/reccmp/blob/2bfe835a662b20a70ea7c0ea2b9090626356d042/README.md https://github.com/isledecomp/reccmp/blob/2bfe835a662b20a70ea7c0ea2b9090626356d042/pyproject.toml",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
     "dos-clyde-re": {
       "id": "dos-clyde-re",
       "title": "reclyde",
@@ -109055,6 +111049,67 @@
         "source reconstruction"
       ],
       "notes": "Decompiled RNC ProPack compression tool with pack/unpack, search and extraction modes and a Makefile plus Visual Studio project. Its README notes original-game-specific packing parameters for Earthworm Jim and Aladdin; original tool CPU/platform is not specified there.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "road-fighter-msx-cpp-howprice": {
+      "id": "road-fighter-msx-cpp-howprice",
+      "title": "Road Fighter — native C++ MSX transcode",
+      "upstream_name": "Road Fighter — native C++ MSX transcode",
+      "display_title": "Road Fighter — native C++ MSX transcode",
+      "subjects": [
+        "Road Fighter — native C++ MSX transcode"
+      ],
+      "repo": "https://github.com/howprice/road-fighter-msx-cpp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C++",
+        "HLSL"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Hand-structured C++20/SDL3 transcode based on howprice/road-fighter-msx disassembly; original subroutine addresses retained. Classification: Game.cpp contains explicit game-state and gameplay functions with source addresses; no Z80 CPU execution core in tree. Lightweight VDP/PSG simulation is supporting hardware only. Original level/music/design data remain embedded arrays, graphics extracted externally. MIT for new source with explicit Konami original-content carveout and educational/preservation notice. Source CPU: Documented source/input platforms: MSX. Processor scope: Z80. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: CMake 3.22+, C++20, SDL3 via vcpkg. Requires original ROM for graphics asset-ripper and separate SDL_shadercross_build project to compile shaders. data/ contains only placeholder in tree. Not built/run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Windows/Linux author-tested; host CPU minimum unknown. Both original game versions supported per README. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Based on howprice/road-fighter-msx; external shader tool howprice/SDL_shadercross_build. Evidence: https://github.com/howprice/road-fighter-msx-cpp/blob/119dd578dd009317ebfa3f7828fac5bf7bf7cbde/README.md https://github.com/howprice/road-fighter-msx-cpp/blob/119dd578dd009317ebfa3f7828fac5bf7bf7cbde/game/src/Game/Game.cpp",
       "ai": {
         "usage": null,
         "tools": []
@@ -115263,6 +117318,65 @@
         "tools": []
       }
     },
+    "sgi-x-irix-install-extractor": {
+      "id": "sgi-x-irix-install-extractor",
+      "title": "SGI Extractor (sgi-x)",
+      "upstream_name": "SGI Extractor (sgi-x)",
+      "display_title": "SGI Extractor (sgi-x)",
+      "subjects": [
+        "SGI Extractor (sgi-x)"
+      ],
+      "repo": "https://github.com/sgi-demos/sgi-x",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SGI IRIX 3",
+        "SGI IRIX 4",
+        "SGI IRIX 5",
+        "SGI IRIX 6"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": null,
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: IRIX install-package index/archive extractor with independent parsers for historical installation formats. Classification: README reports tests against IRIX3.3 tapes,4.01,5.1.1,6.5 on Windows. Source comment still calls IRIX4 untested, a documentation inconsistency to preserve. Aiming at 100% extraction is not achieved proof: README example reports 99% files with Windows filename/symlink limitations. MIT LICENSE.txt applies to extractor, not extracted proprietary IRIX package contents. Source CPU: No predecessor machine-code input or processor-specific source architecture is established; no CPU is inferred from the host language. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Single Python >=3.9 CLI; standard-library core with uncompresspy or external uncompress/gzip for .Z. Actual format dataclasses, version dispatch, archive routing and extraction source inspected. No code run; no committed test suite found in this four-file root. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Reads .idb plus .sw/.man and other product archives; recursive extraction and verify-only modes. Existing output directories are skipped; symlink privileges and host-invalid names affect recovered output. Mac/Linux further testing is only planned, not verified support. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: README explicitly identifies this as a Python fork of the original Go extractor, extended to IRIX3-6. https://github.com/depp/sgix Evidence: https://github.com/sgi-demos/sgi-x/blob/aa01799b061453bb74f08e58340e1fba523c46c3/README.md https://github.com/sgi-demos/sgi-x/blob/aa01799b061453bb74f08e58340e1fba523c46c3/sgix.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "shadowrun-genesis-defragged": {
       "id": "shadowrun-genesis-defragged",
       "title": "Shadowrun Defragged",
@@ -115722,6 +117836,73 @@
         "SkoolKit"
       ],
       "notes": "Pobtastic annotated ZX Spectrum disassembly created with SkoolKit.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "shin-taketori-pc88-english-translation": {
+      "id": "shin-taketori-pc88-english-translation",
+      "title": "Shin Taketori Monogatari PC-88 English Translation",
+      "upstream_name": "Shin Taketori Monogatari PC-88 English Translation",
+      "display_title": "Shin Taketori Monogatari PC-88 English Translation",
+      "subjects": [
+        "Shin Taketori Monogatari PC-88 English Translation"
+      ],
+      "repo": "https://github.com/romh-acking/shin-taketori-monogatari-pc88-en",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "NEC PC-8801"
+      ],
+      "target_platforms": [
+        "NEC PC-8801"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code",
+        "N88-BASIC bytecode"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "N88-BASIC",
+        "Windows batch"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "translation",
+        "patching",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Version1.1 game translation with Z80 rendering/DTE patches, N88-BASIC modifications, decryption and D88 rebuilding workflow. Classification: README release1.1 text fixes and beta-test credits, but no automated test suite or byte-exact gameplay proof observed. Actual DTE payload and custom RAM/address layout distinguish this from a bare translation script archive. No root license found in inspected tree; original game and translation/patch/tool rights remain separate and unknown. Source CPU: Documented source/input platforms: NEC PC-8801. Processor scope: Z80. Target CPU: Documented output/support targets: NEC PC-8801. Processor scope: Z80. Build: Write.bat recompiles modified BASIC, writes script, applies armips Z80 patches, re-encrypts/inserts blocks and builds translated D88 disks. Actual assembly/text-source modifications and pipeline inspected. Packaged C# utility executables are accompanied by links to separate source repositories, not treated as source in this root. No patch/build/test run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Needs user-supplied original D88 disk images and Windows/C# tools; README says Linux requires Wine and batch adaptation. Do not distribute original disk data with tracker. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Linked reusable BASIC decompiler/compiler; not separately deeply inspected this pass. https://github.com/romh-acking/n88-basic-de-compiler Linked encrypt/decrypt/extract/insert utility. https://github.com/romh-acking/shin-taketori-monogatari-pc88-protection Linked D88/NFD-r1 normalization and disk-generation utility. https://github.com/romh-acking/shin-taketori-monogatari-pc88-d88-manager Evidence: https://github.com/romh-acking/shin-taketori-monogatari-pc88-en/blob/98b2bfa8e53cea941dc40942c65bb6cef52c49d1/README.md https://github.com/romh-acking/shin-taketori-monogatari-pc88-en/blob/98b2bfa8e53cea941dc40942c65bb6cef52c49d1/asm/main.asm",
       "ai": {
         "usage": null,
         "tools": []
@@ -120219,6 +122400,147 @@
         "tools": []
       }
     },
+    "sonic-advance-trilogy-satr-reconstruction": {
+      "id": "sonic-advance-trilogy-satr-reconstruction",
+      "title": "Sonic Advance Trilogy — GBA decompilation and native ports",
+      "upstream_name": "Sonic Advance Trilogy — GBA decompilation and native ports",
+      "display_title": "Sonic Advance Trilogy — GBA decompilation and native ports",
+      "subjects": [
+        "Sonic Advance Trilogy — GBA decompilation and native ports"
+      ],
+      "repo": "https://github.com/SAT-R/sa2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Game Boy Advance"
+      ],
+      "target_platforms": [
+        "Game Boy Advance",
+        "Windows",
+        "Linux",
+        "macOS",
+        "PlayStation 2",
+        "PlayStation Portable"
+      ],
+      "source_cpu": [
+        "ARM7TDMI"
+      ],
+      "target_cpu": [
+        "ARM7TDMI",
+        "x86-64",
+        "MIPS R5900",
+        "MIPS Allegrex"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "GBA ARM/Thumb machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "ARM assembly",
+        "Make",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Sonic Advance Trilogy — GBA decompilation and native ports Classification: README covers Sonic Advance 1/2 with SA3 related separately. SA2 has hand-written C equivalents of all extracted assembly, but ~60 functions still do not match and >600 remain unnamed. Default matching build retains asm/non_matching fallbacks; all-C portable path and readable title/game source distinguish this from a binary CPU wrapper. Tiny Chao Garden and Collect Rings multiboot subgames are separate partial efforts within the repo. No project-wide license established in reviewed root entries. Original graphics/music and SDK-derived syscall material are present; public code is not evidence of unrestricted redistribution. Source CPU: Documented source/input platforms: Game Boy Advance. Processor scope: ARM7TDMI. Target CPU: Documented output/support targets: Game Boy Advance, Windows, Linux, macOS, PlayStation 2, PlayStation Portable. Processor scope: ARM7TDMI, x86-64, MIPS R5900, MIPS Allegrex. Build: GBA agbcc and arm-none-eabi build with compare/checksum target; native SDL2 Windows/Linux/macOS, PS2DEV and PSPDEV targets documented. Win32 OpenGL target explicitly nonfunctional. No build was run. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Original GBA ROM and widescreen source ports. Native ports can be built without first building the GBA ROM; cross-platform targets are upstream documented rather than independently play-tested. AI: README has a strict no-LLM issues/PR policy and says assembly was decompiled by hand. This establishes current contribution policy, not an independently audited historical AI non-use claim; usage remains null. Relationships: Separate eventual Sonic Advance 3 reconstruction https://github.com/SAT-R/sa3 README identifies shared Dimps engine and related reconstruction https://github.com/jiangzhengwenjz/katam PS2 port relies on PS2DEV toolchain/SDK family https://github.com/ps2dev/ps2sdk Evidence: https://github.com/SAT-R/sa2/blob/393357f7c9d46b5c10b6c41a57b80fe3b58f3c8d/README.md https://github.com/SAT-R/sa2/blob/393357f7c9d46b5c10b6c41a57b80fe3b58f3c8d/INSTALL.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sonic-the-hedgehog-megadrive-sonicretro": {
+      "id": "sonic-the-hedgehog-megadrive-sonicretro",
+      "title": "Sonic the Hedgehog — Sonic Retro Mega Drive disassembly",
+      "upstream_name": "Sonic the Hedgehog — Sonic Retro Mega Drive disassembly",
+      "display_title": "Sonic the Hedgehog — Sonic Retro Mega Drive disassembly",
+      "subjects": [
+        "Sonic the Hedgehog — Sonic Retro Mega Drive disassembly"
+      ],
+      "repo": "https://github.com/sonicretro/s1disasm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Mega Drive / Genesis"
+      ],
+      "target_platforms": [
+        "Sega Mega Drive / Genesis"
+      ],
+      "source_cpu": [
+        "m68k",
+        "Z80"
+      ],
+      "target_cpu": [
+        "m68k",
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Mega Drive 68000/Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly",
+        "Z80 assembly",
+        "Lua"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Sonic the Hedgehog — Sonic Retro Mega Drive disassembly Classification: Named/commented gameplay objects and source sound driver are present. SonicPlayer source is actual 68000 movement/control logic; no guest CPU wrapper. Binary art/map/palette/audio data remain as expected assets. _Fixed Binary Files are documented optional corrected artwork/object positions, not evidence of hidden executable payloads. No full ROM completeness percentage asserted. README permits informational/educational presentation only, expressly prohibits commercial use, and disclaims ownership. Do not label as permissively open-source. Source CPU: Documented source/input platforms: Sega Mega Drive / Genesis. Processor scope: m68k, Z80. Target CPU: Documented output/support targets: Sega Mega Drive / Genesis. Processor scope: m68k, Z80. Build: Lua build script assembles sonic.asm, converts PCM/DPCM samples, fixes ROM headers and offers compression settings preserving accurate ROM output. Revision switches in sonic.asm include REV00/REV01/REVXB. No build or exact checksum reproduction performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Original-platform Mega Drive ROM. Normal console/emulator loading; no PC-native runtime claimed. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: README-linked catalogue for wider Sega source discovery https://info.sonicretro.org/Disassemblies Evidence: https://github.com/sonicretro/s1disasm/blob/15dfa3a6ee4c53aeb482233e493755c84b4f3479/README.md https://github.com/sonicretro/s1disasm/blob/15dfa3a6ee4c53aeb482233e493755c84b4f3479/sonic.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "sonicarranger-sonicconv": {
       "id": "sonicarranger-sonicconv",
       "title": "SonicArranger packed format converter",
@@ -123031,6 +125353,130 @@
         "Atari 8-bit"
       ],
       "notes": "Atari 400/800 Star Raiders 6502 reconstruction. The ca65/ld65 Makefile builds an 8 KiB cartridge and verifies it against the supplied MD5 checksum.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "star-spores-coco-shadoff-restoration": {
+      "id": "star-spores-coco-shadoff-restoration",
+      "title": "Star Spores — CoCo original-source restoration",
+      "upstream_name": "Star Spores — CoCo original-source restoration",
+      "display_title": "Star Spores — CoCo original-source restoration",
+      "subjects": [
+        "Star Spores — CoCo original-source restoration"
+      ],
+      "repo": "https://github.com/dshadoff/Star-Spores_CoCo",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TRS-80 Color Computer"
+      ],
+      "target_platforms": [
+        "TRS-80 Color Computer"
+      ],
+      "source_cpu": [
+        "6809"
+      ],
+      "target_cpu": [
+        "6809"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6809 assembly"
+      ],
+      "reconstructed_languages": [
+        "6809 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Original author David Shadoff reconstructed his 1983/84 game from archived notes and listings, restoring comments into cross-assembly source. Classification: Substantial MAIN logic and separate drawing/sound/data modules present. Author reports functional equivalence to original; explicitly differs in unused RAM startup settings, so not byte-exact original. MIT, Copyright 1983,1984,2020 David Shadoff. Source CPU: Documented source/input platforms: TRS-80 Color Computer. Processor scope: 6809. Target CPU: Documented output/support targets: TRS-80 Color Computer. Processor scope: 6809. Build: LWTOOLS lwasm assembles modules. Final output needs RAM preformat, LOADM of modules and SAVEM in CoCo/emulator. Original EDTASM route fails to accommodate largest module unless patched; author could not get old patched EDTASM working in XRoar. Not built. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Original development on 32K CoCo with Extended Color BASIC and disk hardware. Main includes a Dragon 32 keyboard-detection patch with author warning it may not work on all Dragons; do not claim broad verified Dragon support. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Related earlier game: dshadoff/Star-Spores_TRS-80_Mod1; distinct 6809 program, not duplicate Z80 source. Evidence: https://github.com/dshadoff/Star-Spores_CoCo/blob/51057c0b3ec6a50bfb169a468eca2ac06bf2b4af/README.md https://github.com/dshadoff/Star-Spores_CoCo/blob/51057c0b3ec6a50bfb169a468eca2ac06bf2b4af/Build_notes.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "star-spores-trs80-model1-shadoff": {
+      "id": "star-spores-trs80-model1-shadoff",
+      "title": "Star Spores — TRS-80 Model I source restoration",
+      "upstream_name": "Star Spores — TRS-80 Model I source restoration",
+      "display_title": "Star Spores — TRS-80 Model I source restoration",
+      "subjects": [
+        "Star Spores — TRS-80 Model I source restoration"
+      ],
+      "repo": "https://github.com/dshadoff/Star-Spores_TRS-80_Mod1",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TRS-80 Model I"
+      ],
+      "target_platforms": [
+        "TRS-80 Model I"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Original author reconstructed his unpublished 1982 Model I game from final hardcopy output. Classification: Actual labelled Z80 gameplay initialization inspected. Archived source tapes not recovered/loaded; reconstruction is from paper and notes. Build memory map still has main1?/main2? labels even though working source files exist. MIT, Copyright 1982,2020 David Shadoff. Source CPU: Documented source/input platforms: TRS-80 Model I. Processor scope: Z80. Target CPU: Documented output/support targets: TRS-80 Model I. Processor scope: Z80. Build: zmac script emits CAS/CMD/listing per module; second step uses ZBUG on trs80gp to join memory ranges and save cassette. Author reports binary comparison with period original cassette. No independent verification performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Original development was Model I with Level II BASIC, 48K expansion and tape. Release SPORES.cas is present; not executed. AI: Unknown: no explicit contribution evidence established in inspected material. Relationships: Predecessor of author's distinct 6809 CoCo version. Evidence: https://github.com/dshadoff/Star-Spores_TRS-80_Mod1/blob/31fd3fa0597c66fef680e8eecfaa0dcdeee781ae/README.md https://github.com/dshadoff/Star-Spores_TRS-80_Mod1/blob/31fd3fa0597c66fef680e8eecfaa0dcdeee781ae/Build_notes.md",
       "ai": {
         "usage": null,
         "tools": []
@@ -126250,6 +128696,76 @@
         ]
       }
     },
+    "super-smash-bros-melee-doldecomp": {
+      "id": "super-smash-bros-melee-doldecomp",
+      "title": "Super Smash Bros. Melee — matching GameCube decompilation",
+      "upstream_name": "Super Smash Bros. Melee — matching GameCube decompilation",
+      "display_title": "Super Smash Bros. Melee — matching GameCube decompilation",
+      "subjects": [
+        "Super Smash Bros. Melee — matching GameCube decompilation"
+      ],
+      "repo": "https://github.com/doldecomp/melee",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Nintendo GameCube"
+      ],
+      "target_platforms": [
+        "Nintendo GameCube"
+      ],
+      "source_cpu": [
+        "PowerPC Gekko"
+      ],
+      "target_cpu": [
+        "PowerPC Gekko"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "GameCube PowerPC machine code"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "PowerPC assembly",
+        "Python",
+        "Rust (tooling)"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Super Smash Bros. Melee — matching GameCube decompilation Classification: README describes the game as fully decompiled and now shiftable, with remaining effort naming/cleanup. configure.py contains 1,117 Object(Matching, ...) entries and no Object(NonMatching/Equivalent, ...) uses at this pin. Actual lbcommand.c implements readable game command logic. Scope is main.dol and included SDK/library reconstruction, not all disc assets or a native desktop game port. Original data extracts remain necessary; no opaque executable fallback was found in sampled matching-object configuration, but no whole-tree binary audit was performed. No project-wide license established in the reviewed root entries. Commercial assets and reconstructed vendor libraries retain separate rights. Source CPU: Documented source/input platforms: Nintendo GameCube. Processor scope: PowerPC Gekko. Target CPU: Documented output/support targets: Nintendo GameCube. Processor scope: PowerPC Gekko. Build: Requires owned GALE01 1.02 main.dol extracted from disc, Python, Ninja and original compiler/tool wrappers fetched by configuration. README gives expected DOL SHA-1. Configurable matching and nonmatching/modding builds; no execution performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Rebuilt original GameCube DOL; README documents loading it with the extracted game filesystem in Dolphin. No verified minimum console/emulator requirements. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: Recommended object matching UI https://github.com/encounter/objdiff Documented decompilation aid https://github.com/matt-kempster/m2c Evidence: https://github.com/doldecomp/melee/blob/f0cdbb0a7046aea44c7177fd72abf33c3d2af4d4/.github/README.md https://github.com/doldecomp/melee/blob/f0cdbb0a7046aea44c7177fd72abf33c3d2af4d4/configure.py",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Codex",
+          "GitHub Copilot"
+        ]
+      }
+    },
     "super-sprint-reforged-st": {
       "id": "super-sprint-reforged-st",
       "title": "Super Sprint Reforged",
@@ -127773,6 +130289,65 @@
         "tetracorp"
       ],
       "notes": "Analysis of Mark Sheeky's 1994 Amiga freeware game; part of Tetracorp's broader reverse-engineering work.",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tbxi-mac-toolbox-rom-imager": {
+      "id": "tbxi-mac-toolbox-rom-imager",
+      "title": "tbxi Macintosh Toolbox ROM imager",
+      "upstream_name": "tbxi Macintosh Toolbox ROM imager",
+      "display_title": "tbxi Macintosh Toolbox ROM imager",
+      "subjects": [
+        "tbxi Macintosh Toolbox ROM imager"
+      ],
+      "repo": "https://github.com/elliotnunn/tbxi",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Macintosh 68k",
+        "Power Macintosh",
+        "Classic Mac OS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "m68k",
+        "PowerPC"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Python",
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "rom-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "Retro development tool"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Mac OS Toolbox Imager dumps/rebuilds structured ROM containers and resources for late 68k and PowerPC Macs; not a ROM source reconstruction. Classification: Substantive resource/container parsers, layout and checksum reconstruction; dump output intentionally retains binary components. README excludes pre-SuperMario ROMs and documents incorrect rebuilds for PowerBook 1400/2400 and slight differences for NewWorld v2+. Do not label universal byte exact. MIT license for tooling; Apple ROM contents not licensed by tool. Source CPU: Documented source/input platforms: Macintosh 68k, Power Macintosh, Classic Mac OS. Processor scope: m68k, PowerPC. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Python 3/setuptools with macresources dependency; optional C LZSS extension falls back to Python. Actual ROM images supplied separately. No run/rebuild verification performed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Python host; supported ROM scope starts Quadra 660AV/840AV SuperMario and extends OldWorld/NewWorld PPC wrapping. Exact host minimum not verified. AI: No explicit contribution attribution established in inspected documentation/source and pinned head commit. Unknown, not non-use. No candidate was built or run. Relationships: linked patch-script library; not independently promoted https://github.com/elliotnunn/tbxi-patches older repository explicitly points to tbxi as replacement https://github.com/elliotnunn/mac-rom Evidence: https://github.com/elliotnunn/tbxi/blob/69839ea3ad16697a161125408f9797765d66f2a9/README.md https://github.com/elliotnunn/tbxi/blob/69839ea3ad16697a161125408f9797765d66f2a9/setup.py",
       "ai": {
         "usage": null,
         "tools": []
@@ -136989,6 +139564,77 @@
         "tools": []
       }
     },
+    "unix-history-reconstruction-pipeline": {
+      "id": "unix-history-reconstruction-pipeline",
+      "title": "Unix History Reconstruction",
+      "upstream_name": "Unix History Reconstruction",
+      "display_title": "Unix History Reconstruction",
+      "subjects": [
+        "Unix History Reconstruction"
+      ],
+      "repo": "https://github.com/dspinellis/unix-history-make",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Research Unix",
+        "BSD Unix",
+        "386BSD",
+        "FreeBSD"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "PDP-7",
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "assembly"
+      ],
+      "reconstructed_languages": [
+        "Shell",
+        "Perl",
+        "C",
+        "Awk",
+        "Make"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "operating-system"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [
+        "automation",
+        "development-environment"
+      ],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Custom source/metadata archaeology pipeline synthesizing Unix snapshots and SCCS/Git histories into one attributed Git timeline. Classification: README establishes a continuous1970-2025 timeline from22 source snapshots and modern FreeBSD; reconstructed commits/authorship/date ordering are research-derived. Dataset is automatically regenerated, so pin/fork/archive for reproducibility. Do not use synthetic historic commit dates as current project activity. Pipeline Apache-2.0; imported historical software has distinct licensing, including bundled old-code/Caldera notices and BSD/FreeBSD sources. Source CPU: Documented source/input platforms: Research Unix, BSD Unix, 386BSD, FreeBSD. Processor scope: PDP-7, x86. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: src/Makefile downloads TUHS snapshots, rebuilds OCR V1 material, extracts/imports SCCS and merges source histories; import.sh supports verification and generates build provenance. Actual scripts inspected, not executed. This builds a source-history artifact, not one runnable OS binary. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Output is traversable with git log/blame across releases; individual OS variants require their own historic toolchains/hardware. Import machinery contains Linux-specific mounts and network downloads, so a trivial standalone install is not claimed. AI: No explicit actual AI contribution found in inspected documentation and tip commit; unknown, not a non-use claim. Relationships: Generated reconstructed Unix-history dataset; inspected PDP7 source at d0d404ce50489bf40a96165ff2fa7291194301b1. Keep as project output, not duplicate machinery record. https://github.com/dspinellis/unix-history-repo Makefile input source for restored/scanned PDP7 Unix. https://github.com/DoctorWkt/pdp7-unix Evidence: https://github.com/dspinellis/unix-history-make/blob/464f1df1a96fe976d41d42847409cc2ecabc18f4/README.md https://github.com/dspinellis/unix-history-make/blob/464f1df1a96fe976d41d42847409cc2ecabc18f4/src/Makefile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
     "uno-vintage-computers": {
       "id": "uno-vintage-computers",
       "title": "UNO for Vintage Computers",
@@ -143892,6 +146538,74 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "zelda3-snesrev-native-reconstruction": {
+      "id": "zelda3-snesrev-native-reconstruction",
+      "title": "Zelda3 — A Link to the Past C reconstruction and native port",
+      "upstream_name": "Zelda3 — A Link to the Past C reconstruction and native port",
+      "display_title": "Zelda3 — A Link to the Past C reconstruction and native port",
+      "subjects": [
+        "Zelda3 — A Link to the Past C reconstruction and native port"
+      ],
+      "repo": "https://github.com/snesrev/zelda3",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Super Nintendo Entertainment System"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "WDC 65C816"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "SNES 65C816 machine code",
+        "annotated 65C816 disassemblies used as references"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python",
+        "Make"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Retro software source project"
+      ],
+      "re_started": null,
+      "status": "Primary source reviewed; independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [
+        "source-reviewed",
+        "no-independent-build"
+      ],
+      "notes": "Identity: Zelda3 — A Link to the Past C reconstruction and native port Classification: README says 70–80k lines of C and playable start-to-end. src/player.c contains real gameplay; src/zelda_rtl.c calls ZeldaRunFrameInternal when no verification emulator callback is present. LakeSnes-derived PPU/DSP hardware rendering remains; optional original 65C816 execution compares RAM each frame for verification. This qualifies as native source reconstruction, not an emulator-only repackaging. README declares MIT for project code; original game resources must be supplied separately and retain their own rights. Source CPU: Documented source/input platforms: Super Nintendo Entertainment System. Processor scope: WDC 65C816. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: Makefile compiles src/*.c, snes/*.c and supporting libraries, links SDL2, and extracts zelda3_assets.dat from an owned US ROM. Windows TCC and Linux/macOS builds documented. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: SDL2 desktop executable. The ROM is used to extract assets and is not needed thereafter except optional differential verification. No RAM/CPU minimum verified. AI: No explicit contribution attribution established in the reviewed source files and pinned head commit; unknown, not a claim of non-use. Relationships: PPU and DSP implementation reused with optimizations https://github.com/elzo-d/LakeSnes Evidence: https://github.com/snesrev/zelda3/blob/45a149d8b4bb8098f53d1009f76e76e7d8b79bbf/README.md https://github.com/snesrev/zelda3/blob/45a149d8b4bb8098f53d1009f76e76e7d8b79bbf/BUILDING.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "dos-zeliard-masm": {
