@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-17T04:59:14Z",
+  "updated_at": "2026-10-17T05:20:16Z",
   "projects": {
     "elitenet-archimedes-econet": {
       "id": "elitenet-archimedes-econet",
@@ -82899,7 +82899,7 @@
         "reverse-engineering-derived-port"
       ],
       "re_started": null,
-      "status": "unknown",
+      "status": "Partially understood ZX disassembly with Spectrum Next enhancement sources",
       "build": {
         "compilable": null,
         "runnable": true,
@@ -82910,7 +82910,7 @@
       "tags": [
         "game"
       ],
-      "notes": "Mike Dailly disassembled David Aubrey-Jones’s ZX Spectrum Mercenary using SkoolKit, then patched rendering and loading for ZX Spectrum Next. The build explicitly selects Z80N mode, Next registers, 14 MHz and Layer 2; V1.1 fixes load/save on real hardware. This is the original Mercenary, not the Atari ST/Amiga Damocles or Mercenary III binaries.",
+      "notes": "Identity: SkoolKit-derived Mercenary disassembly plus Spectrum Next rendering/load-save enhancements. Useful algorithmic comments describe rasterizer clipping, error accumulation and alternating pixels; the main loop identifies room/object transforms and collision. Semantic coverage is uneven: Lca1d is explicitly unknown and address-only routines such as Ld86b/Ld8ac remain unexplained. Not a fully understood source restoration. Classification: SkoolKit annotated disassembly plus a source-built enhancement/patch layer; neither original author source nor fully explained reconstruction. Graphics DEFB tables are legitimate data and are not evidence of missing code. Source CPU: Source architecture documented for analyzed version. Target CPU: mercenary.asm explicitly selects ZXNEXT/Z80N mode and uses NextReg, 14 MHz and Layer 2. Build: Configured output is mercenary.nex for Spectrum Next using SNasm and CSpect, including checked-in assembly and enhancement patches. The snapshot-to-Skool regeneration in a.bat expects m.z80, absent from the inspected public tree; generated ASM is checked in. Scripts hard-code developer paths. Existing runnable/playable fields reflect upstream release claims, not an independent test in this pass; no original byte-identical rebuild established. Runtime profiles: The V1.1 README reports load/save fixed on real ZX Spectrum Next hardware; no RAM minimum is stated. AI: No explicit AI usage evidence in primary project pages. Relationships: Version and predecessor distinction documented in notes. Evidence: https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L10553-L10622 https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L11604-L11664 https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L11614-L11664 https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/ReadMe.txt https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/a.bat",
       "ai": {
         "usage": null,
         "tools": []
@@ -83025,7 +83025,7 @@
         "annotated disassembly"
       ],
       "re_started": null,
-      "status": "Source inspected; independent build/play untested",
+      "status": "Partially annotated disassembly; executable regions remain encoded as bytes",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -83037,7 +83037,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Substantive game disassembly: 325285-byte annotated notzed .tas, original V15 .tas 397690 bytes; object, rendering, world, game-loop and Benson script logic. Related version folders and viewers must be grouped as one lineage, not separate reconstructions. Mercenary Source Code/merc_build_01.tas is an older rough disassembly despite directory name, not original developer source. Classification: README says game only, intro removed for clarity, assembles with TAS and starts SYS 16384. Author 2023 report says playable after intro but sound impaired; annotations were partial. No current build, run, byte-equivalence or completion test performed. Do not claim Second City coverage. No license file in recursive repository tree and repository metadata license is null; original game rights not granted. Source CPU: Source platform and processor are established by the inspected game assembly and project documentation. Target CPU: Native assembly targets the original platform processor. Documentation-only output is not proof of a rebuilt game. Build: 64tass v1.57.2900; --ascii --case-sensitive -Wall --nostart, .cpu 6502; supplied PRGs/listings No independent assembly, gameplay or byte-identity verification performed; corresponding flags remain unknown. Runtime profiles: No verified minimum hardware configuration established. AI: No explicit AI attribution in inspected source/header/README; bounded inspection cannot establish non-use. Relationships: Same game as the already tracked Spectrum disassembly, but independently recovered C64 code. Group original and notzed-enhanced folders as one lineage. The selected path points to the annotated version; older Source Code folder is rough disassembly, not developer source. Second City not established. Evidence: https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/readme.txt",
+      "notes": "Identity: Partial C64 Mercenary disassembly with useful notzed annotations, not fully restored source. Intro is excluded. Uneven semantic naming and opaque executable regions remain: startup code at $80BA-$80E7 is emitted as .byte directives rather than decoded instructions. This specific code gap is distinct from legitimate font, room, model and script data tables. Classification: Binary-derived partial disassembly. Assembly output and meaningful comments in some routines do not establish complete instruction decoding or complete understanding. Retain as a limited reference, not a finished-source recommendation. Source CPU: Source platform and processor are established by the inspected game assembly and project documentation. Target CPU: Native assembly targets the original platform processor. Documentation-only output is not proof of a rebuilt game. Build: 64tass v1.57.2900; --ascii --case-sensitive -Wall --nostart, .cpu 6502; supplied PRGs/listings No independent assembly, gameplay or byte-identity verification performed; corresponding flags remain unknown. Successful assembly would not by itself resolve source-quality gaps; raw executable byte blocks can preserve output without explaining code. Runtime profiles: No verified minimum hardware configuration established. AI: No explicit AI attribution in inspected source/header/README; bounded inspection cannot establish non-use. Relationships: Same game as the already tracked Spectrum disassembly, but independently recovered C64 code. Group original and notzed-enhanced folders as one lineage. The selected path points to the annotated version; older Source Code folder is rough disassembly, not developer source. Second City not established. Evidence: https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas#L2317-L2319 https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/readme.txt https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas",
       "ai": {
         "usage": null,
         "tools": []
