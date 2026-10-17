@@ -1128,3 +1128,7 @@ Reviewed ten material upstream advances. **c64-re-tools** now spans deterministi
 ## 2026-10-17 — Qualify Mercenary source quality and replace the Plus/4 download blocker with inspected archive findings.
 
 [Research record](docs/research/2026-10-17-mercenary-source-quality-review.md).
+
+## 2026-10-18 — Add 41 reviewed retro projects across home computers, consoles, PCs, operating systems, applications and development tools.
+
+[Research record](docs/research/2026-10-18-wide-cross-platform-discovery.md).
