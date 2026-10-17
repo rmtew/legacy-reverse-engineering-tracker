@@ -41559,48 +41559,82 @@
     },
     {
       "project_id": "mercenary-spectrum-disassembly-mikedailly",
-      "last_reviewed": "2026-09-30",
+      "last_reviewed": "2026-10-17",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Primary code and author documentation identify the game and version."
+          "checked_at": "2026-10-17",
+          "note": "SkoolKit-derived Mercenary disassembly plus Spectrum Next rendering/load-save enhancements. Useful algorithmic comments describe rasterizer clipping, error accumulation and alternating pixels; the main loop identifies room/object transforms and collision. Semantic coverage is uneven: Lca1d is explicitly unknown and address-only routines such as Ld86b/Ld8ac remain unexplained. Not a fully understood source restoration.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L10553-L10622",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L11604-L11664",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L11614-L11664"
+          ]
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Mike Dailly disassembled David Aubrey-Jones’s ZX Spectrum Mercenary using SkoolKit, then patched rendering and loading for ZX Spectrum Next. Repository contains mercenary.asm, SkoolKit files and patches; author publishes a V1.1 release. This is the original Mercenary, not the Atari ST/Amiga Damocles or Mercenary III binaries."
+          "checked_at": "2026-10-17",
+          "note": "SkoolKit annotated disassembly plus a source-built enhancement/patch layer; neither original author source nor fully explained reconstruction. Graphics DEFB tables are legitimate data and are not evidence of missing code.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L10553-L10622",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L11604-L11664",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary_game.asm#L11614-L11664"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Source architecture documented for analyzed version."
+          "checked_at": "2026-10-17",
+          "note": "Source architecture documented for analyzed version.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/ReadMe.txt"
+          ]
         },
         "target_cpu": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "mercenary.asm explicitly selects ZXNEXT/Z80N mode and uses NextReg, 14 MHz and Layer 2."
+          "checked_at": "2026-10-17",
+          "note": "mercenary.asm explicitly selects ZXNEXT/Z80N mode and uses NextReg, 14 MHz and Layer 2.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/ReadMe.txt"
+          ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Public developer report or release supports stated status; otherwise unknown."
+          "checked_at": "2026-10-17",
+          "note": "Configured output is mercenary.nex for Spectrum Next using SNasm and CSpect, including checked-in assembly and enhancement patches. The snapshot-to-Skool regeneration in a.bat expects m.z80, absent from the inspected public tree; generated ASM is checked in. Scripts hard-code developer paths. Existing runnable/playable fields reflect upstream release claims, not an independent test in this pass; no original byte-identical rebuild established.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/a.bat",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm"
+          ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "The V1.1 README reports load/save fixed on real ZX Spectrum Next hardware; no RAM minimum is stated."
+          "checked_at": "2026-10-17",
+          "note": "The V1.1 README reports load/save fixed on real ZX Spectrum Next hardware; no RAM minimum is stated.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/ReadMe.txt"
+          ]
         },
         "ai": {
           "state": "no-evidence-found",
-          "checked_at": "2026-09-28",
-          "note": "No explicit AI usage evidence in primary project pages."
+          "checked_at": "2026-10-17",
+          "note": "No explicit AI usage evidence in primary project pages.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/ReadMe.txt"
+          ]
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-28",
-          "note": "Version and predecessor distinction documented in notes."
+          "checked_at": "2026-10-17",
+          "note": "Version and predecessor distinction documented in notes.",
+          "evidence_urls": [
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/mercenary.asm",
+            "https://github.com/mikedailly/MercenaryDisassembly/blob/466758cfbeedff945afee1e3aedbc6e572e284cd/ReadMe.txt"
+          ]
         }
       },
       "next_actions": []
@@ -142451,18 +142485,18 @@
         "identity": {
           "state": "reviewed",
           "checked_at": "2026-10-17",
-          "note": "Substantive game disassembly: 325285-byte annotated notzed .tas, original V15 .tas 397690 bytes; object, rendering, world, game-loop and Benson script logic. Related version folders and viewers must be grouped as one lineage, not separate reconstructions. Mercenary Source Code/merc_build_01.tas is an older rough disassembly despite directory name, not original developer source.",
+          "note": "Partial C64 Mercenary disassembly with useful notzed annotations, not fully restored source. Intro is excluded. Uneven semantic naming and opaque executable regions remain: startup code at $80BA-$80E7 is emitted as .byte directives rather than decoded instructions. This specific code gap is distinct from legitimate font, room, model and script data tables.",
           "evidence_urls": [
-            "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas",
+            "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas#L2317-L2319",
             "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/readme.txt"
           ]
         },
         "classification": {
           "state": "reviewed",
           "checked_at": "2026-10-17",
-          "note": "README says game only, intro removed for clarity, assembles with TAS and starts SYS 16384. Author 2023 report says playable after intro but sound impaired; annotations were partial. No current build, run, byte-equivalence or completion test performed. Do not claim Second City coverage. No license file in recursive repository tree and repository metadata license is null; original game rights not granted.",
+          "note": "Binary-derived partial disassembly. Assembly output and meaningful comments in some routines do not establish complete instruction decoding or complete understanding. Retain as a limited reference, not a finished-source recommendation.",
           "evidence_urls": [
-            "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas",
+            "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas#L2317-L2319",
             "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/readme.txt"
           ]
         },
@@ -142487,7 +142521,7 @@
         "build": {
           "state": "reviewed",
           "checked_at": "2026-10-17",
-          "note": "64tass v1.57.2900; --ascii --case-sensitive -Wall --nostart, .cpu 6502; supplied PRGs/listings No independent assembly, gameplay or byte-identity verification performed; corresponding flags remain unknown.",
+          "note": "64tass v1.57.2900; --ascii --case-sensitive -Wall --nostart, .cpu 6502; supplied PRGs/listings No independent assembly, gameplay or byte-identity verification performed; corresponding flags remain unknown. Successful assembly would not by itself resolve source-quality gaps; raw executable byte blocks can preserve output without explaining code.",
           "evidence_urls": [
             "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/mercenary_v260411.tas",
             "https://github.com/Ian-McG-1970/c64/blob/68ef2fa593fd014866483a704d1edab3d972e297/Mercenary%20notzed/readme.txt"
