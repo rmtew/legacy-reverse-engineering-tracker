@@ -996,3 +996,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-17 — Add twelve DOS-related game projects covering original sources, a matching reconstruction, native homebrew and an original-source Linux port.
 
 [Research record](docs/research/2026-10-17-dos-game-discovery.md).
+
+## 2026-10-17 — Add five verified source/disassembly projects for Rex, MASK III, Mercenary and Starglider II; record requested-title coverage and a Plus/4 archive lead.
+
+[Research record](docs/research/2026-10-17-targeted-game-source-discovery.md).
