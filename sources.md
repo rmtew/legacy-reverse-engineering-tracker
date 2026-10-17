@@ -988,3 +988,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-17 — Add thirteen source-available Amstrad CPC game projects, including preserved Crazy Worm source, native arcade/puzzle games and development projects.
 
 [Research record](docs/research/2026-10-17-cpc-game-discovery.md).
+
+## 2026-10-17 — Add ten native Amiga game, source-preservation and enhancement projects from release pages, developer links and the Amiga Sources catalogue.
+
+[Research record](docs/research/2026-10-17-amiga-game-discovery-4.md).
