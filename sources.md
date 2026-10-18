@@ -4,6 +4,16 @@
 
 | Source | Reason |
 |---|---|
+| https://github.com/pappadf/lisa-c | lisa-c — Apple Lisa 68000 C cross-development environment with custom object, filesystem, runtime and emulator-test tooling. |
+| https://github.com/pappadf/lisa-paint | LisaPaint — original native Lisa Office System painting application built with lisa-c. |
+| https://github.com/skoolkid/pyskool | Pyskool — configurable Python/Pygame reimplementation of Skool Daze and Back to Skool with three remix variants. |
+| https://github.com/skoolkid/t2sfiles | t2sfiles — SkoolKit pristine-snapshot corpus plus Z80 register/RAM and tape-variant analysis tooling. |
+| https://github.com/maylay/sg1000 | Excluded after review: direct fork of the already reviewed Soggy-1000 hardware-clone repository, with no distinct retro-software contribution established. |
+| https://github.com/kvanderlaag/sg1000 | Excluded after review: direct Soggy-1000 hardware fork rather than a distinct retro-software project. |
+| https://github.com/VWarlock/SEGA_sg1000 | Excluded after review: direct Soggy-1000 hardware fork focused on board/BOM revisions. |
+| https://github.com/txuswashere/Homebrew | Excluded after review: third-party multi-system ROM collection without source or a verified distinct development contribution. |
+| https://github.com/skoolkid/conan2-13692 | Excluded after review: zero-size repository with no public project artifact to verify. |
+| https://github.com/skoolkid/ZXDB | Excluded after review: unchanged fork of the canonical general Spectrum metadata database, with no distinct fork contribution established. |
 | https://github.com/tom-seddon/b2 | b2 — BBC Micro-family emulator with integrated debugger and HTTP remote-control API. |
 | https://github.com/vs-sr-dev/7800kit | 7800kit — Atari 7800 SALLY/6502 analysis, static recompilation and replacement-runtime toolkit. |
 | https://github.com/vs-sr-dev/saturnkit | saturnkit — shared Sega Saturn SH-2/68000 analysis, recompilation and native-port runtime. |

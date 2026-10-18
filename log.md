@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-19 — SkoolKit profile and Apple Lisa development tooling
+
+Completed the current 13-repository **skoolkid** profile inventory. Nine repositories were already tracked; the review promoted **Pyskool — Skool Daze / Back to Skool reimplementation** and **t2sfiles — pristine ZX Spectrum snapshot corpus and analysis tools**. Pyskool’s Python 3.10+/Pygame 2.0.2+ runtime is explicit, and its latest reviewed commit carries a Claude Opus 5.5 co-author trailer. t2sfiles combines reproducible tape-to-snapshot recipes with Z80 register/RAM comparison and preservation utilities. The empty `conan2-13692` repository and unchanged `skoolkid/ZXDB` metadata fork were recorded as exclusions; the wider SkoolKit graph task remains open for other authors and canonical mirrors.
+
+The independent fresh-search slice used exact GitHub repository queries `TI-99/4A disassembly reconstruction`, `SG-1000 disassembly reassembly` and `Apple Lisa development toolkit homebrew`, followed by `ti99 disassembly`, `sg1000 homebrew` and `apple lisa development`. The TI route returned no repositories. The SG-1000 route resolved to the previously reviewed Soggy-1000 hardware clone, three direct hardware-project forks and a third-party ROM collection; the four new URLs were excluded after primary review. The Lisa route promoted **lisa-c — Apple Lisa C cross-development toolkit** and the distinct original-homebrew **LisaPaint — native Apple Lisa painting application**.
+
+The CPU audit queue was empty before selection. lisa-c and LisaPaint record 68000 output only because the checked cross-build uses `-m68000`; t2sfiles records Z80 input from its explicit register/snapshot implementation; Pyskool receives no inferred source or host CPU. Runtime profiles retain documented software/OS requirements without inventing RAM floors. No candidate was independently built or executed.
+
 ## 2026-10-17 — Reverse-debugging, reconstruction and emulator correctness
 
 Reviewed ten materially changed projects. **CPCSyntaxError — CPC/Plus cycle-level emulator** adds deterministic rewind, input movies, a logic analyser and raster-timing overlay while preserving byte-identical SHAKER output. **Amiberry — general Amiga machine emulator** expands its WinUAE-derived remote monitor, and **TRX64 — C64 reverse-debugging emulator/runtime** adds Action Replay V5/V6 freeze/return behavior with real-image state regressions. **Copperline — Amiga emulator & reverse debugger** corrects Fat Gary warm-reset COLDBOOT semantics.

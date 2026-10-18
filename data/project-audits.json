@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexed_at": "2026-10-18",
+  "indexed_at": "2026-10-19",
   "area_names": [
     "identity",
     "classification",
@@ -222620,6 +222620,292 @@
             "https://github.com/DracoDrake/CenturionJS/blob/d9ec37a17f15d922c1d675d34f8b9542b94e68d2/package.json",
             "https://github.com/DracoDrake/CenturionJS/blob/d9ec37a17f15d922c1d675d34f8b9542b94e68d2/LICENSE",
             "https://github.com/DracoDrake/CenturionJS/commit/d9ec37a17f15d922c1d675d34f8b9542b94e68d2"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "lisa-c-apple-lisa-cross-development",
+      "last_reviewed": "2026-10-19",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Canonical README, root tree, Makefile and custom object/disk/runtime tools establish a coherent Apple Lisa cross-development environment.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/README.md"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Original development tooling, not a reverse-engineered application or game.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/tools/elf2lisa.py"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-19",
+          "note": "No recovered original binary is the input subject; this is original cross-development tooling."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "The checked build uses Retro68 GCC with `-m68000` for runtime, libraries and applications.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README and Makefile document toolchain, object, disk, run and test routes. Upstream says tests pass; no independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/README.md",
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "68000 output and LOS 3.x/Workshop 3.0 execution are explicit. A 1 MiB compatibility fix is documented, but no universal minimum RAM is claimed.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/commit/3dea65363fdaa59e5610071d77a5e24254866f7a"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-19",
+          "note": "README permits AI-assisted work but explicitly does not track contribution-level use. Agent configuration and the latest commit provide no explicit contribution attribution.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/README.md",
+            "https://github.com/pappadf/lisa-c/commit/3dea65363fdaa59e5610071d77a5e24254866f7a"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Uses Retro68 and granny-smith; LisaPaint is a distinct application consuming lisa-c as a submodule.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "lisapaint-apple-lisa-native-application",
+      "last_reviewed": "2026-10-19",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README and source tree establish a complete native Lisa painting application with its own document format and tooling.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/README.md",
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/src/main.c"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Original Apple Lisa homebrew application; no claim of binary-derived reconstruction.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-19",
+          "note": "Original application source, not recovery from a predecessor binary."
+        },
+        "target_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "LisaPaint uses lisa-c, whose checked Makefile builds all application objects with `-m68000`.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/Makefile",
+            "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/Makefile"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Makefile builds a DC42 floppy through lisa-c and documents run/demo/serve routes. No independent build or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/Makefile"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "LOS 3.x, 68000 output and a real-Lisa disk route are explicit; no RAM minimum is stated.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-19",
+          "note": "README permits AI assistance but says contribution-level use is not tracked. The latest commit has no explicit AI attribution.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/README.md",
+            "https://github.com/pappadf/lisa-paint/commit/09413f57a1bf664d48b5f2317a0f513ceebd5276"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Distinct application that pins lisa-c as a submodule and serves as its documented full application example.",
+          "evidence_urls": [
+            "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "pyskool-skool-daze-reimplementation",
+      "last_reviewed": "2026-10-19",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README, packaging and implementation tree establish a maintained five-variant Skool Daze/Back to Skool game project.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/README.md",
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/pyskool/game.py"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README and setup.py explicitly call it a Python/Pygame reimplementation; no byte-exact or binary-derived claim is made.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/setup.py"
+          ]
+        },
+        "source_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-19",
+          "note": "The originals are identified by platform, but reviewed primary material does not establish binary-derived work; no source CPU is assigned by inference."
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-19",
+          "note": "OS-independent Python/Pygame execution has no fixed native output CPU.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/setup.py"
+          ]
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README and setup.py document asset setup and five launchers. No independent installation or execution was performed.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/README.md",
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/setup.py"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Python 3.10+ and Pygame 2.0.2+ are explicit; no host CPU or RAM minimum is stated.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/setup.py"
+          ]
+        },
+        "ai": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Latest reviewed commit carries an explicit Claude Opus 5.5 co-author trailer.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/commit/e0ca479f264b94e7076f736a404754f8d70f57b4"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Same author/profile as the tracked SkoolKit disassemblies, but a distinct runnable reimplementation rather than another disassembly record.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/README.md"
+          ]
+        }
+      },
+      "next_actions": []
+    },
+    {
+      "project_id": "t2sfiles-spectrum-snapshot-analysis",
+      "last_reviewed": "2026-10-19",
+      "overall_state": "reviewed",
+      "areas": {
+        "identity": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README and complete root/tool inventories establish a coherent snapshot-generation corpus plus substantial preservation-analysis tools.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md",
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/tools/z80diff.py"
+          ]
+        },
+        "classification": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Game-agnostic software-preservation and binary/data-analysis tooling; individual referenced games are not promoted from the corpus alone.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md"
+          ]
+        },
+        "source_cpu": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "The checked z80diff implementation explicitly compares Z80 register state, Z80 snapshot headers and 48K/128K RAM snapshots from loaded programs.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/tools/z80diff.py"
+          ]
+        },
+        "target_cpu": {
+          "state": "not-applicable",
+          "checked_at": "2026-10-19",
+          "note": "The workflow emits snapshot/data artifacts rather than a native executable for a fixed output CPU."
+        },
+        "build": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "README documents tap2sna invocation and the repository contains Python/C/Shell companion tools. No script, download or snapshot generation was run.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md",
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/tools/libz80diff.c"
+          ]
+        },
+        "runtime_profiles": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "SkoolKit 10.0+ is explicit. No host CPU, RAM or OS minimum is stated.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md"
+          ]
+        },
+        "ai": {
+          "state": "no-evidence-found",
+          "checked_at": "2026-10-19",
+          "note": "README, tool inventory and latest full commit message/trailers were reviewed; no explicit generative-AI contribution attribution was found. This does not establish non-use.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md",
+            "https://github.com/skoolkid/t2sfiles/commit/8f362331ab1e890f6a9084fe5e003b12ec744919"
+          ]
+        },
+        "relationships": {
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Consumes tracked SkoolKit tools and ZXDB metadata but is a distinct curated corpus and preservation-analysis workflow.",
+          "evidence_urls": [
+            "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md"
           ]
         }
       },

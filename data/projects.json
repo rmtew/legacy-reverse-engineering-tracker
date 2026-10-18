@@ -277470,5 +277470,398 @@
       }
     },
     "last_activity": "2024-05-05"
+  },
+  {
+    "id": "lisa-c-apple-lisa-cross-development",
+    "title": "lisa-c",
+    "upstream_name": "lisa-c",
+    "display_title": "lisa-c — Apple Lisa C cross-development toolkit",
+    "subjects": [],
+    "repo": "https://github.com/pappadf/lisa-c",
+    "source_platforms": [],
+    "target_platforms": [
+      "Apple Lisa"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "Motorola 68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Lisa Office System / Workshop output",
+        "platform": "Apple Lisa",
+        "cpu_family": "Motorola 68000",
+        "min_cpu": "68000",
+        "os": "Lisa Office System 3.x or Workshop 3.0",
+        "notes": "The checked Makefile compiles every runtime and program object with Retro68 GCC `-m68000`; the README documents LOS 3.1 and Workshop 3.0 execution. The latest commit explicitly repairs a 1 MiB Lisa case, but it does not state that 1 MiB is a universal minimum, so no min_ram_kib is recorded.",
+        "evidence": [
+          "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/README.md",
+          "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/Makefile",
+          "https://github.com/pappadf/lisa-c/commit/3dea65363fdaa59e5610071d77a5e24254866f7a"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "Motorola 68000 assembly",
+      "Python",
+      "Makefile"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [],
+    "tool_kinds": [
+      "compiler-toolchain",
+      "disk-filesystem-tool",
+      "binary-analysis",
+      "development-environment"
+    ],
+    "types": [
+      "Retro development tool",
+      "cross-development environment"
+    ],
+    "re_started": null,
+    "last_activity": "2026-10-12",
+    "last_checked": "2026-10-19",
+    "status": "Primary source reviewed; upstream documents build and emulator tests; independent build/run not performed",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "cross-compilation",
+      "object-format conversion",
+      "filesystem image generation",
+      "emulator-assisted testing"
+    ],
+    "tags": [
+      "Apple Lisa",
+      "Motorola 68000",
+      "Lisa Office System",
+      "source-reviewed"
+    ],
+    "notes": "C cross-development environment for the Apple Lisa Office System and Workshop. Retro68 GCC emits 68000-only code; custom link/object tools produce Lisa executable records, host tools create and inspect 400K LOS disk images, and the runtime exposes OS calls, intrinsic libraries, desktop-tool protocols and configurable drivers. The README documents screenshot-driven emulator tests and says they pass, but no build or execution was repeated here. The README explicitly permits AI-assisted work without tracking which contributions used it; agent configuration alone is not treated as contribution evidence, so actual use remains unknown. MIT licensed.",
+    "github": {
+      "repository": "pappadf/lisa-c",
+      "created_at": "2026-10-10",
+      "pushed_at": "2026-10-12",
+      "updated_at": "2026-10-12",
+      "checked_at": "2026-10-19",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "latest_commit": {
+        "sha": "3dea65363fdaa59e5610071d77a5e24254866f7a",
+        "date": "2026-10-12",
+        "message": "Link __lisa_init into SEG1; RAM= for run-los-tool.sh",
+        "url": "https://github.com/pappadf/lisa-c/commit/3dea65363fdaa59e5610071d77a5e24254866f7a"
+      }
+    }
+  },
+  {
+    "id": "lisapaint-apple-lisa-native-application",
+    "title": "LisaPaint",
+    "upstream_name": "LisaPaint",
+    "display_title": "LisaPaint — native Apple Lisa painting application",
+    "subjects": [
+      "LisaPaint"
+    ],
+    "repo": "https://github.com/pappadf/lisa-paint",
+    "source_platforms": [],
+    "target_platforms": [
+      "Apple Lisa"
+    ],
+    "source_cpu": [],
+    "target_cpu": [
+      "Motorola 68000"
+    ],
+    "runtime_profiles": [
+      {
+        "name": "Lisa Office System application",
+        "platform": "Apple Lisa",
+        "cpu_family": "Motorola 68000",
+        "min_cpu": "68000",
+        "os": "Lisa Office System 3.x",
+        "notes": "The application is built by lisa-c's explicit `-m68000` route and the README documents LOS 3.x plus a real-Lisa 400K disk path. No numerical RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/README.md",
+          "https://github.com/pappadf/lisa-paint/blob/09413f57a1bf664d48b5f2317a0f513ceebd5276/Makefile",
+          "https://github.com/pappadf/lisa-c/blob/3dea65363fdaa59e5610071d77a5e24254866f7a/Makefile"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "C",
+      "Lisa phrase resources",
+      "Python"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "application"
+    ],
+    "work_kinds": [],
+    "tool_kinds": [],
+    "types": [
+      "Original homebrew application"
+    ],
+    "re_started": null,
+    "last_activity": "2026-10-11",
+    "last_checked": "2026-10-19",
+    "status": "Primary source reviewed; upstream documents native and emulator use; independent build/run not performed",
+    "build": {
+      "compilable": true,
+      "runnable": true,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "native Lisa Office System application",
+      "cross-compilation",
+      "disk image generation"
+    ],
+    "tags": [
+      "Apple Lisa",
+      "Motorola 68000",
+      "original homebrew",
+      "source-reviewed"
+    ],
+    "notes": "Original MacPaint-style pixel-painting application for Lisa Office System 3.x, written in C and cross-compiled with lisa-c. Source implements native desktop-tool conventions, drawing tools, Lisa scrollbars and menus, document persistence, LisaPaint/MacPaint/PNG conversion and 400K floppy output. It is original homebrew and is not labelled reverse-engineered or RE-derived. The README documents emulator and real-Lisa delivery paths; no build or run was repeated here. Its README permits AI-assisted work without tracking contribution-level use, so actual AI use remains unknown. MIT licensed.",
+    "github": {
+      "repository": "pappadf/lisa-paint",
+      "created_at": "2026-10-10",
+      "pushed_at": "2026-10-11",
+      "updated_at": "2026-10-11",
+      "checked_at": "2026-10-19",
+      "default_branch": "main",
+      "tracking_branch": "main",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "C",
+      "activity_state": "active",
+      "latest_commit": {
+        "sha": "09413f57a1bf664d48b5f2317a0f513ceebd5276",
+        "date": "2026-10-11",
+        "message": "Add trademarks section to README",
+        "url": "https://github.com/pappadf/lisa-paint/commit/09413f57a1bf664d48b5f2317a0f513ceebd5276"
+      }
+    }
+  },
+  {
+    "id": "pyskool-skool-daze-reimplementation",
+    "title": "Pyskool",
+    "upstream_name": "Pyskool",
+    "display_title": "Pyskool — Skool Daze / Back to Skool reimplementation",
+    "subjects": [
+      "Skool Daze",
+      "Back to Skool"
+    ],
+    "repo": "https://github.com/skoolkid/pyskool",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [
+      "cross-platform desktop"
+    ],
+    "source_cpu": [],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "Python/Pygame release",
+        "platform": "Cross-platform desktop",
+        "os": "Python 3.10+ and Pygame 2.0.2+",
+        "notes": "setup.py marks the package OS-independent and explicitly requires Python 3.10+ and Pygame 2.0.2+. No host CPU or RAM minimum is stated.",
+        "evidence": [
+          "https://github.com/skoolkid/pyskool/blob/e0ca479f264b94e7076f736a404754f8d70f57b4/setup.py"
+        ]
+      }
+    ],
+    "source_language": [],
+    "reconstructed_languages": [
+      "Python",
+      "INI configuration"
+    ],
+    "record_class": "subject",
+    "target_kinds": [
+      "game"
+    ],
+    "work_kinds": [
+      "reimplementation"
+    ],
+    "tool_kinds": [],
+    "types": [
+      "Game reimplementation"
+    ],
+    "re_started": null,
+    "last_activity": "2026-10-17",
+    "last_checked": "2026-10-19",
+    "status": "Maintained playable reimplementation; primary source reviewed; independent run not performed",
+    "build": {
+      "compilable": null,
+      "runnable": true,
+      "playable": true,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": true,
+      "tools": [
+        "Claude",
+        "Claude Opus 5.5"
+      ],
+      "evidence": [
+        "Latest reviewed commit explicitly includes `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`: https://github.com/skoolkid/pyskool/commit/e0ca479f264b94e7076f736a404754f8d70f57b4"
+      ]
+    },
+    "techniques": [
+      "high-level reimplementation",
+      "configuration-driven customization"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "Skool Daze",
+      "Back to Skool",
+      "Pygame",
+      "source-reviewed"
+    ],
+    "notes": "Python/Pygame reimplementation of Skool Daze and Back to Skool, plus three remix variants, designed for configuration and code customization. setup.py documents Python 3.10+, Pygame 2.0.2+ and five playable launchers; the repository contains substantive game, character, timetable, world and asset-generation modules. It is a reimplementation, not a byte-exact reconstruction and no original CPU architecture is assigned without binary-derivation evidence. The latest reviewed commit explicitly credits Claude Opus 5.5 as co-author. GPL-3.0.",
+    "github": {
+      "repository": "skoolkid/pyskool",
+      "created_at": "2013-03-24",
+      "pushed_at": "2026-10-17",
+      "updated_at": "2026-10-17",
+      "checked_at": "2026-10-19",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "latest_commit": {
+        "sha": "e0ca479f264b94e7076f736a404754f8d70f57b4",
+        "date": "2026-10-17",
+        "message": "Add tests/test_mods.py",
+        "url": "https://github.com/skoolkid/pyskool/commit/e0ca479f264b94e7076f736a404754f8d70f57b4"
+      }
+    }
+  },
+  {
+    "id": "t2sfiles-spectrum-snapshot-analysis",
+    "title": "t2sfiles",
+    "upstream_name": "t2sfiles",
+    "display_title": "t2sfiles — pristine ZX Spectrum snapshot corpus and analysis tools",
+    "subjects": [
+      "ZX Spectrum tape software"
+    ],
+    "repo": "https://github.com/skoolkid/t2sfiles",
+    "source_platforms": [
+      "ZX Spectrum"
+    ],
+    "target_platforms": [
+      "ZX Spectrum snapshot files"
+    ],
+    "source_cpu": [
+      "Zilog Z80"
+    ],
+    "target_cpu": [],
+    "runtime_profiles": [
+      {
+        "name": "SkoolKit snapshot-generation workflow",
+        "platform": "Cross-platform host",
+        "os": "SkoolKit 10.0+",
+        "notes": "README explicitly requires SkoolKit 10.0+ for tap2sna-based snapshot generation. It states no host CPU, RAM or OS minimum.",
+        "evidence": [
+          "https://github.com/skoolkid/t2sfiles/blob/8f362331ab1e890f6a9084fe5e003b12ec744919/README.md"
+        ]
+      }
+    ],
+    "source_language": [
+      "Z80 machine code",
+      "TAP/TZX tape data"
+    ],
+    "reconstructed_languages": [
+      "SkoolKit argument files",
+      "Python",
+      "C",
+      "Shell"
+    ],
+    "record_class": "tooling",
+    "target_kinds": [],
+    "work_kinds": [
+      "binary-analysis",
+      "data-format-analysis"
+    ],
+    "tool_kinds": [
+      "binary-analysis",
+      "automation"
+    ],
+    "types": [
+      "Software preservation tooling",
+      "snapshot analysis corpus"
+    ],
+    "re_started": null,
+    "last_activity": "2026-10-04",
+    "last_checked": "2026-10-19",
+    "status": "Maintained preservation corpus and tools; primary source reviewed; independent run not performed",
+    "build": {
+      "compilable": null,
+      "runnable": null,
+      "playable": null,
+      "byte_exact": null
+    },
+    "ai": {
+      "usage": null,
+      "tools": []
+    },
+    "techniques": [
+      "simulated tape loading",
+      "execution tracing",
+      "snapshot comparison",
+      "register and RAM differencing"
+    ],
+    "tags": [
+      "ZX Spectrum",
+      "Z80",
+      "SkoolKit",
+      "software preservation",
+      "source-reviewed"
+    ],
+    "notes": "Large corpus of SkoolKit tap2sna argument files that reproducibly downloads identified TAP/TZX media, checks tape hashes, simulates loaders and stops at the first post-loader instruction to create pristine ZX Spectrum snapshots. Companion Python/C/Shell tools compare Z80 register, machine-state and RAM snapshots, analyze tape variants and synchronize ZXDB metadata. This is game-agnostic preservation and binary/data-analysis infrastructure, not a separate reconstruction of every referenced game. SkoolKit 10.0+ is explicit; no host hardware minimum or fixed output CPU is stated. No scripts or downloads were run in this review.",
+    "github": {
+      "repository": "skoolkid/t2sfiles",
+      "created_at": "2023-02-12",
+      "pushed_at": "2026-10-04",
+      "updated_at": "2026-10-04",
+      "checked_at": "2026-10-19",
+      "default_branch": "master",
+      "tracking_branch": "master",
+      "tracking_path": null,
+      "archived": false,
+      "fork": false,
+      "primary_language": "Python",
+      "activity_state": "active",
+      "latest_commit": {
+        "sha": "8f362331ab1e890f6a9084fe5e003b12ec744919",
+        "date": "2026-10-04",
+        "message": "Add t2s files for games in the latest ZXDB update (1.0.241)",
+        "url": "https://github.com/skoolkid/t2sfiles/commit/8f362331ab1e890f6a9084fe5e003b12ec744919"
+      }
+    }
   }
 ]
