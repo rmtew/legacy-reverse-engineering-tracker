@@ -7,9 +7,21 @@ on:
   workflow_dispatch:
     inputs:
       records:
-        description: Maximum records in this bounded slice (1-100)
+        description: Optional total project cap; 0 uses separate work limits
         type: string
-        default: "20"
+        default: "0"
+      doc_records:
+        description: Document work cap (0-256); requests/time remain global
+        type: string
+        default: "64"
+      ci_records:
+        description: Cheap CI work cap (0-256); independent of documents
+        type: string
+        default: "60"
+      api_requests:
+        description: GitHub API ceiling within the HTTP budget (0-200)
+        type: string
+        default: "80"
       requests:
         description: HTTP request budget (0-1000)
         type: string
@@ -45,13 +57,17 @@ jobs:
       - name: Collect one bounded evidence slice
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ENRICH_RECORDS: ${{ inputs.records || '20' }}
+          ENRICH_RECORDS: ${{ inputs.records || '0' }}
+          ENRICH_DOC_RECORDS: ${{ inputs.doc_records || '64' }}
+          ENRICH_CI_RECORDS: ${{ inputs.ci_records || '60' }}
+          ENRICH_API_REQUESTS: ${{ inputs.api_requests || '80' }}
           ENRICH_REQUESTS: ${{ inputs.requests || '300' }}
           ENRICH_SECONDS: ${{ inputs.seconds || '600' }}
         run: >-
           python -u tools/enrich_evidence.py collect
           --bundle "$RUNNER_TEMP/enrichment-bundle.json"
-          --records "$ENRICH_RECORDS" --requests "$ENRICH_REQUESTS" --seconds "$ENRICH_SECONDS"
+          --records "$ENRICH_RECORDS" --doc-records "$ENRICH_DOC_RECORDS" --ci-records "$ENRICH_CI_RECORDS"
+          --requests "$ENRICH_REQUESTS" --api-requests "$ENRICH_API_REQUESTS" --seconds "$ENRICH_SECONDS"
 
       - name: Publish completed results and progress together
         run: |

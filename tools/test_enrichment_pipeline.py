@@ -69,17 +69,20 @@ class EnrichmentTests(unittest.TestCase):
         self.quiet.__enter__()
         self.addCleanup(self.quiet.__exit__, None, None, None)
 
-    def collect(self, *, state=None, records=None, now=NOW, limit=20, requests=300, seconds=600):
+    def collect(self, *, state=None, records=None, now=NOW, limit=20, requests=300, seconds=600, polling=None, docs_limit=64, ci_limit=60, api_requests=80):
         if records is not None:
             write_projects(self.root / 'data/projects.json', records)
         if state is not None:
             path = self.root / pipeline.STATE
             path.parent.mkdir(exist_ok=True)
             path.write_bytes(encode(state))
+        if polling is not None:
+            path=self.root/'state/github-poll-state.json';path.parent.mkdir(exist_ok=True)
+            path.write_bytes(encode({'repositories':polling}))
         self.bundle.unlink(missing_ok=True)
-        budget = pipeline.Budget(seconds, requests, clock=self.network.clock)
+        budget = pipeline.Budget(seconds, requests, api_requests=api_requests, clock=self.network.clock)
         client = pipeline.Client(budget, opener=self.network.open, token='')
-        result = pipeline.collect(self.root, self.bundle, budget, now=now, limit=limit, client=client)
+        result = pipeline.collect(self.root, self.bundle, budget, now=now, limit=limit, client=client, docs_limit=docs_limit, ci_limit=ci_limit)
         return result, budget
 
     def complete_one(self):
@@ -106,17 +109,17 @@ class EnrichmentTests(unittest.TestCase):
         changed = copy.deepcopy(records)
         changed[0]['github'] = {'pushed_at':'2026-10-19T01:00:00Z'}
         self.assertIn('a',[p['id'] for p in pipeline.select(changed,state,NOW)])
-        self.assertIn('a',[p['id'] for p in pipeline.select(records,state,NOW+timedelta(days=8))])
+        self.assertIn('a',[p['id'] for p in pipeline.select(records,state,NOW+timedelta(days=31))])
 
     def test_request_budget_reserves_complete_record_and_stops_cleanly(self):
         bundle, budget = self.collect(requests=20)
         self.assertEqual(bundle['summary']['completed'],1)
         self.assertLessEqual(budget.requests,20)
-        self.assertEqual(bundle['results'][1]['status'],'deferred')
+        self.assertEqual(bundle['results'][1]['status'],'partial')
         self.assertNotIn('fingerprint',bundle['results'][1]['state_after'])
         records,state,_=pipeline.replay(self.records,self.state,bundle)
         self.assertEqual(state['records']['a']['fingerprint'],pipeline.fingerprint(records[0]))
-        self.assertEqual([p['id'] for p in pipeline.select(records,state,NOW)],['c','b'])
+        self.assertEqual([p['id'] for p in pipeline.select(records,state,NOW)],['b','c'])
 
     def test_zero_requests_advances_no_record(self):
         bundle,budget=self.collect(requests=0)
@@ -126,7 +129,7 @@ class EnrichmentTests(unittest.TestCase):
     def test_deadline_mid_record_keeps_prior_evidence_and_no_completion(self):
         records,state=self.complete_one()
         self.network.commit='b'*40;self.network.delay=.3
-        bundle,budget=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2),seconds=.5,limit=1)
+        bundle,budget=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=31),seconds=.5,limit=1)
         self.assertEqual(bundle['summary']['completed'],0)
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
         self.assertEqual(replayed,[records[0]])
@@ -137,18 +140,18 @@ class EnrichmentTests(unittest.TestCase):
         records,state=self.complete_one()
         self.network.failure='/README.md'
         self.network.commit='b'*40
-        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2))
+        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=31))
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
         self.assertEqual(replayed,[records[0]])
         entry=after['records']['a']
         self.assertEqual(entry['docs_key'],state['records']['a']['docs_key'])
-        self.assertEqual(pipeline.select(replayed,after,NOW+timedelta(days=2)),[])
-        self.assertGreater(pipeline.parsed(entry['retry_at']),NOW+timedelta(days=2))
+        self.assertEqual(pipeline.select(replayed,after,NOW+timedelta(days=31)),[])
+        self.assertGreater(pipeline.parsed(entry['retry_at']),NOW+timedelta(days=31))
 
     def test_genuine_absence_retracts_previous_automated_claims(self):
         records,state=self.complete_one()
         self.network.commit='b'*40;self.network.document=None
-        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2))
+        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=31))
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
         self.assertEqual(bundle['summary']['completed'],1)
         self.assertIsNone(replayed[0]['build']['compilable'])
@@ -159,28 +162,32 @@ class EnrichmentTests(unittest.TestCase):
     def test_unchanged_docs_reused_while_ci_refreshes_without_project_rewrite(self):
         records,state=self.complete_one()
         self.network.calls=[]
-        bundle,budget=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2))
-        self.assertEqual(budget.requests,2)
+        bundle,budget=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=8))
+        self.assertEqual(budget.requests,1)
         self.assertFalse(any('raw.githubusercontent.com' in url for url,_ in self.network.calls))
         self.assertEqual(bundle['results'][0]['patch'],[])
-        self.assertGreater(budget.cache_hits,0)
+        self.assertFalse(any('/git/ref/' in url for url,_ in self.network.calls))
+        self.assertEqual(bundle['summary']['docs_completed'],0)
+        self.assertEqual(bundle['summary']['ci_completed'],1)
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
         self.assertEqual(replayed,[records[0]])
         self.assertGreater(after['records']['a']['ci_checked_at'],state['records']['a']['ci_checked_at'])
+        self.assertEqual(after['records']['a']['docs_checked_at'],state['records']['a']['docs_checked_at'])
+        self.assertEqual(after['records']['a']['last_attempt_at'],state['records']['a']['last_attempt_at'])
 
     def test_empty_document_result_is_also_cached(self):
         self.network.document=None
         bundle,_=self.collect(records=[self.records[0]])
         records,state,_=pipeline.replay([self.records[0]],self.state,bundle)
         self.network.calls=[]
-        again,budget=self.collect(records=records,state=state,now=NOW+timedelta(days=2))
+        again,budget=self.collect(records=records,state=state,now=NOW+timedelta(days=31))
         self.assertEqual(budget.requests,2)
         self.assertEqual(again['results'][0]['patch'],[])
 
     def test_ci_error_does_not_turn_into_successful_empty_result(self):
         records,state=self.complete_one()
         self.network.failure='/actions/runs?'
-        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2))
+        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=31))
         self.assertEqual(bundle['summary']['completed'],0)
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
         self.assertEqual(replayed,[records[0]])
@@ -195,7 +202,8 @@ class EnrichmentTests(unittest.TestCase):
         self.network.open=limited
         bundle,_=self.collect()
         self.assertEqual([r['id'] for r in bundle['results']],['a','b'])
-        self.assertEqual(bundle['summary']['completed'],1)
+        self.assertEqual(bundle['summary']['ci_completed'],1)
+        self.assertEqual(bundle['summary']['docs_completed'],0)
 
     def test_replay_keeps_concurrent_unrelated_edits_and_requires_no_network(self):
         bundle,_=self.collect(limit=1)
@@ -237,7 +245,7 @@ class EnrichmentTests(unittest.TestCase):
 
     def test_removed_records_pruned_and_state_has_no_evidence_copy_or_history(self):
         records,state=self.complete_one()
-        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2))
+        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=31))
         _,after,_=pipeline.replay([],state,bundle)
         self.assertEqual(after['records'],{})
         for entry in state['records'].values():
@@ -288,7 +296,7 @@ class EnrichmentTests(unittest.TestCase):
         records,state=self.complete_one()
         self.network.commit='b'*40
         self.network.failure='/actions/runs?'
-        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=2))
+        bundle,_=self.collect(records=[records[0]],state=state,now=NOW+timedelta(days=31))
         self.assertEqual(bundle['results'][0]['status'],'partial')
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
         self.assertIn('b'*40,replayed[0]['evidence']['automated']['compilable'][0]['url'])
@@ -367,6 +375,136 @@ class EnrichmentTests(unittest.TestCase):
         self.assertFalse((staged/'state').exists())
 
 
+    def metadata(self, records):
+        return {pipeline.identity(r)['repo']:{
+            'last_seen_pushed_at':pipeline.stamp(NOW-timedelta(days=1)),
+            'last_probe_at':pipeline.stamp(NOW-timedelta(hours=1)),
+            'last_deep_scan':pipeline.stamp(NOW-timedelta(hours=2)),
+            'scan_requested':False, 'branches':{'main':{'tip_sha':SHA}}} for r in records}
+
+    def test_warm_ci_services_sixty_records_with_sixty_requests_and_no_heads(self):
+        records=[project(f'w{i:03}') for i in range(200)]
+        state={'version':1,'records':{r['id']:{
+            'fingerprint':pipeline.fingerprint(r),'docs_checked_at':pipeline.stamp(NOW),
+            'ci_fingerprint':pipeline.fingerprint(r),'ci_checked_at':pipeline.stamp(NOW-timedelta(days=8))} for r in records}}
+        bundle,budget=self.collect(records=records,state=state,limit=None)
+        self.assertEqual(bundle['summary']['ci_completed'],60)
+        self.assertEqual(bundle['summary']['docs_completed'],0)
+        self.assertEqual(bundle['summary']['completed'],60)
+        self.assertEqual(budget.requests,60);self.assertEqual(budget.api_requests,60)
+        self.assertTrue(all('/actions/runs?' in url for url,_ in self.network.calls))
+
+    def test_cold_backlog_uses_separate_ci_and_document_capacity(self):
+        records=[project(f'cold{i:03}') for i in range(200)]
+        bundle,budget=self.collect(records=records,limit=None)
+        self.assertEqual(bundle['summary']['ci_completed'],60)
+        self.assertEqual(bundle['summary']['docs_completed'],14)
+        self.assertLessEqual(budget.requests,300);self.assertLessEqual(budget.api_requests,80)
+        self.assertGreater(bundle['summary']['attempted'],20)
+        replayed,state,_=pipeline.replay(records,self.state,bundle)
+        self.assertEqual(sum('ci_checked_at' in e for e in state['records'].values()),60)
+        self.assertEqual(sum('docs_checked_at' in e for e in state['records'].values()),14)
+        next_ci=pipeline.select(replayed,state,NOW,work='ci')
+        self.assertEqual(next_ci[0]['id'],'cold060')
+
+    def test_priority_shares_reserve_oldest_overdue_work_under_changed_flood(self):
+        changed=[project(f'changed{i:03}') for i in range(100)]
+        old=[project(f'overdue{i:03}') for i in range(100)]
+        records=changed+old;state={'version':1,'records':{}}
+        for r in records:
+            fp=pipeline.digest('previous version') if r in changed else pipeline.fingerprint(r)
+            state['records'][r['id']]={'fingerprint':fp,'ci_fingerprint':fp,
+                'docs_checked_at':pipeline.stamp(NOW-timedelta(days=31)),
+                'ci_checked_at':pipeline.stamp(NOW-timedelta(days=8)),
+                'last_attempt_at':pipeline.stamp(NOW-timedelta(days=2)),
+                'ci_attempt_at':pipeline.stamp(NOW-timedelta(days=2))}
+        bundle,budget=self.collect(records=records,state=state,limit=None)
+        done=lambda prefix,work:sum(r['id'].startswith(prefix) and r['work'].get(work)=='complete' for r in bundle['results'])
+        self.assertEqual(done('changed','ci'),15)
+        self.assertEqual(done('overdue','ci'),45)
+        self.assertEqual(done('changed','docs'),7)
+        self.assertEqual(done('overdue','docs'),7)
+        self.assertLessEqual(budget.requests,300);self.assertLessEqual(budget.api_requests,80)
+        self.assertTrue(next(r for r in bundle['results'] if r['id']=='changed000')['work']['docs']=='complete')
+
+    def test_completed_poll_metadata_reuses_immutable_tip_without_head_request(self):
+        record=project('meta');record['github']={'latest_commit':{'sha':'b'*40}}
+        polling=self.metadata([record])
+        bundle,budget=self.collect(records=[record],polling=polling,limit=None)
+        self.assertEqual(bundle['summary']['docs_completed'],1)
+        self.assertFalse(any('/git/ref/' in url for url,_ in self.network.calls))
+        item=bundle['results'][0]
+        after,_,_=pipeline.replay([record],self.state,bundle,polling=polling)
+        self.assertIn(SHA,after[0]['evidence']['automated']['compilable'][0]['url'])
+        self.assertEqual(budget.requests,17)  # one CI + sixteen document paths
+
+    def test_pending_stale_or_incomplete_metadata_falls_back_to_head_lookup(self):
+        record=project('meta')
+        for mutate in [lambda r:r.update(scan_requested=True),
+                       lambda r:r.update(last_probe_at=pipeline.stamp(NOW-timedelta(hours=14))),
+                       lambda r:r.update(last_deep_scan=pipeline.stamp(NOW-timedelta(days=2))),
+                       lambda r:r.update(last_error='previous scan failed'),
+                       lambda r:r.update(publication={'metadata_complete':True,'history_complete':False})]:
+            polling=self.metadata([record]);mutate(polling[pipeline.identity(record)['repo']])
+            self.assertIsNone(pipeline.metadata_commit(record,polling,NOW))
+        self.assertIsNone(pipeline.metadata_commit({'id':'x','repo':record['repo'],'github':{'latest_commit':{'sha':SHA}}},{},NOW))
+
+    def test_same_day_push_uses_precise_poll_signal_and_invalidates_replay(self):
+        record=project('meta');polling=self.metadata([record])
+        bundle,_=self.collect(records=[record],polling=polling,limit=None)
+        records,state,_=pipeline.replay([record],self.state,bundle,polling=polling)
+        changed=copy.deepcopy(polling)
+        changed['owner/meta']['last_seen_pushed_at']=pipeline.stamp(NOW-timedelta(hours=3))
+        # Both pushes have the same day; project latest_commit/path are unchanged.
+        self.assertNotEqual(pipeline.source_fingerprint(record,polling),pipeline.source_fingerprint(record,changed))
+        priority,_=pipeline.queues(records,state,NOW,work='docs',polling=changed)
+        self.assertEqual([r['id'] for r in priority],['meta'])
+        _,untouched,summary=pipeline.replay([record],self.state,bundle,polling=changed)
+        self.assertEqual(untouched,self.state);self.assertEqual(summary['conflicts'],['meta'])
+
+    def test_metadata_cold_scan_cost_supports_fifteen_documents_per_hour(self):
+        records=[project(f'cold{i:03}') for i in range(200)]
+        bundle,budget=self.collect(records=records,polling=self.metadata(records),limit=None)
+        self.assertEqual(bundle['summary']['ci_completed'],60)
+        self.assertEqual(bundle['summary']['docs_completed'],15)
+        self.assertEqual(budget.requests,300);self.assertEqual(budget.api_requests,60)
+
+    def test_api_budget_is_independent_of_raw_document_budget(self):
+        budget=pipeline.Budget(requests=300,api_requests=1)
+        client=pipeline.Client(budget,opener=self.network.open)
+        client.ci(pipeline.identity(project('a')),NOW.date().isoformat())
+        with self.assertRaises(pipeline.APIStop):client.head(pipeline.identity(project('a')))
+        self.assertIsNotNone(client.get('https://raw.githubusercontent.com/owner/a/'+SHA+'/README.md','document',absence=True))
+        self.assertEqual(budget.api_requests,1);self.assertEqual(budget.requests,2)
+
+    def test_priority_wall_time_leaves_room_for_oldest_overdue_ci(self):
+        records=[project(f'changed{i}') for i in range(20)]+[project(f'old{i}') for i in range(20)]
+        state={'version':1,'records':{r['id']:{'ci_fingerprint':pipeline.digest('old') if r['id'].startswith('changed') else pipeline.fingerprint(r),
+             'ci_checked_at':pipeline.stamp(NOW-timedelta(days=8))} for r in records}}
+        self.network.delay=.3
+        bundle,budget=self.collect(records=records,state=state,limit=None,seconds=10,docs_limit=0)
+        self.assertGreater(sum(r['id'].startswith('old') and r['work'].get('ci')=='complete' for r in bundle['results']),0)
+        self.assertLessEqual(budget.clock(),10.1)
+
+
+    def test_changed_signal_prioritizes_the_other_unfinished_component(self):
+        record=project('cross')
+        old=pipeline.digest('older observed source')
+        for work,entry in [('docs',{'ci_fingerprint':old}),('ci',{'fingerprint':old})]:
+            state={'version':1,'records':{'cross':entry}}
+            changed,_=pipeline.queues([record],state,NOW,work=work)
+            self.assertEqual([r['id'] for r in changed],['cross'])
+
+
+    def test_disabling_ci_does_not_steal_manual_document_selection(self):
+        sub=project('a-sub');sub['github_path']='game'
+        root=project('z-root')
+        bundle,_=self.collect(records=[sub,root],ci_limit=0,docs_limit=1,limit=1)
+        self.assertEqual([r['id'] for r in bundle['results']],['a-sub'])
+        self.assertEqual(bundle['summary']['ci_completed'],0)
+        self.assertEqual(bundle['summary']['docs_completed'],1)
+
+
 
 class WorkflowTests(unittest.TestCase):
     def test_collection_occurs_once_and_retry_replays_same_external_bundle(self):
@@ -382,3 +520,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('git push origin HEAD:main',loop)
         self.assertNotIn('--force',loop)
         self.assertIn('$RUNNER_TEMP/enrichment-bundle.json',workflow)
+        self.assertIn('--doc-records',workflow)
+        self.assertIn('--ci-records',workflow)
+        self.assertIn('--api-requests',workflow)
+        self.assertNotIn("inputs.records || '20'",workflow)
