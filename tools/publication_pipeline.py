@@ -19,6 +19,7 @@ import xml.etree.ElementTree as ET
 
 from apply_discovery_batch import FILES, apply_batch
 from validate_site_data import validate
+from catalogue_storage import load_all, load_dataset, load_projects, storage_paths, write_all, bounded, request_size
 
 
 def load(path):
@@ -46,12 +47,18 @@ def safe_path(value):
 
 def file_entry(path, content):
     return {"path": str(path), "bytes": len(content), "chars": len(content.decode("utf-8")),
-            "sha": blob_sha(content), "sha256": hashlib.sha256(content).hexdigest()}
+            "sha": blob_sha(content), "sha256": hashlib.sha256(content).hexdigest(), "request_bytes": request_size(content)}
 
 
 def verify_files(root, manifest):
     for entry in manifest["files"]:
-        content = (Path(root) / safe_path(entry["path"])).read_bytes()
+        target = Path(root) / safe_path(entry["path"])
+        if entry["sha"] is None:
+            if target.exists():
+                raise ValueError(f"Deleted publication file still exists: {entry['path']}")
+            continue
+        content = target.read_bytes()
+        bounded(content, entry["path"])
         if file_entry(entry["path"], content) != entry:
             raise ValueError(f"Publication file changed after preparation: {entry['path']}")
 
@@ -77,7 +84,7 @@ def verify_live(bundle, live, tree):
     if tree.get("truncated"):
         raise ValueError("Cannot verify truncated deployed tree")
     blobs = {x["path"]: x["sha"] for x in tree["tree"] if x["type"] == "blob"}
-    for name in (*FILES, "activity.json"):
+    for name in (*storage_paths(live / "data"), "activity.json"):
         path = "data/" + name
         if blob_sha((live / path).read_bytes()) != blobs.get(path):
             raise ValueError(f"Served file differs from deployed commit: {path}")
@@ -92,10 +99,10 @@ def verify_live(bundle, live, tree):
             for item in wanted[group]:
                 if present.get(item["id"]) != item:
                     raise ValueError(f"Published research record missing or changed: {filename}/{item['id']}")
-    expected = {p["id"]: p for p in load(bundle / "payload/data/projects.json")}
-    actual = {p["id"]: p for p in load(live / "data/projects.json")}
-    expected_audits = {p["project_id"]: p for p in load(bundle / "payload/data/project-audits.json")["projects"]}
-    actual_audits = {p["project_id"]: p for p in load(live / "data/project-audits.json")["projects"]}
+    expected = {p["id"]: p for p in load_projects(bundle / "payload/data/projects.json")}
+    actual = {p["id"]: p for p in load_projects(live / "data/projects.json")}
+    expected_audits = {p["project_id"]: p for p in load_dataset(bundle / "payload/data", "project-audits.json")["projects"]}
+    actual_audits = {p["project_id"]: p for p in load_dataset(live / "data", "project-audits.json")["projects"]}
     for pid, project in expected.items():
         if pid not in actual:
             raise ValueError(f"Missing published project: {pid}")
@@ -160,7 +167,7 @@ def prepare(document, root, out, baseline, tree, *, evidence_cache=None, expecte
     if tree.get("truncated"):
         raise ValueError("Baseline tree must be complete")
     tracked = {x["path"]: x for x in tree["tree"] if x["type"] == "blob"}
-    consumed = ["data/" + name for name in (*FILES, "activity.json")] + ["sources.md", "log.md"]
+    consumed = ["data/" + name for name in (*storage_paths(root / "data"), "activity.json")] + ["sources.md", "log.md"]
     baseline_files = []
     for path in consumed:
         content = (root / path).read_bytes()
@@ -188,7 +195,7 @@ def prepare(document, root, out, baseline, tree, *, evidence_cache=None, expecte
             raise ValueError("Output belongs to a different input or baseline; prepare a new bundle")
         verify_files(out / "payload", manifest)
         return manifest
-    before = {name: load(root / "data" / name) for name in FILES}
+    before = load_all(root / "data")
     after = copy.deepcopy(before)
     summary = apply_batch(after, batch)
     changed_ids = set(summary["projects"] + summary["updated_projects"])
@@ -212,14 +219,12 @@ def prepare(document, root, out, baseline, tree, *, evidence_cache=None, expecte
     with tempfile.TemporaryDirectory(prefix=".publication-", dir=out.parent) as tmp:
         stage = Path(tmp)
         payload = stage / "payload"
-        (payload / "data").mkdir(parents=True)
+        shutil.copytree(root / "data", payload / "data")
         files = []
-        for name in FILES:
-            content = encoded(after[name])
-            (payload / "data" / name).write_bytes(content)
-            if content != (root / "data" / name).read_bytes():
-                files.append(file_entry("data/" + name, content))
-        shutil.copy2(root / "data/activity.json", payload / "data/activity.json")
+        for name in write_all(payload / "data", after):
+            path = payload / "data" / name
+            files.append(file_entry("data/" + name, path.read_bytes()) if path.exists()
+                         else {"path": "data/" + name, "sha": None})
         validate(payload / "data/projects.json", payload / "data/activity.json")
         report_path = f"docs/research/{event}.md"
         if report_path in tracked:
@@ -231,6 +236,9 @@ def prepare(document, root, out, baseline, tree, *, evidence_cache=None, expecte
             content = (root / path).read_text(encoding="utf-8").rstrip() + f"\n\n## {batch['date']} — {batch['summary']}\n\n[Research record]({report_path}).\n"
             (payload / path).write_text(content, encoding="utf-8")
             files.append(file_entry(path, content.encode("utf-8")))
+        for entry in files:
+            if entry["sha"] is not None:
+                bounded((payload / entry["path"]).read_bytes(), entry["path"])
         validated = time.perf_counter()
         manifest = {"version": 1, "baseline_commit": baseline, "input_digest": fingerprint,
                     "event_id": event, "files": sorted(files, key=lambda x: x["path"]),

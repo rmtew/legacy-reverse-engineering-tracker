@@ -10,6 +10,8 @@ The queue is cleared after a successful merge.
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects, load_dataset, write_all
+
 import json
 from pathlib import Path
 
@@ -47,7 +49,7 @@ def apply_update(record: dict, update: dict, project_id: str) -> None:
 
 
 def main() -> None:
-    projects = json.loads(PROJECTS.read_text(encoding="utf-8"))
+    projects = load_projects(PROJECTS)
     if not PENDING.exists():
         print("No pending project queue present.")
         return
@@ -58,7 +60,7 @@ def main() -> None:
         return
 
     by_id = {record.get("id"): record for record in projects if record.get("id")}
-    audits = json.loads(AUDITS.read_text(encoding="utf-8"))
+    audits = load_dataset(AUDITS.parent, "project-audits.json")
     audit_by_id = {record.get("project_id"): record for record in audits.get("projects", []) if record.get("project_id")}
     added = []
     updated = []
@@ -90,8 +92,7 @@ def main() -> None:
 
     projects.sort(key=lambda record: ((record.get("title") or "").casefold(), record.get("id") or ""))
     audits.setdefault("projects", []).sort(key=lambda record: record.get("project_id") or "")
-    PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    AUDITS.write_text(json.dumps(audits, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_all(PROJECTS.parent, {"projects.json": projects, "project-audits.json": audits})
     PENDING.write_text("[]\n", encoding="utf-8")
 
     print(

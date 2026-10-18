@@ -7,6 +7,8 @@ last successful scan, with a one-day overlap for safety.
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects, write_projects
+
 import json
 import math
 import os
@@ -454,7 +456,7 @@ def advance_probe_deadlines(by_repo, state, now=NOW):
 
 def main():
     global PUBLICATION_ACTIVE
-    projects = load_json(PROJECTS, [])
+    projects = load_projects(PROJECTS)
     payload = load_json(ACTIVITY, {"generated_at": None, "window_days": DAYS, "events": []})
     state = load_json(STATE, {"version": 1, "repositories": {}})
     state.setdefault("repositories", {})
@@ -685,7 +687,7 @@ def main():
     }
     write_activity(ACTIVITY, payload)
     projects.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
-    PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_projects(PROJECTS, projects)
     state.setdefault("rate", {})["activity"] = rate_snapshot()
     save_state(state)
     append_summary("GitHub incremental activity phase")

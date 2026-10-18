@@ -12,6 +12,7 @@ import unittest
 
 from apply_discovery_batch import FILES, ROOT, run
 from merge_pending_projects import new_audit
+from catalogue_storage import load_all, load_dataset, load_projects, storage_paths
 
 
 class DiscoveryBatchTests(unittest.TestCase):
@@ -21,13 +22,15 @@ class DiscoveryBatchTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.data = self.root / "data"
         self.data.mkdir()
-        for name in (*FILES, "activity.json"):
+        for name in (*storage_paths(ROOT / "data"), "activity.json"):
+            (self.data / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / "data" / name, self.data / name)
-        self.before = {name: (self.data / name).read_bytes() for name in FILES}
+        self.before = {name: (self.data / name).read_bytes() for name in storage_paths(self.data)}
+        self.logical = load_all(self.data)
         self.source_id = "web-6502disassembly-com"
 
     def batch(self):
-        original = json.loads((self.data / "projects.json").read_text())
+        original = load_projects(self.data / "projects.json")
         day = json.loads((self.data / "research-activity.json").read_text())["events"][0]["date"]
         project = copy.deepcopy(next(item for item in original if item["id"] == "abm-apple2-6502disassembly"))
         project.update(id="sample-research-test", title="Sample research", upstream_name="Sample research",
@@ -60,7 +63,7 @@ class DiscoveryBatchTests(unittest.TestCase):
         self.assertTrue(all((self.data / name).read_bytes() == content for name, content in self.before.items()))
 
         run(self.root, batch, write=True)
-        audits = json.loads((self.data / "project-audits.json").read_text())
+        audits = load_dataset(self.data, "project-audits.json")
         sources = json.loads((self.data / "discovery-sources.json").read_text())
         events = json.loads((self.data / "research-activity.json").read_text())
         self.assertEqual(next(a for a in audits["projects"] if a["project_id"] == "sample-research-test")["overall_state"], "partial")

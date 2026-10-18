@@ -2,6 +2,8 @@
 """Validate tracker JSON relationships and an optional generated RSS feed."""
 from __future__ import annotations
 
+from catalogue_storage import load_projects, load_dataset
+
 import argparse
 import json
 import sys
@@ -48,13 +50,13 @@ def validate_research_state(projects_path, project_ids, errors):
     research_path = data_dir / "research-activity.json"
     decisions_path = data_dir / "discovery-decisions.json"
 
-    missing_files = [str(path) for path in (discovery_path, audits_path, research_path, decisions_path) if not path.exists()]
+    missing_files = [str(path) for path in (discovery_path, research_path, decisions_path) if not path.exists()]
     if missing_files:
         fail("research state files missing: " + ", ".join(missing_files), errors)
         return 0, 0, 0, 0
 
     discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
-    audits = json.loads(audits_path.read_text(encoding="utf-8"))
+    audits = load_dataset(data_dir, "project-audits.json")
     research = json.loads(research_path.read_text(encoding="utf-8"))
     decisions = json.loads(decisions_path.read_text(encoding="utf-8"))
     validate_date(decisions.get("indexed_at"), "discovery decisions indexed_at", errors, allow_none=False)
@@ -233,7 +235,7 @@ def validate_research_state(projects_path, project_ids, errors):
 
 def validate(projects_path, activity_path, rss_path=None):
     errors = []
-    projects = json.loads(projects_path.read_text(encoding="utf-8"))
+    projects = load_projects(projects_path)
     activity = json.loads(activity_path.read_text(encoding="utf-8"))
 
     ids = [project.get("id") for project in projects]

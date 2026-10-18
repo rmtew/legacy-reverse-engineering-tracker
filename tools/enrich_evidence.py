@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+from catalogue_storage import load_projects, write_projects
+
 import copy, json, os, re, time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -184,7 +186,7 @@ def apply(record,auto):
  return applied
 
 def main():
- records=json.loads(DATA.read_text(encoding="utf-8"));checked=with_ev=promoted_records=promoted_fields=0
+ records=load_projects(DATA);checked=with_ev=promoted_records=promoted_fields=0
  for i,original in enumerate(records):
   if not repo_name(original.get("repo")):continue
   candidate=copy.deepcopy(original)
@@ -196,7 +198,7 @@ def main():
   except Exception as e:print(f"WARNING: {original.get('title')}: {e}")
   time.sleep(.01)
  records.sort(key=lambda r:((r.get("title") or "").casefold(),r.get("id") or ""))
- DATA.write_text(json.dumps(records,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+ write_projects(DATA, records)
  print(f"Evidence checked for {checked} GitHub-backed records; {with_ev} have evidence/signals; promoted {promoted_fields} fields on {promoted_records} records.")
 
 if __name__=="__main__":main()

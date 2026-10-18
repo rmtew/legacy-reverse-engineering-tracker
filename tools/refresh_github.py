@@ -7,6 +7,8 @@ A changed pushed_at timestamp always requests an immediate deep activity scan.
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects, write_projects
+
 import hashlib
 import json
 import math
@@ -508,7 +510,7 @@ def fill_missing_latest_commits(repos, state, request=None, *, required=False):
 
 def main():
     global RATE_LIMIT, RATE_REMAINING, RATE_RESET, PUBLICATION_ACTIVE
-    records = json.loads(PROJECTS.read_text(encoding="utf-8"))
+    records = load_projects(PROJECTS)
     state = load_state()
     previous_rate = (state.get("rate") or {}).get("probe") or {}
     reset = parse_time(previous_rate.get("reset_at"))
@@ -705,7 +707,7 @@ def main():
     save_state(state)
     append_summary("GitHub repository probe phase")
     records.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
-    PROJECTS.write_text(json.dumps(records, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_projects(PROJECTS, records)
     print(
         f"Probed {probed}/{len(repos)} repositories ({skipped} deferred by cadence); "
         f"detected {changed_count} pushed changes; "

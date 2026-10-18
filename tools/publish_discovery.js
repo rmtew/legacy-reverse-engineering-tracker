@@ -89,7 +89,9 @@ async function planDiscoveryPayload(tools, {bundle, manifest, outputBytes}) {
   return publicationCommand(tools, 'import json,hashlib\nfrom pathlib import Path\np=Path(' + JSON.stringify(bundle) + ')\n' +
     'm=json.loads(' + JSON.stringify(JSON.stringify(manifest)) + ')\nlimit=' + limit + '\nplans=[]\n' +
     'for e in m["files"]:\n' +
+
     ' r=Path(e["path"])\n assert not r.is_absolute() and ".." not in r.parts and ".git" not in r.parts\n' +
+    ' if e["sha"] is None:\n  assert not (p/"payload"/r).exists()\n  continue\n' +
     ' b=(p/"payload"/r).read_bytes()\n s=b.decode("utf-8")\n' +
     ' assert len(b)==e["bytes"] and len(s)==e["chars"]\n' +
     ' assert hashlib.sha1(b"blob "+str(len(b)).encode()+b"\\0"+b).hexdigest()==e["sha"]\n' +
@@ -195,7 +197,7 @@ async function publishDiscovery(tools, options) {
     'print(json.dumps({"manifest":json.loads((p/"manifest.json").read_text()),"state":json.loads((p/"publication-state.json").read_text()) if (p/"publication-state.json").exists() else {}}))');
   const manifest = local.manifest;
   const state = local.state;
-  const identity = {repository, branch, baseline: manifest.baseline_commit, input_digest: manifest.input_digest};
+  const identity = {repository, branch, baseline: manifest.baseline_commit, input_digest: manifest.input_digest, files: manifest.files, baseline_files: manifest.baseline_files};
   if (state.identity && JSON.stringify(state.identity) !== JSON.stringify(identity)) throw new Error('Publication checkpoint belongs to another bundle/ref');
   state.identity = identity;
   state.blobs ||= {};
@@ -203,7 +205,7 @@ async function publishDiscovery(tools, options) {
     const tree = await fetch(repoURL + '/git/trees/' + state.commit + '?recursive=1');
     if (tree.truncated) throw new Error('Cannot verify truncated remote tree');
     const entries = new Map(tree.tree.filter(e => e.type === 'blob').map(e => [e.path, e.sha]));
-    for (const entry of manifest.files) if (entries.get(entry.path) !== entry.sha) throw new Error('Remote payload mismatch: ' + entry.path);
+    for (const entry of manifest.files) if ((entries.get(entry.path) ?? null) !== entry.sha) throw new Error('Remote payload mismatch: ' + entry.path);
     state.authored_files_verified = true;
   }
   async function checkpoint() {
@@ -229,13 +231,17 @@ async function publishDiscovery(tools, options) {
   const inputs = new Map(manifest.baseline_files.map(e => [e.path, e.sha]));
   for (const [path, sha] of inputs) if (baselineBlobs.get(path) !== sha) throw new Error('Baseline input differs from current commit: ' + path);
   for (const entry of manifest.files) {
+    if (entry.sha === null && !inputs.has(entry.path)) throw new Error('Deletion needs verified baseline: ' + entry.path);
     if (baselineBlobs.has(entry.path) && !inputs.has(entry.path)) throw new Error('New publication path already exists: ' + entry.path);
   }
   const started = Date.now();
   for (const entry of manifest.files) {
-    if (state.blobs[entry.path] === entry.sha) continue;
+    if (entry.sha === null || baselineBlobs.get(entry.path) === entry.sha || state.blobs[entry.path] === entry.sha) continue;
     const loaded = await loadDiscoveryFile(tools, {bundle, entry, plan: plans.find(plan => plan.path === entry.path)});
-    const blob = publicationResult(await tools.mcp__codex_apps__github_create_blob({repository_full_name: repository, encoding: 'utf-8', content: loaded.text}));
+    const request = {repository_full_name: repository, encoding: 'utf-8', content: loaded.text};
+    const requestBytes = publicationUTF8(JSON.stringify(request)).bytes;
+    if (requestBytes > 4 * 1024 * 1024 || (entry.request_bytes !== undefined && requestBytes !== entry.request_bytes)) throw new Error('Escaped connector request exceeds bound or manifest size: ' + entry.path);
+    const blob = publicationResult(await tools.mcp__codex_apps__github_create_blob(request));
     if (blob.sha !== entry.sha) throw new Error('Uploaded blob SHA mismatch for ' + entry.path);
     state.blobs[entry.path] = blob.sha;
     await checkpoint();
