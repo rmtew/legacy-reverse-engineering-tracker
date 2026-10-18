@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-18T06:10:41Z",
+  "updated_at": "2026-10-18T06:26:25Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -1444,7 +1444,7 @@
         "scene builder"
       ],
       "re_started": null,
-      "status": "v1.11.0 stable source SDK; Windows/VICE qualified, with Linux and physical hardware still unverified",
+      "status": "1.12.0 source SDK published on main; source-only Windows/VICE qualification, with Linux and physical hardware still unverified",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -1465,7 +1465,10 @@
         "Q8 fixed-point experiments",
         "reproducible package qualification",
         "byte-identical checkpoint rebuilds",
-        "source-package release gates"
+        "source-package release gates",
+        "bounded resident-pool generation",
+        "PSID contract parsing",
+        "SID bank and zero-page wrapper generation"
       ],
       "tags": [
         "Commodore 64",
@@ -1473,7 +1476,7 @@
         "raycasting",
         "SDK"
       ],
-      "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine. v1.9.0 adds an explicit experimental Normalized16 build and bounded signed-16 geometry generators while preserving the Q8 defaults unless the optional hook is selected. Native benchmark and qualification tooling are included; this does not change the recorded physical-hardware limitation. Evidence: https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94 https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc v1.10.2 promotes the qualified development line to a stable source SDK without changing default runtime options. Its optional Q8 arithmetic, UV, camera-table and visibility experiments remain disabled by default; upstream reports PAL-emulated Mode 4 and Mode 7 measurements, complete source/package regeneration gates and Windows/VICE qualification, while explicitly leaving Linux and physical hardware untested. Evidence: https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2 v1.11.0 packages 794 source files, 34 English/Italian manual pairs and 41 release gates, including 15 byte-identical checkpoint rebuilds. Its billboard, door, material, animation, static-lighting, portal-visibility, shared-Q8-mesh and room-group features remain bounded by the release documentation; the release ships source only, without compiled PRGs, demos or media, and qualifies Windows/VICE rather than Linux or physical hardware. The release commit is explicitly authored by the GitHub account Codex, which establishes AI-tool attribution without quantifying contribution. Evidence: https://github.com/Librologica/3Dvibe64/releases/tag/v1.11.0 https://github.com/Librologica/3Dvibe64/commit/fd7cdcafb452407faf29bd5a2115998b2a998f8d",
+      "notes": "Source SDK for eight C64 graphics modes: polygon rendering and a distinct Mode 8 2.5D DDA bitmap renderer. PowerShell/Python scene builders emit 6510/6502 assembly for 64tass. v1.8.0 adds opt-in gradual Mode 7 texture LOD, optional Q8 hybrid line rasterization for Modes 1/2/5 and safe presentation for Modes 1–7; legacy geometry, standard texture quality, precise raster and LOD-off remain defaults. Upstream reports all 22 public tests passing and bounded Turbo6510 64 MHz scene measurements, while explicitly stating that real hardware has not been tested. Code/data remain PolyForm Noncommercial 1.0.0. Codex usage guides document downstream SDK use, not development-AI authorship of the engine. v1.9.0 adds an explicit experimental Normalized16 build and bounded signed-16 geometry generators while preserving the Q8 defaults unless the optional hook is selected. Native benchmark and qualification tooling are included; this does not change the recorded physical-hardware limitation. Evidence: https://github.com/Librologica/3Dvibe64/commit/562f3c314314abce8de7c30786843c2435b00e94 https://github.com/Librologica/3Dvibe64/commit/6ea4d7cf99513d9714407ea938aed06b8d55d4bc v1.10.2 promotes the qualified development line to a stable source SDK without changing default runtime options. Its optional Q8 arithmetic, UV, camera-table and visibility experiments remain disabled by default; upstream reports PAL-emulated Mode 4 and Mode 7 measurements, complete source/package regeneration gates and Windows/VICE qualification, while explicitly leaving Linux and physical hardware untested. Evidence: https://github.com/Librologica/3Dvibe64/releases/tag/v1.10.2 v1.11.0 packages 794 source files, 34 English/Italian manual pairs and 41 release gates, including 15 byte-identical checkpoint rebuilds. Its billboard, door, material, animation, static-lighting, portal-visibility, shared-Q8-mesh and room-group features remain bounded by the release documentation; the release ships source only, without compiled PRGs, demos or media, and qualifies Windows/VICE rather than Linux or physical hardware. The release commit is explicitly authored by the GitHub account Codex, which establishes AI-tool attribution without quantifying contribution. Evidence: https://github.com/Librologica/3Dvibe64/releases/tag/v1.11.0 https://github.com/Librologica/3Dvibe64/commit/fd7cdcafb452407faf29bd5a2115998b2a998f8d The 1.12.0 source publication adds opt-in bounded resident-pool, camera-table and PSID/SID-wrapper primitives with explicit memory, banking, timing and caller-responsibility contracts. All 16 public gates pass, while demos, examples, media, compiled artifacts and native evidence are deliberately excluded; synthetic SID tests do not establish arbitrary-player compatibility or native FPS. No v1.12.0 GitHub release asset was published at review time. Evidence: https://github.com/Librologica/3Dvibe64/commit/6ecbe5664650d3c5be5da3283a74fdad256103ad",
       "ai": {
         "usage": true,
         "tools": [
@@ -9546,7 +9549,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "v1.21 source-built maintenance release; Tools v1.18",
+      "status": "v1.22 game and Tools 1.19 published; development head adds AmbermoonImageEditor to the next cross-platform tool package",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -9557,14 +9560,15 @@
         "binary analysis",
         "format decoding",
         "source restoration",
-        "recovered-source build"
+        "recovered-source build",
+        "native asset painting and palette editing"
       ],
       "tags": [
         "game",
         "amber",
         "68k"
       ],
-      "notes": "Ambermoon v1.21 now ships AM2_CPU and the loader built from Jurie Horneman's original source plus restored missing kernel, 3D-renderer and music-player parts and subsequent fixes. The release fixes plain-68000 odd-size decompression and several memory, loader, conversation and gameplay faults; the tools release workflow publishes Windows, Linux and Amiga artifacts. These are upstream source-build/release claims, not an independent rebuild or byte comparison. Evidence: https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.21 https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.18",
+      "notes": "Ambermoon v1.21 now ships AM2_CPU and the loader built from Jurie Horneman's original source plus restored missing kernel, 3D-renderer and music-player parts and subsequent fixes. The release fixes plain-68000 odd-size decompression and several memory, loader, conversation and gameplay faults; the tools release workflow publishes Windows, Linux and Amiga artifacts. These are upstream source-build/release claims, not an independent rebuild or byte comparison. Evidence: https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.21 https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.18 The current release baseline is Ambermoon v1.22 and Tools v1.19. Development head adds the separately titled AmbermoonImageEditor paint program for PNG, BMP and Ambermoon Amiga graphics and wires it into the Windows, Linux and Amiga tool-package workflow. It remains a component of the repository's versioned Ambermoon tool suite rather than a separately released project, so no duplicate project record is added. Evidence: https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.22 https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.19 https://github.com/Pyrdacor/Ambermoon/commit/ebaf2d63b05ee718b97a61f531a2c6c00857b399",
       "ai": {
         "usage": true,
         "tools": [
@@ -10242,7 +10246,7 @@
         "general Amiga machine emulator"
       ],
       "re_started": null,
-      "status": "v8.4.0 published; development head expands the WinUAE-derived remote GDB monitor and debugging surface",
+      "status": "v8.4.0 published; development head adds authenticated local Windows IPC and repairs threaded JIT/reset behavior",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -10257,7 +10261,9 @@
         "remote task and exception inspection",
         "remote DMA/range watchpoints",
         "frame-checkpoint save and restore",
-        "remote guest input and screenshots"
+        "remote guest input and screenshots",
+        "Windows named-pipe IPC",
+        "threaded CPU and JIT synchronization"
       ],
       "tags": [
         "Amiga",
@@ -10269,7 +10275,7 @@
         "Haiku",
         "general Amiga machine emulator"
       ],
-      "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27 Current main ports WinUAE's optional loopback GDB remote server, disabled by default and unavailable with the threaded CPU, with m68k registers, physical RAM/ROM, stepping, breakpoints, watchpoints and memory-map support. A separate MacPorts integration covers Apple Silicon and x86 hosts and explicitly credits ChatGPT for substantial assistance; this extends the AI record without implying whole-project generation. Evidence: https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15 Development head now honors database-requested 68040 AGA configurations, disables cycle-exact mode when requested, aligns Android previews with the launched CPU/FPU configuration and follows with 68030 database handling. IPC was redesigned to keep up to 16 clients across frames, bound per-frame work, cap requests at 64 KiB and queue replies without blocking the emulation thread. These guest CPU selections are emulated configurations, not Amiberry host target CPUs or minimum machines. No tracker-side WHDLoad or IPC run was performed. Evidence: https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7 https://github.com/BlitterStudio/amiberry/commit/69b4be8173 https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c Development head ports WinUAE monitor extensions for AmigaDOS entry stops, Exec task controls, exceptions, DMA/range watchpoints, guest diagnostics, input, screenshots and frame checkpoints. Follow-up fixes bound replies, preserve resets, report checkpoint write failures and safely disassemble at memory-bank ends. This is source-level development evidence, not a new v8.4.0 release or an independent run. Evidence: https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d",
+      "notes": "General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27 Current main ports WinUAE's optional loopback GDB remote server, disabled by default and unavailable with the threaded CPU, with m68k registers, physical RAM/ROM, stepping, breakpoints, watchpoints and memory-map support. A separate MacPorts integration covers Apple Silicon and x86 hosts and explicitly credits ChatGPT for substantial assistance; this extends the AI record without implying whole-project generation. Evidence: https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15 Development head now honors database-requested 68040 AGA configurations, disables cycle-exact mode when requested, aligns Android previews with the launched CPU/FPU configuration and follows with 68030 database handling. IPC was redesigned to keep up to 16 clients across frames, bound per-frame work, cap requests at 64 KiB and queue replies without blocking the emulation thread. These guest CPU selections are emulated configurations, not Amiberry host target CPUs or minimum machines. No tracker-side WHDLoad or IPC run was performed. Evidence: https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7 https://github.com/BlitterStudio/amiberry/commit/69b4be8173 https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c Development head ports WinUAE monitor extensions for AmigaDOS entry stops, Exec task controls, exceptions, DMA/range watchpoints, guest diagnostics, input, screenshots and frame checkpoints. Follow-up fixes bound replies, preserve resets, report checkpoint write failures and safely disassemble at memory-bank ends. This is source-level development evidence, not a new v8.4.0 release or an independent run. Evidence: https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d Development head makes the local control interface available on Windows through account-scoped named pipes and exercises pipelining, stalled clients, size limits, abandoned connections, multi-instance endpoints and reply-before-quit on real headless emulator processes. Follow-up CPU work restores threaded-JIT block chaining, fixes stale interrupt and breakpoint handling, and prevents keyboard reset from racing a running CPU thread. These are source/CI receipts, not a new v8.4.0 artifact. Evidence: https://github.com/BlitterStudio/amiberry/commit/caf799a4c7dc3c99f2b69ee4834e5f4a00a77aae https://github.com/BlitterStudio/amiberry/commit/7dda88f302e74d38509a9ab0b37dfe79641cf8aa https://github.com/BlitterStudio/amiberry/commit/e28372fec0e9a957bce3cf5e791db3e3931e1724",
       "ai": {
         "usage": true,
         "tools": [
@@ -35116,7 +35122,7 @@
         "reverse-engineering-tool"
       ],
       "re_started": null,
-      "status": "active; M23/M24 add evidence-bearing traces, generated source maps/reference docs and field-run acceptance while the 2.0.0 publication gate remains open",
+      "status": "v2.1.1 published after full-script/MCP field testing on VICE 3.10; post-release media and snapshot safeguards continue on main",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -35138,14 +35144,16 @@
         "source-map generation",
         "linked reference documentation",
         "non-stopping execution tracing",
-        "parallel-agent evidence ownership"
+        "parallel-agent evidence ownership",
+        "media signature validation",
+        "JAM and snapshot failure hardening"
       ],
       "tags": [
         "Commodore 64",
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b Current M14 work now generates byte-identical ACME source from an unpacked image or PRG, curated knowledge and Ghidra instructions; an optional loader is run in VICE and checked at the recovered entry state. The documented ten-stage workflow adds explicit acceptance criteria, exit checks, deliverables and coverage reporting. Release comparison can attach first-access/runtime-change evidence to differing bytes, single-release separation reports unpack/access/reachability provenance, and platform symbols can be exported as an ACME include. These are upstream live-tool checks rather than an independent tracker run, and they do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341 https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078 https://github.com/henols/c64-re-tools/commit/b80796c63719f7eeb4fd694afd689fe5a926cd8b https://github.com/henols/c64-re-tools/commit/1c0070e068b719314a4ee47b56de189916b0a6d6 https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc M17 now captures CIA timer latches and interrupt masks that ordinary register reads cannot recover, programs generated loaders to restore the reachable timer state, and compares counters, latches, controls and masks at the entry jump. An upstream live test distinguishes the repaired loader from one without CIA restoration. The host also records each skill-script operation and outcome while keeping verbose MCP/VICE tracing opt-in. These are upstream tests; no local VICE run was performed, SID voice 3, TOD phase and interrupt flags remain documented limits, and the npm publication gate remains open. Evidence: https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06 M23/M24 now let execution traces continue while recording observations/history, generate linked source maps and program reference pages, and route evidence-producing agent run files into owned run directories. The Bruce Lee acceptance reports 70 reference pages, 1,227 entries, 21 decoded tables and deterministic second-pass linking; these are upstream field-run receipts and do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/4c209ab6e79cbb0a34e3b818bf33d8b6fb92f0ba https://github.com/henols/c64-re-tools/commit/7a45b671dc7b6efc1f0c6b905e57ae1839a8ce3a https://github.com/henols/c64-re-tools/commit/9caaff4bf206b429d389fcdf5e94d42919600cd9",
+      "notes": "General-purpose TypeScript C64 reverse-engineering toolkit controlling stock VICE and integrating disk/BASIC/static-analysis/assembly/equivalence workflows. package.json now declares 2.0.0 and publishable CLI/MCP/host bins, while the primary roadmap explicitly leaves npm trusted-publisher setup, the v2.0.0 tag and verification of the published package open. C64RT_TRACE adds per-process JSONL field traces for host requests, VICE lifecycle, MCP calls, native tool runs and stderr without exposing the trace to the agent. Node.js 24+, VICE 3.9+ and user-supplied ROMs remain prerequisites; no host CPU/RAM minimum or independent execution is established. Evidence: https://github.com/henols/c64-re-tools/blob/main/README.md https://github.com/henols/c64-re-tools/blob/main/package.json https://github.com/henols/c64-re-tools/commit/11987768d056 https://github.com/henols/c64-re-tools/commit/5ceac29bb61b Current M14 work now generates byte-identical ACME source from an unpacked image or PRG, curated knowledge and Ghidra instructions; an optional loader is run in VICE and checked at the recovered entry state. The documented ten-stage workflow adds explicit acceptance criteria, exit checks, deliverables and coverage reporting. Release comparison can attach first-access/runtime-change evidence to differing bytes, single-release separation reports unpack/access/reachability provenance, and platform symbols can be exported as an ACME include. These are upstream live-tool checks rather than an independent tracker run, and they do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/8e2bbb5a106c2fe339bc2f1aaaa8d02b414a1341 https://github.com/henols/c64-re-tools/commit/18bc1327744db353667cabf39d81ed373effe078 https://github.com/henols/c64-re-tools/commit/b80796c63719f7eeb4fd694afd689fe5a926cd8b https://github.com/henols/c64-re-tools/commit/1c0070e068b719314a4ee47b56de189916b0a6d6 https://github.com/henols/c64-re-tools/commit/ad164faf2354087ee3c0f7bd8d9e52c36a367fbc M17 now captures CIA timer latches and interrupt masks that ordinary register reads cannot recover, programs generated loaders to restore the reachable timer state, and compares counters, latches, controls and masks at the entry jump. An upstream live test distinguishes the repaired loader from one without CIA restoration. The host also records each skill-script operation and outcome while keeping verbose MCP/VICE tracing opt-in. These are upstream tests; no local VICE run was performed, SID voice 3, TOD phase and interrupt flags remain documented limits, and the npm publication gate remains open. Evidence: https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06 M23/M24 now let execution traces continue while recording observations/history, generate linked source maps and program reference pages, and route evidence-producing agent run files into owned run directories. The Bruce Lee acceptance reports 70 reference pages, 1,227 entries, 21 decoded tables and deterministic second-pass linking; these are upstream field-run receipts and do not close the separate npm publication gate. Evidence: https://github.com/henols/c64-re-tools/commit/4c209ab6e79cbb0a34e3b818bf33d8b6fb92f0ba https://github.com/henols/c64-re-tools/commit/7a45b671dc7b6efc1f0c6b905e57ae1839a8ce3a https://github.com/henols/c64-re-tools/commit/9caaff4bf206b429d389fcdf5e94d42919600cd9 v2.1.1 closes the previously open publication gate and reports a real-project field pass covering every script command and MCP tool on VICE 3.10. It hardens JAM state, snapshot failures, drive-side stops, static/provenance analysis and preflight validation; current main additionally rejects malformed media before VICE can reinterpret it, stops an in-flight autostart before snapshot restore and exposes the documented $A000-$BFFF VICE memory-map flaw. These are upstream field and regression receipts, not a tracker-side VICE run. Evidence: https://github.com/henols/c64-re-tools/releases/tag/v2.1.1 https://github.com/henols/c64-re-tools/commit/eb69c523cc34f88e9c2aa5e23f3139306ed6bb5b",
       "ai": {
         "usage": true,
         "tools": [
@@ -45625,33 +45633,42 @@
       ],
       "runtime_profiles": [
         {
-          "name": "v0.6.3 Linux x86-64 package",
+          "name": "v0.7.0 Linux x86-64 package",
           "platform": "Linux",
           "cpu_family": "x86-64",
           "os": "Linux with SDL2 and OpenGL",
-          "notes": "v0.6.3 publishes an x86-64 Linux archive. The earlier v0.6.0 package was built successfully on Ubuntu 22.04 but explicitly remained desktop-untested; v0.6.3 states no minimum CPU generation or RAM.",
+          "notes": "Published x86-64 Flatpak and archive. No minimum CPU generation, RAM amount or Linux version is stated.",
           "evidence": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0"
           ]
         },
         {
-          "name": "v0.6.3 macOS universal package",
+          "name": "v0.7.0 macOS universal Apple-silicon slice",
           "platform": "macOS",
           "cpu_family": "arm64",
           "os": "macOS 10.15 or later",
-          "notes": "v0.6.3 publishes one universal Apple-silicon/Intel app. This profile records the arm64 slice and the previously stated macOS 10.15 floor; no CPU-generation or RAM minimum is stated.",
+          "notes": "Published universal package; this profile records the arm64 slice and the previously documented OS floor. No CPU-generation or RAM minimum is stated.",
           "evidence": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0"
           ]
         },
         {
-          "name": "v0.6.3 macOS universal Intel slice",
+          "name": "v0.7.0 macOS universal Intel slice",
           "platform": "macOS",
           "cpu_family": "x86-64",
           "os": "macOS 10.15 or later",
-          "notes": "The v0.6.3 universal app explicitly includes an Intel x86-64 slice. No Intel generation or RAM minimum is stated.",
+          "notes": "Published universal package; no Intel generation or RAM minimum is stated.",
           "evidence": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0"
+          ]
+        },
+        {
+          "name": "v0.7.0 Windows x64 package",
+          "platform": "Windows",
+          "cpu_family": "x86-64",
+          "notes": "Published Win64 archive. No minimum CPU generation, RAM amount or Windows version is stated.",
+          "evidence": [
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0"
           ]
         }
       ],
@@ -45674,7 +45691,7 @@
         "CPC/Plus cycle-level emulator"
       ],
       "re_started": null,
-      "status": "active; v0.6.5 development head adds deterministic rewind/input movies, logic analysis and raster-timing diagnostics",
+      "status": "v0.7.0 published with persistent quick saves, deterministic recording, profiling, graphics inspection and expanded input",
       "build": {
         "compilable": true,
         "runnable": null,
@@ -45694,14 +45711,17 @@
         "instruction-level rewind",
         "deterministic input movies",
         "logic-signal analysis",
-        "raster-timing overlay"
+        "raster-timing overlay",
+        "routine and instruction profiling",
+        "graphics-memory inspection",
+        "lossless video capture"
       ],
       "tags": [
         "Amstrad CPC",
         "Amstrad CPC Plus",
         "GX4000"
       ],
-      "notes": "Emulates CPC 464/6128, Plus and GX4000 with per-model CRTC/Gate Array timing, disc and tape support, a debugger and embedded RASM. Inspected src/core includes Z80, CRTC variants and debugging code. README calls expansion hardware and UI work in progress; SHAKER compatibility is upstream's claim. v0.4.0 adds host-backed M4 TCP/DNS/server and plain-HTTP operations, a folder-backed FAT16 IDE/CF interface for SYMBiFACE II/III, and LambdaSpeak 3 Epson/DECtalk command handling using host voices. The release documents tests with Duke's TCP/telnet examples, SymbOS and LambdaSpeak software; these upstream compatibility claims were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656 v0.5.0 adds guided and manual RAM cheats, CDT/TZX tape recording and turbo loading, HFE read/write, IPF read support, image writeback, a 300-rpm real-time floppy model, Multiface II, RS232C endpoints and folder-backed M4 DSK images. The bundled IPF decoder retains its non-commercial licence; upstream compatibility tests were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/35ca66c5bb974eb0b1113e08980ea166cf93362a v0.6.0 adds successful CI builds and release assets for Windows x64, Linux x86-64 and universal macOS arm64/x86-64, plus monitor H/V hold controls and Compendium-backed CRTC sync timing. Upstream explicitly says the Linux and macOS packages were not yet desktop-tested. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/2b74f27e5c466376321eb7aa6587d994e08a6670 https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0 https://github.com/WacKEDmaN/CPCSyntaxError/actions/runs/38114012270 v0.6.3 adds a CRT slot mask for colour monitors, scanlines for green/grey displays and controls for strength, stripe width and orientation. It also splits Media into Disc, Tape, Cartridge and Snapshot windows and keeps ROMs separate. Release assets remain Linux x86-64, macOS universal and Windows x64; no new minimum CPU/RAM claim follows from the packaging. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3 https://github.com/WacKEDmaN/CPCSyntaxError/commit/f87aa174c50c6bb56a2e8c3ca4b4ddbaa7650f4a The v0.6.5 development commit adds exact machine snapshots with instruction-stamped input replay, backward debugging and last-write lookup, a triggered one-microsecond logic analyser, raster-I/O overlay and fast-path optimizations. Upstream reports SHAKER's 2,166 screens remain byte-identical and CPC 6128 speed rises from 2.2x to 5.7x real time; unsupported expansion-card rewind and disk writes remain explicit limits. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c",
+      "notes": "Emulates CPC 464/6128, Plus and GX4000 with per-model CRTC/Gate Array timing, disc and tape support, a debugger and embedded RASM. Inspected src/core includes Z80, CRTC variants and debugging code. README calls expansion hardware and UI work in progress; SHAKER compatibility is upstream's claim. v0.4.0 adds host-backed M4 TCP/DNS/server and plain-HTTP operations, a folder-backed FAT16 IDE/CF interface for SYMBiFACE II/III, and LambdaSpeak 3 Epson/DECtalk command handling using host voices. The release documents tests with Duke's TCP/telnet examples, SymbOS and LambdaSpeak software; these upstream compatibility claims were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/c909c7f7e465dc54640248cbd91a4d78a1c45656 v0.5.0 adds guided and manual RAM cheats, CDT/TZX tape recording and turbo loading, HFE read/write, IPF read support, image writeback, a 300-rpm real-time floppy model, Multiface II, RS232C endpoints and folder-backed M4 DSK images. The bundled IPF decoder retains its non-commercial licence; upstream compatibility tests were not independently reproduced. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/35ca66c5bb974eb0b1113e08980ea166cf93362a v0.6.0 adds successful CI builds and release assets for Windows x64, Linux x86-64 and universal macOS arm64/x86-64, plus monitor H/V hold controls and Compendium-backed CRTC sync timing. Upstream explicitly says the Linux and macOS packages were not yet desktop-tested. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/2b74f27e5c466376321eb7aa6587d994e08a6670 https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.0 https://github.com/WacKEDmaN/CPCSyntaxError/actions/runs/38114012270 v0.6.3 adds a CRT slot mask for colour monitors, scanlines for green/grey displays and controls for strength, stripe width and orientation. It also splits Media into Disc, Tape, Cartridge and Snapshot windows and keeps ROMs separate. Release assets remain Linux x86-64, macOS universal and Windows x64; no new minimum CPU/RAM claim follows from the packaging. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3 https://github.com/WacKEDmaN/CPCSyntaxError/commit/f87aa174c50c6bb56a2e8c3ca4b4ddbaa7650f4a The v0.6.5 development commit adds exact machine snapshots with instruction-stamped input replay, backward debugging and last-write lookup, a triggered one-microsecond logic analyser, raster-I/O overlay and fast-path optimizations. Upstream reports SHAKER's 2,166 screens remain byte-identical and CPC 6128 speed rises from 2.2x to 5.7x real time; unsupported expansion-card rewind and disk writes remain explicit limits. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c v0.7.0 publishes Windows x64, Linux x86-64 and macOS universal packages and adds persistent nine-slot snapshots with undo, MJPEG/ZMBV/WAV recording at CPC cadence, a CALL/RST/interrupt profiler, graphics-memory inspection, model/locale-specific on-screen keyboards and configurable digital/Plus-analogue controllers. Publication does not establish a host CPU-generation or RAM minimum, and the tracker did not execute the packages. Evidence: https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0 https://github.com/WacKEDmaN/CPCSyntaxError/commit/51413b6986ff1793bc5b577a1069b3d7cd426b52",
       "ai": {
         "usage": true,
         "tools": [
@@ -95609,7 +95629,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "v6.4.2 plus protocol-v0 binary debugger frontend under active development",
+      "status": "v6.4.2 published; protocol-v0 debugger and deterministic media-writeback/IPC regressions continue on main",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -95623,13 +95643,14 @@
         "headless TCP debugger automation",
         "integrated Z80 assembly and disassembly",
         "binary debugger protocol",
-        "controller leases and event subscriptions"
+        "controller leases and event subscriptions",
+        "IDE and disk-image writeback regression"
       ],
       "tags": [
         "Amstrad CPC",
         "reverse-engineering tooling"
       ],
-      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless automation. Beyond v6.4.2, the new protocol-v0 binary frontend on port 6545 implements HELLO/PING/MACHINE_INFO, register and memory reads/writes, PAUSE/RUN/RESET/STEP control, run-state queries and subscribed pushed events. Its design includes a 4096-entry lock-free event ring and controller lease; reviewed commits add server skeleton, reads, writes/control and run/events in successive tested slices. These are upstream implementation receipts, not an independent run by the tracker. No minimum host CPU/RAM was stated. Evidence: https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5 https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21",
+      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless automation. Beyond v6.4.2, the new protocol-v0 binary frontend on port 6545 implements HELLO/PING/MACHINE_INFO, register and memory reads/writes, PAUSE/RUN/RESET/STEP control, run-state queries and subscribed pushed events. Its design includes a 4096-entry lock-free event ring and controller lease; reviewed commits add server skeleton, reads, writes/control and run/events in successive tested slices. These are upstream implementation receipts, not an independent run by the tracker. No minimum host CPU/RAM was stated. Evidence: https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5 https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21 Current main preserves Symbiface IDE writes on IPC quit and signals, writes modified zipped DSK images beside their archives, and replaces fixed-delay IPC startup tests with port readiness. The IDE test writes a sector through the emulated ATA path and proves it reaches the image only at exit. These are upstream regressions; the tracker did not execute them. Evidence: https://github.com/ikari-pl/konCePCja/commit/7f21133285a51d6356935f91afd32d1dadca4808 https://github.com/ikari-pl/konCePCja/commit/8cbf49dd https://github.com/ikari-pl/konCePCja/commit/0d60e541",
       "ai": {
         "usage": true,
         "tools": [
@@ -116831,7 +116852,7 @@
         "MCP-enabled analysis environment"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "active; current main completes hidden CPU/peripheral snapshot state and hardens debugger/MCP tracing",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -116843,7 +116864,9 @@
         "breakpoints and watchpoints",
         "execution profiling",
         "memory heatmaps",
-        "MCP debugger automation"
+        "MCP debugger automation",
+        "full-state snapshot restoration",
+        "self-modifying-code trace capture"
       ],
       "tags": [
         "Sharp MZ-800",
@@ -116853,7 +116876,7 @@
         "SDL3",
         "MCP"
       ],
-      "notes": "Open-source Sharp MZ emulator with cycle-accurate Z80A execution, chip/peripheral emulation, a built-in debugger and an MCP bridge exposing screenshots, coverage, profiling and analysis controls. Primary docs provide Linux, Windows and macOS build paths; no minimum host CPU or RAM is stated. Claude client configuration documents a supported integration, not evidence that AI authored the project.",
+      "notes": "Open-source Sharp MZ emulator with cycle-accurate Z80A execution, chip/peripheral emulation, a built-in debugger and an MCP bridge exposing screenshots, coverage, profiling and analysis controls. Primary docs provide Linux, Windows and macOS build paths; no minimum host CPU or RAM is stated. Claude client configuration documents a supported integration, not evidence that AI authored the project. Current main saves hidden Z80 MEMPTR, interrupt, EI-delay and T-state state plus CTC, scroll, VRAM-wait and floppy-controller state; it safely adapts RAMdisk/IDE8 snapshot loads. Debugger/MCP fixes expose all 532 expanded memory regions, keep debugger reads from firing guest watchpoints, correctly stop temporary run-to breakpoints and record the instruction bytes actually fetched by self-modifying code. Evidence: https://github.com/michalhucik/mz800emu/commit/1f477d90e2efd6808253c1c3d5f31fa56f465570 https://github.com/michalhucik/mz800emu/commit/a5726b9658d10b4412cf4a28bc212a78351f28a4",
       "ai": {
         "usage": null,
         "tools": []
@@ -137894,7 +137917,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active; distributed compiler available while the m68k backend remains experimental and adopts word-packed argument slots",
+      "status": "active; distributed compiler available while m68k remains experimental and gains Copperline/Vamos execution paths",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -137903,7 +137926,8 @@
       },
       "techniques": [
         "native code generation",
-        "m68k stack-frame lowering"
+        "m68k stack-frame lowering",
+        "emulator-assisted compiler-output execution"
       ],
       "tags": [
         "Commodore 64",
@@ -137911,7 +137935,7 @@
         "Amiga",
         "reverse-engineering tooling"
       ],
-      "notes": "Structured low-level language/compiler for 6502-family computers and 68000, with experimental Amiga 500/1200 targets; README says the m68k targets are not yet production-ready. The current README documents official runnable compiler distributions, source builds and explicit 65xx/m68k output targets. IR format 8 now uses word-packed byte/bool/word argument slots and four-byte long/pointer/float slots across the experimental Amiga 500, Amiga 1200 and QEMU m68k targets. This does not promote the m68k targets to production-ready or establish target-machine RAM minima. Evidence: https://github.com/irmen/prog8/blob/master/README.md https://github.com/irmen/prog8/commit/0b902f06b55356b76b0c0f5fee5e207a87c33dfc",
+      "notes": "Structured low-level language/compiler for 6502-family computers and 68000, with experimental Amiga 500/1200 targets; README says the m68k targets are not yet production-ready. The current README documents official runnable compiler distributions, source builds and explicit 65xx/m68k output targets. IR format 8 now uses word-packed byte/bool/word argument slots and four-byte long/pointer/float slots across the experimental Amiga 500, Amiga 1200 and QEMU m68k targets. This does not promote the m68k targets to production-ready or establish target-machine RAM minima. Evidence: https://github.com/irmen/prog8/blob/master/README.md https://github.com/irmen/prog8/commit/0b902f06b55356b76b0c0f5fee5e207a87c33dfc The experimental Amiga 500/1200 targets now stage generated programs for a Copperline execution path under -emu, while -emu2 retains the headless Vamos path. The change does not make the m68k backend production-ready or establish minimum Amiga hardware. Evidence: https://github.com/irmen/prog8/commit/16f7d588a78042622eb00510d2847e8d2472a940",
       "ai": {
         "usage": null,
         "tools": []
@@ -139181,7 +139205,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "active; v1.0.0 package exposes VS Code/DAP debugging plus a headless MCP emulator and profile-analysis server",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -139208,11 +139232,12 @@
         "reverse-engineering tooling",
         "retro development"
       ],
-      "notes": "Amiga debugger/profiler built around the WinUAE-derived PUAE core. Supports Hunk/ELF debug information, source and instruction breakpoints, data watchpoints, reverse execution, CPU/DMA profiling, Copper/blitter inspection, memory reconstruction, standalone DAP use and headless MCP-driven emulator inspection.",
+      "notes": "Amiga debugger/profiler built around the WinUAE-derived PUAE core. Supports Hunk/ELF debug information, source and instruction breakpoints, data watchpoints, reverse execution, CPU/DMA profiling, Copper/blitter inspection, memory reconstruction, standalone DAP use and headless MCP-driven emulator inspection. Current main documents the packaged puae-debugger MCP server, which analyzes saved profiles and boots the WinUAE-derived PUAE core headlessly under Node for program injection, memory, screenshot and profiling workflows. Per-project MCP configuration keeps copyrighted Kickstart paths in user environments. The repository explicitly identifies the integrated emulator as PUAE/WinUAE-derived; this closes the relationship audit without treating those ancestors as duplicate tracker records. Evidence: https://github.com/grahambates/vscode-puae-debugger/blob/main/README.md https://github.com/grahambates/vscode-puae-debugger/blob/main/package.json https://github.com/grahambates/vscode-puae-debugger/commit/38cd4bbaa6ae0612b965947e0ba036904406b1ee",
       "ai": {
         "usage": true,
         "tools": [
-          "Claude"
+          "Claude",
+          "GitHub Copilot"
         ]
       }
     },
@@ -175071,7 +175096,7 @@
         "native port"
       ],
       "re_started": null,
-      "status": "DOS reconstruction playable; native x64 title text/GRCG paths have bounded differential parity while whole pictures and physical timing remain open",
+      "status": "DOS reconstruction playable; native x64 path now has source-bound PC-98 keyboard/UART repeat and stalled-receiver oracles while whole-picture and physical timing remain open",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -175093,7 +175118,8 @@
         "registration-route parity testing",
         "continue-route differential execution",
         "title/GRCG differential validation",
-        "negative-replay preservation"
+        "negative-replay preservation",
+        "PC-98 keyboard and UART oracle comparison"
       ],
       "tags": [
         "PC-98",
@@ -175103,7 +175129,7 @@
         "DOS",
         "x64"
       ],
-      "notes": "Identity and classification remain a PC-98 reconstruction of Touhou 4 with a separate unfinished Linux/Windows x64 port. The current native producer reports 545 programs at b4519b50, 84 GNU and optimized-UBSan build programs, and 82 passing CTests. Upstream now retains 544 original controls and exercises 30 seeded saves/restarts, 24 score and 24 complete Ending registration routes plus eight Extra routes per compiler; independent component images and eight default Demo profiles also pass. These are bounded upstream receipts, not whole-game, physical-scanout or Windows acceptance. Other waits, malformed-score unsafe graphics, real active-PMD timing, broader gameplay and Windows remain open. No safe minimum physical PC-98 or x64 host CPU/RAM profile is stated. Primary commits continue to identify gpt-6.1-sol. Evidence: https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977 https://github.com/N0zoM1z0/th04/commit/db797001d42f1ff3298a87dd4e6d33bdb2dfb775 https://github.com/N0zoM1z0/th04/blob/main/README.md Current main pairs the reconstructed and original MAIN programs for 8,000 updates including a real Continue/resumed-gameplay route. Upstream reports matched consumed input, 36 compared fields, 3,042 RNG calls, nine pools and 22 states, while retaining 263 post-reset input differences and making no whole-campaign, Windows or physical-timing claim. Evidence: https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85 The native title pass now matches 8,000 title-state boundaries, three complete text rows and ordered BB calls; component checks cover 7,895 cases at each of two loads with complete TRAM and four GRCG planes. A preserved 43-frame one-pixel negative demonstrated that text agreement alone missed graphics phase, and the latest correction withdraws a false phase inference while retaining the natural-picture gap. Evidence: https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3",
+      "notes": "Identity and classification remain a PC-98 reconstruction of Touhou 4 with a separate unfinished Linux/Windows x64 port. The current native producer reports 545 programs at b4519b50, 84 GNU and optimized-UBSan build programs, and 82 passing CTests. Upstream now retains 544 original controls and exercises 30 seeded saves/restarts, 24 score and 24 complete Ending registration routes plus eight Extra routes per compiler; independent component images and eight default Demo profiles also pass. These are bounded upstream receipts, not whole-game, physical-scanout or Windows acceptance. Other waits, malformed-score unsafe graphics, real active-PMD timing, broader gameplay and Windows remain open. No safe minimum physical PC-98 or x64 host CPU/RAM profile is stated. Primary commits continue to identify gpt-6.1-sol. Evidence: https://github.com/N0zoM1z0/th04/commit/a80ce900f1a4db8084768be074c73efdb644a977 https://github.com/N0zoM1z0/th04/commit/db797001d42f1ff3298a87dd4e6d33bdb2dfb775 https://github.com/N0zoM1z0/th04/blob/main/README.md Current main pairs the reconstructed and original MAIN programs for 8,000 updates including a real Continue/resumed-gameplay route. Upstream reports matched consumed input, 36 compared fields, 3,042 RNG calls, nine pools and 22 states, while retaining 263 post-reset input differences and making no whole-campaign, Windows or physical-timing claim. Evidence: https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85 The native title pass now matches 8,000 title-state boundaries, three complete text rows and ordered BB calls; component checks cover 7,895 cases at each of two loads with complete TRAM and four GRCG planes. A preserved 43-frame one-pixel negative demonstrated that text agreement alone missed graphics phase, and the latest correction withdraws a false phase inference while retaining the natural-picture gap. Evidence: https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3 Current main adds a source-bound native keyboard device and authored PC-98 repeat/stalled-receiver fixtures that compare requests, timer calls, UART overrun/restart, BIOS writes and CPU reads against independently observed original behavior. This tightens a bounded input subsystem only; it does not establish full-game, physical-keyboard or complete PC-98 timing parity. Evidence: https://github.com/N0zoM1z0/th04/commit/8812f9fc949875e87677ebf45229acc4ce04849b",
       "ai": {
         "usage": true,
         "tools": []
@@ -182098,11 +182124,57 @@
       "target_cpu": [],
       "runtime_profiles": [
         {
-          "name": "TRX64 headless runtime",
-          "platform": "Windows, Linux or macOS",
-          "notes": "README requires user-supplied Commodore ROMs and documents JSON-RPC. No minimum host CPU or RAM is stated.",
+          "name": "v0.14.1 Linux ARM64 archive",
+          "platform": "Linux",
+          "cpu_family": "arm64",
+          "notes": "Published release asset; requires user-supplied Commodore ROMs. No minimum CPU generation, RAM or Linux version is stated.",
           "evidence": [
-            "https://github.com/Jondalar/TRX64/blob/main/README.md"
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
+          ]
+        },
+        {
+          "name": "v0.14.1 Linux x86-64 archive",
+          "platform": "Linux",
+          "cpu_family": "x86-64",
+          "notes": "Published release asset; requires user-supplied Commodore ROMs. No minimum CPU generation, RAM or Linux version is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
+          ]
+        },
+        {
+          "name": "v0.14.1 macOS ARM64 archive",
+          "platform": "macOS",
+          "cpu_family": "arm64",
+          "notes": "Published release asset; requires user-supplied Commodore ROMs. No minimum CPU generation, RAM or macOS version is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
+          ]
+        },
+        {
+          "name": "v0.14.1 macOS x86-64 archive",
+          "platform": "macOS",
+          "cpu_family": "x86-64",
+          "notes": "Published release asset; requires user-supplied Commodore ROMs. No minimum CPU generation, RAM or macOS version is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
+          ]
+        },
+        {
+          "name": "v0.14.1 Windows ARM64 archive",
+          "platform": "Windows",
+          "cpu_family": "arm64",
+          "notes": "Published release asset; requires user-supplied Commodore ROMs. No minimum CPU generation, RAM or Windows version is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
+          ]
+        },
+        {
+          "name": "v0.14.1 Windows x86-64 archive",
+          "platform": "Windows",
+          "cpu_family": "x86-64",
+          "notes": "Published release asset; requires user-supplied Commodore ROMs. No minimum CPU generation, RAM or Windows version is stated.",
+          "evidence": [
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
           ]
         }
       ],
@@ -182127,7 +182199,7 @@
         "reverse-engineering tooling"
       ],
       "re_started": null,
-      "status": "v0.13.1 published; development head adds Action Replay V5/V6 freeze/return behavior and real-image regression tests",
+      "status": "v0.14.1 published; RESTORE now produces one deterministic NMI pulse per press with checkpoint-safe held-key state",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -182140,13 +182212,14 @@
         "disk/IEC tracing",
         "JSON-RPC",
         "banked cartridge overlay emulation",
-        "deterministic freeze-state restoration"
+        "deterministic freeze-state restoration",
+        "cycle-scheduled RESTORE NMI emulation"
       ],
       "tags": [
         "Commodore 64",
         "6502"
       ],
-      "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.9 makes an execution breakpoint on the first interrupt-handler instruction fire, persists interrupt-entry stops through checkpoints, and aligns step, step-over and step-return behavior around IRQ/NMI and RTI with VICE monitor expectations. ROMs remain user-supplied; no host CPU or RAM minimum is stated. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.12.9 https://github.com/Jondalar/TRX64/commit/db224337d341 https://github.com/Jondalar/TRX64/commit/1e6f73894427 https://github.com/Jondalar/TRX64/commit/212ebaf46857 TRX64 0.13.1 publishes Linux, macOS and Windows archives for x86-64 and ARM64. Development immediately after the release makes until and stepOver honor caller-supplied cycle budgets and changes instructionsElapsed from a mislabeled cycle total to a true retired-instruction count, with real-binary and headless tests. This is upstream evidence only; the tracker did not execute the archives. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.13.1 https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891 Development head models Action Replay V5/V6 banking, freeze NMI timing and cartridge RAM/state. Upstream daemon tests mount four real-image variants as CRT and raw BIN, freeze and resume a BASIC counter without corrupting underlying RAM, restore frozen checkpoints/dumps and reproduce the same-cycle trace across fresh daemons; copyrighted images remain outside the repository and absent corpora skip. Evidence: https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084 https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a",
+      "notes": "Headless C64/1541/1581 reverse-debugging runtime used by C64RE. v0.12.9 makes an execution breakpoint on the first interrupt-handler instruction fire, persists interrupt-entry stops through checkpoints, and aligns step, step-over and step-return behavior around IRQ/NMI and RTI with VICE monitor expectations. ROMs remain user-supplied; no host CPU or RAM minimum is stated. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.12.9 https://github.com/Jondalar/TRX64/commit/db224337d341 https://github.com/Jondalar/TRX64/commit/1e6f73894427 https://github.com/Jondalar/TRX64/commit/212ebaf46857 TRX64 0.13.1 publishes Linux, macOS and Windows archives for x86-64 and ARM64. Development immediately after the release makes until and stepOver honor caller-supplied cycle budgets and changes instructionsElapsed from a mislabeled cycle total to a true retired-instruction count, with real-binary and headless tests. This is upstream evidence only; the tracker did not execute the archives. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.13.1 https://github.com/Jondalar/TRX64/commit/86658ec6c62d44470c942ccfaf482f527b449891 Development head models Action Replay V5/V6 banking, freeze NMI timing and cartridge RAM/state. Upstream daemon tests mount four real-image variants as CRT and raw BIN, freeze and resume a BASIC counter without corrupting underlying RAM, restore frozen checkpoints/dumps and reproduce the same-cycle trace across fresh daemons; copyrighted images remain outside the repository and absent corpora skip. Evidence: https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084 https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a v0.14.1 changes RESTORE from a held NMI line to one deterministic pulse per press, preventing a held key from blocking CIA2 NMIs and preventing checkpoint restore from creating a phantom NMI. The release republishes Linux, macOS and Windows archives for ARM64 and x86-64; no CPU-generation, RAM or OS minimum is stated. Evidence: https://github.com/Jondalar/TRX64/releases/tag/v0.14.1 https://github.com/Jondalar/TRX64/commit/fc8a3aa3dc2e6b8ba52930154cb039ed799ced0d",
       "ai": {
         "usage": true,
         "tools": [
@@ -187824,73 +187897,82 @@
       ],
       "runtime_profiles": [
         {
-          "name": "v3.8.0 Linux x86-64",
+          "name": "v3.9.1 Linux x86-64",
           "platform": "Linux",
           "cpu_family": "x86-64",
           "notes": "Published libretro core; requires a compatible frontend. No minimum CPU, RAM or Linux version is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         {
-          "name": "v3.8.0 Linux aarch64",
+          "name": "v3.9.1 Linux aarch64",
           "platform": "Linux",
           "cpu_family": "arm64",
           "notes": "Published libretro core; requires a compatible frontend. No minimum CPU, RAM or Linux version is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         {
-          "name": "v3.8.0 Linux i686",
+          "name": "v3.9.1 Linux i686",
           "platform": "Linux",
           "cpu_family": "x86",
           "notes": "Published libretro core; requires a compatible frontend. No minimum CPU, RAM or Linux version is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         {
-          "name": "v3.8.0 macOS Apple Silicon",
+          "name": "v3.9.1 macOS Apple Silicon",
           "platform": "macOS",
           "cpu_family": "arm64",
           "notes": "Published libretro core; requires a compatible frontend. No minimum macOS version or RAM is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         {
-          "name": "v3.8.0 macOS Intel",
+          "name": "v3.9.1 macOS Intel",
           "platform": "macOS",
           "cpu_family": "x86-64",
           "notes": "Published libretro core; requires a compatible frontend. No minimum Intel model, macOS version or RAM is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         {
-          "name": "v3.8.0 Windows x86",
+          "name": "v3.9.1 Windows x86",
           "platform": "Windows",
           "cpu_family": "x86",
           "notes": "Published libretro core; requires a compatible frontend. No minimum Windows version, CPU model or RAM is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         {
-          "name": "v3.8.0 Windows x64",
+          "name": "v3.9.1 Windows x64",
           "platform": "Windows",
           "cpu_family": "x86-64",
           "notes": "Published libretro core; requires a compatible frontend. No minimum Windows version, CPU model or RAM is stated.",
           "evidence": [
             "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
+          ]
+        },
+        {
+          "name": "v3.9.1 Windows ARM64",
+          "platform": "Windows",
+          "cpu_family": "arm64",
+          "notes": "Published desktop app package. No minimum Windows version, CPU generation or RAM is stated.",
+          "evidence": [
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         }
       ],
@@ -187911,7 +187993,7 @@
         "development tool"
       ],
       "re_started": null,
-      "status": "active; v3.8.0 Correct by default release",
+      "status": "v3.9.1 published with netlist-derived RISC fixes, stock-GDB support, loader corrections and signed desktop packages",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -187923,7 +188005,10 @@
         "headless regression corpus",
         "savestate compatibility",
         "SIMD acceleration",
-        "per-title compatibility presets"
+        "per-title compatibility presets",
+        "netlist-derived hardware validation",
+        "GDB remote debugging",
+        "executable and cartridge loader analysis"
       ],
       "tags": [
         "Atari Jaguar",
@@ -187931,7 +188016,7 @@
         "libretro",
         "emulator"
       ],
-      "notes": "Maintained Jaguar and Jaguar CD libretro emulator continuing the original Virtual Jaguar lineage. v3.8.0 adds cartridge mirroring, BIOS-mode startup corrections, HLE DSP interrupt timing, a default-safe 68000-only blitter timing option, GameDrive SD-card support and savestate v17 with backward loading. The README and release workflow explicitly publish x86, x86-64, ARM, arm64 and WebAssembly variants across desktop, mobile and console hosts. Release notes distinguish headless-only verification and preserve known JaGol/JaguarDemos regressions, so playable remains unknown and no universal compatibility is claimed. Claude Opus 5.5 is explicitly credited on the release-notes commit; configuration-only Copilot evidence is retained separately. Evidence: https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0 https://github.com/libretro/virtualjaguar-libretro/commit/e166e0e1fd36d87d85cf16a81db119bb14c0225b",
+      "notes": "Maintained Jaguar and Jaguar CD libretro emulator continuing the original Virtual Jaguar lineage. v3.8.0 adds cartridge mirroring, BIOS-mode startup corrections, HLE DSP interrupt timing, a default-safe 68000-only blitter timing option, GameDrive SD-card support and savestate v17 with backward loading. The README and release workflow explicitly publish x86, x86-64, ARM, arm64 and WebAssembly variants across desktop, mobile and console hosts. Release notes distinguish headless-only verification and preserve known JaGol/JaguarDemos regressions, so playable remains unknown and no universal compatibility is claimed. Claude Opus 5.5 is explicitly credited on the release-notes commit; configuration-only Copilot evidence is retained separately. Evidence: https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0 https://github.com/libretro/virtualjaguar-libretro/commit/e166e0e1fd36d87d85cf16a81db119bb14c0225b v3.9.1 restores Xenowings audio through netlist-derived DSP store/divide behavior, corrects 33-bit RISC division, broadens GPU idle-loop fast-forward without changing the tested corpus hashes, makes the 68K GDB stub usable by stock gdb, and corrects twelve homebrew/demo load routes. The release publishes a broad architecture matrix, including Windows ARM64 and signed/notarized macOS downloads; known timing, shader-CI and Windows-signing limits remain explicit. Evidence: https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1",
       "ai": {
         "usage": true,
         "tools": [
