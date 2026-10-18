@@ -206,7 +206,7 @@ The Activity UI groups events by the viewer's local calendar day and then projec
 
 ## Evidence enrichment
 
-`tools/enrich_evidence.py` performs a conservative weekly pass over GitHub-backed project documentation.
+`tools/enrich_evidence.py` collects conservative, bounded slices of changed or overdue GitHub-backed projects. `tools/enrichment_pipeline.py` manages budgets, freshness, replay and the scheduler described in README.md. Results and `state/enrichment-state.json` progress are published together; completed results are not marked fresh before publication.
 
 It scans project-local README/status/build notes for explicit claims about:
 
@@ -228,7 +228,7 @@ Rules:
 - Playable=true may imply runnable=true when runnable is still unknown.
 - Statements framed as goals/targets/plans are not accepted as proof of byte exactness.
 - Generic CI success is recorded as a supporting signal only; it does not by itself prove the reconstruction compiles or plays.
-- Documentation is fetched from raw GitHub content so evidence collection does not compete heavily with metadata/activity collection for the GitHub API quota. CI signals are best-effort and may be absent when the API quota is exhausted.
+- Documentation is fetched from raw GitHub content so evidence collection does not compete heavily with metadata/activity collection for the GitHub API quota. CI signals refresh independently; transient API failures retain prior signals and leave CI due for retry. Documentation evidence from a completed scan can still publish. Missing documentation is accepted only for immutable paths under a confirmed accessible commit; network/auth/rate failures never masquerade as absence.
 - Monorepo projects scan their configured `github_path` only, so one project's README cannot supply evidence for another.
 - Repository creation dates remain separate GitHub metadata and are not promoted to `re_started`.
 

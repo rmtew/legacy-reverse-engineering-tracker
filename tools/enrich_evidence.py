@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-from catalogue_storage import load_projects, write_projects
-
-import copy, json, os, re, time
+import re
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urlencode
-from urllib.request import Request, urlopen
+from urllib.parse import quote
 
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/"data"/"projects.json"
 RAW="https://raw.githubusercontent.com"
 API="https://api.github.com"
-TOKEN=os.environ.get("GITHUB_TOKEN","")
 TODAY=datetime.now(timezone.utc).date().isoformat()
-COLLECTOR="github-docs-v2"
+COLLECTOR="github-docs-v3"
 MAX=700_000
 DOCS=["README.md","README","readme.md","STATUS.md","status.md","BUILD.md","build.md","BUILDING.md","building.md","NOTES.md","notes.md"]
 ROOT_EXTRA=["docs/README.md","docs/STATUS.md","docs/status.md","docs/BUILD.md","docs/build.md"]
@@ -56,20 +51,10 @@ START=[
 ]
 CI_NAME=re.compile(r"\b(?:build|test|tests|ci|compile|assemble|verify|verification)\b",re.I)
 CI_EXCLUDE=re.compile(r"\b(?:pages?|deploy|deployment|docs?|documentation|website|site|lint|format)\b",re.I)
-CI_CACHE={}
 
 def repo_name(url):
  m=re.fullmatch(r"https?://github\.com/([^/]+)/([^/#?]+?)(?:\.git)?/?",url or "")
  return f"{m.group(1)}/{m.group(2)}" if m else None
-
-def fetch(url):
- try:
-  with urlopen(Request(url,headers={"User-Agent":"legacy-reverse-engineering-tracker"}),timeout=20) as r:
-   n=r.headers.get("Content-Length")
-   if n and int(n)>MAX:return None
-   b=r.read(MAX+1)
-   return None if len(b)>MAX else b.decode("utf-8","replace")
- except (HTTPError,URLError): return None
 
 def raw(repo,branch,path): return f"{RAW}/{repo}/{quote(branch,safe='')}/{quote(path,safe='/')}"
 def blob(repo,branch,path): return f"https://github.com/{repo}/blob/{quote(branch,safe='')}/{quote(path,safe='/')}"
@@ -117,51 +102,9 @@ def scan_start(text,repo,branch,path):
     break
  return uniq(out)
 
-def docs(record,repo,branch):
- base=(record.get("github_path") or "").strip("/")
- paths=[f"{base}/{n}" if base else n for n in DOCS]+([] if base else ROOT_EXTRA)
- out=[]
- for path in paths:
-  text=fetch(raw(repo,branch,path))
-  if text:out.append((path,text))
-  if len(out)>=6:break
- return out
-
-def ci(repo,branch):
- key=(repo,branch)
- if key in CI_CACHE:return CI_CACHE[key]
- q=urlencode({"branch":branch,"status":"completed","per_page":30})
- h={"Accept":"application/vnd.github+json","User-Agent":"legacy-reverse-engineering-tracker"}
- if TOKEN:h["Authorization"]=f"Bearer {TOKEN}"
- try:
-  with urlopen(Request(f"{API}/repos/{repo}/actions/runs?{q}",headers=h),timeout=20) as r:payload=json.load(r)
- except Exception:
-  CI_CACHE[key]=[];return []
- out=[];names=set()
- for run in payload.get("workflow_runs",[]):
-  name=run.get("name") or ""
-  if name in names or not CI_NAME.search(name) or CI_EXCLUDE.search(name):continue
-  names.add(name);out.append({"workflow":name,"conclusion":run.get("conclusion"),"event":run.get("event"),"branch":run.get("head_branch"),"url":run.get("html_url"),"completed_at":(run.get("updated_at") or "")[:10] or None,"checked_at":TODAY,"collector":COLLECTOR,"strength":"supporting"})
-  if len(out)>=5:break
- CI_CACHE[key]=out;return out
-
 def one_value(xs):
  vals={x["value"] for x in xs if x.get("strength")=="strong"}
  return next(iter(vals)) if len(vals)==1 else None
-
-def enrich(record):
- repo=repo_name(record.get("repo"))
- if not repo:return None
- gh=record.get("github") or {}
- branch=record.get("github_branch") or gh.get("tracking_branch") or gh.get("default_branch") or "main"
- auto={"collector":COLLECTOR,"checked_at":TODAY,"compilable":[],"playable":[],"byte_exact":[],"re_started":[],"ci":[] if record.get("github_path") else ci(repo,branch)}
- for path,text in docs(record,repo,branch):
-  auto["compilable"]+=scan_bool(text,repo,branch,path,POS_COMPILE,NEG_COMPILE)
-  auto["playable"]+=scan_bool(text,repo,branch,path,POS_PLAY,NEG_PLAY)
-  auto["byte_exact"]+=scan_bool(text,repo,branch,path,POS_BYTE,NEG_BYTE,BYTE_REJECT)
-  auto["re_started"]+=scan_start(text,repo,branch,path)
- for k in ("compilable","playable","byte_exact","re_started"):auto[k]=uniq(auto[k])
- return auto
 
 def apply(record,auto):
  prev=((record.get("evidence") or {}).get("automated") or {}).get("applied") or {}
@@ -186,19 +129,7 @@ def apply(record,auto):
  return applied
 
 def main():
- records=load_projects(DATA);checked=with_ev=promoted_records=promoted_fields=0
- for i,original in enumerate(records):
-  if not repo_name(original.get("repo")):continue
-  candidate=copy.deepcopy(original)
-  try:
-   auto=enrich(candidate);applied=apply(candidate,auto);records[i]=candidate;checked+=1
-   if any(auto[k] for k in ("compilable","playable","byte_exact","re_started","ci")):with_ev+=1
-   if applied:promoted_records+=1;promoted_fields+=len(applied)
-   print(f"[{i+1}/{len(records)}] evidence {candidate['title']}: {len(applied)} promoted")
-  except Exception as e:print(f"WARNING: {original.get('title')}: {e}")
-  time.sleep(.01)
- records.sort(key=lambda r:((r.get("title") or "").casefold(),r.get("id") or ""))
- write_projects(DATA, records)
- print(f"Evidence checked for {checked} GitHub-backed records; {with_ev} have evidence/signals; promoted {promoted_fields} fields on {promoted_records} records.")
+ from enrichment_pipeline import main as bounded_main
+ bounded_main()
 
 if __name__=="__main__":main()
