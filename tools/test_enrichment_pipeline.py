@@ -505,6 +505,19 @@ class EnrichmentTests(unittest.TestCase):
         self.assertEqual(bundle['summary']['docs_completed'],1)
 
 
+    def test_publishing_one_component_keeps_change_priority_for_unfinished_other(self):
+        record=project('unfinished');old=pipeline.digest('previous source')
+        for completed,missing in [('ci','docs'),('docs','ci')]:
+            fp='ci_fingerprint' if completed=='ci' else 'fingerprint'
+            state={'version':1,'records':{'unfinished':{fp:old}}}
+            bundle,_=self.collect(records=[record],state=state,limit=1,
+                docs_limit=0 if completed=='ci' else 1,ci_limit=0 if completed=='docs' else 1)
+            records,after,_=pipeline.replay([record],state,bundle)
+            changed,_=pipeline.queues(records,after,NOW,work=missing)
+            self.assertEqual([r['id'] for r in changed],['unfinished'])
+            self.assertNotIn('ci_fingerprint' if missing=='ci' else 'fingerprint',after['records']['unfinished'])
+
+
 
 class WorkflowTests(unittest.TestCase):
     def test_collection_occurs_once_and_retry_replays_same_external_bundle(self):

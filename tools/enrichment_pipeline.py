@@ -36,7 +36,8 @@ CI_TTL = timedelta(days=7)
 METADATA_MAX_AGE = timedelta(hours=13)
 MAX_RESPONSE = 700_000
 STATE_FIELDS = {'fingerprint', 'last_attempt_at', 'docs_key', 'docs_digest', 'docs_checked_at',
-                'ci_checked_at', 'failures', 'retry_at', 'ci_fingerprint', 'ci_attempt_at', 'ci_retry_at', 'ci_failures'}
+                'ci_checked_at', 'failures', 'retry_at', 'ci_fingerprint', 'ci_attempt_at', 'ci_retry_at', 'ci_failures',
+                'docs_observed_fingerprint', 'ci_observed_fingerprint'}
 
 
 def log(**values):
@@ -147,7 +148,7 @@ def queues(records, state, now, *, work='docs', polling=None):
         if parsed(previous.get(retry_key)) > now:
             continue
         prior = previous.get(fp_key)
-        reference = prior or previous.get('fingerprint' if ci else 'ci_fingerprint')
+        reference = prior or previous.get('ci_observed_fingerprint' if ci else 'docs_observed_fingerprint') or previous.get('fingerprint' if ci else 'ci_fingerprint')
         is_changed = bool(reference) and reference != source_fingerprint(record, polling)
         if is_changed:
             changed.append(record)
@@ -370,6 +371,7 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
         after = {**previous, 'ci_fingerprint': signal, 'ci_attempt_at': stamp(now),
                  'ci_checked_at': stamp(now), 'ci_failures': 0}
         after.pop('ci_retry_at', None)
+        after.pop('ci_observed_fingerprint', None)
         return candidate, after
     commit = metadata_commit(record, polling or {}, now)
     if commit:
@@ -415,6 +417,7 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
     after = {**previous, 'fingerprint': signal, 'last_attempt_at': stamp(now),
              'docs_key': key, 'docs_digest': digest(doc_payload(auto)), 'docs_checked_at': stamp(now), 'failures': 0}
     after.pop('retry_at', None)
+    after.pop('docs_observed_fingerprint', None)
     return candidate, after
 
 
@@ -507,6 +510,13 @@ def collect(root, bundle, budget, *, limit=None, docs_limit=64, ci_limit=60, now
                     stop_all = exc.scope == 'global'; break
                 attempted[work].add(pid)
                 previous = copy.deepcopy(progress.get(pid, {}))
+                signal = source_fingerprint(record, polling)
+                # Observation is not completion. Preserve an unfinished lane's
+                # old input baseline when the other lane publishes newer work.
+                if not previous.get('fingerprint'):
+                    previous.setdefault('docs_observed_fingerprint', previous.get('ci_fingerprint') or signal)
+                if not identity(record)['path'] and not previous.get('ci_fingerprint'):
+                    previous.setdefault('ci_observed_fingerprint', previous.get('fingerprint') or signal)
                 info = outcomes.setdefault(pid, {})
                 stop_phase = False
                 try:
