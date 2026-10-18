@@ -21,8 +21,8 @@ import shutil
 import tempfile
 import time
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urlencode
-from urllib.request import Request, urlopen
+from urllib.parse import quote, urlencode, urljoin, urlsplit
+from urllib.request import Request, build_opener, HTTPRedirectHandler
 
 import enrich_evidence as evidence
 from catalogue_storage import bounded, encode, load_projects, write_projects
@@ -143,13 +143,34 @@ class Budget:
                 'elapsed_seconds': round(self.clock() - self.start, 3), 'cache_hits': self.cache_hits}
 
 
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, target):
+        return None  # Redirect hops must consume the explicit request budget.
+
+
+class Redirect(Exception):
+    pass
+
+
 class Client:
-    def __init__(self, budget, *, token=None, opener=urlopen):
-        self.budget, self.opener = budget, opener
+    def __init__(self, budget, *, token=None, opener=None):
+        self.budget, self.opener = budget, opener or build_opener(NoRedirect()).open
         self.token = os.environ.get('GITHUB_TOKEN', '') if token is None else token
         self.heads, self.ci_results = {}, {}
 
     def get(self, url, kind, *, absence=False):
+        for _ in range(4):
+            try:
+                return self._get_once(url, kind, absence=absence)
+            except Redirect as exc:
+                target = urljoin(url, str(exc))
+                parts = urlsplit(target)
+                if parts.scheme != 'https' or parts.netloc not in {'api.github.com', 'raw.githubusercontent.com'}:
+                    raise FetchFailure('unsupported redirect') from exc
+                url = target
+        raise FetchFailure('redirect limit')
+
+    def _get_once(self, url, kind, *, absence=False):
         timeout, started = self.budget.before_request(), self.budget.clock()
         headers = {'User-Agent': 'legacy-reverse-engineering-tracker', 'Accept': 'application/vnd.github+json'}
         if url.startswith(evidence.API + '/') and self.token:
@@ -170,6 +191,8 @@ class Client:
                 return bytes(content).decode('utf-8', errors='strict')
         except HTTPError as exc:
             status = str(exc.code)
+            if exc.code in {301, 302, 303, 307, 308} and exc.headers.get('Location'):
+                raise Redirect(exc.headers['Location']) from exc
             if absence and exc.code == 404:
                 return None  # Only immutable paths under a confirmed accessible commit.
             raise FetchFailure('HTTP ' + status, rate_limited=exc.code == 429 or

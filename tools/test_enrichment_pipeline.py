@@ -310,6 +310,26 @@ class EnrichmentTests(unittest.TestCase):
         self.assertEqual(summary['conflicts'],['a'])
 
 
+    def test_redirect_hops_count_toward_request_budget(self):
+        def redirects(request,timeout):
+            raise HTTPError(request.full_url,302,'Moved',{'Location':request.full_url+'x'},None)
+        budget=pipeline.Budget(requests=2)
+        client=pipeline.Client(budget,opener=redirects)
+        with self.assertRaises(pipeline.BudgetStop):
+            client.get('https://api.github.com/repos/owner/a/git/ref/heads/main','head')
+        self.assertEqual(budget.requests,2)
+        self.assertEqual(budget.statuses,{'302':2})
+
+    def test_unsupported_redirect_is_deferred_without_following_it(self):
+        def redirects(request,timeout):
+            raise HTTPError(request.full_url,302,'Moved',{'Location':'https://unrelated.invalid/path'},None)
+        budget=pipeline.Budget(requests=20)
+        client=pipeline.Client(budget,opener=redirects)
+        with self.assertRaisesRegex(pipeline.FetchFailure,'unsupported redirect'):
+            client.get('https://api.github.com/repos/owner/a/git/ref/heads/main','head')
+        self.assertEqual(budget.requests,1)
+
+
 
 class WorkflowTests(unittest.TestCase):
     def test_collection_occurs_once_and_retry_replays_same_external_bundle(self):
