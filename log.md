@@ -1168,3 +1168,7 @@ Reviewed ten material upstream advances. **c64-re-tools** now spans deterministi
 ## 2026-10-18 — Add 62 reviewed retro projects across home computers, consoles, PCs, operating systems, applications and development tools.
 
 [Research record](docs/research/2026-10-18-wide-cross-platform-discovery-10.md).
+
+## 2026-10-18 — Add 63 reviewed retro projects across home computers, consoles, PCs, operating systems, applications and development tools.
+
+[Research record](docs/research/2026-10-18-wide-cross-platform-discovery-11.md).
