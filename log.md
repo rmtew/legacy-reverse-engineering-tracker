@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-19 — Runtime, debugger and analysis maintenance
+
+Reviewed eight materially changed projects. **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** now reaches the first world from authenticated Apple IIGS media through direct and menu routes while retaining explicit presentation, audio and campaign gaps. **Lanthorn — interactive-fiction disk and format interpreter** advances to v0.9.6, gains terminal-protocol-aware dialog handling and records its published x86-64/arm64 variants without inventing processor generations or RAM floors. **Systemless classic Macintosh API runtime** separates CPU baselines from GPU qualification and reuses bounded GPU bind groups, while **Ghidra Retro Machines — bank-aware loaders and retro CPU languages** fixes address-masked indexed writes with a 35-ROM regression gate.
+
+**Fairlight II — ZX Spectrum completion-bug reverse engineering** adds 3D-engine lineage and cross-version bug documentation. **mz800emu — Sharp MZ-800/700/1500 emulator and debugger** adds frame-synchronized GUI/MCP memory search, freeze and write-origin analysis. **Wings of Fury Atari STE conversion** records source version 1.1.0, joystick-only flight controls and the README's explicit 2 MiB minimum. **volamos — AmigaOS CLI compatibility runtime** advances to v0.11 and tracks exec.library allocation lifetime for guest use-after-free and optional uninitialized-memory detection.
+
+The CPU audit queue was empty before selection, so no quota-driven CPU edits were made. Wings of Fury's RAM floor and Lanthorn's package architectures are primary-source facts; no unstated CPU generation or wider minimum was inferred. Systemless and mz800emu stale AI audits were corrected from explicit upstream attribution. No upstream project was independently built or executed, and repository-scope checks found no new separately titled project.
+
 ## 2026-10-19 — SkoolKit profile and Apple Lisa development tooling
 
 Completed the current 13-repository **skoolkid** profile inventory. Nine repositories were already tracked; the review promoted **Pyskool — Skool Daze / Back to Skool reimplementation** and **t2sfiles — pristine ZX Spectrum snapshot corpus and analysis tools**. Pyskool’s Python 3.10+/Pygame 2.0.2+ runtime is explicit, and its latest reviewed commit carries a Claude Opus 5.5 co-author trailer. t2sfiles combines reproducible tape-to-snapshot recipes with Z80 register/RAM comparison and preservation utilities. The empty `conan2-13692` repository and unchanged `skoolkid/ZXDB` metadata fork were recorded as exclusions; the wider SkoolKit graph task remains open for other authors and canonical mirrors.

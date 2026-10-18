@@ -5280,7 +5280,7 @@
     },
     {
       "project_id": "fairlight2-spectrum-wilson",
-      "last_reviewed": "2026-09-30",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -5290,8 +5290,13 @@
         },
         "classification": {
           "state": "reviewed",
-          "checked_at": "2026-09-24",
-          "note": "Seeded from record_class and structured kind fields."
+          "checked_at": "2026-10-19",
+          "note": "The repository remains reverse-engineering/behavior analysis rather than a buildable reconstruction; new documents cover the 3D engine and version-specific bugs with supporting images.",
+          "evidence_urls": [
+            "https://github.com/stevehjohnson/fairlight2/commit/a01167557e14c0f234e3f1900cfa7b6d4ada45f1",
+            "https://github.com/stevehjohnson/fairlight2/commit/d0edf57435df1b8b3c17892338fb43f64a6cfb2b",
+            "https://github.com/stevehjohnson/fairlight2/commit/6d479fab4b5fec7f53675f88163faffd9057f323"
+          ]
         },
         "source_cpu": {
           "state": "reviewed",
@@ -5316,8 +5321,11 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-09-30",
-          "note": "README credits prior Fairlight reverse engineering and the repository's source-link trail; no predecessor or successor repository for this Fairlight II investigation is claimed."
+          "checked_at": "2026-10-19",
+          "note": "The new engine note explicitly relates Fairlight II's 3D implementation to Fairlight I; no separate successor repository or code lineage is inferred.",
+          "evidence_urls": [
+            "https://github.com/stevehjohnson/fairlight2/commit/a01167557e14c0f234e3f1900cfa7b6d4ada45f1"
+          ]
         }
       },
       "next_actions": []
@@ -5544,7 +5552,7 @@
     },
     {
       "project_id": "firestaff-dungeon-master-engine",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-19",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -5575,21 +5583,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "Authenticated PC34 regressions now cover overlapping champion portrait/hand routing and selector input handling. Separate instrumentation reports input-to-source/present timing while explicitly leaving physical scanout unmeasured.",
+          "checked_at": "2026-10-19",
+          "note": "Authenticated Apple IIGS DM1 G20E/G21E media reaches the first world through direct CLI and M12 menu routes; CLI accepts a native keyboard turn and the archive hash remains unchanged. Dummy SDL output means title/entrance, audible DOC and complete-campaign parity are not established.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373",
-            "https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44"
+            "https://github.com/yeager/firestaff/commit/c9d9b0e0097242ea1a6f1e5fa29183c3e09bfabb"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "The reviewed IIGS material establishes original-world execution and feature coverage but does not state a primary-source minimum RAM or host configuration. No runtime minimum is added. The champion-routing and latency instrumentation add no minimum original machine or host requirement.",
+          "checked_at": "2026-10-19",
+          "note": "The new IIGS receipt adds an authenticated runnable route but no primary-source minimum CPU, RAM or ROM requirement. Existing host profiles are retained without inventing an Apple IIGS minimum.",
           "evidence_urls": [
-            "https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b",
-            "https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373",
-            "https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44"
+            "https://github.com/yeager/firestaff/commit/c9d9b0e0097242ea1a6f1e5fa29183c3e09bfabb"
           ]
         },
         "ai": {
@@ -5610,7 +5615,8 @@
         "Reach DM2 Macintosh dungeon presentation and verify parity.",
         "Verify Theron save restoration and later campaign consumers.",
         "Check predecessor/successor/fork and credited-source relationships.",
-        "Verify live Retina 2x input mapping on physical Apple Silicon hardware."
+        "Verify live Retina 2x input mapping on physical Apple Silicon hardware.",
+        "Verify original Apple IIGS title/entrance presentation, audible DOC playback and later campaign progression."
       ]
     },
     {
@@ -31604,7 +31610,7 @@
     },
     {
       "project_id": "ghidra-retro-machines",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -31635,12 +31641,10 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The shared-tail dataflow fix changes Castlevania III's bank split and diagnostics while leaving the other 34 NES rows byte-identical; upstream reports build-and-test SUITE OK. Related overlay-state and corpus-runner fixes remain conservative and bounded.",
+          "checked_at": "2026-10-19",
+          "note": "The address-mask indexed-write fix adds five tests; upstream reports build-and-test SUITE OK, a 35/35 NES real-ROM corpus pass without blessing and byte-identical Bandai goldens. The tracker did not independently run the suite.",
           "evidence_urls": [
-            "https://github.com/CBongo/ghidra-retro-machines/commit/101dc785283b69672728d98a318af579d2f5f7ff",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/9ab5515",
-            "https://github.com/CBongo/ghidra-retro-machines/commit/2950474"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/8bef37250f5fa012f96753884da2cf5db28ab1c4"
           ]
         },
         "runtime_profiles": {
@@ -31650,10 +31654,10 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The reviewed analyzer commit explicitly credits Claude Opus 5.5; the record does not infer an authorship share.",
+          "checked_at": "2026-10-19",
+          "note": "The reviewed address-mask correction explicitly credits Claude Opus 5.5; attribution remains scoped to evidenced commits.",
           "evidence_urls": [
-            "https://github.com/CBongo/ghidra-retro-machines/commit/101dc785283b69672728d98a318af579d2f5f7ff"
+            "https://github.com/CBongo/ghidra-retro-machines/commit/8bef37250f5fa012f96753884da2cf5db28ab1c4"
           ]
         },
         "relationships": {
@@ -44600,7 +44604,7 @@
     },
     {
       "project_id": "lanthorn-interactive-fiction-archive",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -44622,34 +44626,38 @@
           "note": "Multiple formats/systems are supported; no single historical source CPU inferred."
         },
         "target_cpu": {
-          "state": "not-applicable",
-          "checked_at": "2026-09-29",
-          "note": "Host analysis utility without a legacy native-executable target."
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "v0.9.6 release assets explicitly identify x86-64 and arm64 native outputs; no processor generation is inferred.",
+          "evidence_urls": [
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.6"
+          ]
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "v0.9.3 publishes Linux x86-64/aarch64, macOS universal and Windows x86-64 archives and documents bounded story/media handling plus platform-directory migration. The v0.9.5 changelog documents a published runnable release; the following compass styling remains unreleased and is not folded into the release status.",
+          "checked_at": "2026-10-19",
+          "note": "v0.9.6 publishes Linux x86-64/aarch64, macOS universal and Windows x86-64 archives. Current main adds protocol-aware artwork/dialog handling and content-driven PTY staging; no archive was independently executed.",
           "evidence_urls": [
-            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.3",
-            "https://github.com/sharkusk/lanthorn/blob/main/CHANGELOG.md",
-            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.5"
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.6",
+            "https://github.com/sharkusk/lanthorn/commit/b7145309bb2eff33a57482a945c85d118b3c17ef",
+            "https://github.com/sharkusk/lanthorn/commit/48a8228875ec20efa5a73266785cd42b88ce60c5"
           ]
         },
         "runtime_profiles": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-08",
-          "note": "v0.9.3 identifies host architectures and Linux libasound2, but states no minimum CPU generation or RAM; no minimum-hardware profile was invented.",
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Profiles record only the published v0.9.6 OS/architecture variants and Linux libasound2/glibc packaging note. No minimum CPU generation, RAM or unsupported OS floor is inferred, and the archives were not independently run.",
           "evidence_urls": [
-            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.3"
+            "https://github.com/sharkusk/lanthorn/releases/tag/v0.9.6"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-05",
-          "note": "A primary commit explicitly carries a Claude co-author trailer.",
+          "checked_at": "2026-10-19",
+          "note": "The reviewed dialog-rendering and PTY-test commits explicitly credit Claude Opus 5.5; attribution remains scoped to those commits.",
           "evidence_urls": [
-            "https://github.com/sharkusk/lanthorn/commit/0869be214e37b14653604e5c3c217c90ff31d2a3"
+            "https://github.com/sharkusk/lanthorn/commit/b7145309bb2eff33a57482a945c85d118b3c17ef",
+            "https://github.com/sharkusk/lanthorn/commit/48a8228875ec20efa5a73266785cd42b88ce60c5"
           ]
         },
         "relationships": {
@@ -56329,7 +56337,7 @@
     },
     {
       "project_id": "volamos-amiga-cli-runtime",
-      "last_reviewed": "2026-10-15",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -56406,13 +56414,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "v0.10 is published, and reviewed source/tests cover non-AUTOINIT disk libraries plus opt-in UAE and Emu68 debug ports. No local build or guest-binary execution was performed.",
+          "checked_at": "2026-10-19",
+          "note": "v0.11 is published. Upstream reports 1,109 workspace tests passing for exec.library allocation-lifetime sanitization; real gcc/sc guest binaries were not run and trap-level end-to-end tests substitute. No independent build or guest execution was performed.",
           "evidence_urls": [
-            "https://github.com/sidick/volamos/releases/tag/v0.10",
-            "https://github.com/sidick/volamos/commit/2ee28f5f2759a9ea5096ba7f0068c4ec4cf94011",
-            "https://github.com/sidick/volamos/commit/359f762476c061b3b487cdcaf1dc86acdc786dd9",
-            "https://github.com/sidick/volamos/commit/fcec136d6f7f416b89af11d6bb76f6c89c96a8f5"
+            "https://github.com/sidick/volamos/releases/tag/v0.11",
+            "https://github.com/sidick/volamos/commit/e5a44e39cf91e92d1350fcb898e224db363fd589"
           ]
         },
         "runtime_profiles": {
@@ -56435,10 +56441,10 @@
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-15",
-          "note": "The non-AUTOINIT library commit carries explicit Claude co-author metadata. Existing affirmative Claude attribution remains scoped to evidenced commits rather than the whole project.",
+          "checked_at": "2026-10-19",
+          "note": "The allocation-sanitizer implementation explicitly credits Claude Sonnet 5. Existing affirmative Claude attribution remains scoped to evidenced commits.",
           "evidence_urls": [
-            "https://github.com/sidick/volamos/commit/2ee28f5f2759a9ea5096ba7f0068c4ec4cf94011"
+            "https://github.com/sidick/volamos/commit/e5a44e39cf91e92d1350fcb898e224db363fd589"
           ]
         },
         "relationships": {
@@ -134745,7 +134751,7 @@
     },
     {
       "project_id": "mz800emu-sharp-mz-emulator-debugger",
-      "last_reviewed": "2026-10-18",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -134780,11 +134786,10 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-18",
-          "note": "Primary commits add complete hidden CPU/peripheral snapshot state, safe RAMdisk/IDE8 restoration and debugger/MCP correctness for temporary stops, expanded memory maps and fetched-byte traces. The tracker did not independently execute these paths.",
+          "checked_at": "2026-10-19",
+          "note": "The reviewed commit adds synchronized GUI/MCP memory search, freeze and write-origin tooling across multiple spaces and fixes access to the second half of PEHU 512 KiB. No independent build or run was performed.",
           "evidence_urls": [
-            "https://github.com/michalhucik/mz800emu/commit/1f477d90e2efd6808253c1c3d5f31fa56f465570",
-            "https://github.com/michalhucik/mz800emu/commit/a5726b9658d10b4412cf4a28bc212a78351f28a4"
+            "https://github.com/michalhucik/mz800emu/commit/0e4967ca56d162bcd2dc3607ebab986f9e029e78"
           ]
         },
         "runtime_profiles": {
@@ -134793,13 +134798,11 @@
           "note": "Host-side emulator; supported host OSes are documented, but no minimum CPU or RAM profile is stated."
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-16",
-          "note": "README, MCP documentation and bounded Claude/ChatGPT commit searches were checked. Claude client integration is not authorship evidence.",
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "A maintained locale catalog at the reviewed commit explicitly identifies Claude Code as Last-Translator. This is direct attribution for maintained project content, not an inference from client configuration or a claim about the entire codebase.",
           "evidence_urls": [
-            "https://github.com/michalhucik/mz800emu/blob/main/README.md",
-            "https://github.com/michalhucik/mz800emu/blob/main/mcp-server/README.md",
-            "https://github.com/michalhucik/mz800emu/commit/100616ad03bc0c0a1f935d4e3fffadab72dfc43e"
+            "https://github.com/michalhucik/mz800emu/blob/0e4967ca56d162bcd2dc3607ebab986f9e029e78/src/locale/de/LC_MESSAGES/mz800emu.po"
           ]
         },
         "relationships": {
@@ -155275,7 +155278,7 @@
     },
     {
       "project_id": "systemless-classic-mac-runtime",
-      "last_reviewed": "2026-10-18",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -155316,11 +155319,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-18",
-          "note": "Cargo package requires Rust 1.93 and registry dependencies including m68k, ppc, stuffit and graphical/audio crates. Native release instructions cover macOS/Linux/Windows; browser is a workspace member. User supplies original app/resource forks or archives; no ROM/System image dependency. No candidate code was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown.",
+          "checked_at": "2026-10-19",
+          "note": "CPU-only reference sweeps are now explicitly separated from GPU qualification, while QuickDraw/QD3D reuse bounded compute bind groups and invalidate them on scratch growth. No local build or run was performed.",
           "evidence_urls": [
-            "https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/README.md",
-            "https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/Cargo.toml"
+            "https://github.com/benletchford/systemless/commit/e847c8506e5f701fcaa657c3c65372de8e39ef30",
+            "https://github.com/benletchford/systemless/commit/e4e590d010b0fbc685a59869ec7a52ef7aa3e9df"
           ]
         },
         "runtime_profiles": {
@@ -155333,12 +155336,11 @@
           ]
         },
         "ai": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-18",
-          "note": "Bounded README, source metadata and tip-commit inspection found no explicit development-AI attribution. This does not establish non-use.",
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "Commit a42eee8 explicitly carries a Claude Opus 5.5 co-author trailer, correcting the prior bounded no-evidence result. Attribution is not generalized beyond evidenced commits.",
           "evidence_urls": [
-            "https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/README.md",
-            "https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/Cargo.toml"
+            "https://github.com/benletchford/systemless/commit/a42eee8225905be448d4e412b665921eade9263d"
           ]
         },
         "relationships": {
@@ -190011,7 +190013,7 @@
     },
     {
       "project_id": "wings-of-fury-atari-ste-reimplementation",
-      "last_reviewed": "2026-10-18",
+      "last_reviewed": "2026-10-19",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -190080,50 +190082,27 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-18",
-          "note": "Needs patched AGT master a155d41, m68k-atari-mint GCC4.6.4/binutils/MiNTLib, Python/Pillow, make and shell; release scripts generate floppy/hard-disk packages. No build performed; all build/runtime/byte-exact flags remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown.",
+          "checked_at": "2026-10-19",
+          "note": "Source version 1.1.0 changes flight to joystick-only to avoid dropped Atari ST three-key combinations and fixes Mega STE Ctrl+Q handling. No matching GitHub release, independent build or hardware run was found.",
           "evidence_urls": [
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/README.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/game/wof.cpp",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/game/Makefile",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/docs/BUILDING.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/reverse-engineering/notes/player.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/tools/hunk.py",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/tools/iff.py",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/LICENSE",
-            "https://github.com/theimann/wings-of-fury-atari-ste/commit/c6fd48298109b5148dd4837aadb0e78082cbc2a7"
+            "https://github.com/theimann/wings-of-fury-atari-ste/commit/dbe8a3a63863b16952905c0410ded3ab00465f5d",
+            "https://github.com/theimann/wings-of-fury-atari-ste/commit/9390713ecd21e191e6e6ef67c2e06f5f6f732f0b"
           ]
         },
         "runtime_profiles": {
-          "state": "no-evidence-found",
-          "checked_at": "2026-10-18",
-          "note": "Upstream states STE/Mega STE, 2MB+, 50Hz colour monitor, floppy or hard disk. Source/reported tests inspected only, no independent play.",
+          "state": "reviewed",
+          "checked_at": "2026-10-19",
+          "note": "The primary README explicitly requires Atari STE or Mega STE, at least 2 MiB RAM, a 50 Hz colour display, joystick port 1 and floppy or hard disk. The profile records those requirements without inventing a minimum 68000-family model; hardware was not independently tested.",
           "evidence_urls": [
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/README.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/game/wof.cpp",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/game/Makefile",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/docs/BUILDING.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/reverse-engineering/notes/player.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/tools/hunk.py",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/tools/iff.py",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/LICENSE",
-            "https://github.com/theimann/wings-of-fury-atari-ste/commit/c6fd48298109b5148dd4837aadb0e78082cbc2a7"
+            "https://github.com/theimann/wings-of-fury-atari-ste/blob/9390713ecd21e191e6e6ef67c2e06f5f6f732f0b/README.md"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-18",
-          "note": "README says conversion code written by Claude in Claude Code; pinned commit contains Claude Opus 5.5 co-author trailer.",
+          "checked_at": "2026-10-19",
+          "note": "The version-bump commit explicitly credits Claude Opus 5.5; the existing README attribution to Claude Code remains valid and scoped.",
           "evidence_urls": [
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/README.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/game/wof.cpp",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/game/Makefile",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/docs/BUILDING.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/reverse-engineering/notes/player.md",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/tools/hunk.py",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/tools/iff.py",
-            "https://github.com/theimann/wings-of-fury-atari-ste/blob/c6fd48298109b5148dd4837aadb0e78082cbc2a7/LICENSE",
-            "https://github.com/theimann/wings-of-fury-atari-ste/commit/c6fd48298109b5148dd4837aadb0e78082cbc2a7"
+            "https://github.com/theimann/wings-of-fury-atari-ste/commit/dbe8a3a63863b16952905c0410ded3ab00465f5d"
           ]
         },
         "relationships": {
