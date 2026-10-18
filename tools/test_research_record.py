@@ -11,6 +11,7 @@ import tempfile
 import unittest
 
 from apply_discovery_batch import FILES, ROOT, apply_batch
+from catalogue_storage import load_all
 from research_record import (AREAS, EvidenceCache, compile_records, git_blob_sha,
                              proof_url, render_report, review_digest, seal_review)
 
@@ -96,7 +97,7 @@ class ResearchRecordTests(unittest.TestCase):
         self.assertIn("No compilation, execution or gameplay test was run.", project["notes"])
 
     def test_compiled_batch_is_accepted_without_changing_catalogue_schema(self):
-        data = {name: json.loads((ROOT / "data" / name).read_text()) for name in FILES}
+        data = load_all(ROOT / "data")
         result = apply_batch(data, compile_records(self.document))
         self.assertEqual(result["projects"], ["research-format-example"])
         self.assertEqual(data["projects.json"][-1]["ai"]["usage"], None)
@@ -270,7 +271,7 @@ class ResearchRecordTests(unittest.TestCase):
         self.assertIn("Expected existing project SHA256: " + "a" * 64, report)
 
     def test_compiled_update_applies_to_exact_snapshot_and_rejects_stale_baseline(self):
-        data = {name: json.loads((ROOT / "data" / name).read_text()) for name in FILES}
+        data = load_all(ROOT / "data")
         project = next(p for p in data["projects.json"] if p["id"] == "abm-apple2-6502disassembly")
         before = copy.deepcopy(project)
         digest = hashlib.sha256(json.dumps(project, sort_keys=True, separators=(",", ":"),

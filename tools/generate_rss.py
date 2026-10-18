@@ -7,6 +7,8 @@ remain separate items.
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects
+
 import argparse
 import html
 import json
@@ -227,7 +229,7 @@ def change_description(event, project):
 
 def generate(activity_path, projects_path, output_path, limit):
     activity = json.loads(activity_path.read_text(encoding="utf-8"))
-    projects = json.loads(projects_path.read_text(encoding="utf-8"))
+    projects = load_projects(projects_path)
     by_id = {project["id"]: project for project in projects if project.get("id")}
 
     events = aggregate_commit_days(activity)

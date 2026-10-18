@@ -17,10 +17,9 @@ import shutil
 import tempfile
 
 from validate_site_data import validate
+from catalogue_storage import FILES, load_all, write_all, storage_paths
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = ("projects.json", "project-audits.json", "discovery-sources.json",
-         "discovery-decisions.json", "research-activity.json")
 
 
 def unique_url(url: str) -> str:
@@ -45,6 +44,7 @@ def apply_batch(data: dict, batch: dict) -> dict:
         require(isinstance(batch.get(field, []), list), f"{field} must be an array")
     require(any(batch.get(field) for field in ("projects", "sources", "source_updates", "tasks", "task_updates", "decisions", "project_updates")), "Batch has no changes")
 
+    initial = copy.deepcopy(data)
     projects = data["projects.json"]
     audits = data["project-audits.json"]["projects"]
     discovery = data["discovery-sources.json"]
@@ -207,37 +207,38 @@ def apply_batch(data: dict, batch: dict) -> dict:
     position = next((i for i, old in enumerate(history) if old["date"] <= day), len(history))
     history.insert(position, event)
     for name in ("discovery-sources.json", "discovery-decisions.json", "project-audits.json", "research-activity.json"):
-        data[name]["indexed_at"] = day
+        if data[name] != initial[name]:
+            data[name]["indexed_at"] = day
     return {"projects": added_projects, "updated_projects": updated_projects, "sources": sorted(event_sources), "decisions": len(batch.get("decisions", []))}
 
 
 def run(root: Path, batch: dict, write: bool) -> dict:
     data_dir = root / "data"
-    data = {name: json.loads((data_dir / name).read_text(encoding="utf-8")) for name in FILES}
-    original = {name: (data_dir / name).read_bytes() for name in FILES}
+    data = load_all(data_dir)
+    original = {name: (data_dir / name).read_bytes() for name in storage_paths(data_dir)}
     summary = apply_batch(data, batch)
     with tempfile.TemporaryDirectory(prefix=".discovery-batch-", dir=root) as tmp:
         staged = Path(tmp) / "data"
-        staged.mkdir()
-        shutil.copy2(data_dir / "activity.json", staged / "activity.json")
-        changed = {}
-        for name in FILES:
-            content = (json.dumps(data[name], indent=2, ensure_ascii=False) + "\n").encode("utf-8")
-            if content != original[name]:
-                (staged / name).write_bytes(content)
-                changed[name] = content
-            else:
-                shutil.copy2(data_dir / name, staged / name)
+        shutil.copytree(data_dir, staged)
+        changed = write_all(staged, data)
         validate(staged / "projects.json", staged / "activity.json")
         if write:
             written = []
             try:
-                for name, content in changed.items():
-                    os.replace(staged / name, data_dir / name)
+                for name in changed:
+                    target = data_dir / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    if (staged / name).exists():
+                        os.replace(staged / name, target)
+                    else:
+                        target.unlink(missing_ok=True)
                     written.append(name)
             except OSError:
                 for name in written:
-                    (data_dir / name).write_bytes(original[name])
+                    if name in original:
+                        (data_dir / name).write_bytes(original[name])
+                    else:
+                        (data_dir / name).unlink(missing_ok=True)
                 raise
     summary["changed_files"] = ["data/" + name for name in changed]
     return summary

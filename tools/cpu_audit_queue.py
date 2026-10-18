@@ -5,6 +5,8 @@ This reports research work; it never guesses a CPU from a platform or edits data
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects, load_dataset
+
 import argparse
 import json
 from pathlib import Path
@@ -59,8 +61,8 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--json", action="store_true", help="Machine-readable ranked results")
     args = parser.parse_args()
-    projects = json.loads((ROOT / "data/projects.json").read_text(encoding="utf-8"))
-    audits = json.loads((ROOT / "data/project-audits.json").read_text(encoding="utf-8"))["projects"]
+    projects = load_projects(ROOT / "data/projects.json")
+    audits = load_dataset(ROOT / "data", "project-audits.json")["projects"]
     ranked = queue(projects, audits)
     shown = ranked[:max(0, args.limit)]
     if args.json:

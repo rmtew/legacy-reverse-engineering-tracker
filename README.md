@@ -12,11 +12,11 @@ The tracker has two views:
 
 ## Repository structure
 
-- `data/projects.json` — canonical structured project data
+- `data/projects.index.json` + `data/projects/*.json` — canonical structured project data
 - `data/activity.json` — rolling 180-day activity; individual commits for 14 days, then compact project/day summaries retaining SHAs for safe incremental collection
 - `data/discovery-sources.json` — persistent discovery-node index and explicit research backlog
 - `data/discovery-decisions.json` — searchable reviewed candidate decisions, including exclusions and duplicates
-- `data/project-audits.json` — field-by-field research coverage for every tracked project
+- `data/project-audits.index.json` + `data/project-audits/*.json` — field-by-field research coverage for every tracked project
 - `data/research-activity.json` — append-only history of discovery/audit work and when it was performed
 - `tools/apply_discovery_batch.py` — preview and apply one validated cross-file research batch
 - `tools/screen_discovery_candidates.py` — local, read-only early URL screening for discovery results
@@ -63,6 +63,10 @@ The daily `discovery-intake.yml` workflow rotates GitHub repository/README and c
 Screen search-result URLs before opening candidate pages: `python tools/screen_discovery_candidates.py --input candidates.txt --route 'web search'`. The input can be one URL per line or a JSON array of URLs / `{ "url": "...", "route": "..." }` objects; use `--input -` for stdin or `--json` for structured results and per-route counts. It combines current projects, source nodes and reviewed decisions without making GitHub API calls. A known profile or repository can still contain new projects; inspect `known_repository_path` hits and unreviewed/deferred matches rather than discarding them. Redirected/renamed URLs can be recorded as duplicate decisions linked to the current project ID, giving future searches an exact alias match.
 
 Prepare one JSON batch containing a date, unique research-event ID, summary and the reviewed additions/updates. Use `python tools/apply_discovery_batch.py batch.json` to preview; add `--write` only after reviewing the summary. The tool links projects to source nodes, creates an unreviewed audit when an explicit audit is not supplied, inserts a newest-first research event and validates the complete proposed tracker before writing any file. It rejects duplicate IDs and repeated project URLs unless a shared URL is explicitly acknowledged. Batch format and a runnable example are in [the discovery workflow guide](docs/discovery-workflow.md).
+
+Projects and audits use `tools/catalogue_storage.py` as their shared loader/writer. Records route by SHA-256 of the ID, initially one hex digit (16 partitions per dataset). Only an overflowing prefix splits further; insertions do not move unrelated records. Indexes preserve record order, audit metadata and shard digests; shards contain records only. Each serialized, JSON-escaped connector request is limited to 4 MiB, with 12 MiB of headroom below the connector limit. An individually oversized record or index fails explicitly before writing; review/split its content rather than bypassing the bound. Only changed partitions and indexes are published. No-op writes preserve bytes, and source-only research leaves audits untouched.
+
+The old `projects.json` and `project-audits.json` names remain logical CLI/input names for compatibility, not writable files. Historical snapshots can be read through the same loader's narrow legacy path; mixed monolith/index layouts are rejected. `python tools/catalogue_storage.py` migrates a legacy checkout and verifies exact logical equality. Commit the generated indexes/partitions and deleted monoliths together. Browser loading reads the project index and project partitions, plus the existing lazy activity windows; audits are not loaded by the browser.
 
 Commit all changed data files together after `python tools/validate_site_data.py data/projects.json data/activity.json` and `git diff --check`. Publish one commit against the current `main` ref. Catalogue changes trigger a metadata refresh and then Pages; research-index-only changes deploy directly through Pages. Check the relevant runs before finishing. In Codex Work, use the linked GitHub connector for the atomic tree/commit/ref update; the workspace shell may not have authenticated Git credentials. The existing `automation/discovery-*` workflow can also validate, fast-forward and remove a temporary discovery branch. Do not publish intermediate project/audit/source changes separately.
 

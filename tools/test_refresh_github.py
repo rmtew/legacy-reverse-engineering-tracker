@@ -1,4 +1,6 @@
 import unittest
+from catalogue_storage import load_projects
+
 import json
 import tempfile
 from datetime import date, datetime, timedelta, timezone
@@ -131,7 +133,7 @@ class ProbeCadenceTest(unittest.TestCase):
                 refresh_github.main()
             enrichment.assert_not_called()
             self.assertEqual(mocked.call_count, 2)
-            result = json.loads(projects.read_text())[0]
+            result = load_projects(projects)[0]
             self.assertEqual(result["github"]["latest_release"]["tag"], "v2")
             self.assertEqual(result["github"]["latest_release"]["published_at"], "2026-09-26")
 
@@ -169,7 +171,7 @@ class ProbeCadenceTest(unittest.TestCase):
                                 NOW=now, NOW_ISO="2026-09-26T04:00:00Z",
                                 CUTOFF=now - timedelta(days=180)):
                 collect_activity.main()
-            self.assertEqual(json.loads(projects.read_text())[0]["ai"]["evidence"], [evidence])
+            self.assertEqual(load_projects(projects)[0]["ai"]["evidence"], [evidence])
 
 
 if __name__ == "__main__":

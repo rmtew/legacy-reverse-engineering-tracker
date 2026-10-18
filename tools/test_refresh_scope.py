@@ -1,4 +1,6 @@
 """Publication scope contracts, with local fixtures and no GitHub requests."""
+from catalogue_storage import load_projects, write_projects
+
 import copy
 import io
 import json
@@ -330,7 +332,7 @@ class PublicationPipelineTest(unittest.TestCase):
         with patch.object(collector, "api", side_effect=self.history):
             collector.main()
         state = json.loads(self.state.read_text())
-        result = {p["id"]: p for p in json.loads(self.projects.read_text())}
+        result = {p["id"]: p for p in load_projects(self.projects)}
         self.assertEqual(result["old"], old)
         self.assertEqual(state["repositories"]["unrelated/repo"], unrelated)
         new = result["new"]
@@ -371,7 +373,7 @@ class PublicationPipelineTest(unittest.TestCase):
             refresh.main()
         with patch.object(collector, "api", side_effect=self.history):
             collector.main()
-        scope.check_publishable(json.loads(self.state.read_text()), json.loads(self.projects.read_text()))
+        scope.check_publishable(json.loads(self.state.read_text()), load_projects(self.projects))
 
     def test_history_only_retry_keeps_completed_metadata_without_heavy_reenrichment(self):
         self.seed()
@@ -430,7 +432,7 @@ class PublicationPipelineTest(unittest.TestCase):
             refresh.main()
         rs = json.loads(self.state.read_text())["repositories"]["owner/repo"]
         self.assertTrue(rs["publication"]["metadata_complete"])
-        new = next(p for p in json.loads(self.projects.read_text()) if p["id"] == "new")
+        new = next(p for p in load_projects(self.projects) if p["id"] == "new")
         self.assertNotIn("latest_release", new["github"])
 
     def test_required_language_failure_does_not_get_waived(self):
@@ -511,8 +513,8 @@ class PublicationPipelineTest(unittest.TestCase):
 
     def check_history_slice(self, http_cap, live_quota):
         self.seed()
-        projects = json.loads(self.projects.read_text()) + [project("other", "other/pending")]
-        self.projects.write_text(json.dumps(projects))
+        projects = load_projects(self.projects) + [project("other", "other/pending")]
+        write_projects(self.projects, projects)
         self.manifest.write_text(json.dumps({"mode": "adaptive"}))
         state = json.loads(self.state.read_text())
         state["repositories"]["owner/repo"] = {

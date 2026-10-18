@@ -8,7 +8,9 @@ const { test } = require("node:test");
 
 const root = path.resolve(__dirname, "..");
 const source = fs.readFileSync(path.join(root, "web/tracker.js"), "utf8");
-const catalogue = JSON.parse(fs.readFileSync(path.join(root, "data/projects.json"), "utf8"));
+const index = JSON.parse(fs.readFileSync(path.join(root, "data/projects.index.json"), "utf8"));
+const byId = new Map(index.shards.flatMap(ref=>JSON.parse(fs.readFileSync(path.join(root,"data",ref.path),"utf8"))).map(p=>[p.id,p]));
+const catalogue = index.order.map(id=>byId.get(id));
 const node = () => ({
   value: "",
   dataset: {},

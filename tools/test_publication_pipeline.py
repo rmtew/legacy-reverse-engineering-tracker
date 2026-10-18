@@ -9,6 +9,7 @@ from unittest.mock import patch
 from apply_discovery_batch import FILES, run
 from publication_pipeline import blob_sha, digest, prepare, verify_files, verify_live, verify_remote
 from test_discovery_batch import DiscoveryBatchTests
+from catalogue_storage import load_projects, index_name
 
 
 class PublicationPipelineTests(DiscoveryBatchTests):
@@ -36,7 +37,7 @@ class PublicationPipelineTests(DiscoveryBatchTests):
 
     def test_changed_payload_cannot_be_reused(self):
         self.prepare()
-        (self.out / "payload/data/projects.json").write_text("[]\n")
+        (self.out / "payload/data/projects.index.json").write_text("[]\n")
         with self.assertRaisesRegex(ValueError, "changed after preparation"):
             self.prepare()
 
@@ -74,10 +75,27 @@ class PublicationPipelineTests(DiscoveryBatchTests):
             with self.assertRaisesRegex(ValueError, "Published research record missing or changed"):
                 verify_live(self.out, live, self.tree)
 
+    def test_source_only_changes_leave_project_and_audit_storage_untouched(self):
+        batch = self.batch()
+        batch['projects'] = []
+        batch['decisions'] = []
+        batch['source_updates'] = [{'id':self.source_id,'reason':'Reviewed source detail'}]
+        manifest = prepare(batch,self.root,self.out,'a'*40,self.tree)
+        self.assertFalse(any(x['path'].startswith(('data/projects','data/project-audits','data/discovery-decisions')) for x in manifest['files']))
+
+    def test_one_update_publishes_only_relevant_partitions_and_indexes(self):
+        from catalogue_storage import route
+        batch, original = self.update_batch()
+        manifest = prepare(batch,self.root,self.out,'a'*40,self.tree)
+        paths = {e['path'] for e in manifest['files'] if e['path'].startswith(('data/projects','data/project-audits'))}
+        prefix=route(original['id'])[:1]
+        self.assertEqual(paths, {'data/projects.index.json','data/project-audits.index.json',
+                                f'data/projects/{prefix}.json',f'data/project-audits/{prefix}.json'})
+
     def test_restored_project_events_are_valid_publication_results(self):
         self.out.mkdir()
         shutil.copytree(self.data, self.out / "payload/data")
-        projects = json.loads(self.before["projects.json"])
+        projects = copy.deepcopy(self.logical["projects.json"])
         project = next(p for p in projects if "github.com/" not in (p.get("repo") or ""))
         pid = project["id"]
         (self.out / "manifest.json").write_text(json.dumps({"summary": {"projects": [pid]}}))
@@ -89,15 +107,15 @@ class PublicationPipelineTests(DiscoveryBatchTests):
             (live / f"data/activity-{days}d.json").write_text(json.dumps({"events": [event]}))
         (live / "activity.xml").write_text(f"<rss><channel><item><guid>legacy-re:{pid}:project_restored:2026-10-06</guid></item></channel></rss>")
         tree = {"tree": [{"path": str(p.relative_to(live)), "type": "blob", "sha": blob_sha(p.read_bytes())}
-                          for p in (live / "data").glob("*.json")]}
+                          for p in (live / "data").rglob("*.json")]}
         with patch("publication_pipeline.validate"):
             result = verify_live(self.out, live, tree)
         self.assertEqual(result["initial_context_activity_windows_rss_verified"], 1)
 
     def update_batch(self):
         batch = self.batch()
-        original = json.loads(self.before["projects.json"])[0]
-        audit = next(a for a in json.loads(self.before["project-audits.json"])["projects"] if a["project_id"] == original["id"])
+        original = copy.deepcopy(self.logical["projects.json"])[0]
+        audit = next(a for a in copy.deepcopy(self.logical["project-audits.json"])["projects"] if a["project_id"] == original["id"])
         audit["last_reviewed"] = batch["date"]
         for area in ("source_cpu", "target_cpu"):
             audit["areas"][area]["state"] = "reviewed"
@@ -110,7 +128,7 @@ class PublicationPipelineTests(DiscoveryBatchTests):
     def test_update_preserves_all_omitted_fields(self):
         batch, original = self.update_batch()
         run(self.root, batch, True)
-        updated = next(p for p in json.loads((self.data / "projects.json").read_text()) if p["id"] == original["id"])
+        updated = next(p for p in load_projects(self.data / "projects.json") if p["id"] == original["id"])
         self.assertEqual({k: v for k, v in original.items() if k != "notes"}, {k: v for k, v in updated.items() if k != "notes"})
         with self.assertRaisesRegex(ValueError, "Stale project update"):
             run(self.root, batch, True)

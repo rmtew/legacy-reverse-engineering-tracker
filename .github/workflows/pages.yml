@@ -10,6 +10,11 @@ on:
       - "data/discovery-sources.json"
       - "data/discovery-decisions.json"
       - "data/project-audits.json"
+      - "data/project-audits.index.json"
+      - "data/project-audits/**"
+      - "data/projects.index.json"
+      - "data/projects/**"
+      - "tools/catalogue_storage.py"
       - "data/research-activity.json"
       - "tools/generate_rss.py"
       - "tools/generate_recent_activity.py"
@@ -64,7 +69,7 @@ jobs:
             # adaptive cadence does not change its records again.
             if [ '${{ github.event.workflow_run.event }}' = 'push' ] &&
                git rev-parse "$base^" >/dev/null 2>&1 &&
-               git diff --name-only "$base^" "$base" -- data/projects.json | grep -Fxq 'data/projects.json'; then
+               git diff --name-only "$base^" "$base" -- data/projects.json data/projects.index.json data/projects/ | grep -q .; then
               echo "deploy=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
@@ -74,22 +79,20 @@ jobs:
           import sys
 
           base = sys.argv[1]
-          paths = ('data/projects.json', 'data/activity.json', 'data/project-audits.json')
+          sys.path.insert(0, 'tools')
+          from catalogue_storage import load_git_projects, load_git_dataset
 
-          def material(revision, path):
-              try:
-                  raw = subprocess.check_output(['git', 'show', f'{revision}:{path}'])
-              except subprocess.CalledProcessError:
-                  return None
-              value = json.loads(raw)
-              if path == 'data/projects.json':
-                  for project in value:
-                      (project.get('github') or {}).pop('checked_at', None)
-              elif path == 'data/activity.json':
-                  value.pop('generated_at', None)
-              return value
+          def material(revision):
+              projects = load_git_projects(revision)
+              for project in projects:
+                  (project.get('github') or {}).pop('checked_at', None)
+              activity = json.loads(subprocess.check_output(['git', 'show', f'{revision}:data/activity.json']))
+              activity.pop('generated_at', None)
+              # Research-only changes deploy via push. This workflow_run gate
+              # compares public catalogue/activity, ignoring polling timestamps.
+              return projects, activity, load_git_dataset(revision, 'project-audits.json')
 
-          changed = any(material(base, path) != material('HEAD', path) for path in paths)
+          changed = material(base) != material('HEAD')
           print('deploy=' + str(changed).lower())
           PY
             exit 0
@@ -105,7 +108,7 @@ jobs:
 
           # A catalogue change starts Refresh GitHub metadata. Do not publish the
           # pre-refresh snapshot; its successful workflow_run will deploy main.
-          if git diff --name-only "$before" "$after" | grep -Fxq 'data/projects.json'; then
+          if git diff --name-only "$before" "$after" | grep -Eq '^data/projects(\.json$|\.index\.json$|/)' ; then
             echo "deploy=false" >> "$GITHUB_OUTPUT"
             echo "Catalogue changed; deferring Pages deployment until metadata refresh completes."
           else
@@ -136,7 +139,7 @@ jobs:
         run: node --check web/tracker.js
 
       - name: Check CPU filter behavior
-        run: node --test tools/test_cpu_filters.js tools/test_publish_discovery.js
+        run: node --test tools/test_cpu_filters.js tools/test_browser_storage.js tools/test_publish_discovery.js
 
       - name: Check RSS generator syntax
         run: python -m py_compile tools/generate_rss.py tools/generate_recent_activity.py tools/validate_site_data.py tools/apply_discovery_batch.py

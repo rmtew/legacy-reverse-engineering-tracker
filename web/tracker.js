@@ -1204,8 +1204,45 @@ function initializeReadyViews(){
   if(activityVisible()) renderReadyActivity();
 }
 
-fetch("data/projects.json",{cache:"no-cache"})
-  .then(response=>{if(!response.ok) throw new Error("projects HTTP "+response.status);return response.json();})
+async function loadProjectCatalogue(fetcher=fetch){
+  const response=await fetcher("data/projects.index.json",{cache:"no-cache"});
+  if(!response.ok) throw new Error("projects index HTTP "+response.status);
+  const index=await response.json();
+  if(index.format!=="tracker-partitions/v1"||index.kind!=="projects"||
+     !Array.isArray(index.order)||!Array.isArray(index.shards)||
+     index.order.some(id=>typeof id!=="string")||new Set(index.order).size!==index.order.length)
+    throw new Error("Invalid projects index");
+  const paths=new Set(),prefixes=[];
+  for(const ref of index.shards){
+    const match=/^projects\/([0-9a-f]{1,64})\.json$/.exec(ref.path);
+    if(!match||paths.has(ref.path)||prefixes.some(p=>p.startsWith(match[1])||match[1].startsWith(p))) throw new Error("Invalid project shard reference");
+    paths.add(ref.path);prefixes.push(match[1]);
+  }
+  const records=new Map();
+  // Bound concurrent reads instead of opening hundreds of requests at once.
+  let next=0;
+  async function worker(){
+    while(next<index.shards.length){
+      const ref=index.shards[next++];
+      const result=await fetcher("data/"+ref.path,{cache:"no-cache"});
+      if(!result.ok) throw new Error("project shard HTTP "+result.status);
+      const bytes=await result.arrayBuffer();
+      const digest=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",bytes)),b=>b.toString(16).padStart(2,"0")).join("");
+      if(digest!==ref.sha256) throw new Error("Project shard digest mismatch");
+      const items=JSON.parse(new TextDecoder().decode(bytes));
+      if(!Array.isArray(items)||items.length!==ref.count) throw new Error("Project shard count mismatch");
+      for(const record of items){
+        if(typeof record.id!=="string"||records.has(record.id)) throw new Error("Duplicate/invalid project ID");
+        records.set(record.id,record);
+      }
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(8,index.shards.length)},worker));
+  if(records.size!==index.order.length||index.order.some(id=>!records.has(id))) throw new Error("Project index coverage mismatch");
+  return index.order.map(id=>records.get(id));
+}
+
+loadProjectCatalogue()
   .then(data=>{projects=data;projectsReady=true;initializeReadyViews();})
   .catch(error=>{
     $("rows").innerHTML='<tr><td colspan="11" class="empty">Could not load projects: '+esc(error.message)+'</td></tr>';

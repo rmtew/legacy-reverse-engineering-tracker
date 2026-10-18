@@ -376,3 +376,51 @@ for (const [name, fail, pattern] of [
   await assert.rejects(loadDiscoveryFile(tools, {bundle: '/unused', entry, plan}), pattern);
   assert.equal(calls, 4, 'No read beyond the initial four may start once a worker detects failure');
 });
+
+test('deletions become null tree entries with no blob upload and resume verifies absence', async t => {
+  const x=setup(t);
+  x.manifest.files.push({path:'sources.md',sha:null});
+  fs.writeFileSync(path.join(x.bundle,'manifest.json'),JSON.stringify(x.manifest));
+  const create=x.tools.mcp__codex_apps__github_create_tree;
+  x.tools.mcp__codex_apps__github_create_tree=async args=>{
+    assert.deepEqual(args.tree_elements.find(e=>e.path==='sources.md'),{path:'sources.md',mode:'100644',type:'blob',sha:null});
+    return create(args);
+  };
+  await publishDiscovery(x.tools,x.options);
+  await publishDiscovery(x.tools,x.options);
+  assert.equal(x.remote.blobs,1);
+  assert.equal(x.remote.refs,1);
+});
+
+test('escaped connector request ceiling rejects highly escaped content before upload', async t => {
+  const x=setup(t,'"'.repeat(2200000));
+  await assert.rejects(publishDiscovery(x.tools,x.options),/Escaped connector request/);
+  assert.equal(x.remote.blobs,0);
+});
+
+test('changed manifest cannot reuse a completed checkpoint tree', async t=>{
+  const x=setup(t);
+  await publishDiscovery(x.tools,x.options);
+  x.manifest.files.push({path:'sources.md',sha:null});
+  fs.writeFileSync(path.join(x.bundle,'manifest.json'),JSON.stringify(x.manifest));
+  await assert.rejects(publishDiscovery(x.tools,x.options),/checkpoint belongs/);
+  assert.equal(x.remote.refs,1);
+});
+
+test('unchanged entries reuse the verified baseline blob while new entries upload',async t=>{
+  const x=setup(t),text='Existing source\n',content=Buffer.from(text);
+  const sha=crypto.createHash('sha1').update(Buffer.from(`blob ${content.length}\0`)).update(content).digest('hex');
+  x.remote.baselineSHA=sha;
+  x.manifest.baseline_files[0].sha=sha;
+  x.manifest.files.push({path:'sources.md',sha,bytes:content.length,chars:text.length,sha256:crypto.createHash('sha256').update(content).digest('hex')});
+  fs.writeFileSync(path.join(x.bundle,'payload/sources.md'),text);
+  fs.writeFileSync(path.join(x.bundle,'manifest.json'),JSON.stringify(x.manifest));
+  const fetch=x.tools.mcp__codex_apps__github_fetch;
+  x.tools.mcp__codex_apps__github_fetch=async args=>{
+    const result=await fetch(args);
+    if(args.url.includes('/git/trees/'+'e'.repeat(40)))result.structuredContent.tree.push({path:'sources.md',sha,type:'blob'});
+    return result;
+  };
+  await publishDiscovery(x.tools,x.options);
+  assert.equal(x.remote.blobs,1);
+});

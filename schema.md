@@ -1,6 +1,6 @@
 # Project data schema
 
-The canonical database is `data/projects.json`, a JSON array of project records. The static HTML tracker reads this file directly; there is no generated-data layer.
+The canonical project database is `data/projects.index.json` plus its referenced `data/projects/*.json` partitions. `tools/catalogue_storage.py` reconstructs the logical JSON array in index order and is the shared writer. The browser loads these same partitions. See README.md for routing, bounds and migration rules.
 
 ## Evidence rules
 
@@ -147,9 +147,9 @@ This is an index of specific reviewed candidate URLs, especially leads deliberat
 
 The batch helper can add these records alongside projects and research history. See [discovery workflow](docs/discovery-workflow.md).
 
-### `data/project-audits.json`
+### Project audits (`data/project-audits.index.json`)
 
-There must be exactly one audit record for every `data/projects.json` project ID. It tracks research coverage independently from the factual project record.
+The audit index references `data/project-audits/*.json` partitions and retains dataset metadata separately. There must be exactly one audit record for every project ID. It tracks research coverage independently from the factual project record.
 
 Audit areas are `identity`, `classification`, `source_cpu`, `target_cpu`, `build`, `runtime_profiles`, `ai`, and `relationships`.
 

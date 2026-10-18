@@ -7,6 +7,8 @@ metadata is intentionally excluded so routine probes do not become activity.
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects, write_projects
+
 import json
 import re
 from datetime import datetime, timedelta, timezone
@@ -237,7 +239,7 @@ def make_event(
 
 
 def main():
-    projects = json.loads(PROJECTS.read_text(encoding="utf-8"))
+    projects = load_projects(PROJECTS)
     activity = json.loads(ACTIVITY.read_text(encoding="utf-8"))
     explicit_ai = enrich_explicit_ai(projects, activity)
     state = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {
@@ -330,7 +332,7 @@ def main():
     activity["generated_at"] = NOW_ISO
     activity["window_days"] = DAYS
     activity["events"] = retained
-    PROJECTS.write_text(json.dumps(projects, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_projects(PROJECTS, projects)
     write_activity(ACTIVITY, activity)
 
     state = {

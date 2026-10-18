@@ -7,6 +7,8 @@ runs and is also consumed by the ordinary scheduled refresh.
 """
 from __future__ import annotations
 
+from catalogue_storage import load_projects, load_git_projects
+
 import argparse
 import hashlib
 import json
@@ -184,7 +186,7 @@ def main():
     args = parser.parse_args()
     if args.check_publishable:
         check_publishable(json.loads(STATE.read_text(encoding="utf-8")),
-                          json.loads(PROJECTS.read_text(encoding="utf-8")),
+                          load_projects(PROJECTS),
                           json.loads(CATALOGUE.read_text(encoding="utf-8")))
         return
     filename = os.environ.get("GITHUB_REFRESH_SCOPE_FILE")
@@ -197,7 +199,7 @@ def main():
     event = json.loads(Path(event_path).read_text()) if event_path else {}
     base, head = select_base(os.environ.get("GITHUB_EVENT_NAME", ""), event,
                              os.environ.get("PUBLICATION_BASE", ""), os.environ.get("PUBLICATION_HEAD", ""))
-    current = json.loads(PROJECTS.read_text(encoding="utf-8"))
+    current = load_projects(PROJECTS)
     catalogue = json.loads(CATALOGUE.read_text(encoding="utf-8")) if CATALOGUE.exists() else {"projects": {}}
     outstanding = catalogue_delta(list(catalogue.get("projects", {}).values()), current)
     if base is None:
@@ -210,8 +212,7 @@ def main():
             before = []  # The initial push has no previous catalogue.
         else:
             git("merge-base", "--is-ancestor", base, head)
-            before = (json.loads(git("show", f"{base}:data/projects.json"))
-                      if git("ls-tree", "--name-only", base, "--", "data/projects.json") else [])
+            before = load_git_projects(base, ROOT)
         scope = union_catalogue_deltas(catalogue_delta(before, current), outstanding)
         scope.update({"base": base, "head": head})
     Path(filename).write_text(json.dumps(scope, indent=2) + "\n", encoding="utf-8")
