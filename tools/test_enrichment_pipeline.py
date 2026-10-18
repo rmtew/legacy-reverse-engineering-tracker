@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 from io import BytesIO, StringIO
 import json
+import shutil
 from pathlib import Path
 import subprocess
 import tempfile
@@ -253,7 +254,7 @@ class EnrichmentTests(unittest.TestCase):
         bundle,_=self.collect(limit=1)
         (self.root/'data/activity.json').write_bytes(encode({}))
         before={p:p.read_bytes() for p in (self.root/'data').rglob('*.json')}
-        with patch('validate_site_data.validate',side_effect=ValueError('invalid staged data')):
+        with patch.object(pipeline,'sync_material',return_value=False), patch('validate_site_data.validate',side_effect=ValueError('invalid staged data')):
             with self.assertRaisesRegex(ValueError,'invalid staged data'):
                 pipeline.apply_bundle(self.root,bundle)
         self.assertTrue(all(p.read_bytes()==b for p,b in before.items()))
@@ -265,13 +266,13 @@ class EnrichmentTests(unittest.TestCase):
         (self.root/'data/activity.json').write_bytes(encode({}))
         git('add','.');git('commit','-qm','baseline')
         bundle,_=self.collect(limit=1)
-        with patch('validate_site_data.validate'):
+        with patch.object(pipeline,'sync_material',return_value=False), patch('validate_site_data.validate'):
             pipeline.apply_bundle(self.root,bundle)
         git('add','data',pipeline.STATE);git('commit','-qm','results and progress')
         paths=git('diff','--name-only','HEAD^','HEAD').splitlines()
         self.assertIn(pipeline.STATE,paths)
         self.assertIn('data/projects.index.json',paths)
-        with patch('validate_site_data.validate'):
+        with patch.object(pipeline,'sync_material',return_value=False), patch('validate_site_data.validate'):
             pipeline.apply_bundle(self.root,bundle)
         self.assertEqual(git('status','--porcelain'),'')
         self.assertTrue(load_projects(self.root/'data/projects.json')[0]['build']['compilable'])
@@ -328,6 +329,42 @@ class EnrichmentTests(unittest.TestCase):
         with self.assertRaisesRegex(pipeline.FetchFailure,'unsupported redirect'):
             client.get('https://api.github.com/repos/owner/a/git/ref/heads/main','head')
         self.assertEqual(budget.requests,1)
+
+
+    def test_material_promotions_record_activity_and_keep_pages_publishable(self):
+        from record_project_activity import snapshot
+        from refresh_scope import check_publishable
+        source=Path(__file__).resolve().parents[1]
+        shutil.rmtree(self.root/'data')
+        shutil.copytree(source/'data',self.root/'data')
+        (self.root/'state').mkdir(exist_ok=True)
+        for name in ('github-poll-state.json','project-catalog-state.json'):
+            shutil.copy2(source/'state'/name,self.root/'state'/name)
+        records=load_projects(self.root/'data/projects.json')
+        before=next(r for r in records if (r.get('build') or {}).get('compilable') is None)
+        after=copy.deepcopy(before);after.setdefault('build',{})['compilable']=True
+        bundle={'version':1,'results':[{'id':before['id'],'fingerprint':pipeline.fingerprint(before),
+            'guards':[{'path':list(path),'before':pipeline.value_at(before,path)} for path in pipeline.OWNED],
+            'patch':pipeline.patch_between(before,after),'state_before':{},
+            'state_after':{'fingerprint':pipeline.fingerprint(before),'last_attempt_at':pipeline.stamp(NOW)}}]}
+        pipeline.apply_bundle(self.root,bundle)
+        updated=load_projects(self.root/'data/projects.json')
+        catalogue=json.loads((self.root/'state/project-catalog-state.json').read_bytes())
+        polling=json.loads((self.root/'state/github-poll-state.json').read_bytes())
+        check_publishable(polling,updated,catalogue)
+        activity=json.loads((self.root/'data/activity.json').read_bytes())
+        self.assertTrue(any(e.get('type')=='project_updated' and e['project_id']==before['id'] for e in activity['events']))
+        self.assertTrue(catalogue['projects'][before['id']]['build']['compilable'])
+
+    def test_pending_material_baseline_cannot_be_blessed_by_enrichment(self):
+        from record_project_activity import snapshot
+        staged=Path(self.temp.name)/'stage';staged.mkdir()
+        (self.root/'state').mkdir(exist_ok=True)
+        (self.root/'state/project-catalog-state.json').write_bytes(encode({'projects':{}}))
+        after=copy.deepcopy(self.records);after[0]['build']['compilable']=True
+        with self.assertRaises(pipeline.PublicationPending):
+            pipeline.sync_material(staged,self.root,self.records,after)
+        self.assertFalse((staged/'state').exists())
 
 
 

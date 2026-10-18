@@ -238,11 +238,16 @@ def make_event(
     }
 
 
-def main():
-    projects = load_projects(PROJECTS)
-    activity = json.loads(ACTIVITY.read_text(encoding="utf-8"))
+def main(root=None):
+    # Explicit roots allow callers to validate a complete publication in staging.
+    projects_path = Path(root) / 'data/projects.json' if root is not None else PROJECTS
+    activity_path = Path(root) / 'data/activity.json' if root is not None else ACTIVITY
+    state_path = Path(root) / 'state/project-catalog-state.json' if root is not None else STATE
+    root = Path(root) if root is not None else ROOT
+    projects = load_projects(projects_path)
+    activity = json.loads(activity_path.read_text(encoding="utf-8"))
     explicit_ai = enrich_explicit_ai(projects, activity)
-    state = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {
         "version": 1,
         "updated_at": None,
         "projects": {},
@@ -325,15 +330,15 @@ def main():
     )
 
     # The initial repository scan runs before this step in the refresh job.
-    poll_state = ROOT / "state" / "github-poll-state.json"
+    poll_state = root / "state" / "github-poll-state.json"
     repositories = json.loads(poll_state.read_text(encoding="utf-8")).get("repositories", {}) if poll_state.exists() else {}
     freeze_addition_context(retained, projects, repositories, NOW)
 
     activity["generated_at"] = NOW_ISO
     activity["window_days"] = DAYS
     activity["events"] = retained
-    write_projects(PROJECTS, projects)
-    write_activity(ACTIVITY, activity)
+    write_projects(projects_path, projects)
+    write_activity(activity_path, activity)
 
     state = {
         "version": 1,
@@ -341,7 +346,7 @@ def main():
         "projects": current,
         "removed": removed,
     }
-    STATE.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    state_path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print(
         f"Recorded {len(events)} catalogue activity event{'s' if len(events) != 1 else ''}; "

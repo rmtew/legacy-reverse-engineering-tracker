@@ -63,8 +63,16 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
+            set +e
             python -u tools/enrich_evidence.py apply --bundle "$RUNNER_TEMP/enrichment-bundle.json"
-            git add -A -- data/projects.index.json data/projects/ state/enrichment-state.json
+            replay_status=$?
+            set -e
+            if [ "$replay_status" -eq 75 ]; then
+              sleep 10
+              continue
+            fi
+            if [ "$replay_status" -ne 0 ]; then exit "$replay_status"; fi
+            git add -A -- data/projects.index.json data/projects/ data/activity.json state/project-catalog-state.json state/enrichment-state.json
             if git diff --cached --quiet; then
               echo "No unpublished enrichment results or progress remain"
               exit 0

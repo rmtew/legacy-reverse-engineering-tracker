@@ -435,6 +435,29 @@ def replay(records, state, bundle):
     return records, state, {'accepted': accepted, 'conflicts': conflicts}
 
 
+class PublicationPending(Exception):
+    pass
+
+
+def sync_material(staged, root, before, records):
+    """Use the existing event recorder, only for a healthy material baseline."""
+    from record_project_activity import snapshot, main as record_activity
+    if {r['id']: snapshot(r) for r in before} == {r['id']: snapshot(r) for r in records}:
+        return False
+    catalogue_path = root / 'state/project-catalog-state.json'
+    catalogue = json.loads(catalogue_path.read_bytes())
+    previous = {pid: snapshot(record) for pid, record in catalogue.get('projects', {}).items()}
+    if previous != {r['id']: snapshot(r) for r in before}:
+        raise PublicationPending('Latest main has unrecorded catalogue changes; wait for metadata refresh')
+    (staged / 'state').mkdir(exist_ok=True)
+    for name in ('project-catalog-state.json', 'github-poll-state.json'):
+        source = root / 'state' / name
+        if source.exists():
+            shutil.copy2(source, staged / 'state' / name)
+    record_activity(staged)
+    return True
+
+
 def apply_bundle(root, bundle):
     from validate_site_data import validate
     root = Path(root)
@@ -446,12 +469,17 @@ def apply_bundle(root, bundle):
         staged = Path(temporary)
         shutil.copytree(root / 'data', staged / 'data')
         write_projects(staged / 'data/projects.json', records)
+        material_changed = sync_material(staged, root, before, records)
         validate(staged / 'data/projects.json', staged / 'data/activity.json')
         content = bounded(encode(state), STATE)
-        write_projects(root / 'data/projects.json', records)
+        write_projects(root / 'data/projects.json', load_projects(staged / 'data/projects.json'))
+        if material_changed:
+            shutil.copy2(staged / 'data/activity.json', root / 'data/activity.json')
+            shutil.copy2(staged / 'state/project-catalog-state.json', root / 'state/project-catalog-state.json')
         path = root / STATE
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
+    summary['material_changes'] = material_changed
     log(replay=summary)
     return summary
 
@@ -475,7 +503,10 @@ def main():
             parser.error('Budgets: seconds 1..600, requests 0..1000, records 1..100')
         collect(args.root, args.bundle, Budget(args.seconds, args.requests), limit=args.records)
     else:
-        apply_bundle(args.root, json.loads(args.bundle.read_bytes()))
+        try:
+            apply_bundle(args.root, json.loads(args.bundle.read_bytes()))
+        except PublicationPending as exc:
+            parser.exit(75, str(exc) + '\n')
 
 
 if __name__ == '__main__':
