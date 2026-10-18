@@ -627,7 +627,7 @@
     },
     {
       "project_id": "ambermoon",
-      "last_reviewed": "2026-10-09",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -654,12 +654,12 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "The v1.21 changelog states that release AM2_CPU and loader executables are built from the restored original-source tree, and GitHub releases publish v1.21 plus Tools v1.18 artifacts. No independent build, hardware run or byte comparison was performed.",
+          "checked_at": "2026-10-18",
+          "note": "Ambermoon v1.22 and Tools v1.19 publish current artifacts. Development head adds AmbermoonImageEditor to the cross-platform tool-package workflow, but no Tools v1.20 release existed at review time and nothing was built locally.",
           "evidence_urls": [
-            "https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b",
-            "https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.21",
-            "https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.18"
+            "https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.22",
+            "https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.19",
+            "https://github.com/Pyrdacor/Ambermoon/commit/ebaf2d63b05ee718b97a61f531a2c6c00857b399"
           ]
         },
         "runtime_profiles": {
@@ -676,12 +676,11 @@
         },
         "relationships": {
           "state": "reviewed",
-          "checked_at": "2026-10-09",
-          "note": "The release changelog explicitly relates this maintained distribution to Jurie Horneman's original source and the restored AmbermoonSource work. The tracker retains separate records for the original-source snapshot, Ambermoon.net and related tooling rather than merging their identities.",
+          "checked_at": "2026-10-18",
+          "note": "AmbermoonImageEditor was reviewed as a separately titled repository component, but it is documented, built and versioned inside the Ambermoon Tools suite rather than released as an independent project. Existing separate records for Ambermoon source restoration and Ambermoon.net remain distinct.",
           "evidence_urls": [
-            "https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b",
-            "https://github.com/jhorneman/ambermoon",
-            "https://github.com/Pyrdacor/Ambermoon.net"
+            "https://github.com/Pyrdacor/Ambermoon/commit/ebaf2d63b05ee718b97a61f531a2c6c00857b399",
+            "https://github.com/Pyrdacor/Ambermoon/blob/master/Tools/README.md"
           ]
         }
       },
@@ -11703,8 +11702,8 @@
     },
     {
       "project_id": "puae-debugger-vscode",
-      "last_reviewed": "2026-10-11",
-      "overall_state": "partial",
+      "last_reviewed": "2026-10-18",
+      "overall_state": "reviewed",
       "areas": {
         "identity": {
           "state": "reviewed",
@@ -11726,7 +11725,13 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-09-24"
+          "checked_at": "2026-10-18",
+          "note": "Current package metadata and README document the v1.0.0 VS Code extension/standalone binary and a headless MCP server over the packaged WebAssembly emulator. No local build or emulator run was performed.",
+          "evidence_urls": [
+            "https://github.com/grahambates/vscode-puae-debugger/blob/main/package.json",
+            "https://github.com/grahambates/vscode-puae-debugger/blob/main/README.md",
+            "https://github.com/grahambates/vscode-puae-debugger/commit/38cd4bbaa6ae0612b965947e0ba036904406b1ee"
+          ]
         },
         "runtime_profiles": {
           "state": "not-applicable",
@@ -11741,13 +11746,16 @@
           ]
         },
         "relationships": {
-          "state": "needs-research",
-          "checked_at": null
+          "state": "reviewed",
+          "checked_at": "2026-10-18",
+          "note": "README and package metadata explicitly identify the integrated core as PUAE derived from WinUAE, while the debugger/profiler, DAP/MCP surfaces and packaging are this repository's maintained product. External toolchains and user-supplied Kickstart ROMs remain dependencies, not bundled ownership claims.",
+          "evidence_urls": [
+            "https://github.com/grahambates/vscode-puae-debugger/blob/main/README.md",
+            "https://github.com/grahambates/vscode-puae-debugger/blob/main/package.json"
+          ]
         }
       },
-      "next_actions": [
-        "Check predecessors, successors, forks and credited source/disassembly relationships"
-      ]
+      "next_actions": []
     },
     {
       "project_id": "punchout-nes-nmikstas",
@@ -28875,7 +28883,7 @@
     },
     {
       "project_id": "trx64-reverse-debugger",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -28896,22 +28904,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "Development head adds Action Replay V5/V6 banking and freeze/return state, with real-image daemon regressions for four variants plus deterministic restore/trace checks. Corpus absence is a loud skip, not a passing substitute.",
+          "checked_at": "2026-10-18",
+          "note": "v0.14.1 publishes the RESTORE-key NMI correction with tests covering held-key and checkpoint behavior. The tracker did not execute the archives.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084",
-            "https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a"
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1",
+            "https://github.com/Jondalar/TRX64/commit/fc8a3aa3dc2e6b8ba52930154cb039ed799ced0d"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "The v0.13.1 release again supplies Linux, macOS and Windows builds for x86-64 and ARM64 with user-supplied ROMs. No CPU-generation or RAM minimum is stated. The Action Replay emulation changes do not alter the v0.13.1 release matrix or state a new CPU-generation/RAM minimum.",
+          "checked_at": "2026-10-18",
+          "note": "Recorded all six v0.14.1 Linux/macOS/Windows ARM64/x86-64 release archives. No CPU-generation, RAM or OS minimum is stated; ROMs remain user-supplied.",
           "evidence_urls": [
-            "https://github.com/Jondalar/TRX64/releases/tag/v0.13.1",
-            "https://github.com/Jondalar/TRX64/blob/main/README.md",
-            "https://github.com/Jondalar/TRX64/commit/cd97c39d9997c475213bb834ea36f4b08c103084",
-            "https://github.com/Jondalar/TRX64/commit/efbb280be0aed77e63942c322029753c3b30376a"
+            "https://github.com/Jondalar/TRX64/releases/tag/v0.14.1"
           ]
         },
         "ai": {
@@ -28929,7 +28934,8 @@
         }
       },
       "next_actions": [
-        "Track post-v0.13.1 debugger semantics separately from the published archive baseline."
+        "Track debugger/emulation semantics against the published v0.14.1 baseline.",
+        "Independently execute representative release archives only if later verification is authorized."
       ]
     },
     {
@@ -34723,7 +34729,7 @@
     },
     {
       "project_id": "prog8-retro-compiler",
-      "last_reviewed": "2026-10-14",
+      "last_reviewed": "2026-10-18",
       "overall_state": "partial",
       "areas": {
         "identity": {
@@ -34748,19 +34754,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "README documents official runnable releases, package-manager installations and source-build instructions; this supports compilable/runnable tool flags. No compiler build or generated program was executed locally, and playable/byte-exact remain unknown.",
+          "checked_at": "2026-10-18",
+          "note": "The Amiga targets now expose distinct Copperline and Vamos launch paths for generated output. This is source-level integration evidence; neither path was executed by the tracker and m68k remains experimental.",
           "evidence_urls": [
-            "https://github.com/irmen/prog8/blob/master/README.md",
-            "https://github.com/irmen/prog8/releases/tag/v12.3.4"
+            "https://github.com/irmen/prog8/commit/16f7d588a78042622eb00510d2847e8d2472a940"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-14",
-          "note": "README names output CPUs and experimental Amiga/QEMU targets but does not state target-machine minimum RAM or hardware requirements. Java 11+ is a compiler-host software requirement, not a hardware minimum; no runtime profile is invented.",
+          "checked_at": "2026-10-18",
+          "note": "The launcher code names A500/A1200 configurations and software dependencies but does not establish a minimum runnable physical machine or compiler-host CPU/RAM. No profile is inferred.",
           "evidence_urls": [
-            "https://github.com/irmen/prog8/blob/master/README.md"
+            "https://github.com/irmen/prog8/commit/16f7d588a78042622eb00510d2847e8d2472a940"
           ]
         },
         "ai": {
@@ -34774,7 +34779,11 @@
         },
         "relationships": {
           "state": "needs-research",
-          "checked_at": "2026-09-27"
+          "checked_at": "2026-10-18",
+          "note": "Current code explicitly integrates Copperline and Amitools/Vamos as execution dependencies for experimental Amiga outputs. Broader predecessor, successor, fork and credited-source relationships remain unreviewed.",
+          "evidence_urls": [
+            "https://github.com/irmen/prog8/commit/16f7d588a78042622eb00510d2847e8d2472a940"
+          ]
         }
       },
       "next_actions": [
@@ -35404,7 +35413,7 @@
     },
     {
       "project_id": "koncepcja-cpc-emulator-debugger",
-      "last_reviewed": "2026-10-12",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -35429,22 +35438,21 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-12",
-          "note": "Successive primary commits implement and test protocol-v0 server setup, register/memory reads and writes, control operations, run-state transitions and pushed events. The tracker did not independently build or exercise the server.",
+          "checked_at": "2026-10-18",
+          "note": "Post-v6.4.2 tests cover Symbiface IDE and zipped-DSK writeback on exit plus deterministic IPC startup. They extend the existing protocol-v0 evidence without an independent tracker run.",
           "evidence_urls": [
-            "https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5",
-            "https://github.com/ikari-pl/konCePCja/commit/d5a6b012ea54dd746906009ec95c4641a17d9750",
-            "https://github.com/ikari-pl/konCePCja/commit/69e2d30afc9bb9a49ee83fb1310842a50501f02f",
-            "https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21"
+            "https://github.com/ikari-pl/konCePCja/commit/7f21133285a51d6356935f91afd32d1dadca4808",
+            "https://github.com/ikari-pl/konCePCja/commit/8cbf49dd",
+            "https://github.com/ikari-pl/konCePCja/commit/0d60e541"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-08",
-          "note": "README and v6.4.2 release publish host packages but no minimum host CPU generation or RAM. CPC model and expansion capacities are emulated configurations, not host minima.",
+          "checked_at": "2026-10-18",
+          "note": "The new writeback and IPC tests add no host CPU, RAM or minimum OS evidence. CPC/Symbiface configurations remain emulated hardware, not host minima.",
           "evidence_urls": [
-            "https://github.com/ikari-pl/konCePCja/blob/master/README.md",
-            "https://github.com/ikari-pl/konCePCja/releases/tag/v6.4.2"
+            "https://github.com/ikari-pl/konCePCja/commit/7f21133285a51d6356935f91afd32d1dadca4808",
+            "https://github.com/ikari-pl/konCePCja/commit/0d60e541"
           ]
         },
         "ai": {
@@ -37047,7 +37055,7 @@
     },
     {
       "project_id": "virtualjaguar-libretro",
-      "last_reviewed": "2026-10-13",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -37086,21 +37094,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-13",
-          "note": "README supplies make/test commands, CI builds the explicit host matrix, and v3.8.0 is published with headless regression receipts. compilable/runnable=true describe the core, while playable remains unknown because upstream explicitly says reaching game code is not a playability certificate.",
+          "checked_at": "2026-10-18",
+          "note": "v3.9.1 publishes netlist-derived RISC fixes, stock-gdb support, loader corrections and corpus-backed regression claims. The tracker did not execute the artifacts; playable remains unknown.",
           "evidence_urls": [
-            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/blob/master/.github/workflows/c-cpp.yml",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-13",
-          "note": "Recorded published desktop release variants and their explicit CPU families. No minimum CPU model, RAM or OS version is stated, so none is inferred; mobile/console outputs remain in target metadata without speculative hardware profiles.",
+          "checked_at": "2026-10-18",
+          "note": "Updated the explicit desktop architecture profiles to v3.9.1 and added the published Windows ARM64 package. The release does not state a minimum CPU generation or RAM, so none is inferred.",
           "evidence_urls": [
-            "https://github.com/libretro/virtualjaguar-libretro/blob/master/README.md",
-            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.8.0"
+            "https://github.com/libretro/virtualjaguar-libretro/releases/tag/v3.9.1"
           ]
         },
         "ai": {
@@ -37916,7 +37921,7 @@
     },
     {
       "project_id": "3dvibe64-c64-graphics-sdk",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -37938,19 +37943,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "v1.11.0 is a source-only SDK package with 794 source files, 34 bilingual manual pairs, 41 release gates and 15 byte-identical checkpoint rebuilds. Windows/VICE is qualified; no compiled demos/media are shipped and Linux/physical hardware remain unverified.",
+          "checked_at": "2026-10-18",
+          "note": "The 1.12.0 source publication reports all 16 public gates passing and preserves sealed runtime bytes, while explicitly excluding demos, examples, media and compiled artifacts. No tag/release asset or independent tracker build was found.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.11.0",
-            "https://github.com/Librologica/3Dvibe64/commit/fd7cdcafb452407faf29bd5a2115998b2a998f8d"
+            "https://github.com/Librologica/3Dvibe64/commit/6ecbe5664650d3c5be5da3283a74fdad256103ad"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "The v1.11.0 release retains emulator-qualified C64 execution and explicitly leaves Linux and physical hardware unverified. No CPU generation or RAM floor is inferred.",
+          "checked_at": "2026-10-18",
+          "note": "1.12.0 adds bounded source helpers but no new physical or minimum runtime profile. Existing accelerated-emulation measurements remain scene-specific and Linux/physical hardware remain unverified.",
           "evidence_urls": [
-            "https://github.com/Librologica/3Dvibe64/releases/tag/v1.11.0"
+            "https://github.com/Librologica/3Dvibe64/commit/6ecbe5664650d3c5be5da3283a74fdad256103ad"
           ]
         },
         "ai": {
@@ -40440,7 +40444,7 @@
     },
     {
       "project_id": "cpc-syntax-error-emulator",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -40469,19 +40473,19 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "v0.6.5 development head adds deterministic rewind/input replay, signal analysis and raster diagnostics while reporting unchanged frame hashes and byte-identical SHAKER screens after optimization. This is upstream evidence; no local package run was performed.",
+          "checked_at": "2026-10-18",
+          "note": "v0.7.0 is published with persistent save slots, recording, profiler, graphics finder and controller/keyboard additions. Release assets exist for all three desktop families, but the tracker did not run them and runnable/playable remain unasserted.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0",
+            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/51413b6986ff1793bc5b577a1069b3d7cd426b52"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "The release retains the same explicit Linux x86-64 and macOS universal output architectures. No new CPU generation or RAM minimum is stated. The v0.6.5 development changes do not alter the existing release-architecture profiles or state a CPU-generation/RAM minimum.",
+          "checked_at": "2026-10-18",
+          "note": "Recorded the four explicit v0.7.0 desktop package/architecture variants. No CPU generation, RAM or new OS minimum is inferred from the release matrix.",
           "evidence_urls": [
-            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.6.3",
-            "https://github.com/WacKEDmaN/CPCSyntaxError/commit/4d4ada0808299b90dbb3fdc44bf70e9977dc7f4c"
+            "https://github.com/WacKEDmaN/CPCSyntaxError/releases/tag/v0.7.0"
           ]
         },
         "ai": {
@@ -71298,7 +71302,7 @@
     },
     {
       "project_id": "github-henols-c64-re-tools",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -71346,24 +71350,20 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "M23/M24 add non-stopping evidence traces, source maps, generated/linked reference documentation and explicit run-file ownership. Bruce Lee field-run counts are upstream acceptance evidence; npm 2.0.0 publication remains open.",
+          "checked_at": "2026-10-18",
+          "note": "v2.1.1 is a published release backed by an upstream real-project pass over every script command and MCP tool on VICE 3.10. Current main adds media-signature, autostart/snapshot and address-space safeguards. The tracker did not reproduce that field run.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/commit/4c209ab6e79cbb0a34e3b818bf33d8b6fb92f0ba",
-            "https://github.com/henols/c64-re-tools/commit/7a45b671dc7b6efc1f0c6b905e57ae1839a8ce3a",
-            "https://github.com/henols/c64-re-tools/commit/9caaff4bf206b429d389fcdf5e94d42919600cd9"
+            "https://github.com/henols/c64-re-tools/releases/tag/v2.1.1",
+            "https://github.com/henols/c64-re-tools/commit/eb69c523cc34f88e9c2aa5e23f3139306ed6bb5b"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-17",
-          "note": "M17 adds software behavior and tests but no host CPU, RAM or minimum-machine evidence. Node/VICE prerequisites remain software requirements rather than a hardware profile. The new tracing and documentation tools add no host CPU or RAM minimum; existing Node/VICE prerequisites remain software requirements.",
+          "checked_at": "2026-10-18",
+          "note": "v2.1.1 publishes a devcontainer feature and states Node.js/VICE software prerequisites, but no host CPU family, RAM floor or minimum machine. No runtime profile is inferred.",
           "evidence_urls": [
-            "https://github.com/henols/c64-re-tools/commit/5cdc74d5226db7d8123ca782cfb6e9a36a11ee8b",
-            "https://github.com/henols/c64-re-tools/commit/15a3bb8f331d0fe8d81976400c04a4e632813b06",
-            "https://github.com/henols/c64-re-tools/commit/4c209ab6e79cbb0a34e3b818bf33d8b6fb92f0ba",
-            "https://github.com/henols/c64-re-tools/commit/7a45b671dc7b6efc1f0c6b905e57ae1839a8ce3a",
-            "https://github.com/henols/c64-re-tools/commit/9caaff4bf206b429d389fcdf5e94d42919600cd9"
+            "https://github.com/henols/c64-re-tools/releases/tag/v2.1.1",
+            "https://github.com/henols/c64-re-tools/blob/main/README.md"
           ]
         },
         "ai": {
@@ -71389,9 +71389,8 @@
         }
       },
       "next_actions": [
-        "Verify the documented Node/VICE prerequisites and opted-in integration tests before strengthening build/runtime claims.",
-        "Track the still-open trusted-publisher, tag and published-package verification gate.",
-        "Retain the documented SID/TOD/interrupt-state limits when evaluating generated loaders."
+        "Independently reproduce the published Node/VICE field pass if later verification is authorized.",
+        "Retain the documented SID/TOD/interrupt-state and VICE memory-map limitations when evaluating generated loaders."
       ]
     },
     {
@@ -89262,7 +89261,7 @@
     },
     {
       "project_id": "amiberry-system-emulator",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -89308,28 +89307,29 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "Development head expands the WinUAE-derived GDB monitor with remote execution/task/exception/DMA/input/checkpoint features and bounded failure handling. It is not a new v8.4.0 artifact and was not independently executed.",
+          "checked_at": "2026-10-18",
+          "note": "Current main adds Windows named-pipe IPC with behavioral CI and repairs threaded-JIT/reset correctness. These remain development-head results; the published baseline is v8.4.0 and no tracker-side run was performed.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d"
+            "https://github.com/BlitterStudio/amiberry/commit/caf799a4c7dc3c99f2b69ee4834e5f4a00a77aae",
+            "https://github.com/BlitterStudio/amiberry/commit/7dda88f302e74d38509a9ab0b37dfe79641cf8aa",
+            "https://github.com/BlitterStudio/amiberry/commit/e28372fec0e9a957bce3cf5e791db3e3931e1724"
           ]
         },
         "runtime_profiles": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "Six explicit v8.4.0 release-asset architecture variants are recorded for Windows, macOS and Linux on ARM64/x86-64. The release states no minimum CPU generation, RAM or OS version, so the profiles contain no invented minima. The GDB-monitor extensions do not alter the six published v8.4.0 architecture variants or state a new CPU-generation/RAM/OS minimum.",
+          "checked_at": "2026-10-18",
+          "note": "The Windows IPC and threaded-CPU fixes do not change the six published v8.4.0 ARM64/x86-64 variants or state any new CPU-generation, RAM or OS minimum.",
           "evidence_urls": [
             "https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0",
-            "https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d"
+            "https://github.com/BlitterStudio/amiberry/commit/caf799a4c7dc3c99f2b69ee4834e5f4a00a77aae"
           ]
         },
         "ai": {
           "state": "reviewed",
-          "checked_at": "2026-10-14",
-          "note": "Existing Claude co-author metadata and the MacPorts commit's explicit ChatGPT assistance credit establish affirmative AI use. Attribution is scoped to the evidenced commits and does not imply whole-project generation.",
+          "checked_at": "2026-10-18",
+          "note": "Existing Claude and ChatGPT evidence remains; the keyboard-reset fix additionally has an explicit Copilot co-author trailer. Attribution is scoped to evidenced commits.",
           "evidence_urls": [
-            "https://github.com/BlitterStudio/amiberry/blob/master/README.md",
-            "https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp",
+            "https://github.com/BlitterStudio/amiberry/commit/e28372fec0e9a957bce3cf5e791db3e3931e1724",
             "https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15"
           ]
         },
@@ -128107,7 +128107,7 @@
     },
     {
       "project_id": "th04-lotus-land-story-reconstruction",
-      "last_reviewed": "2026-10-17",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -128144,21 +128144,18 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-17",
-          "note": "Reviewed the title/GRCG differential receipts, including 8,000 state boundaries, two 7,895-case component loads and a preserved one-pixel negative. Complete natural pictures, campaign coverage and physical timing remain open.",
+          "checked_at": "2026-10-18",
+          "note": "The native path now includes authored repeat and stalled-UART fixtures plus a source-bound keyboard component comparator. These are upstream bounded input-subsystem oracles, not a whole-game or tracker-side execution result.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a",
-            "https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3"
+            "https://github.com/N0zoM1z0/th04/commit/8812f9fc949875e87677ebf45229acc4ce04849b"
           ]
         },
         "runtime_profiles": {
           "state": "no-evidence-found",
-          "checked_at": "2026-10-17",
-          "note": "The new route supplies execution parity counts but no minimum physical PC-98 or x64 host CPU/RAM requirement. The title/GRCG receipts add no minimum physical PC-98 or x64 host CPU/RAM evidence.",
+          "checked_at": "2026-10-18",
+          "note": "The keyboard/UART oracle work describes emulated device behavior and authored fixtures, not a minimum physical PC-98 or x64 host CPU/RAM profile. Existing architecture fields are unchanged.",
           "evidence_urls": [
-            "https://github.com/N0zoM1z0/th04/commit/07f69d3d6c01c3319b9865357f4420120c2f4b85",
-            "https://github.com/N0zoM1z0/th04/commit/566c2049f20cfc49d975e907392f68abe162b11a",
-            "https://github.com/N0zoM1z0/th04/commit/ef35bc527f93564f0547a617a79435317e74bbd3"
+            "https://github.com/N0zoM1z0/th04/commit/8812f9fc949875e87677ebf45229acc4ce04849b"
           ]
         },
         "ai": {
@@ -134748,7 +134745,7 @@
     },
     {
       "project_id": "mz800emu-sharp-mz-emulator-debugger",
-      "last_reviewed": "2026-10-16",
+      "last_reviewed": "2026-10-18",
       "overall_state": "reviewed",
       "areas": {
         "identity": {
@@ -134783,12 +134780,11 @@
         },
         "build": {
           "state": "reviewed",
-          "checked_at": "2026-10-16",
-          "note": "README and platform build guides provide CMake/Make recipes and optional debugger/MCP toggles; not rerun locally.",
+          "checked_at": "2026-10-18",
+          "note": "Primary commits add complete hidden CPU/peripheral snapshot state, safe RAMdisk/IDE8 restoration and debugger/MCP correctness for temporary stops, expanded memory maps and fetched-byte traces. The tracker did not independently execute these paths.",
           "evidence_urls": [
-            "https://github.com/michalhucik/mz800emu/blob/main/README.md",
-            "https://github.com/michalhucik/mz800emu/blob/main/docs/build_ubuntu.md",
-            "https://github.com/michalhucik/mz800emu/blob/main/mcp-server/README.md"
+            "https://github.com/michalhucik/mz800emu/commit/1f477d90e2efd6808253c1c3d5f31fa56f465570",
+            "https://github.com/michalhucik/mz800emu/commit/a5726b9658d10b4412cf4a28bc212a78351f28a4"
           ]
         },
         "runtime_profiles": {
