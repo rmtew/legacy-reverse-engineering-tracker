@@ -31,8 +31,9 @@ STATE = 'state/enrichment-state.json'
 DOC_FIELDS = ('compilable', 'playable', 'byte_exact', 're_started')
 OWNED = [('evidence', 'automated'), ('re_started',),
          *(('build', key) for key in (*DOC_FIELDS[:3], 'runnable'))]
-DOC_TTL = timedelta(days=30)
-CI_TTL = timedelta(days=7)
+# Eligibility leaves the measured backlog-drain margin before freshness targets.
+DOC_TTL = timedelta(days=10)  # 30-day objective minus 20-day cold reserve drain.
+CI_TTL = timedelta(days=4)    # Seven-day objective minus three-day CI reserve drain.
 METADATA_MAX_AGE = timedelta(hours=13)
 MAX_RESPONSE = 700_000
 STATE_FIELDS = {'fingerprint', 'last_attempt_at', 'docs_key', 'docs_digest', 'docs_checked_at',
@@ -182,6 +183,10 @@ class FetchFailure(Exception):
         self.rate_limited = rate_limited
 
 
+class RecordStop(FetchFailure):
+    pass
+
+
 class Budget:
     def __init__(self, seconds=600, requests=300, *, api_requests=80, clock=time.monotonic):
         if seconds <= 0 or requests < 0:
@@ -191,6 +196,7 @@ class Budget:
         self.requests, self.statuses, self.http_seconds, self.cache_hits = 0, {}, 0.0, 0
         self.lane_name, self.lane_limit, self.lane_deadline, self.lanes = None, None, None, {}
         self.api_limit, self.api_requests, self.lane_api_limit = api_requests, 0, None
+        self.record_deadline = None
 
     def check(self, reserve=0):
         if self.clock() >= self.deadline:
@@ -201,6 +207,14 @@ class Budget:
             raise LaneStop('lane wall-time budget')
         if self.lane_limit is not None and self.requests + reserve > self.lane_limit:
             raise LaneStop('lane request budget')
+        if self.record_deadline is not None and self.clock() >= self.record_deadline:
+            raise RecordStop('record wall-time budget')
+
+    def begin_record(self):
+        self.record_deadline = self.clock() + 30
+
+    def end_record(self):
+        self.record_deadline = None
 
     def begin_lane(self, name, requests, deadline, api_requests=None):
         self.lane_name = name
@@ -222,7 +236,7 @@ class Budget:
         self.api_requests += int(api)
         if self.lane_name:
             self.lanes[self.lane_name] += 1
-        deadline = min(self.deadline, self.lane_deadline or self.deadline)
+        deadline = min(self.deadline, self.lane_deadline or self.deadline, self.record_deadline or self.deadline)
         return min(10.0, max(0.05, deadline - self.clock()))
 
     def summary(self):
@@ -519,6 +533,7 @@ def collect(root, bundle, budget, *, limit=None, docs_limit=64, ci_limit=60, now
                     previous.setdefault('ci_observed_fingerprint', previous.get('fingerprint') or signal)
                 info = outcomes.setdefault(pid, {})
                 stop_phase = False
+                budget.begin_record()
                 try:
                     candidate, after = collect_record(working[pid], previous, client, now, work=work, polling=polling)
                     working[pid], progress[pid] = candidate, after
@@ -528,14 +543,16 @@ def collect(root, bundle, budget, *, limit=None, docs_limit=64, ci_limit=60, now
                     attempt_key, failure_key, retry_key = (('ci_attempt_at', 'ci_failures', 'ci_retry_at')
                                                          if work == 'ci' else ('last_attempt_at', 'failures', 'retry_at'))
                     failures = min(5, previous.get(failure_key, 0) + int(isinstance(exc, FetchFailure)))
-                    after = {**previous, attempt_key: stamp(now), failure_key: failures}
+                    after = {**previous, failure_key: failures}
                     if isinstance(exc, FetchFailure):
+                        after[attempt_key] = stamp(now)
                         after[retry_key] = stamp(now + timedelta(hours=2 ** (failures - 1)))
                     progress[pid] = after
                     info[work] = 'deferred'
                     info[work + '_reason'] = str(exc)
                     stop_all = (isinstance(exc, BudgetStop) and exc.scope == 'global') or (isinstance(exc, FetchFailure) and exc.rate_limited)
                     stop_phase = isinstance(exc, BudgetStop) or stop_all
+                budget.end_record()
                 log(project=pid, work=work, status=info[work], reason=info.get(work + '_reason'), completed=sum(
                     all(v.get(task) == 'complete' for task in required[key]) for key, v in outcomes.items()),
                     docs_completed=completed['docs'], ci_completed=completed['ci'], **budget.summary())

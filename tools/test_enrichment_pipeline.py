@@ -518,11 +518,39 @@ class EnrichmentTests(unittest.TestCase):
             self.assertNotIn('ci_fingerprint' if missing=='ci' else 'fingerprint',after['records']['unfinished'])
 
 
+    def test_slice_exhaustion_preserves_queue_position_for_next_slice(self):
+        records=[project(f'old{i:03}') for i in range(200)]
+        bundle,_=self.collect(records=records,limit=None)
+        replayed,state,_=pipeline.replay(records,self.state,bundle)
+        deferred=next(r['id'] for r in bundle['results'] if r['work'].get('docs')=='deferred')
+        self.assertNotIn('last_attempt_at',state['records'][deferred])
+        self.assertEqual(pipeline.select(replayed,state,NOW,work='docs')[0]['id'],deferred)
+
+    def test_slow_record_is_deferred_with_backoff_before_it_blocks_the_lane(self):
+        self.network.delay=4
+        bundle,budget=self.collect(records=[self.records[0]],ci_limit=0,limit=1)
+        self.assertEqual(bundle['summary']['docs_completed'],0)
+        self.assertEqual(bundle['results'][0]['work']['docs_reason'],'record wall-time budget')
+        self.assertIn('retry_at',bundle['results'][0]['state_after'])
+        self.assertLessEqual(budget.clock(),34)
+
+    def test_due_thresholds_leave_capacity_margin_before_freshness_objectives(self):
+        record=project('margin');signal=pipeline.fingerprint(record)
+        state={'version':1,'records':{'margin':{'fingerprint':signal,'ci_fingerprint':signal,
+            'docs_checked_at':pipeline.stamp(NOW-timedelta(days=10)),
+            'ci_checked_at':pipeline.stamp(NOW-timedelta(days=4))}}}
+        self.assertEqual(pipeline.select([record],state,NOW,work='ci'),[record])
+        self.assertEqual(pipeline.select([record],state,NOW,work='docs'),[record])
+        self.assertEqual(pipeline.DOC_TTL+timedelta(days=20),timedelta(days=30))
+        self.assertEqual(pipeline.CI_TTL+timedelta(days=3),timedelta(days=7))
+
+
 
 class WorkflowTests(unittest.TestCase):
     def test_collection_occurs_once_and_retry_replays_same_external_bundle(self):
         workflow=(Path(__file__).resolve().parents[1]/'.github/workflows/enrich-evidence.yml').read_text()
         self.assertIn('timeout-minutes: 20',workflow)
+        self.assertIn("github.ref == 'refs/heads/main'",workflow)
         self.assertIn('cancel-in-progress: false',workflow)
         self.assertEqual(workflow.count('enrich_evidence.py collect'),1)
         loop=workflow.split('for attempt in 1 2 3; do',1)[1]

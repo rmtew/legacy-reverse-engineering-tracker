@@ -46,7 +46,7 @@ concurrency:
 
 jobs:
   enrich:
-    if: github.actor != 'github-actions[bot]' || github.event_name == 'workflow_dispatch'
+    if: github.ref == 'refs/heads/main' && (github.actor != 'github-actions[bot]' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
