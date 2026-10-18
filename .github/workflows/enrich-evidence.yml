@@ -2,12 +2,27 @@ name: Enrich project evidence
 
 on:
   schedule:
-    - cron: "43 3 * * 0"
+    # Small rotating slices; never scan the entire catalogue in one job.
+    - cron: "43 * * * *"
   workflow_dispatch:
+    inputs:
+      records:
+        description: Maximum records in this bounded slice (1-100)
+        type: string
+        default: "20"
+      requests:
+        description: HTTP request budget (0-1000)
+        type: string
+        default: "300"
+      seconds:
+        description: Collection wall-time budget (1-600 seconds)
+        type: string
+        default: "600"
   push:
     branches: [main]
     paths:
       - "tools/enrich_evidence.py"
+      - "tools/enrichment_pipeline.py"
       - ".github/workflows/enrich-evidence.yml"
 
 permissions:
@@ -15,11 +30,11 @@ permissions:
 
 concurrency:
   group: enrich-project-evidence
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   enrich:
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'github-actions[bot]' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -27,58 +42,36 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Enrich evidence-backed fields
+      - name: Collect one bounded evidence slice
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python tools/enrich_evidence.py
+          ENRICH_RECORDS: ${{ inputs.records || '20' }}
+          ENRICH_REQUESTS: ${{ inputs.requests || '300' }}
+          ENRICH_SECONDS: ${{ inputs.seconds || '600' }}
+        run: >-
+          python -u tools/enrich_evidence.py collect
+          --bundle "$RUNNER_TEMP/enrichment-bundle.json"
+          --records "$ENRICH_RECORDS" --requests "$ENRICH_REQUESTS" --seconds "$ENRICH_SECONDS"
 
-      - name: Validate tracker data
-        run: python tools/validate_site_data.py data/projects.json data/activity.json
-
-      - name: Commit changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish completed results and progress together
         run: |
           set -euo pipefail
-
-          if git diff --quiet -- data/projects.json data/projects.index.json data/projects/; then
-            echo "No evidence changes"
-            exit 0
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- data/projects.index.json data/projects/
-          git commit -m "Enrich project evidence"
-
+          # The bundle survives checkout resets. This loop performs offline replay
+          # only: stale or concurrently edited records remain due for another slice.
           for attempt in 1 2 3; do
             git fetch origin main
-
-            if git merge-base --is-ancestor origin/main HEAD; then
-              if git push origin HEAD:main; then
-                exit 0
-              fi
-            else
-              echo "main advanced during enrichment; regenerating evidence on latest main"
-              git reset --hard origin/main
-
-              python tools/enrich_evidence.py
-              python tools/validate_site_data.py data/projects.json data/activity.json
-
-              if git diff --quiet -- data/projects.json data/projects.index.json data/projects/; then
-                echo "Latest main already contains equivalent evidence state"
-                exit 0
-              fi
-
-              git add -A -- data/projects.index.json data/projects/
-              git commit -m "Enrich project evidence"
-
-              if git push origin HEAD:main; then
-                exit 0
-              fi
+            git reset --hard origin/main
+            python -u tools/enrich_evidence.py apply --bundle "$RUNNER_TEMP/enrichment-bundle.json"
+            git add -A -- data/projects.index.json data/projects/ state/enrichment-state.json
+            if git diff --cached --quiet; then
+              echo "No unpublished enrichment results or progress remain"
+              exit 0
             fi
-
+            git commit -m "Enrich bounded evidence slice and save progress"
+            # Fast-forward push rejects concurrent main updates; no force push.
+            if git push origin HEAD:main; then exit 0; fi
             sleep $((attempt * 2))
           done
-
           exit 1
