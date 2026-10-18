@@ -151,7 +151,11 @@ def load_dataset(data_dir, name, *, read=None, exists=None):
 
 
 def load_projects(path):
-    return load_dataset(Path(path).parent, 'projects.json')
+    """Route canonical names through the index; honor explicit legacy filenames."""
+    path = Path(path)
+    if path.name in {'projects.json', index_name('projects.json')}:
+        return load_dataset(path.parent, 'projects.json')
+    return json.loads(path.read_bytes())
 
 
 def load_all(data_dir):

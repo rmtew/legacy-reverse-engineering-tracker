@@ -35,6 +35,26 @@ class StorageTests(unittest.TestCase):
         self.assertEqual({p['id'] for p in projects}, {a['project_id'] for a in audits})
         self.assertTrue(all(request_size((self.data/p).read_bytes()) <= REQUEST_LIMIT for p in storage_paths(self.data)))
 
+    def test_explicit_legacy_filename_is_honored_with_or_without_sibling_catalogue(self):
+        custom = self.data / 'custom-projects.json'
+        records = [{'id':'explicit-legacy','nested':{'value':None}}]
+        custom.write_bytes(encode(records))
+        self.assertEqual(load_projects(custom), records)
+        canonical = [{'id':'canonical-sibling'}]
+        write_all(self.data, {'projects.json':canonical})
+        self.assertEqual(load_projects(custom), records)
+        self.assertEqual(load_projects(self.data/'projects.json'), canonical)
+        self.assertEqual(load_projects(self.data/'projects.index.json'), canonical)
+
+    def test_explicit_legacy_filename_never_falls_back_to_sibling_catalogue(self):
+        write_all(self.data, {'projects.json':[{'id':'canonical-sibling'}]})
+        custom = self.data / 'custom-projects.json'
+        with self.assertRaises(FileNotFoundError):
+            load_projects(custom)
+        custom.write_text('invalid json')
+        with self.assertRaises(json.JSONDecodeError):
+            load_projects(custom)
+
     def test_one_record_changes_only_partition_and_index(self):
         records = [{'id':str(i), 'note':'original'} for i in range(1000)]
         write_all(self.data, {'projects.json':records})
