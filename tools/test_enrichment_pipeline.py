@@ -34,6 +34,7 @@ class Network:
         self.calls = []
         self.commit, self.document, self.failure, self.delay, self.time = SHA, 'The project builds.\nThe game is playable.', None, 0, 0
         self.ci_runs = []
+        self.confirm_status, self.confirm_sha = 200, None
 
     def clock(self):
         return self.time
@@ -46,6 +47,10 @@ class Network:
             raise URLError('temporary network failure')
         if '/git/ref/heads/' in url:
             return Response(encode({'object': {'sha': self.commit, 'type': 'commit'}}))
+        if '/git/commits/' in url:
+            if self.confirm_status != 200:
+                raise HTTPError(url, self.confirm_status, 'Unavailable', {}, None)
+            return Response(encode({'sha': self.confirm_sha or url.rsplit('/', 1)[1]}))
         if '/actions/runs?' in url:
             return Response(encode({'workflow_runs': self.ci_runs}))
         if url.endswith('/README.md') and self.document is not None:
@@ -166,7 +171,7 @@ class EnrichmentTests(unittest.TestCase):
         self.assertEqual(budget.requests,1)
         self.assertFalse(any('raw.githubusercontent.com' in url for url,_ in self.network.calls))
         self.assertEqual(bundle['results'][0]['patch'],[])
-        self.assertFalse(any('/git/ref/' in url for url,_ in self.network.calls))
+        self.assertFalse(any('/git/ref/' in url or '/git/commits/' in url for url,_ in self.network.calls))
         self.assertEqual(bundle['summary']['docs_completed'],0)
         self.assertEqual(bundle['summary']['ci_completed'],1)
         replayed,after,_=pipeline.replay([records[0]],state,bundle)
@@ -437,6 +442,64 @@ class EnrichmentTests(unittest.TestCase):
         after,_,_=pipeline.replay([record],self.state,bundle,polling=polling)
         self.assertIn(SHA,after[0]['evidence']['automated']['compilable'][0]['url'])
         self.assertEqual(budget.requests,17)  # one CI + sixteen document paths
+
+    def test_cached_tip_all_missing_requires_accessible_same_commit(self):
+        records, state = self.complete_one()
+        record = records[0]
+        self.assertTrue(record['build']['compilable'])
+        polling = self.metadata([record])
+        for status in (404, 403, 500):
+            with self.subTest(status=status):
+                self.network.document = None
+                self.network.confirm_status = status
+                budget = pipeline.Budget(600, 300, clock=self.network.clock)
+                client = pipeline.Client(budget, opener=self.network.open, token='')
+                before = copy.deepcopy(record)
+                with self.assertRaises(pipeline.FetchFailure):
+                    pipeline.collect_record(record, {}, client, NOW, polling=polling)
+                self.assertEqual(record, before)
+                self.assertEqual(budget.requests, 17)
+                self.assertEqual(budget.api_requests, 1)
+                self.assertIn('/git/commits/' + SHA, self.network.calls[-1][0])
+        # A successful response for a different commit cannot establish absence.
+        self.network.confirm_status = 200
+        self.network.confirm_sha = 'b' * 40
+        client = pipeline.Client(pipeline.Budget(600, 300), opener=self.network.open, token='')
+        with self.assertRaises(pipeline.FetchFailure):
+            pipeline.collect_record(record, {}, client, NOW, polling=polling)
+
+    def test_cached_tip_confirmed_removed_documents_retract_only_automated_claims(self):
+        records, _ = self.complete_one()
+        record = records[0]
+        self.network.document = None
+        client = pipeline.Client(pipeline.Budget(600, 300), opener=self.network.open, token='')
+        after, state = pipeline.collect_record(record, {}, client, NOW, polling=self.metadata([record]))
+        self.assertIsNone(after['build']['compilable'])
+        self.assertIsNone(after['build']['playable'])
+        self.assertEqual(after['evidence']['curated'], record['evidence']['curated'])
+        self.assertEqual(state['docs_checked_at'], pipeline.stamp(NOW))
+        self.assertIn(('owner/a', SHA), client.accessible_commits)
+        requests = client.budget.requests
+        client.confirm_commit(pipeline.identity(record), SHA)
+        self.assertEqual(client.budget.requests, requests)
+
+    def test_confirmation_exhaustion_defers_without_accepting_absence(self):
+        records, state = self.complete_one()
+        state['records']['a'].pop('docs_key')  # Force a fresh document scan.
+        record = records[0]
+        self.network.document = None
+        for requests, api_requests in ((16, 80), (300, 0)):
+            with self.subTest(requests=requests, api_requests=api_requests):
+                bundle, budget = self.collect(records=[record], state=state,
+                    polling=self.metadata([record]), limit=None, ci_limit=0,
+                    requests=requests, api_requests=api_requests)
+                self.assertEqual(bundle['summary']['docs_completed'], 0)
+                after, after_state, _ = pipeline.replay([record], state, bundle,
+                    polling=self.metadata([record]))
+                self.assertEqual(after, [record])
+                self.assertEqual(after_state['records']['a'].get('docs_checked_at'),
+                                 state['records']['a']['docs_checked_at'])
+                self.assertEqual(budget.requests, 16)
 
     def test_pending_stale_or_incomplete_metadata_falls_back_to_head_lookup(self):
         record=project('meta')

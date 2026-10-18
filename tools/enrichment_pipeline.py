@@ -259,7 +259,7 @@ class Client:
     def __init__(self, budget, *, token=None, opener=None):
         self.budget, self.opener = budget, opener or build_opener(NoRedirect()).open
         self.token = os.environ.get('GITHUB_TOKEN', '') if token is None else token
-        self.heads, self.ci_results = {}, {}
+        self.heads, self.ci_results, self.accessible_commits = {}, {}, set()
 
     def get(self, url, kind, *, absence=False):
         for _ in range(4):
@@ -297,7 +297,7 @@ class Client:
             if exc.code in {301, 302, 303, 307, 308} and exc.headers.get('Location'):
                 raise Redirect(exc.headers['Location']) from exc
             if absence and exc.code == 404:
-                return None  # Only immutable paths under a confirmed accessible commit.
+                return None  # Caller confirms accessibility before accepting all-missing cached tips.
             raise FetchFailure('HTTP ' + status, rate_limited=exc.code == 429 or
                                (exc.code == 403 and (exc.headers.get('X-RateLimit-Remaining') == '0' or bool(exc.headers.get('Retry-After'))))) from exc
         except (URLError, TimeoutError, UnicodeError, OSError, HTTPException) as exc:
@@ -321,6 +321,20 @@ class Client:
                 raise FetchFailure('invalid head response') from exc
             self.heads[key] = sha
         return self.heads[key]
+
+    def confirm_commit(self, target, commit):
+        """Confirm negative document results against the same cached commit."""
+        key = target['repo'], commit
+        if key in self.accessible_commits:
+            self.budget.cache_hits += 1
+            return
+        text = self.get(f"{evidence.API}/repos/{key[0]}/git/commits/{commit}", 'confirm-commit')
+        try:
+            if json.loads(text)['sha'] != commit:
+                raise ValueError('commit mismatch')
+        except (ValueError, KeyError, TypeError) as exc:
+            raise FetchFailure('invalid commit confirmation') from exc
+        self.accessible_commits.add(key)
 
     def ci(self, target, day):
         key = target['repo'], target['branch']
@@ -388,6 +402,7 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
         after.pop('ci_observed_fingerprint', None)
         return candidate, after
     commit = metadata_commit(record, polling or {}, now)
+    metadata_tip = commit is not None
     if commit:
         client.budget.cache_hits += 1
     else:
@@ -417,6 +432,10 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
             found += 1
             if found == 6:
                 break
+        if metadata_tip and found == 0:
+            # A poll tip can predate a visibility change or inaccessible commit.
+            # Raw 404s alone must not retract evidence from that earlier scan.
+            client.confirm_commit(target, commit)
         auto = {field: evidence.uniq(values) for field, values in auto.items()}
         for values in auto.values():
             for item in values:
