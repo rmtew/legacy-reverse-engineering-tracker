@@ -1,24 +1,49 @@
-# Fair adaptive polling: oldest due probes first; changed/oldest queued scans first.
-# Discovery landings explicitly dispatch this workflow because GITHUB_TOKEN ref updates do not emit downstream push workflows.
-# workflow_dispatch is allowed from github-actions[bot]; bot-authored pushes remain blocked to prevent recursion.
+# Repository work is collected once; publication retries are offline.
 name: Refresh GitHub metadata
 
 on:
   schedule:
-    # Hourly polling trial, away from the top of each hour.
     - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       full_probe:
-        description: Probe every tracked repository in this run
+        description: Start or resume a full repository sweep
         type: boolean
         default: false
+      repositories:
+        description: Maximum distinct repositories per batch (1-500)
+        type: string
+        default: "500"
+      seconds:
+        description: Collection budget (1-900 seconds; publication has separate headroom)
+        type: string
+        default: "600"
+      requests:
+        description: Shared HTTP budget across probes and activity (0-2000)
+        type: string
+        default: "1000"
+      continuation:
+        description: Internal work-cycle token; leave empty for manual Resume
+        type: string
+        default: ""
+      request_id:
+        description: Internal original request identity
+        type: string
+        default: ""
+      resume_run_id:
+        description: Internal publication recovery artifact
+        type: string
+        default: ""
+      recovery_attempt:
+        description: Internal bounded recovery attempt
+        type: string
+        default: "0"
       publication_base:
-        description: Publication-only refresh base commit (requires publication_head)
+        description: Retained compatibility input for discovery landings
         type: string
         default: ""
       publication_head:
-        description: Published catalogue commit; must descend from publication_base
+        description: Retained compatibility input for discovery landings
         type: string
         default: ""
   push:
@@ -27,16 +52,16 @@ on:
       - "data/projects.json"
       - "data/projects.index.json"
       - "data/projects/**"
-      - "tools/catalogue_storage.py"
       - "data/pending-projects.json"
+      - "tools/catalogue_storage.py"
       - "tools/merge_pending_projects.py"
       - "tools/refresh_github.py"
+      - "tools/refresh_pipeline.py"
+      - "tools/collection_budget.py"
       - "tools/collect_activity.py"
       - "tools/refresh_scope.py"
-      - "tools/test_refresh_scope.py"
       - "tools/activity_history.py"
       - "tools/record_project_activity.py"
-      - "state/project-catalog-state.json"
       - ".github/workflows/refresh-github.yml"
 
 permissions:
@@ -45,113 +70,119 @@ permissions:
 
 concurrency:
   group: refresh-github-metadata
-  # Never cancel an active refresh. Actions may replace queued jobs; scheduled
-  # catalogue reconciliation recovers publications whose push run was coalesced.
   cancel-in-progress: false
 
 jobs:
   refresh:
-    if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    # Job-level settings also apply when commit contention reruns generators.
+    outputs:
+      continue: ${{ steps.publish.outputs.continue }}
+      continuation: ${{ steps.publish.outputs.continuation }}
+      artifact: ${{ steps.artifact.outputs.artifact-id }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_MIN_RATE_RESERVE: "100"
-      GITHUB_MAX_RATE_RESERVE: "250"
-      GITHUB_RATE_RESERVE_FRACTION: "0.15"
-      GITHUB_HTTP_SAFETY_CAP: "4000"
-      GITHUB_REQUEST_DELAY: "0.10"
-      GITHUB_FORCE_FULL_PROBE: ${{ inputs.full_probe || false }}
-      PUBLICATION_BASE: ${{ inputs.publication_base || '' }}
-      PUBLICATION_HEAD: ${{ inputs.publication_head || '' }}
+      GH_TOKEN: ${{ github.token }}
+      REFRESH_REPOSITORIES: ${{ inputs.repositories || '500' }}
+      REFRESH_SECONDS: ${{ inputs.seconds || '600' }}
+      REFRESH_REQUESTS: ${{ inputs.requests || '1000' }}
+      REFRESH_CONTINUATION: ${{ inputs.continuation || '' }}
+      REFRESH_REQUEST_ID: ${{ inputs.request_id || github.run_id }}
+      REFRESH_FULL: ${{ inputs.full_probe || false }}
+      REFRESH_RESUME: ${{ inputs.resume_run_id || '' }}
     steps:
-      - name: Initialize refresh scope path
-        shell: bash
-        run: echo "GITHUB_REFRESH_SCOPE_FILE=$RUNNER_TEMP/github-refresh-scope.json" >> "$GITHUB_ENV"
-
       - uses: actions/checkout@v5
         with:
+          ref: main
           fetch-depth: 0
 
-      - name: Select refresh window
-        id: window
-        shell: bash
+      - name: Collect bounded repository work or recover a publication bundle
         run: |
-          if [ "$GITHUB_EVENT_NAME" != "schedule" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
+          set -euo pipefail
+          if [ -n "$REFRESH_RESUME" ]; then
+            [[ "$REFRESH_RESUME" =~ ^[0-9]+$ ]]
+            gh run download "$REFRESH_RESUME" --name refresh-bundle --dir "$RUNNER_TEMP/refresh-recovery"
+            cp "$RUNNER_TEMP/refresh-recovery/refresh-bundle.json" "$RUNNER_TEMP/refresh-bundle.json"
+          else
+            full=()
+            if [ "$REFRESH_FULL" = "true" ]; then full=(--full); fi
+            python -u tools/refresh_pipeline.py collect --bundle "$RUNNER_TEMP/refresh-bundle.json" \
+              --repositories "$REFRESH_REPOSITORIES" --seconds "$REFRESH_SECONDS" --requests "$REFRESH_REQUESTS" \
+              --request-id "$REFRESH_REQUEST_ID" --continuation "$REFRESH_CONTINUATION" "${full[@]}"
           fi
 
-          echo "run=true" >> "$GITHUB_OUTPUT"
+      - name: Preserve collected results for interrupted publication
+        id: artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: refresh-bundle
+          path: ${{ runner.temp }}/refresh-bundle.json
+          if-no-files-found: warn
+          retention-days: 2
 
-      - name: Merge pending discoveries
-        if: steps.window.outputs.run == 'true'
-        run: python tools/merge_pending_projects.py
-
-      - name: Select catalogue publication scope
-        if: steps.window.outputs.run == 'true'
-        run: python tools/refresh_scope.py
-
-      - name: Probe selected repositories and schedule scans
-        if: steps.window.outputs.run == 'true'
-        run: python tools/refresh_github.py
-
-      - name: Collect selected activity incrementally
-        if: steps.window.outputs.run == 'true'
-        run: python tools/collect_activity.py
-
-      - name: Record project catalogue changes
-        if: steps.window.outputs.run == 'true'
-        run: python tools/record_project_activity.py
-
-      - name: Validate tracker data
-        if: steps.window.outputs.run == 'true'
-        run: python tools/validate_site_data.py data/projects.json data/activity.json
-
-      - name: Commit changes
-        if: steps.window.outputs.run == 'true'
+      - name: Publish results and refresh progress atomically
+        id: publish
         run: |
-          if git diff --quiet -- data/projects.json data/projects.index.json data/projects/ data/pending-projects.json data/project-audits.index.json data/project-audits/ data/activity.json state/github-poll-state.json state/project-catalog-state.json; then
-            echo "No metadata, activity, pending-discovery or poll-state changes"
-            exit 0
-          fi
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- data/projects.index.json data/projects/ data/pending-projects.json data/project-audits.index.json data/project-audits/ data/activity.json state/github-poll-state.json state/project-catalog-state.json
-          git commit -m "Refresh adaptive GitHub metadata and activity"
           for attempt in 1 2 3; do
             git fetch origin main
-            if git merge-base --is-ancestor origin/main HEAD; then
-              if git push origin HEAD:main; then exit 0; fi
-            else
-              echo "main advanced during refresh; rerunning generators on latest main"
-              git reset --hard origin/main
-              python tools/merge_pending_projects.py
-              # Recompute against the original event/dispatch base, never HEAD^.
-              python tools/refresh_scope.py
-              python tools/refresh_github.py
-              python tools/collect_activity.py
-              python tools/record_project_activity.py
-              python tools/validate_site_data.py data/projects.json data/activity.json
-              if git diff --quiet -- data/projects.json data/projects.index.json data/projects/ data/pending-projects.json data/project-audits.index.json data/project-audits/ data/activity.json state/github-poll-state.json state/project-catalog-state.json; then
-                echo "Latest main already contains equivalent generated state"
-                exit 0
-              fi
-              git add -A -- data/projects.index.json data/projects/ data/pending-projects.json data/project-audits.index.json data/project-audits/ data/activity.json state/github-poll-state.json state/project-catalog-state.json
-              git commit -m "Refresh adaptive GitHub metadata and activity"
-              if git push origin HEAD:main; then exit 0; fi
-            fi
+            git reset --hard origin/main
+            # Reuses the collected bundle. Never re-run network collection here.
+            python -u tools/refresh_pipeline.py apply --bundle "$RUNNER_TEMP/refresh-bundle.json"
+            git add -A -- data/projects.index.json data/projects/ data/project-audits.index.json data/project-audits/ data/pending-projects.json data/activity.json state/github-poll-state.json state/project-catalog-state.json state/refresh-progress.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Refresh bounded repository batch and save progress"
+            if git push origin HEAD:main; then exit 0; fi
             sleep $((attempt * 2))
           done
           exit 1
 
-      - name: Require complete publication enrichment
-        if: steps.window.outputs.run == 'true'
-        run: python tools/refresh_scope.py --check-complete
-
-      - name: Dispatch Pages after discovery refresh
-        if: steps.window.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && github.actor == 'github-actions[bot]'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run pages.yml --ref main
+  continue:
+    needs: refresh
+    if: always() && github.ref == 'refs/heads/main' && (needs.refresh.result == 'success' || needs.refresh.result == 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CONTINUE: ${{ needs.refresh.outputs.continue }}
+      CONTINUATION: ${{ needs.refresh.outputs.continuation }}
+      RESULT: ${{ needs.refresh.result }}
+      ARTIFACT: ${{ needs.refresh.outputs.artifact }}
+      REQUEST_ID: ${{ inputs.request_id || github.run_id }}
+      RECOVERY_ATTEMPT: ${{ inputs.recovery_attempt || '0' }}
+      FULL: ${{ inputs.full_probe || false }}
+      REPOSITORIES: ${{ inputs.repositories || '500' }}
+      SECONDS_BUDGET: ${{ inputs.seconds || '600' }}
+      REQUESTS_BUDGET: ${{ inputs.requests || '1000' }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - name: Handoff the next batch after a published checkpoint
+        run: |
+          set -euo pipefail
+          args=(--ref main -f "request_id=$REQUEST_ID" -f "repositories=$REPOSITORIES" -f "seconds=$SECONDS_BUDGET" -f "requests=$REQUESTS_BUDGET")
+          if [ "$RESULT" = "success" ]; then
+            if [ "$CONTINUE" != "true" ]; then exit 0; fi
+            args+=(-f "continuation=$CONTINUATION")
+          else
+            [[ "$RECOVERY_ATTEMPT" =~ ^[0-2]$ ]]
+            if [ "$RECOVERY_ATTEMPT" -ge 2 ]; then
+              echo "Recovery limit reached. Durable work remains available for manual Resume or the next scheduled run."
+              exit 1
+            fi
+            args+=(-f "recovery_attempt=$((RECOVERY_ATTEMPT + 1))" -f "full_probe=$FULL")
+            if [ -n "$ARTIFACT" ]; then args+=(-f "resume_run_id=${{ github.run_id }}"); fi
+          fi
+          # Explicit workflow_dispatch is supported for GITHUB_TOKEN; bot pushes
+          # alone do not trigger subsequent runs. Duplicate tokens collect no work.
+          for attempt in 1 2 3; do
+            if gh workflow run refresh-github.yml "${args[@]}"; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          echo "Handoff failed. Published progress is safe; use manual Resume."
+          exit 1

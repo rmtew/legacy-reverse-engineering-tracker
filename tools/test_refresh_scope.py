@@ -678,15 +678,15 @@ class PublicationFairnessTest(unittest.TestCase):
 
 
 class WorkflowScopeTest(unittest.TestCase):
-    def test_retry_recomputes_scope_with_job_level_auth_and_budget(self):
-        text = (Path(__file__).resolve().parents[1] / ".github/workflows/refresh-github.yml").read_text()
-        job_env = text.split("    env:", 1)[1].split("    steps:", 1)[0]
-        for variable in ("GITHUB_TOKEN", "GITHUB_MIN_RATE_RESERVE", "GITHUB_HTTP_SAFETY_CAP", "PUBLICATION_BASE", "PUBLICATION_HEAD"):
-            self.assertIn(variable + ":", job_env)
-        self.assertIn('GITHUB_REFRESH_SCOPE_FILE=$RUNNER_TEMP/github-refresh-scope.json', text)
-        retry = text.split("git reset --hard origin/main", 1)[1]
-        self.assertLess(retry.index("python tools/refresh_scope.py"), retry.index("python tools/refresh_github.py"))
-        self.assertGreater(text.index("name: Require complete publication enrichment"), text.index("name: Commit changes"))
+    def test_publication_retries_share_one_collected_bundle(self):
+        text = (Path(__file__).resolve().parents[1] / '.github/workflows/refresh-github.yml').read_text()
+        job_env = text.split('    env:', 1)[1].split('    steps:', 1)[0]
+        for variable in ('GITHUB_TOKEN', 'REFRESH_REPOSITORIES', 'REFRESH_SECONDS', 'REFRESH_REQUESTS'):
+            self.assertIn(variable + ':', job_env)
+        retry = text.split('git reset --hard origin/main', 1)[1].split('  continue:', 1)[0]
+        self.assertIn('python -u tools/refresh_pipeline.py apply', retry)
+        self.assertNotIn(' collect ', retry)
+        self.assertIn('state/refresh-progress.json', retry)
 
 
 if __name__ == "__main__":

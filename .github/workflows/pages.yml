@@ -60,6 +60,13 @@ jobs:
             # State and refresh timestamps change even without new public data.
             # Compare material data with the commit that started the workflow.
             base='${{ github.event.workflow_run.head_sha }}'
+            # A bounded batch can succeed while publication history remains
+            # pending. Preserve the strict deploy gate without treating a normal
+            # partial checkpoint as a failed Pages deployment.
+            if ! python tools/refresh_scope.py --check-publishable; then
+              echo "deploy=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             if ! git cat-file -e "$base^{commit}"; then
               echo "deploy=true" >> "$GITHUB_OUTPUT"
               exit 0

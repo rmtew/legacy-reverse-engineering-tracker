@@ -508,10 +508,10 @@ def fill_missing_latest_commits(repos, state, request=None, *, required=False):
             found += 1
     return checked, found, unavailable
 
-def main():
+def main(*, records=None, state=None, scope=None, persist=True):
     global RATE_LIMIT, RATE_REMAINING, RATE_RESET, PUBLICATION_ACTIVE
-    records = load_projects(PROJECTS)
-    state = load_state()
+    records = load_projects(PROJECTS) if records is None else records
+    state = load_state() if state is None else state
     previous_rate = (state.get("rate") or {}).get("probe") or {}
     reset = parse_time(previous_rate.get("reset_at"))
     if reset and reset > RUN_AT and previous_rate.get("remaining") is not None:
@@ -524,7 +524,7 @@ def main():
         if repo:
             repos.setdefault(repo, []).append(record)
 
-    scope = load_scope()
+    scope = load_scope() if scope is None else scope
     configure_publication_budget(scope["mode"] == "adaptive")
     prepare_publication(repos, state, scope, records)
     repos = select_repositories(repos, scope)
@@ -704,10 +704,12 @@ def main():
     rate_state = state.setdefault("rate", {})
     rate_state["probe"] = snapshot
     rate_state["probe_history"] = (rate_state.get("probe_history") or [])[-95:] + [snapshot]
-    save_state(state)
-    append_summary("GitHub repository probe phase")
+    if persist:
+        save_state(state)
+        append_summary("GitHub repository probe phase")
     records.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
-    write_projects(PROJECTS, records)
+    if persist:
+        write_projects(PROJECTS, records)
     print(
         f"Probed {probed}/{len(repos)} repositories ({skipped} deferred by cadence); "
         f"detected {changed_count} pushed changes; "
@@ -721,6 +723,8 @@ def main():
     )
     if stopped:
         print(f"Stopped early to preserve API quota: {stopped}")
+
+    return records, state
 
 if __name__ == "__main__":
     main()

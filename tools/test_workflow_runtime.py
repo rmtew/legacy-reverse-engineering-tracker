@@ -8,30 +8,25 @@ import unittest
 
 
 class WorkflowRuntimeTests(unittest.TestCase):
-    def test_scope_path_initializes_at_runtime_outside_checkout(self):
-        root = Path(__file__).resolve().parents[1]
-        workflow = (root / ".github/workflows/refresh-github.yml").read_text()
-        job_env = workflow.split("    env:", 1)[1].split("    steps:", 1)[0]
-        # GitHub does not expose runner at jobs.<job_id>.env. YAML parsing alone
-        # accepts the invalid expression, but Actions rejects the entire job.
+    def test_runtime_bundle_survives_checkout_reset(self):
+        workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/refresh-github.yml').read_text()
+        job_env = workflow.split('    env:', 1)[1].split('    steps:', 1)[0]
         self.assertNotRegex(job_env, r"\$\{\{[^}]*\brunner\.")
-        match = re.search(r"name: Initialize refresh scope path\n\s+shell: bash\n\s+run: (.+)", workflow)
-        self.assertIsNotNone(match)
-        self.assertLess(match.start(), workflow.index("uses: actions/checkout"))
-        with tempfile.TemporaryDirectory() as temp:
-            temp = Path(temp)
-            runner = temp / "runner temporary"
-            runner.mkdir()
-            checkout = temp / "checkout"
-            checkout.mkdir()
-            env_file = temp / "job environment"
-            subprocess.run(["bash", "-eu", "-c", match[1]], cwd=checkout, check=True,
-                           env={**os.environ, "RUNNER_TEMP": str(runner), "GITHUB_ENV": str(env_file)})
-            self.assertEqual(env_file.read_text(), f"GITHUB_REFRESH_SCOPE_FILE={runner}/github-refresh-scope.json\n")
-            scope = Path(env_file.read_text().strip().split("=", 1)[1])
-            scope.write_text('{"mode":"publication"}')
-            checkout.rmdir()  # Checkout reset/replacement cannot erase the scope.
-            self.assertTrue(scope.is_file())
+        self.assertIn('--bundle "$RUNNER_TEMP/refresh-bundle.json"', workflow)
+        self.assertLess(workflow.index('name: Preserve collected results'), workflow.index('name: Publish results'))
+        retry = workflow.split('git reset --hard origin/main', 1)[1].split('  continue:', 1)[0]
+        self.assertIn('refresh_pipeline.py apply', retry)
+        self.assertNotIn('refresh_pipeline.py collect', retry)
+        self.assertNotIn('refresh_github.py', retry)
+        self.assertIn('actions: write', workflow)
+        self.assertIn('gh workflow run refresh-github.yml', workflow)
+        self.assertIn('recovery_attempt', workflow)
+        self.assertIn("needs.refresh.result == 'success' || needs.refresh.result == 'failure'", workflow)
+
+    def test_pages_checks_publication_before_any_workflow_run_shortcut(self):
+        workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/pages.yml').read_text()
+        gate = workflow.split('if [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then', 1)[1]
+        self.assertLess(gate.index('refresh_scope.py --check-publishable'), gate.index('echo "deploy=true"'))
 
 
 class StorageWorkflowTests(unittest.TestCase):
