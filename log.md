@@ -1244,3 +1244,7 @@ Reviewed ten material upstream advances. **c64-re-tools** now spans deterministi
 ## 2026-10-19 — Review ten fidelity, runtime and release advances.
 
 Updated Carmageddon — incremental DOS executable reconstruction, Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction, Ghidra Retro Machines — bank-aware loaders and retro CPU languages, AmiFUSE, konCePCja — CPC/Plus emulator and IPC debugger, NeoST — Atari ST/STE emulator and debugger, pcrecomp — reusable PC static recompilation toolbox, Swift64 — native macOS C64 emulator, Copperline — Amiga emulator & reverse debugger, and Morrowind: experimental native Amiga engine from primary commits and releases. The CPU audit queue was empty, so no architecture metadata was guessed or quota-filled.
+
+## 2026-10-19 — Add 33 reviewed retro games, source restorations, firmware, operating systems and tools; resolve five predecessor/placeholder candidates.
+
+[Research record](docs/research/2026-10-19-wide-cross-platform-discovery-22.md).

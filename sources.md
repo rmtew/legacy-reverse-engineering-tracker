@@ -1102,3 +1102,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-19 — Correct MI2 Redux source-license attribution from the pinned README.
 
 [Research record](docs/research/2026-10-19-pass21-mi2-license-correction.md).
+
+## 2026-10-19 — Add 33 reviewed retro games, source restorations, firmware, operating systems and tools; resolve five predecessor/placeholder candidates.
+
+[Research record](docs/research/2026-10-19-wide-cross-platform-discovery-22.md).
