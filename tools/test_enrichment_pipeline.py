@@ -116,6 +116,24 @@ class EnrichmentTests(unittest.TestCase):
         self.assertIn('a',[p['id'] for p in pipeline.select(changed,state,NOW)])
         self.assertIn('a',[p['id'] for p in pipeline.select(records,state,NOW+timedelta(days=31))])
 
+    def test_inherited_instructions_supply_context_without_parent_facts(self):
+        record = project('a')
+        record['github_path'] = 'game'
+        self.network.document = ''
+        original_open = self.network.open
+        def documents(request, timeout):
+            if request.full_url.endswith('/' + SHA + '/AGENTS.md'):
+                self.network.calls.append((request.full_url, timeout))
+                return Response(b'We used Claude.\nTarget CPU: Z80\nThe game is playable.')
+            return original_open(request, timeout)
+        self.network.open = documents
+        bundle, _ = self.collect(records=[record], ci_limit=0, limit=1)
+        after, _, _ = pipeline.replay([record], self.state, bundle)
+        self.assertNotIn('ai', after[0])
+        self.assertNotIn('target_cpu', after[0])
+        self.assertIsNone(after[0]['build']['playable'])
+        self.assertEqual(after[0]['evidence']['automated']['ai_config'][0]['source'], 'AGENTS.md')
+
     def test_routine_promotions_publish_provenance_and_guard_curated_concurrent_edits(self):
         self.network.document = 'We used Claude.\nTarget CPU: 68020\nTarget platform: Amiga AGA'
         bundle, _ = self.collect(records=[self.records[0]], limit=1)

@@ -357,7 +357,7 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
             if text is None:
                 continue
             context_only = bool(base and not path.startswith(base + '/'))
-            if not context_only:
+            if not context_only and path not in instructions:
                 auto['compilable'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_COMPILE, evidence.NEG_COMPILE)
                 auto['playable'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_PLAY, evidence.NEG_PLAY)
                 auto['byte_exact'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_BYTE, evidence.NEG_BYTE, evidence.BYTE_REJECT)
