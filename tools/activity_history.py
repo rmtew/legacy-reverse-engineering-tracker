@@ -29,8 +29,14 @@ def retained_events(events, now, projects=None):
     from hashlib import sha256
     cutoff = now - timedelta(days=RETENTION_DAYS)
     current = {p['id'] for p in projects} if projects is not None else None
-    fallback = {e['project_id']: compact_project(e['project']) for e in events
-                if e.get('project_id') and e.get('project')}
+    fallback, fallback_dates = {}, {}
+    for event in events:
+        pid = event.get('project_id')
+        if pid and event.get('project'):
+            when = parse_time(event['date'])
+            if pid not in fallback_dates or when > fallback_dates[pid]:
+                fallback[pid] = compact_project(event['project'])
+                fallback_dates[pid] = when
     out = []
     for original in events:
         if parse_time(original['date']) < cutoff:
