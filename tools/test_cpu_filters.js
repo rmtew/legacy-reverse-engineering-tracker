@@ -145,3 +145,15 @@ test("activity describes execution paths and displays their badges", () => {
   context.testRecord = moonstone;
   assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /Game-specific emulation/);
 });
+
+test("reviewed platform aliases share filters while requirements and Activity state remain distinct", () => {
+  context.testVocabulary=JSON.parse(fs.readFileSync(path.join(root,"web/platform-vocabulary.json")));
+  vm.runInContext('platformVocabulary=testVocabulary; projectFilterState.platform=new Set(["Commodore 64"]); activityFilterState.platform=new Set(["ZX Spectrum"]);', context);
+  assert.equal(matches({source_platforms:["C64"]}), true);
+  context.testRecord={source_platforms:["Sinclair ZX Spectrum"],source_cpu:["Z80"]};
+  assert.equal(vm.runInContext('projectDirectionMatch(testRecord,activityFilterState)',context),true);
+  assert.equal(matches(context.testRecord),false);
+  assert.equal(vm.runInContext('platformLabel("Amiga AGA")',context),'Amiga AGA');
+  assert.equal(vm.runInContext('platformLabel("analysis host")',context),'');
+  vm.runInContext('projectFilterState.platform.clear(); activityFilterState.platform.clear();',context);
+});

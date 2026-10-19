@@ -35,6 +35,5 @@ jobs:
         run: |
           python tools/generate_rss.py data/activity.json data/projects.json /tmp/activity.xml
           python tools/generate_recent_activity.py data/activity.json /tmp/activity-30d.json
-          python tools/generate_recent_activity.py data/activity.json /tmp/activity-180d.json --days 180
           python tools/validate_site_data.py data/projects.json data/activity.json /tmp/activity.xml
           git diff --exit-code -- data state

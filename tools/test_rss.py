@@ -34,7 +34,19 @@ class RssTest(unittest.TestCase):
         self.assertEqual(len(items), 2)
         self.assertEqual(items[0].findtext("guid"), "legacy-re:p:day:2026-09-27")
         self.assertIn("Latest release", items[1].findtext("description"))
-        self.assertIn("Last 90 days", items[1].findtext("description"))
+        self.assertIn("At addition (90-day window)", items[1].findtext("description"))
+
+    def test_expired_releases_and_catalogue_events_are_not_regenerated(self):
+        activity = {"generated_at": "2026-10-19T00:00:00Z", "events": [
+            {"type": "project_added", "project_id": "p", "date": "2026-09-18T23:59:59Z", "title": "old"}]}
+        projects = [{"id": "p", "title": "Old", "github": {"latest_release": {
+            "tag": "old", "published_at": "2026-09-18"}}}]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "activity.json").write_text(json.dumps(activity))
+            (root / "projects.json").write_text(json.dumps(projects))
+            generate(root / "activity.json", root / "projects.json", root / "feed.xml", 500)
+            self.assertEqual(ET.parse(root / "feed.xml").findall(".//item"), [])
 
 
 if __name__ == "__main__":

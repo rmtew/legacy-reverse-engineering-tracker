@@ -13,9 +13,10 @@ import argparse
 import html
 import json
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from email.utils import format_datetime
 from pathlib import Path
+from activity_history import RETENTION_DAYS
 import xml.etree.ElementTree as ET
 
 SITE_URL = "https://rmtew.github.io/legacy-reverse-engineering-tracker/"
@@ -214,9 +215,9 @@ def change_description(event, project):
     if release.get("published_at"):
         tag = release.get("tag") or release.get("name") or "Release"
         bits.append("<p><strong>Latest release:</strong> " + html.escape(tag + " · " + release["published_at"]) + "</p>")
-    if "commits_90d" in context:
-        bits.append("<p><strong>Last 90 days:</strong> " + str(context["commits_90d"]) +
-                    " commits across " + str(context.get("active_days_90d", 0)) + " active days</p>")
+    if "commits" in context or "commits_90d" in context:
+        bits.append("<p><strong>At addition (" + str(context.get("window_days", 90)) + "-day window):</strong> " + str(context.get("commits", context.get("commits_90d", 0))) +
+                    " commits across " + str(context.get("active_days", context.get("active_days_90d", 0))) + " active days</p>")
     elif event.get("type") in ("project_added", "project_restored"):
         repo = project.get("repo") or ""
         status = "Initial activity scan pending." if "github.com/" in repo else "Repository activity unavailable."
@@ -237,6 +238,8 @@ def generate(activity_path, projects_path, output_path, limit):
     events.extend(event for event in activity.get("events", [])
                   if str(event.get("type", "")).startswith("project_")
                   and str(event.get("date") or "") > CATALOG_FEED_START)
+    cutoff = parse_time(activity["generated_at"]) - timedelta(days=RETENTION_DAYS)
+    events = [e for e in events if parse_time(e["date"]) >= cutoff]
     events.sort(key=lambda event: event.get("date") or "", reverse=True)
     events = events[:limit]
 

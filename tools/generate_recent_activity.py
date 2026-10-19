@@ -1,9 +1,10 @@
-"""Build compact browser feeds from the canonical 180-day activity history."""
+"""Build compact browser feeds from the canonical 30-day activity history."""
 
 import argparse
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from activity_history import RETENTION_DAYS, retained_events
 
 
 def timestamp(value):
@@ -11,10 +12,12 @@ def timestamp(value):
     return date.replace(tzinfo=timezone.utc) if date.tzinfo is None else date
 
 
-def recent_activity(activity, days=30):
+def recent_activity(activity, days=30, projects=None):
+    if not 1 <= days <= RETENTION_DAYS:
+        raise ValueError("Activity windows must be between 1 and 30 days")
     cutoff = timestamp(activity["generated_at"]) - timedelta(days=days)
     events = []
-    for event in activity["events"]:
+    for event in retained_events(activity["events"], timestamp(activity["generated_at"]), projects):
         if timestamp(event["date"]) < cutoff:
             continue
         browser_event = dict(event)

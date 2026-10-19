@@ -2,10 +2,11 @@
 """Incrementally collect GitHub commit activity for repositories due to scan.
 
 The collector consumes state/github-poll-state.json written by refresh_github.py.
-It keeps 180 days of local history but only requests commits since each branch's
+It keeps 30 days of local history but only requests commits since each branch's
 last successful scan, with a one-day overlap for safety.
 """
 from __future__ import annotations
+from activity_history import RETENTION_DAYS
 
 from catalogue_storage import load_projects, write_projects
 
@@ -33,7 +34,7 @@ API = "https://api.github.com"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 NOW = datetime.now(timezone.utc)
 NOW_ISO = NOW.isoformat(timespec="seconds").replace("+00:00", "Z")
-DAYS = 180
+DAYS = RETENTION_DAYS
 CUTOFF = NOW - timedelta(days=DAYS)
 MIN_RESERVE = int(os.environ.get("GITHUB_MIN_RATE_RESERVE", "100"))
 MAX_RESERVE = int(os.environ.get("GITHUB_MAX_RATE_RESERVE", "250"))
@@ -327,7 +328,7 @@ def add_event(events, project, repo, item, branch, newest):
     if not event:
         event = event_from_commit(project["id"], repo, item)
         events[key] = event
-    if branch not in event["branches"]:
+    if branch not in event.setdefault("branches", []):
         event["branches"].append(branch)
     old = newest.get(project["id"])
     if old is None or parse_time(when) > parse_time(commit_date(old)):
@@ -685,7 +686,7 @@ def main():
         "window_days": DAYS,
         "events": output,
     }
-    write_activity(ACTIVITY, payload)
+    write_activity(ACTIVITY, payload, projects)
     projects.sort(key=lambda r: ((r.get("title") or "").casefold(), r.get("id") or ""))
     write_projects(PROJECTS, projects)
     state.setdefault("rate", {})["activity"] = rate_snapshot()

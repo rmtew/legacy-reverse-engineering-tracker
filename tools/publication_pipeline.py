@@ -117,7 +117,7 @@ def verify_live(bundle, live, tree):
     events = load(live / "data/activity.json")["events"]
     addition_types = {"project_added", "project_restored"}
     additions = {e["project_id"]: e for e in events if e.get("type") in addition_types}
-    windows = {days: {e["project_id"] for e in load(live / f"data/activity-{days}d.json")["events"] if e.get("type") in addition_types} for days in (30, 180)}
+    windows = {days: {e["project_id"] for e in load(live / f"data/activity-{days}d.json")["events"] if e.get("type") in addition_types} for days in (30,)}
     guids = [item.text or "" for item in ET.parse(live / "activity.xml").findall(".//item/guid")]
     added = manifest["summary"]["projects"]
     for pid in added:
@@ -132,9 +132,12 @@ def verify_live(bundle, live, tree):
             if key not in gh:
                 raise ValueError(f"Missing initial metadata: {pid}.{key}")
         context = additions[pid].get("activity_context") or {}
-        for key in ("as_of", "last_commit", "last_activity", "commits_90d", "active_days_90d"):
+        for key in ("as_of", "last_commit", "last_activity"):
             if key not in context:
                 raise ValueError(f"Missing initial activity context: {pid}.{key}")
+        counts = ("commits", "active_days") if context.get("window_days") == 30 else ("commits_90d", "active_days_90d")
+        if any(type(context.get(key)) is not int or context[key] < 0 for key in counts):
+            raise ValueError(f"Missing or invalid initial activity counts: {pid}")
     return {"served_hashes_verified": True, "authored_projects_preserved": len(expected),
             "initial_context_activity_windows_rss_verified": len(added)}
 

@@ -247,6 +247,19 @@ def validate(projects_path, activity_path, rss_path=None):
         fail("duplicate project ids: " + ", ".join(duplicates), errors)
 
     project_ids = {value for value in ids if value}
+    if activity.get('window_days') == 30:
+        from datetime import timedelta
+        try:
+            cutoff = parse_time(activity.get('generated_at')) - timedelta(days=30)
+            for event in activity.get('events', []):
+                try:
+                    if parse_time(event.get('date')) < cutoff:
+                        fail('30-day activity contains expired events', errors)
+                        break
+                except (ValueError, TypeError):
+                    pass  # Invalid dates are reported with their event below.
+        except (ValueError, TypeError):
+            pass
 
     source_count, audit_count, research_event_count, decision_count = validate_research_state(projects_path, project_ids, errors)
 
@@ -396,7 +409,7 @@ def validate(projects_path, activity_path, rss_path=None):
         elif event_type in project_event_types:
             if not project_id:
                 fail(f"project activity event {index} is missing project_id", errors)
-            if snapshot.get("id") != project_id:
+            if (snapshot and snapshot.get("id") != project_id) or (not snapshot and project_id not in project_ids):
                 fail(f"project activity event {index} snapshot id does not match project_id", errors)
             if not event.get("title"):
                 fail(f"project activity event {index} is missing title", errors)

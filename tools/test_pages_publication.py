@@ -245,9 +245,8 @@ class PublicationTests(unittest.TestCase):
         self.assertRegex(html, r"web/tracker\.css\?v=[0-9a-f]{12}")
         self.assertTrue((self.root / "site/activity.xml").exists())
         self.assertEqual(json.loads((self.root / "site/data/activity-30d.json").read_bytes())["events"], [])
-        self.assertEqual(
-            json.loads((self.root / "site/data/activity-180d.json").read_bytes())["window_days"], 180
-        )
+        self.assertFalse((self.root / "site/data/activity-180d.json").exists())
+        self.assertEqual(json.loads((self.root / "site/data/activity.json").read_bytes())["window_days"], 30)
 
 
 class GitHubStateTests(unittest.TestCase):

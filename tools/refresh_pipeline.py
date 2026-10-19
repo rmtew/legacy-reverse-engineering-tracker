@@ -18,7 +18,7 @@ from urllib.parse import quote, urlencode
 
 import collect_activity as activity
 import refresh_github as probe
-from activity_history import compact_history, freeze_addition_context, write_activity
+from activity_history import RETENTION_DAYS, compact_history, freeze_addition_context, write_activity
 from catalogue_storage import bounded, encode, load_projects, write_projects, storage_paths
 from collection_budget import Budget, BudgetStop, RecordStop
 from merge_pending_projects import main as merge_pending
@@ -344,6 +344,7 @@ def activity_unit(repo, records, rs, events, now):
     """One immutable commit page (or branch-list page), with no raw page cache."""
     identity = digest(
         [
+            RETENTION_DAYS,
             [
                 (
                     p["id"],
@@ -361,6 +362,7 @@ def activity_unit(repo, records, rs, events, now):
     if not cursor or cursor.get("identity") != identity:
         cursor = {
             "identity": identity,
+            "window_days": RETENTION_DAYS,
             "started_at": stamp(now),
             "branch_page": 1,
             "listed": False,
@@ -411,7 +413,7 @@ def activity_unit(repo, records, rs, events, now):
             cursor["branches"][branch] = (item.get("commit") or {}).get("sha")
             return records, rs, events, False
     if not cursor.get("queries_started"):
-        cutoff = now - timedelta(days=180)
+        cutoff = now - timedelta(days=RETENTION_DAYS)
         for branch, tip in sorted(cursor["branches"].items()):
             matching = [p for p in records if activity.project_matches_branch(p, branch)]
             if not matching:
@@ -579,7 +581,7 @@ def collect(
     working = groups(records)
     prepare_publication(working, poll, publication, records)
     progress = plan(before_progress, records, poll, now, request_id, full)
-    activity_payload = read(root / "data/activity.json", {"events": [], "window_days": 180})
+    activity_payload = read(root / "data/activity.json", {"events": [], "window_days": RETENTION_DAYS})
     original_events = event_groups(activity_payload, records)
     events = copy.deepcopy(original_events)
     touched, outcomes, rate = set(), {}, (poll.get("rate") or {}).get("probe", {})
@@ -834,7 +836,8 @@ def apply_bundle(root, bundle, now=None):
         poll = read(stage / POLL, {"version": 1, "repositories": {}})
         guard_poll = copy.deepcopy(poll)
         guard_records = copy.deepcopy(by_repo)
-        payload = read(stage / "data/activity.json", {"window_days": 180, "events": []})
+        payload = read(stage / "data/activity.json", {"window_days": RETENTION_DAYS, "events": []})
+        original_activity = copy.deepcopy(payload)
         events = event_groups(payload, records)
         catalogue = read(stage / "state/project-catalog-state.json", {"projects": {}})
         publication = catalogue_delta(list(catalogue.get("projects", {}).values()), records)
@@ -887,7 +890,7 @@ def apply_bundle(root, bundle, now=None):
             old_rate.get("checked_at") or ""
         ):
             poll.setdefault("rate", {})["probe"] = bundle["rate"]
-        cutoff = now - timedelta(days=180)
+        cutoff = now - timedelta(days=RETENTION_DAYS)
         current_projects = {p["id"]: p for p in records}
         joined = [
             e
@@ -914,7 +917,7 @@ def apply_bundle(root, bundle, now=None):
         freeze_addition_context(payload["events"], records, poll["repositories"], now)
         payload["generated_at"] = stamp(now)
         write_projects(stage / "data/projects.json", records)
-        write_activity(stage / "data/activity.json", payload)
+        write_activity(stage / "data/activity.json", payload, records)
         (stage / POLL).write_bytes(encode(poll))
         with redirect_stdout(StringIO()):
             record_catalogue(stage)
@@ -923,6 +926,8 @@ def apply_bundle(root, bundle, now=None):
         made_progress = (
             progress != before_progress
             or bool(accepted)
+            or original_activity.get("window_days") != RETENTION_DAYS
+            or original_activity.get("events") != read(stage / "data/activity.json", {})["events"]
             or pending != read(stage / "data/pending-projects.json", [])
         )
         if not made_progress:

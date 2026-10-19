@@ -6,17 +6,75 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 
+RETENTION_DAYS = 30
 DETAIL_DAYS = 14
 LOCAL_ZONE = ZoneInfo("Pacific/Auckland")
 
 
-def write_activity(path, payload):
-    """Write valid JSON with one event per line for useful Git history diffs."""
-    event_lines = ["    " + json.dumps(event, ensure_ascii=False, separators=(",", ":"))
-                   for event in payload["events"]]
-    header = ("{\n  \"generated_at\": " + json.dumps(payload["generated_at"]) +
-              ",\n  \"window_days\": " + str(payload["window_days"]) + ",\n  \"events\": [\n")
-    path.write_text(header + ",\n".join(event_lines) + "\n  ]\n}\n", encoding="utf-8")
+FALLBACK_FIELDS = ('id', 'title', 'upstream_name', 'display_title', 'subjects', 'repo', 'project_url',
+                   'source_platforms', 'target_platforms', 'source_cpu', 'target_cpu', 'record_class',
+                   'target_kinds', 'work_kinds', 'tool_kinds', 'ai', 'runtime_profiles', 'execution_paths')
+
+
+def compact_project(project):
+    return {k: deepcopy(project[k]) for k in FALLBACK_FIELDS if k in project}
+
+
+def retained_events(events, now, projects=None):
+    """One bounded event stream; full project research stays in the catalogue.
+
+    Tombstones retain enough identity/filter metadata to render removed records.
+    Detailed notes remain in project/catalogue/research state and Git history.
+    """
+    from hashlib import sha256
+    cutoff = now - timedelta(days=RETENTION_DAYS)
+    current = {p['id'] for p in projects} if projects is not None else None
+    fallback = {e['project_id']: compact_project(e['project']) for e in events
+                if e.get('project_id') and e.get('project')}
+    out = []
+    for original in events:
+        if parse_time(original['date']) < cutoff:
+            continue
+        event = deepcopy(original)
+        kind = event.get('type')
+        if kind in ('commit', 'daily_commits'):
+            if current is not None and event.get('project_id') not in current:
+                continue
+            event.pop('message', None)
+        if str(kind).startswith('project_'):
+            pid = event.get('project_id')
+            if current is not None and pid in current:
+                event.pop('project', None)
+            elif pid in fallback:
+                event['project'] = deepcopy(fallback[pid])
+            for detail in event.get('change_details') or []:
+                if detail.get('field') == 'notes':
+                    for key in ('before', 'after'):
+                        if key in detail:
+                            value = detail.pop(key)
+                            detail[key + '_sha256'] = sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+            if event.get('change_details') or kind in ('project_added', 'project_restored', 'project_removed'):
+                event.pop('message', None)
+            elif event.get('message'):
+                event['message'] = event['message'][:1000]
+            context = event.get('activity_context')
+            if context and 'commits_90d' in context:
+                context.setdefault('window_days', 90)  # Frozen historical metric, never relabelled.
+        if not event.get('branches'):
+            event.pop('branches', None)
+        for key in ('changes', 'change_details'):
+            if not event.get(key): event.pop(key, None)
+        out.append(event)
+    return out
+
+
+def write_activity(path, payload, projects=None):
+    """Every canonical writer enforces the same retention and lean event shape."""
+    payload['window_days'] = RETENTION_DAYS
+    payload['events'] = retained_events(payload['events'], parse_time(payload['generated_at']), projects)
+    lines = ['    ' + json.dumps(e, ensure_ascii=False, separators=(',', ':')) for e in payload['events']]
+    header = '{\n  "generated_at": ' + json.dumps(payload['generated_at']) + ',\n  "window_days": ' + str(RETENTION_DAYS) + ',\n  "events": [\n'
+    path.write_text(header + ',\n'.join(lines) + '\n  ]\n}\n', encoding='utf-8')
 
 
 def parse_time(value):
@@ -70,7 +128,7 @@ def compact_history(events, now):
 def freeze_addition_context(events, projects, repositories, now):
     """Capture upstream facts once the first post-addition scan has completed."""
     by_id = {project["id"]: project for project in projects}
-    recent_cutoff = now - timedelta(days=90)
+    recent_cutoff = now - timedelta(days=RETENTION_DAYS)
     counts, days = {}, {}
     for event in events:
         if event["type"] not in ("commit", "daily_commits") or parse_time(event["date"]) < recent_cutoff:
@@ -119,6 +177,7 @@ def freeze_addition_context(events, projects, repositories, now):
             "last_activity": project.get("last_activity"),
             "latest_release": deepcopy(github.get("latest_release")),
             "last_commit_lookup": github.get("latest_commit_lookup"),
-            "commits_90d": counts.get(project["id"], 0),
-            "active_days_90d": len(days.get(project["id"], ())),
+            "window_days": RETENTION_DAYS,
+            "commits": counts.get(project["id"], 0),
+            "active_days": len(days.get(project["id"], ())),
         }

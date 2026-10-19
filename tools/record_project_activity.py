@@ -6,6 +6,7 @@ used only to identify changes between maintenance runs; volatile GitHub refresh
 metadata is intentionally excluded so routine probes do not become activity.
 """
 from __future__ import annotations
+from activity_history import RETENTION_DAYS
 
 from catalogue_storage import load_projects, write_projects
 
@@ -21,7 +22,7 @@ PROJECTS = ROOT / "data" / "projects.json"
 ACTIVITY = ROOT / "data" / "activity.json"
 STATE = ROOT / "state" / "project-catalog-state.json"
 
-DAYS = 180
+DAYS = RETENTION_DAYS
 NOW = datetime.now(timezone.utc)
 NOW_ISO = NOW.isoformat(timespec="seconds").replace("+00:00", "Z")
 CUTOFF = NOW - timedelta(days=DAYS)
@@ -338,7 +339,7 @@ def main(root=None):
     activity["window_days"] = DAYS
     activity["events"] = retained
     write_projects(projects_path, projects)
-    write_activity(activity_path, activity)
+    write_activity(activity_path, activity, projects)
 
     state = {
         "version": 1,
