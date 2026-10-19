@@ -1102,3 +1102,12 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-19 — Correct MI2 Redux source-license attribution from the pinned README.
 
 [Research record](docs/research/2026-10-19-pass21-mi2-license-correction.md).
+
+## 2026-10-20 — Queue resolutions and rotated X68000 discovery
+
+- [Mortal-Kombat-Atari-Jaguar](https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar) — primary README, RAPTOR build and 68000 application source reviewed as an original Jaguar character-select proof of concept, not an RE-derived port.
+- [NeoWidEx](https://github.com/stepleton/NeoWidEx) — primary README, manual and build guide reviewed for the Lisa Widget diagnostic, including ROM H and floppy/drive-path requirements.
+- [Horace Goes Skiing disassembly](https://github.com/Ritchie333/skiing) — title identity, SkoolKit analysis source and static-site build route reviewed.
+- [x68kd11s](https://github.com/vampirefrog/x68kd11s) — fresh X68000 search result; README and Makefile reviewed for ROM, Human68k and audio-driver disassemblies with explicit 68000/68030 modes.
+
+The exact fresh GitHub repository queries were `x68000 disassembly`, `apple newton development`, and `ti99 homebrew`. Apple Newton returned no repositories; TI-99 results were already indexed or promoted.

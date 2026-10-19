@@ -1236,3 +1236,9 @@ Reviewed ten material upstream advances. **c64-re-tools** now spans deterministi
 ## 2026-10-19 — Review ten fidelity, runtime and release advances.
 
 Updated Carmageddon — incremental DOS executable reconstruction, Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction, Ghidra Retro Machines — bank-aware loaders and retro CPU languages, AmiFUSE, konCePCja — CPC/Plus emulator and IPC debugger, NeoST — Atari ST/STE emulator and debugger, pcrecomp — reusable PC static recompilation toolbox, Swift64 — native macOS C64 emulator, Copperline — Amiga emulator & reverse debugger, and Morrowind: experimental native Amiga engine from primary commits and releases. The CPU audit queue was empty, so no architecture metadata was guessed or quota-filled.
+
+## 2026-10-20 — Resolve queued Jaguar, Lisa and Spectrum projects; add X68000 disassemblies
+
+Promoted **Mortal Kombat — Atari Jaguar character-select proof of concept**, **NeoWidEx — Apple Lisa Widget diagnostic and formatter**, and **Horace Goes Skiing — ZX Spectrum SkoolKit disassembly** after resolving their deferred identity, build, classification and CPU questions from primary source. The Jaguar work remains explicitly original homebrew rather than RE-derived; NeoWidEx captures its documented ROM H and drive requirements; the Spectrum project records Z80 from its annotated listing without inventing a target runtime.
+
+A rotated `x68000 disassembly` search promoted **x68kd11s — Sharp X68000 ROM and Human68k disassemblies** as one coherent corpus with explicit 68000/68030 analysis modes. `apple newton development` returned no repositories, while every `ti99 homebrew` result was already indexed or tracked. The CPU audit queue contained no unresolved areas before selection, and no minimum hardware was inferred from platform names.
