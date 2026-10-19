@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-19T04:57:50Z",
+  "updated_at": "2026-10-19T07:55:02Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -11541,19 +11541,23 @@
         "filesystem image mount tool"
       ],
       "re_started": null,
-      "status": null,
+      "status": "active; multi-RDB inspection now continues past an unreadable first Amiga MBR partition and succeeds when a later RDB opens",
       "build": {
         "compilable": true,
         "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "native filesystem-handler emulation",
+        "MBR/RDB image traversal",
+        "multi-RDB fault isolation"
+      ],
       "tags": [
         "Amiga",
         "Amiga filesystem drivers"
       ],
-      "notes": "Mounts Amiga HDF/RDB and ADF images by executing native filesystem handler binaries through m68k emulation, including PFS3. ADF use requires an external driver. Documented as an alternative to reimplementing each filesystem format; not a reconstructed filesystem driver.",
+      "notes": "Mounts Amiga HDF/RDB and ADF images by executing native filesystem handler binaries through m68k emulation, including PFS3. ADF use requires an external driver. Documented as an alternative to reimplementing each filesystem format; not a reconstructed filesystem driver. Current inspect handling builds the MBR header independently of the first 0x76 partition, checks each candidate RDB and fails only when none opens. This is storage-image fidelity and diagnostic behavior, not a reconstructed filesystem implementation. Evidence: https://github.com/reinauer/AmiFUSE/commit/3bdd1429f15ead0e47122bac96b9b97bcfb862ed",
       "ai": {
         "usage": null,
         "tools": []
@@ -16243,19 +16247,24 @@
         "native game reimplementation"
       ],
       "re_started": null,
-      "status": "Source and documentation reviewed; independent build/play test not performed",
+      "status": "v0.0.43 source release; all Vvardenfell exterior cells use CHIM, while complete gameplay and physical-hardware performance remain unproven",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "owner-supplied asset conversion",
+        "CHIM world partitioning",
+        "collision-mesh validation",
+        "native Amiga AGA engine development"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Experimental CHIM/AmiQuake-derived RPG engine and asset conversion pipeline for Morrowind; current regional coverage is not a complete playable Morrowind port. Classification: Experimental CHIM/AmiQuake-derived RPG engine and asset conversion pipeline for Morrowind; current regional coverage is not a complete playable Morrowind port. Source CPU: New native game/engine implementation; no predecessor CPU reconstruction was established in this bounded review. Source CPU remains empty. Target CPU: The FAQ explicitly targets 68040 with FPU and AGA in an emulated reference configuration; physical-hardware performance and stock A1200 support remain unproven. Build: README documents conversion from the user's own game files, build scripts, regional emulator checks and substantial remaining gameplay gaps. No independent build or gameplay test was run. Runtime profiles: Target and timing/reference configuration are recorded in the target-CPU note. No independently verified minimum runnable profile is asserted. AI: No explicit development-AI attribution found in the inspected README and selected source/build documents; absence is not evidence of non-use. Relationships: CHIM derives from AmiQuake with component-specific GPL terms; Morrowind assets are user-supplied and not relicensed. This is a native Amiga engine, not a generic emulator. Evidence: https://github.com/FlyingFathead/amiwind/blob/27fd410c97ee881ae455acb27708ce63ab7ecd8e/README.md https://github.com/FlyingFathead/amiwind/blob/27fd410c97ee881ae455acb27708ce63ab7ecd8e/docs/FAQ.md https://github.com/FlyingFathead/amiwind/blob/27fd410c97ee881ae455acb27708ce63ab7ecd8e/docs/LICENSING_AND_CREDITS.md",
+      "notes": "Identity: Experimental CHIM/AmiQuake-derived RPG engine and asset conversion pipeline for Morrowind; current regional coverage is not a complete playable Morrowind port. Classification: Experimental CHIM/AmiQuake-derived RPG engine and asset conversion pipeline for Morrowind; current regional coverage is not a complete playable Morrowind port. Source CPU: New native game/engine implementation; no predecessor CPU reconstruction was established in this bounded review. Source CPU remains empty. Target CPU: The FAQ explicitly targets 68040 with FPU and AGA in an emulated reference configuration; physical-hardware performance and stock A1200 support remain unproven. Build: README documents conversion from the user's own game files, build scripts, regional emulator checks and substantial remaining gameplay gaps. No independent build or gameplay test was run. Runtime profiles: Target and timing/reference configuration are recorded in the target-CPU note. No independently verified minimum runnable profile is asserted. AI: No explicit development-AI attribution found in the inspected README and selected source/build documents; absence is not evidence of non-use. Relationships: CHIM derives from AmiQuake with component-specific GPL terms; Morrowind assets are user-supplied and not relicensed. This is a native Amiga engine, not a generic emulator. Evidence: https://github.com/FlyingFathead/amiwind/blob/27fd410c97ee881ae455acb27708ce63ab7ecd8e/README.md https://github.com/FlyingFathead/amiwind/blob/27fd410c97ee881ae455acb27708ce63ab7ecd8e/docs/FAQ.md https://github.com/FlyingFathead/amiwind/blob/27fd410c97ee881ae455acb27708ce63ab7ecd8e/docs/LICENSING_AND_CREDITS.md The published v0.0.43 source release moves every Vvardenfell exterior cell to CHIM, including 227 cells that were classic in v0.0.42, and records collision, sea-floor, open-sea and build-scheduler corrections. It supplies a public-source archive rather than a runnable binary and does not establish a complete playable Morrowind port or stock-hardware performance. Evidence: https://github.com/FlyingFathead/amiwind/releases/tag/v0.0.43 https://github.com/FlyingFathead/amiwind/commit/65775785c9b0008164e19100099355d3d368e2f1",
       "ai": {
         "usage": null,
         "tools": []
@@ -48839,7 +48848,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active; Fat Gary warm-reset semantics now preserve COLDBOOT state across RESET while restoring it only on power-on",
+      "status": "active; 68EC030, 68EC040 and 68EC060 guest CPU models now boot Kickstart 3.1 and bundled AROS in upstream tests",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -48860,7 +48869,10 @@
         "drive-mechanism event serialization",
         "WinUAE/FS-UAE sample-set compatibility",
         "power-on versus warm-reset modelling",
-        "Kickstart boot-menu regression testing"
+        "Kickstart boot-menu regression testing",
+        "MMU-less 68EC CPU modelling",
+        "68EC030 access-control-unit emulation",
+        "guest CPU boot regression"
       ],
       "tags": [
         "Amiga",
@@ -48870,7 +48882,7 @@
         "AI-assisted",
         "retro development"
       ],
-      "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through. Current main preserves AGA Alice's hard $D8 bitplane-fetch stop, weaves both chipset fields into full-height native interlaced screenshots and persists menu-only settings without discarding launcher-less keys. A second change adds CYL.SIDE display plus WinUAE/FS-UAE floppy sample-set playback while serializing mechanism events so save states, run-ahead and netplay checksums do not depend on installed host sounds. These are targeted fidelity/tooling improvements rather than universal compatibility proof. Evidence: https://github.com/CopperlineHQ/Copperline/commit/9e8359ea6cce6fc5e5028d1f4e31b960b53f7da6 https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2 The Fat Gary model now keeps COLDBOOT clear across keyboard/CPU warm reset and sets it only on power-on, matching the documented WinUAE behavior and preserving A3000/A4000 Kickstart state such as boot-menu choices, residents and recoverable RAM disks. Chip-, bus- and CPU-level regressions cover the path. Evidence: https://github.com/CopperlineHQ/Copperline/commit/535fb60a828d88c292935c536b269ac512d301af",
+      "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through. Current main preserves AGA Alice's hard $D8 bitplane-fetch stop, weaves both chipset fields into full-height native interlaced screenshots and persists menu-only settings without discarding launcher-less keys. A second change adds CYL.SIDE display plus WinUAE/FS-UAE floppy sample-set playback while serializing mechanism events so save states, run-ahead and netplay checksums do not depend on installed host sounds. These are targeted fidelity/tooling improvements rather than universal compatibility proof. Evidence: https://github.com/CopperlineHQ/Copperline/commit/9e8359ea6cce6fc5e5028d1f4e31b960b53f7da6 https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2 The Fat Gary model now keeps COLDBOOT clear across keyboard/CPU warm reset and sets it only on power-on, matching the documented WinUAE behavior and preserving A3000/A4000 Kickstart state such as boot-menu choices, residents and recoverable RAM disks. Chip-, bus- and CPU-level regressions cover the path. Evidence: https://github.com/CopperlineHQ/Copperline/commit/535fb60a828d88c292935c536b269ac512d301af Current main adds MMU-less 68EC030, 68EC040 and 68EC060 guest models with family caches, buses and instruction behavior preserved; the 68EC030 access-control unit is completed around the core's F-line trap. Upstream reports Kickstart 3.1 and bundled AROS booting on all three, including EC030 JIT. These guest variants do not establish host CPU or minimum hardware requirements. Evidence: https://github.com/CopperlineHQ/Copperline/commit/d843c620b529f925ca9d175a72a958d144cedee1",
       "ai": {
         "usage": true,
         "tools": [
@@ -55850,7 +55862,7 @@
         "DOS game reconstruction"
       ],
       "re_started": null,
-      "status": "Active function-by-function Carmageddon reconstruction; DrawLine2D is exact and FollowCheatyPath is behavior-equivalent",
+      "status": "Active function-by-function Carmageddon reconstruction; CreatePedestrian is a 100% match while CreateSparks is explicitly qualified as equivalent",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -55868,7 +55880,7 @@
         "DOS",
         "Carmageddon"
       ],
-      "notes": "Buildable native Carmageddon reimplementation that replaces original DOS executable assembly with C function by function. Historical Watcom symbols exist but do not match released-code positions. Current CI builds and tests Windows x86/x64, Linux x64/arm64 and macOS x86_64/arm64 variants; no minimum host hardware is documented. The latest reviewed commits report exact reccmp matches for GetGraphicsOptions, ChangingView and drpixelmapcopy, demonstrating incremental function parity rather than whole-program completeness or playable parity. Evidence: https://github.com/dethrace-labs/dethrace/commit/ff723168a9b458252ce40bb6e0ceb008cb4dcc35 https://github.com/dethrace-labs/dethrace/commit/80898db36d16d584d50789a9f8d05cdf2ed8458f https://github.com/dethrace-labs/dethrace/commit/d5b90d885b298c9ca338c9060468f899ca095fab Four merged reconstruction PRs add SwingCamera, ObjectGrooveBastard, PathGrooveBastard and FunkThoseTronics. PathGrooveBastard reports a 100% match; the other PRs distinguish equivalent/effective behavior from lower similarity percentages, so they are not described as byte-exact. Each PR explicitly labels the work AI generated and records time/token totals, establishing AI use without identifying a model or tool. Evidence: https://github.com/dethrace-labs/dethrace/pull/1191 https://github.com/dethrace-labs/dethrace/pull/1192 https://github.com/dethrace-labs/dethrace/pull/1193 https://github.com/dethrace-labs/dethrace/pull/1194 Current main adds a 100% reccmp match for DrawLine2D and a separately qualified behavior-equivalent FollowCheatyPath result. The latter is deliberately not promoted to an exact or whole-executable claim. Evidence: https://github.com/dethrace-labs/dethrace/commit/d16bdad486c66fd77e7ac69231526ea22c3df753 https://github.com/dethrace-labs/dethrace/commit/50c1e867f2d4d44224d3f527f70ffd7f1c93614e",
+      "notes": "Buildable native Carmageddon reimplementation that replaces original DOS executable assembly with C function by function. Historical Watcom symbols exist but do not match released-code positions. Current CI builds and tests Windows x86/x64, Linux x64/arm64 and macOS x86_64/arm64 variants; no minimum host hardware is documented. The latest reviewed commits report exact reccmp matches for GetGraphicsOptions, ChangingView and drpixelmapcopy, demonstrating incremental function parity rather than whole-program completeness or playable parity. Evidence: https://github.com/dethrace-labs/dethrace/commit/ff723168a9b458252ce40bb6e0ceb008cb4dcc35 https://github.com/dethrace-labs/dethrace/commit/80898db36d16d584d50789a9f8d05cdf2ed8458f https://github.com/dethrace-labs/dethrace/commit/d5b90d885b298c9ca338c9060468f899ca095fab Four merged reconstruction PRs add SwingCamera, ObjectGrooveBastard, PathGrooveBastard and FunkThoseTronics. PathGrooveBastard reports a 100% match; the other PRs distinguish equivalent/effective behavior from lower similarity percentages, so they are not described as byte-exact. Each PR explicitly labels the work AI generated and records time/token totals, establishing AI use without identifying a model or tool. Evidence: https://github.com/dethrace-labs/dethrace/pull/1191 https://github.com/dethrace-labs/dethrace/pull/1192 https://github.com/dethrace-labs/dethrace/pull/1193 https://github.com/dethrace-labs/dethrace/pull/1194 Current main adds a 100% reccmp match for DrawLine2D and a separately qualified behavior-equivalent FollowCheatyPath result. The latter is deliberately not promoted to an exact or whole-executable claim. Evidence: https://github.com/dethrace-labs/dethrace/commit/d16bdad486c66fd77e7ac69231526ea22c3df753 https://github.com/dethrace-labs/dethrace/commit/50c1e867f2d4d44224d3f527f70ffd7f1c93614e Current main adds a reported 100% match for CreatePedestrian and a separately qualified equivalent CreateSparks result whose commit asks for careful review. These are function-level receipts, not whole-executable or gameplay parity. Evidence: https://github.com/dethrace-labs/dethrace/commit/36dbecc31290419b29cab1f4b167f8e299d64558 https://github.com/dethrace-labs/dethrace/commit/6a7493dc3c0d36ae70170e56402c417cc719e634",
       "ai": {
         "usage": true,
         "tools": []
@@ -73530,7 +73542,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "active; authenticated Apple IIGS DM1 media now reaches the first world through CLI and M12 routes",
+      "status": "v3.0.391 published; authenticated DM1 PC34 resume, CSB FM Towns loose-file startup and Amiga 3.6 localized-graphic selection remain bounded parity receipts",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73573,7 +73585,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20 Current-main receipts add an authenticated DM2 Amiga viewport gate, bounded DOS viewport/HUD checks and a locked three-draw fresh-weather RNG bootstrap. Separate native Mac M4 tests keep live Retina input unresolved despite controlled 2x/mixed-geometry tests, and real-media startup reruns use dummy video/audio, so they do not establish physical display, input or speaker parity. Evidence: https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809 https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33 https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882 https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a The newest DM1 pass ports FM Towns title shrink sampling from the documented 6-bit fixed-point source path, flips floor/ceiling graphics at their loaded native heights, and restores the entrance-door step to three 60 Hz VBlank intervals. A separate authenticated PC 3.4 path decodes the LZEXE-packed DOS selector preview. Targeted source-lock/native-build checks pass upstream, but the author explicitly retains original-frame comparison and full cross-platform visual parity as open. Evidence: https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0 https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d https://github.com/yeager/firestaff/commit/41b103f29b4d7439d7445fb4e3578f9985e5cfab https://github.com/yeager/firestaff/commit/3085c2f6d56e8088279b5207bfd46744a1dbbd24 The Apple IIGS path now decodes original dungeon worlds, graphics, startup/font, creature/effect metadata and sound, launches authenticated worlds through the CLI/M12 path, and connects native IIGS mirror recruitment. Primary recovered documentation explicitly identifies hidden Apple IIGS graphics.dat code as 65C816 code, supporting the added source architecture. Current changelog receipts also cover stereo DOC effects, Hall progression, inventory transfer, food use and carrying capacity; wall damage, sensors and full sound/presentation parity remain open. No Apple IIGS minimum RAM or host profile is inferred. Evidence: https://github.com/yeager/firestaff/commit/26f1361e5b3d18512db35b7b0791b84f4e4385da https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b https://github.com/yeager/firestaff/blob/439213c5ba9fbd79d0753d6143a3b86ff9f0d90f/reference/dmweb-community-docs/html/community/documentation/dungeon-master-and-chaos-strikes-back/graphics.dat-hidden-code.html The DM1 PC34 path now preserves the original status-box priority over overlapping ready-hand zones, verifies consecutive champion switches with authenticated data and prevents held-key selector skips. Debug traces separately measure queue, source-outcome and present-return timing while explicitly marking physical scanout unmeasured. Evidence: https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373 https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44 The authenticated DM1 Apple IIGS G20E/G21E editions now reach the first world through both direct CLI and M12 menu launch; the CLI route also accepts a native keyboard turn, and the original media archive is hash-checked before and after the run. The upstream check uses SDL dummy output, so original title/entrance presentation, audible DOC playback and complete-campaign parity remain open. A v3.0.387 preparation change is not represented as a published release because no corresponding release was available when checked. Evidence: https://github.com/yeager/firestaff/commit/c9d9b0e0097242ea1a6f1e5fa29183c3e09bfabb",
+      "notes": "Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20 Current-main receipts add an authenticated DM2 Amiga viewport gate, bounded DOS viewport/HUD checks and a locked three-draw fresh-weather RNG bootstrap. Separate native Mac M4 tests keep live Retina input unresolved despite controlled 2x/mixed-geometry tests, and real-media startup reruns use dummy video/audio, so they do not establish physical display, input or speaker parity. Evidence: https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809 https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33 https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882 https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a The newest DM1 pass ports FM Towns title shrink sampling from the documented 6-bit fixed-point source path, flips floor/ceiling graphics at their loaded native heights, and restores the entrance-door step to three 60 Hz VBlank intervals. A separate authenticated PC 3.4 path decodes the LZEXE-packed DOS selector preview. Targeted source-lock/native-build checks pass upstream, but the author explicitly retains original-frame comparison and full cross-platform visual parity as open. Evidence: https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0 https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d https://github.com/yeager/firestaff/commit/41b103f29b4d7439d7445fb4e3578f9985e5cfab https://github.com/yeager/firestaff/commit/3085c2f6d56e8088279b5207bfd46744a1dbbd24 The Apple IIGS path now decodes original dungeon worlds, graphics, startup/font, creature/effect metadata and sound, launches authenticated worlds through the CLI/M12 path, and connects native IIGS mirror recruitment. Primary recovered documentation explicitly identifies hidden Apple IIGS graphics.dat code as 65C816 code, supporting the added source architecture. Current changelog receipts also cover stereo DOC effects, Hall progression, inventory transfer, food use and carrying capacity; wall damage, sensors and full sound/presentation parity remain open. No Apple IIGS minimum RAM or host profile is inferred. Evidence: https://github.com/yeager/firestaff/commit/26f1361e5b3d18512db35b7b0791b84f4e4385da https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b https://github.com/yeager/firestaff/blob/439213c5ba9fbd79d0753d6143a3b86ff9f0d90f/reference/dmweb-community-docs/html/community/documentation/dungeon-master-and-chaos-strikes-back/graphics.dat-hidden-code.html The DM1 PC34 path now preserves the original status-box priority over overlapping ready-hand zones, verifies consecutive champion switches with authenticated data and prevents held-key selector skips. Debug traces separately measure queue, source-outcome and present-return timing while explicitly marking physical scanout unmeasured. Evidence: https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373 https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44 The authenticated DM1 Apple IIGS G20E/G21E editions now reach the first world through both direct CLI and M12 menu launch; the CLI route also accepts a native keyboard turn, and the original media archive is hash-checked before and after the run. The upstream check uses SDL dummy output, so original title/entrance presentation, audible DOC playback and complete-campaign parity remain open. A v3.0.387 preparation change is not represented as a published release because no corresponding release was available when checked. Evidence: https://github.com/yeager/firestaff/commit/c9d9b0e0097242ea1a6f1e5fa29183c3e09bfabb Firestaff v3.0.391 is a published release. Its primary notes record DM1 PC34 selected-save restoration, authenticated English/Japanese CSB FM Towns loose-file startup, and Amiga 3.6 French/German graphic selection. Only seven of ten localized bitmap records are decoded for comparison, and upstream explicitly says these checks do not establish complete visual or gameplay parity. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.391 https://github.com/yeager/firestaff/commit/ebb10387f277af76683e3aadd27f97dab963d599 https://github.com/yeager/firestaff/commit/d15a674ba936133e9b74b43af982051927f51207",
       "ai": {
         "usage": true,
         "tools": [
@@ -84463,7 +84475,7 @@
         "Ghidra machine-aware loaders"
       ],
       "re_started": null,
-      "status": "Active; address-masked indexed writes now resolve at effective targets with 35-ROM NES regression coverage",
+      "status": "Active; SNES SPC700 uploads can be recovered through an emulated IPL handshake, with descriptor comment provenance preserved",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -84488,7 +84500,10 @@
         "cross-function dataflow joins",
         "overlay occupancy invariants",
         "flaky corpus isolation",
-        "effective-address decoding under address masks"
+        "effective-address decoding under address masks",
+        "SPC700 IPL-handshake emulation",
+        "byte-verified sound-driver upload recovery",
+        "descriptor comment provenance"
       ],
       "tags": [
         "Ghidra",
@@ -84500,7 +84515,7 @@
         "SPC700",
         "65C816"
       ],
-      "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44 The latest bank-analysis passes persist provenance for analyzer-created overlay references so later rounds retract stale targets without deleting user-owned references, and remove fall-through code only when a conditional branch is provably taken and no flow, entry point, function or user label preserves the old path. Upstream reports deterministic NES corpus updates and passing synthetic/JUnit gates; these are bounded analyzer-correctness receipts, not universal decompilation correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4 The newest passes write jump-table overrides once a containing function exists, eliminating first-reference analysis-order sensitivity, then remove the default single-thread pin while retaining GRM_THREAD_PIN=1 as a diagnostic. Upstream reports byte-identical results across all 34 NES fixtures at 12, 4 and 2 threads plus passing synthetic gates; this is bounded corpus determinism rather than universal analysis correctness. The reviewed commits explicitly credit Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/2a15e0df8abeeccc0842b212a00e1d08d2316e41 https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d Current main fixes a dataflow join across a cross-function predecessor edge so a shared-store tail can retain the correct save-slot proof. Castlevania III now forks bank_5116 for banks 7 and 30, reduces warnings from 15 to 14 and raises bank comments from 171 to 172; the other 34 NES rows remain byte-identical and build-and-test reports SUITE OK. Adjacent fixes discard partial states that violate overlay invariants or flow into a differently occupied overlay, retry isolated flaky corpus rows, handle ROM paths with spaces and synchronize a 6510 illegal-instruction definition. These remain bounded analyzer/corpus receipts. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/101dc785283b69672728d98a318af579d2f5f7ff https://github.com/CBongo/ghidra-retro-machines/commit/9ab5515 https://github.com/CBongo/ghidra-retro-machines/commit/2950474 Current main corrects indexed writes under address masking by decoding at the effective target rather than the operand base. Five new tests pass; upstream reports build-and-test SUITE OK, 35/35 NES real-ROM corpus rows passing without blessing and byte-identical Bandai goldens. The commit explicitly credits Claude Opus 5.5; the results remain bounded analyzer regressions rather than universal correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/8bef37250f5fa012f96753884da2cf5db28ab1c4",
+      "notes": "Ghidra extension for banked C64/C128/PET PRG and NES iNES analysis, with SPC700 and 65C816 language variants. The current NES pass bounds split low/high pointer tables by the next section gap: Dodge shrinks from 64 to 26 entries, River City Ransom from 64 to 27 and Mega Man 2 from 255 to 15. Upstream reports build-and-test SUITE OK and 29 NES baseline passes plus the three corrected fixtures. Existing 65C816 oracle-defect guards and language limitations remain; these gates show bounded analysis improvements, not universal correctness. The reviewed commit explicitly credits Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/6556e84ff267a0c96e7c89c5dbe2d3c3777d2aad The next analyzer pass extends RAM save-slot proofs across admitted cross-function jumps and narrowly recognized save-helper calls, while preserving conservative abandon rules and declining unresolved overlay-bank cases. Upstream reports 33 NES tests passing; the separate Dragon Power symbol-output flap remains documented. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/3f983b0189e67e2f8337804e0c2beb46c5483d44 The latest bank-analysis passes persist provenance for analyzer-created overlay references so later rounds retract stale targets without deleting user-owned references, and remove fall-through code only when a conditional branch is provably taken and no flow, entry point, function or user label preserves the old path. Upstream reports deterministic NES corpus updates and passing synthetic/JUnit gates; these are bounded analyzer-correctness receipts, not universal decompilation correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/475eeadd4fb50ad045bd8e01dd428243279bfe2d https://github.com/CBongo/ghidra-retro-machines/commit/1251af61b1d65c8849bc90795d186ee274938db4 The newest passes write jump-table overrides once a containing function exists, eliminating first-reference analysis-order sensitivity, then remove the default single-thread pin while retaining GRM_THREAD_PIN=1 as a diagnostic. Upstream reports byte-identical results across all 34 NES fixtures at 12, 4 and 2 threads plus passing synthetic gates; this is bounded corpus determinism rather than universal analysis correctness. The reviewed commits explicitly credit Claude Opus 5.5. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/2a15e0df8abeeccc0842b212a00e1d08d2316e41 https://github.com/CBongo/ghidra-retro-machines/commit/48c66e952687ddaa24979626263f9b24dbd6b11d Current main fixes a dataflow join across a cross-function predecessor edge so a shared-store tail can retain the correct save-slot proof. Castlevania III now forks bank_5116 for banks 7 and 30, reduces warnings from 15 to 14 and raises bank comments from 171 to 172; the other 34 NES rows remain byte-identical and build-and-test reports SUITE OK. Adjacent fixes discard partial states that violate overlay invariants or flow into a differently occupied overlay, retry isolated flaky corpus rows, handle ROM paths with spaces and synchronize a 6510 illegal-instruction definition. These remain bounded analyzer/corpus receipts. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/101dc785283b69672728d98a318af579d2f5f7ff https://github.com/CBongo/ghidra-retro-machines/commit/9ab5515 https://github.com/CBongo/ghidra-retro-machines/commit/2950474 Current main corrects indexed writes under address masking by decoding at the effective target rather than the operand base. Five new tests pass; upstream reports build-and-test SUITE OK, 35/35 NES real-ROM corpus rows passing without blessing and byte-identical Bandai goldens. The commit explicitly credits Claude Opus 5.5; the results remain bounded analyzer regressions rather than universal correctness. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/8bef37250f5fa012f96753884da2cf5db28ab1c4 The new SNES path emulates the 65816 side against an SPC700 IPL boot-ROM model, materializes recovered uploads as a separate SPC700 program and reports 11/11 byte-identical results against the owner's extraction corpus; the committed hash-pinned real-ROM set contains nine dumps. A later descriptor change carries user comments append-only with exact extension provenance and validates overlay block-name grammar. These are bounded analyzer and corpus receipts. Evidence: https://github.com/CBongo/ghidra-retro-machines/commit/8a20c6bb65074bd911008cffccff587ffc8083d4 https://github.com/CBongo/ghidra-retro-machines/commit/95ee768b7a25e0646f3237fcc5688a88c1c8c411",
       "ai": {
         "usage": true,
         "tools": [
@@ -106376,7 +106391,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "v6.4.2 published; protocol-v0 debugger and deterministic media-writeback/IPC regressions continue on main",
+      "status": "v6.4.2 published; current devtools commit memory, graphics and assembler writes as one lease-bound machine change",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -106391,13 +106406,15 @@
         "integrated Z80 assembly and disassembly",
         "binary debugger protocol",
         "controller leases and event subscriptions",
-        "IDE and disk-image writeback regression"
+        "IDE and disk-image writeback regression",
+        "lease-bound atomic debugger mutation",
+        "frame-boundary IPC writes"
       ],
       "tags": [
         "Amstrad CPC",
         "reverse-engineering tooling"
       ],
-      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless automation. Beyond v6.4.2, the new protocol-v0 binary frontend on port 6545 implements HELLO/PING/MACHINE_INFO, register and memory reads/writes, PAUSE/RUN/RESET/STEP control, run-state queries and subscribed pushed events. Its design includes a 4096-entry lock-free event ring and controller lease; reviewed commits add server skeleton, reads, writes/control and run/events in successive tested slices. These are upstream implementation receipts, not an independent run by the tracker. No minimum host CPU/RAM was stated. Evidence: https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5 https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21 Current main preserves Symbiface IDE writes on IPC quit and signals, writes modified zipped DSK images beside their archives, and replaces fixed-delay IPC startup tests with port readiness. The IDE test writes a sector through the emulated ATA path and proves it reaches the image only at exit. These are upstream regressions; the tracker did not execute them. Evidence: https://github.com/ikari-pl/konCePCja/commit/7f21133285a51d6356935f91afd32d1dadca4808 https://github.com/ikari-pl/konCePCja/commit/8cbf49dd https://github.com/ikari-pl/konCePCja/commit/0d60e541",
+      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless automation. Beyond v6.4.2, the new protocol-v0 binary frontend on port 6545 implements HELLO/PING/MACHINE_INFO, register and memory reads/writes, PAUSE/RUN/RESET/STEP control, run-state queries and subscribed pushed events. Its design includes a 4096-entry lock-free event ring and controller lease; reviewed commits add server skeleton, reads, writes/control and run/events in successive tested slices. These are upstream implementation receipts, not an independent run by the tracker. No minimum host CPU/RAM was stated. Evidence: https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5 https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21 Current main preserves Symbiface IDE writes on IPC quit and signals, writes modified zipped DSK images beside their archives, and replaces fixed-delay IPC startup tests with port readiness. The IDE test writes a sector through the emulated ATA path and proves it reaches the image only at exit. These are upstream regressions; the tracker did not execute them. Evidence: https://github.com/ikari-pl/konCePCja/commit/7f21133285a51d6356935f91afd32d1dadca4808 https://github.com/ikari-pl/konCePCja/commit/8cbf49dd https://github.com/ikari-pl/konCePCja/commit/0d60e541 Memory-editor changes, Graphics Finder paint and assembler writes now commit as one machine change under a pause lease or at the IPC frame boundary; assembler bytes are encoded before the single commit. This prevents clients from observing half-written programs and does not add per-frame work. Evidence: https://github.com/ikari-pl/konCePCja/commit/3b69023444567a19ebb0f5b6ea4d3c5de3b2d8cf",
       "ai": {
         "usage": true,
         "tools": [
@@ -131644,7 +131661,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "active; v0.6.1-era hardware-fidelity work expands SCC, MIDI, IKBD, FDC and machine self-test coverage",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -131656,7 +131673,10 @@
         "Hatari differential testing",
         "disassembly",
         "watchpoints",
-        "deterministic headless debugging"
+        "deterministic headless debugging",
+        "serial-peripheral timing regression",
+        "FDC live-media regression",
+        "machine self-test cartridges"
       ],
       "tags": [
         "Atari ST",
@@ -131665,7 +131685,7 @@
         "debugger",
         "reverse-engineering tooling"
       ],
-      "notes": "Chip-oriented ST/Mega ST/STE/Mega STE emulator using Moira 68000 and comparing hardware behavior with Hatari. Its debugger exposes symbols, disassembly, breakpoints, watchpoints and headless operation. The README advertises desktop, web and Android packages; it explicitly says the Android APK was tested under QEMU but not on a real device.",
+      "notes": "Chip-oriented ST/Mega ST/STE/Mega STE emulator using Moira 68000 and comparing hardware behavior with Hatari. Its debugger exposes symbols, disassembly, breakpoints, watchpoints and headless operation. The README advertises desktop, web and Android packages; it explicitly says the Android APK was tested under QEMU but not on a real device. A large current-main change strengthens ST/STE and Mega STE hardware modeling, including SCC BREAK edge retention, in-flight MIDI divisor changes, IKBD BREAK resume, FDC live-media behavior and machine self-test paths. The commit documents ASan/UBSan regression counts and remaining approximations; it is not treated as universal compatibility proof or as a published release. Evidence: https://github.com/habib256/neost/commit/699e69680c3ec480ea6fd5c384c3c6266dda0295",
       "ai": {
         "usage": true,
         "tools": [
@@ -144522,7 +144542,26 @@
         "x86-64"
       ],
       "target_cpu": [],
-      "runtime_profiles": [],
+      "runtime_profiles": [
+        {
+          "name": "win32hle based-memory selftests on Apple silicon",
+          "platform": "macOS",
+          "cpu_family": "arm64",
+          "notes": "Upstream reports all seven win32hle selftests passing with based guest memory on arm64 macOS. This is an evidenced host configuration, not a minimum CPU/RAM or translated-output target claim.",
+          "evidence": [
+            "https://github.com/sp00nznet/pcrecomp/commit/00cb72404fcecc9de2fb3ef822e3264c2bb2ccb2"
+          ]
+        },
+        {
+          "name": "win32hle based-memory selftests on 64-bit Linux",
+          "platform": "Linux",
+          "cpu_family": "x86-64",
+          "notes": "Upstream reports all seven win32hle selftests passing on x86-64 Linux. No CPU-generation, RAM or minimum distribution requirement is stated.",
+          "evidence": [
+            "https://github.com/sp00nznet/pcrecomp/commit/00cb72404fcecc9de2fb3ef822e3264c2bb2ccb2"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -144548,19 +144587,23 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "win32hle now supports based guest memory on 64-bit macOS and Linux hosts; independent tracker build/run not performed",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "x86-to-C lifting",
+        "based 32-bit guest-memory mapping",
+        "Win32 HLE runtime"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: A reusable analysis, disassembly, x86-to-C lifting and runtime toolkit extracted from multiple PC recompilation projects. Includes MZ/NE/LE/PE and NeXTSTEP Mach-O readers; x86-16/32/64 lifters and differential tests; DOS, Win16, Win32-on-POSIX and native32 runtime components. It is infrastructure rather than a game-specific interpreter wrapper. Classification: 157 source files across analysis/lifting tools; actual lift16 operand-to-CPU-C emission inspected. Pinned fix handles overlapping REP MOVS semantics. Runtime completeness varies; Win16 link stubs are explicitly incomplete. MIT project licence; binary assets, third-party SDKs and external disassembler databases are not thereby relicensed. Source CPU: x86-16 and x86-32 collapse to x86; x86-64 is separately supported. Target CPU: Generated portable C plus runtime-specific restrictions; no single native-output CPU established for the whole toolkit. Build: Python modules drive analysis/lifting; generated C is linked against the chosen runtime with project-specific CMake/toolchain setup. The native32 runtime specifically needs MSVC x86; POSIX/SDL2 hosts have different requirements. No build or upstream program execution performed; build success remains unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Outputs generated C and project runtime trees. Host architecture is not a recovered-input CPU; no universal target ISA is asserted. AI: Pinned latest commit includes Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. Relationships: Shared toolkit underpinning sp00nznet PC recompilation repositories; should not be merged into any one game project. Evidence: https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/README.md https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift16.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift32.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/ne/ne_parse.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/templates/CMakeLists.txt.template https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/LICENSE https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/CONTRIBUTORS.md https://github.com/sp00nznet/pcrecomp/commit/bd26806fbd4714d670d2dee75973c5eaff64674c",
+      "notes": "Identity: A reusable analysis, disassembly, x86-to-C lifting and runtime toolkit extracted from multiple PC recompilation projects. Includes MZ/NE/LE/PE and NeXTSTEP Mach-O readers; x86-16/32/64 lifters and differential tests; DOS, Win16, Win32-on-POSIX and native32 runtime components. It is infrastructure rather than a game-specific interpreter wrapper. Classification: 157 source files across analysis/lifting tools; actual lift16 operand-to-CPU-C emission inspected. Pinned fix handles overlapping REP MOVS semantics. Runtime completeness varies; Win16 link stubs are explicitly incomplete. MIT project licence; binary assets, third-party SDKs and external disassembler databases are not thereby relicensed. Source CPU: x86-16 and x86-32 collapse to x86; x86-64 is separately supported. Target CPU: Generated portable C plus runtime-specific restrictions; no single native-output CPU established for the whole toolkit. Build: Python modules drive analysis/lifting; generated C is linked against the chosen runtime with project-specific CMake/toolchain setup. The native32 runtime specifically needs MSVC x86; POSIX/SDL2 hosts have different requirements. No build or upstream program execution performed; build success remains unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Outputs generated C and project runtime trees. Host architecture is not a recovered-input CPU; no universal target ISA is asserted. AI: Pinned latest commit includes Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. Relationships: Shared toolkit underpinning sp00nznet PC recompilation repositories; should not be merged into any one game project. Evidence: https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/README.md https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift16.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift32.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/ne/ne_parse.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/templates/CMakeLists.txt.template https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/LICENSE https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/CONTRIBUTORS.md https://github.com/sp00nznet/pcrecomp/commit/bd26806fbd4714d670d2dee75973c5eaff64674c The win32hle runtime now places the 32-bit guest address space in a separate based mapping on 64-bit hosts, converts guest/host pointers explicitly and adds macOS-specific page, socket, font and path handling. Upstream reports all seven selftests passing on arm64 macOS and x86-64 Linux; the tracker did not run them. Host support is not recorded as a universal target CPU for generated programs. Evidence: https://github.com/sp00nznet/pcrecomp/commit/00cb72404fcecc9de2fb3ef822e3264c2bb2ccb2",
       "ai": {
         "usage": true,
         "tools": [
@@ -190806,23 +190849,23 @@
       ],
       "runtime_profiles": [
         {
-          "name": "Swift64 v0.4.2 Apple Silicon application",
+          "name": "Swift64 v0.6.0 Apple Silicon application",
           "platform": "macOS",
           "cpu_family": "ARM64",
           "os": "macOS 14 or later",
           "notes": "The universal release was packaged and run to BASIC READY on Apple Silicon. User-supplied BASIC, KERNAL and character ROMs are required; 1541 media/ROM support varies by mode. No CPU-generation or RAM minimum is stated.",
           "evidence": [
-            "https://github.com/peercom/swift64/releases/tag/v0.4.2"
+            "https://github.com/peercom/swift64/releases/tag/v0.6.0"
           ]
         },
         {
-          "name": "Swift64 v0.4.2 Intel application slice",
+          "name": "Swift64 v0.6.0 Intel application slice",
           "platform": "macOS",
           "cpu_family": "x86-64",
           "os": "macOS 14 or later",
           "notes": "The universal release explicitly includes an Intel binary, but upstream labels it build-verified rather than runtime-tested. User-supplied ROMs are required; no CPU-generation or RAM minimum is stated.",
           "evidence": [
-            "https://github.com/peercom/swift64/releases/tag/v0.4.2"
+            "https://github.com/peercom/swift64/releases/tag/v0.6.0"
           ]
         }
       ],
@@ -190848,7 +190891,7 @@
         "generic machine emulator"
       ],
       "re_started": null,
-      "status": "v0.4.2 published; 49/50 bounded public VIC programs pass while broader compatibility and one FLI case remain open",
+      "status": "v0.6.0 published with deterministic save states and 11/11 public SID tests; post-release REU support passes 57/69 public programs",
       "build": {
         "compilable": null,
         "runnable": true,
@@ -190862,14 +190905,18 @@
         "breakpoints and CPU tracing",
         "PAL/NTSC color-latch regression corpus",
         "exact reference-image comparison",
-        "universal macOS packaging"
+        "universal macOS packaging",
+        "cycle-exact save-state snapshots",
+        "measurement-derived SID modelling",
+        "public SID conformance testing",
+        "cycle-costed REU DMA emulation"
       ],
       "tags": [
         "Commodore 64",
         "macOS",
         "NES secondary core"
       ],
-      "notes": "Swift macOS C64 emulator with shared Emu6502 core, C64 chip/1541 models, debugger and Metal/AVFoundation application. The same root also contains a secondary, earlier-stage NES emulator. Generic machine emulator/debugger tooling. Named games and compatibility media are tests, not game reconstructions; the secondary NES core does not imply mature NES compatibility. README explicitly says it boots to BASIC and links packaged v0.3.0, supporting runnable=true only as an upstream-reported partial emulator. Xcode and SwiftPM build instructions were inspected but not executed. Many games/demos still fail; true-drive/protected-media, analogue SID and flux behavior remain incomplete. No downloaded release or game was executed; compilable/playable/byte_exact stay null. Work in progress: README says many games/demos do not yet run correctly, true-drive compatibility needs validation, and analogue SID/flux behavior remains approximate. ROMs/commercial media are not supplied. No build, packaged release execution or compatibility testing was performed. Do not promote referenced games as game reconstructions. Root LICENSE is MIT. Copyrighted ROMs and commercial media are not supplied; the application imports user-provided copies.   Reviewed on 2026-10-05; no independent build, execution or byte comparison was performed. Evidence: https://github.com/peercom/swift64/blob/main/README.md https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift https://github.com/peercom/swift64/blob/main/Package.swift https://github.com/peercom/swift64/blob/main/Swift64.xcodeproj/project.pbxproj https://github.com/peercom/swift64/blob/main/LICENSE Latest upstream commit: https://github.com/peercom/swift64/commit/030be2250cc44beb86aa1aa8015d696f4916bbab The v0.4.2 universal macOS release explicitly contains Apple Silicon and Intel binaries and requires macOS 14+. Upstream reports 768 release regressions with 757 passes and 11 opt-in slow-drive skips; 49/50 bounded VIC programs pass, including 45 exact image comparisons, while Blackmail FLI retains 5,558 differing pixels. The packaged app reached BASIC READY on Apple Silicon; Intel is build-verified only. Broader game/demo and chip-revision compatibility remains open. No tracker-side package run occurred. Evidence: https://github.com/peercom/swift64/releases/tag/v0.4.2 https://github.com/peercom/swift64/commit/112adfa283882a6effacc68a2e3901c0343074d6",
+      "notes": "Swift macOS C64 emulator with shared Emu6502 core, C64 chip/1541 models, debugger and Metal/AVFoundation application. The same root also contains a secondary, earlier-stage NES emulator. Generic machine emulator/debugger tooling. Named games and compatibility media are tests, not game reconstructions; the secondary NES core does not imply mature NES compatibility. README explicitly says it boots to BASIC and links packaged v0.3.0, supporting runnable=true only as an upstream-reported partial emulator. Xcode and SwiftPM build instructions were inspected but not executed. Many games/demos still fail; true-drive/protected-media, analogue SID and flux behavior remain incomplete. No downloaded release or game was executed; compilable/playable/byte_exact stay null. Work in progress: README says many games/demos do not yet run correctly, true-drive compatibility needs validation, and analogue SID/flux behavior remains approximate. ROMs/commercial media are not supplied. No build, packaged release execution or compatibility testing was performed. Do not promote referenced games as game reconstructions. Root LICENSE is MIT. Copyrighted ROMs and commercial media are not supplied; the application imports user-provided copies.   Reviewed on 2026-10-05; no independent build, execution or byte comparison was performed. Evidence: https://github.com/peercom/swift64/blob/main/README.md https://github.com/peercom/swift64/blob/main/Sources/C64Core/C64.swift https://github.com/peercom/swift64/blob/main/Sources/Emu6502/CPU6502.swift https://github.com/peercom/swift64/blob/main/Package.swift https://github.com/peercom/swift64/blob/main/Swift64.xcodeproj/project.pbxproj https://github.com/peercom/swift64/blob/main/LICENSE Latest upstream commit: https://github.com/peercom/swift64/commit/030be2250cc44beb86aa1aa8015d696f4916bbab The v0.4.2 universal macOS release explicitly contains Apple Silicon and Intel binaries and requires macOS 14+. Upstream reports 768 release regressions with 757 passes and 11 opt-in slow-drive skips; 49/50 bounded VIC programs pass, including 45 exact image comparisons, while Blackmail FLI retains 5,558 differing pixels. The packaged app reached BASIC READY on Apple Silicon; Intel is build-verified only. Broader game/demo and chip-revision compatibility remains open. No tracker-side package run occurred. Evidence: https://github.com/peercom/swift64/releases/tag/v0.4.2 https://github.com/peercom/swift64/commit/112adfa283882a6effacc68a2e3901c0343074d6 The published v0.6.0 release adds cycle-position save states, measurement-derived SID filter/output modeling and an 11/11 public SID scoreboard; its universal macOS 14+ package launched on Apple Silicon while Intel remains build-verified only. A later unreleased commit adds cycle-costed REU 1700/1764/1750 and clone DMA with 57/69 public REU programs passing and explicitly names the remaining timing/floating-bus gaps. Evidence: https://github.com/peercom/swift64/releases/tag/v0.6.0 https://github.com/peercom/swift64/commit/37a1a74dad699e906979f95944e1ebb3386789b9",
       "ai": {
         "usage": true,
         "tools": [
