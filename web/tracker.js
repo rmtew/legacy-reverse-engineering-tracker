@@ -658,6 +658,11 @@ function showDetails(record) {
     + line("AI usage", tri(ai.usage))
     + line("AI tools", tags(ai.tools))
     + line("AI evidence", tags(ai.evidence))
+    + (autoEvidence.ai_config?.length ? line("Agent configuration observations", evidenceHtml(autoEvidence.ai_config)) : "")
+    + ["source_cpu","target_cpu","source_platforms","target_platforms"].map(field=>{
+      const entries=autoEvidence[field]?.length?autoEvidence[field]:record.evidence?.routine?.[field];
+      return entries?.length?line(field.replaceAll("_"," ")+" evidence",evidenceHtml(entries)):"";
+    }).join("")
     + line("Techniques", tags(record.techniques))
     + line("Tags", tags(record.tags))
     + line("Notes", esc(record.notes || ""))

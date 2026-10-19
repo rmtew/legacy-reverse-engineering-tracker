@@ -116,10 +116,26 @@ class EnrichmentTests(unittest.TestCase):
         self.assertIn('a',[p['id'] for p in pipeline.select(changed,state,NOW)])
         self.assertIn('a',[p['id'] for p in pipeline.select(records,state,NOW+timedelta(days=31))])
 
+    def test_routine_promotions_publish_provenance_and_guard_curated_concurrent_edits(self):
+        self.network.document = 'We used Claude.\nTarget CPU: 68020\nTarget platform: Amiga AGA'
+        bundle, _ = self.collect(records=[self.records[0]], limit=1)
+        records, _, summary = pipeline.replay([self.records[0]], self.state, bundle)
+        self.assertEqual(records[0]['ai']['usage'], True)
+        self.assertEqual(records[0]['target_cpu'], ['68020'])
+        self.assertEqual(records[0]['target_platforms'], ['Amiga AGA'])
+        self.assertIn(SHA, records[0]['evidence']['routine']['target_cpu'][0]['url'])
+        self.assertEqual(records[0]['notes'], 'Curated notes')
+        concurrent = copy.deepcopy(self.records[0])
+        concurrent['ai'] = {'usage': False, 'tools': []}
+        after, state, summary = pipeline.replay([concurrent], self.state, bundle)
+        self.assertEqual(after, [concurrent])
+        self.assertEqual(summary['conflicts'], ['a'])
+        self.assertEqual(state, self.state)
+
     def test_request_budget_reserves_complete_record_and_stops_cleanly(self):
-        bundle, budget = self.collect(requests=20)
+        bundle, budget = self.collect(requests=36)
         self.assertEqual(bundle['summary']['completed'],1)
-        self.assertLessEqual(budget.requests,20)
+        self.assertLessEqual(budget.requests,36)
         self.assertEqual(bundle['results'][1]['status'],'partial')
         self.assertNotIn('fingerprint',bundle['results'][1]['state_after'])
         records,state,_=pipeline.replay(self.records,self.state,bundle)
@@ -403,12 +419,12 @@ class EnrichmentTests(unittest.TestCase):
         records=[project(f'cold{i:03}') for i in range(200)]
         bundle,budget=self.collect(records=records,limit=None)
         self.assertEqual(bundle['summary']['ci_completed'],60)
-        self.assertEqual(bundle['summary']['docs_completed'],14)
+        self.assertEqual(bundle['summary']['docs_completed'],9)
         self.assertLessEqual(budget.requests,300);self.assertLessEqual(budget.api_requests,80)
         self.assertGreater(bundle['summary']['attempted'],20)
         replayed,state,_=pipeline.replay(records,self.state,bundle)
         self.assertEqual(sum('ci_checked_at' in e for e in state['records'].values()),60)
-        self.assertEqual(sum('docs_checked_at' in e for e in state['records'].values()),14)
+        self.assertEqual(sum('docs_checked_at' in e for e in state['records'].values()),9)
         next_ci=pipeline.select(replayed,state,NOW,work='ci')
         self.assertEqual(next_ci[0]['id'],'cold060')
 
@@ -427,8 +443,8 @@ class EnrichmentTests(unittest.TestCase):
         done=lambda prefix,work:sum(r['id'].startswith(prefix) and r['work'].get(work)=='complete' for r in bundle['results'])
         self.assertEqual(done('changed','ci'),15)
         self.assertEqual(done('overdue','ci'),45)
-        self.assertEqual(done('changed','docs'),7)
-        self.assertEqual(done('overdue','docs'),7)
+        self.assertEqual(done('changed','docs'),4)
+        self.assertEqual(done('overdue','docs'),5)
         self.assertLessEqual(budget.requests,300);self.assertLessEqual(budget.api_requests,80)
         self.assertTrue(next(r for r in bundle['results'] if r['id']=='changed000')['work']['docs']=='complete')
 
@@ -441,7 +457,7 @@ class EnrichmentTests(unittest.TestCase):
         item=bundle['results'][0]
         after,_,_=pipeline.replay([record],self.state,bundle,polling=polling)
         self.assertIn(SHA,after[0]['evidence']['automated']['compilable'][0]['url'])
-        self.assertEqual(budget.requests,17)  # one CI + sixteen document paths
+        self.assertEqual(budget.requests,25)  # one CI + twenty-four scoped document/configuration paths
 
     def test_cached_tip_all_missing_requires_accessible_same_commit(self):
         records, state = self.complete_one()
@@ -458,7 +474,7 @@ class EnrichmentTests(unittest.TestCase):
                 with self.assertRaises(pipeline.FetchFailure):
                     pipeline.collect_record(record, {}, client, NOW, polling=polling)
                 self.assertEqual(record, before)
-                self.assertEqual(budget.requests, 17)
+                self.assertEqual(budget.requests, 25)
                 self.assertEqual(budget.api_requests, 1)
                 self.assertIn('/git/commits/' + SHA, self.network.calls[-1][0])
         # A successful response for a different commit cannot establish absence.
@@ -488,7 +504,7 @@ class EnrichmentTests(unittest.TestCase):
         state['records']['a'].pop('docs_key')  # Force a fresh document scan.
         record = records[0]
         self.network.document = None
-        for requests, api_requests in ((16, 80), (300, 0)):
+        for requests, api_requests in ((24, 80), (300, 0)):
             with self.subTest(requests=requests, api_requests=api_requests):
                 bundle, budget = self.collect(records=[record], state=state,
                     polling=self.metadata([record]), limit=None, ci_limit=0,
@@ -499,7 +515,7 @@ class EnrichmentTests(unittest.TestCase):
                 self.assertEqual(after, [record])
                 self.assertEqual(after_state['records']['a'].get('docs_checked_at'),
                                  state['records']['a']['docs_checked_at'])
-                self.assertEqual(budget.requests, 16)
+                self.assertEqual(budget.requests, 24)
 
     def test_pending_stale_or_incomplete_metadata_falls_back_to_head_lookup(self):
         record=project('meta')
@@ -525,11 +541,11 @@ class EnrichmentTests(unittest.TestCase):
         _,untouched,summary=pipeline.replay([record],self.state,bundle,polling=changed)
         self.assertEqual(untouched,self.state);self.assertEqual(summary['conflicts'],['meta'])
 
-    def test_metadata_cold_scan_cost_supports_fifteen_documents_per_hour(self):
+    def test_metadata_cold_scan_cost_supports_ten_documents_per_hour(self):
         records=[project(f'cold{i:03}') for i in range(200)]
         bundle,budget=self.collect(records=records,polling=self.metadata(records),limit=None)
         self.assertEqual(bundle['summary']['ci_completed'],60)
-        self.assertEqual(bundle['summary']['docs_completed'],15)
+        self.assertEqual(bundle['summary']['docs_completed'],10)
         self.assertEqual(budget.requests,300);self.assertEqual(budget.api_requests,60)
 
     def test_api_budget_is_independent_of_raw_document_budget(self):

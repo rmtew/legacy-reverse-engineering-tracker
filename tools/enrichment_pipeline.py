@@ -27,11 +27,14 @@ from urllib.request import Request, build_opener, HTTPRedirectHandler
 from collection_budget import Budget, BudgetStop, LaneStop, APIStop, FetchFailure, RecordStop
 
 import enrich_evidence as evidence
+import routine_metadata
 from catalogue_storage import bounded, encode, load_projects, write_projects
 
 STATE = 'state/enrichment-state.json'
-DOC_FIELDS = ('compilable', 'playable', 'byte_exact', 're_started')
-OWNED = [('evidence', 'automated'), ('re_started',),
+DOC_FIELDS = ('compilable', 'playable', 'byte_exact', 're_started',
+              'ai_use', 'ai_config', 'source_cpu', 'target_cpu', 'source_platforms', 'target_platforms')
+OWNED = [('evidence', 'automated'), ('evidence', 'routine'), ('re_started',), ('ai', 'usage'), ('ai', 'tools'), ('ai', 'evidence'),
+         *((key,) for key in ('source_cpu', 'target_cpu', 'source_platforms', 'target_platforms')),
          *(('build', key) for key in (*DOC_FIELDS[:3], 'runnable'))]
 # Eligibility leaves the measured backlog-drain margin before freshness targets.
 DOC_TTL = timedelta(days=10)  # 30-day objective minus 20-day cold reserve drain.
@@ -301,8 +304,8 @@ def without_checked(value):
 
 def collect_record(record, previous, client, now, *, work='docs', polling=None):
     target, day = identity(record), now.date().isoformat()
-    if any(key in record and not isinstance(record[key], dict) for key in ('build', 'evidence')):
-        raise FetchFailure('invalid project build/evidence container')
+    if any(key in record and not isinstance(record[key], dict) for key in ('build', 'evidence', 'ai')):
+        raise FetchFailure('invalid project build/evidence/ai container')
     signal = source_fingerprint(record, polling or {})
     old_auto = (record.get('evidence') or {}).get('automated') or {}
     if work == 'ci':
@@ -331,7 +334,14 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
         commit = client.head(target)
     old_auto = (record.get('evidence') or {}).get('automated') or {}
     base = target['path']
-    paths = [f'{base}/{name}' if base else name for name in evidence.DOCS] + ([] if base else evidence.ROOT_EXTRA)
+    try:
+        instructions = routine_metadata.instruction_paths(base)
+    except ValueError as exc:
+        raise FetchFailure(str(exc)) from exc
+    if not isinstance((record.get('evidence') or {}).get('routine', {}), dict):
+        raise FetchFailure('invalid routine evidence container')
+    paths = list(dict.fromkeys([f'{base}/{name}' if base else name for name in evidence.DOCS]
+                              + ([] if base else evidence.ROOT_EXTRA) + instructions))
     key = digest({**target, 'commit': commit, 'paths': paths, 'collector': evidence.COLLECTOR})
     cache = (previous.get('docs_key') == key and previous.get('docs_digest') == digest(doc_payload(old_auto)))
     # Reserve enough requests for a whole record before expensive document work.
@@ -346,14 +356,17 @@ def collect_record(record, previous, client, now, *, work='docs', polling=None):
             text = client.get(evidence.raw(target['repo'], commit, path), 'document', absence=True)
             if text is None:
                 continue
-            auto['compilable'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_COMPILE, evidence.NEG_COMPILE)
-            auto['playable'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_PLAY, evidence.NEG_PLAY)
-            auto['byte_exact'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_BYTE, evidence.NEG_BYTE, evidence.BYTE_REJECT)
-            auto['re_started'] += evidence.scan_start(text, target['repo'], commit, path)
+            context_only = bool(base and not path.startswith(base + '/'))
+            if not context_only:
+                auto['compilable'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_COMPILE, evidence.NEG_COMPILE)
+                auto['playable'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_PLAY, evidence.NEG_PLAY)
+                auto['byte_exact'] += evidence.scan_bool(text, target['repo'], commit, path, evidence.POS_BYTE, evidence.NEG_BYTE, evidence.BYTE_REJECT)
+                auto['re_started'] += evidence.scan_start(text, target['repo'], commit, path)
+            for field, values in routine_metadata.scan(text, target['repo'], commit, path, evidence,
+                                                      context_only=context_only).items():
+                auto[field] += values
             client.budget.check()
             found += 1
-            if found == 6:
-                break
         if metadata_tip and found == 0:
             # A poll tip can predate a visibility change or inaccessible commit.
             # Raw 404s alone must not retract evidence from that earlier scan.

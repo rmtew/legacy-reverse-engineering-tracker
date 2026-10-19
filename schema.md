@@ -180,7 +180,7 @@ Stored commit events contain:
 - timestamp and commit SHA
 - `project_id` linking back to `data/projects.json`
 - repository
-- commit title/full message and URL
+- commit title and URL (full message is examined during collection, then omitted)
 - author
 - every active branch on which the collector observed that commit
 
@@ -249,3 +249,5 @@ The feed is derived entirely from already-collected tracker data, so generating 
 `tools/validate_site_data.py` checks that project IDs are unique, every stored activity event references a known project, commit activity keys are unique and newest-first, timestamps are parseable, and generated RSS is valid RSS 2.0 with unique GUIDs and required item fields. The metadata workflow validates JSON before committing generated refresh data, and the Pages workflow validates both JSON and RSS before deployment.
 
 Every canonical activity writer enforces the 30-day boundary, including replay of older collection bundles. The public build also normalizes legacy history immediately. Full commit messages and repeated current-project snapshots are omitted. Notes change entries retain before/after hashes; canonical notes and research records retain their complete content. SHA identities remain in canonical daily summaries for overlap deduplication; browser projections omit them. Expired releases from project metadata are excluded from RSS and the timeline.
+
+Routine document evidence also records `ai_use`, `ai_config`, `source_cpu`, `target_cpu`, `source_platforms` and `target_platforms`. Each observation names its immutable source URL, excerpt, collector version, date and strength. Inherited instruction files supply configuration context only; their parent-project claims cannot populate subproject facts. Current conflicting declarations are retained without promotion. `evidence.routine` preserves the first source of promoted CPU/platform facts; AI disclosure sources also persist in `ai.evidence`. Curated facts are never replaced by these detectors. Agent attribution requires an allowlisted API-linked Bot or an explicit named co-author trailer; free-form author names, provider email domains and missing files do not establish use or non-use.
