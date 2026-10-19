@@ -1,4 +1,5 @@
 name: Deploy GitHub Pages
+run-name: Publish latest complete site (${{ github.event_name }})
 
 on:
   push:
@@ -12,190 +13,106 @@ on:
       - "data/project-audits.json"
       - "data/project-audits.index.json"
       - "data/project-audits/**"
+      - "data/projects.json"
       - "data/projects.index.json"
       - "data/projects/**"
-      - "tools/catalogue_storage.py"
       - "data/research-activity.json"
+      - "tools/build_site.py"
       - "tools/generate_rss.py"
       - "tools/generate_recent_activity.py"
       - "tools/activity_history.py"
-      - "tools/test_recent_activity.py"
-      - "tools/test_activity_history.py"
-      - "tools/test_rss.py"
-      - "tools/test_refresh_github.py"
-      - "tools/refresh_scope.py"
-      - "tools/test_refresh_scope.py"
-      - "tools/validate_site_data.py"
-      - "tools/apply_discovery_batch.py"
-      - "tools/test_discovery_batch.py"
-      - "tools/test_cpu_filters.js"
-      - ".github/workflows/pages.yml"
+      - "tools/catalogue_storage.py"
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Refresh GitHub metadata", "Enrich project evidence"]
-    types: [completed]
+    inputs:
+      attempt:
+        description: Internal bounded deployment recovery attempt
+        type: string
+        default: "0"
+  schedule:
+    # Recover a missed request/failed deployment without a writable request copy.
+    - cron: "29 * * * *"
 
 permissions:
   contents: read
+  actions: write
+  deployments: read
   pages: write
   id-token: write
 
+# Admission, build, deployment and reconciliation share the same lock. Replaced
+# pending wake-ups are safe: every admitted request inspects latest main.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
 jobs:
   gate:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       deploy: ${{ steps.decision.outputs.deploy }}
+      snapshot: ${{ steps.decision.outputs.snapshot }}
+      fingerprint: ${{ steps.decision.outputs.fingerprint }}
     steps:
-      - name: Checkout history for push inspection
-        if: github.event_name == 'push' || github.event_name == 'workflow_run'
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Decide whether to deploy now
-        id: decision
-        shell: bash
-        run: |
-          if [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
-            # State and refresh timestamps change even without new public data.
-            # Compare material data with the commit that started the workflow.
-            base='${{ github.event.workflow_run.head_sha }}'
-            # A bounded batch can succeed while publication history remains
-            # pending. Preserve the strict deploy gate without treating a normal
-            # partial checkpoint as a failed Pages deployment.
-            if ! python tools/refresh_scope.py --check-publishable; then
-              echo "deploy=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            if ! git cat-file -e "$base^{commit}"; then
-              echo "deploy=true" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            # A chat-driven catalogue push is intentionally held until the
-            # refresh finishes. Include that original push even if the new
-            # adaptive cadence does not change its records again.
-            if [ '${{ github.event.workflow_run.event }}' = 'push' ] &&
-               git rev-parse "$base^" >/dev/null 2>&1 &&
-               git diff --name-only "$base^" "$base" -- data/projects.json data/projects.index.json data/projects/ | grep -q .; then
-              echo "deploy=true" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            python - "$base" <<'PY' >> "$GITHUB_OUTPUT"
-          import json
-          import subprocess
-          import sys
-
-          base = sys.argv[1]
-          sys.path.insert(0, 'tools')
-          from catalogue_storage import load_git_projects, load_git_dataset
-
-          def material(revision):
-              projects = load_git_projects(revision)
-              for project in projects:
-                  (project.get('github') or {}).pop('checked_at', None)
-              activity = json.loads(subprocess.check_output(['git', 'show', f'{revision}:data/activity.json']))
-              activity.pop('generated_at', None)
-              # Research-only changes deploy via push. This workflow_run gate
-              # compares public catalogue/activity, ignoring polling timestamps.
-              return projects, activity, load_git_dataset(revision, 'project-audits.json')
-
-          changed = material(base) != material('HEAD')
-          print('deploy=' + str(changed).lower())
-          PY
-            exit 0
-          fi
-
-          if [ "$GITHUB_EVENT_NAME" != "push" ]; then
-            echo "deploy=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          before='${{ github.event.before }}'
-          after='${{ github.sha }}'
-
-          # A catalogue change starts Refresh GitHub metadata. Do not publish the
-          # pre-refresh snapshot; its successful workflow_run will deploy main.
-          if git diff --name-only "$before" "$after" | grep -Eq '^data/projects(\.json$|\.index\.json$|/)' ; then
-            echo "deploy=false" >> "$GITHUB_OUTPUT"
-            echo "Catalogue changed; deferring Pages deployment until metadata refresh completes."
-          else
-            echo "deploy=true" >> "$GITHUB_OUTPUT"
-          fi
-
-  deploy:
-    needs: gate
-    if: needs.gate.outputs.deploy == 'true' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
-    concurrency:
-      group: github-pages
-      cancel-in-progress: true
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
         with:
           ref: main
           fetch-depth: 0
+      - name: Admit only new complete public content
+        id: decision
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/pages_publication.py gate
 
-      - name: Require complete publication data
-        run: python tools/refresh_scope.py --check-publishable
-
-      - name: Check JavaScript syntax
-        run: node --check web/tracker.js
-
-      - name: Check CPU filter behavior
-        run: node --test tools/test_cpu_filters.js tools/test_browser_storage.js tools/test_publish_discovery.js
-
-      - name: Check RSS generator syntax
-        run: python -m py_compile tools/generate_rss.py tools/generate_recent_activity.py tools/validate_site_data.py tools/apply_discovery_batch.py
-
-      - name: Check discovery batch integrity
-        run: python -m unittest discover -s tools -p 'test_*.py'
-
-      - name: Prepare static site
-        run: |
-          mkdir -p _site
-          cp index.html _site/
-          cp -R web _site/
-          cp -R data _site/
-          python - <<'PY'
-          from hashlib import sha256
-          from pathlib import Path
-          import re
-
-          index = Path('_site/index.html')
-          html = index.read_text(encoding='utf-8')
-          for asset in ('tracker.css', 'tracker.js'):
-              path = 'web/' + asset
-              digest = sha256((Path('_site') / path).read_bytes()).hexdigest()[:12]
-              html, count = re.subn(re.escape(path) + r'(?:\?v=[^"\s]*)?', path + '?v=' + digest, html)
-              if count != 1:
-                  raise ValueError(f'Expected one reference to {path}, found {count}')
-          index.write_text(html, encoding='utf-8')
-          PY
-          touch _site/.nojekyll
-
-      - name: Generate activity RSS
-        run: python tools/generate_rss.py data/activity.json data/projects.json _site/activity.xml
-
-      - name: Generate recent activity feed
-        run: |
-          python tools/generate_recent_activity.py data/activity.json _site/data/activity-30d.json
-          python tools/generate_recent_activity.py data/activity.json _site/data/activity-180d.json --days 180
-
-      - name: Validate generated site data
-        run: python tools/validate_site_data.py data/projects.json data/activity.json _site/activity.xml
-
+  deploy:
+    needs: gate
+    if: needs.gate.outputs.deploy == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.gate.outputs.snapshot }}
+          fetch-depth: 0
+      - name: Verify the exact admitted publication snapshot
+        env:
+          SNAPSHOT: ${{ needs.gate.outputs.snapshot }}
+        run: python tools/pages_publication.py verify --snapshot "$SNAPSHOT"
+      - name: Build and validate the pinned site
+        run: python tools/build_site.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  reconcile:
+    needs: [gate, deploy]
+    if: always() && !cancelled() && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Preserve follow-up changes and bounded failure recovery
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          GATE_RESULT: ${{ needs.gate.result }}
+          FAILED_DIGEST: ${{ needs.gate.outputs.fingerprint }}
+          ATTEMPT: ${{ inputs.attempt || '0' }}
+        run: |
+          failure=()
+          if [ "$DEPLOY_RESULT" = "failure" ] || [ "$GATE_RESULT" = "failure" ]; then failure=(--failure); fi
+          python tools/pages_publication.py request --attempt "$ATTEMPT" \
+            --failed-digest "$FAILED_DIGEST" "${failure[@]}"
