@@ -24,9 +24,9 @@ class ConfigurationAttributionTests(unittest.TestCase):
 
     def test_missing_ai_defaults_to_unknown_only_when_configuration_found(self):
         record = {}
-        update_ai_config([record], [{"name": "AGENTS.md"}, None], [])
+        update_ai_config([record], [{"name": "README.md"}, None], [])
         self.assertEqual(record, {})
-        update_ai_config([record], [{"name": "CLAUDE.md"}], [])
+        update_ai_config([record], [{"name": "AGENTS.md"}], [])
         self.assertIsNone(record["ai"]["usage"])
         self.assertEqual(record["ai"]["tools"], [])
 
@@ -138,6 +138,44 @@ class CoauthorAttributionTests(unittest.TestCase):
         detect_ai(record, [{"commit": {"message": "Co-authored-by: Pi (GPT-6 Astra) <noreply@openai.com>"}}])
         self.assertEqual(record["ai"]["tools"], ["ChatGPT", "Claude", "Pi"])
         self.assertEqual(record["ai"]["evidence"][:2], original["ai"]["evidence"])
+
+
+class LinkedBotTests(unittest.TestCase):
+    def test_bot_requires_linked_allowlisted_actor_and_preserves_curated_no(self):
+        real = {"sha": "a" * 40, "html_url": "https://github.com/owner/repo/commit/" + "a" * 40,
+                "author": {"type": "Bot", "login": "copilot-swe-agent[bot]"}, "commit": {"message": "Work"}}
+        record = {"ai": {"usage": None, "tools": []}}
+        detect_ai(record, [real])
+        self.assertTrue(record["ai"]["usage"])
+        self.assertEqual(record["ai"]["tools"], ["GitHub Copilot"])
+        self.assertIn(real["html_url"], record["ai"]["evidence"][0])
+        for author in ({"type": "User", "login": "copilot-swe-agent[bot]"},
+                       {"type": "Bot", "login": "someone[bot]"}, {}):
+            unknown = {"ai": {"usage": None, "tools": []}}
+            detect_ai(unknown, [{**real, "author": author}])
+            self.assertIsNone(unknown["ai"]["usage"])
+        curated = {"ai": {"usage": False, "tools": []}}
+        detect_ai(curated, [real])
+        self.assertIs(curated["ai"]["usage"], False)
+        self.assertIn(real["html_url"], curated["ai"]["evidence"][0])
+
+    def test_explicit_subject_preserves_curated_no_for_review(self):
+        from datetime import datetime, timezone
+        from unittest.mock import patch
+        import record_project_activity as recorder
+        project = {"id": "p", "ai": {"usage": False, "tools": []}}
+        event = {"type": "commit", "project_id": "p", "sha": "abc", "title": "Claude fixed the display",
+                 "date": "2026-10-19T00:00:00Z"}
+        with patch.object(recorder, "CUTOFF", datetime(2000, 1, 1, tzinfo=timezone.utc)):
+            recorder.enrich_explicit_ai([project], {"events": [event]})
+        self.assertIs(project["ai"]["usage"], False)
+        self.assertEqual(project["ai"]["tools"], [])
+        self.assertIn("Explicit Claude involvement", project["ai"]["evidence"][0])
+
+    def test_existing_tool_label_alone_never_promotes_usage(self):
+        record = {"ai": {"usage": None, "tools": ["Claude"]}}
+        detect_ai(record, [{"commit": {"message": "Ordinary work"}}])
+        self.assertIsNone(record["ai"]["usage"])
 
 
 if __name__ == "__main__":

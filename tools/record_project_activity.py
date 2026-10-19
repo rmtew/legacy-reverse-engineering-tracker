@@ -154,9 +154,10 @@ def enrich_explicit_ai(projects, activity):
             if not any(str(item).startswith(marker) for item in evidence):
                 evidence.append(f'{marker}: "{subject[:180]}"')
             before = (ai.get("usage"), tuple(ai.get("tools") or []))
-            tools.add(tool)
-            ai["usage"] = True
-            ai["tools"] = sorted(tools)
+            if ai.get("usage") is not False:
+                tools.add(tool)
+                ai["usage"] = True
+                ai["tools"] = sorted(tools)
             ai["evidence"] = evidence
             after = (ai.get("usage"), tuple(ai.get("tools") or []))
             if after != before:

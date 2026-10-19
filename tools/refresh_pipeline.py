@@ -476,11 +476,9 @@ def activity_unit(repo, records, rs, events, now):
                 continue
             for item in chunk:
                 activity.add_event(known, project, repo, item, query["branch"], newest)
-            observed = [e for e in known.values() if e.get("project_id") == project["id"]]
-            activity.detect_ai(
-                project,
-                [{"sha": e.get("sha"), "commit": {"message": e.get("message", "")}} for e in observed],
-            )
+            # Fresh API objects retain linked bot identity and co-author trailers;
+            # canonical lean events deliberately omit full messages.
+            activity.detect_ai(project, chunk)
             if (
                 first_page
                 and project["id"] in newest

@@ -328,6 +328,13 @@ def add_event(events, project, repo, item, branch, newest):
     if not event:
         event = event_from_commit(project["id"], repo, item)
         events[key] = event
+    # Restore detail from fresh API input for this scan's detectors. The shared
+    # writer drops full messages again at the canonical boundary.
+    event["message"] = (item.get("commit") or {}).get("message") or ""
+    actor = item.get("author") or {}
+    if actor.get("type") == "Bot" and actor.get("login") in AI_BOT_LOGINS:
+        event["ai_bot"] = AI_BOT_LOGINS[actor["login"]]
+        event["author"] = actor["login"]
     if branch not in event.setdefault("branches", []):
         event["branches"].append(branch)
     old = newest.get(project["id"])
@@ -355,13 +362,26 @@ def attribute_with_path_queries(events, newest, repo, branch, since, items, root
         for item in matched:
             add_event(events, project, repo, item, branch, newest)
 
+# Documented GitHub agent identity; require the API-linked Bot object, never a
+# free-form Git author name/email. Keep this allowlist deliberately small.
+# https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/use-cloud-agent-via-the-api
+AI_BOT_LOGINS = {"copilot-swe-agent[bot]": "GitHub Copilot"}
+
+
 def detect_ai(record, items):
     ai = record.setdefault("ai", {"usage": None, "tools": []})
     tools = set(ai.get("tools") or [])
     evidence = list(ai.get("evidence") or [])
     hits = {}
     examples = {}
+    bot_examples = {}
     for item in items:
+        actor = item.get("author") or {}
+        login = actor.get("login") or ""
+        if actor.get("type") == "Bot" and login in AI_BOT_LOGINS:
+            tool = AI_BOT_LOGINS[login]
+            bot_examples.setdefault(tool, (item.get("sha") or "", login, item.get("html_url") or ""))
+            tools.add(tool)
         message = ((item.get("commit") or {}).get("message") or "")
         for tool, name in coauthor_tools(message).items():
             hits[tool] = hits.get(tool, 0) + 1
@@ -372,9 +392,14 @@ def detect_ai(record, items):
         evidence = [e for e in evidence if not e.startswith(marker)]
         sha, name = examples[tool]
         evidence.append(f"{marker}: {count} in this scan (example {sha}; {name})")
-    if tools:
-        ai["usage"] = True
-        ai["tools"] = sorted(tools)
+    for tool, (sha, login, url) in bot_examples.items():
+        marker = f"GitHub-linked {tool} bot authored a tracked commit"
+        if not any(str(e).startswith(marker) for e in evidence):
+            evidence.append(f"{marker}: {login}; {sha[:12]}; {url}")
+    if hits or bot_examples:
+        if ai.get("usage") is not False:
+            ai["usage"] = True
+            ai["tools"] = sorted(tools)
         ai["evidence"] = evidence
 
 def activity_state(value):
@@ -662,6 +687,9 @@ def main():
             fake = {
                 "sha": event.get("sha"),
                 "commit": {"message": event.get("message") or ""},
+                "html_url": event.get("url"),
+                "author": {"type": "Bot", "login": event.get("author")}
+                    if event.get("ai_bot") == AI_BOT_LOGINS.get(event.get("author")) and event.get("ai_bot") else {},
             }
             items_by_project.setdefault(event.get("project_id"), []).append(fake)
     for project_id, items in items_by_project.items():

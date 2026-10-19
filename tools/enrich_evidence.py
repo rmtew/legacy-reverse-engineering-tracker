@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import re
+import routine_metadata
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
@@ -10,7 +11,7 @@ DATA=ROOT/"data"/"projects.json"
 RAW="https://raw.githubusercontent.com"
 API="https://api.github.com"
 TODAY=datetime.now(timezone.utc).date().isoformat()
-COLLECTOR="github-docs-v3"
+COLLECTOR="github-docs-v4"
 MAX=700_000
 DOCS=["README.md","README","readme.md","STATUS.md","status.md","BUILD.md","build.md","BUILDING.md","building.md","NOTES.md","notes.md"]
 ROOT_EXTRA=["docs/README.md","docs/STATUS.md","docs/status.md","docs/BUILD.md","docs/build.md"]
@@ -112,6 +113,8 @@ def apply(record,auto):
  for field,val in prev.items():
   if field=="re_started":
    if record.get(field)==val:record[field]=None
+  elif field.startswith("ai.") or field in ("source_cpu", "target_cpu", "source_platforms", "target_platforms"):
+   pass  # Explicit source observations are historical facts, not volatile build status.
   elif build.get(field)==val:build[field]=None
  applied={}
  for field in ("compilable","playable","byte_exact"):
@@ -120,9 +123,10 @@ def apply(record,auto):
  val=one_value(auto["re_started"])
  if val is not None and record.get("re_started") is None:record["re_started"]=val;applied["re_started"]=val
  if build.get("playable") is True and build.get("runnable") is None:build["runnable"]=True;applied["runnable"]=True
+ applied.update(routine_metadata.apply(record, auto))
  if applied:auto["applied"]=applied
  evidence=record.setdefault("evidence",{})
- if any(auto[k] for k in ("compilable","playable","byte_exact","re_started","ci")):evidence["automated"]=auto
+ if any(auto.get(k) for k in ("compilable","playable","byte_exact","re_started","ci","ai_use","ai_config","source_cpu","target_cpu","source_platforms","target_platforms")):evidence["automated"]=auto
  else:
   evidence.pop("automated",None)
   if not evidence:record.pop("evidence",None)

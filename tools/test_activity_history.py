@@ -122,6 +122,16 @@ class LeanRetentionTest(unittest.TestCase):
         event = {"type": "commit", "project_id": "p", "date": "2026-08-01T00:00:00Z", "sha": "old"}
         self.assertEqual(retained_events(compact_history([event], now), now, [{"id": "p"}]), [])
 
+    def test_removed_fallback_uses_latest_snapshot_regardless_of_input_order(self):
+        from activity_history import retained_events
+        newest = {"type": "project_removed", "project_id": "gone", "date": "2026-10-18T00:00:00Z",
+                  "project": {"id": "gone", "source_cpu": ["Z80"]}}
+        oldest = {"type": "project_added", "project_id": "gone", "date": "2026-10-17T00:00:00Z",
+                  "project": {"id": "gone", "source_cpu": ["6502"]}}
+        for events in ([newest, oldest], [oldest, newest]):
+            output = retained_events(events, datetime(2026, 10, 19, tzinfo=timezone.utc), [])
+            self.assertTrue(all(event["project"]["source_cpu"] == ["Z80"] for event in output))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -53,6 +53,10 @@ AI_CONFIG = {
     "claude.md": "Claude",
     ".claude": "Claude",
     "codex.md": "OpenAI Codex",
+    "agents.md": "Agent",
+    ".codex": "OpenAI Codex",
+    ".cursorrules": "Cursor",
+    ".aider.conf.yml": "Aider",
 }
 
 class RateStop(RuntimeError):
@@ -416,7 +420,8 @@ def enrich_changed_repo(repo, info, repo_projects, *, required=False):
         )
         github_entries = github_entries or []
 
-    update_ai_config(repo_projects, root_entries, github_entries)
+    update_ai_config([p for p in repo_projects if (p.get("github_branch") or branch) == branch],
+                     root_entries, github_entries)
 
     if any(not p.get("github_path") for p in repo_projects):
         check_latest_release(repo, repo_projects)
@@ -433,7 +438,7 @@ def enrich_changed_repo(repo, info, repo_projects, *, required=False):
 def fill_missing_latest_commits(repos, state, request=None, *, required=False):
     """Fetch one historical commit per tracked branch/path missing a latest date.
 
-    The rolling activity collector intentionally fetches only 180 days. A
+    The rolling activity collector intentionally fetches only 30 days. A
     repository older than that still needs its most recent upstream date for
     the project record and the addition card, without adding an old commit to
     the current activity timeline.
