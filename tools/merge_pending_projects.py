@@ -48,19 +48,22 @@ def apply_update(record: dict, update: dict, project_id: str) -> None:
         record.pop(key, None)
 
 
-def main() -> None:
-    projects = load_projects(PROJECTS)
-    if not PENDING.exists():
+def main(root=None) -> None:
+    projects_path = Path(root) / "data/projects.json" if root is not None else PROJECTS
+    pending_path = Path(root) / "data/pending-projects.json" if root is not None else PENDING
+    audits_path = Path(root) / "data/project-audits.json" if root is not None else AUDITS
+    projects = load_projects(projects_path)
+    if not pending_path.exists():
         print("No pending project queue present.")
         return
 
-    pending = json.loads(PENDING.read_text(encoding="utf-8"))
+    pending = json.loads(pending_path.read_text(encoding="utf-8"))
     if not pending:
         print("No pending projects to merge.")
         return
 
     by_id = {record.get("id"): record for record in projects if record.get("id")}
-    audits = load_dataset(AUDITS.parent, "project-audits.json")
+    audits = load_dataset(audits_path.parent, "project-audits.json")
     audit_by_id = {record.get("project_id"): record for record in audits.get("projects", []) if record.get("project_id")}
     added = []
     updated = []
@@ -92,8 +95,8 @@ def main() -> None:
 
     projects.sort(key=lambda record: ((record.get("title") or "").casefold(), record.get("id") or ""))
     audits.setdefault("projects", []).sort(key=lambda record: record.get("project_id") or "")
-    write_all(PROJECTS.parent, {"projects.json": projects, "project-audits.json": audits})
-    PENDING.write_text("[]\n", encoding="utf-8")
+    write_all(projects_path.parent, {"projects.json": projects, "project-audits.json": audits})
+    pending_path.write_text("[]\n", encoding="utf-8")
 
     print(
         f"Merged {len(added)} pending projects; applied {len(updated)} curated updates; "
