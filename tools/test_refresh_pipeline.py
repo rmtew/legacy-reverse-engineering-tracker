@@ -411,6 +411,39 @@ class RefreshPipelineTests(unittest.TestCase):
                 self.read("state/project-catalog-state.json"),
             )
 
+    def test_completed_publication_marker_never_resets_incremental_history(self):
+        self.activity_only(
+            publication={"metadata_complete": True, "history_complete": True, "reset_project_ids": ["a"]}
+        )
+        old = pipeline.activity.event_from_commit("a", "owner/a", commit(1))
+        old["branches"] = ["main"]
+        self.put(
+            "data/activity.json", {"generated_at": pipeline.stamp(NOW), "window_days": 180, "events": [old]}
+        )
+        self.net.pages = {1: [commit(2)]}
+        self.apply(self.collect())
+        self.assertEqual(
+            {e["sha"] for e in self.read("data/activity.json")["events"]},
+            {commit(1)["sha"], commit(2)["sha"]},
+        )
+
+    def test_empty_changed_tracking_resets_old_history_before_completion(self):
+        self.activity_only(
+            publication={"metadata_complete": True, "history_complete": False, "reset_project_ids": ["a"]}
+        )
+        old = pipeline.activity.event_from_commit("a", "owner/a", commit(1))
+        old["branches"] = ["main"]
+        self.put(
+            "data/activity.json", {"generated_at": pipeline.stamp(NOW), "window_days": 180, "events": [old]}
+        )
+        self.net.empty = True
+        result = self.apply(self.collect())
+        self.assertEqual(result["completed"]["activity"], 1)
+        self.assertEqual(self.read("data/activity.json")["events"], [])
+        self.assertTrue(
+            self.read(pipeline.POLL)["repositories"]["owner/a"]["publication"]["history_complete"]
+        )
+
     def test_actual_distinct_repository_ceiling_and_shared_roots(self):
         records = [project(f"p{i:04}") for i in range(502)]
         records.append(project("shared", repo=records[0]["repo"]))

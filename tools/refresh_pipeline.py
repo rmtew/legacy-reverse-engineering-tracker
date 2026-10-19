@@ -439,6 +439,17 @@ def activity_unit(repo, records, rs, events, now):
                     {"branch": branch, "tip": tip, "path": path, "since": stamp(since), "page": 1}
                 )
         cursor["queries_started"] = True
+    if not cursor["reset_applied"]:
+        # Reset changed tracking only while its publication is pending. The
+        # completed marker remains in poll state and must not erase old history
+        # during a later incremental scan. Empty repositories need this too.
+        reset = set((rs.get("publication") or {}).get("reset_project_ids") or []) if required else set()
+        events = [
+            e
+            for e in events
+            if not (e.get("project_id") in reset and e.get("type") in {"commit", "daily_commits"})
+        ]
+        cursor["reset_applied"] = True
     if cursor["queries"]:
         query = cursor["queries"][0]
         params = {"sha": query["tip"], "since": query["since"], "per_page": 100, "page": query["page"]}
@@ -447,14 +458,6 @@ def activity_unit(repo, records, rs, events, now):
         chunk = activity.api(f"/repos/{repo}/commits?{urlencode(params)}", allow_empty_repo=True) or []
         if not isinstance(chunk, list):
             raise ValueError("Invalid commits page")
-        if not cursor["reset_applied"]:
-            reset = set((rs.get("publication") or {}).get("reset_project_ids") or [])
-            events = [
-                e
-                for e in events
-                if not (e.get("project_id") in reset and e.get("type") in {"commit", "daily_commits"})
-            ]
-            cursor["reset_applied"] = True
         known = {
             (e.get("project_id"), e.get("repository"), e.get("sha")): e
             for e in events
