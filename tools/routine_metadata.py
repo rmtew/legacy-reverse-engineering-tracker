@@ -4,13 +4,13 @@ import re
 # Presence describes configuration, not proof an assistant actually contributed.
 INSTRUCTIONS = ('AGENTS.md', 'CLAUDE.md', 'CODEX.md', '.github/copilot-instructions.md',
                 '.codex/config.toml', '.claude/settings.json', '.cursorrules', '.aider.conf.yml')
-TOOL = re.compile(r'\b(Claude(?: Code)?|ChatGPT|(?:OpenAI )?Codex|(?:GitHub )?Copilot|Gemini|Cursor|Aider)\b', re.I)
+TOOL = re.compile(r'\b(Claude(?: Code)?|ChatGPT|(?:OpenAI )?Codex|(?:GitHub )?Copilot|Gemini|Cursor AI|Aider)\b', re.I)
 USE = re.compile(r'\b(?:written|developed|coded|generated|built|ported|created|assisted|implemented)\b[^.\n]{0,90}\b(?:with|using|by|via)\b|\b(?:I|we)\s+(?:use|used)\b', re.I)
 GENERIC_USE = re.compile(r'\bAI[- ](?:assisted (?:coding|development)|generated (?:code|assets|artwork))\b', re.I)
-UNASSERTED = re.compile(r"\b(?:not|never|without|no|goal|aim|plan|planned|planning|hope|might|could|can)\b", re.I)
+UNASSERTED = re.compile(r"\b(?:not|never|without|no|goal|aim|plan|planned|planning|hope|might|could|can|avoid|forbidden|prohibited|banned|disallowed|rejected|guidelines|policy|don't|doesn't|isn't|mustn't|shouldn't|can't)\b", re.I)
 TOOLS = {'claude code': 'Claude', 'openai codex': 'OpenAI Codex', 'codex': 'OpenAI Codex',
          'copilot': 'GitHub Copilot', 'github copilot': 'GitHub Copilot', 'chatgpt': 'ChatGPT',
-         'claude': 'Claude', 'gemini': 'Gemini', 'cursor': 'Cursor', 'aider': 'Aider'}
+         'claude': 'Claude', 'gemini': 'Gemini', 'cursor ai': 'Cursor', 'aider': 'Aider'}
 CPU = {v.casefold(): v for v in ('6502', '6510', '65C02', '65816', 'Z80', '68000', '68010', '68020',
                                '68030', '68040', '68060', '8086', '80286', '80386', 'ARM', 'x86', 'x86-64')}
 PLATFORMS = {v.casefold(): v for v in ('Amiga', 'Amiga OCS', 'Amiga ECS', 'Amiga AGA', 'Amiga CD32',
@@ -38,6 +38,7 @@ def scan(text, repo, commit, path, evidence, *, context_only=False):
         fields['ai_config'].append({'value': path, 'strength': 'supporting', 'source': path,
                                    'url': evidence.blob(repo, commit, path), 'excerpt': excerpt,
                                    'collector': evidence.COLLECTOR, 'checked_at': evidence.TODAY})
+        return fields  # Instructions express policy/configuration, not observed project facts.
     if context_only:
         return fields
     fenced = False

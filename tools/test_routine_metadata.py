@@ -16,13 +16,14 @@ class RoutineMetadataTests(unittest.TestCase):
 
     def test_positive_generic_and_named_disclosures_but_not_mentions_plans_or_negation(self):
         for text, expected in [('This project was developed using Claude Code.', 'Claude'),
-                               ('AI-assisted coding', 'Unspecified AI'), ('We used ChatGPT.', 'ChatGPT')]:
+                               ('AI-assisted coding', 'Unspecified AI'), ('We used ChatGPT.', 'ChatGPT'), ('This was developed using Cursor AI.', 'Cursor')]:
             with self.subTest(text=text):
                 auto = self.scan(text)
                 self.assertEqual(auto['ai_use'][0]['value'], expected)
                 self.assertIn('/blob/' + 'a' * 40 + '/', auto['ai_use'][0]['url'])
         for text in ['```text\nWe used Claude.\n```', '> We used Claude.', 'Claude is supported.', 'We never used Claude.', 'Can I use ChatGPT?',
-                     'We plan to build with Codex.', 'No AI-generated code.', 'Built without Claude.']:
+                     'We plan to build with Codex.', 'No AI-generated code.', 'Built without Claude.', "Don't use AI-generated code.",
+                     'AI-generated code is forbidden.', 'We used cursor positioning.']:
             with self.subTest(text=text):
                 self.assertEqual(self.scan(text)['ai_use'], [])
 
@@ -38,6 +39,7 @@ class RoutineMetadataTests(unittest.TestCase):
         self.assertIsNone(record['ai']['usage'])
         self.assertEqual(auto['ai_config'][0]['strength'], 'supporting')
         self.assertNotIn('OpenAI Codex', record['ai']['tools'])
+        self.assertFalse(self.scan('AI-generated code is allowed.', 'AGENTS.md')['ai_use'])
         inherited = routine.scan('We used Claude.\nTarget CPU: Z80', 'owner/repo', 'a' * 40,
                                  'AGENTS.md', evidence, context_only=True)
         self.assertFalse(inherited['ai_use'])
