@@ -149,6 +149,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python tools/pages_publication.py request
 
+      - name: Resume retained evidence after metadata publication
+        if: always() && !cancelled()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/enrichment_handoff.py request
+
   continue:
     needs: refresh
     if: always() && github.ref == 'refs/heads/main' && (needs.refresh.result == 'success' || needs.refresh.result == 'failure')
