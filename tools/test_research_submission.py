@@ -228,6 +228,7 @@ class SubmissionTests(unittest.TestCase):
         output = Path(self.temp.name) / 'submission'
         info = submission.submission_bundle(self.document, self.root, output)
         manifest = json.loads((output / 'manifest.json').read_bytes())
+        self.assertEqual(manifest['submission'], {'version': 1, 'event_id': self.document['event_id'], 'digest': info['digest']})
         self.assertEqual(len(manifest['files']), 1)
         self.assertTrue(manifest['files'][0]['path'].startswith('submissions/research/'))
         self.assertLess(info['bytes'], 10000)

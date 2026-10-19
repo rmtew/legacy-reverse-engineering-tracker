@@ -424,3 +424,174 @@ test('unchanged entries reuse the verified baseline blob while new entries uploa
   await publishDiscovery(x.tools,x.options);
   assert.equal(x.remote.blobs,1);
 });
+
+const canonical=value=>value&&typeof value==='object'?Array.isArray(value)?value.map(canonical):Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
+function compactSetup(t,summary='Reviewed source observation') {
+  const document={format:'research-records/v1',date:'2026-10-19',event_id:'retry-fixture',summary,records:[],source_updates:[{id:'fixture-source',last_reviewed:'2026-10-19'}]};
+  const digest=crypto.createHash('sha256').update(JSON.stringify(canonical(document))).digest('hex');
+  document.review={status:'ready',digest};
+  const text=JSON.stringify(document)+'\n', x=setup(t,text), entry=x.manifest.files[0];
+  fs.mkdirSync(path.join(x.bundle,'payload/submissions/research'),{recursive:true});
+  entry.path='submissions/research/retry-fixture.json';
+  fs.renameSync(path.join(x.bundle,'payload/report.md'),path.join(x.bundle,'payload',entry.path));
+  x.manifest.baseline_files=[];
+  x.manifest.event_id=document.event_id;
+  x.manifest.submission={version:1,event_id:document.event_id,digest};
+  const save=()=>fs.writeFileSync(path.join(x.bundle,'manifest.json'),JSON.stringify(x.manifest));save();
+  x.options.branch='main';
+  const r=x.remote;r.graph=new Map();r.trees=new Map();r.contents=new Map();r.sequence=0;r.races=0;r.expectedText=text;
+  const hash=value=>crypto.createHash('sha1').update(value).digest('hex');
+  function snapshot(head,entries){const tree=hash('tree'+head);r.graph.set(head,{tree,entries:new Map(entries)});r.trees.set(tree,new Map(entries));}
+  snapshot(r.head,[]);
+  r.advance=(edits=[])=>{const entries=new Map(r.graph.get(r.head).entries);entries.set('concurrent/'+(++r.sequence)+'.json',hash('unrelated'+r.sequence));for(const [p,sha] of edits)entries.set(p,sha);const head=hash('concurrent'+r.sequence);snapshot(head,entries);r.head=head;return head;};
+  r.addInput=(value=text)=>{const sha=referenceDigest(value);r.contents.set(sha,value);r.advance([[entry.path,sha]]);return sha;};
+  r.addReceipt=(digestValue=digest)=>{const value=JSON.stringify({version:1,event_id:document.event_id,digest:digestValue,input_blob:entry.sha});const sha=referenceDigest(value);r.contents.set(sha,value);r.advance([[`state/research-receipts/${document.event_id}.json`,sha]]);};
+  const result=value=>({structuredContent:value});
+  x.tools.mcp__codex_apps__github_fetch=async({url})=>{
+    if(url.includes('/git/ref/'))return result({object:{sha:r.head}});
+    if(url.includes('/git/commits/')){const head=url.split('/').at(-1);return result({tree:{sha:r.graph.get(head).tree}});}
+    if(url.includes('/git/trees/')){const tree=url.split('/').at(-1).split('?')[0];return result({tree:[...r.trees.get(tree)].map(([path,sha])=>({path,type:'blob',sha}))});}
+    if(url.includes('/git/blobs/')){const sha=url.split('/').at(-1),content=r.contents.get(sha);return result({content:r.rawBlobs?content:JSON.stringify({encoding:'base64',size:Buffer.byteLength(content),content:Buffer.from(content).toString('base64')})});}
+    throw new Error(url);
+  };
+  x.tools.mcp__codex_apps__github_create_blob=async args=>{r.blobs++;assert.equal(args.content,r.expectedText);r.contents.set(entry.sha,args.content);return result({sha:entry.sha});};
+  x.tools.mcp__codex_apps__github_create_tree=async args=>{
+    const entries=new Map(r.trees.get(args.base_tree_sha));
+    assert.equal(args.tree_elements.length,1);assert.equal(args.tree_elements[0].path,entry.path);
+    for(const e of args.tree_elements)entries.set(e.path,e.sha);
+    const sha=hash('pending-tree'+(++r.sequence));r.trees.set(sha,entries);return result({sha});
+  };
+  x.tools.mcp__codex_apps__github_create_commit=async args=>{r.commits++;if(r.failCommit){r.failCommit=false;throw new Error('Interrupted commit creation');}const sha=hash('pending-commit'+r.commits+args.parent_sha);r.graph.set(sha,{tree:args.tree_sha,entries:r.trees.get(args.tree_sha)});return result({sha});};
+  x.tools.mcp__codex_apps__github_update_ref=async args=>{
+    r.refs++;assert.equal(args.force,false);
+    if(r.deny){r.advance();throw new Error('This action was rejected due to unacceptable risk');}
+    if(r.races>0){r.races--;r.advance();}
+    if(args.expected_sha!==r.head)throw new Error('Expected SHA mismatch: main advanced');
+    if(r.failBeforeUpdate){r.failBeforeUpdate=false;throw new Error('Connection lost before update response');}
+    r.head=args.sha;
+    if(r.loseResponse){r.loseResponse=false;if(r.advanceAfterUpdate)r.advance();throw new Error('Connection lost after update');}
+    return result({sha:r.head});
+  };
+  return {...x,document,digest,save};
+}
+
+test('compact submission refreshes an advanced parent and preserves concurrent files',async t=>{
+  const x=compactSetup(t),original=fs.readFileSync(path.join(x.bundle,'manifest.json'),'utf8');x.remote.advance();
+  const out=await publishDiscovery(x.tools,x.options);
+  assert.equal(out.ref_verified,true);assert.equal(x.remote.blobs,1);
+  assert.ok(x.remote.graph.get(x.remote.head).entries.has('concurrent/1.json'));
+  assert.equal(fs.readFileSync(path.join(x.bundle,'manifest.json'),'utf8'),original);
+});
+test('compact submission retries CAS races with one immutable blob upload',async t=>{
+  const x=compactSetup(t);x.remote.races=2;
+  const out=await publishDiscovery(x.tools,x.options);
+  assert.equal(out.ref_verified,true);assert.equal(x.remote.refs,3);assert.equal(x.remote.blobs,1);
+  assert.equal([...x.remote.graph.get(x.remote.head).entries.keys()].filter(p=>p.startsWith('concurrent/')).length,2);
+});
+test('already submitted identical compact content succeeds without writes, including alternate serialization',async t=>{
+  for(const mode of ['exact','git-data','connector-text']){
+    const x=compactSetup(t);x.remote.rawBlobs=mode==='connector-text';x.remote.addInput(mode==='exact'?x.text:JSON.stringify(canonical(x.document),null,2));
+    const out=await publishDiscovery(x.tools,x.options);
+    assert.equal(out.already_submitted,true);assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);
+  }
+});
+test('conflicting research event content fails before any mutation',async t=>{
+  const x=compactSetup(t),different=JSON.parse(x.text);different.summary='Conflicting';
+  const payload={...different};delete payload.review;different.review.digest=crypto.createHash('sha256').update(JSON.stringify(canonical(payload))).digest('hex');
+  x.remote.addInput(JSON.stringify(different));
+  await assert.rejects(publishDiscovery(x.tools,x.options),/conflicts with current main/);
+  assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);
+});
+test('exhausted compact races retain a resumable checkpoint and uploaded blob',async t=>{
+  const x=compactSetup(t);x.remote.races=3;
+  await assert.rejects(publishDiscovery(x.tools,x.options),/exhausted three/);
+  assert.equal(x.remote.refs,3);assert.equal(x.remote.blobs,1);
+  const out=await publishDiscovery(x.tools,x.options);
+  assert.equal(out.ref_verified,true);assert.equal(x.remote.blobs,1);assert.equal(x.remote.refs,4);
+});
+test('compact checkpoint resumes after parent advancement without reuploading input',async t=>{
+  const x=compactSetup(t);x.remote.failCommit=true;
+  await assert.rejects(publishDiscovery(x.tools,x.options),/Interrupted commit/);
+  x.remote.advance();
+  const out=await publishDiscovery(x.tools,x.options);
+  assert.equal(out.ref_verified,true);assert.equal(x.remote.blobs,1);
+});
+test('uncertain compact ref outcomes are read-verified, including a later descendant',async t=>{
+  for(const descendant of [false,true]){
+    const x=compactSetup(t);x.remote.loseResponse=true;x.remote.advanceAfterUpdate=descendant;
+    const out=await publishDiscovery(x.tools,x.options);
+    assert.equal(out.ref_verified,true);assert.equal(out.commit,x.remote.head);assert.equal(x.remote.refs,1);
+  }
+});
+test('unchanged uncertain ref response preserves the candidate for verified resume',async t=>{
+  const x=compactSetup(t);x.remote.failBeforeUpdate=true;
+  await assert.rejects(publishDiscovery(x.tools,x.options),/Connection lost/);
+  const commits=x.remote.commits;
+  const out=await publishDiscovery(x.tools,x.options);
+  assert.equal(out.ref_verified,true);assert.equal(x.remote.commits,commits);assert.equal(x.remote.blobs,1);
+});
+test('compact automatic retry never retries an approval denial',async t=>{
+  const x=compactSetup(t);x.remote.deny=true;
+  await assert.rejects(publishDiscovery(x.tools,x.options),/unacceptable risk/);
+  assert.equal(x.remote.refs,1);
+});
+test('compact retry cannot be enabled for code, catalogue paths or extra files',async t=>{
+  for(const mode of ['tools/code.js','data/projects/0.json','extra']){
+    const x=compactSetup(t),entry=x.manifest.files[0];
+    if(mode==='extra'){
+      x.manifest.files.push({...entry,path:'extra.json'});fs.writeFileSync(path.join(x.bundle,'payload/extra.json'),x.text);
+    }else{
+      const old=path.join(x.bundle,'payload',entry.path);entry.path=mode;
+      fs.mkdirSync(path.dirname(path.join(x.bundle,'payload',entry.path)),{recursive:true});fs.renameSync(old,path.join(x.bundle,'payload',entry.path));
+    }
+    x.save();await assert.rejects(publishDiscovery(x.tools,x.options),/exactly one bounded compact/);
+    assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);
+  }
+});
+test('published receipts recognize identical archived inputs and reject conflicting IDs',async t=>{
+  const x=compactSetup(t);x.remote.rawBlobs=true;x.remote.addReceipt();
+  assert.equal((await publishDiscovery(x.tools,x.options)).already_submitted,true);
+  assert.equal(x.remote.refs,0);assert.equal(x.remote.blobs,0);
+  const y=compactSetup(t);y.remote.addInput();y.remote.addReceipt('0'.repeat(64));
+  await assert.rejects(publishDiscovery(y.tools,y.options),/conflicts with published receipt/);
+  assert.equal(y.remote.refs,0);assert.equal(y.remote.blobs,0);
+});
+test('unmarked code publication on main still refuses a stale parent',async t=>{
+  const x=setup(t);x.options.branch='main';x.remote.head='f'.repeat(40);
+  await assert.rejects(publishDiscovery(x.tools,x.options),/Branch advanced/);
+  assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);
+});
+test('compact retries validate the review seal before any mutation',async t=>{
+  const x=compactSetup(t),doc=JSON.parse(x.text);doc.review.status='draft';
+  const text=JSON.stringify(doc),entry=x.manifest.files[0];
+  entry.bytes=Buffer.byteLength(text);entry.chars=Array.from(text).length;entry.sha=referenceDigest(text);entry.sha256=crypto.createHash('sha256').update(text).digest('hex');
+  fs.writeFileSync(path.join(x.bundle,'payload',entry.path),text);x.save();
+  await assert.rejects(publishDiscovery(x.tools,x.options),/Invalid ready research seal/);
+  assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);
+});
+test('compact wire validation preserves pinned proof bytes and rejects altered evidence',async t=>{
+  for(const tampered of [false,true]){
+    const x=compactSetup(t),doc=JSON.parse(x.text),proofText='Pinned 🦊 evidence.\n';
+    doc.proofs={p:{repository:'https://github.com/owner/evidence',commit:'a'.repeat(40),path:'README.md',blob:referenceDigest(proofText).toUpperCase(),text:proofText}};
+    const payload=JSON.parse(JSON.stringify(doc));delete payload.review;delete payload.proofs.p.text;
+    const digest=crypto.createHash('sha256').update(JSON.stringify(canonical(payload))).digest('hex');doc.review={status:'ready',digest};
+    if(tampered)doc.proofs.p.text='Different evidence';
+    const text=JSON.stringify(doc),entry=x.manifest.files[0];
+    Object.assign(entry,{bytes:Buffer.byteLength(text),chars:Array.from(text).length,sha:referenceDigest(text),sha256:crypto.createHash('sha256').update(text).digest('hex')});
+    x.manifest.submission.digest=digest;x.remote.expectedText=text;
+    fs.writeFileSync(path.join(x.bundle,'payload',entry.path),text);x.save();
+    if(tampered){await assert.rejects(publishDiscovery(x.tools,x.options),/proof bytes changed/);assert.equal(x.remote.blobs,0);}
+    else assert.equal((await publishDiscovery(x.tools,x.options)).ref_verified,true);
+  }
+});
+
+test('large alternate compact serialization validates through bounded remote bridge commands',async t=>{
+  for(const rawBlobs of [false,true]){
+    const x=compactSetup(t,'Large漢🦊 '.repeat(18000));x.remote.rawBlobs=rawBlobs;
+    x.remote.addInput(JSON.stringify(canonical(x.document),null,2));
+    const exec=x.tools.exec_command;let maximum=0;
+    x.tools.exec_command=async args=>{maximum=Math.max(maximum,Buffer.byteLength(args.cmd));assert.ok(Buffer.byteLength(args.cmd)<120000);return exec(args);};
+    assert.equal((await publishDiscovery(x.tools,x.options)).already_submitted,true);
+    assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);assert.ok(maximum>90000);
+  }
+});

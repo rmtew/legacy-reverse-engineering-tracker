@@ -105,7 +105,8 @@ def submission_bundle(document, root, output, baseline=None, cache=None):
         baseline_files.append(file_entry(info['path'], existing))
     manifest = {'version': 1, 'baseline_commit': baseline, 'event_id': info['event_id'],
                 'input_digest': content_digest({'baseline': baseline, 'document': decode(raw)}),
-                'files': [file_entry(info['path'], raw)], 'baseline_files': baseline_files}
+                'files': [file_entry(info['path'], raw)], 'baseline_files': baseline_files,
+                'submission': {'version': 1, 'event_id': info['event_id'], 'digest': info['digest']}}
     if output.exists():
         if decode((output / 'manifest.json').read_bytes()) != manifest:
             raise ValueError('Submission bundle already belongs to another input/baseline')

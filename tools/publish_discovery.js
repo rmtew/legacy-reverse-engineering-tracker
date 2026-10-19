@@ -182,6 +182,178 @@ async function loadDiscoveryFile(tools, {bundle, entry, plan, outputBytes, concu
   return {text, ...digest, stats};
 }
 
+// Stable research-records/v1 wire identity, not a second catalogue validator.
+// Full compilation remains in research_submission.py and trusted-main Actions.
+const researchWireCode = String.raw`import base64,copy,hashlib,json,re
+
+def unique(items):
+ out={}
+ for k,v in items:
+  assert k not in out, 'Duplicate research JSON key'
+  out[k]=v
+ return out
+
+def load(raw):
+ assert len(raw)<=1024*1024, 'Research wire input exceeds 1 MiB'
+ return json.loads(raw,object_pairs_hook=unique)
+
+def identify(raw):
+ doc=load(raw)
+ assert isinstance(doc,dict) and doc.get('format')=='research-records/v1', 'Not a compact research record'
+ event=doc.get('event_id')
+ assert isinstance(event,str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}',event), 'Unsafe research event ID'
+ payload=copy.deepcopy(doc); review=payload.pop('review',{})
+ proofs=payload.get('proofs',{})
+ assert isinstance(proofs,dict), 'Invalid research proofs'
+ for proof in proofs.values():
+  assert isinstance(proof,dict) and isinstance(proof.get('text'),str), 'Research proofs need inline text'
+  text=proof.pop('text').encode('utf-8')
+  assert hashlib.sha1(b'blob '+str(len(text)).encode()+bytes([0])+text).hexdigest()==proof.get('blob','').lower(), 'Research proof bytes changed'
+ digest=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode()).hexdigest()
+ assert review.get('status')=='ready' and review.get('digest')==digest, 'Invalid ready research seal'
+ return {'event_id':event,'digest':digest}
+`;
+
+function compactSubmission(manifest, branch) {
+  const marker=manifest.submission, entry=manifest.files?.[0];
+  if(branch!=='main' || !marker || marker.version!==1 || typeof marker.event_id!=='string' || typeof marker.digest!=='string' || !/^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$/.test(marker.event_id)
+    || marker.event_id!==manifest.event_id || !/^[0-9a-f]{64}$/.test(marker.digest)
+    || !Array.isArray(manifest.files) || manifest.files.length!==1 || !entry || entry.path!==`submissions/research/${marker.event_id}.json`
+    || !/^[0-9a-f]{40}$/.test(entry.sha) || !/^[0-9a-f]{64}$/.test(entry.sha256)
+    || !Number.isSafeInteger(entry.bytes) || entry.bytes<1 || entry.bytes>1024*1024
+    || !/^[0-9a-f]{40}$/.test(manifest.baseline_commit)
+    || !Array.isArray(manifest.baseline_files) || manifest.baseline_files.length>1
+    || manifest.baseline_files.some(e=>e.path!==entry.path || !/^[0-9a-f]{40}$/.test(e.sha))) {
+    throw new Error('Automatic parent refresh requires exactly one bounded compact research submission on main');
+  }
+  return {marker,entry};
+}
+
+async function uploadPublicationBlob(tools,{repository,bundle,entry,plan}) {
+  const loaded=await loadDiscoveryFile(tools,{bundle,entry,plan});
+  const request={repository_full_name:repository,encoding:'utf-8',content:loaded.text};
+  const size=publicationUTF8(JSON.stringify(request)).bytes;
+  if(size>4*1024*1024 || (entry.request_bytes!==undefined && size!==entry.request_bytes)) throw new Error('Escaped connector request exceeds bound or manifest size: '+entry.path);
+  const blob=publicationResult(await tools.mcp__codex_apps__github_create_blob(request));
+  if(blob.sha!==entry.sha) throw new Error('Uploaded blob SHA mismatch for '+entry.path);
+  return blob.sha;
+}
+
+async function publishCompactSubmission(tools,{repository,branch,bundle,message,manifest,state,plans,fetch,checkpoint,repoURL,refURL}) {
+  const {marker,entry}=compactSubmission(manifest,branch);
+  const local=await publicationCommand(tools,researchWireCode+'\nfrom pathlib import Path\nraw=(Path('+JSON.stringify(bundle)+')/'+JSON.stringify('payload/'+entry.path)+').read_bytes()\nprint(json.dumps(identify(raw)))');
+  if(local.event_id!==marker.event_id || local.digest!==marker.digest) throw new Error('Compact research identity differs from manifest');
+  async function remoteIdentity(sha,receipt=false) {
+    const response=await tools.mcp__codex_apps__github_fetch({url:repoURL+'/git/blobs/'+sha});
+    if(!response || response.isError) publicationResult(response);
+    const value=response.structuredContent;
+    let blob=value, text=null;
+    if(typeof value?.content==='string' && value.encoding!=='base64') {
+      const parsed=JSON.parse(value.content);
+      if(parsed?.encoding==='base64') blob=parsed;
+      else text=value.content; // Connector blob reads expose exact UTF-8 text.
+    }
+    let raw;
+    if(text!==null) {
+      if(publicationUTF8(text).bytes>1024*1024) throw new Error('Oversized remote research blob');
+      raw='raw='+JSON.stringify(text)+'.encode("utf-8")';
+    } else {
+      if(blob?.encoding!=='base64' || typeof blob.content!=='string' || blob.size>1024*1024) throw new Error('Invalid or oversized remote research blob');
+      raw='raw=base64.b64decode('+JSON.stringify(blob.content)+')';
+    }
+    // Keep remote validation portable too: large existing inputs must not be
+    // embedded in a shell argument above the bridge's serialized-byte ceiling.
+    const limit=PUBLICATION_OUTPUT_BYTES-8192;
+    if(publicationUTF8(raw).bytes>limit) {
+      const source=text!==null?text:blob.content, file=bundle+'/remote-'+sha+'.wire';
+      for(let offset=0;offset<source.length;) {
+        let low=1,high=Math.min(source.length-offset,limit);
+        while(low<high) {
+          const mid=Math.ceil((low+high)/2);
+          if(publicationUTF8(JSON.stringify(source.slice(offset,offset+mid))).bytes<=limit) low=mid;else high=mid-1;
+        }
+        if(offset+low<source.length && /[\uD800-\uDBFF]/.test(source[offset+low-1])) low--;
+        if(low<1) throw new Error('Cannot transfer remote research code point within bound');
+        await publicationCommand(tools,'from pathlib import Path\nwith Path('+JSON.stringify(file)+').open('+JSON.stringify(offset===0?'wb':'ab')+') as f: f.write('+JSON.stringify(source.slice(offset,offset+low))+'.encode("utf-8"))\nprint("true")');
+        offset+=low;
+      }
+      raw='from pathlib import Path\nraw=Path('+JSON.stringify(file)+').read_bytes()';
+      if(text===null) raw+='\nraw=base64.b64decode(raw)';
+    }
+    const result=receipt ? "doc=load(raw)\nassert doc.get('version')==1 and isinstance(doc.get('event_id'),str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}',doc['event_id']) and re.fullmatch(r'[0-9a-f]{64}',doc.get('digest','')) and re.fullmatch(r'[0-9a-f]{40}',doc.get('input_blob','')), 'Invalid research receipt'\nresult={k:doc[k] for k in ('event_id','digest','input_blob')}" : 'result=identify(raw)';
+    return publicationCommand(tools,researchWireCode+'\n'+raw+'\nassert hashlib.sha1(b"blob "+str(len(raw)).encode()+bytes([0])+raw).hexdigest()=='+JSON.stringify(sha)+', "Remote research blob SHA mismatch"\n'+result+'\nprint(json.dumps(result))');
+  }
+  async function inspect(head) {
+    const commit=await fetch(repoURL+'/git/commits/'+head);
+    const tree=await fetch(repoURL+'/git/trees/'+commit.tree.sha+'?recursive=1');
+    if(tree.truncated) throw new Error('Cannot verify truncated compact-submission tree');
+    const blobs=new Map(tree.tree.filter(e=>e.type==='blob').map(e=>[e.path,e.sha]));
+    const present=blobs.get(entry.path), receipt=blobs.get(`state/research-receipts/${marker.event_id}.json`);
+    let submitted=present;
+    if(present && present!==entry.sha) {
+      const remote=await remoteIdentity(present);
+      if(remote.event_id!==marker.event_id || remote.digest!==marker.digest) throw new Error('Research event ID conflicts with current main: '+marker.event_id);
+    }
+    if(receipt) {
+      const remote=await remoteIdentity(receipt,true);
+      if(remote.event_id!==marker.event_id || remote.digest!==marker.digest) throw new Error('Research event ID conflicts with published receipt: '+marker.event_id);
+      submitted ||= remote.input_blob;
+    }
+    return {base_tree:commit.tree.sha,submitted};
+  }
+  async function finish(head,snapshot,already) {
+    state.commit=head;
+    state.submission_blob=snapshot.submitted;
+    state.already_submitted=already;
+    state.authored_files_verified=true;
+    state.ref_verified=true;
+    await checkpoint();
+    return state;
+  }
+  let head=(await fetch(refURL)).object.sha;
+  for(let attempt=0;attempt<3;attempt++) {
+    const snapshot=await inspect(head);
+    if(snapshot.submitted) return finish(head,snapshot,true);
+    if(state.blobs[entry.path]!==entry.sha) {
+      state.blobs[entry.path]=await uploadPublicationBlob(tools,{repository,bundle,entry,plan:plans[0]});
+      await checkpoint();
+    }
+    if(state.submission_attempt?.parent!==head) {
+      state.submission_attempt={parent:head};
+      await checkpoint();
+    }
+    const pending=state.submission_attempt;
+    if(!pending.tree) {
+      pending.tree=publicationResult(await tools.mcp__codex_apps__github_create_tree({repository_full_name:repository,base_tree_sha:snapshot.base_tree,
+        tree_elements:[{path:entry.path,mode:'100644',type:'blob',sha:entry.sha}]})).sha;
+      await checkpoint();
+    }
+    if(!pending.commit) {
+      pending.commit=publicationResult(await tools.mcp__codex_apps__github_create_commit({repository_full_name:repository,tree_sha:pending.tree,parent_sha:head,message})).sha;
+      await checkpoint();
+    }
+    try {
+      publicationResult(await tools.mcp__codex_apps__github_update_ref({repository_full_name:repository,branch_name:branch,sha:pending.commit,expected_sha:head,force:false}));
+    } catch(error) {
+      // Denials are never retried. A failed/uncertain CAS must be resolved by a
+      // fresh remote read before refreshing a parent or making another write.
+      if(/unacceptable risk|authorization|unauthorized|forbidden|approval|permission|denied|not accessible|not authorized|\b401\b|\b403\b/i.test(String(error))) throw error;
+      const observed=(await fetch(refURL)).object.sha;
+      const verified=await inspect(observed);
+      if(verified.submitted) return finish(observed,verified,false);
+      if(observed===head) throw error; // Outcome unresolved; resume the same checkpoint later.
+      head=observed;
+      continue;
+    }
+    const observed=(await fetch(refURL)).object.sha;
+    const verified=await inspect(observed);
+    if(verified.submitted) return finish(observed,verified,false);
+    if(observed===head) throw new Error('Compact ref update was not visible; resume its checkpoint');
+    head=observed;
+  }
+  throw new Error('Compact submission exhausted three fast-forward races; resume the unchanged bundle');
+}
+
 async function publishDiscovery(tools, options) {
   const { repository, branch, bundle, message } = options;
   if (!/^[\w.-]+\/[\w.-]+$/.test(repository) || !branch || !message || !bundle) {
@@ -198,6 +370,7 @@ async function publishDiscovery(tools, options) {
   const manifest = local.manifest;
   const state = local.state;
   const identity = {repository, branch, baseline: manifest.baseline_commit, input_digest: manifest.input_digest, files: manifest.files, baseline_files: manifest.baseline_files};
+  if (manifest.submission !== undefined) identity.submission = manifest.submission;
   if (state.identity && JSON.stringify(state.identity) !== JSON.stringify(identity)) throw new Error('Publication checkpoint belongs to another bundle/ref');
   state.identity = identity;
   state.blobs ||= {};
@@ -215,6 +388,7 @@ async function publishDiscovery(tools, options) {
   // Verify all bytes before starting writes. Never trust an old checkpoint over
   // a newly modified payload or silently reuse a different manifest.
   const plans = await planDiscoveryPayload(tools, {bundle, manifest});
+  if (manifest.submission !== undefined) return publishCompactSubmission(tools,{repository,branch,bundle,message,manifest,state,plans,fetch,checkpoint,repoURL,refURL});
   const current = (await fetch(refURL)).object.sha;
   if (state.commit && current === state.commit) {
     await verifyRemote();
@@ -237,13 +411,7 @@ async function publishDiscovery(tools, options) {
   const started = Date.now();
   for (const entry of manifest.files) {
     if (entry.sha === null || baselineBlobs.get(entry.path) === entry.sha || state.blobs[entry.path] === entry.sha) continue;
-    const loaded = await loadDiscoveryFile(tools, {bundle, entry, plan: plans.find(plan => plan.path === entry.path)});
-    const request = {repository_full_name: repository, encoding: 'utf-8', content: loaded.text};
-    const requestBytes = publicationUTF8(JSON.stringify(request)).bytes;
-    if (requestBytes > 4 * 1024 * 1024 || (entry.request_bytes !== undefined && requestBytes !== entry.request_bytes)) throw new Error('Escaped connector request exceeds bound or manifest size: ' + entry.path);
-    const blob = publicationResult(await tools.mcp__codex_apps__github_create_blob(request));
-    if (blob.sha !== entry.sha) throw new Error('Uploaded blob SHA mismatch for ' + entry.path);
-    state.blobs[entry.path] = blob.sha;
+    state.blobs[entry.path] = await uploadPublicationBlob(tools,{repository,bundle,entry,plan:plans.find(plan=>plan.path===entry.path)});
     await checkpoint();
   }
   if (!state.tree) {
