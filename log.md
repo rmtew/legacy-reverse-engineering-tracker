@@ -1,5 +1,13 @@
 # Search / Report Log
 
+## 2026-10-20 — Runtime releases, constrained Macintosh networking and debugger maintenance
+
+Reviewed eleven materially changed projects. **Master of Magic — ReMoM Amiga port** advances to v0.8.4 with a player-reported memory-overrun crash fix and plane-order corrections. **PUAE Debugger — Amiga source debugger & profiler** v1.2.0 adds serial capture, profile comparison/per-pass analysis, exact access history and richer disassembly/inspection. **m68k-amigaos-gcc — AmigaPorts cross toolchain** now runs its tests through volamos 0.11, while **Super Mario Bros. — NES-to-PC static recompilation** v1.12.3 accepts two verified-equivalent World ROM headers without weakening program-data, mapper, RAM or timing checks; its prior AI gap is closed from explicit Claude and Codex history.
+
+Classic-Mac work records a real 512Ke **Geomys** Lite path over **talkip**, concrete Geomys/Flynn integration commands, **PeerTalk v1.13.2** cross-endian and transport hardening, and **BomberTalk v1.12.0** network-state/authentication fixes plus published 68k/PPC binaries. **pcrecomp** adds real Win16 menus and child-window geometry, **Hatari** adds MMU-aware page-fault tracing/logical dumps and closes its credited WinSTon/UAE/WinUAE/STonX/Aranym lineage audit, and **Flashback — Atari ST REminiscence port** enforces its documented 2.5 MiB floor for overscan options.
+
+The CPU audit queue was empty before selection. Geomys/talkip's 512 KiB and Flashback's 2.5 MiB requirements are explicit primary-source facts; no CPU minimum was inferred from a platform or machine name. PeerTalk's x86-64 output is limited to its published Linux library. No upstream project, package, test suite or hardware configuration was independently built or executed.
+
 ## 2026-10-19 — Runtime, debugger and analysis maintenance
 
 Reviewed eight materially changed projects. **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** now reaches the first world from authenticated Apple IIGS media through direct and menu routes while retaining explicit presentation, audio and campaign gaps. **Lanthorn — interactive-fiction disk and format interpreter** advances to v0.9.6, gains terminal-protocol-aware dialog handling and records its published x86-64/arm64 variants without inventing processor generations or RAM floors. **Systemless classic Macintosh API runtime** separates CPU baselines from GPU qualification and reuses bounded GPU bind groups, while **Ghidra Retro Machines — bank-aware loaders and retro CPU languages** fixes address-masked indexed writes with a 35-ROM regression gate.
