@@ -276,7 +276,7 @@ class RefreshPipelineTests(unittest.TestCase):
             after = self.bytes()
             duplicate = self.apply(batch)
         self.assertTrue(duplicate["duplicate"])
-        self.assertFalse(duplicate["continue"])
+        self.assertEqual(duplicate["continue"], first["eligible"])
         self.assertEqual(after, self.bytes())
         self.net.calls = []
         stale = self.collect(continuation=first["token"] + "-old")

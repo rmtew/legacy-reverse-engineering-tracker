@@ -100,14 +100,14 @@ def owned(record):
     return {key: {"exists": key in record, "value": copy.deepcopy(record.get(key))} for key in OWNED}
 
 
-def due(record_group, rs, now):
+def due(repo, record_group, rs, now):
     latest = max((p.get("last_activity") or "" for p in record_group), default="")
     archived = any((p.get("github") or {}).get("archived") for p in record_group)
     old, old_today = probe.RUN_AT, probe.TODAY
     try:
         probe.RUN_AT, probe.TODAY = now, now.date()
         interval = probe.probe_interval_minutes(latest or None, archived)
-        return probe.probe_due("", rs, interval)
+        return probe.probe_due(repo, rs, interval)
     finally:
         probe.RUN_AT, probe.TODAY = old, old_today
 
@@ -125,7 +125,7 @@ def plan(progress, records, poll, now, request_id, full=False):
         probes = sorted(
             repo
             for repo, rows in by_repo.items()
-            if full or due(rows, poll["repositories"].get(repo, {}), now)
+            if full or due(repo, rows, poll["repositories"].get(repo, {}), now)
         )
         scans = sorted(
             repo for repo in repos if full or poll["repositories"].get(repo, {}).get("scan_requested")
@@ -781,8 +781,19 @@ def apply_bundle(root, bundle, now=None):
     before_progress = progress_read(root)
     if bundle.get("version") != 1:
         raise ValueError("Invalid refresh bundle")
-    if bundle.get("stale") or before_progress.get("last_batch") == bundle["id"]:
-        return {"published": False, "duplicate": True, "continue": False, **status(before_progress, now)}
+    poll_status = read(root / POLL, {"repositories": {}})
+    if bundle.get("stale"):
+        return {
+            "published": False,
+            "stale": True,
+            "continue": False,
+            **status(before_progress, now, poll_status),
+        }
+    if before_progress.get("last_batch") == bundle["id"]:
+        current = status(before_progress, now, poll_status)
+        # The push may have succeeded before its response was lost. Repair the
+        # handoff using the published token; duplicate handoffs are harmless.
+        return {"published": False, "duplicate": True, "continue": current["eligible"], **current}
     if before_progress != bundle["progress_before"]:
         return {"published": False, "stale": True, "continue": False, **status(before_progress, now)}
     with tempfile.TemporaryDirectory(prefix="refresh-apply-") as directory:
