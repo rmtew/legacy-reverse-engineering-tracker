@@ -26,9 +26,13 @@ class Artifacts:
         self.bundle = bundle
         self.artifact = {'id': 100, 'workflow_run': {'id': 77}}
         self.downloads = 0
+        self.wakeups = 0
 
     def pending(self, after):
         return [self.artifact] if after < 100 else []
+
+    def request(self):
+        self.wakeups += 1
 
     def download(self, artifact):
         self.downloads += 1
@@ -102,6 +106,28 @@ class HandoffTests(unittest.TestCase):
         self.assertEqual(self.git('rev-parse', 'HEAD'), head)
         self.assertEqual(self.artifacts.downloads, 2)  # One per wake-up, none after acknowledgement.
         self.assertEqual(len(self.network.calls), self.requests)
+
+    def test_metadata_request_wakes_pending_replay_without_collection_or_acknowledgement(self):
+        head = self.git('rev-parse', 'HEAD')
+        result = handoff.request(self.root, self.artifacts)
+        self.assertTrue(result['requested']); self.assertEqual(self.artifacts.wakeups, 1)
+        self.assertEqual(self.artifacts.downloads, 0)
+        self.assertEqual(handoff.checkpoint(self.root)['artifact_id'], 0)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+        self.assertEqual(len(self.network.calls), self.requests)
+        handoff.publish(self.root, self.artifacts)
+        self.assertFalse(handoff.request(self.root, self.artifacts)['requested'])
+        self.assertEqual(self.artifacts.wakeups, 1)
+
+    def test_failed_explicit_dispatch_retains_pending_artifact_and_checkpoint(self):
+        head = self.git('rev-parse', 'HEAD')
+        with patch.object(self.artifacts, 'request', side_effect=subprocess.CalledProcessError(1, ['gh'])):
+            with self.assertRaises(subprocess.CalledProcessError):
+                handoff.request(self.root, self.artifacts)
+        self.assertEqual(handoff.checkpoint(self.root)['artifact_id'], 0)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+        self.assertEqual(len(self.artifacts.pending(0)), 1)
+        self.assertEqual(self.artifacts.downloads, 0)
 
     def test_individual_stale_evidence_is_acknowledged_without_overwriting_curated_values(self):
         record = load_projects(self.root / 'data/projects.json')[0]
@@ -224,6 +250,25 @@ class ArtifactBoundaryTests(unittest.TestCase):
         with patch.object(handoff.subprocess, 'run', return_value=result):
             with self.assertRaisesRegex(ValueError, 'digest mismatch'):
                 client.download(self.artifact(digest='sha256:' + '0' * 64))
+
+    def test_explicit_request_is_one_fixed_trusted_main_dispatch(self):
+        client = handoff.GitHub('owner/repo')
+        with patch.object(handoff.subprocess, 'run') as run:
+            client.request()
+        run.assert_called_once_with(
+            ['gh', 'workflow', 'run', 'publish-enrichment.yml', '--ref', 'main', '--repo', 'owner/repo'],
+            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
+
+    def test_metadata_finalizer_explicitly_wakes_retained_replay_without_recollecting(self):
+        root = Path(__file__).resolve().parents[1]
+        workflow = (root / '.github/workflows/refresh-github.yml').read_text()
+        finalizer = workflow.split('name: Resume retained evidence after metadata publication', 1)[1].split('  continue:', 1)[0]
+        self.assertIn('always() && !cancelled()', finalizer)
+        self.assertIn('continue-on-error: true', finalizer)
+        self.assertIn('enrichment_handoff.py request', finalizer)
+        self.assertNotIn(' collect', finalizer)
+        self.assertNotIn('sleep ', finalizer)
+        self.assertIn('actions: write', workflow)
 
     def test_workflow_graph_has_no_self_trigger_or_wait_loop(self):
         root = Path(__file__).resolve().parents[1]

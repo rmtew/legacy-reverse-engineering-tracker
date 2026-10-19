@@ -91,6 +91,13 @@ class GitHub:
                 return sorted(pending, key=lambda a: a['id'])
         raise ValueError('Retained enrichment scan ceiling reached; no work was discarded')
 
+    def request(self):
+        # Explicit dispatch also works after bot-dispatched metadata runs.
+        # A single request is enough: artifacts and the hourly run retain recovery.
+        subprocess.run(['gh', 'workflow', 'run', 'publish-enrichment.yml', '--ref', 'main',
+                        '--repo', self.repository], check=True, stdout=subprocess.PIPE,
+                       stderr=subprocess.PIPE, timeout=30)
+
     def download(self, artifact):
         identity = number(artifact['id'])
         result = subprocess.run(['gh', 'api', f'repos/{self.repository}/actions/artifacts/{identity}/zip'],
@@ -162,6 +169,15 @@ def publish(root, client):
     return {'published': published, 'handled': handled, 'waiting_metadata': False}
 
 
+def request(root, client):
+    """Wake replay only for retained work, without collecting or acknowledging it."""
+    sync(Path(root))
+    pending = client.pending(checkpoint(root)['artifact_id'])
+    if pending:
+        client.request()
+    return {'requested': bool(pending), 'retained_pending': len(pending)}
+
+
 def output(values):
     print(json.dumps(values, separators=(',', ':')))
     if path := os.environ.get('GITHUB_OUTPUT'):
@@ -173,7 +189,7 @@ def output(values):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('collect-allowed', 'publish'))
+    parser.add_argument('command', choices=('collect-allowed', 'publish', 'request'))
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     try:
@@ -182,6 +198,8 @@ def main():
             sync(args.root)
             pending = client.pending(checkpoint(args.root)['artifact_id'])
             output({'collect': not bool(pending), 'retained_pending': len(pending)})
+        elif args.command == 'request':
+            output(request(args.root, client))
         else:
             output(publish(args.root, client))
     except (OSError, ValueError, KeyError, TypeError, zipfile.BadZipFile, subprocess.SubprocessError) as exc:
