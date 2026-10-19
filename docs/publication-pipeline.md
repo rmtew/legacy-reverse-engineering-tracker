@@ -18,9 +18,20 @@ python tools/research_submission.py prepare /tmp/reviewed.json --out /tmp/resear
 The second command creates an ordinary `publish_discovery.js` bundle containing
 only `submissions/research/<event_id>.json`. Use that existing connector publisher
 with the bundle, current main baseline and its resumable checkpoint. A native
-Git client may instead commit that one payload file to main. If main advances,
-prepare a fresh small bundle against the new baseline; the reviewed research is
-unchanged. Never upload expanded catalogue partitions for a new research pass.
+Git client may instead commit that one payload file to main. Newly prepared
+bundles explicitly identify the single sealed compact submission. If main
+advances, the connector publisher refreshes only its parent/tree, with at most
+three fast-forward attempts per invocation. Reviewed input bytes, digest and the
+original manifest stay unchanged; uploaded immutable blobs are reused. Resume
+the same bundle/checkpoint after interrupted or exhausted attempts.
+
+An identical existing submission (including equivalent JSON serialization) or
+matching applied receipt is success without rewriting it. A conflicting event
+ID fails. Uncertain ref-update responses are resolved by reading remote state
+before another write; an unchanged ambiguous outcome stops for checkpoint
+resume. Authorization denials are never retried automatically. Code, expanded
+catalogue bundles and older unmarked bundles retain strict baseline checks.
+Never upload expanded catalogue partitions for a new research pass.
 `package` can produce a single compact input file for native Git transport.
 
 The route requires a ready review digest, inline pinned proof text (or `--cache`
