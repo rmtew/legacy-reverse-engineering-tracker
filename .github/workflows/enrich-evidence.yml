@@ -35,14 +35,14 @@ on:
     paths:
       - "tools/enrich_evidence.py"
       - "tools/enrichment_pipeline.py"
+      - "tools/enrichment_handoff.py"
       - "tools/routine_metadata.py"
       - "tools/collection_budget.py"
       - ".github/workflows/enrich-evidence.yml"
 
 permissions:
-  contents: write
-  actions: write
-  deployments: read
+  contents: read
+  actions: read
 
 concurrency:
   group: enrich-project-evidence
@@ -56,9 +56,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
+          ref: main
           fetch-depth: 0
 
+      - name: Check retained evidence before collecting
+        id: dependency
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/enrichment_handoff.py collect-allowed
+
       - name: Collect one bounded evidence slice
+        if: steps.dependency.outputs.collect == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ENRICH_RECORDS: ${{ inputs.records || '0' }}
@@ -73,40 +81,12 @@ jobs:
           --records "$ENRICH_RECORDS" --doc-records "$ENRICH_DOC_RECORDS" --ci-records "$ENRICH_CI_RECORDS"
           --requests "$ENRICH_REQUESTS" --api-requests "$ENRICH_API_REQUESTS" --seconds "$ENRICH_SECONDS"
 
-      - name: Publish completed results and progress together
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # The bundle survives checkout resets. This loop performs offline replay
-          # only: stale or concurrently edited records remain due for another slice.
-          for attempt in 1 2 3; do
-            git fetch origin main
-            git reset --hard origin/main
-            set +e
-            python -u tools/enrich_evidence.py apply --bundle "$RUNNER_TEMP/enrichment-bundle.json"
-            replay_status=$?
-            set -e
-            if [ "$replay_status" -eq 75 ]; then
-              sleep 10
-              continue
-            fi
-            if [ "$replay_status" -ne 0 ]; then exit "$replay_status"; fi
-            git add -A -- data/projects.index.json data/projects/ data/activity.json state/project-catalog-state.json state/enrichment-state.json
-            if git diff --cached --quiet; then
-              echo "No unpublished enrichment results or progress remain"
-              exit 0
-            fi
-            git commit -m "Enrich bounded evidence slice and save progress"
-            # Fast-forward push rejects concurrent main updates; no force push.
-            if git push origin HEAD:main; then exit 0; fi
-            sleep $((attempt * 2))
-          done
-          exit 1
-
-      - name: Request publication of new complete public content
-        if: always() && !cancelled()
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: python tools/pages_publication.py request
+      - name: Retain collected evidence
+        if: steps.dependency.outputs.collect == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: enrichment-bundle
+          path: ${{ runner.temp }}/enrichment-bundle.json
+          if-no-files-found: error
+          retention-days: 90
+          overwrite: true

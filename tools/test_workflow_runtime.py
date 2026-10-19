@@ -44,7 +44,7 @@ class WorkflowRuntimeTests(unittest.TestCase):
             ".github/workflows/pages.yml",
         ):
             self.assertNotIn('"' + control, workflow)
-        for name in ("refresh-github.yml", "enrich-evidence.yml"):
+        for name in ("refresh-github.yml", "publish-enrichment.yml"):
             collector = (root / ".github/workflows" / name).read_text()
             notification = collector.split("name: Request publication of new complete public content", 1)[
                 1
