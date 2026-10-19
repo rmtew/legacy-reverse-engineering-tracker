@@ -67,6 +67,7 @@ on:
 permissions:
   contents: write
   actions: write
+  deployments: read
 
 concurrency:
   group: refresh-github-metadata
@@ -140,6 +141,13 @@ jobs:
             sleep $((attempt * 2))
           done
           exit 1
+
+      - name: Request publication of new complete public content
+        if: always() && !cancelled()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/pages_publication.py request
 
   continue:
     needs: refresh
