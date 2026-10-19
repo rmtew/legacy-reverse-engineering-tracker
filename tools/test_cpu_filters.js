@@ -157,3 +157,16 @@ test("reviewed platform aliases share filters while requirements and Activity st
   assert.equal(vm.runInContext('platformLabel("analysis host")',context),'');
   vm.runInContext('projectFilterState.platform.clear(); activityFilterState.platform.clear();',context);
 });
+
+
+test("raw platform aliases and excluded picker values remain searchable", () => {
+  for(const value of ["C64", "analysis host"]){
+    context.document.getElementById("q").value=value;
+    const record={id:"p",source_platforms:[value]};
+    assert.equal(matches(record),true);
+    context.testRecord=record;
+    context.testEvent={type:"project_added",project_id:"p",date:"2026-10-19T00:00:00Z"};
+    assert.equal(vm.runInContext(`activityMatches(testEvent,new Map([["p",testRecord]]),0,${JSON.stringify(value.toLowerCase())})`,context),true);
+  }
+  context.document.getElementById("q").value="";
+});

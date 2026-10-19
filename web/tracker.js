@@ -461,7 +461,7 @@ function matches(record) {
     ...projectTypeValues(record).map(projectTypeLabel),
     ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
     ...executionPaths(record).flatMap(path=>[executionLabel(path.method),path.name,path.status,path.notes]),
-    ...platformValues(record),...cpuFamilyValues(record),
+    ...platformValues(record),...arr(record.source_platforms),...arr(record.target_platforms),...cpuFamilyValues(record),
     ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
     ...runtimeProfiles(record).flatMap(profile=>[
       profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.os,profile.notes
@@ -819,7 +819,8 @@ function activityMatches(event,map,cutoff,q) {
     const hay=[
       event.type,event.title,event.latest_title,event.message,event.repository,event.tag,
       projectTitle(project),project.title,project.upstream_name,...arr(project.subjects),
-      ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),...cpuFamilyValues(project),
+      ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),
+      ...arr(project.source_platforms),...arr(project.target_platforms),...cpuFamilyValues(project),
       ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
       ...arr(project.tags),...arr(project.ai?.tools),
       ...arr(event.changes),JSON.stringify(event.change_details||[])
