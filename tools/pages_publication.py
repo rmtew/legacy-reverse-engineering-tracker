@@ -23,7 +23,7 @@ from refresh_scope import check_publishable
 COLLECTORS = {
     ".github/workflows/apply-research.yml": "Publish reviewed research atomically",
     ".github/workflows/refresh-github.yml": "Publish results and refresh progress atomically",
-    ".github/workflows/enrich-evidence.yml": "Publish completed results and progress together",
+    ".github/workflows/publish-enrichment.yml": "Publish retained evidence and progress together",
 }
 GENERATORS = (
     "tools/build_site.py",
@@ -146,7 +146,7 @@ class GitHub:
                 continue
             jobs = self.get(f"actions/runs/{run['id']}/jobs?per_page=100")["jobs"]
             for job in jobs:
-                if job["name"] not in {"refresh", "enrich", "ingest"} or job["status"] == "completed":
+                if job["name"] not in {"refresh", "enrich", "ingest", "publish"} or job["status"] == "completed":
                     continue
                 publication = next((s for s in job.get("steps", []) if s["name"] == COLLECTORS[path]), None)
                 # Ignore post-publication notification/continuation steps, so

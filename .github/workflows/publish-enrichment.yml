@@ -1,0 +1,56 @@
+name: Publish retained enrichment
+
+on:
+  workflow_run:
+    workflows: ['Enrich project evidence', 'Refresh GitHub metadata']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '53 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/enrichment_handoff.py'
+      - '.github/workflows/publish-enrichment.yml'
+
+permissions:
+  contents: write
+  actions: write
+  deployments: read
+
+concurrency:
+  group: enrich-project-evidence
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.head_branch == 'main' &&
+      (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'schedule' ||
+      github.event.workflow_run.event == 'workflow_dispatch')))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Configure publication identity
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Publish retained evidence and progress together
+        id: publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/enrichment_handoff.py publish
+      - name: Request publication of new complete public content
+        if: always() && !cancelled()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/pages_publication.py request

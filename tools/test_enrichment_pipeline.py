@@ -397,8 +397,8 @@ class EnrichmentTests(unittest.TestCase):
         pipeline.apply_bundle(self.root,bundle)
         updated=load_projects(self.root/'data/projects.json')
         catalogue=json.loads((self.root/'state/project-catalog-state.json').read_bytes())
-        polling=json.loads((self.root/'state/github-poll-state.json').read_bytes())
-        check_publishable(polling,updated,catalogue)
+        # This fixture tests material recording independently of the live backlog.
+        check_publishable({'repositories':{}},updated,catalogue)
         activity=json.loads((self.root/'data/activity.json').read_bytes())
         self.assertTrue(any(e.get('type')=='project_updated' and e['project_id']==before['id'] for e in activity['events']))
         self.assertTrue(catalogue['projects'][before['id']]['build']['compilable'])
@@ -644,19 +644,17 @@ class EnrichmentTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
-    def test_collection_occurs_once_and_retry_replays_same_external_bundle(self):
+    def test_collection_occurs_once_and_retains_external_bundle(self):
         workflow=(Path(__file__).resolve().parents[1]/'.github/workflows/enrich-evidence.yml').read_text()
         self.assertIn('timeout-minutes: 20',workflow)
         self.assertIn("github.ref == 'refs/heads/main'",workflow)
         self.assertIn('cancel-in-progress: false',workflow)
         self.assertEqual(workflow.count('enrich_evidence.py collect'),1)
-        loop=workflow.split('for attempt in 1 2 3; do',1)[1]
-        self.assertNotIn(' collect',loop)
-        self.assertIn('enrich_evidence.py apply',loop)
-        self.assertIn('state/enrichment-state.json',loop)
-        self.assertIn('data/projects.index.json data/projects/',loop)
-        self.assertIn('git push origin HEAD:main',loop)
-        self.assertNotIn('--force',loop)
+        self.assertIn('actions/upload-artifact@v4',workflow)
+        self.assertIn('retention-days: 90',workflow)
+        self.assertIn('enrichment_handoff.py collect-allowed',workflow)
+        self.assertNotIn('enrich_evidence.py apply',workflow)
+        self.assertNotIn('sleep ',workflow)
         self.assertIn('$RUNNER_TEMP/enrichment-bundle.json',workflow)
         self.assertIn('--doc-records',workflow)
         self.assertIn('--ci-records',workflow)
