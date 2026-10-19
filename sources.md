@@ -1126,3 +1126,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-19 — Add 29 reviewed retro games, engines, operating-system sources, firmware and development tools; record three scoped deferrals.
 
 [Research record](docs/research/2026-10-19-wide-cross-platform-discovery-26.md).
+
+## 2026-10-19 — Add 24 reviewed cross-platform games, system software, firmware and analysis tools; record six exclusions/deferrals.
+
+[Research record](docs/research/2026-10-19-wide-cross-platform-discovery-27.md).
