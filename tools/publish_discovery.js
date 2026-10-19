@@ -208,7 +208,7 @@ def identify(raw):
  for proof in proofs.values():
   assert isinstance(proof,dict) and isinstance(proof.get('text'),str), 'Research proofs need inline text'
   text=proof.pop('text').encode('utf-8')
-  assert hashlib.sha1(b'blob '+str(len(text)).encode()+bytes([0])+text).hexdigest()==proof.get('blob'), 'Research proof bytes changed'
+  assert hashlib.sha1(b'blob '+str(len(text)).encode()+bytes([0])+text).hexdigest()==proof.get('blob','').lower(), 'Research proof bytes changed'
  digest=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode()).hexdigest()
  assert review.get('status')=='ready' and review.get('digest')==digest, 'Invalid ready research seal'
  return {'event_id':event,'digest':digest}

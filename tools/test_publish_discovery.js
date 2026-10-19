@@ -572,7 +572,7 @@ test('compact retries validate the review seal before any mutation',async t=>{
 test('compact wire validation preserves pinned proof bytes and rejects altered evidence',async t=>{
   for(const tampered of [false,true]){
     const x=compactSetup(t),doc=JSON.parse(x.text),proofText='Pinned 🦊 evidence.\n';
-    doc.proofs={p:{repository:'https://github.com/owner/evidence',commit:'a'.repeat(40),path:'README.md',blob:referenceDigest(proofText),text:proofText}};
+    doc.proofs={p:{repository:'https://github.com/owner/evidence',commit:'a'.repeat(40),path:'README.md',blob:referenceDigest(proofText).toUpperCase(),text:proofText}};
     const payload=JSON.parse(JSON.stringify(doc));delete payload.review;delete payload.proofs.p.text;
     const digest=crypto.createHash('sha256').update(JSON.stringify(canonical(payload))).digest('hex');doc.review={status:'ready',digest};
     if(tampered)doc.proofs.p.text='Different evidence';
