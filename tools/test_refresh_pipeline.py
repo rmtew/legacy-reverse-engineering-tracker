@@ -365,6 +365,52 @@ class RefreshPipelineTests(unittest.TestCase):
         self.assertGreater(batch["summary"]["lanes"]["probe"], 0)
         self.assertGreater(batch["summary"]["lanes"]["activity"], 0)
 
+    def test_permanent_failure_is_deferred_without_blocking_future_healthy_cycles(self):
+        self.seed([project("a"), project("b")])
+        original = pipeline.perform
+
+        def fail_one(repo, work, *args, **kwargs):
+            if repo == "owner/a" and work == "probe":
+                raise ValueError("Repository unavailable")
+            return original(repo, work, *args, **kwargs)
+
+        with patch.object(pipeline, "perform", side_effect=fail_one):
+            first = self.collect(full=True)
+        published = self.apply(first)
+        self.assertFalse(published["active"])
+        self.assertFalse(published["continue"])
+        self.assertEqual(published["completed"]["probe"], 1)
+        self.assertEqual(published["deferred"]["probe"], 1)
+        self.assertEqual(published["retry_pending"]["probe"], 1)
+        self.assertIn("owner/a", pipeline.progress_read(self.root)["retry"]["probe"])
+        with patch.object(pipeline, "perform", side_effect=fail_one):
+            second = self.collect(now=NOW + timedelta(hours=1), request_id="next-hour")
+        self.assertIn("owner/b", [r["repo"] for r in second["results"]])
+        self.assertEqual(second["summary"]["completed"]["probe"], 1)
+        self.apply(second, NOW + timedelta(hours=1))
+
+    def test_failed_required_probe_defers_dependent_history_and_keeps_gate_closed(self):
+        self.seed([project()])
+        self.put("data/pending-projects.json", [project("new")])
+        original = pipeline.perform
+
+        def fail_new(repo, work, *args, **kwargs):
+            if repo == "owner/new" and work == "probe":
+                raise ValueError("Unavailable")
+            return original(repo, work, *args, **kwargs)
+
+        with patch.object(pipeline, "perform", side_effect=fail_new):
+            batch = self.collect(full=True)
+        result = self.apply(batch)
+        self.assertFalse(result["active"])
+        self.assertEqual(result["deferred"], {"probe": 1, "activity": 1})
+        with self.assertRaises(SystemExit):
+            check_publishable(
+                self.read(pipeline.POLL),
+                load_projects(self.root / "data/projects.json"),
+                self.read("state/project-catalog-state.json"),
+            )
+
     def test_actual_distinct_repository_ceiling_and_shared_roots(self):
         records = [project(f"p{i:04}") for i in range(502)]
         records.append(project("shared", repo=records[0]["repo"]))

@@ -61,8 +61,9 @@ def progress_read(root):
     if cycle:
         if not isinstance(cycle.get("id"), str):
             raise ValueError("Invalid refresh cycle")
+        cycle.setdefault("deferred", {"probe": [], "activity": []})
         for work in ("probe", "activity"):
-            for field in ("targets", "pending"):
+            for field in ("targets", "pending", "deferred"):
                 rows = cycle.get(field, {}).get(work)
                 if (
                     not isinstance(rows, list)
@@ -70,7 +71,9 @@ def progress_read(root):
                     or len(set(rows)) != len(rows)
                 ):
                     raise ValueError("Invalid refresh cycle queue")
-            if not set(cycle["pending"][work]) <= set(cycle["targets"][work]):
+            if set(cycle["pending"][work]) & set(cycle["deferred"][work]) or not (
+                set(cycle["pending"][work]) | set(cycle["deferred"][work])
+            ) <= set(cycle["targets"][work]):
                 raise ValueError("Pending work outside refresh cycle")
     bounded(encode(value), PROGRESS)
     return value
@@ -125,10 +128,16 @@ def plan(progress, records, poll, now, request_id, full=False):
         probes = sorted(
             repo
             for repo, rows in by_repo.items()
-            if full or due(repo, rows, poll["repositories"].get(repo, {}), now)
+            if full
+            or repo in progress["retry"]["probe"]
+            or due(repo, rows, poll["repositories"].get(repo, {}), now)
         )
         scans = sorted(
-            repo for repo in repos if full or poll["repositories"].get(repo, {}).get("scan_requested")
+            repo
+            for repo in repos
+            if full
+            or repo in progress["retry"]["activity"]
+            or poll["repositories"].get(repo, {}).get("scan_requested")
         )
         progress["cycle"] = {
             "id": digest([request_id, progress["revision"], stamp(now)])[:24],
@@ -136,6 +145,7 @@ def plan(progress, records, poll, now, request_id, full=False):
             "started_at": stamp(now),
             "targets": {"probe": probes[:], "activity": scans[:]},
             "pending": {"probe": probes[:], "activity": scans[:]},
+            "deferred": {"probe": [], "activity": []},
         }
     if full and active(progress) and progress["cycle"]["mode"] != "full":
         # A manual full request upgrades an adaptive cycle without losing its
@@ -153,13 +163,14 @@ def plan(progress, records, poll, now, request_id, full=False):
         for work in ("probe", "activity"):
             cycle["pending"][work] = [r for r in cycle["pending"][work] if r in repos]
             cycle["targets"][work] = [r for r in cycle["targets"][work] if r in repos]
+            cycle["deferred"][work] = [r for r in cycle["deferred"][work] if r in repos]
         # New or changed catalogue work must survive a coalesced push run.
         for repo in sorted(repos):
             rs = poll["repositories"].get(repo, {})
             publication = rs.get("publication") or {}
             if pending_publication(rs):
                 for work, complete in (("probe", "metadata_complete"), ("activity", "history_complete")):
-                    if not publication.get(complete):
+                    if not publication.get(complete) and repo not in cycle["deferred"][work]:
                         for field in ("targets", "pending"):
                             if repo not in cycle[field][work]:
                                 cycle[field][work].append(repo)
@@ -192,6 +203,27 @@ def candidates(progress, poll, work, now, cap):
     ordinary = sorted(set(rows) - set(priority), key=key)
     share = max(1, cap // 4) if ordinary else len(priority)
     return priority[:share] + ordinary + priority[share:]
+
+
+def defer(progress, poll, repo, work, now, outcomes):
+    retry = progress["retry"][work].get(repo, {})
+    failures = min(5, retry.get("failures", 0) + 1)
+    entry = {
+        "failures": failures,
+        "attempt_at": stamp(now),
+        "retry_at": stamp(now + timedelta(seconds=60 * 2**failures)),
+    }
+    lanes = [work]
+    rs = poll["repositories"].get(repo, {})
+    if work == "probe" and pending_publication(rs) and not rs["publication"].get("metadata_complete"):
+        lanes.append("activity")
+    for lane in lanes:
+        progress["retry"][lane][repo] = copy.deepcopy(entry)
+        cycle = progress["cycle"]
+        if repo in cycle["pending"][lane]:
+            cycle["pending"][lane].remove(repo)
+            cycle["deferred"][lane].append(repo)
+        outcomes.setdefault(repo, {})[lane] = "retry"
 
 
 class Interrupted(BaseException):
@@ -605,41 +637,18 @@ def collect(
                         )
                         log(repo=repo, work=work, status="quota-stop", reason=str(cause))
                         break
-                    retry = progress["retry"][work].get(repo, {})
-                    failures = min(5, retry.get("failures", 0) + 1)
-                    progress["retry"][work][repo] = {
-                        "failures": failures,
-                        "attempt_at": stamp(now),
-                        "retry_at": stamp(now + timedelta(seconds=60 * 2**failures)),
-                    }
-                    touched.add(repo)
-                    outcomes.setdefault(repo, {})[work] = "retry"
+                    defer(progress, poll, repo, work, now, outcomes)
                     log(repo=repo, work=work, status="retry", reason=str(cause))
                     continue
                 except Exception as exc:
-                    retry = progress["retry"][work].get(repo, {})
-                    failures = min(5, retry.get("failures", 0) + 1)
-                    progress["retry"][work][repo] = {
-                        "failures": failures,
-                        "attempt_at": stamp(now),
-                        "retry_at": stamp(now + timedelta(seconds=60 * 2**failures)),
-                    }
-                    touched.add(repo)
-                    outcomes.setdefault(repo, {})[work] = "retry"
+                    defer(progress, poll, repo, work, now, outcomes)
                     log(repo=repo, work=work, status="retry", reason=str(exc))
                     continue
                 finally:
                     budget.end_record()
                 touched.add(repo)
                 if not done and work == "probe":
-                    retry = progress["retry"][work].get(repo, {})
-                    failures = min(5, retry.get("failures", 0) + 1)
-                    progress["retry"][work][repo] = {
-                        "failures": failures,
-                        "attempt_at": stamp(now),
-                        "retry_at": stamp(now + timedelta(seconds=60 * 2**failures)),
-                    }
-                    outcomes.setdefault(repo, {})[work] = "retry"
+                    defer(progress, poll, repo, work, now, outcomes)
                     continue
                 before = digest([working[repo], poll["repositories"].get(repo, {}), events.get(repo, [])])
                 after = digest([rows, rs, evs])
@@ -656,7 +665,12 @@ def collect(
                     cycle["pending"][work].remove(repo)
                     completed[work] += 1
                 outcomes.setdefault(repo, {})[work] = "complete" if done else "partial"
-                if work == "probe" and rs.get("scan_requested") and repo not in cycle["pending"]["activity"]:
+                if (
+                    work == "probe"
+                    and rs.get("scan_requested")
+                    and repo not in cycle["pending"]["activity"]
+                    and repo not in cycle["deferred"]["activity"]
+                ):
                     for field in ("targets", "pending"):
                         if repo not in cycle[field]["activity"]:
                             cycle[field]["activity"].append(repo)
@@ -717,14 +731,14 @@ def add_publication_work(progress, records, poll):
         return
     current = groups(records)
     for work in ("probe", "activity"):
-        for field in ("targets", "pending"):
+        for field in ("targets", "pending", "deferred"):
             cycle[field][work] = [r for r in cycle[field][work] if r in current]
     for repo in sorted(current):
         rs = poll["repositories"].get(repo, {})
         if not pending_publication(rs):
             continue
         for work, field in (("probe", "metadata_complete"), ("activity", "history_complete")):
-            if not rs["publication"].get(field):
+            if not rs["publication"].get(field) and repo not in cycle["deferred"][work]:
                 for queue in ("targets", "pending"):
                     if repo not in cycle[queue][work]:
                         cycle[queue][work].append(repo)
@@ -749,11 +763,19 @@ def status(progress, now=None, poll=None):
         "mode": cycle.get("mode") if cycle else None,
         "completed": {},
         "remaining": {},
+        "deferred": {},
+        "retry_pending": {
+            work: sum(bool(v.get("retry_at")) for v in progress["retry"][work].values())
+            for work in ("probe", "activity")
+        },
     }
     if cycle:
         for work in ("probe", "activity"):
             result["remaining"][work] = len(cycle["pending"][work])
-            result["completed"][work] = len(cycle["targets"][work]) - len(cycle["pending"][work])
+            result["deferred"][work] = len(cycle["deferred"][work])
+            result["completed"][work] = (
+                len(cycle["targets"][work]) - len(cycle["pending"][work]) - len(cycle["deferred"][work])
+            )
     blocked = progress.get("blocked_until")
     blocked = bool(blocked and datetime.fromisoformat(blocked.replace("Z", "+00:00")) > now)
     result["eligible"] = bool(
@@ -831,11 +853,13 @@ def apply_bundle(root, bundle, now=None):
                 conflicts.append(repo)
                 for work in ("probe", "activity"):
                     if (
-                        row["outcomes"].get(work) == "complete"
+                        row["outcomes"].get(work) in {"complete", "retry"}
                         and repo in progress["cycle"]["targets"][work]
                         and repo not in progress["cycle"]["pending"][work]
                     ):
                         progress["cycle"]["pending"][work].append(repo)
+                    if repo in progress["cycle"]["deferred"][work]:
+                        progress["cycle"]["deferred"][work].remove(repo)
                     if repo in before_progress["retry"][work]:
                         progress["retry"][work][repo] = copy.deepcopy(before_progress["retry"][work][repo])
                     else:
