@@ -1252,3 +1252,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-19 — Verify compact research ingestion without changing catalogue facts
 
 [Research record](docs/research/2026-10-19-compact-submission-route-verification.md).
+
+## 2026-10-19 — Add 30 reviewed games, ports, firmware, OS and tools across retro platforms; record six scoped non-promotions.
+
+[Research record](docs/research/2026-10-19-wide-cross-platform-discovery-23.md).
