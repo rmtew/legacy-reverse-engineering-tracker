@@ -283,7 +283,7 @@ class PublicationPipelineTest(unittest.TestCase):
         self.stack.enter_context(patch.multiple(refresh, PROJECTS=self.projects, STATE=self.state,
             RUN_AT=NOW, TODAY=NOW.date(), FORCE_FULL_PROBE=False, RATE_LIMIT=None, RATE_REMAINING=None, RATE_RESET=None))
         self.stack.enter_context(patch.multiple(collector, PROJECTS=self.projects, ACTIVITY=self.activity, STATE=self.state,
-            NOW=NOW, NOW_ISO=NOW_ISO, CUTOFF=NOW - timedelta(days=180)))
+            NOW=NOW, NOW_ISO=NOW_ISO, CUTOFF=NOW - timedelta(days=30)))
 
     def seed(self, before=None, after=None):
         old = project("old", "unrelated/repo", last_activity="2026-09-30",
@@ -299,7 +299,7 @@ class PublicationPipelineTest(unittest.TestCase):
         self.activity.write_text(json.dumps({"generated_at": "2026-10-01T11:00:00Z", "events": [
             {"type": "project_added", "project_id": "new", "date": "2026-10-01T10:00:00Z"},
             {"type": "commit", "project_id": "old", "repository": "unrelated/repo", "sha": "old",
-             "date": "2026-09-01T00:00:00Z", "branches": ["main"], "title": "Keep unchanged"}]}))
+             "date": "2026-09-20T00:00:00Z", "branches": ["main"], "title": "Keep unchanged"}]}))
         return old, unrelated
 
     def metadata(self, path, **kwargs):
@@ -320,8 +320,8 @@ class PublicationPipelineTest(unittest.TestCase):
             return [{"name": "main", "commit": {"sha": "abc"}}]
         if "/commits?" in path:
             params = parse_qs(urlparse(path).query)
-            self.assertEqual(params["since"], [(NOW - timedelta(days=180)).isoformat(timespec="seconds").replace("+00:00", "Z")])
-            return [commit(message="Work\nCo-authored-by: Pi <pi@example.com>")]
+            self.assertEqual(params["since"], [(NOW - timedelta(days=30)).isoformat(timespec="seconds").replace("+00:00", "Z")])
+            return [commit(day="2026-09-10", message="Work\nCo-authored-by: Pi <pi@example.com>")]
         self.fail("Unexpected history request " + path)
 
     def test_publication_does_full_initial_context_and_preserves_unrelated_due_work(self):
@@ -338,11 +338,11 @@ class PublicationPipelineTest(unittest.TestCase):
         new = result["new"]
         self.assertEqual(new["github"]["languages"], ["C"])
         self.assertEqual(new["ai"]["tools"], ["Pi"])
-        self.assertEqual(new["github"]["latest_commit"]["date"], "2026-08-01")
+        self.assertEqual(new["github"]["latest_commit"]["date"], "2026-09-10")
         events = json.loads(self.activity.read_text())["events"]
         self.assertEqual(next(e for e in events if e["project_id"] == "old"), previous_event)
         addition = next(e for e in events if e["type"] == "project_added")
-        self.assertEqual(addition["activity_context"]["commits_90d"], 1)
+        self.assertEqual(addition["activity_context"]["commits"], 1)
         self.assertEqual(addition["activity_context"]["latest_release"]["tag"], "v1")
         scope.check_complete(json.loads(self.manifest.read_text()), state)
 

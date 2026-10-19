@@ -48,8 +48,8 @@ class ActivityHistoryTest(unittest.TestCase):
         self.assertNotIn("activity_context", addition)
         freeze_addition_context([addition, summary], [project],
                                 {"a/b": {"last_deep_scan": "2026-09-25T01:00:00Z"}}, now)
-        self.assertEqual(addition["activity_context"]["commits_90d"], 3)
-        self.assertEqual(addition["activity_context"]["active_days_90d"], 1)
+        self.assertEqual(addition["activity_context"]["commits"], 3)
+        self.assertEqual(addition["activity_context"]["active_days"], 1)
         self.assertEqual(addition["activity_context"]["latest_release"]["tag"], "v1")
         project["github"]["latest_release"]["tag"] = "v2"
         self.assertEqual(addition["activity_context"]["latest_release"]["tag"], "v1")
@@ -78,6 +78,49 @@ class ActivityHistoryTest(unittest.TestCase):
         self.assertEqual(addition["activity_context"]["commits_90d"], 0)
         project["github"]["latest_commit"]["sha"] = "new"
         self.assertEqual(addition["activity_context"]["last_commit"]["sha"], "old")
+
+class LeanRetentionTest(unittest.TestCase):
+    def test_boundary_fallback_context_and_dedupe_survive_idempotent_writes(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from activity_history import retained_events, write_activity
+        now = datetime(2026, 10, 19, tzinfo=timezone.utc)
+        current = {"id": "p", "title": "Current", "notes": "full research"}
+        removed = {"id": "gone", "title": "Removed", "source_cpu": ["Z80"], "notes": "large research"}
+        events = [
+            {"type": "project_removed", "project_id": "gone", "date": "2026-10-18T00:00:00Z", "project": removed},
+            {"type": "project_updated", "project_id": "p", "date": "2026-10-18T00:00:00Z", "project": current,
+             "message": "full research", "change_details": [{"field": "notes", "before": "old", "after": "full research"}]},
+            {"type": "project_added", "project_id": "p", "date": "2026-10-17T00:00:00Z", "project": current,
+             "activity_context": {"commits_90d": 5, "active_days_90d": 2}},
+            {"type": "daily_commits", "project_id": "p", "date": "2026-09-19T00:00:00Z", "shas": ["a", "b"], "count": 2},
+            {"type": "commit", "project_id": "p", "date": "2026-09-18T23:59:59Z", "sha": "expired"},
+        ]
+        output = retained_events(events, now, [current])
+        self.assertEqual(len(output), 4)
+        self.assertEqual(output[0]["project"]["source_cpu"], ["Z80"])
+        self.assertNotIn("notes", output[0]["project"])
+        self.assertNotIn("project", output[1])
+        self.assertNotIn("message", output[1])
+        self.assertEqual(len(output[1]["change_details"][0]["after_sha256"]), 64)
+        self.assertEqual(output[2]["activity_context"]["window_days"], 90)
+        self.assertEqual(output[3]["shas"], ["a", "b"])
+        self.assertEqual(current["notes"], "full research")
+        self.assertEqual(events[1]["project"], current)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "activity.json"
+            payload = {"generated_at": "2026-10-19T00:00:00Z", "window_days": 180, "events": events}
+            write_activity(path, payload, [current])
+            first = path.read_bytes()
+            write_activity(path, json.loads(first), [current])
+            self.assertEqual(first, path.read_bytes())
+
+    def test_expired_backfill_cannot_be_reintroduced(self):
+        from activity_history import retained_events
+        now = datetime(2026, 10, 19, tzinfo=timezone.utc)
+        event = {"type": "commit", "project_id": "p", "date": "2026-08-01T00:00:00Z", "sha": "old"}
+        self.assertEqual(retained_events(compact_history([event], now), now, [{"id": "p"}]), [])
 
 
 if __name__ == "__main__":

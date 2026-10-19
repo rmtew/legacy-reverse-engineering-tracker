@@ -27,7 +27,7 @@ test('browser reconstructs exact catalogue in index order and reads only project
   assert.equal(x.requests.length,index.shards.length+1);
   assert.ok(x.requests.every(p=>p==='data/projects.index.json'||/^data\/projects\/[0-9a-f]+\.json$/.test(p)));
   assert.match(source,/fetch\("data\/activity-30d.json"/);
-  assert.match(source,/!fullActivityReady\)\{loadFullActivity\(\)/);
+  assert.doesNotMatch(source,/activity-180d|loadFullActivity/);
 });
 test('browser rejects unsafe, missing, corrupt and duplicate shard references',async()=>{
   await assert.rejects(setup(i=>i.shards[0].path='../secret').load(),/Invalid project shard/);

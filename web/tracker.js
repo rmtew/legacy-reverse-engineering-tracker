@@ -97,7 +97,13 @@ const cpuFamily = value => {
   if(cpu.includes("jaguar")) return "Jaguar GPU/DSP";
   return raw;
 };
-const platformValues = record => [...new Set([...arr(record?.source_platforms),...arr(record?.target_platforms)].filter(Boolean))];
+let platformVocabulary={aliases:{},non_platform_values:[]};
+function platformLabel(value){
+  const key=String(value||"").trim().toLowerCase();
+  if(platformVocabulary.non_platform_values.includes(key)) return "";
+  return platformVocabulary.aliases[key]||String(value||"").trim();
+}
+const platformValues = record => [...new Set([...arr(record?.source_platforms),...arr(record?.target_platforms)].map(platformLabel).filter(Boolean))];
 const runtimeProfiles = record => arr(record?.runtime_profiles).filter(profile=>profile&&profile.platform);
 const cpuFamilyValues = record => [...new Set([
   ...arr(record?.source_cpu),...arr(record?.target_cpu),
@@ -202,7 +208,7 @@ const projectFilterState = {
 };
 const activityFilterState = {
   type:new Set(), projectType:new Set(), platform:new Set(), cpu:new Set(), targetKind:new Set(),
-  workKind:new Set(), toolKind:new Set(), ai:"", days:"30"
+  workKind:new Set(), toolKind:new Set(), ai:"", days:"30", directionMode:"quick", side:"either"
 };
 
 const sortedUnique = (values,labeler=value=>value) =>
@@ -211,10 +217,9 @@ const sortedUnique = (values,labeler=value=>value) =>
   );
 const facetMatch = (selected,values) => !selected.size || arr(values).some(value=>selected.has(value));
 const projectSideMatch = (record,side,platform,cpu) =>
-  facetMatch(platform,record[side+"_platforms"])
+  facetMatch(platform,arr(record[side+"_platforms"]).map(platformLabel).filter(Boolean))
   && facetMatch(cpu,side==="source"?sourceCpuFamilies(record):targetCpuFamilies(record));
-function projectDirectionMatch(record){
-  const state=projectFilterState;
+function projectDirectionMatch(record,state=projectFilterState){
   if(state.directionMode==="route"){
     const source=sourceCpuFamilies(record),target=targetCpuFamilies(record);
     return projectSideMatch(record,"source",state.sourcePlatform,state.sourceCpu)
@@ -227,7 +232,7 @@ function projectDirectionMatch(record){
   if(!state.cpu.size) return facetMatch(state.platform,platformValues(record));
   return projectSideMatch(record,"source",state.platform,state.cpu)
     || projectSideMatch(record,"target",state.platform,state.cpu)
-    || runtimeProfiles(record).some(profile=>state.platform.has(profile.platform)
+    || runtimeProfiles(record).some(profile=>state.platform.has(platformLabel(profile.platform))
       && [profile.cpu_family,profile.min_cpu].some(value=>state.cpu.has(cpuFamily(value))));
 }
 
@@ -249,44 +254,69 @@ const directionPickerKeys={
   quickPlatform:"platform",quickCpu:"cpu",sourcePlatform:"sourcePlatform",
   sourceCpu:"sourceCpu",targetPlatform:"targetPlatform",targetCpu:"targetCpu"
 };
+const facetPickerBindings=new Map();
+let pickerDismissBound=false;
 function updatePickerSummary(id){
-  const picker=$(id),selected=projectFilterState[directionPickerKeys[id]];
-  const values=[...selected].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+  const picker=$(id),binding=facetPickerBindings.get(id);
+  const selected=binding.state[binding.key],labeler=binding.labeler;
+  const values=sortedUnique([...selected],labeler);
   const summary=picker.querySelector("summary");
-  summary.textContent=values.length===0?picker.dataset.empty:values.length===1?values[0]:`${values[0]} +${values.length-1}`;
-  summary.title=values.length?values.join(", "):picker.dataset.empty;
-  summary.setAttribute("aria-label",`${picker.dataset.label}: ${values.length?values.join(", "):picker.dataset.empty}`);
+  summary.textContent=values.length===0?picker.dataset.empty:values.length===1?labeler(values[0]):`${labeler(values[0])} +${values.length-1}`;
+  summary.title=values.map(labeler).join(", ")||picker.dataset.empty;
+  summary.setAttribute("aria-label",`${picker.dataset.label}: ${values.length?values.map(labeler).join(", "):picker.dataset.empty}`);
   picker.classList.toggle("has-selection",values.length>0);
+  picker.querySelectorAll('input[type="checkbox"]').forEach(input=>{input.checked=selected.has(input.value);});
+  const chips=$(id+"Selected");
+  chips.innerHTML=values.map(value=>'<button type="button" class="facet-chip selected" data-value="'+esc(value)+'" aria-label="Remove '+esc(labeler(value))+'">'+esc(labeler(value))+' ×</button>').join("");
 }
-function initFacetPicker(id,values){
-  const picker=$(id),selected=projectFilterState[directionPickerKeys[id]];
-  const options=picker.querySelector(".picker-options");
-  options.innerHTML=sortedUnique(values).map(value=>
-    '<label><input type="checkbox" value="'+esc(value)+'"><span>'+esc(value)+'</span></label>'
+function initFacetPicker(id,values,state=projectFilterState,key=directionPickerKeys[id],onChange=()=>{updateClearButtons();render();},labeler=value=>value){
+  const picker=$(id),options=picker.querySelector(".picker-options");
+  if(!pickerDismissBound){
+    pickerDismissBound=true;
+    document.addEventListener("click",event=>{
+      if(!event.target.closest(".facet-picker")) document.querySelectorAll(".facet-picker[open]").forEach(p=>{p.open=false;});
+    });
+  }
+  facetPickerBindings.set(id,{state,key,onChange,labeler});
+  options.innerHTML=sortedUnique(values,labeler).map(value=>
+    '<label><input type="checkbox" value="'+esc(value)+'"><span>'+esc(labeler(value))+'</span></label>'
   ).join("");
-  options.addEventListener("change",event=>{
-    if(event.target.tagName!=="INPUT") return;
-    if(event.target.checked) selected.add(event.target.value); else selected.delete(event.target.value);
-    updatePickerSummary(id);
-    updateClearButtons();render();
-  });
-  picker.querySelector(".picker-search").addEventListener("input",event=>{
-    const query=event.target.value.trim().toLowerCase();
-    options.querySelectorAll("label").forEach(label=>{label.hidden=!label.textContent.toLowerCase().includes(query);});
-  });
-  picker.querySelector("summary").addEventListener("click",()=>{
-    document.querySelectorAll(".facet-picker[open]").forEach(other=>{if(other!==picker) other.open=false;});
-  });
-  picker.addEventListener("toggle",()=>{
-    if(!picker.open) return;
-    document.querySelectorAll(".facet-picker[open]").forEach(other=>{if(other!==picker) other.open=false;});
-    picker.querySelector(".picker-search").focus();
-  });
-  picker.addEventListener("keydown",event=>{
-    if(event.key==="Escape") {picker.open=false;picker.querySelector("summary").focus();}
-  });
+  if(!picker.dataset.bound){
+    picker.dataset.bound="true";
+    const chips=document.createElement("div");chips.id=id+"Selected";chips.className="picker-selected";
+    picker.insertAdjacentElement("afterend",chips);
+    chips.addEventListener("click",event=>{
+      const button=event.target.closest("button[data-value]");if(!button)return;
+      const binding=facetPickerBindings.get(id);binding.state[binding.key].delete(button.dataset.value);
+      updatePickerSummary(id);binding.onChange();
+    });
+    options.addEventListener("change",event=>{
+      if(event.target.tagName!=="INPUT") return;
+      const binding=facetPickerBindings.get(id),selected=binding.state[binding.key];
+      if(event.target.checked)selected.add(event.target.value);else selected.delete(event.target.value);
+      updatePickerSummary(id);binding.onChange();
+    });
+    picker.querySelector(".picker-search").addEventListener("input",event=>{
+      const query=event.target.value.trim().toLowerCase();
+      options.querySelectorAll("label").forEach(label=>{label.hidden=!label.textContent.toLowerCase().includes(query);});
+    });
+    picker.addEventListener("toggle",()=>{
+      if(!picker.open)return;
+      document.querySelectorAll(".facet-picker[open]").forEach(other=>{if(other!==picker)other.open=false;});
+      picker.querySelector(".picker-search").focus();
+    });
+    picker.addEventListener("keydown",event=>{if(event.key==="Escape"){picker.open=false;picker.querySelector("summary").focus();}});
+  }
   updatePickerSummary(id);
 }
+function clearPicker(id){
+  const binding=facetPickerBindings.get(id);if(!binding)return;
+  binding.state[binding.key].clear();$(id).open=false;
+  $(id).querySelector(".picker-search").value="";
+  $(id).querySelectorAll(".picker-options label").forEach(label=>{label.hidden=false;});
+  updatePickerSummary(id);
+}
+
 function resetDirectionPickers(){
   for(const id of Object.keys(directionPickerKeys)){
     projectFilterState[directionPickerKeys[id]].clear();
@@ -314,9 +344,9 @@ function initDirectionFilters(){
   const allCpu=projects.flatMap(cpuFamilyValues);
   for(const [id,values] of [
     ["quickPlatform",allPlatform],["quickCpu",allCpu],
-    ["sourcePlatform",projects.flatMap(record=>arr(record.source_platforms))],
+    ["sourcePlatform",projects.flatMap(record=>arr(record.source_platforms).map(platformLabel))],
     ["sourceCpu",projects.flatMap(sourceCpuFamilies)],
-    ["targetPlatform",projects.flatMap(record=>arr(record.target_platforms))],
+    ["targetPlatform",projects.flatMap(record=>arr(record.target_platforms).map(platformLabel))],
     ["targetCpu",projects.flatMap(targetCpuFamilies)]
   ]) initFacetPicker(id,values);
   $("directionSide").addEventListener("change",event=>{
@@ -333,9 +363,6 @@ function initDirectionFilters(){
   $("sameCpuFamily").addEventListener("change",event=>{
     projectFilterState.sameFamily=event.target.checked;
     updateClearButtons();render();
-  });
-  document.addEventListener("click",event=>{
-    if(!event.target.closest(".facet-picker")) document.querySelectorAll(".facet-picker[open]").forEach(picker=>{picker.open=false;});
   });
   updateDirectionMode();
 }
@@ -383,7 +410,7 @@ function projectFiltersActive(){
     || ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
 }
 function activityFiltersActive(){
-  return $("activityQ").value.trim() || activityFilterState.days!=="30"
+  return $("activityQ").value.trim() || activityFilterState.days!=="30" || activityFilterState.side!=="either"
     || ["type","projectType","platform","cpu","targetKind","workKind","toolKind"].some(key=>activityFilterState[key].size)
     || activityFilterState.ai;
 }
@@ -728,7 +755,7 @@ function combinedActivityEvents() {
   const seen=new Set(events.map(event=>event.type+":"+event.project_id+":"+(event.sha||event.tag||event.url||event.date)));
   for(const project of projects){
     const release=project.github?.latest_release;
-    if(!release?.published_at) continue;
+    if(!release?.published_at || new Date(release.published_at).getTime()<new Date(activityData.generated_at||Date.now()).getTime()-30*86400000) continue;
     const tag=release.tag||release.name||"release";
     const key="release:"+project.id+":"+tag;
     if(seen.has(key)) continue;
@@ -757,22 +784,24 @@ function formatFreshness(value) {
   return "Data refreshed "+date.toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"});
 }
 
-function bindActivityProjectFacets() {
-  const eventProjects=activityData.events.map(event=>event.project).filter(Boolean);
-  const filterProjects=[...projects,...eventProjects];
-  bindFacet("activityTypeFacet",["commit","release","project"],activityFilterState.type,
-    value=>({commit:"Commits",release:"Releases",project:"Project changes"}[value]||value),
-    ()=>{updateClearButtons();requestActivityRender();});
-  bindFacet("activityProjectTypeFacet",["software","tools"],activityFilterState.projectType,projectTypeLabel,()=>{updateClearButtons();requestActivityRender();});
-  bindFacet("activityPlatformFacet",filterProjects.flatMap(platformValues),activityFilterState.platform,value=>value,()=>{updateClearButtons();requestActivityRender();});
-  bindFacet("activityCpuFacet",filterProjects.flatMap(cpuFamilyValues),activityFilterState.cpu,value=>value,()=>{updateClearButtons();requestActivityRender();});
-  bindFacet("activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),activityFilterState.targetKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
-  bindFacet("activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),activityFilterState.workKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
-  bindFacet("activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),activityFilterState.toolKind,classificationLabel,()=>{updateClearButtons();requestActivityRender();});
+const activityPickerKeys={activityTypeFacet:"type",activityProjectTypeFacet:"projectType",activityPlatformFacet:"platform",activityCpuFacet:"cpu",activityTargetKindFacet:"targetKind",activityWorkKindFacet:"workKind",activityToolKindFacet:"toolKind"};
+function bindActivityProjectFacets(){
+  const filterProjects=[...projects,...activityData.events.map(event=>event.project).filter(Boolean)];
+  const changed=()=>{updateClearButtons();requestActivityRender();};
+  for(const [id,values,labeler] of [
+    ["activityTypeFacet",["commit","release","project"],value=>({commit:"Commits",release:"Releases",project:"Project changes"}[value]||value)],
+    ["activityProjectTypeFacet",["software","tools"],projectTypeLabel],
+    ["activityPlatformFacet",filterProjects.flatMap(platformValues),value=>value],
+    ["activityCpuFacet",filterProjects.flatMap(cpuFamilyValues),value=>value],
+    ["activityTargetKindFacet",filterProjects.flatMap(p=>arr(p.target_kinds)),classificationLabel],
+    ["activityWorkKindFacet",filterProjects.flatMap(p=>arr(p.work_kinds)),classificationLabel],
+    ["activityToolKindFacet",filterProjects.flatMap(p=>arr(p.tool_kinds)),classificationLabel]
+  ])initFacetPicker(id,values,activityFilterState,activityPickerKeys[id],changed,labeler);
 }
 
 function initActivityFilters() {
   bindActivityProjectFacets();
+  $("activityDirectionSide").addEventListener("change",event=>{activityFilterState.side=event.target.value;updateClearButtons();requestActivityRender();});
   bindSegment("activityDaysSegment",activityFilterState,"days",()=>{updateClearButtons();requestActivityRender();});
   bindSegment("activityAiSegment",activityFilterState,"ai",()=>{updateClearButtons();requestActivityRender();});
 }
@@ -794,8 +823,7 @@ function activityMatches(event,map,cutoff,q) {
   }
   return facetMatch(activityFilterState.type,[activityKind(event)])
     && facetMatch(activityFilterState.projectType,projectTypeValues(project))
-    && facetMatch(activityFilterState.platform,platformValues(project))
-    && facetMatch(activityFilterState.cpu,cpuFamilyValues(project))
+    && projectDirectionMatch(project,activityFilterState)
     && facetMatch(activityFilterState.targetKind,project.target_kinds)
     && facetMatch(activityFilterState.workKind,project.work_kinds)
     && facetMatch(activityFilterState.toolKind,project.tool_kinds)
@@ -1004,9 +1032,10 @@ function additionContextHtml(event, project) {
   }
   if(release?.published_at) lines.push(entry("Latest release",(release.tag||release.name||"Release")+" · "+activityDate(release.published_at),release.url));
   if(context){
-    const count=context.commits_90d||0;
-    const days=context.active_days_90d||0;
-    lines.push(entry("Last 90 days",count+" commit"+(count===1?"":"s")+" across "+days+" active day"+(days===1?"":"s")));
+    const count=context.commits??context.commits_90d??0;
+    const days=context.active_days??context.active_days_90d??0;
+    const window=context.window_days||("commits_90d" in context?90:30);
+    lines.push(entry("At addition ("+window+"-day window)",count+" commit"+(count===1?"":"s")+" across "+days+" active day"+(days===1?"":"s")));
   }else{
     const githubRepo=project?.github?.repository || /^https?:\/\/(?:www\.)?github\.com\//i.test(project?.repo||"");
     lines.push(entry("Activity", githubRepo?"Initial scan pending":"Repository activity unavailable"));
@@ -1151,6 +1180,8 @@ $("activityClear").addEventListener("click",()=>{
   for(const key of ["type","projectType","platform","cpu","targetKind","workKind","toolKind"]) clearFacetSet(activityFilterState[key]);
   activityFilterState.ai="";
   activityFilterState.days="30";
+  activityFilterState.side="either";$("activityDirectionSide").value="either";
+  for(const id of Object.keys(activityPickerKeys))clearPicker(id);
   clearFacetButtons($("activityView"));
   resetSegment("activityDaysSegment","30");
   resetSegment("activityAiSegment","");
@@ -1162,32 +1193,9 @@ let projectsReady=false;
 let projectUiReady=false;
 let activityReady=false;
 let activityUiReady=false;
-let fullActivityReady=false;
-let fullActivityRequest=null;
-
-function loadFullActivity(){
-  if(fullActivityRequest) return;
-  $("activityFeed").innerHTML='<div class="loading">Loading older activity…</div>';
-  $("activityMore").hidden=true;
-  fullActivityRequest=fetch("data/activity-180d.json",{cache:"no-cache"})
-    .then(response=>{if(!response.ok) throw new Error("activity HTTP "+response.status);return response.json();})
-    .then(activity=>{
-      activityData=activity;
-      fullActivityReady=true;
-      $("dataFreshness").textContent=formatFreshness(activityData.generated_at);
-      if(activityUiReady) bindActivityProjectFacets();
-      activityDirty=true;
-      if(activityVisible()) renderReadyActivity();
-    }).catch(error=>{
-      if(Number(activityFilterState.days)>30){
-        $("activityFeed").innerHTML='<div class="activity-empty">Could not load older activity: '+esc(error.message)+'</div>';
-      }
-    }).finally(()=>{fullActivityRequest=null;});
-}
 
 function renderReadyActivity(){
   if(!projectsReady||!activityReady||!activityUiReady) return;
-  if(Number(activityFilterState.days)>30&&!fullActivityReady){loadFullActivity();return;}
   if(activityDirty) renderActivity();
 }
 
@@ -1203,6 +1211,10 @@ function initializeReadyViews(){
   updateClearButtons();
   if(activityVisible()) renderReadyActivity();
 }
+
+const platformVocabularyRequest=fetch("web/platform-vocabulary.json",{cache:"no-cache"})
+  .then(response=>{if(!response.ok)throw new Error("platform vocabulary unavailable");return response.json();})
+  .catch(()=>({aliases:{},non_platform_values:[]}));
 
 async function loadProjectCatalogue(fetcher=fetch){
   const response=await fetcher("data/projects.index.json",{cache:"no-cache"});
@@ -1243,7 +1255,7 @@ async function loadProjectCatalogue(fetcher=fetch){
 }
 
 loadProjectCatalogue()
-  .then(data=>{projects=data;projectsReady=true;initializeReadyViews();})
+  .then(async data=>{platformVocabulary=await platformVocabularyRequest;projects=data;projectsReady=true;initializeReadyViews();})
   .catch(error=>{
     $("rows").innerHTML='<tr><td colspan="11" class="empty">Could not load projects: '+esc(error.message)+'</td></tr>';
     $("activityFeed").innerHTML='<div class="activity-empty">Could not load projects: '+esc(error.message)+'</div>';

@@ -9,6 +9,8 @@ import re
 import shutil
 
 from generate_recent_activity import recent_activity
+from activity_history import write_activity
+from catalogue_storage import load_projects
 from generate_rss import DEFAULT_LIMIT, generate
 from validate_site_data import validate
 
@@ -30,13 +32,15 @@ def build(root, destination):
             raise ValueError(f"Expected one reference to {path}, found {count}")
     index.write_text(html)
     (destination / ".nojekyll").touch()
-    generate(
-        root / "data/activity.json", root / "data/projects.json", destination / "activity.xml", DEFAULT_LIMIT
-    )
+    for obsolete in (destination / "data").glob("activity-*d.json"):
+        obsolete.unlink()
+    projects = load_projects(root / "data/projects.json")
     activity = json.loads((root / "data/activity.json").read_bytes())
-    for days in (30, 180):
+    write_activity(destination / "data/activity.json", activity, projects)
+    generate(destination / "data/activity.json", destination / "data/projects.json", destination / "activity.xml", DEFAULT_LIMIT)
+    for days in (30,):
         (destination / f"data/activity-{days}d.json").write_text(
-            json.dumps(recent_activity(activity, days), ensure_ascii=False, separators=(",", ":")) + "\n"
+            json.dumps(recent_activity(activity, days, projects), ensure_ascii=False, separators=(",", ":")) + "\n"
         )
     validate(
         destination / "data/projects.json", destination / "data/activity.json", destination / "activity.xml"

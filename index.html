@@ -164,35 +164,17 @@
         <button id="activityClear" class="clear-filters" type="button" hidden>Clear filters</button>
       </div>
       <div class="segment-filter activity-period"><span>Period</span><div id="activityDaysSegment" class="segment-control">
-        <button type="button" data-value="7">7 days</button><button type="button" data-value="30" class="selected">30 days</button><button type="button" data-value="90">90 days</button><button type="button" data-value="180">180 days</button>
+        <button type="button" data-value="2">2 days</button><button type="button" data-value="7">7 days</button><button type="button" data-value="30" class="selected">30 days</button>
       </div></div>
-      <div class="facet-group">
-        <div class="facet-label">Activity type</div>
-        <div id="activityTypeFacet" class="facet-values"></div>
-      </div>
-      <div class="facet-group">
-        <div class="facet-label">Project type</div>
-        <div id="activityProjectTypeFacet" class="facet-values"></div>
-      </div>
-      <div class="facet-group">
-        <div class="facet-label">Platform</div>
-        <div id="activityPlatformFacet" class="facet-values"></div>
-      </div>
-      <div class="facet-group">
-        <div class="facet-label">CPU</div>
-        <div id="activityCpuFacet" class="facet-values"></div>
-      </div>
-      <div class="facet-group">
-        <div class="facet-label">Software type</div>
-        <div id="activityTargetKindFacet" class="facet-values"></div>
-      </div>
-      <div class="facet-group">
-        <div class="facet-label">Work</div>
-        <div id="activityWorkKindFacet" class="facet-values"></div>
-      </div>
-      <div class="facet-group">
-        <div class="facet-label">Development tool</div>
-        <div id="activityToolKindFacet" class="facet-values"></div>
+      <div class="activity-filter-grid">
+        <div class="direction-field"><span>Activity type</span><details id="activityTypeFacet" class="facet-picker" data-label="Activity type" data-empty="Any activity"><summary>Any activity</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search activity type" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>Project type</span><details id="activityProjectTypeFacet" class="facet-picker" data-label="Project type" data-empty="Any project type"><summary>Any project type</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search project type" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>Platform</span><details id="activityPlatformFacet" class="facet-picker" data-label="Platform" data-empty="Any platform"><summary>Any platform</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search platform" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>CPU family</span><details id="activityCpuFacet" class="facet-picker" data-label="CPU family" data-empty="Any CPU"><summary>Any CPU</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search cpu family" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>Software type</span><details id="activityTargetKindFacet" class="facet-picker" data-label="Software type" data-empty="Any software type"><summary>Any software type</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search software type" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>Work</span><details id="activityWorkKindFacet" class="facet-picker" data-label="Work" data-empty="Any work"><summary>Any work</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search work" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <div class="direction-field"><span>Development tool</span><details id="activityToolKindFacet" class="facet-picker" data-label="Development tool" data-empty="Any tool"><summary>Any tool</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search development tool" placeholder="Search…"><div class="picker-options"></div></div></details></div>
+        <label class="direction-field"><span>Matching side</span><select id="activityDirectionSide"><option value="either">Either</option><option value="source">Original</option><option value="target">Result</option></select></label>
       </div>
       <div class="segment-filter activity-ai"><span>AI</span><div id="activityAiSegment" class="segment-control">
         <button type="button" data-value="" class="selected">Any</button><button type="button" data-value="Yes">Yes</button><button type="button" data-value="No">No</button><button type="button" data-value="Unknown">Unknown</button>
@@ -205,7 +187,7 @@
       <div class="loading">Loading activity…</div>
     </div>
     <button id="activityMore" class="activity-more" type="button" hidden>Show more</button>
-    <p class="hint">Activity is grouped by day and project. Recent commits appear individually; older days show commit summaries. Project additions show the last known upstream activity after their initial scan. Routine probe timestamps are not logged as project changes.</p>
+    <p class="hint">Activity is grouped by day and project. Recent commits appear individually; older days show commit summaries. Project additions show a frozen upstream snapshot with its original metric window. Activity older than 30 days expires; project research and evidence are retained. Routine probe timestamps are not logged as project changes.</p>
   </section>
 </main>
 
