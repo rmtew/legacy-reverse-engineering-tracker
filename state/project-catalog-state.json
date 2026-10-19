@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-19T18:08:50Z",
+  "updated_at": "2026-10-19T18:26:31Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -34270,7 +34270,8 @@
           "evidence": [
             "https://github.com/matthewdeaves/BomberTalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/README.md",
             "https://github.com/matthewdeaves/BomberTalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/CLAUDE.md",
-            "https://github.com/matthewdeaves/BomberTalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/docs/asset-pipeline.md"
+            "https://github.com/matthewdeaves/BomberTalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/docs/asset-pipeline.md",
+            "https://github.com/matthewdeaves/BomberTalk/releases/tag/v1.12.0"
           ]
         }
       ],
@@ -34292,7 +34293,7 @@
         "game reimplementation"
       ],
       "re_started": null,
-      "status": "Native source reviewed; independent build and runtime untested",
+      "status": "active; v1.12.0 hardens the unchanged v6 network protocol",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -34304,7 +34305,7 @@
         "source-reviewed",
         "macintosh-68k-discovery"
       ],
-      "notes": "Identity: BomberTalk is Matthew Deaves’s networked Bomberman clone and the reference game for his PeerTalk SDK. README, the native Toolbox entry point and bomb/explosion implementation establish an actual shared game core with classic Mac, Carbon and SDL backends. Classification: A new source-level Bomberman-style reimplementation with a portable C89 game core and platform backends. Classic Mac paths link the native Toolbox and networking libraries; no guest CPU interpreter or original game-ROM wrapper was found in the reviewed build/source paths. Source CPU: The inspected sources identify Bomberman as design ancestry but do not analyze a specific historical binary or platform version. No historical source platform, CPU or machine-code input is asserted for this new implementation. Target CPU: CMake explicitly selects Retro68 or RetroPPC. The Carbon build script requests ppc and i386 architecture slices. README additionally identifies a modern Apple-Silicon SDL build, supporting ARM64 as a directly described target; generic Linux wording does not establish every possible host architecture. Build: Classic builds require Retro68/RetroPPC plus clog and PeerTalk, fetched from floating main branches unless local checkouts are supplied. Carbon uses a legacy gcc/Apple SDK and defaults to OS X 10.4 despite README’s broader 10.3–10.7 claim. SDL has a separate build script described in README. The latest asset pipeline still needs a hardware or genuine-QuickDraw check for its SE sprite tier. Limitations: Author-reported prior cross-hardware rounds do not verify the exact current snapshot. No dependency resolution, build, network session, launch or gameplay test was performed. Runtime profiles: The documented minimum is Mac SE with 8 MHz 68000, 4 MB RAM, System 6.0.8 and MacTCP. Other README examples include Performa 6200/6400 and modern hosts, but no comparable universal minimum is established for those outputs. The current SE sprite-format validation caveat is retained separately from earlier game tests. AI: Explicit code-commit co-author trailers name Claude Opus 4.8 (1M context); for example b576eafdcb1610297db089981cf448dab12593a6 changes network/lobby code. This supports AI usage and the tool label Claude. The model/context label is preserved here, not turned into extra tool names. CLAUDE.md alone would not establish usage. Relationships: PeerTalk and clog are external dependencies, while the classic, Carbon and SDL versions remain one BomberTalk project. No root LICENSE is present in the complete pinned tree, so an open-source redistribution grant is not assumed. The tree also includes third-party reference books and generated assets whose rights were not audited. Current catalogue, source/decision registers and the all-prior review union were screened; no same-code-lineage record was found. Evidence: https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/README.md https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/src/main.c https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/src/bomb.c https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/CMakeLists.txt https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/tools/build-macosx.sh https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/docs/asset-pipeline.md https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/CLAUDE.md https://github.com/matthewdeaves/BomberTalk/commit/b576eafdcb1610297db089981cf448dab12593a6",
+      "notes": "Identity: BomberTalk is Matthew Deaves’s networked Bomberman clone and the reference game for his PeerTalk SDK. README, the native Toolbox entry point and bomb/explosion implementation establish an actual shared game core with classic Mac, Carbon and SDL backends. Classification: A new source-level Bomberman-style reimplementation with a portable C89 game core and platform backends. Classic Mac paths link the native Toolbox and networking libraries; no guest CPU interpreter or original game-ROM wrapper was found in the reviewed build/source paths. Source CPU: The inspected sources identify Bomberman as design ancestry but do not analyze a specific historical binary or platform version. No historical source platform, CPU or machine-code input is asserted for this new implementation. Target CPU: CMake explicitly selects Retro68 or RetroPPC. The Carbon build script requests ppc and i386 architecture slices. README additionally identifies a modern Apple-Silicon SDL build, supporting ARM64 as a directly described target; generic Linux wording does not establish every possible host architecture. Build: Classic builds require Retro68/RetroPPC plus clog and PeerTalk, fetched from floating main branches unless local checkouts are supplied. Carbon uses a legacy gcc/Apple SDK and defaults to OS X 10.4 despite README’s broader 10.3–10.7 claim. SDL has a separate build script described in README. The latest asset pipeline still needs a hardware or genuine-QuickDraw check for its SE sprite tier. Limitations: Author-reported prior cross-hardware rounds do not verify the exact current snapshot. No dependency resolution, build, network session, launch or gameplay test was performed. Runtime profiles: The documented minimum is Mac SE with 8 MHz 68000, 4 MB RAM, System 6.0.8 and MacTCP. Other README examples include Performa 6200/6400 and modern hosts, but no comparable universal minimum is established for those outputs. The current SE sprite-format validation caveat is retained separately from earlier game tests. AI: Explicit code-commit co-author trailers name Claude Opus 4.8 (1M context); for example b576eafdcb1610297db089981cf448dab12593a6 changes network/lobby code. This supports AI usage and the tool label Claude. The model/context label is preserved here, not turned into extra tool names. CLAUDE.md alone would not establish usage. Relationships: PeerTalk and clog are external dependencies, while the classic, Carbon and SDL versions remain one BomberTalk project. No root LICENSE is present in the complete pinned tree, so an open-source redistribution grant is not assumed. The tree also includes third-party reference books and generated assets whose rights were not audited. Current catalogue, source/decision registers and the all-prior review union were screened; no same-code-lineage record was found. Evidence: https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/README.md https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/src/main.c https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/src/bomb.c https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/CMakeLists.txt https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/tools/build-macosx.sh https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/docs/asset-pipeline.md https://github.com/matthewdeaves/bombertalk/blob/b215c70d6da6168c6b49a2ed91417bfc1cd72c8e/CLAUDE.md https://github.com/matthewdeaves/BomberTalk/commit/b576eafdcb1610297db089981cf448dab12593a6 Release v1.12.0 publishes Mac SE 68k/MacTCP and Performa 6200/6400 PPC binaries and hardens map snapshots, rosters, sender identity, deterministic late joins and received-position/block validation while retaining wire protocol v6. Evidence: https://github.com/matthewdeaves/BomberTalk/releases/tag/v1.12.0",
       "ai": {
         "usage": true,
         "tools": [
@@ -74000,7 +74001,7 @@
         "game engine port"
       ],
       "re_started": null,
-      "status": null,
+      "status": "nearly feature complete; 2.5 MiB release floor enforced for overscan modes",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -74013,7 +74014,7 @@
         "Atari ST",
         "Flashback"
       ],
-      "notes": "Ports the REminiscence Flashback engine to Atari ST using original Amiga installation data and STDL. README says the game is nearly feature complete, builds FLASHBAK.TOS with the Atari toolkit, and requires at least 2.5 MB RAM (4 MB recommended) plus 3.5 MB hard-disk space. The port source explicitly targets m68000, but the exact architecture of the original game disassembly translated by REminiscence is not stated.",
+      "notes": "Ports the REminiscence Flashback engine to Atari ST using original Amiga installation data and STDL. README says the game is nearly feature complete, builds FLASHBAK.TOS with the Atari toolkit, and requires at least 2.5 MB RAM (4 MB recommended) plus 3.5 MB hard-disk space. The port source explicitly targets m68000, but the exact architecture of the original game disassembly translated by REminiscence is not stated. Current code logs ST/alternate RAM, records the actual selected display mode and suppresses overscan modes below the documented 2.5 MiB floor after a 2 MiB machine exhausted memory at level 5. This confirms the existing RAM requirement without supplying a CPU minimum. Evidence: https://github.com/neilrackett/atarist-reminiscence/commit/f3961516572b93dec8c2a6eec2ae30b4e4c88a0d",
       "ai": {
         "usage": null,
         "tools": []
@@ -83179,7 +83180,18 @@
       "target_cpu": [
         "m68k"
       ],
-      "runtime_profiles": [],
+      "runtime_profiles": [
+        {
+          "name": "Geomys Lite on talkip",
+          "platform": "Macintosh",
+          "min_ram_kib": 512,
+          "os": "System 6 with LocalTalk and a MacIP gateway",
+          "notes": "The README says the minimal talkip build runs on a real Macintosh 512Ke without MacTCP or an INIT. No minimum CPU is inferred from the machine name.",
+          "evidence": [
+            "https://github.com/ecliptik/geomys/commit/36a4da6cdefb7fa27fb1cf0f7ed9a5daf9e7a40a"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -83195,7 +83207,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "active; Geomys Lite has a documented real-Macintosh 512Ke talkip path",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -83207,7 +83219,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Original native classic-Mac Gopher application with MacTCP transport, Gopher/Gopher+ protocol parser, multi-window browsing, favorites, file downloads, text/HTML processing and System 6/7 display integration. Full, Lite and Minimal variants target constrained 68000 machines. Classification: Inspected actual RFC1436 parser and native Toolbox/connection code. README states 1MB minimum machine with Minimal version; full version has larger memory footprint. ISC; acknowledges ISC networking/utility code from wallops/subtext and sibling Flynn. Source CPU: Original application, no recovered historical binary input. Target CPU: Classic 68000 Macintosh native executable. Modern release-script host is not output target. Build: Retro68 cross-toolchain/CMake with numerous compile-time feature and memory presets; scripts package disk/BinHex/StuffIt artifacts. No build performed; all build/runtime/byte-exact flags remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Upstream targets Macintosh Plus or later with System 6.0.8/7 and MacTCP; colour requires Mac II/Color QuickDraw. No execution here. AI: README says built 100% agentically with Claude Code; pinned commit has Claude Opus 5.5 co-author trailer. Relationships: Sibling Flynn is a Telnet client; networking code has wallops/subtext ancestry. Evidence: https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/README.md https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/src/gopher.c https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/src/connection.c https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/src/browser.c https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/CMakeLists.txt https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/scripts/build.sh https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/LICENSE https://github.com/ecliptik/geomys/commit/8358881bf90d27c9d9df8377fd464f457feef17c",
+      "notes": "Identity: Original native classic-Mac Gopher application with MacTCP transport, Gopher/Gopher+ protocol parser, multi-window browsing, favorites, file downloads, text/HTML processing and System 6/7 display integration. Full, Lite and Minimal variants target constrained 68000 machines. Classification: Inspected actual RFC1436 parser and native Toolbox/connection code. README states 1MB minimum machine with Minimal version; full version has larger memory footprint. ISC; acknowledges ISC networking/utility code from wallops/subtext and sibling Flynn. Source CPU: Original application, no recovered historical binary input. Target CPU: Classic 68000 Macintosh native executable. Modern release-script host is not output target. Build: Retro68 cross-toolchain/CMake with numerous compile-time feature and memory presets; scripts package disk/BinHex/StuffIt artifacts. No build performed; all build/runtime/byte-exact flags remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Upstream targets Macintosh Plus or later with System 6.0.8/7 and MacTCP; colour requires Mac II/Color QuickDraw. No execution here. AI: README says built 100% agentically with Claude Code; pinned commit has Claude Opus 5.5 co-author trailer. Relationships: Sibling Flynn is a Telnet client; networking code has wallops/subtext ancestry. Evidence: https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/README.md https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/src/gopher.c https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/src/connection.c https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/src/browser.c https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/CMakeLists.txt https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/scripts/build.sh https://github.com/ecliptik/geomys/blob/8358881bf90d27c9d9df8377fd464f457feef17c/LICENSE https://github.com/ecliptik/geomys/commit/8358881bf90d27c9d9df8377fd464f457feef17c Geomys Lite can now replace MacTCP with talkip, use smaller network/directory buffers and run on a real Macintosh 512Ke over LocalTalk through a MacIP gateway. Evidence: https://github.com/ecliptik/geomys/commit/36a4da6cdefb7fa27fb1cf0f7ed9a5daf9e7a40a",
       "ai": {
         "usage": true,
         "tools": [
@@ -85294,7 +85306,9 @@
       "notes": "Identity: Enhanced native Amiga Gloom derived from released original source, with ECS/AGA/Picasso96 support, controls, rendering changes and bug fixes. Classification: Original Amiga source preservation or a distinct native enhancement of it. Source CPU: Inspected original source/build material identifies a classic Amiga m68k game lineage. Target CPU: Native classic Amiga/m68k output is established by reviewed source/build declarations. Build: Public repository contains native GloomReforged assembly and tools. README explicitly warns of increased CPU demand and recommends PiStorm or fast 68060; recommendation is not a measured minimum. Build/play/byte-exact flags remain unknown; no candidate software was executed. Runtime profiles: README supports ECS, AGA and P96. PiStorm or 68060 at 100 MHz is recommended for performance, not asserted as a minimum. AI: README explicitly displays an AI-Assisted Coding badge. No particular assistant/model is established by that badge. Relationships: Distinct enhancement of already tracked earok/GloomAmiga, not its mirror. README announces paid itch.io distribution for v3 onward while v2.4.0 remains on Aminet; public repository inspection does not promise future paid releases will include source. Evidence: https://github.com/Andiweli/Gloom-Reforged/blob/60c58f1fa901dff9235b2e05ad24c218bcc9d2d6/README.md https://github.com/Andiweli/Gloom-Reforged/blob/60c58f1fa901dff9235b2e05ad24c218bcc9d2d6/source/GloomReforged.s https://github.com/Andiweli/Gloom-Reforged/blob/60c58f1fa901dff9235b2e05ad24c218bcc9d2d6/LICENSE.md https://github.com/Andiweli/Gloom-Reforged/commit/60c58f1fa901dff9235b2e05ad24c218bcc9d2d6",
       "ai": {
         "usage": true,
-        "tools": []
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "vs-sr-cd32-gloom": {
@@ -90979,7 +90993,7 @@
         "reverse-engineering tooling",
         "retro development"
       ],
-      "notes": "Core Atari ST/STE/TT/Falcon emulator with a built-in debugger, conditional breakpoints, disassembly, symbol support, CPU/DSP profiling and remote-control facilities. October 9 TT work expands MC146818 RTC/NVRAM behavior with date/time writes, update-in-progress and update-ended flags, a 128 Hz periodic interrupt used by Atari System V, and IRQ wiring to TT MFP GPIP6. These are upstream implementation changes; this catalogue pass did not run Hatari or independently validate guest timing. Evidence: https://github.com/hatari/hatari/commit/85b7b214 https://github.com/hatari/hatari/commit/309cfc5 https://github.com/hatari/hatari/commit/5ae7910",
+      "notes": "Core Atari ST/STE/TT/Falcon emulator with a built-in debugger, conditional breakpoints, disassembly, symbol support, CPU/DSP profiling and remote-control facilities. October 9 TT work expands MC146818 RTC/NVRAM behavior with date/time writes, update-in-progress and update-ended flags, a 128 Hz periodic interrupt used by Atari System V, and IRQ wiring to TT MFP GPIP6. These are upstream implementation changes; this catalogue pass did not run Hatari or independently validate guest timing. Evidence: https://github.com/hatari/hatari/commit/85b7b214 https://github.com/hatari/hatari/commit/309cfc5 https://github.com/hatari/hatari/commit/5ae7910 The debugger now logs MMU page-fault address/direction/function-code/PC details and can dump supervisor or user logical memory through 68030/040/060 MMUs, including unmapped-page markers and a switch back to physical mode. Upstream reports tests with hand-built page tables plus Atari System V and m68k Linux guests. Evidence: https://github.com/hatari/hatari/commit/db4faac5c1c9c7d6ddb966f3e58b92a085c68d0e https://github.com/hatari/hatari/commit/31cdcca2aa74337fdf9971b3084244028b4deaf8 https://github.com/hatari/hatari/commit/23bc8971c6c45130fa59804bd8aa71516f221cc0",
       "ai": {
         "usage": true,
         "tools": [
@@ -115180,7 +115194,7 @@
         "AmigaPorts cross toolchain"
       ],
       "re_started": null,
-      "status": null,
+      "status": "active; v16.2-rc17 with a volamos 0.11-backed test path",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115195,11 +115209,12 @@
       "tags": [
         "Amiga"
       ],
-      "notes": "AmigaPorts continuation of bebbo's amiga-gcc, forked from jeffv03/amiga-gcc; README says fixes flow both ways. Packages GCC/binutils with Hunk, vasm/vlink, Ira and Amiga libraries. Author's build and packaging commits demonstrate maintained toolchain work; no claim of original Amiga binary restoration.",
+      "notes": "AmigaPorts continuation of bebbo's amiga-gcc, forked from jeffv03/amiga-gcc; README says fixes flow both ways. Packages GCC/binutils with Hunk, vasm/vlink, Ira and Amiga libraries. Author's build and packaging commits demonstrate maintained toolchain work; no claim of original Amiga binary restoration. Current test packaging pins volamos 0.11 artifacts for x86-64 Linux, arm64 Linux and arm64 macOS, adding the DOS calls needed by newlib's POSIX layer. This is upstream test-harness evidence, not a minimum host or Amiga runtime requirement. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/d2d61849a10269590e761b37ac31c42305abf6fd",
       "ai": {
         "usage": true,
         "tools": [
-          "Claude"
+          "Claude",
+          "GitHub Copilot"
         ]
       }
     },
@@ -118529,7 +118544,7 @@
         "source-reconstruction-derived port"
       ],
       "re_started": null,
-      "status": "in progress; release 0.7.9",
+      "status": "in progress; release 0.8.4",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -118549,7 +118564,7 @@
         "Master of Magic",
         "ReMoM"
       ],
-      "notes": "Native AmigaOS 68k port of jbalcomb/ReMoM, pinned to predecessor commit a9cc082 while retaining original game-data compatibility and applying endian/platform adaptations. Release 0.7.9 fixes selection of lower entries in city build lists, makes engineers build roads in the correct number of turns with matching dialog feedback, limits minimap cities to explored squares, and adds item-screen diagnostics. The documented minimum remains a 68020, Kickstart/Workbench 3.1+, and either AGA with 2 MiB Chip + 8 MiB Fast RAM or an 8-bit RTG setup with 8 MiB Fast RAM; no FPU is required. Evidence: https://github.com/angree/Amiga-68K-ReMoM/releases/tag/v0.7.9 https://github.com/angree/Amiga-68K-ReMoM/commit/385d430df6ca",
+      "notes": "Native AmigaOS 68k port of jbalcomb/ReMoM, pinned to predecessor commit a9cc082 while retaining original game-data compatibility and applying endian/platform adaptations. Release 0.8.4 fixes a Myrror bottom-row exploration overrun that could corrupt about 1 KiB and later quit to Workbench, and keeps Go To orders and Engineer roads on their assigned plane. Saves from 0.8.3 remain compatible; a combat-spell palette flash remains open. The documented minimum remains a 68020, Kickstart/Workbench 3.1+, and either AGA with 2 MiB Chip + 8 MiB Fast RAM or an 8-bit RTG setup with 8 MiB Fast RAM; no FPU is required. Evidence: https://github.com/angree/Amiga-68K-ReMoM/releases/tag/v0.7.9 https://github.com/angree/Amiga-68K-ReMoM/commit/385d430df6ca",
       "ai": {
         "usage": true,
         "tools": [
@@ -144589,7 +144604,7 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "win32hle now supports based guest memory on 64-bit macOS and Linux hosts; independent tracker build/run not performed",
+      "status": "win16 runtime now supports real menus, child-window geometry and bounded 640x480 maximize behavior",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -144605,7 +144620,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: A reusable analysis, disassembly, x86-to-C lifting and runtime toolkit extracted from multiple PC recompilation projects. Includes MZ/NE/LE/PE and NeXTSTEP Mach-O readers; x86-16/32/64 lifters and differential tests; DOS, Win16, Win32-on-POSIX and native32 runtime components. It is infrastructure rather than a game-specific interpreter wrapper. Classification: 157 source files across analysis/lifting tools; actual lift16 operand-to-CPU-C emission inspected. Pinned fix handles overlapping REP MOVS semantics. Runtime completeness varies; Win16 link stubs are explicitly incomplete. MIT project licence; binary assets, third-party SDKs and external disassembler databases are not thereby relicensed. Source CPU: x86-16 and x86-32 collapse to x86; x86-64 is separately supported. Target CPU: Generated portable C plus runtime-specific restrictions; no single native-output CPU established for the whole toolkit. Build: Python modules drive analysis/lifting; generated C is linked against the chosen runtime with project-specific CMake/toolchain setup. The native32 runtime specifically needs MSVC x86; POSIX/SDL2 hosts have different requirements. No build or upstream program execution performed; build success remains unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Outputs generated C and project runtime trees. Host architecture is not a recovered-input CPU; no universal target ISA is asserted. AI: Pinned latest commit includes Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. Relationships: Shared toolkit underpinning sp00nznet PC recompilation repositories; should not be merged into any one game project. Evidence: https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/README.md https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift16.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift32.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/ne/ne_parse.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/templates/CMakeLists.txt.template https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/LICENSE https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/CONTRIBUTORS.md https://github.com/sp00nznet/pcrecomp/commit/bd26806fbd4714d670d2dee75973c5eaff64674c The win32hle runtime now places the 32-bit guest address space in a separate based mapping on 64-bit hosts, converts guest/host pointers explicitly and adds macOS-specific page, socket, font and path handling. Upstream reports all seven selftests passing on arm64 macOS and x86-64 Linux; the tracker did not run them. Host support is not recorded as a universal target CPU for generated programs. Evidence: https://github.com/sp00nznet/pcrecomp/commit/00cb72404fcecc9de2fb3ef822e3264c2bb2ccb2",
+      "notes": "Identity: A reusable analysis, disassembly, x86-to-C lifting and runtime toolkit extracted from multiple PC recompilation projects. Includes MZ/NE/LE/PE and NeXTSTEP Mach-O readers; x86-16/32/64 lifters and differential tests; DOS, Win16, Win32-on-POSIX and native32 runtime components. It is infrastructure rather than a game-specific interpreter wrapper. Classification: 157 source files across analysis/lifting tools; actual lift16 operand-to-CPU-C emission inspected. Pinned fix handles overlapping REP MOVS semantics. Runtime completeness varies; Win16 link stubs are explicitly incomplete. MIT project licence; binary assets, third-party SDKs and external disassembler databases are not thereby relicensed. Source CPU: x86-16 and x86-32 collapse to x86; x86-64 is separately supported. Target CPU: Generated portable C plus runtime-specific restrictions; no single native-output CPU established for the whole toolkit. Build: Python modules drive analysis/lifting; generated C is linked against the chosen runtime with project-specific CMake/toolchain setup. The native32 runtime specifically needs MSVC x86; POSIX/SDL2 hosts have different requirements. No build or upstream program execution performed; build success remains unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Outputs generated C and project runtime trees. Host architecture is not a recovered-input CPU; no universal target ISA is asserted. AI: Pinned latest commit includes Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. Relationships: Shared toolkit underpinning sp00nznet PC recompilation repositories; should not be merged into any one game project. Evidence: https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/README.md https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift16.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/lift/lift32.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/tools/ne/ne_parse.py https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/templates/CMakeLists.txt.template https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/LICENSE https://github.com/sp00nznet/pcrecomp/blob/bd26806fbd4714d670d2dee75973c5eaff64674c/CONTRIBUTORS.md https://github.com/sp00nznet/pcrecomp/commit/bd26806fbd4714d670d2dee75973c5eaff64674c The win32hle runtime now places the 32-bit guest address space in a separate based mapping on 64-bit hosts, converts guest/host pointers explicitly and adds macOS-specific page, socket, font and path handling. Upstream reports all seven selftests passing on arm64 macOS and x86-64 Linux; the tracker did not run them. Host support is not recorded as a universal target CPU for generated programs. Evidence: https://github.com/sp00nznet/pcrecomp/commit/00cb72404fcecc9de2fb3ef822e3264c2bb2ccb2 The Win16 runtime now constructs real menus from NE RT_MENU resources, preserves guest menu handles/messages, models child-window geometry and gives maximized frames a 640x480 client. Upstream reports SimAnt reaching Quick Game with its menu bar and Dogz reaching its UI; these are bounded project receipts, not tracker-side runs. Evidence: https://github.com/sp00nznet/pcrecomp/commit/637c723345b38ca2d0fc599f52e831a3e58c30ea",
       "ai": {
         "usage": true,
         "tools": [
@@ -145361,7 +145376,8 @@
       "target_cpu": [
         "m68k",
         "PowerPC",
-        "x86"
+        "x86",
+        "x86-64"
       ],
       "runtime_profiles": [],
       "execution_paths": null,
@@ -145379,7 +145395,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "active; v1.13.2 hardens cross-endian peering and chunk/session handling",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -145391,7 +145407,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: C89 LAN peer-to-peer SDK with discovery, reliable TCP and fast UDP messages, bounded preallocated buffers and automatic full-mesh connections across classic MacTCP/Open Transport and modern POSIX hosts. Classification: Substantial networking state machine and real platform backends. Some hardware combinations remain pending, especially68k Open Transport. Hardware/testing and zero-allocation claims are upstream statements, not reproduced. LAN transport is not an authenticated encrypted Internet protocol. MIT main library; external clog/toolchain/Apple SDK dependencies retain their own licences. Source CPU: No predecessor machine-code input or processor-specific source architecture is established; no CPU is inferred from the host language. Target CPU: Documented output/support targets: Classic Mac OS, macOS, Linux. Processor scope: m68k, PowerPC, x86. Build: CMake detects Retro68/RetroPPC or POSIX and fetches clog from floating main unless provided locally. Classic builds need the author's Retro68 fork; older OS X PPC+i386 universal build uses a vintage SDK/compiler shell workflow. No upstream software was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Mac SE68000/MacTCP, classic PowerPC MacTCP/Open Transport and POSIX hosts; documented Mac SE example has4MB RAM. AI: Code commit7af8d2ed48a80ed80480263287db390559a22cb5 (automatic mesh implementation) explicitly has Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>. Supports AI-assisted contribution, not a claim every file was AI-written. Relationships: Reusable SDK used by the separately catalogued BomberTalk; not the game itself. Evidence: https://github.com/matthewdeaves/peertalk/blob/cc8eb5d5bb3c9dcd94255ca3737330b6b06541f5/README.md https://github.com/matthewdeaves/peertalk/blob/cc8eb5d5bb3c9dcd94255ca3737330b6b06541f5/CMakeLists.txt",
+      "notes": "Identity: C89 LAN peer-to-peer SDK with discovery, reliable TCP and fast UDP messages, bounded preallocated buffers and automatic full-mesh connections across classic MacTCP/Open Transport and modern POSIX hosts. Classification: Substantial networking state machine and real platform backends. Some hardware combinations remain pending, especially68k Open Transport. Hardware/testing and zero-allocation claims are upstream statements, not reproduced. LAN transport is not an authenticated encrypted Internet protocol. MIT main library; external clog/toolchain/Apple SDK dependencies retain their own licences. Source CPU: No predecessor machine-code input or processor-specific source architecture is established; no CPU is inferred from the host language. Target CPU: Documented output/support targets: Classic Mac OS, macOS, Linux. Processor scope: m68k, PowerPC, x86. Build: CMake detects Retro68/RetroPPC or POSIX and fetches clog from floating main unless provided locally. Classic builds need the author's Retro68 fork; older OS X PPC+i386 universal build uses a vintage SDK/compiler shell workflow. No upstream software was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Mac SE68000/MacTCP, classic PowerPC MacTCP/Open Transport and POSIX hosts; documented Mac SE example has4MB RAM. AI: Code commit7af8d2ed48a80ed80480263287db390559a22cb5 (automatic mesh implementation) explicitly has Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>. Supports AI-assisted contribution, not a claim every file was AI-written. Relationships: Reusable SDK used by the separately catalogued BomberTalk; not the game itself. Evidence: https://github.com/matthewdeaves/peertalk/blob/cc8eb5d5bb3c9dcd94255ca3737330b6b06541f5/README.md https://github.com/matthewdeaves/peertalk/blob/cc8eb5d5bb3c9dcd94255ca3737330b6b06541f5/CMakeLists.txt Version 1.13.2 publishes a Linux x86-64 static library and portable SDK source, and hardens cross-endian peer ordering, chunk reassembly, disconnect handling, clocks, POSIX sends and 68k interrupt assembly. The wire protocol is unchanged. Evidence: https://github.com/matthewdeaves/peertalk/releases/tag/v1.13.2",
       "ai": {
         "usage": true,
         "tools": [
@@ -154966,7 +154982,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active; v1.0.0 package exposes VS Code/DAP debugging plus a headless MCP emulator and profile-analysis server",
+      "status": "active; v1.2.0 adds serial capture, richer profile analysis and exact-access debugging",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -154993,7 +155009,7 @@
         "reverse-engineering tooling",
         "retro development"
       ],
-      "notes": "Amiga debugger/profiler built around the WinUAE-derived PUAE core. Supports Hunk/ELF debug information, source and instruction breakpoints, data watchpoints, reverse execution, CPU/DMA profiling, Copper/blitter inspection, memory reconstruction, standalone DAP use and headless MCP-driven emulator inspection. Current main documents the packaged puae-debugger MCP server, which analyzes saved profiles and boots the WinUAE-derived PUAE core headlessly under Node for program injection, memory, screenshot and profiling workflows. Per-project MCP configuration keeps copyrighted Kickstart paths in user environments. The repository explicitly identifies the integrated emulator as PUAE/WinUAE-derived; this closes the relationship audit without treating those ancestors as duplicate tracker records. Evidence: https://github.com/grahambates/vscode-puae-debugger/blob/main/README.md https://github.com/grahambates/vscode-puae-debugger/blob/main/package.json https://github.com/grahambates/vscode-puae-debugger/commit/38cd4bbaa6ae0612b965947e0ba036904406b1ee",
+      "notes": "Amiga debugger/profiler built around the WinUAE-derived PUAE core. Supports Hunk/ELF debug information, source and instruction breakpoints, data watchpoints, reverse execution, CPU/DMA profiling, Copper/blitter inspection, memory reconstruction, standalone DAP use and headless MCP-driven emulator inspection. Current main documents the packaged puae-debugger MCP server, which analyzes saved profiles and boots the WinUAE-derived PUAE core headlessly under Node for program injection, memory, screenshot and profiling workflows. Per-project MCP configuration keeps copyrighted Kickstart paths in user environments. The repository explicitly identifies the integrated emulator as PUAE/WinUAE-derived; this closes the relationship audit without treating those ancestors as duplicate tracker records. Evidence: https://github.com/grahambates/vscode-puae-debugger/blob/main/README.md https://github.com/grahambates/vscode-puae-debugger/blob/main/package.json https://github.com/grahambates/vscode-puae-debugger/commit/38cd4bbaa6ae0612b965947e0ba036904406b1ee Version 1.2.0 adds live serial output, library-call naming, per-pass/profile-diff analysis, call counts, local-label routines, exact memory/register access history, screenshot hashes and file/SHA-256 memory inspection. The changelog also corrects timing units to colour clocks and documents bounded watchpoint, profile and reverse-debugging fixes. Evidence: https://github.com/grahambates/vscode-puae-debugger/blob/e954f6fa4ec49d253766645921247bd8ebaf80a5/CHANGELOG.md https://github.com/grahambates/vscode-puae-debugger/commit/e954f6fa4ec49d253766645921247bd8ebaf80a5",
       "ai": {
         "usage": true,
         "tools": [
@@ -190344,7 +190360,7 @@
         "static recompilation"
       ],
       "re_started": null,
-      "status": "fully playable",
+      "status": "fully playable; v1.12.3 accepts verified equivalent World ROM headers",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -190364,10 +190380,13 @@
         "x86-64",
         "Super Mario Bros."
       ],
-      "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. All worlds and levels are believed completable; README notes a title-demo timing inconsistency. User supplies the matching ROM; no ROM is distributed.",
+      "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. All worlds and levels are believed completable; README notes a title-demo timing inconsistency. User supplies the matching ROM; no ROM is distributed. Release v1.12.3 accepts both NES 2.0 and older iNES headers for the World ROM only after matching identical PRG+CHR data, cartridge wiring/RAM/timing and program bytes. Upstream reports 900-frame hash/picture comparisons plus real Windows launcher/render/audio startup; Linux execution remained unverified. Evidence: https://github.com/mstan/SuperMarioBrosNESRecomp/releases/tag/v1.12.3",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Codex"
+        ]
       }
     },
     "supermon64-source-restoration": {
@@ -192216,7 +192235,18 @@
       "target_cpu": [
         "68000"
       ],
-      "runtime_profiles": [],
+      "runtime_profiles": [
+        {
+          "name": "512K Lite-client integration",
+          "platform": "Macintosh",
+          "min_ram_kib": 512,
+          "os": "System 6 with LocalTalk and a MacIP gateway",
+          "notes": "Primary documentation gives concrete Geomys Lite and Flynn Lite build commands using talkip instead of MacTCP. No minimum CPU is inferred from the machine family.",
+          "evidence": [
+            "https://github.com/ecliptik/talkip/commit/699f53ce8e62a67b9040edf29ff50b00fbbe5b2f"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -192235,7 +192265,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "active; documented Geomys Lite and Flynn Lite 512K integrations",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -192247,7 +192277,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: New small-footprint TCP/IP and MacIP stack linked into native Macintosh applications, plus a MacTCP-compatible driver, for a 512Ke with System 6 over LocalTalk. Classification: TCP implementation explicitly limits in-flight segments and handles modular sequence numbers; tests and on-hardware claims are upstream evidence only. ISC; Apple MacTCP interface header separately identified. Source CPU: No recovered predecessor machine-code input; source CPU is not inferred from compiler host. Target CPU: Documented output/support targets: Macintosh 512Ke, Macintosh Plus, System 6. Processor scope: 68000. Build: Retro68 m68k toolchain and CMake; produces MacBinary, APPL and disk-image applications; separate host tests documented. Build flags remain unknown; no build or execution performed. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Requires 128K-ROM-or-later Mac, LocalTalk and a MacIP gateway; no MacTCP installation needed. AI: Pinned latest full commit has Claude Opus 5.5 Co-Authored-By trailer. Relationships: Distinct stack used by Geomys/Flynn Lite; API compatibility does not make it a mirror of those clients. Evidence: https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/README.md https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/src/tcp.c https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/src/ip.c https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/CMakeLists.txt https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/scripts/build.sh https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/LICENSE https://github.com/ecliptik/talkip/commit/4ab2d4867486e95b744c7c5c006426dff8cfdf8d",
+      "notes": "Identity: New small-footprint TCP/IP and MacIP stack linked into native Macintosh applications, plus a MacTCP-compatible driver, for a 512Ke with System 6 over LocalTalk. Classification: TCP implementation explicitly limits in-flight segments and handles modular sequence numbers; tests and on-hardware claims are upstream evidence only. ISC; Apple MacTCP interface header separately identified. Source CPU: No recovered predecessor machine-code input; source CPU is not inferred from compiler host. Target CPU: Documented output/support targets: Macintosh 512Ke, Macintosh Plus, System 6. Processor scope: 68000. Build: Retro68 m68k toolchain and CMake; produces MacBinary, APPL and disk-image applications; separate host tests documented. Build flags remain unknown; no build or execution performed. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Requires 128K-ROM-or-later Mac, LocalTalk and a MacIP gateway; no MacTCP installation needed. AI: Pinned latest full commit has Claude Opus 5.5 Co-Authored-By trailer. Relationships: Distinct stack used by Geomys/Flynn Lite; API compatibility does not make it a mirror of those clients. Evidence: https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/README.md https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/src/tcp.c https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/src/ip.c https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/CMakeLists.txt https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/scripts/build.sh https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/LICENSE https://github.com/ecliptik/talkip/commit/4ab2d4867486e95b744c7c5c006426dff8cfdf8d Current documentation provides concrete minimal-build commands for Geomys Lite and Flynn Lite against talkip on 512K Macs, confirming the integration relationship. Evidence: https://github.com/ecliptik/talkip/commit/699f53ce8e62a67b9040edf29ff50b00fbbe5b2f",
       "ai": {
         "usage": true,
         "tools": [
