@@ -260,3 +260,12 @@ Run the focused checks with:
 ```sh
 python -m unittest discover -s tools -p 'test_research_record.py' -v
 ```
+
+## Publish the compact reviewed delta
+
+After review, use `--seal` and the [compact publication route](publication-pipeline.md).
+`tools/research_submission.py prepare` embeds any verified cached proofs and
+creates a connector bundle containing one small input file. Actions generates
+notes, audits, reports and projections against current main, with stable
+receipts and idempotent retry. The online route requires the matching ready digest;
+legacy compiler input semantics remain compatible for local and historical work.

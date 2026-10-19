@@ -1,170 +1,93 @@
-# Repeatable research publication
+# Compact reviewed research publication
 
-The research decisions remain human/model-authored and evidence-reviewed. The
-pipeline removes repeated formatting, staging and verification scripts. It does
-not invent CPU/platform corrections, decide that an untested game works, or
-turn an unknown AI claim into a negative answer.
+Research remains human/model-authored and evidence-reviewed. The supported online
+route sends one small reviewed delta to trusted main; GitHub Actions expands and
+validates it against current main. Canonical partitions, generated reports and
+projections stay on the runner instead of crossing the connector.
 
-## 1. Research and review
+## Prepare and submit
 
-Prefer the [single-authoring record](research-records.md): write each area's
-judgment once and generate the project note, audit and report. Existing legacy
-batches are still accepted without migration. Reuse pinned repository/commit/
-blob evidence when its upstream snapshot is unchanged. Verify current upstream
-heads before supplying `--expected-commits`; the compiler cannot establish
-freshness or source provenance by itself.
-
-Review uncertain claims and the exact typed changes. Ready status or an optional
-review digest records that decision; passing a structural validator does not
-make research approved. Keep distinct reasoning for original-platform/CPU,
-output-platform/CPU, runtime, source lineage and licensing.
-
-## 2. Prepare once against an exact baseline
-
-Obtain the current main SHA and complete recursive tree through GitHub. Use a
-checkout or connector-materialized snapshot whose input bytes match that tree.
-The output must be a separate directory:
+Author `research-records/v1` using [the research record guide](research-records.md).
+Review the typed values, primary evidence and uncertainties, then explicitly seal:
 
 ```sh
-python tools/publication_pipeline.py prepare research.json \
-  --root /path/to/reviewed-checkout --out /tmp/reviewed-publication \
-  --baseline FULL_MAIN_COMMIT_SHA --baseline-tree /tmp/main-tree.json
+python tools/research_record.py research.json --seal /tmp/reviewed.json
+python tools/research_submission.py prepare /tmp/reviewed.json --out /tmp/research-submit
 ```
 
-Optional structured-record arguments are `--evidence-cache` and
-`--expected-commits`. This performs one whole-data validation, preserves all
-unmodified project/audit objects, and emits:
+The second command creates an ordinary `publish_discovery.js` bundle containing
+only `submissions/research/<event_id>.json`. Use that existing connector publisher
+with the bundle, current main baseline and its resumable checkpoint. A native
+Git client may instead commit that one payload file to main. If main advances,
+prepare a fresh small bundle against the new baseline; the reviewed research is
+unchanged. Never upload expanded catalogue partitions for a new research pass.
+`package` can produce a single compact input file for native Git transport.
 
-- `payload/`: staged catalogue files and generated report/index entries
-- `manifest.json`: baseline, exact file hashes, counts and stage timings
-- `review.json`: exact field before/after values and uncertain audit areas
-- `batch.json`: the compiled compatible delta
+The route requires a ready review digest, inline pinned proof text (or `--cache`
+to embed verified cached text), at most 100 project records / 500 batch entries,
+and at most 1 MiB of UTF-8 input. The JSON-escaped connector request must also fit
+the shared 4 MiB ceiling. IDs are safe filename components of at most 128
+characters. Oversized passes must be split and reviewed explicitly.
 
-The source checkout is untouched. Repeating the same preparation checks and
-reuses its output. Changed inputs, stale baseline bytes, modified output or an
-incomplete bundle require a fresh output directory. Duplicate event IDs remain
-an error; they never silently append another research event.
+A seal records an author review and protects content integrity; it cannot prove
+that the judgments are correct. Only writers authorized to commit to main may
+submit. An external PR or self-sealed attachment receives no write privileges.
 
-Legacy batches support `project_updates` as well as additions. Each update has
-`project_id`, `expected_sha256`, `changes`, and a full explicit replacement
-`audit`; optional source links and `allow_shared_url` follow addition rules.
-Calculate the expected digest using `publication_pipeline.digest(project)` on
-the exact reviewed record. Changes are shallow: omitted fields survive, supplied
-nested objects replace that top-level value. IDs cannot be renamed through this
-helper. A stale or duplicate update fails before any source file is written.
+## Atomic apply and stable receipts
 
-## 3. Publish the reviewed manifest
+`apply-research.yml` runs trusted main code on main pushes, manual runs and an
+hourly recovery wake-up. It reads only committed JSON inputs and processes at
+most four pending events per run. Missed or coalesced wake-ups remain discoverable
+in the inbox; there is no recursive workflow continuation.
 
-Review `review.json`, the generated report and manifest. Run repository tests
-once against the final code/data, not once per formatting pass:
+For each event, Actions reuses the existing compiler, discovery application,
+publication preservation checks and full data validator. It builds and validates
+site/RSS projections in isolation, then commits changed canonical partitions,
+research provenance/report, an immutable `state/research-receipts/<event_id>.json`
+and a small durable outbox entry together. A receipt binds event ID, reviewed
+content digest, input blob, baseline, report hash and applied summary. It never
+copies the catalogue. Unchanged existing projects/audits must remain exact.
 
-```sh
-python -m unittest discover -s tools -p 'test_*.py'
-node --test tools/test_cpu_filters.js tools/test_publish_discovery.js
-python tools/publication_pipeline.py verify-files /tmp/reviewed-publication
-git diff --check
-```
+Fast-forward push conflicts retry against latest main up to three times, with
+fresh validation. Concurrent metadata is retained. Explicit existing-project
+updates still require their authored expected SHA; conflicts need another review.
+A concurrent change to publication tools requires rerunning the trusted job.
 
-For an authorized connector publication, load `tools/publish_discovery.js` into
-`functions.exec` without printing its payload and invoke:
+Same ID and identical reviewed content is a no-op. Conflicting content under an
+existing ID fails clearly. IDs already published by the legacy path cannot be
+silently adopted. Inputs and receipts retain provenance; do not edit completed
+submissions to reuse their IDs.
 
-```js
-await publishDiscovery(tools, {
-  repository: "rmtew/legacy-reverse-engineering-tracker",
-  branch: "EXISTING_AUTHORIZED_BRANCH",
-  bundle: "/tmp/reviewed-publication",
-  message: "Publish reviewed research batch"
-});
-```
+## Handoff and recovery
 
-The adapter takes the real available connector tools; it does not require a
-token, invent a local-file upload API, create a branch, approve a review or open
-a PR. It uploads only changed manifest files, verifies returned blob hashes,
-creates one tree and commit, advances the chosen ref with `expected_sha` and
-`force: false`, then verifies the remote ref and complete file tree. Its local
-checkpoint reuses already-verified blobs. A lost ref-update response is resolved
-by reading the ref on resume; an advanced head requires preparation/review
-against the new baseline, never a blind force or replay over another commit.
+Only after a successful commit/push does Actions dispatch the existing durable
+metadata/activity refresh for project changes, using a stable request identity.
+First scans cover 30 days; historical head/release lookups still recover old
+upstream dates without putting expired commits in the timeline. Pages uses the
+existing shared completeness/material-change gate, so new catalogue records
+cannot deploy before initial enrichment and catalogue events are complete.
+Research-only changes use that same Pages gate directly.
 
-The connector currently accepts text. Bounded shell reads keep multi-megabyte
-payloads out of model context, but they are still transfer overhead. This driver
-automates that bridge; it does not claim to eliminate it. Keep its checkpoint
-with the bundle until publication verification finishes.
+The outbox is acknowledged only after handoff succeeds. A crash after publication
+or notification failure leaves the receipt and pending outbox intact. Rerun the
+job, manually run **Apply reviewed research submissions** with its `event_id`, or
+allow the hourly recovery run. Replays do not duplicate projects, research events
+or reports. Completed acknowledgements do not dispatch workflows again.
+Publication commands reset a dedicated checkout; use them in Actions, not a
+shared working tree with uncommitted work.
 
-Do not use an `automation/discovery-*` branch for a draft code PR: that existing
-workflow fast-forwards main. Use that route only for an authorized, reviewed data
-publication. Code/tool/workflow changes should have their normal review first.
+Check the stable receipt, the metadata workflow when applicable, and the actual
+successful Pages deployment. Pages validates canonical data, the 30-day browser
+projection and RSS at the pinned exported commit. Existing remote/live bundle
+verification commands remain available for already-authored legacy publications.
 
-## 4. Complete enrichment, deployment and served verification
+## Transition
 
-A main push scopes metadata and history to repositories whose authored catalogue
-records changed. Shared repositories are fetched once. The scoped path forces
-complete first-scan metadata, historical head/release context and a full 180-day
-branch/path backfill, subject to existing rate/request/time safety limits.
-Incomplete work remains pending and cannot be described as a completed addition.
-Normal schedules and manual dispatches without publication inputs retain broad
-adaptive polling. They can recover pending first scans.
-
-Recovery work in each adaptive metadata/history phase has a shared request slice
-(at most 25% of usable capacity, capped at 1,000 calls), leaving capacity for
-ordinary maintenance. Every refresh reconciles still-unrecorded catalogue changes,
-including when a previous publication run was replaced by a later code-only push. A first scan too large for existing safety limits
-stays pending with a diagnostic; there is no unsafe partial-completion shortcut.
-This change does not introduce resumable page cursors or increase quota limits.
-
-For a bot landing, `land-discovery.yml` dispatches immutable `publication_base`
-and `publication_head` SHAs. Manual publication retries should pass both:
-
-```sh
-gh workflow run refresh-github.yml --ref main \
-  -f publication_base=FULL_BASE_SHA -f publication_head=FULL_AUTHORED_SHA
-```
-
-Wait for successful metadata and Pages runs for the expected publication. For
-authored commit verification, fetch its complete tree and run:
-
-```sh
-python tools/publication_pipeline.py verify-remote /tmp/reviewed-publication authored-tree.json
-```
-
-Download served `data/{projects,activity,project-audits,discovery-sources,
-discovery-decisions,research-activity,activity-30d,activity-180d}.json` and
-`activity.xml` into a local directory. Obtain the actual successful Pages
-deployment commit's complete tree, then run:
-
-```sh
-python tools/publication_pipeline.py verify-live /tmp/reviewed-publication /tmp/served-site deployed-tree.json
-```
-
-This checks served canonical hashes, full data/RSS validity, unchanged authored
-fields/audits, addition events in both windows/RSS, and initial GitHub/context
-fields. Changes to AI usage/tools require explicit review. Run soon after
-publication: rolling-feed expiry is not a failed historical publication. An
-empty repository can legitimately have null last-commit context. Metadata and
-successful Pages are necessary evidence, not proof of compilation or gameplay.
-
-## Measured offline replay
-
-Replayed the recorded 17-game batch against its original 1,715-project baseline,
-without network writes or fake live additions. The original end-to-end audit
-measured 31m29s: preparation 13m08s, review 4m21s, commit about 48s of tool runtime,
-metadata roughly 10m03s, and Pages roughly 46s. Some phases overlapped and blob
-transfer wall time was not fully measured, so these are not additive CPU times.
-
-On the same local recorded data:
-
-- Existing apply/validate dry run: 0.84s
-- New complete preparation: 1.20s (baseline verification 0.11s, compilation/
-  application/preservation 0.27s, serialization/validation/reporting 0.83s)
-- Idempotent prepared-bundle recheck: 0.15s
-- Offline served-data verification: 1.44s; all 1,732 typed records/audits and all
-  17 addition contexts, activity windows and RSS events checked
-- Eight changed files, 15,260,275 bytes with the generated compact index/report
-
-The JSON merge was already cheap; it is not claimed as a speedup. The gain is
-reusable scaffolding and single-authored research. Actual future authoring-time
-savings and live network timing are unmeasured. The recorded old probe touched
-1,154 repositories and made 1,405 requests; the same catalogue delta selects
-only the 17 changed repositories. Actual new request counts depend on branches,
-paths/history, quota and retries. No projected wall-clock estimate replaces a
-future measured publication.
+The expanded `publication_pipeline.py prepare` format is retained for native
+server-side application, old checkpoints and exceptional catalogue repair.
+`publish_discovery.js` also remains the connector transport for code/maintenance
+commits. These are not alternative automatic research-ingestion routes.
+The old `automation/discovery-*` fast-forward landing workflow is removed;
+research submissions cannot replace executable tools/workflows or choose output
+paths/commands. Legacy batch input and historical publication verification remain
+readable through their existing tools.
