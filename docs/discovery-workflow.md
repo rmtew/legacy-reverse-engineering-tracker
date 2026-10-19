@@ -105,9 +105,15 @@ The first command stages the proposed data in a temporary directory and runs the
 
 ## Publish and verify
 
-Fetch current `main` before publishing. In Codex Work, use the linked GitHub connector for repository writes: create blobs for each changed file, create one tree based on the current `main` tree, create one commit with the current `main` commit as its parent, and fast-forward `main` with `force: false`. Compare blob/tree SHAs with the validated local files when possible. If `main` advanced, rebase/revalidate rather than force an update. An authenticated Git client may instead push one validated commit; do not assume this workspace's shell has credentials.
-
-For a batch that merits a branch review, `automation/discovery-*` triggers the existing landing workflow. It validates, fast-forwards `main`, dispatches the refresh, and removes the branch on success. Direct connector commits on `main` trigger the ordinary push refresh when the catalogue changes. After publication, confirm the metadata refresh and subsequent Pages `workflow_run` deployment for catalogue changes; a research-index-only pass deploys through the direct Pages push run. If a workflow fails, inspect its actual failing step before starting another discovery batch.
+Use the [compact publication route](publication-pipeline.md): seal a reviewed
+`research-records/v1` document, run `tools/research_submission.py prepare`, and
+publish only its one `submissions/research/<event_id>.json` payload to main.
+Actions applies it atomically to current main, preserving concurrent refreshes,
+validates canonical data and projections, writes a stable receipt, and requests
+existing enrichment/Pages workflows. Retries resume from the receipt/outbox.
+The retired `automation/discovery-*` landing workflow no longer fast-forwards
+branches. Existing expanded bundles remain supported for historical recovery;
+new research passes should not transfer expanded partitions through the connector.
 
 - [Sixteenth fixed batch of 30 (2026-09-30)](discovery-intake-sixteenth-30-2026-09-30.md)
 

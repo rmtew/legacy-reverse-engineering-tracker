@@ -1,0 +1,49 @@
+name: Apply reviewed research submissions
+
+on:
+  push:
+    branches: [main]
+    paths: ['submissions/research/*.json']
+  workflow_dispatch:
+    inputs:
+      event_id:
+        description: Optional reviewed event to resume; empty drains up to four pending submissions
+        type: string
+        default: ''
+  schedule:
+    # Recover missed wake-ups or a publication whose notification failed.
+    - cron: '47 * * * *'
+
+permissions:
+  contents: write
+  actions: write
+  deployments: read
+
+concurrency:
+  group: apply-reviewed-research
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Configure publication identity
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Publish reviewed research atomically
+        env:
+          RESEARCH_EVENT: ${{ inputs.event_id || '' }}
+        run: >-
+          python tools/research_submission.py publish
+          --event "$RESEARCH_EVENT" --result "$RUNNER_TEMP/research-result.json"
+      - name: Resume enrichment and request complete publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/research_submission.py handoff --result "$RUNNER_TEMP/research-result.json"
