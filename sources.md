@@ -1178,3 +1178,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-20 — Add 42 reviewed cross-platform games, firmware, libraries and tools; retain one documentation aggregation as a lead.
 
 [Research record](docs/research/2026-10-20-wide-cross-platform-discovery-39.md).
+
+## 2026-10-21 — Add 13 reviewed projects spanning Saturn recompilation, 6502 archaeology, native Z80 engines and modern retro-development tooling; retain five explicit non-promotions.
+
+[Research record](docs/research/2026-10-21-queue-tools-and-native-engines.md).
