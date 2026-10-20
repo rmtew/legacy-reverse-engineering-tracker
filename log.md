@@ -1,5 +1,15 @@
 # Search / Report Log
 
+## 2026-10-20 — Physical hardware, compiler and reconstruction maintenance
+
+Reviewed ten materially changed projects. **AmiNetXDuo classic Amiga IPv4/IPv6 stack** now drives an Ameristar A2065 and fixes LANCE addressing/byte order that emulators had concealed; upstream's physical A3000 test reached DHCP, ping and TCP without reported errors. **S1130 — C# IBM 1130 emulator and assembler** adds a session-isolated web machine, DMS boot, real multi-card jobs and corrected 1442/device timing. **3Dvibe64 — Commodore 64 graphics engine SDK** reaches v1.15.0 with exact arithmetic, wire, keyframe and frozen-lighting APIs under explicitly bounded Mode 4 qualification.
+
+Reconstruction checkpoints advance without overstating completion: **Pool of Radiance — DOS C reconstruction** records 240 strict full-C routines and 286 verified identities while keeping both whole-game denominators unknown; **Touhou 3 PC-98 reconstruction** accepts one 698-byte Yumemi extent for 378 exact MAIN functions / 60,688 exact bytes while OP, MAINL and ZUN remain at zero exact functions. **Amy Studio — browser-based ColecoVision development environment** runtime-validates guarded statements across five optimization profiles, **FastBasic — Atari BASIC IDE and cross-compiler** adds integer-returning functions and explicit OpenCode/DeepSeek attribution, and **CopperSharp68k — CIL-to-68k compiler** adds bounded GC-table compaction and proven-safe leaf-site pruning.
+
+**Geomys classic Macintosh Gopher browser** v1.3.0 now clearly separates the real 512Ke talkip path from the regular minimal MacTCP build's 1 MiB floor and 2 MiB recommendation. **Firestaff — Dungeon Master / Chaos Strikes Back engine reconstruction** v3.0.397 records nested-archive hash reuse and Mac mini M4 scan timings while retaining display, input, audio and full-parity limitations.
+
+The CPU audit queue was empty before selection. The A3000/Ameristar result and Geomys RAM figures are explicit primary-source facts; no CPU generation or unstated hardware minimum was inferred. No upstream project or test suite was independently built or executed.
+
 ## 2026-10-20 — Runtime releases, constrained Macintosh networking and debugger maintenance
 
 Reviewed eleven materially changed projects. **Master of Magic — ReMoM Amiga port** advances to v0.8.4 with a player-reported memory-overrun crash fix and plane-order corrections. **PUAE Debugger — Amiga source debugger & profiler** v1.2.0 adds serial capture, profile comparison/per-pass analysis, exact access history and richer disassembly/inspection. **m68k-amigaos-gcc — AmigaPorts cross toolchain** now runs its tests through volamos 0.11, while **Super Mario Bros. — NES-to-PC static recompilation** v1.12.3 accepts two verified-equivalent World ROM headers without weakening program-data, mapper, RAM or timing checks; its prior AI gap is closed from explicit Claude and Codex history.
