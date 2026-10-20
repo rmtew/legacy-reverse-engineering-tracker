@@ -1174,3 +1174,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-20 — Add 40 reviewed projects, correct one transferred repository and defer two source-less leads.
 
 [Research record](docs/research/2026-10-20-wide-cross-platform-discovery-38.md).
+
+## 2026-10-20 — Add 42 reviewed cross-platform games, firmware, libraries and tools; retain one documentation aggregation as a lead.
+
+[Research record](docs/research/2026-10-20-wide-cross-platform-discovery-39.md).
