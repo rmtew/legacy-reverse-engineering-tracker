@@ -1342,3 +1342,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-21 — Personally review broad cross-platform discovery: add 36 source-backed projects and record four explicit non-promotions.
 
 [Research record](docs/research/2026-10-21-wide-cross-platform-discovery-40.md).
+
+## 2026-10-21 — Personally review broad cross-platform discovery: add 33 source-backed projects and record four explicit non-promotions.
+
+[Research record](docs/research/2026-10-21-wide-cross-platform-discovery-41.md).
