@@ -1142,3 +1142,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-20 — Add 33 reviewed cross-platform games, historical sources, system software and tools; record two scoped deferrals.
 
 [Research record](docs/research/2026-10-20-wide-cross-platform-discovery-30.md).
+
+## 2026-10-20 — Add 32 reviewed cross-platform projects and tools; record four evidence deferrals and three successor relationships.
+
+[Research record](docs/research/2026-10-20-wide-cross-platform-discovery-31.md).
