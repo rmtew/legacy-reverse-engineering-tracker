@@ -1288,3 +1288,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-20 — Add 32 reviewed cross-platform projects and tools; record four evidence deferrals and three successor relationships.
 
 [Research record](docs/research/2026-10-20-wide-cross-platform-discovery-31.md).
+
+## 2026-10-20 — Add 35 reviewed cross-platform games, firmware, historical sources and tools; record an ancestry-proven duplicate and two empty-source deferrals.
+
+[Research record](docs/research/2026-10-20-wide-cross-platform-discovery-32.md).
