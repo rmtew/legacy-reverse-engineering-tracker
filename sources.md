@@ -1182,3 +1182,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-21 — Add 13 reviewed projects spanning Saturn recompilation, 6502 archaeology, native Z80 engines and modern retro-development tooling; retain five explicit non-promotions.
 
 [Research record](docs/research/2026-10-21-queue-tools-and-native-engines.md).
+
+## 2026-10-21 — Review ten material upstream changes spanning published releases, emulator fidelity, reconstruction tooling, protocol tests and explicit runtime requirements.
+
+[Research record](docs/research/maintenance-2026-10-21-am-releases-fidelity-protocols.md).
