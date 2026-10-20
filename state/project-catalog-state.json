@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-20T14:08:01Z",
+  "updated_at": "2026-10-20T17:15:19Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -256642,6 +256642,1023 @@
         "no-independent-build"
       ],
       "notes": "Identity: Native text-screen/charset editor with serial attributes and viewport helpers, derived from VDCSE. File picker is limited to SEDORIC3 disks made by TAP2DSK; storage/canvas constraints explicit and advertised editing features not independently runtime-tested. Classification: Inspected source supports development tooling. Native text-screen/charset editor with serial attributes and viewport helpers, derived from VDCSE. File picker is limited to SEDORIC3 disks made by TAP2DSK; storage/canvas constraints explicit and advertised editing features not independently runtime-tested. Source CPU: Source architecture: 6502. Target CPU: Target architecture: 6502. Build: No candidate code compiled or executed. Upstream matching and compatibility statements remain qualified. Native text-screen/charset editor with serial attributes and viewport helpers, derived from VDCSE. File picker is limited to SEDORIC3 disks made by TAP2DSK; storage/canvas constraints explicit and advertised editing features not independently runtime-tested. Runtime profiles: No independently established runnable hardware minimum. Guest emulation settings and API names do not establish host requirements. AI: No explicit completed-work AI authorship disclosure established in inspected evidence. Runtime AI features, MCP integration, configuration and inherited text alone are insufficient. Relationships: Screened current catalogue URLs and titles, including similar-name candidates. Preserve credited upstream and component lineage. Native text-screen/charset editor with serial attributes and viewport helpers, derived from VDCSE. File picker is limited to SEDORIC3 disks made by TAP2DSK; storage/canvas constraints explicit and advertised editing features not independently runtime-tested. Evidence: https://github.com/xahmol/OricScreenEditor https://github.com/xahmol/OricScreenEditor/blob/c94fa00e78f58b7e64717a53bb0bf200b70b18f8/src/oric_core.c https://github.com/xahmol/OricScreenEditor/blob/c94fa00e78f58b7e64717a53bb0bf200b70b18f8/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "virtual-hydlide-saturn-static-recompilation": {
+      "id": "virtual-hydlide-saturn-static-recompilation",
+      "title": "Virtual Hydlide",
+      "upstream_name": "pc-virtualhydlide",
+      "display_title": "Virtual Hydlide — Sega Saturn static recompilation and native PC port",
+      "subjects": [
+        "Virtual Hydlide"
+      ],
+      "repo": "https://github.com/vs-sr-dev/pc-virtualhydlide",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Saturn"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "Hitachi SH-2",
+        "Motorola 68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "native PC build",
+          "platform": "Windows",
+          "os": "Windows with MSYS2/MinGW build environment",
+          "notes": "The README documents CMake, Ninja, clang and SDL3 and a playable native windowed build; it does not state a minimum host CPU or RAM.",
+          "evidence": [
+            "https://github.com/vs-sr-dev/pc-virtualhydlide/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": [
+        {
+          "name": "recompiled native runtime",
+          "method": "native-translation",
+          "status": "playable",
+          "notes": "All 15 Saturn programs are generated as C++ and run through the project's recreated video, sound and hardware runtime.",
+          "evidence": [
+            "https://github.com/vs-sr-dev/pc-virtualhydlide/blob/main/README.md"
+          ]
+        }
+      ],
+      "source_language": [
+        "SH-2 machine code",
+        "Motorola 68000 sound-driver machine code"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "reverse-engineering-derived-port",
+        "subsystem-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "static recompilation",
+        "native port",
+        "Saturn hardware reimplementation"
+      ],
+      "re_started": null,
+      "status": "Playable native PC port; remaining interpolation glitches and later game areas are still in progress",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "static recompilation",
+        "function matching across executables",
+        "interpreter differential testing",
+        "VDP1/VDP2 software rendering",
+        "SCSP emulation"
+      ],
+      "tags": [
+        "Sega Saturn",
+        "SH-2",
+        "68000",
+        "static recompilation",
+        "native port"
+      ],
+      "notes": "Identity: The primary README identifies a Virtual Hydlide native-PC effort scoped to the European Saturn release MK-81380 V1.000. Classification: This is an RE-derived port and static recompilation, not original homebrew: it documents the disc and code, recompiles all 15 programs and supplies a compatibility runtime without distributing original assets. Source CPU: The README explicitly describes Saturn SH-2 program analysis and an original 68000 sound driver running beside the emulated SCSP. Target CPU: The reviewed build instructions establish a Windows/MinGW native build but do not explicitly state the emitted host CPU architecture. Build: The author reports that all 15 programs compile and link as C++, agree with the interpreter on 51,448 recorded calls, reach gameplay with video and sound, and are user-playable. Limitations: No build, execution, gameplay or oracle comparison was independently performed in this pass. Runtime profiles: A Windows native build using CMake, Ninja, clang, SDL3 and MSYS2 MinGW is documented; no minimum host CPU or RAM is stated. AI: The reviewed primary README contains no development-AI attribution; this is not a non-use claim. Relationships: The project uses saturnkit as a game-agnostic submodule and keeps Virtual Hydlide-specific analysis and runtime code in this repository. Evidence: https://github.com/vs-sr-dev/pc-virtualhydlide/blob/main/README.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "regenerator2000-ai-disassembly-template": {
+      "id": "regenerator2000-ai-disassembly-template",
+      "title": "Regenerator 2000 Template Project",
+      "upstream_name": "regenerator2000-template",
+      "display_title": "Regenerator 2000 Template — AI-assisted Commodore 6502 disassembly workspace",
+      "subjects": [],
+      "repo": "https://github.com/ricardoquesada/regenerator2000-template",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64",
+        "Commodore 8-bit systems"
+      ],
+      "target_platforms": [
+        "Claude Code",
+        "Antigravity",
+        "Visual Studio Code"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code",
+        "Commodore disk images"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Markdown",
+        "JSON"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "automation",
+        "binary-analysis",
+        "disassembler"
+      ],
+      "types": [
+        "reverse-engineering workspace template",
+        "AI-agent integration"
+      ],
+      "re_started": null,
+      "status": "Ready-to-use template for Regenerator 2000 MCP analysis",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "MCP-assisted disassembly",
+        "block classification",
+        "routine analysis",
+        "symbol resolution"
+      ],
+      "tags": [
+        "Commodore",
+        "6502",
+        "Regenerator 2000",
+        "MCP",
+        "AI-assisted analysis"
+      ],
+      "notes": "Identity: The primary README identifies this as the official-style starter template for using Regenerator 2000 with Claude and Antigravity. Classification: This is supporting tooling and workspace configuration for Commodore disassembly, not a separate reconstructed game or firmware subject. Source CPU: The README explicitly says the bundled skills analyze disassembled MOS 6502 code. Target CPU: The template configures analysis and source-generation tools rather than producing a port or runnable retro binary with a distinct output CPU. Build: The repository documents direct use with released Regenerator 2000 binaries or Cargo installation and includes a sample C64 disk image workflow. Limitations: The template and sample were not executed in this pass. Runtime profiles: The inspected README lists modern host installation routes but no minimum host CPU or RAM. AI: Operational AI use is explicit: the template installs skills and pre-approved MCP permissions for Claude and Antigravity to perform program, block, routine and symbol analysis. Relationships: This is a companion template for the separately tracked Regenerator 2000 disassembler and MCP workbench. Evidence: https://github.com/ricardoquesada/regenerator2000-template/blob/main/README.md https://github.com/ricardoquesada/regenerator2000",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Antigravity"
+        ]
+      }
+    },
+    "vwradio-firmware-reverse-engineering": {
+      "id": "vwradio-firmware-reverse-engineering",
+      "title": "VW Radios",
+      "upstream_name": "vwradio",
+      "display_title": "VW Radios — Volkswagen head-unit firmware and diagnostic-protocol reverse engineering",
+      "subjects": [
+        "Volkswagen Premium 4",
+        "Volkswagen Premium 5",
+        "Volkswagen Gamma 5",
+        "Volkswagen Rhapsody"
+      ],
+      "repo": "https://github.com/mnaberez/vwradio",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Volkswagen car radios"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "embedded firmware machine code",
+        "KWP1281 diagnostics traffic"
+      ],
+      "reconstructed_languages": [
+        "C#",
+        "C",
+        "assembly",
+        "documentation"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "disassembly",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "emulator",
+        "debugger",
+        "automation"
+      ],
+      "types": [
+        "firmware research corpus",
+        "vehicle diagnostics tooling",
+        "hardware emulation tools"
+      ],
+      "re_started": null,
+      "status": "Partial firmware disassemblies and working diagnostic/hardware tools",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "firmware disassembly",
+        "protocol reverse engineering",
+        "EEPROM analysis",
+        "hardware-interface emulation"
+      ],
+      "tags": [
+        "Volkswagen",
+        "embedded firmware",
+        "KWP1281",
+        "car radio",
+        "diagnostics"
+      ],
+      "notes": "Identity: The README presents a coherent research repository covering four older Volkswagen radio families plus diagnostic and bench tools. Classification: This is firmware/protocol reverse engineering with adjacent original tooling; it is not a firmware redistribution and explicitly omits original binaries and EEPROM images. Source CPU: The README names several radio models and links CPU-specific spin-off tools, but it does not map every reviewed radio firmware image to a processor architecture; no architecture was guessed. Target CPU: The repository's outputs are notes, diagnostic software and hardware-interface emulators rather than a port or reconstructed firmware output with a distinct target CPU. Build: The README inventories kwp1281_tool, faceplate/tape emulators, a volume monitor and partial listings but does not make a repository-wide build or execution claim. Limitations: No component was compiled, connected to hardware or executed in this pass. Runtime profiles: No minimum computer, memory or host OS requirement is stated for the repository as a whole. AI: The inspected README contains no development-AI disclosure; absence is not evidence of non-use. Relationships: The README explicitly links the separately tracked premium5 emulator and related k0emu, k0dasm, f2mc8dasm and m740dasm spin-offs. Evidence: https://github.com/mnaberez/vwradio/blob/main/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "starship-command-bbc-micro-py8dis": {
+      "id": "starship-command-bbc-micro-py8dis",
+      "title": "Starship Command disassembly",
+      "upstream_name": "starship_test",
+      "display_title": "Starship Command — BBC Micro py8dis test-case disassembly",
+      "subjects": [
+        "Starship Command"
+      ],
+      "repo": "https://github.com/TobyLobster/starship_test",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "disassembly test case"
+      ],
+      "re_started": null,
+      "status": "Small py8dis test-case disassembly",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "static tracing",
+        "relocation modelling",
+        "symbol annotation"
+      ],
+      "tags": [
+        "BBC Micro",
+        "6502",
+        "py8dis",
+        "disassembly"
+      ],
+      "notes": "Identity: The README and analysis script identify a Starship Command disassembly used as a py8dis test case. Classification: This is a title-specific game disassembly, albeit intentionally small and test-oriented; it is not presented as a full playable reconstruction. Source CPU: The py8dis driver explicitly loads the original COMM2# binary as 6502 code and applies BBC hardware labels. Target CPU: The reviewed project emits analysis/assembly from the original 6502 binary and does not document a distinct port output architecture. Build: The inspected README and driver do not claim a successful reassembly, runnable output, playability or byte-identical result. Runtime profiles: No runnable build variant or minimum hardware requirement is documented. AI: The inspected primary files contain no development-AI disclosure; this is not a non-use claim. Relationships: The project is explicitly a py8dis test case and uses BBC MOS/hardware labelling; py8dis is tracked separately as a tool. Evidence: https://github.com/TobyLobster/starship_test/blob/main/README.md https://github.com/TobyLobster/starship_test/blob/main/starcommand.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "zork1-r15-apple2-interpreter-reverse-engineering": {
+      "id": "zork1-r15-apple2-interpreter-reverse-engineering",
+      "title": "Zork I revision 15",
+      "upstream_name": "zorki-r15-reveng",
+      "display_title": "Zork I revision 15 — Apple II Z-machine interpreter reverse engineering",
+      "subjects": [
+        "Zork I revision 15",
+        "Z-machine interpreter"
+      ],
+      "repo": "https://github.com/XekriRedmane/zorki-r15-reveng",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Noweb",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game",
+        "game-subsystem"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "literate disassembly",
+        "interpreter reverse engineering"
+      ],
+      "re_started": null,
+      "status": "Detailed literate disassembly with generated explanation and assembly",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "literate programming",
+        "annotated disassembly",
+        "generated documentation"
+      ],
+      "tags": [
+        "Apple II",
+        "6502",
+        "Zork",
+        "Z-machine",
+        "disassembly"
+      ],
+      "notes": "Identity: The primary README identifies reverse engineering of the Z-machine interpreter shipped with Apple II Zork I revision 15. Classification: This is binary-derived interpreter disassembly and explanation, not a new Z-machine implementation or original homebrew. Source CPU: The generated assembly begins with an explicit `PROCESSOR 6502` directive. Target CPU: The output is explanatory and reconstructed assembly for the original interpreter; no distinct port CPU is documented. Build: The README documents generation of PDF explanation and assembly from the literate source, but does not claim reassembly, execution, playability or byte identity. Limitations: No generator, assembler or interpreter was run in this pass. Runtime profiles: No runnable output or minimum Apple II configuration is stated in the inspected material. AI: The reviewed README and generated assembly contain no development-AI disclosure; absence is not a no-AI claim. Relationships: The README links the original image source and makes the Z-machine interpreter, not the story data, the analyzed subsystem. Evidence: https://github.com/XekriRedmane/zorki-r15-reveng/blob/main/README.md https://github.com/XekriRedmane/zorki-r15-reveng/blob/main/output/main.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "acornaeology-6502-disassembly-skills": {
+      "id": "acornaeology-6502-disassembly-skills",
+      "title": "disassembly-skills",
+      "upstream_name": "disassembly-skills",
+      "display_title": "Acornaeology disassembly-skills — Claude workflow for verified 6502/65C02 archaeology",
+      "subjects": [],
+      "repo": "https://github.com/acornaeology/disassembly-skills",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "Acorn 8-bit systems"
+      ],
+      "target_platforms": [
+        "Claude Code"
+      ],
+      "source_cpu": [
+        "6502",
+        "65C02"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code",
+        "65C02 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Markdown"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "automation",
+        "static-analysis",
+        "disassembler",
+        "reassembler",
+        "development-environment"
+      ],
+      "types": [
+        "AI-agent disassembly workflow",
+        "methodology plugin"
+      ],
+      "re_started": null,
+      "status": "Installable Claude plugin for verified annotated disassembly work",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "round-trip verification",
+        "relocation modelling",
+        "dense annotation",
+        "defect hunting",
+        "AI-assisted analysis"
+      ],
+      "tags": [
+        "6502",
+        "65C02",
+        "Acorn",
+        "BBC Micro",
+        "Claude",
+        "software archaeology"
+      ],
+      "notes": "Identity: The README identifies an installable Claude plugin carrying Acornaeology's verified 6502/65C02 disassembly method. Classification: This is directly relevant archaeology tooling and methodology, not a separate ROM/game reconstruction. Source CPU: The README explicitly scopes the workflow to 6502 and 65C02 machine code. Target CPU: The plugin guides analysis and source reconstruction but does not itself produce a runnable port with a distinct target CPU. Build: The README supplies Claude plugin installation commands and names dasmos plus optional fantasm dependencies. Limitations: The plugin was not installed or executed in this pass. Runtime profiles: No minimum host CPU, RAM or operating-system version is stated. AI: Claude is explicitly the operating analysis agent for this plugin; this is operational use, not a claim about repository authorship. Relationships: The workflow is stated to underlie Acornaeology NFS/ANFS/ADFS disassemblies and to work with the separately tracked dasmos and fantasm tools. Evidence: https://github.com/acornaeology/disassembly-skills/blob/master/README.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "basic-editor-acornsoft-rom-modernization": {
+      "id": "basic-editor-acornsoft-rom-modernization",
+      "title": "The BASIC Editor",
+      "upstream_name": "basic_editor",
+      "display_title": "The BASIC Editor — Acornsoft ROM restoration and BBC/Electron modernization",
+      "subjects": [
+        "Acornsoft The BASIC Editor"
+      ],
+      "repo": "https://github.com/tom-seddon/basic_editor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "Acorn Electron",
+        "BBC Master"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "BASIC Editor ROM family",
+          "platform": "BBC Micro / Acorn Electron",
+          "cpu_family": "6502",
+          "notes": "The build emits standard BBC and Electron ROMs, HIBASIC variants for a 6502 Second Processor, and a relocatable Master 128/MOS 3.50 variant. No minimum RAM is stated.",
+          "evidence": [
+            "https://github.com/tom-seddon/basic_editor/blob/master/README.md",
+            "https://github.com/tom-seddon/basic_editor/blob/master/docs/build.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6502 assembly"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python",
+        "Makefile"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "ROM source modernization",
+        "native port"
+      ],
+      "re_started": null,
+      "status": "Buildable updated ROM with BBC, HIBASIC, Electron and relocatable variants",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "source modernization",
+        "ROM relocation",
+        "cross-machine porting"
+      ],
+      "tags": [
+        "BBC Micro",
+        "Acorn Electron",
+        "6502",
+        "ROM",
+        "editor"
+      ],
+      "notes": "Identity: The repository identifies an updated version of Acornsoft's 1984 BASIC Editor ROM and credits Pete Morris and Chris Gibson. Classification: This is restoration/modernization of historical application source with new BBC, HIBASIC, relocatable and Electron outputs; it is not described as binary-derived reverse engineering. Source CPU: The project explicitly documents its 6502 Second Processor HIBASIC lineage and 6502-oriented ROM source/build. Target CPU: The documented HIBASIC outputs run inside a 6502 Second Processor; no broader CPU target is inferred for the other variants. Build: The build guide lists GNU Make, 64tass and Python, and states that `make` emits five documented BBC/Electron/Master ROM variants. Limitations: The repository was not built or run in this pass; byte identity is not claimed. Runtime profiles: Primary documentation distinguishes standard BBC/Electron ROMs, HIBASIC 6502-second-processor builds and a relocatable Master 128 MOS 3.50 build; no RAM floor is stated. AI: The inspected README and build guide contain no development-AI disclosure; this is not evidence of non-use. Relationships: The project is an updated Acornsoft BASIC Editor lineage and produces a new Electron version rather than claiming an unrelated clean-room reimplementation. Evidence: https://github.com/tom-seddon/basic_editor/blob/master/README.md https://github.com/tom-seddon/basic_editor/blob/master/docs/build.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "beeb-fstest-bbc-filing-system-tests": {
+      "id": "beeb-fstest-bbc-filing-system-tests",
+      "title": "BBC Micro filing system tests",
+      "upstream_name": "beeb-fstest",
+      "display_title": "beeb-fstest — native BBC Micro DFS/ADFS compatibility test suite",
+      "subjects": [],
+      "repo": "https://github.com/tom-seddon/beeb-fstest",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "BBC Micro"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "tokenized FSTEST program",
+          "platform": "BBC Micro",
+          "cpu_family": "6502",
+          "notes": "Runs as a tokenized BBC BASIC program against DFS- or ADFS-type filing systems. A 6502 Second Processor is recommended for speed, not stated as mandatory; no RAM minimum is given.",
+          "evidence": [
+            "https://github.com/tom-seddon/beeb-fstest/blob/master/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "BBC BASIC"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "native compatibility test suite",
+        "filing-system development tool"
+      ],
+      "re_started": null,
+      "status": "Runnable tests with documented pass/partial-pass/fail results across DFS and ADFS variants",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "black-box compatibility testing",
+        "filesystem API conformance checks"
+      ],
+      "tags": [
+        "BBC Micro",
+        "6502",
+        "DFS",
+        "ADFS",
+        "testing"
+      ],
+      "notes": "Identity: The README identifies a BBC Micro filing-system test program intended both as behavior documentation and a mini test suite for future filing systems. Classification: This is substantial original native development/testing tooling, not reverse-engineered or RE-derived software. Source CPU: The project is authored BBC BASIC test code rather than a reconstruction from an original machine-code binary. Target CPU: The README explicitly recommends a 6502 Second Processor for speed while documenting that the tokenized program runs on the BBC Micro. Build: The README gives direct load/run instructions and records complete, partial and failed results across specific DFS/ADFS implementations. Limitations: No test was run against an emulator, filing system or physical machine in this pass. Runtime profiles: The tokenized BBC BASIC program runs on a BBC Micro with a DFS- or ADFS-type filing system; a 6502 Second Processor is a recommendation, not a minimum. AI: The inspected README contains no development-AI disclosure; this is not a non-use claim. Relationships: The README names tested DFS, ADFS, BeebLink and Opus variants and positions the suite as reusable validation for future filing systems. Evidence: https://github.com/tom-seddon/beeb-fstest/blob/master/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "isometric-ray-cast-zx-spectrum-demo": {
+      "id": "isometric-ray-cast-zx-spectrum-demo",
+      "title": "Isometric Ray Casting, Ahoy!",
+      "upstream_name": "Isometric-Ray-Cast",
+      "display_title": "Isometric Ray Casting — original 48K ZX Spectrum Z80 rendering demo",
+      "subjects": [
+        "Isometric Ray Casting demo"
+      ],
+      "repo": "https://github.com/TomHarte/Isometric-Ray-Cast",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "full-screen ZX Spectrum demo",
+          "platform": "ZX Spectrum",
+          "cpu_family": "Z80",
+          "min_cpu": "Z80",
+          "min_ram_kib": 48,
+          "notes": "The README explicitly describes a 48K Spectrum implementation, its Z80 code, frame rates and memory budget.",
+          "evidence": [
+            "https://github.com/TomHarte/Isometric-Ray-Cast/blob/main/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo",
+        "game-subsystem"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew graphics demo",
+        "rendering experiment"
+      ],
+      "re_started": null,
+      "status": "Runnable zero-overdraw isometric demo; explicitly not a complete game or engine",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "front-to-back ray casting",
+        "zero-overdraw isometric rendering",
+        "precomputed tile lookup"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Z80",
+        "48K",
+        "homebrew",
+        "graphics"
+      ],
+      "notes": "Identity: The README identifies an original ZX Spectrum demonstration of zero-overdraw isometric drawing using the Ant Attack map. Classification: The author explicitly says this is a Z80 proof-of-workability rather than a complete game or engine; it is original homebrew, not an Ant Attack disassembly or RE-derived port. Source CPU: The project is newly authored demonstration code rather than recovered machine code from Ant Attack. Target CPU: The README explicitly describes the implementation as Z80 code running on a ZX Spectrum. Build: The README states that Pasmo builds a Spectrum TAP and reports measured frame rates; captured generator output is included for the live build. Limitations: No build or execution was performed in this pass. Runtime profiles: The author explicitly budgets memory for a 48K Spectrum and reports full-screen and Ant-Attack-sized frame rates. AI: The inspected README contains no development-AI disclosure; this is not evidence of non-use. Relationships: Ant Attack supplies the demonstration map and motivates the rendering geometry, but the README explicitly presents this as an independently authored algorithm and implementation. Evidence: https://github.com/TomHarte/Isometric-Ray-Cast/blob/main/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sam-coupe-3d-engine": {
+      "id": "sam-coupe-3d-engine",
+      "title": "Sam Coupé 3d",
+      "upstream_name": "Sam-Coupe-3d",
+      "display_title": "Sam Coupé 3d — original Z80 vector-3D engine library",
+      "subjects": [],
+      "repo": "https://github.com/TomHarte/Sam-Coupe-3d",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "SAM Coupé"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "SAM Coupé native library/demo",
+          "platform": "SAM Coupé",
+          "cpu_family": "Z80",
+          "min_cpu": "Z80",
+          "notes": "The README explicitly identifies the machine as Z80-based and presents a running video, but states no RAM minimum.",
+          "evidence": [
+            "https://github.com/TomHarte/Sam-Coupe-3d/blob/master/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "assembler-toolchain"
+      ],
+      "types": [
+        "original homebrew 3D engine",
+        "native development library"
+      ],
+      "re_started": null,
+      "status": "Documented native vector-3D library with demonstration video",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "vector 3D rendering",
+        "fixed-point arithmetic",
+        "frame-rate compensation"
+      ],
+      "tags": [
+        "SAM Coupé",
+        "Z80",
+        "homebrew",
+        "3D engine"
+      ],
+      "notes": "Identity: The primary README identifies a vector 3D engine for the SAM Coupé, designed as a reusable library. Classification: This is original native homebrew/development infrastructure and is not labelled reverse-engineered or derived from an older game. Source CPU: There is no recovered original binary; the repository contains newly authored native engine code. Target CPU: The README explicitly identifies the SAM Coupé as Z80-based and the source tree contains Z80 assembly modules. Build: The README presents the engine, reusable-library intent, detailed PDF documentation and a running video; no portable build instructions are stated. Limitations: No source was assembled or run in this pass. Runtime profiles: The documented native target is a Z80-based SAM Coupé; no minimum RAM or other hardware floor is stated. AI: The inspected README contains no development-AI disclosure; this is not a non-use claim. Relationships: The README says the library may be adaptable to Spectrum and Amstrad CPC, but those are possibilities rather than verified target ports. Evidence: https://github.com/TomHarte/Sam-Coupe-3d/blob/master/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "uefappend-acorn-atom-uef-tool": {
+      "id": "uefappend-acorn-atom-uef-tool",
+      "title": "UEFAppend",
+      "upstream_name": "UEFAppend",
+      "display_title": "UEFAppend — Acorn Atom ATM-to-UEF cassette-image utility",
+      "subjects": [],
+      "repo": "https://github.com/TomHarte/UEFAppend",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Acorn Atom"
+      ],
+      "target_platforms": [
+        "UEF cassette images"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Acorn Atom ATM files",
+        "UEF cassette images"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "cassette-image utility",
+        "retro-development tool"
+      ],
+      "re_started": null,
+      "status": "Command-line utility; compressed UEF input is a documented limitation",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ATM-to-UEF packaging",
+        "cassette-image manipulation"
+      ],
+      "tags": [
+        "Acorn Atom",
+        "UEF",
+        "ATM",
+        "cassette image"
+      ],
+      "notes": "Identity: The README identifies a command-line tool that appends Acorn Atom ATM files to UEF images. Classification: This is directly relevant retro-development media tooling, not a reconstructed historical program. Source CPU: The tool transforms ATM and UEF data containers; no original executable CPU is being reconstructed. Target CPU: Its output is a cassette-image file rather than executable code for a documented target CPU. Build: The README documents command-line use and states that compressed UEF files are not understood, with gzip as an output workaround. Limitations: The utility was not built or executed in this pass, so build/runnable flags remain unknown. Runtime profiles: No minimum host CPU, RAM or operating-system requirement is stated. AI: The inspected README contains no development-AI disclosure; this is not a non-use claim. Relationships: The tool bridges Acorn Atom ATM files and UEF cassette images; no predecessor or successor implementation is claimed. Evidence: https://github.com/TomHarte/UEFAppend/blob/master/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rea-agent-reverse-engineering-toolkit": {
+      "id": "rea-agent-reverse-engineering-toolkit",
+      "title": "REA: Reverse Engineer Anything",
+      "upstream_name": "REA: Reverse Engineer Anything",
+      "display_title": "REA — agent-driven reverse-engineering toolkit with DOS/PC-98 analysis",
+      "subjects": [],
+      "repo": "https://github.com/morluto/rea",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS",
+        "PC-98",
+        "Windows",
+        "Linux",
+        "macOS",
+        "Android"
+      ],
+      "target_platforms": [
+        "Linux",
+        "macOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86 (16-bit real mode)"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "REA host toolkit",
+          "platform": "Linux / macOS / Windows",
+          "os": "Node.js 22.x (>=22.19), 24.x (>=24.11), or 26+",
+          "notes": "Provider-specific requirements vary. The DOS lane is verified with Ghidra 12.1.4 and JDK 21 on Linux x64 and macOS arm64; this describes the analysis host, not DOS runtime hardware.",
+          "evidence": [
+            "https://github.com/morluto/rea/blob/main/README.md",
+            "https://github.com/morluto/rea/blob/main/docs/ghidra-dos.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "DOS MZ executables",
+        "DOS COM images",
+        "native machine code"
+      ],
+      "reconstructed_languages": [
+        "TypeScript",
+        "JavaScript",
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "binary-analysis",
+        "disassembler",
+        "static-analysis",
+        "automation",
+        "development-environment"
+      ],
+      "types": [
+        "agent-driven reverse-engineering toolkit",
+        "MCP server",
+        "native-binary analysis frontend"
+      ],
+      "re_started": null,
+      "status": "Active multi-provider toolkit with verified 16-bit DOS/PC-98 static-analysis lane",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Ghidra/Hopper/IDA orchestration",
+        "evidence-preserving analysis",
+        "DOS MZ/COM load-image verification",
+        "decompilation",
+        "cross-reference tracing"
+      ],
+      "tags": [
+        "DOS",
+        "PC-98",
+        "x86",
+        "Ghidra",
+        "MCP",
+        "AI agent",
+        "software archaeology"
+      ],
+      "notes": "Identity: The primary README identifies REA as a CLI/MCP toolkit connecting agents to native, managed, JavaScript, firmware and runtime analysis providers. Classification: This is generic reverse-engineering tooling with a documented retro-relevant DOS MZ/COM and PC-98 analysis lane; it is not itself a game reconstruction. Source CPU: The DOS guide explicitly imports MZ and COM images with Ghidra language `x86:LE:16:Real Mode`; no broader CPU inventory is inferred into this retro-focused record. Target CPU: REA returns analysis evidence and annotations rather than producing a runnable port or reconstructed binary for a distinct output CPU. Build: The README documents npx/npm setup and CLI/MCP use, while the DOS lane documents real Ghidra verification of 16-bit instructions, calls, decompilation and cleanup. Limitations: REA and Ghidra were not installed or executed in this pass. Runtime profiles: The README gives exact supported Node.js version ranges; the DOS guide states verified Linux x64/macOS arm64 Ghidra/JDK lanes without claiming DOS hardware emulation. AI: Operational AI use is explicit because an agent calls REA through MCP; the reviewed evidence does not establish that AI authored the repository, so no contribution tool labels are asserted. Relationships: REA delegates deep native analysis to existing Hopper, Ghidra or IDA providers and cites separate DX-Ball and Touhou reconstruction case studies without absorbing those projects into this tooling record. Evidence: https://github.com/morluto/rea/blob/main/README.md https://github.com/morluto/rea/blob/main/docs/ghidra-dos.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Codex",
+          "GitHub Copilot"
+        ]
+      }
+    },
+    "atari-dev-studio-vscode-ide": {
+      "id": "atari-dev-studio-vscode-ide",
+      "title": "Atari Dev Studio",
+      "upstream_name": "Atari Dev Studio",
+      "display_title": "Atari Dev Studio — VS Code IDE for Atari 2600/7800 homebrew",
+      "subjects": [],
+      "repo": "https://github.com/chunkypixel/atari-dev-studio",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Atari 2600",
+        "Atari 7800"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6507",
+        "6502C (SALLY)"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "VS Code extension host",
+          "platform": "Windows / Linux / macOS",
+          "os": "Visual Studio Code",
+          "notes": "The README requires 32-bit compatibility libraries on 64-bit Linux; macOS must be 64-bit and needs SDL for A7800. Modern batari Basic/7800basic builds require wasmtime. No host RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/chunkypixel/atari-dev-studio/blob/master/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "TypeScript",
+        "JavaScript",
+        "batari Basic",
+        "7800basic",
+        "6502 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "ide",
+        "development-environment",
+        "compiler-toolchain",
+        "assembler-toolchain",
+        "asset-tool"
+      ],
+      "types": [
+        "VS Code retro-development environment",
+        "integrated compiler/emulator toolchain"
+      ],
+      "re_started": null,
+      "status": "Active cross-platform IDE extension with integrated Atari 2600/7800 build and test workflow",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "integrated compile-and-run",
+        "language services",
+        "sprite editing",
+        "emulator launch"
+      ],
+      "tags": [
+        "Atari 2600",
+        "Atari 7800",
+        "6507",
+        "SALLY",
+        "VS Code",
+        "homebrew"
+      ],
+      "notes": "Identity: The primary README identifies a VS Code extension for creating Atari 2600 and 7800 homebrew with integrated build, editing and emulator workflows. Classification: This is modern retro-development infrastructure, not a bundled game or reverse-engineered subject. Source CPU: The IDE accepts newly authored BASIC and assembly projects rather than analyzing an original executable with a source CPU. Target CPU: The README maps the 2600/7800 output toolchains to DASM's 6507 support and A7800's SALLY CPU; no host CPU is recorded as a target. Build: The README documents installation as a VS Code extension, integrated compilation and direct Stella/A7800 launch, plus bundled language/tool releases. Limitations: The extension and bundled toolchains were not installed or executed in this pass. Runtime profiles: Primary documentation states Windows/Linux/macOS hosts, 32-bit compatibility libraries on 64-bit Linux, 64-bit macOS plus SDL for A7800, and wasmtime for current compiler builds. AI: The inspected README contains no development-AI disclosure; this is not a non-use claim. Relationships: The extension integrates externally maintained batari Basic, 7800basic, DASM, Stella and A7800 and credits Spritemate as the basis of its customized sprite editor. Evidence: https://github.com/chunkypixel/atari-dev-studio/blob/master/README.md",
       "ai": {
         "usage": null,
         "tools": []
