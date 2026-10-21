@@ -225,6 +225,66 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(pages.request(self.root, self.api, failure=True, attempt=2)["reason"], "retry-limit")
         self.assertEqual(self.api.requests, [])
 
+    def test_refresh_batches_coalesce_only_after_successful_continuation_handoff(self):
+        self.change()
+        result = pages.request_after_refresh(
+            self.root, self.api, result="success", continuation="true", handoff="success"
+        )
+        self.assertEqual(result, {"requested": False, "reason": "refresh-continuing"})
+        self.assertEqual(self.api.requests, [])
+        for reason in ("complete", "backoff", "paused", "stale", "zero-progress"):
+            with self.subTest(reason=reason):
+                # All terminal/paused refresh apply outcomes emit continue=false.
+                result = pages.request_after_refresh(
+                    self.root, self.api, result="success", continuation="false", handoff="success"
+                )
+                self.assertTrue(result["requested"])
+        for result, continuation, handoff in (
+            ("failure", "true", "success"),  # Failed push with artifact recovery queued.
+            ("failure", "true", "failure"),  # Exhausted publication recovery.
+            ("success", "true", "failure"),  # Failed next-batch dispatch.
+            ("success", "true", "skipped"),
+            ("success", "", "success"),
+        ):
+            with self.subTest(result=result, continuation=continuation, handoff=handoff):
+                self.assertTrue(pages.request_after_refresh(
+                    self.root, self.api, result=result, continuation=continuation, handoff=handoff
+                )["requested"])
+
+    def test_refresh_coalescing_does_not_strand_independent_or_failed_publications(self):
+        b = self.change()
+        self.assertFalse(pages.request_after_refresh(
+            self.root, self.api, result="success", continuation="true", handoff="success"
+        )["requested"])
+        # A lost or delayed successor never holds the gate. The existing hourly
+        # Pages schedule, another collector, or a manual request can reconcile.
+        self.assertTrue(pages.request(self.root, self.api)["requested"])
+        self.assertTrue(pages.inspect(self.root, self.api, b)["deploy"])
+        with patch.object(self.api, "dispatch", side_effect=RuntimeError("request unavailable")):
+            with self.assertRaises(RuntimeError):
+                pages.request_after_refresh(
+                    self.root, self.api, result="success", continuation="false", handoff="success"
+                )
+        self.assertEqual(self.api.last, self.a)
+        self.assertTrue(pages.request(self.root, self.api)["requested"])
+        self.api.last = b
+        self.assertFalse(pages.request_after_refresh(
+            self.root, self.api, result="success", continuation="false", handoff="success"
+        )["requested"])
+
+    def test_refresh_finalizer_cli_uses_handoff_outcome_and_fails_open_to_reconciliation(self):
+        self.change()
+        with patch.dict(os.environ, {
+            "REFRESH_RESULT": "success", "REFRESH_CONTINUE": "true", "REFRESH_HANDOFF": "success"
+        }), patch.object(pages, "GitHub", return_value=self.api), patch("sys.argv", [
+            "pages", "request-refresh", "--root", str(self.root)
+        ]), redirect_stdout(StringIO()):
+            pages.main()
+            self.assertEqual(self.api.requests, [])
+            with patch.dict(os.environ, {"REFRESH_HANDOFF": "failure"}):
+                pages.main()
+        self.assertEqual(self.api.requests, [0])
+
     def test_actual_snapshot_matches_event_and_retains_strict_verification(self):
         with patch.dict(os.environ, {"GITHUB_SHA": self.a}), patch(
             "sys.argv", ["pages", "verify", "--root", str(self.root), "--snapshot", self.a]

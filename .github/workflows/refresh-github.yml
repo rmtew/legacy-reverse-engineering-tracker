@@ -142,13 +142,6 @@ jobs:
           done
           exit 1
 
-      - name: Request publication of new complete public content
-        if: always() && !cancelled()
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: python tools/pages_publication.py request
-
       - name: Resume retained evidence after metadata publication
         if: always() && !cancelled()
         continue-on-error: true
@@ -177,7 +170,9 @@ jobs:
       - uses: actions/checkout@v5
         with:
           ref: main
+          fetch-depth: 0
       - name: Handoff the next batch after a published checkpoint
+        id: handoff
         run: |
           set -euo pipefail
           args=(--ref main -f "request_id=$REQUEST_ID" -f "repositories=$REPOSITORIES" -f "seconds=$SECONDS_BUDGET" -f "requests=$REQUESTS_BUDGET")
@@ -201,3 +196,12 @@ jobs:
           done
           echo "Handoff failed. Published progress is safe; use manual Resume."
           exit 1
+
+      - name: Request publication of new complete public content
+        if: always() && !cancelled()
+        continue-on-error: true
+        env:
+          REFRESH_RESULT: ${{ needs.refresh.result }}
+          REFRESH_CONTINUE: ${{ needs.refresh.outputs.continue }}
+          REFRESH_HANDOFF: ${{ steps.handoff.outcome }}
+        run: python tools/pages_publication.py request-refresh

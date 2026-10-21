@@ -15,6 +15,7 @@ from catalogue_storage import bounded, encode, load_dataset
 from publication_pipeline import prepare, safe_path, verify_files, file_entry, digest as content_digest
 from research_record import EvidenceCache, compile_records, review_digest
 from build_site import build
+from refresh_scope import repository
 
 INBOX = 'submissions/research'
 RECEIPTS = 'state/research-receipts'
@@ -24,6 +25,7 @@ MAX_SCAN = 2048
 MAX_BATCHES = 4
 EVENT = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\Z')
 SHA = re.compile(r'[0-9a-f]{40}\Z')
+REFRESH_REQUEST = re.compile(r'research-[0-9a-f]{64}\Z')
 CODE_GUARDS = {}
 
 
@@ -155,12 +157,59 @@ def receipt(root, ref, event):
     raw = blob(root, ref, path_for(RECEIPTS, event), optional=True)
     if raw is None:
         return None
-    value = decode(raw)
+    return checked_receipt(decode(raw), event)
+
+
+def checked_receipt(value, event):
+    if not isinstance(value, dict):
+        raise ValueError('Invalid research receipt: ' + event)
     if (value.get('version') != 1 or value.get('event_id') != event
             or not re.fullmatch('[0-9a-f]{64}', value.get('digest', ''))
             or not SHA.fullmatch(value.get('input_blob', ''))):
         raise ValueError('Invalid research receipt: ' + event)
     return value
+
+
+def refresh_repositories(root, request_id, records):
+    """Resolve a research handoff from durable provenance, never from due work.
+
+    None means an ordinary adaptive request; an empty set is a valid, empty
+    research scope (for example, a removed or now non-GitHub project).
+    Preserve the catalogue's repository keys, including their existing casing.
+    """
+    if not request_id.startswith('research-'):
+        return None
+    if not REFRESH_REQUEST.fullmatch(request_id):
+        raise ValueError('Invalid research refresh request ID')
+    paths = sorted((Path(root) / RECEIPTS).glob('*.json'))
+    if len(paths) > MAX_SCAN:
+        raise ValueError('Research receipt scan ceiling reached')
+    matches = []
+    for path in paths:
+        try:
+            value = decode(path.read_bytes())
+        except ValueError:
+            # Unrelated damaged historical receipts cannot prevent a valid
+            # handoff. A damaged intended receipt still fails the match below.
+            continue
+        if not isinstance(value, dict) or value.get('digest') != request_id.removeprefix('research-'):
+            continue
+        event = event_name(path.stem)
+        matches.append(checked_receipt(value, event))
+    if len(matches) != 1:
+        raise ValueError('Research refresh needs exactly one matching durable receipt')
+    summary = matches[0].get('summary')
+    if not isinstance(summary, dict):
+        raise ValueError('Invalid research receipt project summary')
+    ids = set()
+    for key in ('projects', 'updated_projects'):
+        values = summary.get(key)
+        if not isinstance(values, list) or any(not isinstance(pid, str) or not pid for pid in values):
+            raise ValueError('Invalid research receipt project summary')
+        ids.update(values)
+    # The authored repo URL, not possibly stale github.repository metadata, is
+    # authoritative after repository moves. Removed IDs cannot widen the scope.
+    return {repo for record in records if record['id'] in ids if (repo := repository(record))}
 
 
 def selected(root, event=None):

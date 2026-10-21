@@ -55,6 +55,22 @@ class WorkflowRuntimeTests(unittest.TestCase):
             self.assertIn("deployments: read", collector)
             self.assertIn("actions: write", collector)
 
+    def test_refresh_pages_finalizer_follows_handoff_and_survives_failure(self):
+        workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/refresh-github.yml").read_text()
+        refresh, continuation = workflow.split("  continue:", 1)
+        self.assertNotIn("pages_publication.py", refresh)
+        self.assertIn("if: always()", continuation)
+        self.assertIn("fetch-depth: 0", continuation)
+        self.assertIn("id: handoff", continuation)
+        self.assertLess(continuation.index("gh workflow run"), continuation.index("pages_publication.py"))
+        finalizer = continuation.split("name: Request publication of new complete public content", 1)[1]
+        self.assertIn("if: always() && !cancelled()", finalizer)
+        self.assertIn("continue-on-error: true", finalizer)
+        self.assertIn("REFRESH_RESULT: ${{ needs.refresh.result }}", finalizer)
+        self.assertIn("REFRESH_CONTINUE: ${{ needs.refresh.outputs.continue }}", finalizer)
+        self.assertIn("REFRESH_HANDOFF: ${{ steps.handoff.outcome }}", finalizer)
+        self.assertIn("pages_publication.py request-refresh", finalizer)
+
 
 class StorageWorkflowTests(unittest.TestCase):
     def test_partition_paths_trigger_refresh_and_pages_and_are_staged(self):
