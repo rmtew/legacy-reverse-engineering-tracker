@@ -1370,3 +1370,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-21 — Review nine material upstream changes spanning published releases, reconstruction evidence, emulator fidelity and retro-development tooling.
 
 [Research record](docs/research/maintenance-2026-10-21-pm-releases-reconstruction-tooling.md).
+
+## 2026-10-22 — Review a queue-led preservation task and three rotated fresh searches; add six source-backed projects, retain one curated index and close the Follin component-splitting task.
+
+[Research record](docs/research/2026-10-22-trs80-cpc-mac-rom-discovery.md).
