@@ -6,6 +6,11 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+    inputs:
+      metadata_handoff:
+        description: Internal metadata completion wake-up
+        type: boolean
+        default: false
   schedule:
     - cron: '53 * * * *'
   push:
@@ -53,4 +58,9 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python tools/pages_publication.py request
+          ENRICHMENT_EVENT: ${{ github.event_name }}
+          ENRICHMENT_SOURCE: ${{ github.event.workflow_run.path || '' }}
+          ENRICHMENT_METADATA_HANDOFF: ${{ inputs.metadata_handoff || false }}
+          ENRICHMENT_RESULT: ${{ steps.publication.outcome }}
+          ENRICHMENT_PUBLISHED: ${{ steps.publication.outputs.published }}
+        run: python tools/pages_publication.py request-enrichment

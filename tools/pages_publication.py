@@ -236,6 +236,21 @@ def request_after_refresh(root, api, *, result, continuation, handoff):
     return request(root, api)
 
 
+def request_after_enrichment(root, api, *, event, source, metadata_handoff, result, published):
+    """A no-op metadata companion must not undo the refresh's coalescing.
+
+    Refresh owns its final/stopped/failure notification. Actual enrichment
+    publications, uncertain results and independent recovery still reconcile.
+    """
+    metadata = (
+        event == "workflow_run" and source.split("@", 1)[0] == ".github/workflows/refresh-github.yml"
+        or event == "workflow_dispatch" and metadata_handoff == "true"
+    )
+    if metadata and result == "success" and published == "false":
+        return {"requested": False, "reason": "metadata-companion-noop"}
+    return request(root, api)
+
+
 def output(result):
     print(json.dumps(result, separators=(",", ":")), flush=True)
     if filename := os.environ.get("GITHUB_OUTPUT"):
@@ -251,7 +266,7 @@ def output(result):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("gate", "request", "request-refresh", "verify"))
+    parser.add_argument("command", choices=("gate", "request", "request-refresh", "request-enrichment", "verify"))
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--snapshot", default="")
     parser.add_argument("--attempt", type=int, choices=range(3), default=0)
@@ -274,6 +289,14 @@ def main():
             args.root, api, result=os.environ.get("REFRESH_RESULT", ""),
             continuation=os.environ.get("REFRESH_CONTINUE", ""),
             handoff=os.environ.get("REFRESH_HANDOFF", ""),
+        )
+    elif args.command == "request-enrichment":
+        result = request_after_enrichment(
+            args.root, api, event=os.environ.get("ENRICHMENT_EVENT", ""),
+            source=os.environ.get("ENRICHMENT_SOURCE", ""),
+            metadata_handoff=os.environ.get("ENRICHMENT_METADATA_HANDOFF", ""),
+            result=os.environ.get("ENRICHMENT_RESULT", ""),
+            published=os.environ.get("ENRICHMENT_PUBLISHED", ""),
         )
     else:
         result = request(

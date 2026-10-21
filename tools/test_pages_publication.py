@@ -285,6 +285,104 @@ class PublicationTests(unittest.TestCase):
                 pages.main()
         self.assertEqual(self.api.requests, [0])
 
+    def test_only_verified_metadata_companion_noops_suppress_pages_requests(self):
+        self.change()
+        for event, source, metadata_handoff in (
+            ("workflow_run", ".github/workflows/refresh-github.yml", ""),
+            ("workflow_run", ".github/workflows/refresh-github.yml@refs/heads/main", "false"),
+            ("workflow_dispatch", "", "true"),
+        ):
+            with self.subTest(event=event, source=source), patch.object(pages, "request") as request:
+                result = pages.request_after_enrichment(
+                    self.root, self.api, event=event, source=source,
+                    metadata_handoff=metadata_handoff, result="success", published="false",
+                )
+                self.assertEqual(result, {"requested": False, "reason": "metadata-companion-noop"})
+                request.assert_not_called()
+        self.assertEqual(self.api.requests, [])
+        # Suppression is local to this notification, never a persistent gate.
+        self.assertTrue(pages.request(self.root, self.api)["requested"])
+        self.assertEqual(self.api.requests, [0])
+
+    def test_metadata_companion_failures_and_uncertain_outputs_still_reconcile(self):
+        self.change()
+        for event, source, metadata_handoff in (
+            ("workflow_run", ".github/workflows/refresh-github.yml", ""),
+            ("workflow_dispatch", "", "true"),
+        ):
+            for result, published in (
+                ("success", "true"),
+                ("failure", "false"),
+                ("cancelled", "false"),
+                ("skipped", "false"),
+                ("", "false"),
+                ("unknown", "false"),
+                ("success", ""),
+                ("success", "unknown"),
+                ("success", "False"),
+            ):
+                with self.subTest(event=event, result=result, published=published):
+                    self.api.requests.clear()
+                    self.assertTrue(pages.request_after_enrichment(
+                        self.root, self.api, event=event, source=source,
+                        metadata_handoff=metadata_handoff, result=result, published=published,
+                    )["requested"])
+                    self.assertEqual(self.api.requests, [0])
+
+    def test_non_metadata_enrichment_and_independent_recovery_are_not_suppressed(self):
+        self.change()
+        for event, source, metadata_handoff in (
+            ("workflow_run", ".github/workflows/enrich-evidence.yml", ""),
+            ("workflow_run", ".github/workflows/enrich-evidence.yml@refs/heads/main", "true"),
+            ("workflow_run", "", "true"),
+            ("workflow_run", "Refresh GitHub metadata", "true"),
+            ("workflow_run", ".github/workflows/refresh-github.yml.bak", ""),
+            ("workflow_dispatch", "", ""),
+            ("workflow_dispatch", ".github/workflows/refresh-github.yml", "false"),
+            ("workflow_dispatch", "", "True"),
+            ("schedule", ".github/workflows/refresh-github.yml", "true"),
+            ("push", ".github/workflows/refresh-github.yml", "true"),
+            ("", ".github/workflows/refresh-github.yml", "true"),
+        ):
+            with self.subTest(event=event, source=source, metadata_handoff=metadata_handoff):
+                self.api.requests.clear()
+                self.assertTrue(pages.request_after_enrichment(
+                    self.root, self.api, event=event, source=source,
+                    metadata_handoff=metadata_handoff, result="success", published="false",
+                )["requested"])
+                self.assertEqual(self.api.requests, [0])
+
+    def test_enrichment_finalizer_cli_reads_origins_and_fails_open_for_missing_output(self):
+        self.change()
+        environment = {
+            "ENRICHMENT_EVENT": "workflow_run",
+            "ENRICHMENT_SOURCE": ".github/workflows/refresh-github.yml@refs/heads/main",
+            "ENRICHMENT_METADATA_HANDOFF": "false",
+            "ENRICHMENT_RESULT": "success",
+            "ENRICHMENT_PUBLISHED": "false",
+        }
+        with patch.dict(os.environ, environment, clear=True), patch.object(
+            pages, "GitHub", return_value=self.api
+        ), patch("sys.argv", ["pages", "request-enrichment", "--root", str(self.root)]):
+            for event, source, metadata_handoff in (
+                ("workflow_run", environment["ENRICHMENT_SOURCE"], "false"),
+                ("workflow_dispatch", "", "true"),
+            ):
+                with self.subTest(event=event), patch.dict(os.environ, {
+                    "ENRICHMENT_EVENT": event, "ENRICHMENT_SOURCE": source,
+                    "ENRICHMENT_METADATA_HANDOFF": metadata_handoff,
+                }), redirect_stdout(StringIO()) as output:
+                    pages.main()
+                    self.assertEqual(json.loads(output.getvalue()), {
+                        "requested": False, "reason": "metadata-companion-noop",
+                    })
+            self.assertEqual(self.api.requests, [])
+            del os.environ["ENRICHMENT_PUBLISHED"]
+            with redirect_stdout(StringIO()) as output:
+                pages.main()
+            self.assertTrue(json.loads(output.getvalue())["requested"])
+        self.assertEqual(self.api.requests, [0])
+
     def test_actual_snapshot_matches_event_and_retains_strict_verification(self):
         with patch.dict(os.environ, {"GITHUB_SHA": self.a}), patch(
             "sys.argv", ["pages", "verify", "--root", str(self.root), "--snapshot", self.a]

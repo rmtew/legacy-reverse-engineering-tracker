@@ -8,11 +8,12 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 import zipfile
 
 import enrichment_handoff as handoff
 import enrichment_pipeline as pipeline
+import pages_publication as pages
 from catalogue_storage import encode, load_projects, write_all, write_projects
 from collection_budget import Budget
 from merge_pending_projects import new_audit
@@ -128,6 +129,69 @@ class HandoffTests(unittest.TestCase):
         self.assertEqual(self.git('rev-parse', 'HEAD'), head)
         self.assertEqual(len(self.artifacts.pending(0)), 1)
         self.assertEqual(self.artifacts.downloads, 0)
+
+    def test_noop_metadata_companion_cannot_undo_refresh_continuation_coalescing(self):
+        pages_api = Mock()
+        pages_api.deployed.return_value = self.git('rev-parse', 'HEAD')
+        pages_api.collecting.return_value = False
+        record = load_projects(self.root / 'data/projects.json')[0]
+        record['github'] = {'stars': 42}
+        write_projects(self.root / 'data/projects.json', [record])
+        self.put('data/pending-projects.json', [])
+        self.push()
+        head = self.git('rev-parse', 'HEAD')
+        self.assertEqual(pages.request_after_refresh(
+            self.root, pages_api, result='success', continuation='true', handoff='success'
+        ), {'requested': False, 'reason': 'refresh-continuing'})
+        # A completed metadata workflow also starts the enrichment publisher.
+        # Run that publisher, rather than assuming a false output from a stub.
+        with patch.object(self.artifacts, 'pending', return_value=[]) as pending:
+            result = handoff.publish(self.root, self.artifacts)
+        self.assertEqual(result, {'published': False, 'handled': [], 'waiting_metadata': False})
+        pending.assert_called_once_with(0)
+        for event, source, metadata_handoff in (
+            ('workflow_run', '.github/workflows/refresh-github.yml', ''),
+            ('workflow_dispatch', '', 'true'),
+        ):
+            with self.subTest(event=event):
+                self.assertEqual(pages.request_after_enrichment(
+                    self.root, pages_api, event=event, source=source,
+                    metadata_handoff=metadata_handoff, result='success',
+                    published=str(result['published']).lower(),
+                ), {'requested': False, 'reason': 'metadata-companion-noop'})
+        pages_api.dispatch.assert_not_called()
+        self.assertEqual(self.git('rev-parse', 'HEAD'), head)
+        self.assertEqual(handoff.checkpoint(self.root)['artifact_id'], 0)
+        self.assertEqual(self.artifacts.downloads, 0)
+        self.assertEqual(len(self.network.calls), self.requests)
+        # The changed public metadata remains deployable by an independent
+        # request; no shared lock or progress flag can strand it.
+        self.assertTrue(pages.request(self.root, pages_api)['requested'])
+        pages_api.dispatch.assert_called_once_with(0)
+
+    def test_actual_retained_publication_from_metadata_companion_still_requests_pages(self):
+        pages_api = Mock()
+        pages_api.deployed.return_value = self.git('rev-parse', 'HEAD')
+        pages_api.collecting.return_value = False
+        self.put('data/pending-projects.json', [])
+        self.push()
+        result = handoff.publish(self.root, self.artifacts)
+        self.assertTrue(result['published'])
+        self.assertEqual(result['handled'], [100])
+        for event, source, metadata_handoff in (
+            ('workflow_run', '.github/workflows/refresh-github.yml', ''),
+            ('workflow_dispatch', '', 'true'),
+        ):
+            with self.subTest(event=event):
+                pages_api.dispatch.reset_mock()
+                self.assertTrue(pages.request_after_enrichment(
+                    self.root, pages_api, event=event, source=source,
+                    metadata_handoff=metadata_handoff, result='success',
+                    published=str(result['published']).lower(),
+                )['requested'])
+                pages_api.dispatch.assert_called_once_with(0)
+        self.assertEqual(self.artifacts.downloads, 1)
+        self.assertEqual(len(self.network.calls), self.requests)
 
     def test_individual_stale_evidence_is_acknowledged_without_overwriting_curated_values(self):
         record = load_projects(self.root / 'data/projects.json')[0]
@@ -256,8 +320,25 @@ class ArtifactBoundaryTests(unittest.TestCase):
         with patch.object(handoff.subprocess, 'run') as run:
             client.request()
         run.assert_called_once_with(
-            ['gh', 'workflow', 'run', 'publish-enrichment.yml', '--ref', 'main', '--repo', 'owner/repo'],
+            ['gh', 'workflow', 'run', 'publish-enrichment.yml', '--ref', 'main',
+             '--repo', 'owner/repo', '-f', 'metadata_handoff=true'],
             check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
+
+    def test_enrichment_finalizer_passes_trusted_origin_and_actual_publication_outputs(self):
+        root = Path(__file__).resolve().parents[1]
+        workflow = (root / '.github/workflows/publish-enrichment.yml').read_text()
+        dispatch = workflow.split('  workflow_dispatch:', 1)[1].split('  schedule:', 1)[0]
+        self.assertIn('metadata_handoff:', dispatch)
+        self.assertIn('type: boolean', dispatch)
+        self.assertIn('default: false', dispatch)
+        finalizer = workflow.split('name: Request publication of new complete public content', 1)[1]
+        self.assertIn('always() && !cancelled()', finalizer)
+        self.assertIn('ENRICHMENT_EVENT: ${{ github.event_name }}', finalizer)
+        self.assertIn("ENRICHMENT_SOURCE: ${{ github.event.workflow_run.path || '' }}", finalizer)
+        self.assertIn('ENRICHMENT_METADATA_HANDOFF: ${{ inputs.metadata_handoff || false }}', finalizer)
+        self.assertIn('ENRICHMENT_RESULT: ${{ steps.publication.outcome }}', finalizer)
+        self.assertIn('ENRICHMENT_PUBLISHED: ${{ steps.publication.outputs.published }}', finalizer)
+        self.assertIn('python tools/pages_publication.py request-enrichment', finalizer)
 
     def test_metadata_finalizer_explicitly_wakes_retained_replay_without_recollecting(self):
         root = Path(__file__).resolve().parents[1]
