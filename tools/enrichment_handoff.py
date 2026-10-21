@@ -95,7 +95,7 @@ class GitHub:
         # Explicit dispatch also works after bot-dispatched metadata runs.
         # A single request is enough: artifacts and the hourly run retain recovery.
         subprocess.run(['gh', 'workflow', 'run', 'publish-enrichment.yml', '--ref', 'main',
-                        '--repo', self.repository], check=True, stdout=subprocess.PIPE,
+                        '--repo', self.repository, '-f', 'metadata_handoff=true'], check=True, stdout=subprocess.PIPE,
                        stderr=subprocess.PIPE, timeout=30)
 
     def download(self, artifact):

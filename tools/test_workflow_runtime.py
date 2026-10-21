@@ -71,6 +71,24 @@ class WorkflowRuntimeTests(unittest.TestCase):
         self.assertIn("REFRESH_HANDOFF: ${{ steps.handoff.outcome }}", finalizer)
         self.assertIn("pages_publication.py request-refresh", finalizer)
 
+    def test_metadata_enrichment_companion_preserves_notification_origin_and_outcome(self):
+        root = Path(__file__).resolve().parents[1]
+        workflow = (root / ".github/workflows/publish-enrichment.yml").read_text()
+        self.assertIn("metadata_handoff:", workflow)
+        self.assertIn("default: false", workflow)
+        self.assertIn("github.event.workflow_run.head_repository.full_name == github.repository", workflow)
+        self.assertIn("github.event.workflow_run.head_branch == 'main'", workflow)
+        self.assertIn("id: publication", workflow)
+        finalizer = workflow.split("name: Request publication of new complete public content", 1)[1]
+        self.assertIn("if: always() && !cancelled()", finalizer)
+        self.assertIn("continue-on-error: true", finalizer)
+        self.assertIn("ENRICHMENT_EVENT: ${{ github.event_name }}", finalizer)
+        self.assertIn("ENRICHMENT_SOURCE: ${{ github.event.workflow_run.path || '' }}", finalizer)
+        self.assertIn("ENRICHMENT_METADATA_HANDOFF: ${{ inputs.metadata_handoff || false }}", finalizer)
+        self.assertIn("ENRICHMENT_RESULT: ${{ steps.publication.outcome }}", finalizer)
+        self.assertIn("ENRICHMENT_PUBLISHED: ${{ steps.publication.outputs.published }}", finalizer)
+        self.assertIn("pages_publication.py request-enrichment", finalizer)
+
 
 class StorageWorkflowTests(unittest.TestCase):
     def test_partition_paths_trigger_refresh_and_pages_and_are_staged(self):
