@@ -1210,3 +1210,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-21 — Personally inspect 42 roots: add 38 projects and record one duplicate, two exclusions and one deferred target-toolchain claim.
 
 [Research record](docs/research/2026-10-21-wide-cross-platform-discovery-45.md).
+
+## 2026-10-21 — Personally inspect 40 roots: add 32 projects and record three duplicate/lineage consolidations and five deferrals.
+
+[Research record](docs/research/2026-10-21-wide-cross-platform-discovery-46.md).
