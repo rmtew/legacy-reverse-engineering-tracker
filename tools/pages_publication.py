@@ -224,6 +224,18 @@ def request(root, api, *, failure=False, attempt=0, failed_digest=""):
     return result
 
 
+def request_after_refresh(root, api, *, result, continuation, handoff):
+    """Coalesce only a published batch whose successor was actually requested.
+
+    This is a notification optimization, not an admission lock. Independent
+    Pages requests and hourly reconciliation can still publish complete content
+    if a successor is delayed or lost. Stopped/failed batches always reconcile.
+    """
+    if result == "success" and continuation == "true" and handoff == "success":
+        return {"requested": False, "reason": "refresh-continuing"}
+    return request(root, api)
+
+
 def output(result):
     print(json.dumps(result, separators=(",", ":")), flush=True)
     if filename := os.environ.get("GITHUB_OUTPUT"):
@@ -239,7 +251,7 @@ def output(result):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("gate", "request", "verify"))
+    parser.add_argument("command", choices=("gate", "request", "request-refresh", "verify"))
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--snapshot", default="")
     parser.add_argument("--attempt", type=int, choices=range(3), default=0)
@@ -257,6 +269,12 @@ def main():
     api = GitHub()
     if args.command == "gate":
         result = inspect(args.root, api, os.environ["GITHUB_SHA"])
+    elif args.command == "request-refresh":
+        result = request_after_refresh(
+            args.root, api, result=os.environ.get("REFRESH_RESULT", ""),
+            continuation=os.environ.get("REFRESH_CONTINUE", ""),
+            handoff=os.environ.get("REFRESH_HANDOFF", ""),
+        )
     else:
         result = request(
             args.root, api, failure=args.failure, attempt=args.attempt, failed_digest=args.failed_digest

@@ -24,11 +24,13 @@ from collection_budget import Budget, BudgetStop, RecordStop
 from merge_pending_projects import main as merge_pending
 from record_project_activity import main as record_catalogue, snapshot
 from refresh_scope import catalogue_delta, pending_publication, prepare_publication, repository
+from research_submission import REFRESH_REQUEST, refresh_repositories
 from validate_site_data import validate
 
 PROGRESS = "state/refresh-progress.json"
 POLL = "state/github-poll-state.json"
 OWNED = ("github", "last_activity", "last_checked", "ai")
+RESEARCH_REQUEST_HISTORY = 128
 
 
 def log(**value):
@@ -57,6 +59,11 @@ def progress_read(root):
     for work in ("probe", "activity"):
         if not isinstance(value.get("retry", {}).get(work), dict):
             raise ValueError("Invalid refresh retry queue")
+    requests = value.get("research_requests", [])
+    if (not isinstance(requests, list) or len(requests) > RESEARCH_REQUEST_HISTORY
+            or any(not isinstance(r, str) or not REFRESH_REQUEST.fullmatch(r) for r in requests)
+            or len(set(requests)) != len(requests)):
+        raise ValueError("Invalid research refresh request history")
     cycle = value.get("cycle")
     if cycle:
         if not isinstance(cycle.get("id"), str):
@@ -115,8 +122,12 @@ def due(repo, record_group, rs, now):
         probe.RUN_AT, probe.TODAY = old, old_today
 
 
-def plan(progress, records, poll, now, request_id, full=False):
+def plan(progress, records, poll, now, request_id, full=False, research_repositories=None):
     progress = copy.deepcopy(progress)
+    research = research_repositories is not None
+    if research and full:
+        raise ValueError("A research refresh cannot request a full sweep")
+    seen_research = research and request_id in progress.get("research_requests", [])
     if (
         progress.get("blocked_until")
         and datetime.fromisoformat(progress["blocked_until"].replace("Z", "+00:00")) <= now
@@ -124,29 +135,49 @@ def plan(progress, records, poll, now, request_id, full=False):
         progress.pop("blocked_until")
     by_repo = groups(records)
     repos = set(by_repo)
-    if not active(progress) and not (full and progress.get("last_full_request") == request_id):
+    selected = repos & set(research_repositories) if research else repos
+    if not active(progress) and not seen_research and not (full and progress.get("last_full_request") == request_id):
         probes = sorted(
             repo
             for repo, rows in by_repo.items()
-            if full
-            or repo in progress["retry"]["probe"]
-            or due(repo, rows, poll["repositories"].get(repo, {}), now)
+            if repo in selected and (
+                research or full
+                or repo in progress["retry"]["probe"]
+                or due(repo, rows, poll["repositories"].get(repo, {}), now)
+            )
         )
         scans = sorted(
             repo
-            for repo in repos
+            for repo in selected
             if full
             or repo in progress["retry"]["activity"]
             or poll["repositories"].get(repo, {}).get("scan_requested")
         )
         progress["cycle"] = {
             "id": digest([request_id, progress["revision"], stamp(now)])[:24],
-            "mode": "full" if full else "adaptive",
+            "mode": "research" if research else "full" if full else "adaptive",
             "started_at": stamp(now),
             "targets": {"probe": probes[:], "activity": scans[:]},
             "pending": {"probe": probes[:], "activity": scans[:]},
             "deferred": {"probe": [], "activity": []},
         }
+    if research and not seen_research:
+        # Coalesce into the one durable cycle. Do not replace an active broad
+        # sweep, replay its completed work, or discard activity page cursors.
+        cycle = progress["cycle"]
+        for work in ("probe", "activity"):
+            requested = selected if work == "probe" else {
+                repo for repo in selected if repo in progress["retry"][work]
+                or poll["repositories"].get(repo, {}).get("scan_requested")
+            }
+            extra = sorted(requested - set(cycle["targets"][work]))
+            cycle["targets"][work].extend(extra)
+            cycle["pending"][work].extend(extra)
+        # Bounded replay suppression. Very late duplicates may recheck only
+        # their receipt's repositories, never restart an all-due sweep.
+        progress["research_requests"] = (
+            progress.get("research_requests", []) + [request_id]
+        )[-RESEARCH_REQUEST_HISTORY:]
     if full and active(progress) and progress["cycle"]["mode"] != "full":
         # A manual full request upgrades an adaptive cycle without losing its
         # completed units or page cursors. Newly included repositories stay due.
@@ -572,13 +603,16 @@ def collect(
             merge_pending(stage)
         records = load_projects(stage / "data/projects.json")
     original = copy.deepcopy(groups(records))
+    research_repositories = refresh_repositories(root, request_id, records)
+    if research_repositories is not None:
+        log(research_request=request_id, research_repositories=sorted(research_repositories))
     poll = read(root / POLL, {"version": 1, "repositories": {}})
     before_poll = copy.deepcopy(poll)
     catalogue = read(root / "state/project-catalog-state.json", {"projects": {}})
     publication = catalogue_delta(list(catalogue.get("projects", {}).values()), records)
     working = groups(records)
     prepare_publication(working, poll, publication, records)
-    progress = plan(before_progress, records, poll, now, request_id, full)
+    progress = plan(before_progress, records, poll, now, request_id, full, research_repositories)
     activity_payload = read(root / "data/activity.json", {"events": [], "window_days": RETENTION_DAYS})
     original_events = event_groups(activity_payload, records)
     events = copy.deepcopy(original_events)

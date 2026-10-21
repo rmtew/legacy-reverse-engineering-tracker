@@ -13,6 +13,8 @@ from urllib.error import HTTPError
 from urllib.parse import parse_qs, urlsplit
 
 import refresh_pipeline as pipeline
+import pages_publication as pages
+import research_submission as submission
 from catalogue_storage import encode, load_projects, load_dataset, write_all, write_projects
 from merge_pending_projects import new_audit
 from record_project_activity import snapshot
@@ -81,6 +83,10 @@ class Network:
             raise HTTPError(url, 404, "Not Found", {}, BytesIO())
         elif path.endswith("/commits"):
             value = self.pages.get(int(query.get("page", ["1"])[0]), [])
+        elif path.endswith("/languages"):
+            value = {"C": 100}
+        elif path.endswith("/contents"):
+            value = []
         elif path.endswith("/releases/latest"):
             raise HTTPError(url, 404, "Not Found", {}, BytesIO())
         elif path.count("/") == 3 and path.startswith("/repos/"):
@@ -174,6 +180,24 @@ class RefreshPipelineTests(unittest.TestCase):
     def apply(self, bundle, now=NOW):
         return pipeline.apply_bundle(self.root, bundle, now=now)
 
+    def research(self, added=(), updated=(), index=1):
+        digest = f"{index:064x}"
+        event = "research-" + str(index)
+        self.put(submission.path_for(submission.RECEIPTS, event), {
+            "version": 1, "event_id": event, "digest": digest, "input_blob": SHA,
+            "summary": {"projects": list(added), "updated_projects": list(updated)},
+        })
+        return "research-" + digest
+
+    def assert_publication_handoff(self, applied):
+        with patch.object(pages, "request", return_value={"requested": True}) as request:
+            result = pages.request_after_refresh(
+                self.root, object(), result="success",
+                continuation=str(applied["continue"]).lower(), handoff="success",
+            )
+        self.assertEqual(request.called, not applied["continue"])
+        self.assertEqual(result["requested"], not applied["continue"])
+
     def activity_only(self, **state):
         self.seed(
             [project()],
@@ -194,6 +218,7 @@ class RefreshPipelineTests(unittest.TestCase):
         self.assertEqual(before, self.bytes())
         self.assertEqual(batch["summary"]["completed"], {"probe": 1, "activity": 1})
         first = self.apply(batch)
+        self.assert_publication_handoff(first)
         self.assertTrue(first["continue"])
         self.assertEqual(first["remaining"], {"probe": 2, "activity": 2})
         records = load_projects(self.root / "data/projects.json")
@@ -205,6 +230,7 @@ class RefreshPipelineTests(unittest.TestCase):
             self.assertNotIn("owner/a", [r["repo"] for r in batch["results"]])
             first = self.apply(batch)
         self.assertFalse(first["continue"])
+        self.assert_publication_handoff(first)
         self.assertEqual(first["completed"], {"probe": 3, "activity": 3})
         self.assertFalse(first["active"])
         # An identical full request cannot restart the completed sweep.
@@ -290,7 +316,9 @@ class RefreshPipelineTests(unittest.TestCase):
         other = copy.deepcopy(batch)
         other["id"] = "other"
         before = self.bytes()
-        self.assertTrue(self.apply(other)["stale"])
+        stale = self.apply(other)
+        self.assertTrue(stale["stale"])
+        self.assert_publication_handoff(stale)
         self.assertEqual(before, self.bytes())
 
     def test_concurrent_authored_or_generated_edits_are_preserved_and_requeued(self):
@@ -303,21 +331,22 @@ class RefreshPipelineTests(unittest.TestCase):
                 records[0][field] = "Human edit" if field == "notes" else {"stars": 987}
                 write_projects(self.root / "data/projects.json", records)
                 result = self.apply(batch)
+                self.assert_publication_handoff(result)
                 self.assertEqual(result["conflicts"], ["owner/a"])
                 self.assertEqual(load_projects(self.root / "data/projects.json")[0][field], records[0][field])
                 self.assertIn("owner/a", pipeline.progress_read(self.root)["cycle"]["pending"]["probe"])
 
     def test_pending_placeholders_and_publication_gate_survive_partial_batch(self):
         self.seed([project()])
-        self.put("data/pending-projects.json", [project("new")])
+        self.put("data/pending-projects.json", [project("new"), project("later")])
         batch = self.collect(full=True, limit=1)
         self.assertEqual(self.read("data/pending-projects.json")[0]["id"], "new")
         self.apply(batch)
         self.assertEqual(self.read("data/pending-projects.json"), [])
-        self.assertEqual({p["id"] for p in load_projects(self.root / "data/projects.json")}, {"a", "new"})
+        self.assertEqual({p["id"] for p in load_projects(self.root / "data/projects.json")}, {"a", "new", "later"})
         self.assertEqual(
             {a["project_id"] for a in load_dataset(self.root / "data", "project-audits.json")["projects"]},
-            {"a", "new"},
+            {"a", "new", "later"},
         )
         with self.assertRaises(SystemExit):
             check_publishable(
@@ -333,6 +362,7 @@ class RefreshPipelineTests(unittest.TestCase):
         self.assertIn("blocked_until", batch["progress_after"])
         result = self.apply(batch)
         self.assertFalse(result["continue"])
+        self.assert_publication_handoff(result)
         self.assertIn("refresh_activity", self.read(pipeline.POLL)["repositories"]["owner/a"])
         self.net.calls = []
         self.collect(now=NOW + timedelta(minutes=1))
@@ -480,6 +510,187 @@ class RefreshPipelineTests(unittest.TestCase):
         progress = pipeline.plan(pipeline.progress_read(self.root), records, poll, NOW, "fair", True)
         candidates = pipeline.candidates(progress, poll, "probe", NOW, 4)
         self.assertIn("owner/19", candidates[:4])
+
+    def test_research_additions_and_updates_do_not_start_unrelated_due_work(self):
+        records = load_projects(self.root / "data/projects.json")
+        records[1]["notes"] = "Reviewed update"
+        write_projects(self.root / "data/projects.json", records)
+        self.put("data/pending-projects.json", [project("new")])
+        request = self.research(added=["new"], updated=["b"])
+        batch = self.collect(request_id=request)
+        self.assertEqual({r["repo"] for r in batch["results"]}, {"owner/b", "owner/new"})
+        self.assertEqual(batch["summary"]["completed"], {"probe": 2, "activity": 2})
+        self.assertEqual(batch["progress_after"]["cycle"]["mode"], "research")
+        self.assertTrue(all("/owner/a" not in url and "/owner/c" not in url for url, _ in self.net.calls))
+        self.assertFalse(self.apply(batch)["continue"])
+        check_publishable(self.read(pipeline.POLL), load_projects(self.root / "data/projects.json"),
+                          self.read("state/project-catalog-state.json"))
+
+    def test_research_continuations_recovery_and_duplicate_keep_scope(self):
+        request = self.research(added=["a", "b", "a"], updated=["b"])
+        first = self.collect(request_id=request, limit=1)
+        self.assertEqual(first["progress_after"]["cycle"]["targets"]["probe"], ["owner/a", "owner/b"])
+        with patch.object(pipeline, "perform", side_effect=AssertionError("Replay must stay offline")):
+            applied = self.apply(first)
+            replayed = self.apply(first)
+        self.assertTrue(applied["continue"])
+        self.assertTrue(replayed["duplicate"])
+        self.assertEqual(replayed["token"], applied["token"])
+        second = self.collect(request_id=request, continuation=applied["token"], limit=1,
+                              now=NOW + timedelta(minutes=1))
+        self.assertEqual({r["repo"] for r in second["results"]}, {"owner/b"})
+        self.assertFalse(self.apply(second)["continue"])
+        self.net.calls = []
+        repeated = self.collect(request_id=request, now=NOW + timedelta(days=1))
+        self.assertEqual(repeated["summary"]["repositories"], 0)
+        self.assertEqual(self.net.calls, [])
+        self.assertFalse(self.apply(repeated)["continue"])
+        stale = self.collect(request_id=request, continuation=applied["token"])
+        self.assertTrue(stale["stale"])
+        self.assertEqual(self.net.calls, [])
+
+    def test_research_duplicate_after_unrelated_cycle_does_not_restart_due_sweep(self):
+        request = self.research(added=["a"])
+        self.apply(self.collect(request_id=request))
+        ordinary = self.collect(request_id="scheduled", now=NOW + timedelta(days=1))
+        self.assertEqual({r["repo"] for r in ordinary["results"]}, {"owner/a", "owner/b", "owner/c"})
+        self.apply(ordinary, NOW + timedelta(days=1))
+        self.net.calls = []
+        repeated = self.collect(request_id=request, now=NOW + timedelta(days=2))
+        self.assertEqual(repeated["summary"]["repositories"], 0)
+        self.assertEqual(self.net.calls, [])
+
+    def test_research_request_coalesces_without_restarting_active_maintenance(self):
+        first = self.apply(self.collect(limit=1))
+        progress = pipeline.progress_read(self.root)
+        progress["retry"]["activity"]["owner/c"] = {"retry_at": "2026-10-20T00:00:00Z"}
+        self.put(pipeline.PROGRESS, progress)
+        poll = self.read(pipeline.POLL)
+        poll["repositories"].setdefault("owner/c", {})["refresh_activity"] = {"cursor": "retained"}
+        self.put(pipeline.POLL, poll)
+        self.put("data/pending-projects.json", [project("new")])
+        request = self.research(added=["new"])
+        batch = self.collect(request_id=request, limit=1, now=NOW + timedelta(minutes=1))
+        after = batch["progress_after"]
+        self.assertEqual(after["cycle"]["id"], first["cycle"])
+        self.assertEqual(after["cycle"]["mode"], "adaptive")
+        self.assertEqual(set(after["cycle"]["targets"]["probe"]), {"owner/a", "owner/b", "owner/c", "owner/new"})
+        self.assertEqual(set(after["cycle"]["pending"]["probe"]), {"owner/b", "owner/c"})
+        self.assertNotIn("owner/a", {r["repo"] for r in batch["results"]})
+        self.assertEqual(after["retry"]["activity"]["owner/c"], progress["retry"]["activity"]["owner/c"])
+        self.apply(batch)
+        self.assertEqual(self.read(pipeline.POLL)["repositories"]["owner/c"]["refresh_activity"], {"cursor": "retained"})
+
+    def test_new_research_request_joins_active_research_cycle(self):
+        first_request = self.research(added=["a", "b"])
+        first = self.apply(self.collect(request_id=first_request, limit=1))
+        second_request = self.research(updated=["c"], index=2)
+        joined = self.collect(request_id=second_request, requests=0)
+        self.assertEqual(joined["progress_after"]["cycle"]["id"], first["cycle"])
+        self.assertEqual(joined["progress_after"]["cycle"]["pending"]["probe"], ["owner/b", "owner/c"])
+        self.assertEqual(joined["progress_after"]["research_requests"], [first_request, second_request])
+
+    def test_research_edit_requeues_completed_repo_without_replacing_active_sweep(self):
+        first = self.apply(self.collect(limit=1))
+        original = pipeline.progress_read(self.root)["cycle"]
+        self.assertEqual(original["pending"]["probe"], ["owner/b", "owner/c"])
+        self.assertNotIn("owner/a", original["pending"]["activity"])
+        records = load_projects(self.root / "data/projects.json")
+        records[0]["notes"] = "New research after this repository completed"
+        write_projects(self.root / "data/projects.json", records)
+        request = self.research(updated=["a"])
+        queued = self.collect(request_id=request, requests=0, now=NOW + timedelta(minutes=1))
+        cycle = queued["progress_after"]["cycle"]
+        self.assertEqual(cycle["id"], first["cycle"])
+        self.assertEqual(cycle["mode"], "adaptive")
+        self.assertEqual(cycle["targets"]["probe"], original["targets"]["probe"])
+        for work in ("probe", "activity"):
+            self.assertEqual(cycle["pending"][work], original["pending"][work] + ["owner/a"])
+        row = next(row for row in queued["results"] if row["repo"] == "owner/a")
+        self.assertFalse(row["state_after"]["publication"]["metadata_complete"])
+        self.assertFalse(row["state_after"]["publication"]["history_complete"])
+        applied = self.apply(queued)
+        refreshed = self.collect(request_id=request, continuation=applied["token"], limit=1,
+                                 now=NOW + timedelta(minutes=2))
+        self.assertEqual({row["repo"] for row in refreshed["results"]}, {"owner/a"})
+        self.assertEqual(refreshed["summary"]["completed"], {"probe": 1, "activity": 1})
+        self.assertEqual(refreshed["progress_after"]["cycle"]["pending"], original["pending"])
+        self.assertTrue(self.apply(refreshed)["continue"])
+
+    def test_pending_catalogue_work_joins_scope_without_all_due_repositories(self):
+        self.put("data/pending-projects.json", [project("unrelated-new")])
+        request = self.research(added=["a"])
+        batch = self.collect(request_id=request, requests=0)
+        queues = batch["progress_after"]["cycle"]["pending"]
+        self.assertEqual(set(queues["probe"]), {"owner/a", "owner/unrelated-new"})
+        self.assertIn("owner/unrelated-new", queues["activity"])
+        applied = self.apply(batch)
+        self.assertTrue(applied["continue"])
+        self.assertEqual(self.read("data/pending-projects.json"), [])
+
+    def test_concurrent_catalogue_change_during_research_replay_is_retained(self):
+        request = self.research(added=["a"])
+        batch = self.collect(request_id=request)
+        records = load_projects(self.root / "data/projects.json")
+        records[1]["notes"] = "Concurrent authored update"
+        write_projects(self.root / "data/projects.json", records)
+        applied = self.apply(batch)
+        progress = pipeline.progress_read(self.root)
+        self.assertEqual(progress["cycle"]["pending"]["probe"], ["owner/b"])
+        self.assertEqual(progress["cycle"]["pending"]["activity"], ["owner/b"])
+        self.assertTrue(applied["continue"])
+        self.assertNotIn("owner/c", progress["cycle"]["targets"]["probe"])
+
+    def test_research_resume_uses_changed_repo_and_prunes_removed_target(self):
+        request = self.research(added=["a", "b"])
+        applied = self.apply(self.collect(request_id=request, limit=1))
+        records = load_projects(self.root / "data/projects.json")
+        records[1]["repo"] = "https://github.com/Changed/B.git/"
+        write_projects(self.root / "data/projects.json", records)
+        batch = self.collect(request_id=request, continuation=applied["token"], requests=0)
+        self.assertEqual(batch["progress_after"]["cycle"]["pending"]["probe"], ["Changed/B"])
+        self.assertNotIn("owner/b", batch["progress_after"]["cycle"]["targets"]["probe"])
+        applied = self.apply(batch)
+        self.seed([project("a"), project("c")], poll=self.read(pipeline.POLL)["repositories"])
+        self.net.calls = []
+        removed = self.collect(request_id=request, continuation=applied["token"])
+        self.assertEqual(removed["summary"]["repositories"], 0)
+        self.assertEqual(removed["progress_after"]["cycle"]["pending"], {"probe": [], "activity": []})
+        self.assertEqual(self.net.calls, [])
+
+    def test_empty_non_github_or_removed_research_scope_never_falls_back_to_due(self):
+        self.seed([project("a"), project("web", repo="https://example.org/source")])
+        request = self.research(added=["gone"], updated=["web"])
+        batch = self.collect(request_id=request)
+        self.assertEqual(batch["summary"]["repositories"], 0)
+        self.assertEqual(batch["progress_after"]["cycle"]["targets"], {"probe": [], "activity": []})
+        self.assertEqual(self.net.calls, [])
+        self.assertFalse(self.apply(batch)["continue"])
+
+    def test_missing_invalid_or_conflicting_research_request_fails_before_network(self):
+        for request in ("research-", "research-" + "f" * 64):
+            with self.subTest(request=request), self.assertRaises(ValueError):
+                self.collect(request_id=request)
+            self.assertEqual(self.net.calls, [])
+            self.assertFalse(self.bundle_path.exists())
+        request = self.research(added=["a"])
+        with self.assertRaisesRegex(ValueError, "full sweep"):
+            self.collect(request_id=request, full=True)
+        self.assertEqual(self.net.calls, [])
+
+    def test_bounded_research_history_late_duplicate_still_stays_scoped(self):
+        records = [project("a"), project("b")]
+        poll = {"repositories": {}}
+        progress = pipeline.progress_read(self.root)
+        first = "research-" + "0" * 64
+        with patch.object(pipeline, "RESEARCH_REQUEST_HISTORY", 2):
+            for index in range(3):
+                request = "research-" + f"{index:064x}"
+                progress = pipeline.plan(progress, records, poll, NOW, request, research_repositories=set())
+            self.assertEqual(len(progress["research_requests"]), 2)
+            self.assertNotIn(first, progress["research_requests"])
+            late = pipeline.plan(progress, records, poll, NOW, first, research_repositories={"owner/a"})
+        self.assertEqual(late["cycle"]["pending"]["probe"], ["owner/a"])
 
 
 if __name__ == "__main__":

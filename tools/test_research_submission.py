@@ -271,6 +271,58 @@ class SubmissionTests(unittest.TestCase):
         self.commit()
         self.assertEqual(submission.selected(self.root), [])
 
+    def test_refresh_scope_resolves_added_updated_current_urls_and_shared_repositories(self):
+        result = self.apply()
+        request = 'research-' + result['digest']
+        path = submission.path_for(submission.RECEIPTS, self.document['event_id'])
+        receipt = json.loads((self.root / path).read_bytes())
+        receipt['summary'] = {'projects': ['new', 'shared', 'new', 'removed'],
+                              'updated_projects': ['updated', 'web', 'new']}
+        self.put(path, receipt)
+        records = [
+            {'id': 'new', 'repo': 'https://github.com/Mixed/Repository.git/'},
+            {'id': 'shared', 'repo': 'https://github.com/Mixed/Repository'},
+            {'id': 'updated', 'repo': 'https://github.com/Current/Location',
+             'github': {'repository': 'stale/old-location'}},
+            {'id': 'web', 'repo': 'https://example.org/source', 'github': {'repository': 'stale/web'}},
+            {'id': 'untouched', 'repo': 'https://github.com/owner/due'},
+        ]
+        self.assertEqual(submission.refresh_repositories(self.root, request, records),
+                         {'Mixed/Repository', 'Current/Location'})
+        self.assertIsNone(submission.refresh_repositories(self.root, 'manual', records))
+        self.assertEqual(submission.refresh_repositories(self.root, request, []), set())
+
+    def test_refresh_scope_fails_closed_on_missing_ambiguous_or_invalid_intended_receipt(self):
+        result = self.apply()
+        request = 'research-' + result['digest']
+        path = submission.path_for(submission.RECEIPTS, self.document['event_id'])
+        original = json.loads((self.root / path).read_bytes())
+        for invalid in ('research-', 'research-../escape', 'research-' + 'A' * 64,
+                        'research-' + '0' * 64):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                submission.refresh_repositories(self.root, invalid, [])
+        for summary in (None, {}, {'projects': ['a'], 'updated_projects': 'a'},
+                        {'projects': [None], 'updated_projects': []}):
+            self.put(path, {**original, 'summary': summary})
+            with self.subTest(summary=summary), self.assertRaises(ValueError):
+                submission.refresh_repositories(self.root, request, [])
+        self.put(path, {**original, 'event_id': 'wrong'})
+        with self.assertRaisesRegex(ValueError, 'receipt'):
+            submission.refresh_repositories(self.root, request, [])
+        self.put(path, original)
+        self.put(submission.path_for(submission.RECEIPTS, 'duplicate'), {**original, 'event_id': 'duplicate'})
+        with self.assertRaisesRegex(ValueError, 'exactly one'):
+            submission.refresh_repositories(self.root, request, [])
+
+    def test_refresh_scope_ignores_unrelated_bad_receipts_and_bounds_scan(self):
+        result = self.apply()
+        request = 'research-' + result['digest']
+        self.put(submission.path_for(submission.RECEIPTS, 'unrelated'), {'digest': '0' * 64})
+        (self.root / submission.path_for(submission.RECEIPTS, 'damaged')).write_text('{not JSON')
+        self.assertEqual(submission.refresh_repositories(self.root, request, []), set())
+        with patch.object(submission, 'MAX_SCAN', 2), self.assertRaisesRegex(ValueError, 'scan ceiling'):
+            submission.refresh_repositories(self.root, request, [])
+
 
 if __name__ == '__main__':
     unittest.main()
