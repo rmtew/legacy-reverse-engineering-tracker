@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-21T14:22:03Z",
+  "updated_at": "2026-10-21T16:17:03Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -20742,8 +20742,21 @@
         "6502",
         "Z80"
       ],
-      "target_cpu": [],
-      "runtime_profiles": null,
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Modern AY example snapshots",
+          "platform": "ZX Spectrum / Amstrad CPC AY workflow",
+          "cpu_family": "Z80",
+          "notes": "README documents sjasmplus builds of exec_ examples to .sna snapshots and execution in ZEsarUX. No minimum model or RAM is stated.",
+          "evidence": [
+            "https://github.com/breakintoprogram/archive-follin/blob/ba0e22578a1af16d1e4d234309b44692ca991c12/README.md",
+            "https://github.com/breakintoprogram/archive-follin/tree/ba0e22578a1af16d1e4d234309b44692ca991c12/Examples"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "original tokenized 6502 assembly",
@@ -20768,7 +20781,7 @@
         "music driver"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Recovered multi-title source archive; documented Z80 AY example rebuilds",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -20786,7 +20799,7 @@
         "ZX Spectrum",
         "music"
       ],
-      "notes": "Recovered Tim and Geoff Follin period music and driver source from Tatung Einstein floppies. Author reverse-engineered a 6502 detokenizer and began modern Z80 assembler builds for AY music examples; this is source recovery, not a game disassembly.",
+      "notes": "Identity: This remains one coherent preservation archive of Tim and Geoff Follin music data and drivers recovered from Tatung Einstein disks; individual game-named folders are archival components, not independently published projects. Classification: The archive combines original period 6502/Z80 source recovery, a reverse-engineered token detokenizer and modern example rebuild work; it is not a game disassembly collection. Source CPU: The README explicitly identifies original C64 6502 and CPC/Spectrum Z80 source material recovered from the disks. Target CPU: The documented modern build lane assembles selected Z80 AY examples with sjasmplus into snapshots; no rebuilt 6502 output is claimed. Build: The README documents VS Code build tasks for exec_ files, producing .sna snapshots for ZEsarUX; other recovered files remain source material without blanket rebuild claims. Limitations: The tracker did not build the examples, and no compile claim is generalized to every disk or title. Runtime profiles: A bounded Z80 AY snapshot workflow is explicit; no minimum Spectrum/CPC model, RAM or ROM revision is given. AI: The README and reviewed archive structure contain no development-AI disclosure; absence does not establish non-use. Relationships: The per-game and per-disk materials share the same donor provenance, recovery process, drivers and detokenization workflow; repository-root scope is the accurate catalogue identity. Evidence: https://github.com/breakintoprogram/archive-follin/blob/ba0e22578a1af16d1e4d234309b44692ca991c12/README.md https://github.com/breakintoprogram/archive-follin/tree/ba0e22578a1af16d1e4d234309b44692ca991c12/Examples",
       "ai": {
         "usage": null,
         "tools": []
@@ -272231,6 +272244,451 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: SPASM — Python 6809 assembler and disassembler. Repository root and implementation inspected at pinned revisions. Classification: Two-pass assembler supports labels/directives and emits address/code JSON for a separate emulator. The .6809 extension is text JSON, not a standard executable or raw ROM. Source CPU: Architecture context: 6809. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Python3; no assembly/disassembly executed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: CPU support alone does not establish CoCo,Dragon or OS-9 file-format compatibility. Evidence: https://github.com/smittytone/Spasm/blob/ee173ce134cde84785a96fef0244f7b71187f2c4/README.md https://github.com/smittytone/Spasm/blob/ee173ce134cde84785a96fef0244f7b71187f2c4/spasm.py https://github.com/smittytone/Spasm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sharp-pc1500-rom-disassembly": {
+      "id": "sharp-pc1500-rom-disassembly",
+      "title": "Sharp PC-1500 ROM Disassembly",
+      "upstream_name": "Sharp PC-1500 ROM Disassembly",
+      "display_title": "Sharp PC-1500 / TRS-80 PC-2 ROM disassembly",
+      "subjects": [
+        "Sharp PC-1500 A01/A03/A04 ROMs",
+        "TRS-80 PC-2 ROMs"
+      ],
+      "repo": "https://github.com/Jeff-Birt/Sharp_PC-1500_ROM_Disassembly",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp PC-1500",
+        "TRS-80 PC-2"
+      ],
+      "target_platforms": [
+        "Sharp PC-1500",
+        "TRS-80 PC-2"
+      ],
+      "source_cpu": [
+        "LH5801"
+      ],
+      "target_cpu": [
+        "LH5801"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "LH5801 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "ROM disassembly"
+      ],
+      "re_started": null,
+      "status": "Documented TASM rebuild; not independently built",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "multi-revision conditional assembly",
+        "cross-assembly"
+      ],
+      "tags": [
+        "Sharp PC-1500",
+        "TRS-80 PC-2",
+        "LH5801",
+        "ROM"
+      ],
+      "notes": "Identity: The README identifies one LH5801 assembly reconstruction covering the A01, A03 and A04 Sharp PC-1500 ROM revisions, also applicable to the Radio Shack TRS-80 PC-2 lineage. Classification: This is a ROM disassembly/reconstruction with revision-selectable source and generated binaries; it is not presented as recovered original Sharp source. Source CPU: The primary assembly filename, source comments and TASM build switch explicitly identify the historical ROM instruction set as Sharp LH5801. Target CPU: The documented build invokes TASM's 5801 table and emits PC-1500 ROM binaries, explicitly retaining LH5801 as the output architecture. Build: The README and batch script document TASM commands for A01, A03 and A04 outputs and the repository contains generated BIN/LST files. Limitations: The tracker did not execute TASM or compare the generated binaries with Original_ROMs; runtime and byte identity remain unknown. Runtime profiles: The reviewed README, assembly and build script establish ROM targets but do not state minimum machine, RAM or peripheral requirements beyond product identity. AI: The inspected README, source and build script contain no development-AI disclosure; absence does not establish non-use. Relationships: The repository treats Sharp PC-1500 and Radio Shack TRS-80 PC-2 as the same ROM-family subject and keeps the three published ROM revisions in one coherent source file. Evidence: https://github.com/Jeff-Birt/Sharp_PC-1500_ROM_Disassembly/blob/5a5f8aa9ba52e239cc224c3a2e48bde9299b4f3e/README.md https://github.com/Jeff-Birt/Sharp_PC-1500_ROM_Disassembly/blob/5a5f8aa9ba52e239cc224c3a2e48bde9299b4f3e/PC-1500_ROM-A0x.lh5801.asm https://github.com/Jeff-Birt/Sharp_PC-1500_ROM_Disassembly/blob/5a5f8aa9ba52e239cc224c3a2e48bde9299b4f3e/build.bat",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "calvados-genie-iiis-reconstruction": {
+      "id": "calvados-genie-iiis-reconstruction",
+      "title": "CalvaDOS",
+      "upstream_name": "CalvaDOS",
+      "display_title": "CalvaDOS — Genie IIIs hard-disk OS reconstruction",
+      "subjects": [
+        "CalvaDOS",
+        "G-DOS 2.4 hard-disk extensions"
+      ],
+      "repo": "https://github.com/Egbert-Azure/TCS-Trommeschlaeger-Genie-IIIs-CalvaDOS",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TCS Genie IIIs"
+      ],
+      "target_platforms": [
+        "TCS Genie IIIs"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Stage B reconstruction",
+          "platform": "TCS Genie IIIs",
+          "cpu_family": "Z80",
+          "os": "CalvaDOS / G-DOS 2.4",
+          "notes": "Documented boot path uses the reconstructed Stage B OMTI hard-disk system; it runs on a physical Genie IIIs via the patch disk or under sdltrs-MultiHDC. No RAM floor is stated.",
+          "evidence": [
+            "https://github.com/Egbert-Azure/TCS-Trommeschlaeger-Genie-IIIs-CalvaDOS/blob/52fb7c1ff3135a177ec54e182a2676f35608128b/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "surviving Z80 assembly",
+        "historical binaries"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "shell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software",
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "source-restoration",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "operating-system reconstruction",
+        "software preservation"
+      ],
+      "re_started": null,
+      "status": "Stage B boots and reads a real hard-disk directory according to the author",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "artifact comparison",
+        "disassembly",
+        "byte diffing",
+        "emulator debugging"
+      ],
+      "tags": [
+        "Genie IIIs",
+        "G-DOS",
+        "Z80",
+        "preservation"
+      ],
+      "notes": "Identity: The project explicitly reconstructs the lost Stage B CalvaDOS modification for the TCS Genie IIIs from surviving GDOS material, an OMTI boot EPROM, work disks and period documentation. Classification: The README repeatedly distinguishes this reconstruction from the unrecovered 1986 binaries and separates new BSD-licensed code from preserved third-party G-DOS-derived material. Source CPU: The README identifies the Genie IIIs as a Z80 machine and documents Z80 disassembly/assembly as the reconstruction basis. Target CPU: The reconstructed Stage B system and boot EPROM target the same Z80-based Genie IIIs hardware; no host CPU is substituted. Build: The author reports that the reconstruction boots from hard disk, reaches a command prompt, reads volume 5 and creates RAMDISK; source, disk images and build tools are present. Limitations: One known defect remains open, and the tracker did not independently assemble or boot the system. Runtime profiles: The README documents physical Genie IIIs and sdltrs-MultiHDC execution paths for the Stage B OMTI reconstruction, but states no minimum RAM. AI: The reviewed README describes the manual tools and sources used but contains no development-AI disclosure; absence does not establish non-use. Relationships: CalvaDOS is reconstructed from stock G-DOS 2.4 plus surviving Club80-era hard-disk modifications; related emulator, stock-GDOS and disk-extraction repositories are explicitly named without being collapsed into this record. Evidence: https://github.com/Egbert-Azure/TCS-Trommeschlaeger-Genie-IIIs-CalvaDOS/blob/52fb7c1ff3135a177ec54e182a2676f35608128b/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "paket-adventure-game-compiler": {
+      "id": "paket-adventure-game-compiler",
+      "title": "PAKET",
+      "upstream_name": "PAKET",
+      "display_title": "PAKET — CPC/MSX point-and-click adventure compiler",
+      "subjects": [
+        "PAKET game definition language and compiler"
+      ],
+      "repo": "https://github.com/santiontanon/paket",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amstrad CPC 464",
+        "MSX"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Java",
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "game-engine"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "language-tooling",
+        "asset-tool"
+      ],
+      "types": [
+        "retro game-development toolkit"
+      ],
+      "re_started": null,
+      "status": "Version 1.0 compiler with documented CPC 464 and MSX outputs",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "domain-specific language",
+        "cross-compilation",
+        "firmware-derived tape routines"
+      ],
+      "tags": [
+        "Amstrad CPC",
+        "MSX",
+        "Z80",
+        "adventure engine"
+      ],
+      "notes": "Identity: The README identifies PAKET 1.0 as a game-definition language and compiler for point-and-click adventures targeting Amstrad CPC 464 and MSX. Classification: This is substantial original retro-development tooling, not a reverse-engineered game; one CPC tape library explicitly derives and simplifies required routines from firmware disassembly. Source CPU: PAKET is a modern Java-authored compiler/game engine rather than reconstruction of one original machine-code subject, so an original source CPU is not applicable. Target CPU: The emitted CPC/MSX templates explicitly use Zilog Z80 notation and the compiler includes a Z80 assembler-output utility, directly evidencing the output architecture. Build: The repository supplies a build script, Java compiler sources, examples and target templates; the README states that the compiler generates game binaries. Limitations: The tracker did not compile the Java tool or execute a generated game. Runtime profiles: The reviewed documentation names CPC 464 and MSX targets but gives no explicit minimum RAM, model revision or OS/ROM requirements suitable for a compatibility profile. AI: The inspected README and target sources contain no development-AI disclosure; absence does not establish non-use. Relationships: PAKET incorporates credited WYZTracker player material and a CPC cassette layer derived from firmware disassembly, while the compiler and game-definition system remain the repository's coherent original project. Evidence: https://github.com/santiontanon/paket/blob/1be8adb2fd549e06afeca11fdcf7f8821de78c05/README.md https://github.com/santiontanon/paket/blob/1be8adb2fd549e06afeca11fdcf7f8821de78c05/src/paket/templates/cpc/tape.asm https://github.com/santiontanon/paket/blob/1be8adb2fd549e06afeca11fdcf7f8821de78c05/src/paket/templates/cpc/paketdsk.asm https://github.com/santiontanon/paket/blob/1be8adb2fd549e06afeca11fdcf7f8821de78c05/build.sh",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rom-fiend-macintosh-rom-template": {
+      "id": "rom-fiend-macintosh-rom-template",
+      "title": "ROM Fiend",
+      "upstream_name": "ROM Fiend",
+      "display_title": "ROM Fiend — Macintosh ROM structure template for Hex Fiend",
+      "subjects": [
+        "Classic Macintosh System ROMs",
+        "Macintosh Declaration ROMs"
+      ],
+      "repo": "https://github.com/eharmon/rom_fiend",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Classic Macintosh"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "68000 family",
+        "PowerPC"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Tcl",
+        "shell"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "rom-tool"
+      ],
+      "types": [
+        "ROM analysis tool"
+      ],
+      "re_started": null,
+      "status": "Parses common 68k and Old World PowerPC Macintosh ROM structures",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "structured binary parsing",
+        "symbol-map integration",
+        "byte-order recovery"
+      ],
+      "tags": [
+        "Macintosh",
+        "ROM",
+        "Hex Fiend",
+        "68000",
+        "PowerPC"
+      ],
+      "notes": "Identity: The README identifies a Hex Fiend file template for inspecting and modifying classic Macintosh Declaration and System ROMs. Classification: This is reusable ROM structure-analysis tooling with explicit parsing and error handling, not a ROM collection or emulator. Source CPU: The README explicitly covers ROMs for 68k and Old World PowerPC Macs, and the template names PowerPC CPU resource variants. Target CPU: ROM Fiend emits a structured Hex Fiend view rather than a port or reconstructed machine-code binary, so no output CPU applies. Build: Installation copies or symlinks the Tcl template and optional symbol maps into Hex Fiend; there is no compiled target build. Limitations: The tracker did not install the template or parse a ROM. Runtime profiles: The README requires Hex Fiend but gives no explicit host OS version, CPU or memory minimum; target Macintosh hardware requirements do not apply to the analysis template. AI: The inspected README and template contain no development-AI disclosure; absence does not establish non-use. Relationships: ROM Fiend extends Hex Fiend through its template mechanism and optionally installs external Macintosh ROM symbol maps; those dependencies are not represented as reconstructed subjects here. Evidence: https://github.com/eharmon/rom_fiend/blob/a06c9baee765ae49fdbc1f04a0da7600d700594e/README.md https://github.com/eharmon/rom_fiend/blob/a06c9baee765ae49fdbc1f04a0da7600d700594e/Mac%20ROM.tcl",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "df80-cpm-fortran80-disassembly": {
+      "id": "df80-cpm-fortran80-disassembly",
+      "title": "dF80",
+      "upstream_name": "dF80",
+      "display_title": "dF80 — byte-identical CP/M FORTRAN-80 reconstruction",
+      "subjects": [
+        "Microsoft FORTRAN-80 3.4 for CP/M"
+      ],
+      "repo": "https://github.com/nikitinprior/dF80",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "CP/M"
+      ],
+      "target_platforms": [
+        "CP/M"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "development-tool",
+        "system-software"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "compiler reconstruction"
+      ],
+      "re_started": null,
+      "status": "Documented M80/L80 rebuild is byte-identical to F80.COM",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "multi-binary comparison",
+        "module-boundary recovery",
+        "symbol-table analysis"
+      ],
+      "tags": [
+        "CP/M",
+        "FORTRAN-80",
+        "Z80",
+        "byte-exact"
+      ],
+      "notes": "Identity: The author identifies a partly commented reconstruction of Microsoft FORTRAN-80 3.4 for CP/M, including both 1985 F80 and 3.44 source variants. Classification: This is binary-derived compiler reconstruction; module boundaries were recovered by comparing multiple executables rather than from original Microsoft source. Source CPU: The README states that the compiler produces Z80 assembler listings and that the recovered source is assembled with Microsoft's M80/L80 toolchain. Target CPU: The reconstructed Z80 assembly emits CP/M F80.COM executables, explicitly preserving the Z80 output architecture. Build: The README gives M80 and L80 commands and claims the resulting F80.COM and F.COM executables are completely identical to their originals. Limitations: Byte identity is an author claim; the tracker did not run M80/L80 or compare binaries. Runtime profiles: The project identifies CP/M executables but gives no minimum CP/M version, RAM, machine model or operating environment. AI: The inspected README and recovered source contain no development-AI disclosure; absence does not establish non-use. Relationships: The author distinguishes the selected CP/M compiler from a likely earlier TRS-80 lineage and from W. Cirsovius's separate M80/L80 disassemblies; neither is collapsed into this record. Evidence: https://github.com/nikitinprior/dF80/blob/e7f7c3dff284286d52d795d5cdc806b776b3d71a/README.md https://github.com/nikitinprior/dF80/blob/e7f7c3dff284286d52d795d5cdc806b776b3d71a/f8.mac",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "computer-archeology-disassemblies-toolchain": {
+      "id": "computer-archeology-disassemblies-toolchain",
+      "title": "Computer Archeology",
+      "upstream_name": "Computer Archeology",
+      "display_title": "Computer Archeology — annotated disassemblies and rendering toolchain",
+      "subjects": [
+        "Computer Archeology annotated program analyses",
+        "names_in_code and site-rendering tools"
+      ],
+      "repo": "https://github.com/topherCantrell/computerarcheology",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade",
+        "Atari 2600",
+        "TRS-80",
+        "TRS-80 Color Computer",
+        "Amiga",
+        "Game Boy",
+        "NES"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502",
+        "Z80",
+        "6809",
+        "8080"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "assembly",
+        "Python",
+        "JavaScript",
+        "Markdown"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game",
+        "firmware-rom"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "static-analysis",
+        "rom-tool",
+        "automation"
+      ],
+      "types": [
+        "software-archaeology corpus",
+        "analysis toolchain"
+      ],
+      "re_started": null,
+      "status": "Large maintained corpus of annotated analyses with dedicated rendering and consistency tools",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cross-linked memory maps",
+        "binary consistency checks",
+        "ROM graphics extraction"
+      ],
+      "tags": [
+        "software archaeology",
+        "disassembly",
+        "6502",
+        "Z80",
+        "6809",
+        "8080"
+      ],
+      "notes": "Identity: The root repository contains the source analyses and Python toolchain behind computerarcheology.com, spanning many individually documented games and machines under one coherent publication system. Classification: This is both a maintained corpus of annotated binary disassemblies and reusable archaeology tooling; tracking the root preserves the shared renderer, memory-map conventions and analysis identity without splitting every title directory. Source CPU: Reviewed content includes 6502, Z80, 6809 and 8080 program analyses; only those directly represented instruction sets are recorded, not every platform suggested by directory names. Target CPU: The common project output is linked documentation, analysis data and web tooling rather than reconstructed machine-code binaries with one target CPU. Build: The README documents Python commands for generating and serving the site and describes automated name/link maintenance across disassembly and memory-map files. Limitations: The tracker did not execute the renderer or validate individual title binaries. Runtime profiles: The reviewed root documentation does not provide host CPU, RAM or Python-version minima for the analysis/rendering toolchain. AI: The inspected root documentation and tooling source contain no development-AI disclosure; absence does not establish non-use. Relationships: The title directories share one rendering/annotation architecture and publication site, so the repository is represented as one broad analysis project rather than speculative directory-scoped records. Evidence: https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/README.md https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/content/README.md https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/computerarcheology/carender/names_in_code.py https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/content/Atari2600/Combat/Code.md https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/content/Arcade/Frogger/Code.md https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/content/Arcade/Defender/BankFixed.md https://github.com/topherCantrell/computerarcheology/blob/1adc2a7f3ae30f9efceed3f6b22bf5541c1f584c/content/Arcade/SpaceInvaders/Code.md",
       "ai": {
         "usage": null,
         "tools": []
