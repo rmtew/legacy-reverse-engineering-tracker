@@ -1366,3 +1366,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-21 — Personally inspect 40 roots: add 32 projects and record three duplicate/lineage consolidations and five deferrals.
 
 [Research record](docs/research/2026-10-21-wide-cross-platform-discovery-46.md).
+
+## 2026-10-21 — Review nine material upstream changes spanning published releases, reconstruction evidence, emulator fidelity and retro-development tooling.
+
+[Research record](docs/research/maintenance-2026-10-21-pm-releases-reconstruction-tooling.md).
