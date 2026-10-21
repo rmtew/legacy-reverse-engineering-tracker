@@ -1222,3 +1222,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-22 — Review a queue-led preservation task and three rotated fresh searches; add six source-backed projects, retain one curated index and close the Follin component-splitting task.
 
 [Research record](docs/research/2026-10-22-trs80-cpc-mac-rom-discovery.md).
+
+## 2026-10-22 — Review nine material upstream changes spanning reconstruction exactness, original-media fidelity, retro firmware and filesystem/tooling evidence.
+
+[Research record](docs/research/maintenance-2026-10-22-upstream-fidelity.md).

@@ -1,0 +1,716 @@
+# Review nine material upstream changes spanning reconstruction exactness, original-media fidelity, retro firmware and filesystem/tooling evidence.
+
+Review nine material upstream changes spanning reconstruction exactness, original-media fidelity, retro firmware and filesystem/tooling evidence.
+
+Date: 2026-10-22 · Review: ready
+
+Snapshot check: upstream heads were not checked; pinned evidence is a historical snapshot.
+
+## Uncertainty and next checks
+
+- firestaff-dungeon-master-engine / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- firestaff-dungeon-master-engine / Relationships (needs-research): The current status material establishes original-media and cross-edition provenance, but the wider predecessor/successor/fork graph remains unreviewed. Next check: Check predecessor/successor/fork and credited-source relationships.
+- pool-of-radiance-dos-c-reconstruction / Target CPU (no-evidence-found): No fixed output CPU established; modern host CPU is not inferred.
+- pool-of-radiance-dos-c-reconstruction / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- pool-of-radiance-dos-c-reconstruction / Runtime profiles (no-evidence-found): No independently verified runtime profile. Explicit limitations retained in identity.
+- wing-commander-kilrathi-saga-reconstruction / Target CPU (no-evidence-found): The current README documents Windows, Linux and macOS port packages but no fixed output CPU. Supported architectures are not inferred from C/C++ portability or operating-system names.
+- wing-commander-kilrathi-saga-reconstruction / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- wing-commander-kilrathi-saga-reconstruction / Runtime profiles (no-evidence-found): Needs user-supplied Kilrathi Saga data; partial DOS-data compatibility and Mac SuperWingCommander demo mode documented. Modern native host CPU minimum not established.
+- starglider-bbc-master-source-port / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- starglider-bbc-master-source-port / Runtime profiles (no-evidence-found): No independently verified runtime profile. Explicit limitations retained in identity.
+- flashfloppy-amiga-st / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- flashfloppy-amiga-st / Relationships (needs-research): Gotek firmware predecessor/successor relationships were not fully reviewed in this pass. Next check: Review predecessor and alternative-firmware relationships around Gotek hardware.
+- colin-mcrae-rally-2-pc-decomp / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- colin-mcrae-rally-2-pc-decomp / Runtime profiles (no-evidence-found): Author documents boots/menu/rally playable on original game data, with known bugs. SDL3/native Linux/macOS port is a future goal, not an available target; current Linux path uses Wine.
+- touhou3-pc98-reconstruction / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- touhou3-pc98-reconstruction / Runtime profiles (no-evidence-found): No independently verified runtime profile. Any explicit author limitation is retained in the identity note.
+- retrolinker-multiformat / Source CPU (no-evidence-found): No fixed source CPU assigned for this host-side tooling.
+- retrolinker-multiformat / Target CPU (no-evidence-found): No fixed target CPU inferred from modern host or asset format.
+- retrolinker-multiformat / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- retrolinker-multiformat / Runtime profiles (no-evidence-found): No independently verified minimum hardware profile established.
+- retrolinker-multiformat / AI (no-evidence-found): No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship.
+- retroio-filesystem-libraries / Source CPU (no-evidence-found): No fixed source CPU assigned for this host-side tooling.
+- retroio-filesystem-libraries / Target CPU (no-evidence-found): No fixed target CPU inferred from modern host or asset format.
+- retroio-filesystem-libraries / Build (reviewed): The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- retroio-filesystem-libraries / Runtime profiles (no-evidence-found): No independently verified minimum hardware profile established.
+
+## firestaff-dungeon-master-engine
+
+Project ID: firestaff-dungeon-master-engine · Overall audit: partial
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "firestaff-dungeon-master-engine",
+  "last_checked": "2026-10-22",
+  "status": "v3.0.402 published with bounded DM1 PC34 projectile-scaling and quick-resume sidecar regressions; later authenticated-media alcove/combat checks remain focused receipts, not native presentation, input, audio or full-game parity",
+  "techniques": [
+    "clean-room reimplementation",
+    "original-media hashing",
+    "binary analysis",
+    "format decoding",
+    "cross-version comparison",
+    "real-media verification",
+    "source-locked runtime verification",
+    "instrumented Mednafen capture",
+    "Backup RAM format analysis",
+    "CD track provenance verification",
+    "source-frame byte comparison",
+    "native save-format analysis",
+    "bounded in-memory media decoding",
+    "cross-platform startup matrix testing",
+    "source-clock timing calibration",
+    "authenticated viewport-region gates",
+    "deterministic RNG bootstrap verification",
+    "source-locked fixed-point sampling",
+    "authenticated packed-selector decoding",
+    "source-timed VBlank cadence",
+    "Apple IIGS resource decoding",
+    "65C816 hidden-code analysis",
+    "DOC sound reconstruction",
+    "authenticated mouse-route regression",
+    "input-to-present latency tracing",
+    "authenticated Apple IIGS startup-route verification",
+    "original-media immutability hashing",
+    "source-timed selector animation/audio separation",
+    "overlapped authenticated-media scanning",
+    "authenticated cross-game startup matrix",
+    "bounded original-media weather/RNG verification",
+    "authenticated alcove interaction regression",
+    "authenticated first-combat verification"
+  ]
+}
+```
+
+Expected existing project SHA256: e5953d9031ec9c58f1561f489e866a7567ca792d10f88a067159a5646df7f2b9
+
+### Identity (reviewed)
+
+Clean-room Dungeon Master-family engine using authenticated original media. Current primary documentation records bounded startup/runtime coverage for DM1 on DOS, Atari ST, Amiga and FM Towns; CSB on Amiga, Atari ST and FM Towns; and DM2 on DOS, Amiga, FM Towns and Macintosh. The latest receipts correct DM1 Amiga HD and DM2 FM Towns boot assertions and expand the cross-game startup matrix and diagnostics. These source-owned handoffs do not establish full campaign, save, display or audio parity; Nexus and Theron's Quest remain explicitly bounded, with authentic level/campaign consumers still incomplete. Evidence: https://github.com/yeager/firestaff/blob/main/README.md https://github.com/yeager/firestaff/blob/main/docs/PROJECT_STATUS.md https://github.com/yeager/firestaff/commit/7791b08de76e https://github.com/yeager/firestaff/commit/17a20bdb465e The newest authenticated-media pass discovers the DM1 Amiga 3.6 archive from configured data roots, covers its root-menu scan, records an Amiga startup-media matrix and wires DM1 PC34 soundtrack selection to WAV playback. These remain bounded startup/audio receipts rather than full-game parity. Evidence: https://github.com/yeager/firestaff/commit/d3b50c77c364455674d783c6bf4d4755777dbc44 https://github.com/yeager/firestaff/commit/ec51d5c1b2f58b51b235fc2145abb384d55b597c https://github.com/yeager/firestaff/commit/da1e85756e618dd321ec42257cb31afbb2b341d1 v3.0.376 receipts now cover DM1 Amiga 2.0 resume, the published Linux x86-64 AppImage under QEMU on an ARM64 VM, and the DM2 FM Towns selected-hero HUD icon sourced from authenticated interface data. They do not establish native x86-64 hardware, physical input, aura/panel completion or full visual parity. The release also publishes Android and iOS arm64 artifacts; publication alone is not runtime verification. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.376 https://github.com/yeager/firestaff/commit/e0cf778c39b039918d6b1ae1ebf18e23ec423b1a https://github.com/yeager/firestaff/commit/f0c58017d243551f9dbf30ae5b28fb25172bd10e https://github.com/yeager/firestaff/commit/1be613b14f3cef9e2323a3e2b6ed840e13f6c480 Current-main receipts add native Mac mini M4 DM1 title/door pacing into runtime and authenticated FM Towns startup checks for DM1, CSB and DM2. A four-run French Atari ST test also narrowed an earlier no-output incident to a plausible uninitialized-menu fallback, while explicitly leaving historical causation, physical input, display/palette and audible-speaker parity open. Evidence: https://github.com/yeager/firestaff/commit/7256c2f693a8f2a609ebccfcb687f5e1f8c00868 https://github.com/yeager/firestaff/commit/47bc75ce1f897306e74d2e79a0c053209684edd9 https://github.com/yeager/firestaff/commit/3b729320e80658a8eae965f11c1b5f1bd880f5a3 Current-main Amiga work now paces DM1 A20 palette fades and title zooms against absolute 20 ms source deadlines rather than adding host VSync latency. An authentic Amiga v2.0 native Cocoa run on a Mac mini M4 completed the five-fade title in 1,698 ms (366 ms zoom, 500 ms hold, 166 ms final fade); this does not establish HiDPI/pixel parity or beam-line 152 timing. The authenticated Japanese FM Towns CSB save regression now asserts restored map 0, party position 13,13, direction 1 and four champions through direct launch and the live menu-resume route. Evidence: https://github.com/yeager/firestaff/commit/1538eeab7f46d6318be1c6cd89a55a9edc6d5d87 https://github.com/yeager/firestaff/commit/1d3f8e34d62d0cd9b95d74d9fd33b1bb35eb1a6e https://github.com/yeager/firestaff/commit/087aed4bf4b977cb30805152519c82860ff2ed20 Current-main receipts add an authenticated DM2 Amiga viewport gate, bounded DOS viewport/HUD checks and a locked three-draw fresh-weather RNG bootstrap. Separate native Mac M4 tests keep live Retina input unresolved despite controlled 2x/mixed-geometry tests, and real-media startup reruns use dummy video/audio, so they do not establish physical display, input or speaker parity. Evidence: https://github.com/yeager/firestaff/commit/a3740b43a7bce6f783a003c0dacc312cb2430809 https://github.com/yeager/firestaff/commit/2420045a10244b0431932352c07b5de7328dfe33 https://github.com/yeager/firestaff/commit/b9989304f0e931fc9350ee4b7ac01fa861f2c882 https://github.com/yeager/firestaff/commit/f8465d8e0131e982e296b388e7f66ca62d77e48a https://github.com/yeager/firestaff/commit/a8ff9e734b4ff2837a62e5d2a426455770ee2b0a The newest DM1 pass ports FM Towns title shrink sampling from the documented 6-bit fixed-point source path, flips floor/ceiling graphics at their loaded native heights, and restores the entrance-door step to three 60 Hz VBlank intervals. A separate authenticated PC 3.4 path decodes the LZEXE-packed DOS selector preview. Targeted source-lock/native-build checks pass upstream, but the author explicitly retains original-frame comparison and full cross-platform visual parity as open. Evidence: https://github.com/yeager/firestaff/commit/9a2b86019bfcd6bd513213bc21cd402a4f5adaf0 https://github.com/yeager/firestaff/commit/2a85ec7e1801b58d22232fa11ccc5f18a0e9bd0d https://github.com/yeager/firestaff/commit/41b103f29b4d7439d7445fb4e3578f9985e5cfab https://github.com/yeager/firestaff/commit/3085c2f6d56e8088279b5207bfd46744a1dbbd24 The Apple IIGS path now decodes original dungeon worlds, graphics, startup/font, creature/effect metadata and sound, launches authenticated worlds through the CLI/M12 path, and connects native IIGS mirror recruitment. Primary recovered documentation explicitly identifies hidden Apple IIGS graphics.dat code as 65C816 code, supporting the added source architecture. Current changelog receipts also cover stereo DOC effects, Hall progression, inventory transfer, food use and carrying capacity; wall damage, sensors and full sound/presentation parity remain open. No Apple IIGS minimum RAM or host profile is inferred. Evidence: https://github.com/yeager/firestaff/commit/26f1361e5b3d18512db35b7b0791b84f4e4385da https://github.com/yeager/firestaff/commit/9a7458e5fc0b0f019cbe4284bd9d68384050a56b https://github.com/yeager/firestaff/blob/439213c5ba9fbd79d0753d6143a3b86ff9f0d90f/reference/dmweb-community-docs/html/community/documentation/dungeon-master-and-chaos-strikes-back/graphics.dat-hidden-code.html The DM1 PC34 path now preserves the original status-box priority over overlapping ready-hand zones, verifies consecutive champion switches with authenticated data and prevents held-key selector skips. Debug traces separately measure queue, source-outcome and present-return timing while explicitly marking physical scanout unmeasured. Evidence: https://github.com/yeager/firestaff/commit/449d2322fcf641e88cf876a032ee2cc58ca96373 https://github.com/yeager/firestaff/commit/e5b732073270bbb500d10919239185d212ad6d44 The authenticated DM1 Apple IIGS G20E/G21E editions now reach the first world through both direct CLI and M12 menu launch; the CLI route also accepts a native keyboard turn, and the original media archive is hash-checked before and after the run. The upstream check uses SDL dummy output, so original title/entrance presentation, audible DOC playback and complete-campaign parity remain open. A v3.0.387 preparation change is not represented as a published release because no corresponding release was available when checked. Evidence: https://github.com/yeager/firestaff/commit/c9d9b0e0097242ea1a6f1e5fa29183c3e09bfabb Firestaff v3.0.391 is a published release. Its primary notes record DM1 PC34 selected-save restoration, authenticated English/Japanese CSB FM Towns loose-file startup, and Amiga 3.6 French/German graphic selection. Only seven of ten localized bitmap records are decoded for comparison, and upstream explicitly says these checks do not establish complete visual or gameplay parity. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.391 https://github.com/yeager/firestaff/commit/ebb10387f277af76683e3aadd27f97dab963d599 https://github.com/yeager/firestaff/commit/d15a674ba936133e9b74b43af982051927f51207 Firestaff v3.0.397 reuses verified hashes for nested archive members while retaining archive freshness checks. On the tested Mac mini M4, the authentic five-game scan took 27.90 seconds cold and 12.35 seconds warm; other platforms and cold-cache performance remain explicitly unverified, and SDL dummy checks do not establish native display, physical input, audible output or complete parity. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.397
+- https://github.com/yeager/firestaff
+
+### Classification (reviewed)
+
+Current documentation continues to describe source-faithful clean-room runtime/reimplementation plus platform-specific binary/data analysis.
+- https://github.com/yeager/firestaff
+
+### Source CPU (reviewed)
+
+Recovered primary Apple IIGS documentation explicitly identifies code embedded in graphics.dat as 65C816 code. The project record adds 65C816 without inferring any host or minimum runtime architecture.
+- https://github.com/yeager/firestaff/blob/439213c5ba9fbd79d0753d6143a3b86ff9f0d90f/reference/dmweb-community-docs/html/community/documentation/dungeon-master-and-chaos-strikes-back/graphics.dat-hidden-code.html
+
+### Target CPU (reviewed)
+
+v3.0.371 publishes explicit x86-64 and arm64 host artifacts; the record uses the existing x86 family label plus arm64 without inferring older x86 minima.
+- https://github.com/yeager/firestaff/releases/tag/v3.0.371
+
+### Build (reviewed)
+
+Firestaff v3.0.402 is a published release. Its notes describe current-kinetic-energy projectile scaling, quicksave sidecar restoration and focused original-media startup gates while explicitly retaining native display, audio, physical-input and complete-game limits. Subsequent current-main commits add authenticated Atari ST/Amiga alcove-item handling and first-combat checks; these are bounded regressions, not completion evidence. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/yeager/firestaff/releases/tag/v3.0.402
+- https://github.com/yeager/firestaff/commit/12e3ceb91a790ee5eaa4014688ea3210544b5938
+- https://github.com/yeager/firestaff/commit/6c7d90c739b29e4f7d7f8a2020916fbf357554c0
+
+### Runtime profiles (reviewed)
+
+The existing Apple Silicon profile now records v3.0.397 scan timings on the same Mac mini M4. They are not CPU/RAM minima or evidence for other hosts.
+- https://github.com/yeager/firestaff/releases/tag/v3.0.397
+
+### AI (reviewed)
+
+Existing explicit Claude project-agent evidence remains valid; no weaker inference was substituted.
+- https://github.com/yeager/firestaff
+
+### Relationships (needs-research)
+
+The current status material establishes original-media and cross-edition provenance, but the wider predecessor/successor/fork graph remains unreviewed. Next check: Check predecessor/successor/fork and credited-source relationships.
+- https://github.com/yeager/firestaff
+
+## pool-of-radiance-dos-c-reconstruction
+
+Project ID: pool-of-radiance-dos-c-reconstruction · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "pool-of-radiance-dos-c-reconstruction",
+  "last_checked": "2026-10-22",
+  "status": "incremental DOS C reconstruction; an original-byte differential corrected the final unsigned equality boundary and now covers 49 cases, while a separate evidence ruling preserves scoped credit without implying whole-game completion",
+  "techniques": [
+    "original-byte differential testing",
+    "fail-closed environment modeling",
+    "DOSBox-X native frame-mechanics corroboration",
+    "calibrated equality-boundary differential testing",
+    "credited-consumer evidence grounding"
+  ]
+}
+```
+
+Expected existing project SHA256: f8477a6b888db13c83088c66b150f9816757d156fa0490d27a98d464b0bbe1d9
+
+### Identity (reviewed)
+
+Early portable C engine reconstruction; actual ECL/data-format parsers and recovered modules are present. Claude/Codex workflow disclosed. Full gameplay and later platform ports are goals, not verified achievements.
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+### Classification (reviewed)
+
+Scoped as game; source-reconstruction. Repository layout and selected source inspected.
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+### Source CPU (reviewed)
+
+Source architecture: x86
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+### Target CPU (no-evidence-found)
+
+No fixed output CPU established; modern host CPU is not inferred.
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+### Build (reviewed)
+
+The OVL_0077_275B differential exposed that the original JBE tests CF or ZF: equality is not over capacity. Upstream calibrated the compared operands from the original and added below/equal/above cases, increasing the differential from 46 to 49 cases without changing body bytes, hash, identity or credit. A later documentation ruling grounds one display family's game-state evidence in credited consumers, explicitly not segment co-location; it does not expand the reconstructed binary or establish playability. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/huntergdavis/poolrad-decomp/commit/cb5450e16a3a5ab0d94c8f4f21c9bbca3666cfc2
+- https://github.com/huntergdavis/poolrad-decomp/commit/24a0d44e82c84021cadbca844f784828244d8e07
+
+### Runtime profiles (no-evidence-found)
+
+No independently verified runtime profile. Explicit limitations retained in identity.
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+### AI (reviewed)
+
+README explicitly describes Claude and Codex work lanes.
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+### Relationships (reviewed)
+
+Current catalogue URL and related-title screening performed. No unmodified fork promoted as a separate project.
+- https://github.com/huntergdavis/poolrad-decomp
+- https://github.com/huntergdavis/poolrad-decomp/blob/08c46cb32836220b153a9465b568a016d75edbac/README.md
+
+## wing-commander-kilrathi-saga-reconstruction
+
+Project ID: wing-commander-kilrathi-saga-reconstruction · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "wing-commander-kilrathi-saga-reconstruction",
+  "last_checked": "2026-10-22",
+  "status": "working Win32 reconstruction and SDL2 port; upstream reports 93.0902% strict whole-file matching and 1,346/1,550 normalized exact functions after simulator-menu recovery, while byte identity and gameplay completeness remain explicitly incomplete",
+  "techniques": [
+    "strict whole-file executable comparison",
+    "per-function machine-code similarity auditing"
+  ]
+}
+```
+
+Expected existing project SHA256: 09961270d86a5aae05618f2f2853287f01fe3d17a59a40454d234fecba84f6da
+
+### Identity (reviewed)
+
+Recovered native C/C++ game source for1996 Win32 Wing Commander, plus SDL2 port and annotated original-binary comparison workflow.
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/README.md
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/Makefile
+
+### Classification (reviewed)
+
+Byte-for-byte reconstruction explicitly incomplete; annotated per-function report can miss unreconstructed routines between functions and is not gameplay completeness. Native recovered gameplay logic exists; not a generic CPU wrapper. GPL3 root LICENSE; proprietary data not distributed.
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/README.md
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/Makefile
+
+### Source CPU (reviewed)
+
+Documented source/input platforms: Windows, DOS. Processor scope: x86.
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/README.md
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/Makefile
+
+### Target CPU (no-evidence-found)
+
+The current README documents Windows, Linux and macOS port packages but no fixed output CPU. Supported architectures are not inferred from C/C++ portability or operating-system names.
+- https://github.com/neuromancer/wc1-re/blob/3708d5f616feb26ed5256bec027f812dc26e1a09/README.md
+
+### Build (reviewed)
+
+Current upstream reporting recovers the 1,040-byte simulator mission menu and 96-byte palette-allocation display exactly, raises normalized exact functions to 1,346 of 1,550 and strict whole-file matching to 482,818 of 518,656 positions (93.0902%). Earlier carrier-launch and joystick-calibration work supplied large aligned spans. Upstream reports clean native/modern builds and value checks over all 1,550 functions; README warns the report can miss code between annotated functions and is not gameplay completeness. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/neuromancer/wc1-re/commit/3708d5f616feb26ed5256bec027f812dc26e1a09
+- https://github.com/neuromancer/wc1-re/commit/97fb25240329fe35151030f9bee29d30856dd1eb
+- https://github.com/neuromancer/wc1-re/blob/3708d5f616feb26ed5256bec027f812dc26e1a09/README.md
+
+### Runtime profiles (no-evidence-found)
+
+Needs user-supplied Kilrathi Saga data; partial DOS-data compatibility and Mac SuperWingCommander demo mode documented. Modern native host CPU minimum not established.
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/README.md
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/Makefile
+
+### AI (reviewed)
+
+README explicitly states Codex and Claude were used during reconstruction; actual contribution evidence rather than AGENTS presence.
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/README.md
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/Makefile
+
+### Relationships (reviewed)
+
+Acknowledged historical compatibility fixes/research reference. https://github.com/Bekenn/wcdx Optional comparison/verification dependency. https://github.com/gg-sl-oss/binary-comp
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/README.md
+- https://github.com/neuromancer/wc1-re/blob/f2afbcd542e60fa039a52b0b58518a11a0069f11/Makefile
+
+## starglider-bbc-master-source-port
+
+Project ID: starglider-bbc-master-source-port · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "starglider-bbc-master-source-port",
+  "last_checked": "2026-10-22",
+  "status": "BBC Master 6502 port from the Atari ST game now includes the title and credits sequence with an SN76489 arrangement of the Spectrum 128K title tune; original media inputs and independent equivalence/runtime verification remain required",
+  "techniques": [
+    "headless Hatari behavioral comparison",
+    "SN76489 title-music adaptation"
+  ]
+}
+```
+
+Expected existing project SHA256: f66c3fe68f6726df08578a02d4a6fd33f2e25a66505e326cb4247c5e93dc856d
+
+### Identity (reviewed)
+
+A reverse-engineering-derived BBC Master port of the Atari ST game. Current source adds an original home-platform music adaptation to the port; it is not relabelled as recovered original BBC source. Original Atari ST shapes and Spectrum 128K music input are user-supplied.
+- https://github.com/mattgodbolt/starglider-beeb/blob/2c41f4c4205c0771a5e5515702223152b7a78f61/README.md
+
+### Classification (reviewed)
+
+Scoped as game; reverse-engineering-derived-port. Repository layout and selected source inspected.
+- https://github.com/mattgodbolt/starglider-beeb
+- https://github.com/mattgodbolt/starglider-beeb/blob/708c2d234d696a20d8ed6f4e825da87d124e98ef/README.md
+
+### Source CPU (reviewed)
+
+Source architecture: m68k
+- https://github.com/mattgodbolt/starglider-beeb
+- https://github.com/mattgodbolt/starglider-beeb/blob/708c2d234d696a20d8ed6f4e825da87d124e98ef/README.md
+
+### Target CPU (reviewed)
+
+Target architecture: 6502
+- https://github.com/mattgodbolt/starglider-beeb
+- https://github.com/mattgodbolt/starglider-beeb/blob/708c2d234d696a20d8ed6f4e825da87d124e98ef/README.md
+
+### Build (reviewed)
+
+The current README says the disc now includes the title/credits sequence and a custom SN76489 player/data conversion for David Lowe's Spectrum 128K title tune, alongside the previously ported flight game. The build extracts shapes from an Atari ST program and title music from a Spectrum 128K tape supplied by the user. Upstream compares behavior through headless Hatari and jsbeeb and reports rendering within a pixel, while also documenting a slower renderer; the tracker did not reproduce those comparisons. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/mattgodbolt/starglider-beeb/commit/2c41f4c4205c0771a5e5515702223152b7a78f61
+- https://github.com/mattgodbolt/starglider-beeb/blob/2c41f4c4205c0771a5e5515702223152b7a78f61/README.md
+
+### Runtime profiles (no-evidence-found)
+
+No independently verified runtime profile. Explicit limitations retained in identity.
+- https://github.com/mattgodbolt/starglider-beeb
+- https://github.com/mattgodbolt/starglider-beeb/blob/708c2d234d696a20d8ed6f4e825da87d124e98ef/README.md
+
+### AI (reviewed)
+
+Project metadata or project-scoped CLAUDE.md explicitly indicates Claude use.
+- https://github.com/mattgodbolt/starglider-beeb
+- https://github.com/mattgodbolt/starglider-beeb/blob/708c2d234d696a20d8ed6f4e825da87d124e98ef/README.md
+
+### Relationships (reviewed)
+
+Current catalogue URL and related-title screening performed. No unmodified fork promoted as a separate project.
+- https://github.com/mattgodbolt/starglider-beeb
+- https://github.com/mattgodbolt/starglider-beeb/blob/708c2d234d696a20d8ed6f4e825da87d124e98ef/README.md
+
+## flashfloppy-amiga-st
+
+Project ID: flashfloppy-amiga-st · Overall audit: partial
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "flashfloppy-amiga-st",
+  "last_checked": "2026-10-22",
+  "status": "active Gotek firmware; Apple II-target tests now exercise half-track stepping and flux writes, while HFE format gates separate explicit Apple II GCR images from Shugart-host handling",
+  "techniques": [
+    "floppy interface emulation",
+    "disk-image parsing",
+    "track-layout configuration",
+    "firmware UI host emulation",
+    "FAT volume emulation",
+    "scripted firmware UI testing",
+    "configuration flash extraction",
+    "Apple II half-track seek simulation",
+    "flux-write image verification",
+    "target-specific HFE encoding gates"
+  ]
+}
+```
+
+Expected existing project SHA256: 059c5526abb2bd63b18c59537fd9017464de4a1b26f91fd26c84525593421dfe
+
+### Identity (reviewed)
+
+README identifies FlashFloppy as Gotek and Gotek-compatible floppy-drive-emulator firmware.
+- https://github.com/keirf/flashfloppy
+
+### Classification (reviewed)
+
+FlashFloppy remains embedded drive-emulation firmware, and the new ffemu component is directly relevant host-side firmware UI/UX development tooling. Its documented no-data-flow boundary is preserved.
+- https://github.com/keirf/flashfloppy/commit/ef97d8db661c30c6bab4af894f857005d1ea1c32
+- https://github.com/keirf/flashfloppy/blob/master/ffemu/README.md
+
+### Source CPU (not-applicable)
+
+Reviewed README and supported image-format scope: ADF, ST and HFE inputs are disk data, so no source CPU is assigned.
+- https://github.com/keirf/flashfloppy
+
+### Target CPU (reviewed)
+
+README explicitly identifies Cortex-M3 STM32F105/AT32F415 and Cortex-M4 AT32F435 firmware targets: https://github.com/keirf/flashfloppy/blob/master/README
+- https://github.com/keirf/flashfloppy
+
+### Build (reviewed)
+
+Upstream added a 21-test Apple II firmware lane that drives eight half-track seek states and writes two .dsk data fields through WDATA flux with bounded clock error/jitter, then checks the image bytes. Format gates now reject an HFE header that explicitly names Apple II GCR on Shugart firmware and reject explicit non-GCR HFE encodings on the Apple II target, while retaining unknown encodings for damaged-media ambiguity. These are harness results, not physical-drive or host-hardware verification. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/keirf/flashfloppy/commit/f46f82e40d68888521488c290ea6c8314bccd4d2
+- https://github.com/keirf/flashfloppy/commit/92ef569aa3209a7f3b217e9195c2c2d7077116b6
+- https://github.com/keirf/flashfloppy/commit/fec71c6395ba05d5a3a28fca6171b7a941f67db6
+
+### Runtime profiles (reviewed)
+
+Captured the three explicitly documented MCU/RAM variants without treating host-computer architecture as a firmware requirement.
+- https://github.com/keirf/flashfloppy
+
+### AI (reviewed)
+
+ffemu's primary README explicitly says the program was written with Claude's help. Attribution is limited to ffemu and does not imply that all FlashFloppy firmware was AI-generated.
+- https://github.com/keirf/flashfloppy/commit/884a6748c51197bc86033b19fd59165b2aa37309
+- https://github.com/keirf/flashfloppy/blob/master/ffemu/README.md
+
+### Relationships (needs-research)
+
+Gotek firmware predecessor/successor relationships were not fully reviewed in this pass. Next check: Review predecessor and alternative-firmware relationships around Gotek hardware.
+- https://github.com/keirf/flashfloppy
+
+## colin-mcrae-rally-2-pc-decomp
+
+Project ID: colin-mcrae-rally-2-pc-decomp · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "colin-mcrae-rally-2-pc-decomp",
+  "last_checked": "2026-10-22",
+  "status": "partial Win32 C++ reconstruction; typed stage-time profiles preserve 2,924 exact functions and upstream reports 142 differential harnesses plus 716 native lookup/timing scenarios passing, while whole-binary matching and completeness remain open",
+  "techniques": [
+    "typed on-disk stage-profile recovery",
+    "signed-profile differential testing",
+    "installed-resource inventory auditing"
+  ]
+}
+```
+
+Expected existing project SHA256: 09aba3cb82fe4e506a05569531b9c00cb2c090d3d2a390f68c8b5af9f9414d64
+
+### Identity (reviewed)
+
+Matching C++ reconstruction of the 2000 Win32 rally game with per-function byte audits and original-vs-rebuilt differential tests.
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+### Classification (reviewed)
+
+README says3364 identified functions have C++ source; most but not all byte-identical. Committed bytes.json explicitly includes nonmatching entries, and provenance build commit0e8f7cf differs from inspected tip with source_changed=true. Do not promote whole-binary byte_exact=true or treat saved metrics as verified tip build. Names/types/comments are best-effort. GPL-3.0 LICENSE in repository; original assets, MSVC and DirectX/Bink SDK inputs retain separate rights.
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+### Source CPU (reviewed)
+
+Documented source/input platforms: Windows. Processor scope: x86.
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+### Target CPU (reviewed)
+
+Documented output/support targets: Windows. Processor scope: x86.
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+### Build (reviewed)
+
+The current stage-timing pass types the 0x550-byte .tm0/.tm1/.tm2 profile, five signed per-driver coefficients and two split-time banks, and audits 282 installed resources. Upstream retains 2,924 exact functions, improves random-tuning byte similarity from 87.94% to 90.78%, and reports all 142 differential harnesses and 716 native lookup/timing scenarios passing, including 168 signed-profile cases. These are upstream results on a still-partial reconstruction. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/pablocpas/CMR2Decomp/commit/2122986f2f6baffccea9edebf6815c2a5c82d85a
+
+### Runtime profiles (no-evidence-found)
+
+Author documents boots/menu/rally playable on original game data, with known bugs. SDL3/native Linux/macOS port is a future goal, not an available target; current Linux path uses Wine.
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+### AI (reviewed)
+
+README explicitly says most decompiled source, tooling and documentation were written by Anthropic Claude and OpenAI Codex under human direction. Correctness relies on automated checks; this is actual usage evidence, not instruction-file inference.
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+### Relationships (reviewed)
+
+Comparison tool dependency, separately catalogued tooling. https://github.com/isledecomp/reccmp
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/README.md
+- https://github.com/pablocpas/CMR2Decomp/blob/a8b15529c55eb0d6762a2f4ae4f18e7c9f7e5f7b/CMR2Decomp/Car.cpp
+
+## touhou3-pc98-reconstruction
+
+Project ID: touhou3-pc98-reconstruction · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "touhou3-pc98-reconstruction",
+  "last_checked": "2026-10-22",
+  "status": "partial PC-98 reconstruction; upstream now records 403 exact MAIN functions / 65,198 exact owned bytes and 97.54% of reviewed MAIN CODE, while Yumemi charge remains source-present but unaccepted and whole-game reconstruction is unfinished",
+  "techniques": [
+    "cold-build exact ownership accounting",
+    "guarded native-byte semantic mutation controls"
+  ]
+}
+```
+
+Expected existing project SHA256: f7478f812e0f66445caace2b6ae102b9b16254c29ca23560b5b025fdf6746d7e
+
+### Identity (reviewed)
+
+Scoped source recovery of MAIN, OP, MAINL and ZUN artifacts. README separates exact owned functions from source-present work and says whole-game reconstruction remains unfinished.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+### Classification (reviewed)
+
+Scope: source-reconstruction / game. Primary README, repository file layout and selected implementation files were reviewed.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+### Source CPU (reviewed)
+
+Documented input architecture: x86.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+### Target CPU (reviewed)
+
+Target architecture x86. Host ports and minimum variants are not inferred from source CPU.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+### Build (reviewed)
+
+The pinned README reports 403 exact functions / 65,198 exact owned bytes across 77 maintained owners and 86 exact CODE extents; broader reviewed source-present scope is 413 functions / 66,843 bytes in 87 extents. The stated 97.54% denominator is reviewed MAIN CODE only. The new Yumemi charge checkpoint executes 2,546 native-byte semantic cases per image over ten functions and 1,645 bytes, but its documentation explicitly says this is not exactness acceptance, a cold build, complete-game runtime proof or hardware/audio/graphics validation; the ledger remains unchanged. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/N0zoM1z0/th03/blob/2582551ae27692e93cd6652656cf771da7da1084/README.md
+- https://github.com/N0zoM1z0/th03/commit/2582551ae27692e93cd6652656cf771da7da1084
+
+### Runtime profiles (no-evidence-found)
+
+No independently verified runtime profile. Any explicit author limitation is retained in the identity note.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+### AI (reviewed)
+
+Project-scoped agent instructions/configuration provide an AI-use signal; the particular agent is not inferred.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+### Relationships (reviewed)
+
+Checked current catalogue, source and decision URLs and related titles. Scoped source recovery of MAIN, OP, MAINL and ZUN artifacts. README separates exact owned functions from source-present work and says whole-game reconstruction remains unfinished.
+- https://github.com/N0zoM1z0/th03
+- https://github.com/N0zoM1z0/th03/blob/HEAD/README.md
+
+## retrolinker-multiformat
+
+Project ID: retrolinker-multiformat · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "retrolinker-multiformat",
+  "last_checked": "2026-10-22",
+  "status": "alpha multi-format linker/dumper; current PEF dumping recognizes and prints CFM-68K library segment headers, but README still says CFM linking is unsupported",
+  "techniques": [
+    "CFM-68K far-segment header parsing",
+    "PEF section dump analysis"
+  ]
+}
+```
+
+Expected existing project SHA256: d59f7c06244bdf5d280786f7a8523e5728f5be346482ddd220d95ab953568549
+
+### Identity (reviewed)
+
+Alpha linker/dumper for multiple historical executable formats. Input and output support differ: README limits object input to ELF/COFF/a.out; inspected Apple resource/container handling. Do not infer all formats or architectures work equally.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+### Classification (reviewed)
+
+Inspected source supports development tooling. Alpha linker/dumper for multiple historical executable formats. Input and output support differ: README limits object input to ELF/COFF/a.out; inspected Apple resource/container handling. Do not infer all formats or architectures work equally.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+### Source CPU (no-evidence-found)
+
+No fixed source CPU assigned for this host-side tooling.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+### Target CPU (no-evidence-found)
+
+No fixed target CPU inferred from modern host or asset format.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+### Build (reviewed)
+
+The current parser detects the 0xFFFD CFM-68K far-segment header inside an m68k PEF code section, reuses the Macintosh code-resource parser and adjusts dump offsets/fields for the parsed image. This is file inspection/dump support. It does not establish object-input or output-linker support for CFM-68K, which remains excluded by the project's documented linker limits. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/BinaryMelodies/RetroLinker/commit/1f649fa369d55ee7ae2dc45937fceafa169b6bbc
+- https://github.com/BinaryMelodies/RetroLinker/blob/1f649fa369d55ee7ae2dc45937fceafa169b6bbc/README.md
+
+### Runtime profiles (no-evidence-found)
+
+No independently verified minimum hardware profile established.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+### AI (no-evidence-found)
+
+No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+### Relationships (reviewed)
+
+Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence.
+- https://github.com/BinaryMelodies/RetroLinker
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/src/format/apple.cc
+- https://github.com/BinaryMelodies/RetroLinker/blob/ed9f76f388ef895a397f853a507f92a7f628609f/README.md
+
+## retroio-filesystem-libraries
+
+Project ID: retroio-filesystem-libraries · Overall audit: reviewed
+
+### Typed catalogue changes
+
+```json
+{
+  "id": "retroio-filesystem-libraries",
+  "last_checked": "2026-10-22",
+  "status": "active retro storage/protocol libraries; OS-9 RBF is now tested against 334 NitrOS-9 images / 52,530 files, and DECB covers 35/40/80-track one-sided layouts, with documented write and geometry limits retained",
+  "techniques": [
+    "SINTRAN M allocation modeling",
+    "mutation-tested protocol boundary contracts",
+    "Acorn attribute sidecar recovery",
+    "real-image filesystem acceptance and rejection testing",
+    "Toolshed cross-implementation filesystem comparison",
+    "full-snapshot corpus validation",
+    "allocation stress with dcheck"
+  ]
+}
+```
+
+Expected existing project SHA256: a78499bb557283034b7db5c19e6b89aef03520b469c995d3c63c42852fe23fce
+
+### Identity (reviewed)
+
+Identity: Reusable storage/network packages with actual Commodore image factory and filesystem implementations. Explicit Claude-assisted code disclosure; broad package list is not uniform independently verified format coverage. Classification: Inspected source supports development tooling. Reusable storage/network packages with actual Commodore image factory and filesystem implementations. Explicit Claude-assisted code disclosure; broad package list is not uniform independently verified format coverage. Source CPU: No fixed source CPU assigned for this host-side tooling. Target CPU: No fixed target CPU inferred from modern host or asset format. Build: No candidate code compiled or executed. Rebuild hashes, runtime fidelity and completeness remain upstream claims; matching with original binary/assembly fallback is not full source recovery. Runtime profiles: No independently verified minimum hardware profile established. AI: Explicit README disclosure establishes AI use; no additional tool/model inferred beyond the recorded disclosure. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/RetroCoreLabs/RetroIO https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+### Classification (reviewed)
+
+Inspected source supports development tooling. Reusable storage/network packages with actual Commodore image factory and filesystem implementations. Explicit Claude-assisted code disclosure; broad package list is not uniform independently verified format coverage.
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+### Source CPU (no-evidence-found)
+
+No fixed source CPU assigned for this host-side tooling.
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+### Target CPU (no-evidence-found)
+
+No fixed target CPU inferred from modern host or asset format.
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+### Build (reviewed)
+
+Upstream records all 334 NitrOS-9 snapshot images and 52,530 files byte-equal to Toolshed os9 copy, with listing/free-space/dcheck agreement, plus 20 additional written/stressed disks. DECB now covers 35, 40 and 80 tracks (68, 78 and 156 granules) in one-sided layouts. Short DriveWire images mount read-only with missing sectors zero-filled. The same primary bug ledger retains segment/map-sector deletion, Level 1/2 semantics, cluster-cap, two-sided DECB and HDB-DOS limitations; the broad package list is not treated as uniform proof. Limitations: The tracker reviewed primary source and upstream results but did not compile, execute, byte-compare or hardware-test this revision.
+- https://github.com/RetroCoreLabs/RetroIO/commit/c18bc1b19ac49a3b8aa8109c8f7156e9650594bd
+
+### Runtime profiles (no-evidence-found)
+
+No independently verified minimum hardware profile established.
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+### AI (reviewed)
+
+Explicit README disclosure establishes AI use; no additional tool/model inferred beyond the recorded disclosure.
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+### Relationships (reviewed)
+
+Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence.
+- https://github.com/RetroCoreLabs/RetroIO
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/src/RetroIO.Storage.Local/src/CbmImageFactory.cs
+- https://github.com/RetroCoreLabs/RetroIO/blob/e6231b40c15d1de8c43ee924378802e695902955/README.md
+
+## Source ids
+
+```json
+[
+  "github-yeager-firestaff",
+  "pass25-pool-of-radiance-dos-c-reconstruction",
+  "wide-20261018b-wing-commander-kilrathi-saga-reconstruction",
+  "pass25-starglider-bbc-master-source-port",
+  "github-keirf-flashfloppy",
+  "wide-20261018-colin-mcrae-rally-2-pc-decomp",
+  "pass23-touhou3-pc98-reconstruction",
+  "pass32-retrolinker-multiformat",
+  "pass35-retroio-filesystem-libraries"
+]
+```
+
+## Research event notes
+
+The CPU audit queue returned zero unresolved source/target CPU areas, so this pass made no speculative CPU assignments. No new runtime minimum was inferred from platform, source language or architecture. The tracker did not compile or execute candidate projects.
