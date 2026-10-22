@@ -1382,3 +1382,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-22 — Review nine material post-pass changes across reconstruction fidelity, emulated protocol/runtime tests, format tooling and explicit AI evidence; add the newly surfaced Spider-claude research archive.
 
 [Research record](docs/research/maintenance-2026-10-22-pm-runtime-tools-ai.md).
+
+## 2026-10-23 — Review an old Llamasoft discovery task and three rotated repository-search routes; add ten source-backed projects across Odyssey/Videopac, TI-99/4A, C64 and FM Towns.
+
+[Research record](docs/research/2026-10-23-odyssey-ti99-fmtowns-discovery.md).
