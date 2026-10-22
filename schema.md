@@ -13,7 +13,7 @@ The canonical project database is `data/projects.index.json` plus its referenced
 - `source_cpu` describes the original CPU architecture(s). The UI groups related variants into broad discovery families such as **6502 family** and **68000 family** without discarding the exact stored CPU.
 - `target_cpu` optionally records CPU architecture(s) produced or directly targeted by a port/reimplementation. Do not infer this merely from a host language or modern build environment.
 - `runtime_profiles` optionally records verified minimum hardware requirements for runnable outputs/build variants. A profile may contain `name`, required `platform`, optional `cpu_family`, `min_cpu`, `min_ram_kib`, `min_chip_ram_kib`, `min_fast_ram_kib`, `chipsets`, `os`, `notes`, and source `evidence`. Only populate these from explicit primary evidence; never infer a runnable minimum from source CPU or platform alone.
-- `execution_paths` optionally records how each documented output executes the historical program. Each path has a `name`, `method` (`game-specific-emulation` or `native-translation`), `status` (`playable`, `runnable`, `partial`, or `unknown`), optional `notes`, and primary source `evidence` URLs. The game-specific method means original guest instructions execute in an embedded CPU core with a purpose-built compatibility runtime; native translation means the path runs translated host code without a guest CPU interpreter. Multiple paths can coexist. Omission means unclassified, not native. These describe architecture rather than AI usage or quality.
+- `execution_paths` optionally records each evidenced execution path. A path has `name`, `method` (`baked-emulation` or `native-translation`), `status` (`playable`, `runnable`, `partial`, `unknown`), optional `notes` and primary-source `evidence` URLs. **BAKED EMULATION** means a specific historical program is coupled to a retained guest-machine execution runtime: guest CPU registers/flags/address-space semantics and/or the hardware runtime executing that program remain, whether instructions are interpreted or compiled into host code. `native-translation` means recovered/reimplemented game logic executes through ordinary host code/API replacements without that retained machine runtime. Original asset formats, script VMs, reference emulators used only for analysis and isolated audio synthesis do not establish baked emulation. Multiple separately evidenced paths can coexist; omission means unclassified. An executable, static recompilation, language or lack of an interpreter alone cannot decide the classification. This is architecture, not quality, AI usage or a new inclusion policy.
 - `source_language` describes the material being reverse engineered, usually machine code.
 - `reconstructed_languages` describes the human-maintained source/output produced by the project.
 - `record_class` separates reverse-engineered/reimplemented **subjects** from modern supporting **tooling**; `hybrid` is reserved for projects that are materially both (for example a reconstructed historical tool that is also actively useful for archaeology).
@@ -252,18 +252,31 @@ Every canonical activity writer enforces the 30-day boundary, including replay o
 
 Routine document evidence also records `ai_use`, `ai_config`, `source_cpu`, `target_cpu`, `source_platforms` and `target_platforms`. Each observation names its immutable source URL, excerpt, collector version, date and strength. Inherited instruction files supply configuration context only; their parent-project claims cannot populate subproject facts. Current conflicting declarations are retained without promotion. `evidence.routine` preserves the first source of promoted CPU/platform facts; AI disclosure sources also persist in `ai.evidence`. Curated facts are never replaced by these detectors. Agent attribution requires an allowlisted API-linked Bot or an explicit named co-author trailer; free-form author names, provider email domains and missing files do not establish use or non-use.
 
-### BAKED EMULATION display tag
+### Canonical BAKED EMULATION migration
 
-The existing `game-specific-emulation` execution-path key is displayed as
-**BAKED EMULATION** in filters, project badges, details and activity. The stored
-key remains stable so this presentation change does not rewrite research history
-or reclassify projects. Legacy search wording remains supported.
+`baked-emulation` is the stored execution method and **BAKED EMULATION** its
+filter/search/display label. Canonical validation and project writers reject the
+superseded method. New research must use the canonical method and the architecture
+definition above; do not retag every native translation.
 
-The user-facing term highlights a game coupled to an embedded machine runtime.
-An interpreter is one implementation; generated host code retaining guest
-registers, condition codes and machine-memory/hardware behavior also merits
-architecture review. Do not classify such a project as clean native game logic
-merely because it has no CPU instruction interpreter. Conversely, replacing
-platform APIs in recovered game code is not by itself baked emulation. Mixed
-projects retain separately evidenced execution paths. This label change does not
-alter inclusion policy or automatically retag unreviewed native translations.
+Compatibility is isolated in `tools/execution_architecture.py`: the versioned
+`research-records/v1` decoder maps the former `game-specific-emulation` spelling
+only for ready input with a verified original review seal. Current draft/render
+and sealing APIs reject that spelling, including attempts to reseal an old input.
+Already sealed v1 documents remain readable. The decoder copies the project;
+it never changes signed documents, proofs, expected project hashes or receipts.
+Old full-project updates whose expected hash became stale still fail safely and
+need review. Already receipted submissions remain idempotent. Expanded unversioned
+batch input has no legacy alias. Routine metadata/enrichment owns neither execution
+methods nor their evidence and cannot restore an obsolete method during replay.
+
+Legacy activity before/after values and removed-project snapshots are adapted only
+when producing the browser projection. Canonical event evidence, dated research
+reports, sealed inbox files and receipts retain their historical bytes. No browser
+method/search alias is retained. Historical prose remains evidence, not a second
+canonical classification. `tools/migrate_baked_emulation.py` makes the explicit,
+idempotent catalogue migration without changing audits or source judgments.
+The prior comparison baseline is left intact. Normal metadata refresh records
+the architecture changes and advances that baseline through its existing atomic
+publication; Pages waits for completion. Pending unrelated differences, clocks
+and historical evidence are never silently blessed or rewritten.

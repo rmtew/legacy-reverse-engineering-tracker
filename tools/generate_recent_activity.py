@@ -5,6 +5,7 @@ import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from activity_history import RETENTION_DAYS, retained_events
+from execution_architecture import activity_v1_event
 
 
 def timestamp(value):
@@ -20,7 +21,7 @@ def recent_activity(activity, days=30, projects=None):
     for event in retained_events(activity["events"], timestamp(activity["generated_at"]), projects):
         if timestamp(event["date"]) < cutoff:
             continue
-        browser_event = dict(event)
+        browser_event = activity_v1_event(event)
         if event["type"] == "commit":
             browser_event.pop("message", None)  # The page displays/searches the subject.
         elif event["type"] == "daily_commits":
