@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-22T22:49:00Z",
+  "updated_at": "2026-10-22T22:59:19Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -28712,7 +28712,7 @@
       "execution_paths": [
         {
           "name": "Playable reference runner",
-          "method": "game-specific-emulation",
+          "method": "baked-emulation",
           "status": "playable",
           "notes": "Runs original 68000 loader and game code in Musashi with a Battle Squadron-focused OCS compatibility host.",
           "evidence": [
@@ -43521,9 +43521,9 @@
       "execution_paths": [
         {
           "name": "Generated native-C host",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "partial",
-          "notes": "Title-screen/headless bounded execution is documented. Host input is fixed to zero; interactive frontend wiring is pending. The generic toolkit interpreter prepares the initial snapshot but is not linked as the game-host execution path.",
+          "notes": "Title-screen/headless bounded execution is documented. Host input is fixed to zero; interactive frontend wiring is pending. The generic toolkit interpreter prepares the initial snapshot but is not linked as the game-host execution path. The compiled guest program retains the Lynx Suzy/Mikey hardware runtime. BAKED EMULATION includes compiled execution, not only interpreters.",
           "evidence": [
             "https://github.com/sp00nznet/chipschallenge-lynx-recomp/blob/main/README.md",
             "https://github.com/sp00nznet/chipschallenge-lynx-recomp/blob/main/games/chipschallenge/src/main.c",
@@ -51567,9 +51567,9 @@
       "execution_paths": [
         {
           "name": "Generated native-C host",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "partial",
-          "notes": "Title-screen/headless bounded execution is documented. Host input is fixed to zero; interactive frontend wiring is pending. The generic toolkit interpreter prepares the initial snapshot but is not linked as the game-host execution path.",
+          "notes": "Title-screen/headless bounded execution is documented. Host input is fixed to zero; interactive frontend wiring is pending. The generic toolkit interpreter prepares the initial snapshot but is not linked as the game-host execution path. The compiled guest program retains the Lynx Suzy/Mikey hardware runtime. BAKED EMULATION includes compiled execution, not only interpreters.",
           "evidence": [
             "https://github.com/sp00nznet/crystalmines2-lynx-recomp/blob/main/README.md",
             "https://github.com/sp00nznet/crystalmines2-lynx-recomp/blob/main/games/crystalmines2/src/main.c",
@@ -62067,9 +62067,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/DrMarioNesRecomp"
           ]
@@ -62657,9 +62657,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/DuckHuntNESRecomp"
           ]
@@ -72084,9 +72084,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/FaxanaduRecomp"
           ]
@@ -89166,9 +89166,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/GumshoeNESRecomp"
           ]
@@ -108665,9 +108665,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/LegendOfZeldaNESRecomp"
           ]
@@ -113216,7 +113216,7 @@
         },
         {
           "name": "Musashi validation oracle",
-          "method": "game-specific-emulation",
+          "method": "baked-emulation",
           "status": "runnable",
           "notes": "Separate reference path retained for differential validation; not the promoted native play path.",
           "evidence": [
@@ -120830,9 +120830,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "partial",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/Megaman3NESRecomp"
           ]
@@ -126987,7 +126987,7 @@
       "execution_paths": [
         {
           "name": "Windows release",
-          "method": "game-specific-emulation",
+          "method": "baked-emulation",
           "status": "playable",
           "notes": "Executes original Amiga 68000 code through embedded Musashi, a custom OCS implementation and game-address-specific host hooks; a Windows executable alone does not imply translated game logic.",
           "evidence": [
@@ -149708,9 +149708,9 @@
       "execution_paths": [
         {
           "name": "Native Swift macOS application",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Swift package links PlatoonCore into native app; original routines translated to Swift, reference emulator stays under tools.",
+          "notes": "Swift package links PlatoonCore into native app; original routines translated to Swift, reference emulator stays under tools. Translated Swift routines retain the original data layout and reconstructed blitter/copper/Paula hardware runtime. BAKED EMULATION does not require a guest instruction interpreter.",
           "evidence": [
             "https://github.com/tmm22/platoon-macos/blob/main/README.md",
             "https://github.com/tmm22/platoon-macos/blob/main/port/Package.swift"
@@ -153312,9 +153312,9 @@
       "execution_paths": [
         {
           "name": "Statically translated C++ with Toolbox API shims",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "unknown",
-          "notes": "Generated 68k-derived C++ functions execute natively with guest register/memory semantics and SDL2 Toolbox shims. No general runtime CPU interpreter or Macintosh chipset emulation found in inspected paths. Upstream reports playability; independent execution untested.",
+          "notes": "Generated 68k-derived C++ functions execute natively with guest register/memory semantics and SDL2 Toolbox shims. No general runtime CPU interpreter or Macintosh chipset emulation found in inspected paths. Upstream reports playability; independent execution untested. Retained guest registers and machine-memory semantics make this BAKED EMULATION; API replacement alone would not.",
           "evidence": [
             "https://github.com/mac-recomp/pop2/blob/ea701b17984c3c27ec76858ad44007e218613f22/CMakeLists.txt",
             "https://github.com/mac-recomp/pop2/blob/ea701b17984c3c27ec76858ad44007e218613f22/pop2-runtime/src/runtime.cpp"
@@ -175510,9 +175510,9 @@
       "execution_paths": [
         {
           "name": "Statically lifted C with Toolbox API shims",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "partial",
-          "notes": "Pinned dependency dispatches compiled C functions, with a guest register/flat-memory model and Toolbox/QuickDraw-to-SDL2 shims. No general runtime CPU interpreter or Macintosh chipset emulation found; upstream reports intro rendering only, not playability. Independent execution untested.",
+          "notes": "Pinned dependency dispatches compiled C functions, with a guest register/flat-memory model and Toolbox/QuickDraw-to-SDL2 shims. No general runtime CPU interpreter or Macintosh chipset emulation found; upstream reports intro rendering only, not playability. Independent execution untested. Retained guest registers and flat machine memory make this BAKED EMULATION; API replacement alone would not.",
           "evidence": [
             "https://github.com/sp00nznet/shufflepuck-cafe/blob/72d40249a5c47785a09b9e1ee2f7d64c87bcb460/build.sh",
             "https://github.com/sp00nznet/macrecomp/blob/63e1d82c3c3d4eded91045651cae56d880a79dbd/runtime/m68k.c"
@@ -190534,9 +190534,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/SuperMarioBrosNESRecomp"
           ]
@@ -218685,9 +218685,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/YoshiNESRecomp"
           ]
@@ -218772,9 +218772,9 @@
       "execution_paths": [
         {
           "name": "native PC build",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; it is not a guest-CPU emulator path.",
+          "notes": "Runs generated native host code while the shared NESRecomp runner simulates NES hardware; compilation removes the instruction interpreter, not the retained machine runtime. Generated host code retains the NES hardware runtime; removing the instruction interpreter does not remove the embedded machine.",
           "evidence": [
             "https://github.com/mstan/YoshisCookieRecomp"
           ]
@@ -256892,9 +256892,9 @@
       "execution_paths": [
         {
           "name": "recompiled native runtime",
-          "method": "native-translation",
+          "method": "baked-emulation",
           "status": "playable",
-          "notes": "All 15 Saturn programs are generated as C++ and run through the project's recreated video, sound and hardware runtime.",
+          "notes": "All 15 Saturn programs are generated as C++ and run through the project's recreated video, sound and hardware runtime. Compiled Saturn programs retain the recreated hardware runtime, including the original sound driver alongside emulated SCSP; this is BAKED EMULATION.",
           "evidence": [
             "https://github.com/vs-sr-dev/pc-virtualhydlide/blob/main/README.md"
           ]
