@@ -251,3 +251,19 @@ The feed is derived entirely from already-collected tracker data, so generating 
 Every canonical activity writer enforces the 30-day boundary, including replay of older collection bundles. The public build also normalizes legacy history immediately. Full commit messages and repeated current-project snapshots are omitted. Notes change entries retain before/after hashes; canonical notes and research records retain their complete content. SHA identities remain in canonical daily summaries for overlap deduplication; browser projections omit them. Expired releases from project metadata are excluded from RSS and the timeline.
 
 Routine document evidence also records `ai_use`, `ai_config`, `source_cpu`, `target_cpu`, `source_platforms` and `target_platforms`. Each observation names its immutable source URL, excerpt, collector version, date and strength. Inherited instruction files supply configuration context only; their parent-project claims cannot populate subproject facts. Current conflicting declarations are retained without promotion. `evidence.routine` preserves the first source of promoted CPU/platform facts; AI disclosure sources also persist in `ai.evidence`. Curated facts are never replaced by these detectors. Agent attribution requires an allowlisted API-linked Bot or an explicit named co-author trailer; free-form author names, provider email domains and missing files do not establish use or non-use.
+
+### BAKED EMULATION display tag
+
+The existing `game-specific-emulation` execution-path key is displayed as
+**BAKED EMULATION** in filters, project badges, details and activity. The stored
+key remains stable so this presentation change does not rewrite research history
+or reclassify projects. Legacy search wording remains supported.
+
+The user-facing term highlights a game coupled to an embedded machine runtime.
+An interpreter is one implementation; generated host code retaining guest
+registers, condition codes and machine-memory/hardware behavior also merits
+architecture review. Do not classify such a project as clean native game logic
+merely because it has no CPU instruction interpreter. Conversely, replacing
+platform APIs in recovered game code is not by itself baked emulation. Mixed
+projects retain separately evidenced execution paths. This label change does not
+alter inclusion policy or automatically retag unreviewed native translations.

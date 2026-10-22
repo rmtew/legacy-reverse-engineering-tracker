@@ -135,7 +135,7 @@ const classificationChip = (value,kind,prefix) =>
   '<span class="classification-chip '+kind+'-chip" title="'+esc(prefix+': '+classificationLabel(value))+'">'+esc(classificationLabel(value))+'</span>';
 
 const executionLabels = {
-  "game-specific-emulation":"Game-specific emulation",
+  "game-specific-emulation":"BAKED EMULATION",
   "native-translation":"Native translation"
 };
 const executionLabel = value => executionLabels[value] || String(value ?? "");
@@ -460,7 +460,7 @@ function matches(record) {
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
     ...projectTypeValues(record).map(projectTypeLabel),
     ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
-    ...executionPaths(record).flatMap(path=>[executionLabel(path.method),path.name,path.status,path.notes]),
+    ...executionPaths(record).flatMap(path=>[executionLabel(path.method),path.method.replaceAll("-"," "),path.name,path.status,path.notes]),
     ...platformValues(record),...arr(record.source_platforms),...arr(record.target_platforms),...cpuFamilyValues(record),
     ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
     ...runtimeProfiles(record).flatMap(profile=>[

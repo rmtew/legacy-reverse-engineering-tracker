@@ -123,7 +123,7 @@ test("execution filter includes mixed projects while leaving unclassified record
   assert.equal(matches(moonstone), false);
   context.testRecord = battle;
   const badges = vm.runInContext('executionBadges(testRecord)', context);
-  assert.match(badges, /Game-specific emulation/);
+  assert.match(badges, /BAKED EMULATION/);
   assert.match(badges, /Native translation: partial/);
   vm.runInContext('projectFilterState.execution.clear();', context);
 });
@@ -138,12 +138,12 @@ test("activity describes execution paths and displays their badges", () => {
   context.testRecord = battle;
   const change = vm.runInContext("projectChangeHtml(testEvent, testRecord)", context);
   assert.match(change, /Execution paths updated/);
-  assert.match(change, /Game-specific emulation/);
+  assert.match(change, /BAKED EMULATION/);
   assert.match(change, /Native translation \(partial\)/);
   assert.doesNotMatch(change, /\[object Object\]/);
-  assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /Game-specific emulation/);
+  assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /BAKED EMULATION/);
   context.testRecord = moonstone;
-  assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /Game-specific emulation/);
+  assert.match(vm.runInContext("activityProjectHeader(testRecord)", context), /BAKED EMULATION/);
 });
 
 test("reviewed platform aliases share filters while requirements and Activity state remain distinct", () => {
@@ -169,4 +169,15 @@ test("raw platform aliases and excluded picker values remain searchable", () => 
     assert.equal(vm.runInContext(`activityMatches(testEvent,new Map([["p",testRecord]]),0,${JSON.stringify(value.toLowerCase())})`,context),true);
   }
   context.document.getElementById("q").value="";
+});
+
+ test("baked emulation label is searchable with legacy wording retained", () => {
+  const baked={execution_paths:[{method:"game-specific-emulation",name:"embedded runtime",status:"playable"}]};
+  const native={execution_paths:[{method:"native-translation",name:"native API port",status:"playable"}]};
+  for(const query of ["BAKED EMULATION","game specific emulation"]){
+    elements.get("q").value=query;
+    assert.equal(matches(baked),true);
+    assert.equal(matches(native),false);
+  }
+  elements.get("q").value="";
 });
