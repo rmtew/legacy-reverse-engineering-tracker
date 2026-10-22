@@ -15,7 +15,7 @@ from pathlib import Path
 import re
 from urllib.parse import quote, urlsplit
 
-from execution_architecture import research_v1_project
+from execution_architecture import check_methods, research_v1_project
 
 FORMAT = "research-records/v1"
 AREAS = ("identity", "classification", "source_cpu", "target_cpu", "build",
@@ -162,6 +162,11 @@ def review_digest(document: dict) -> str:
 def seal_review(document: dict) -> dict:
     """Explicit author action after review; makes no substantive judgment."""
     result = copy.deepcopy(document)
+    # Current authoring must never create another obsolete-method seal. Reading
+    # an existing verified v1 seal is a separate compatibility operation below.
+    for record in result.get("records", []):
+        if isinstance(record, dict) and isinstance(record.get("project"), dict):
+            check_methods(record["project"])
     result["review"] = {"status": "ready", "digest": review_digest(document)}
     return result
 
@@ -191,6 +196,8 @@ def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, re
         _require(review["status"] == "ready", "Research review is not ready; finish the author review before compiling")
     if "digest" in review:
         _require(review["digest"] == review_digest(document), "Stale research review digest; review the changed record/proofs again")
+
+    sealed_v1 = review["status"] == "ready" and "digest" in review
 
     cache = evidence_cache if isinstance(evidence_cache, EvidenceCache) or evidence_cache is None else EvidenceCache(evidence_cache)
     heads = None
@@ -232,7 +239,10 @@ def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, re
                  "Record has unknown fields or is not an object")
         project = copy.deepcopy(record.get("project"))
         if isinstance(project, dict):
-            project = research_v1_project(project)
+            if sealed_v1:
+                project = research_v1_project(project)
+            else:
+                check_methods(project)
         _require(isinstance(project, dict), "Record needs a project object")
         update = record.get("update")
         if update is not None:

@@ -14,7 +14,7 @@ from catalogue_storage import encode, load_projects, render, write_all, write_pr
 from execution_architecture import activity_v1_event, check_methods
 from generate_recent_activity import recent_activity
 from migrate_baked_emulation import migrate, migrate_record, path_digest
-from research_record import compile_records, review_digest, seal_review
+from research_record import compile_records, render_report, review_digest, seal_review
 from test_research_record import sample_record
 
 OLD = 'game-specific-emulation'  # Only historical-format fixtures use this key.
@@ -31,14 +31,37 @@ class ExecutionArchitectureTests(unittest.TestCase):
     def test_versioned_sealed_input_is_verified_then_decoded_without_hash_mutation(self):
         document = sample_record()
         document['records'][0]['project']['execution_paths'] = record()['execution_paths']
-        document = seal_review(document)
+        # Historical seal fixture, made before the authoring migration. The
+        # current seal_review API must reject creation/resealing of this input.
+        document['review'] = {'status': 'ready', 'digest': review_digest(document)}
         before = copy.deepcopy(document); digest = review_digest(document)
+        with self.assertRaisesRegex(ValueError, 'canonical execution method'):
+            seal_review(document)
         project = compile_records(document)['projects'][0]['project']
         self.assertEqual(project['execution_paths'][0]['method'], 'baked-emulation')
         self.assertEqual(document, before); self.assertEqual(review_digest(document), digest)
         document['records'][0]['project']['execution_paths'][0]['method'] = 'baked-emulation'
         with self.assertRaisesRegex(ValueError, 'Stale research review'):
             compile_records(document)
+
+    def test_current_authoring_and_sealing_reject_legacy_but_accept_canonical(self):
+        document = sample_record()
+        document['records'][0]['project']['execution_paths'] = record()['execution_paths']
+        original = copy.deepcopy(document)
+        with self.assertRaisesRegex(ValueError, 'canonical execution method'):
+            seal_review(document)
+        for status in ('draft', 'ready'):
+            document['review'] = {'status': status}
+            with self.assertRaisesRegex(ValueError, 'canonical execution method'):
+                render_report(document)
+        document['review'] = {'status': 'ready'}
+        with self.assertRaisesRegex(ValueError, 'canonical execution method'):
+            compile_records(document)
+        document['records'][0]['project']['execution_paths'][0]['method'] = 'baked-emulation'
+        sealed = seal_review(document)
+        self.assertEqual(compile_records(sealed)['projects'][0]['project']['execution_paths'][0]['method'], 'baked-emulation')
+        self.assertIn('baked-emulation', render_report(sealed))
+        self.assertEqual(original['records'][0]['project']['execution_paths'][0]['method'], OLD)
 
     def test_canonical_writer_rejects_old_method_without_writing(self):
         with tempfile.TemporaryDirectory() as temp:

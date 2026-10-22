@@ -261,7 +261,9 @@ definition above; do not retag every native translation.
 
 Compatibility is isolated in `tools/execution_architecture.py`: the versioned
 `research-records/v1` decoder maps the former `game-specific-emulation` spelling
-only after verifying the original review seal. It copies the decoded project;
+only for ready input with a verified original review seal. Current draft/render
+and sealing APIs reject that spelling, including attempts to reseal an old input.
+Already sealed v1 documents remain readable. The decoder copies the project;
 it never changes signed documents, proofs, expected project hashes or receipts.
 Old full-project updates whose expected hash became stale still fail safely and
 need review. Already receipted submissions remain idempotent. Expanded unversioned
