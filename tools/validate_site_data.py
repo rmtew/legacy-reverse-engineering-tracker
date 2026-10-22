@@ -9,6 +9,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
+from execution_architecture import METHODS
 import xml.etree.ElementTree as ET
 
 
@@ -317,7 +318,7 @@ def validate(projects_path, activity_path, rss_path=None):
                     elif name in names:
                         fail(f"{label} duplicates name {name!r}", errors)
                     names.add(name)
-                    if path.get("method") not in {"game-specific-emulation", "native-translation"}:
+                    if path.get("method") not in METHODS:
                         fail(f"{label} has invalid method", errors)
                     if path.get("status") not in {"playable", "runnable", "partial", "unknown"}:
                         fail(f"{label} has invalid status", errors)

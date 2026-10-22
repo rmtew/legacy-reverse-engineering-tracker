@@ -114,7 +114,7 @@ test("execution filter includes mixed projects while leaving unclassified record
   const unknown = catalogue.find(record => !record.execution_paths);
   assert.ok(battle && moonstone && unknown);
   assert.equal(matches(unknown), true);
-  vm.runInContext('projectFilterState.execution = new Set(["game-specific-emulation"]);', context);
+  vm.runInContext('projectFilterState.execution = new Set(["baked-emulation"]);', context);
   assert.equal(matches(battle), true);
   assert.equal(matches(moonstone), true);
   assert.equal(matches(unknown), false);
@@ -171,13 +171,19 @@ test("raw platform aliases and excluded picker values remain searchable", () => 
   context.document.getElementById("q").value="";
 });
 
- test("baked emulation label is searchable with legacy wording retained", () => {
-  const baked={execution_paths:[{method:"game-specific-emulation",name:"embedded runtime",status:"playable"}]};
+ test("baked emulation canonical tag is searchable without a legacy alias", () => {
+  const baked={execution_paths:[{method:"baked-emulation",name:"embedded runtime",status:"playable"}]};
   const native={execution_paths:[{method:"native-translation",name:"native API port",status:"playable"}]};
-  for(const query of ["BAKED EMULATION","game specific emulation"]){
+  for(const query of ["BAKED EMULATION","baked-emulation"]){
     elements.get("q").value=query;
     assert.equal(matches(baked),true);
     assert.equal(matches(native),false);
   }
+  elements.get("q").value="";
+});
+
+test("obsolete execution terminology is not a UI search alias", () => {
+  elements.get("q").value="game specific emulation";
+  assert.equal(matches({execution_paths:[{method:"baked-emulation",name:"embedded runtime",status:"playable"}]}),false);
   elements.get("q").value="";
 });

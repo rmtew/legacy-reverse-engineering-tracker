@@ -31,6 +31,7 @@ GENERATORS = (
     "tools/generate_recent_activity.py",
     "tools/activity_history.py",
     "tools/catalogue_storage.py",
+    "tools/execution_architecture.py",
 )
 
 

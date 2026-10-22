@@ -15,6 +15,8 @@ from pathlib import Path
 import re
 from urllib.parse import quote, urlsplit
 
+from execution_architecture import research_v1_project
+
 FORMAT = "research-records/v1"
 AREAS = ("identity", "classification", "source_cpu", "target_cpu", "build",
          "runtime_profiles", "ai", "relationships")
@@ -229,6 +231,8 @@ def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, re
         _require(isinstance(record, dict) and not set(record) - {"project", "source_ids", "allow_shared_url", "overall_state", "areas", "update"},
                  "Record has unknown fields or is not an object")
         project = copy.deepcopy(record.get("project"))
+        if isinstance(project, dict):
+            project = research_v1_project(project)
         _require(isinstance(project, dict), "Record needs a project object")
         update = record.get("update")
         if update is not None:

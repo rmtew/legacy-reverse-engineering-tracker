@@ -135,11 +135,12 @@ const classificationChip = (value,kind,prefix) =>
   '<span class="classification-chip '+kind+'-chip" title="'+esc(prefix+': '+classificationLabel(value))+'">'+esc(classificationLabel(value))+'</span>';
 
 const executionLabels = {
-  "game-specific-emulation":"BAKED EMULATION",
+  "baked-emulation":"BAKED EMULATION",
   "native-translation":"Native translation"
 };
 const executionLabel = value => executionLabels[value] || String(value ?? "");
 const executionPaths = record => arr(record?.execution_paths).filter(path=>path?.method);
+const executionSearchValues = record => executionPaths(record).flatMap(path=>[executionLabel(path.method),path.method,path.method.replaceAll("-"," "),path.name,path.status,path.notes]);
 const executionMethods = record => [...new Set(executionPaths(record).map(path=>path.method))];
 const executionBadges = record => executionPaths(record).map(path=>{
   const label=executionLabel(path.method)+(path.status==="partial"?": partial":"");
@@ -460,7 +461,7 @@ function matches(record) {
     ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
     ...projectTypeValues(record).map(projectTypeLabel),
     ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
-    ...executionPaths(record).flatMap(path=>[executionLabel(path.method),path.method.replaceAll("-"," "),path.name,path.status,path.notes]),
+    ...executionSearchValues(record),
     ...platformValues(record),...arr(record.source_platforms),...arr(record.target_platforms),...cpuFamilyValues(record),
     ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
     ...runtimeProfiles(record).flatMap(profile=>[
@@ -822,7 +823,7 @@ function activityMatches(event,map,cutoff,q) {
       ...projectTypeValues(project).map(projectTypeLabel),...platformValues(project),
       ...arr(project.source_platforms),...arr(project.target_platforms),...cpuFamilyValues(project),
       ...arr(project.target_kinds),...arr(project.work_kinds),...arr(project.tool_kinds),
-      ...arr(project.tags),...arr(project.ai?.tools),
+      ...arr(project.tags),...arr(project.ai?.tools),...executionSearchValues(project),
       ...arr(event.changes),JSON.stringify(event.change_details||[])
     ].join(" ").toLowerCase();
     if(!hay.includes(q)) return false;

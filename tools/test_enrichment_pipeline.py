@@ -388,6 +388,10 @@ class EnrichmentTests(unittest.TestCase):
         for name in ('github-poll-state.json','project-catalog-state.json'):
             shutil.copy2(source/'state'/name,self.root/'state'/name)
         records=load_projects(self.root/'data/projects.json')
+        # Isolate promotion recording from pending live catalogue migrations.
+        baseline=json.loads((self.root/'state/project-catalog-state.json').read_bytes())
+        baseline['projects']={r['id']:snapshot(r) for r in records}
+        (self.root/'state/project-catalog-state.json').write_bytes(encode(baseline))
         before=next(r for r in records if (r.get('build') or {}).get('compilable') is None)
         after=copy.deepcopy(before);after.setdefault('build',{})['compilable']=True
         bundle={'version':1,'results':[{'id':before['id'],'fingerprint':pipeline.fingerprint(before),

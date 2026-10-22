@@ -185,6 +185,10 @@ def write_all(data_dir, data):
     output = {}
     old = {p for p in storage_paths(data_dir, data) if (data_dir / p).exists()} if data_dir.exists() else set()
     for name, value in data.items():
+        if name == 'projects.json':
+            from execution_architecture import check_methods
+            for project in value:
+                check_methods(project)
         if name in KINDS:
             output.update(render(name, value))
         else:
