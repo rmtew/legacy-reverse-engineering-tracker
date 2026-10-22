@@ -1394,3 +1394,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-22 — Personally inspect 36 roots: 31 additions, one fork consolidation and four qualified deferrals.
 
 [Research record](docs/research/2026-10-22-wide-cross-platform-discovery-47.md).
+
+## 2026-10-22 — Personally inspect 32 roots: 30 additions and two scope exclusions.
+
+[Research record](docs/research/2026-10-22-wide-cross-platform-discovery-48.md).
