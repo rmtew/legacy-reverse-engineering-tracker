@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-22T20:49:09Z",
+  "updated_at": "2026-10-22T21:05:48Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -273487,6 +273487,1831 @@
         "CD-ROM"
       ],
       "notes": "Identity: The README identifies an example FM Towns Marty CD program that loads an image from CD, draws it with double buffering and waits for vertical sync. Classification: This is original native homebrew and development-example code, not a reverse-engineered or RE-derived port. Source CPU: The example is newly authored target software and has no analyzed original executable with a source CPU. Target CPU: The Makefile explicitly invokes i386-pc-run386 GCC and assembler with `-march=i386`; the implementation describes 32-bit protected-mode execution. Build: The README and Makefile document the elf2exp toolchain, ISO build/run script and Tsugaru emulator path, with the explicit dependency on a user-supplied CD/IO.SYS. Limitations: The tracker did not supply IO.SYS, build the ISO or run the example. Runtime profiles: The reviewed documentation identifies FM Towns/Marty and Tsugaru but gives no minimum physical CPU model, RAM amount, ROM version or host floor; the source's optional 486 cache path is not treated as a minimum. AI: The inspected README, Makefile and implementation comments contain no development-AI disclosure; this is not a non-use claim. Relationships: The README requires pinterior/elf2exp for the toolchain and a user-provided FM Towns IO.SYS, and the run script targets Tsugaru; those dependencies are not bundled successors or forks. Evidence: https://github.com/gameblabla/FMTOWNSCD_EXAMPLE/blob/simp/README.md https://github.com/gameblabla/FMTOWNSCD_EXAMPLE/blob/simp/src/main.c https://github.com/gameblabla/FMTOWNSCD_EXAMPLE/blob/simp/Makefile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "revengator-saga-dark": {
+      "id": "revengator-saga-dark",
+      "title": "Saga Dark — Spectrum preservation and 128K remakes",
+      "upstream_name": "saga-dark",
+      "display_title": "Saga Dark — Spectrum preservation and 128K remakes",
+      "subjects": [
+        "Saga Dark"
+      ],
+      "repo": "https://github.com/revengator/saga-dark",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "source-restoration",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Saga Dark — Spectrum preservation and 128K remakes. Repository root and implementation inspected at pinned revisions. Classification: Paper-listing recovery and original 48K snapshot preservation alongside 128K remakes. Original game lacks the final Kamuir level; context explicitly parks endgame work. The inspected dark1 main source still emits substantial code as DEFB bytes, so byte-perfect is not equivalent to fully symbolic instruction recovery. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: z80. Build: Author reports exact four-piece builds and emulator play; not independently reproduced. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Original 48K and separate +2 128K variants; keep their requirements distinct. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/revengator/saga-dark/blob/ffa2622d292c4e7a22c54bd5363441cb07a1a577/README.md https://github.com/revengator/saga-dark/blob/ffa2622d292c4e7a22c54bd5363441cb07a1a577/original-48k/src/dark1/main.asm https://github.com/revengator/saga-dark/blob/ffa2622d292c4e7a22c54bd5363441cb07a1a577/CONTEXT.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "local-gay-communist-engineer98": {
+      "id": "local-gay-communist-engineer98",
+      "title": "Engineer98 — PC-98 analysis toolkit",
+      "upstream_name": "Engineer98",
+      "display_title": "Engineer98 — PC-98 analysis toolkit",
+      "subjects": [
+        "Engineer98"
+      ],
+      "repo": "https://github.com/Local-Gay-Communist/Engineer98",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC-98"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "x86-16"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python",
+        "Rust"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "disassembler",
+        "disk-filesystem-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Engineer98 — PC-98 analysis toolkit. Repository root and implementation inspected at pinned revisions. Classification: PC-98 disk-image and executable analysis toolkit with Rust image modules and Python Capstone 16-bit x86 decoder. README decompilation and porting goals are not proof of a complete automatic port pipeline. V30 extension coverage is not independently validated. Source CPU: Architecture context: x86-16. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/local-gay-communist/engineer98/blob/c0862acc9049a07812730e825869e46683f35433/README.md https://github.com/Local-Gay-Communist/Engineer98/blob/c0862acc9049a07812730e825869e46683f35433/README.md https://github.com/Local-Gay-Communist/Engineer98/blob/c0862acc9049a07812730e825869e46683f35433/python/engineer98/disasm/x86.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "megatron-uk-spiralwave-pce": {
+      "id": "megatron-uk-spiralwave-pce",
+      "title": "Spiral Wave — text extraction research",
+      "upstream_name": "spiralwave-pce",
+      "display_title": "Spiral Wave — text extraction research",
+      "subjects": [
+        "Spiral Wave"
+      ],
+      "repo": "https://github.com/megatron-uk/spiralwave-pce",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC Engine"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "translation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "hybrid"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Spiral Wave — text extraction research. Repository root and implementation inspected at pinned revisions. Classification: Character-table and shifted-symbol decoding research. Source implements bytes-to-text but text-to-bytes is a pass stub; this is not a completed translation patch. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Historical Python syntax and open mode require review before use; no run performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/megatron-uk/spiralwave-pce/blob/a91d1f984f78cbb07f99ec28ba8ef5ac4d2ef563/README.md https://github.com/megatron-uk/spiralwave-pce/blob/a91d1f984f78cbb07f99ec28ba8ef5ac4d2ef563/translators.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "megatron-uk-guyflame-pce": {
+      "id": "megatron-uk-guyflame-pce",
+      "title": "Guyframe — script extraction and translation research",
+      "upstream_name": "guyflame-pce",
+      "display_title": "Guyframe — script extraction and translation research",
+      "subjects": [
+        "Guyframe"
+      ],
+      "repo": "https://github.com/megatron-uk/guyflame-pce",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC Engine"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "translation",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "hybrid"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Guyframe — script extraction and translation research. Repository root and implementation inspected at pinned revisions. Classification: Translation repository with a C script extractor, fixed ROM table offsets and Japanese symbol mappings. Do not infer a complete playable translation from the repository name. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/megatron-uk/guyflame-pce/blob/aa67ba1dafce8157179b51531783ec20b6e39541/README.md https://github.com/megatron-uk/guyflame-pce/blob/aa67ba1dafce8157179b51531783ec20b6e39541/old-translation/extractScript.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "y0oshi-lain-psx-decompiled": {
+      "id": "y0oshi-lain-psx-decompiled",
+      "title": "Serial Experiments Lain — PSX C reconstruction and native client",
+      "upstream_name": "lain-psx-decompiled",
+      "display_title": "Serial Experiments Lain — PSX C reconstruction and native client",
+      "subjects": [
+        "Serial Experiments Lain"
+      ],
+      "repo": "https://github.com/Y0oshi/lain-psx-decompiled",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PlayStation"
+      ],
+      "target_platforms": [
+        "PlayStation",
+        "Windows",
+        "macOS",
+        "Linux"
+      ],
+      "source_cpu": [
+        "mips"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Serial Experiments Lain — PSX C reconstruction and native client. Repository root and implementation inspected at pinned revisions. Classification: Matching game C and separate SDK-based host client. Inspected C defines recovered game/media structures; original PsyQ libraries are linked separately, not counted as newly decompiled game logic. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Author reports 321 matching game functions and byte-identical 618496-byte executable plus all endings in native client. Neither matching nor gameplay independently reproduced. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Original two disc dumps needed. Documented host packages: Windows x64, Apple Silicon macOS, Linux x86-64 with glibc2.35+ and OpenGL3.2. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/y0oshi/lain-psx-decompiled/blob/205c1977e2aa8d26128fcdbab19170c2c2bbde0e/README.md https://github.com/Y0oshi/lain-psx-decompiled/blob/205c1977e2aa8d26128fcdbab19170c2c2bbde0e/README.md https://github.com/Y0oshi/lain-psx-decompiled/blob/205c1977e2aa8d26128fcdbab19170c2c2bbde0e/docs/DECOMPILATION.md https://github.com/Y0oshi/lain-psx-decompiled/blob/205c1977e2aa8d26128fcdbab19170c2c2bbde0e/src/game/80018A38.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "caesar0007-nfshs-psx-decomp": {
+      "id": "caesar0007-nfshs-psx-decomp",
+      "title": "Need for Speed High Stakes — PSX matching reconstruction",
+      "upstream_name": "NFSHS-PSX-decomp",
+      "display_title": "Need for Speed High Stakes — PSX matching reconstruction",
+      "subjects": [
+        "Need for Speed High Stakes"
+      ],
+      "repo": "https://github.com/Caesar0007/NFSHS-PSX-decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PlayStation"
+      ],
+      "target_platforms": [
+        "PlayStation"
+      ],
+      "source_cpu": [
+        "mips"
+      ],
+      "target_cpu": [
+        "mips"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++",
+        "MIPS assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "MIPS assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Need for Speed High Stakes — PSX matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: Matching and reconstruction tracks coexist. Inspected aiinit.c is INCLUDE_ASM wrappers, not recovered C bodies; README percentages are dated author reports, not a current semantic completeness measure. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: PsyQ/maspsx and owned disc inputs required. All build flags remain unknown pending independent verification. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Author publishes restrictive licensing; viewing source is not a grant to build or redistribute ports. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: README links XProger as separately authorized port; do not conflate matching project and port. Evidence: https://github.com/caesar0007/nfshs-psx-decomp/blob/fa6a3a2ecc09a90abbcdc241af4e491be0c383b9/README.md https://github.com/Caesar0007/NFSHS-PSX-decomp/blob/fa6a3a2ecc09a90abbcdc241af4e491be0c383b9/README.md https://github.com/Caesar0007/NFSHS-PSX-decomp/blob/fa6a3a2ecc09a90abbcdc241af4e491be0c383b9/src/aiinit.c",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "chrisnonyminus-mml1": {
+      "id": "chrisnonyminus-mml1",
+      "title": "Mega Man Legends — PlayStation decompilation",
+      "upstream_name": "mml1",
+      "display_title": "Mega Man Legends — PlayStation decompilation",
+      "subjects": [
+        "Mega Man Legends"
+      ],
+      "repo": "https://github.com/ChrisNonyminus/mml1",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PlayStation"
+      ],
+      "target_platforms": [
+        "PlayStation"
+      ],
+      "source_cpu": [
+        "mips"
+      ],
+      "target_cpu": [
+        "mips"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "MIPS assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "MIPS assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Mega Man Legends — PlayStation decompilation. Repository root and implementation inspected at pinned revisions. Classification: In-progress US-release decompilation with build/extract scripts. Inspected player.c retains INCLUDE_ASM bodies. README explicitly says code is not yet shiftable. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Requires original US disc tracks, MIPS toolchain, mkpsxiso and Python; no build or matching verification performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/chrisnonyminus/mml1/blob/964bad3096a2d7a4a3d6cc65678d8440b2ea9cb1/README.md https://github.com/ChrisNonyminus/mml1/blob/964bad3096a2d7a4a3d6cc65678d8440b2ea9cb1/README.md https://github.com/ChrisNonyminus/mml1/blob/964bad3096a2d7a4a3d6cc65678d8440b2ea9cb1/src/rock_neo/player.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "drahsid-mischief-makers": {
+      "id": "drahsid-mischief-makers",
+      "title": "Mischief Makers — N64 decompilation",
+      "upstream_name": "mischief-makers",
+      "display_title": "Mischief Makers — N64 decompilation",
+      "subjects": [
+        "Mischief Makers"
+      ],
+      "repo": "https://github.com/Drahsid/mischief-makers",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Nintendo 64"
+      ],
+      "target_platforms": [
+        "Nintendo 64"
+      ],
+      "source_cpu": [
+        "mips"
+      ],
+      "target_cpu": [
+        "mips"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "MIPS assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "MIPS assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Mischief Makers — N64 decompilation. Repository root and implementation inspected at pinned revisions. Classification: In-progress reconstruction with named actor/game state structures, overlay handling and asset extraction tools. Primary support is US1.1; other versions only minor support. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: README documents matching ROM hash and IDO/Ninja workflow; no independent rebuild or live progress percentage asserted. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/drahsid/mischief-makers/blob/cdd2099cb8248ea0de1d4e25bf3a69c4e1c4fd90/README.md https://github.com/Drahsid/mischief-makers/blob/cdd2099cb8248ea0de1d4e25bf3a69c4e1c4fd90/README.md https://github.com/Drahsid/mischief-makers/blob/cdd2099cb8248ea0de1d4e25bf3a69c4e1c4fd90/src/1F1E0.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "mariopartyrd-marioparty3": {
+      "id": "mariopartyrd-marioparty3",
+      "title": "Mario Party 3 — N64 decompilation",
+      "upstream_name": "marioparty3",
+      "display_title": "Mario Party 3 — N64 decompilation",
+      "subjects": [
+        "Mario Party 3"
+      ],
+      "repo": "https://github.com/mariopartyrd/marioparty3",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Nintendo 64"
+      ],
+      "target_platforms": [
+        "Nintendo 64"
+      ],
+      "source_cpu": [
+        "mips"
+      ],
+      "target_cpu": [
+        "mips"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "MIPS assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "MIPS assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Mario Party 3 — N64 decompilation. Repository root and implementation inspected at pinned revisions. Classification: US ROM reconstruction; inspected entry C creates native libultra threads. Setup generates assembly for nonmatched functions, so buildability does not establish complete C recovery. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Requires owned US ROM, Linux/WSL and build dependencies; no independent compilation. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/mariopartyrd/marioparty3/blob/73f7fd83bdad6679becd80cf34141407238c6bc3/README.md https://github.com/mariopartyrd/marioparty3/blob/73f7fd83bdad6679becd80cf34141407238c6bc3/src/1060.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "regionallyfamous-yokoi": {
+      "id": "regionallyfamous-yokoi",
+      "title": "Yokoi — WonderSwan translation patch station",
+      "upstream_name": "yokoi",
+      "display_title": "Yokoi — WonderSwan translation patch station",
+      "subjects": [
+        "Yokoi"
+      ],
+      "repo": "https://github.com/RegionallyFamous/yokoi",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "WonderSwan",
+        "WonderSwan Color"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript",
+        "TypeScript"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "TypeScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "translation"
+      ],
+      "tool_kinds": [
+        "rom-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Yokoi — WonderSwan translation patch station. Repository root and implementation inspected at pinned revisions. Classification: Browser-local IPS/BPS patch engine and WonderSwan translation catalogue. Inspected parser handles patch headers, buffer growth and bounds. CERTIFIED and PRACTICAL are project-defined verification labels, not independent tracker certification. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: No patch or complete translation gameplay independently tested. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: ROM stays local according to documented design; source and output hash verification is not a full-game playthrough. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One repository-level patch station, not one record per bundled patch. Evidence: https://github.com/regionallyfamous/yokoi/blob/e3145ed2a314f1b9499d90e16a367777a180ffee/README.md https://github.com/RegionallyFamous/yokoi/blob/e3145ed2a314f1b9499d90e16a367777a180ffee/README.md https://github.com/RegionallyFamous/yokoi/blob/e3145ed2a314f1b9499d90e16a367777a180ffee/ROM_PATCHER.md https://github.com/RegionallyFamous/yokoi/blob/e3145ed2a314f1b9499d90e16a367777a180ffee/public/rom-patcher/patch-engines.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "cycleaddict-tunnels-of-doom-reconstruction": {
+      "id": "cycleaddict-tunnels-of-doom-reconstruction",
+      "title": "Tunnels of Doom — TI-99 GPL reconstruction",
+      "upstream_name": "tunnels-of-doom-reconstruction",
+      "display_title": "Tunnels of Doom — TI-99 GPL reconstruction",
+      "subjects": [
+        "Tunnels of Doom"
+      ],
+      "repo": "https://github.com/Cycleaddict/tunnels-of-doom-reconstruction",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "TI-99/4A"
+      ],
+      "target_platforms": [
+        "TI-99/4A"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "GPL",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "GPL",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "disassembly"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Tunnels of Doom — TI-99 GPL reconstruction. Repository root and implementation inspected at pinned revisions. Classification: Assembler-buildable cartridge and QUEST/PENNIES reconstruction plus bounded Python behavioral examples. GPL is interpreted game code; do not mislabel this as native TMS9900 instruction reconstruction. Source sample provides mapped variables and structured GPL representation. Source CPU: Inspected program is interpreted TI GPL, not recovered native TMS9900 instructions; no native source_cpu value asserted. Target CPU: Cartridge targets TI-99/4A through its GPL interpreter; no independent minimum hardware execution profile established. Build: Author reports exact 40960-byte cartridge and two13056-byte adventure payloads and314named routines; not independently reproduced. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Python walkthrough explicitly composes bounded slices, not one continuous live gameplay state. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/cycleaddict/tunnels-of-doom-reconstruction/blob/c5dd6fe862c0b417b1269afc083c1d26a0ef95d8/README.md https://github.com/Cycleaddict/tunnels-of-doom-reconstruction/blob/c5dd6fe862c0b417b1269afc083c1d26a0ef95d8/README.md https://github.com/Cycleaddict/tunnels-of-doom-reconstruction/blob/c5dd6fe862c0b417b1269afc083c1d26a0ef95d8/recovered/gpl/source/tunnels-of-doom.gpl https://github.com/Cycleaddict/tunnels-of-doom-reconstruction/blob/c5dd6fe862c0b417b1269afc083c1d26a0ef95d8/recovered/gpl/tunnels-of-doom.gsl",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "adyoull-riscos-julius": {
+      "id": "adyoull-riscos-julius",
+      "title": "Julius — RISC OS Caesar III port",
+      "upstream_name": "riscos-julius",
+      "display_title": "Julius — RISC OS Caesar III port",
+      "subjects": [
+        "Julius"
+      ],
+      "repo": "https://github.com/adyoull/riscos-julius",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "RISC OS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "arm"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Shell"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Shell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Julius — RISC OS Caesar III port. Repository root and implementation inspected at pinned revisions. Classification: Julius1.8.0 port maintained as patches and RISC OS packaging. Inspected patch implements desktop logging, filename treatment, platform sources and frame yielding. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: arm. Build: Build scripts fetch pinned upstream Julius and crossdev dependencies. No independent build. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: RISC OS5, SDL2 via riscos-mesa and owned CaesarIII1.0.1.0 data. AI: README explicitly credits help from an AI assistant; no named tool established. Relationships: Derived from Julius; maintained platform adaptation, not a separate claim to reconstruct CaesarIII from scratch. Evidence: https://github.com/adyoull/riscos-julius/blob/491e81d799724a4be74e5649ae53afaa98c6688a/README.md https://github.com/adyoull/riscos-julius/blob/491e81d799724a4be74e5649ae53afaa98c6688a/BUILDING.md https://github.com/adyoull/riscos-julius/blob/491e81d799724a4be74e5649ae53afaa98c6688a/patches/julius/0002-RISC-OS-platform-support.patch",
+      "ai": {
+        "usage": true,
+        "tools": []
+      }
+    },
+    "smugpie-amiga-bitmap-font-tools": {
+      "id": "smugpie-amiga-bitmap-font-tools",
+      "title": "Amiga Bitmap Font Tools",
+      "upstream_name": "amiga-bitmap-font-tools",
+      "display_title": "Amiga Bitmap Font Tools",
+      "subjects": [
+        "Amiga Bitmap Font Tools"
+      ],
+      "repo": "https://github.com/smugpie/amiga-bitmap-font-tools",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python",
+        "JavaScript"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Amiga Bitmap Font Tools. Repository root and implementation inspected at pinned revisions. Classification: Reads native font descriptor/content files, exports JSON and converts to TTF/OTF/UFO. Inspected big-endian FontStreamer decodes bitmap rows and pointers. Host-side font work, not an Amiga execution CPU requirement. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/smugpie/amiga-bitmap-font-tools/blob/2a2b78a5d891e789697b05b2aa5c6bebe1d6c62d/README.md https://github.com/smugpie/amiga-bitmap-font-tools/blob/2a2b78a5d891e789697b05b2aa5c6bebe1d6c62d/python/classes/FontStreamer.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "earok-close-and-run-amiga68k": {
+      "id": "earok-close-and-run-amiga68k",
+      "title": "CloseRun and AddChip — Amiga boot memory tools",
+      "upstream_name": "close-and-run-amiga68k",
+      "display_title": "CloseRun and AddChip — Amiga boot memory tools",
+      "subjects": [
+        "CloseRun and AddChip"
+      ],
+      "repo": "https://github.com/earok/close-and-run-amiga68k",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k assembly"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: CloseRun and AddChip — Amiga boot memory tools. Repository root and implementation inspected at pinned revisions. Classification: Native bootblock and launcher source by Ross preserved by earok. Closes CLI/Workbench and reclaims Chip RAM for floppy-launched programs. Inspected assembly uses Exec/DOS/Intuition services. Source CPU: Architecture context: m68k. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: m68k. Build: Source inspected only. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Kickstart1.3 motivation; AddChip and Blitz Basic caveats are documented. No minimum CPU/RAM profile independently tested. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/earok/close-and-run-amiga68k/blob/1c9a4b700e7ea8d87d15ecb860a64d4afaf06aa1/README.md https://github.com/earok/close-and-run-amiga68k/blob/1c9a4b700e7ea8d87d15ecb860a64d4afaf06aa1/closerun.s",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "thom-ek-gadtoolsbox": {
+      "id": "thom-ek-gadtoolsbox",
+      "title": "GadToolsBox — Amiga GUI source generator",
+      "upstream_name": "GadToolsBox",
+      "display_title": "GadToolsBox — Amiga GUI source generator",
+      "subjects": [
+        "GadToolsBox"
+      ],
+      "repo": "https://github.com/thom-ek/GadToolsBox",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [
+        "ide",
+        "language-tooling"
+      ],
+      "types": [
+        "hybrid"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: GadToolsBox — Amiga GUI source generator. Repository root and implementation inspected at pinned revisions. Classification: Preserved GadToolsBoxv3 source for native GUI/resource creation and C code generation. Inspected C generator includes native Amiga APIs and emits windows, gadgets and locale assets. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Historical source and API dependencies present; no successful rebuild independently established. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Supports v2 GUI resources but not v1; requires gadget libraries. Exact CPU and OS minimum not established. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/thom-ek/gadtoolsbox/blob/e392cd72c5e32c9aa73c0f91b69a7d939bb94214/README.markdown https://github.com/thom-ek/GadToolsBox/blob/e392cd72c5e32c9aa73c0f91b69a7d939bb94214/README.markdown https://github.com/thom-ek/GadToolsBox/blob/e392cd72c5e32c9aa73c0f91b69a7d939bb94214/GadToolsBox/CGen/main.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "damieng-zx-diskimagemanager": {
+      "id": "damieng-zx-diskimagemanager",
+      "title": "Disk Image Manager — Spectrum and Amstrad media inspection",
+      "upstream_name": "DiskImageManager",
+      "display_title": "Disk Image Manager — Spectrum and Amstrad media inspection",
+      "subjects": [
+        "Disk Image Manager"
+      ],
+      "repo": "https://github.com/damieng-zx/DiskImageManager",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum",
+        "Amstrad CPC",
+        "Amstrad PCW",
+        "SAM Coupe"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Pascal"
+      ],
+      "reconstructed_languages": [
+        "Pascal"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Disk Image Manager — Spectrum and Amstrad media inspection. Repository root and implementation inspected at pinned revisions. Classification: Standard/extended DSK inspection, MGT/SAM handling, BASIC/screen viewers and copy-protection identification. Inspected Pascal packed records implement disk and track structures; media CPU is not a host CPU constraint. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/damieng-zx/diskimagemanager/blob/80b28726cc2e23c59fecfee8f5778c1ebcd98cdc/README.md https://github.com/damieng-zx/DiskImageManager/blob/80b28726cc2e23c59fecfee8f5778c1ebcd98cdc/README.md https://github.com/damieng-zx/DiskImageManager/blob/80b28726cc2e23c59fecfee8f5778c1ebcd98cdc/Source/DSKFormat.pas",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "cpcsdk-docker-amstrad-crossdev": {
+      "id": "cpcsdk-docker-amstrad-crossdev",
+      "title": "Amstrad crossdev — historical Docker tool bundle",
+      "upstream_name": "docker-amstrad-crossdev",
+      "display_title": "Amstrad crossdev — historical Docker tool bundle",
+      "subjects": [
+        "Amstrad crossdev"
+      ],
+      "repo": "https://github.com/cpcsdk/docker-amstrad-crossdev",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Dockerfile",
+        "Shell"
+      ],
+      "reconstructed_languages": [
+        "Dockerfile",
+        "Shell"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "compiler-toolchain"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Amstrad crossdev — historical Docker tool bundle. Repository root and implementation inspected at pinned revisions. Classification: Historical CPC cross-development container and examples. Dockerfile installs build tools and cpclib. README explicitly recommends rust.cpclib instead; retain as a historical bundle, not the current recommended workflow. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Old Ubuntu18.04 and moving downloads need review; not built. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: Explicitly superseded by cpcsdk/rust.cpclib, already tracked; repository remains a distinct historical integration bundle. Evidence: https://github.com/cpcsdk/docker-amstrad-crossdev/blob/14d2f29974104c1984428d8740373c833c87ce52/README.md https://github.com/cpcsdk/docker-amstrad-crossdev/blob/14d2f29974104c1984428d8740373c833c87ce52/Dockerfile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lardoboffin-ransom-in-c-for-bbc-micro": {
+      "id": "lardoboffin-ransom-in-c-for-bbc-micro",
+      "title": "Ransom — Acorn C adventure implementation",
+      "upstream_name": "Ransom_in_C_for_BBC_Micro",
+      "display_title": "Ransom — Acorn C adventure implementation",
+      "subjects": [
+        "Ransom"
+      ],
+      "repo": "https://github.com/LardoBoffin/Ransom_in_C_for_BBC_Micro",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "Acorn Archimedes"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "Acorn Archimedes"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Ransom — Acorn C adventure implementation. Repository root and implementation inspected at pinned revisions. Classification: GAC sample adventure reimplemented in C on a BBC Master and refactored on A5000. Inspected extensionless C/gCode contains gameplay/counter/inventory interface. Do not infer6502 execution from BBC branding when Norcroft C environment is unspecified. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: No independent build; the described Tatung Einstein port is a future wish, not delivered support. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/lardoboffin/ransom_in_c_for_bbc_micro/blob/fa54a97bcc0b81a1aa26dcafe60671d29e536097/README.md https://github.com/LardoBoffin/Ransom_in_C_for_BBC_Micro/blob/fa54a97bcc0b81a1aa26dcafe60671d29e536097/README.md https://github.com/LardoBoffin/Ransom_in_C_for_BBC_Micro/blob/fa54a97bcc0b81a1aa26dcafe60671d29e536097/C/gCode",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "catseye-a2tools": {
+      "id": "catseye-a2tools",
+      "title": "a2tools — Apple II DOS3.3 disk utilities",
+      "upstream_name": "a2tools",
+      "display_title": "a2tools — Apple II DOS3.3 disk utilities",
+      "subjects": [
+        "a2tools"
+      ],
+      "repo": "https://github.com/catseye/a2tools",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Unix",
+        "DOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: a2tools — Apple II DOS3.3 disk utilities. Repository root and implementation inspected at pinned revisions. Classification: Terry Kyriacopoulos DOS3.3 image utilities maintained by Cats Eye, with explicit ANSI-C Unix/MS-DOS portability changes. Historical fork attribution preserved; one tool suite record. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/catseye/a2tools/blob/52ad81cc75ed990627c365ab1179e2834e09b03d/README https://github.com/catseye/a2tools/blob/52ad81cc75ed990627c365ab1179e2834e09b03d/a2tools.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "bobbimanners-mdttool": {
+      "id": "bobbimanners-mdttool",
+      "title": "MDTTool — Apple II MicroDrive image utilities",
+      "upstream_name": "mdttool",
+      "display_title": "MDTTool — Apple II MicroDrive image utilities",
+      "subjects": [
+        "MDTTool"
+      ],
+      "repo": "https://github.com/bobbimanners/mdttool",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II",
+        "Apple IIgs"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MDTTool — Apple II MicroDrive image utilities. Repository root and implementation inspected at pinned revisions. Classification: Python CF-image partition inspection/extraction/assembly for MicroDrive/Turbo. Inspected source embeds6502 boot bytes; that is image content, not Python host CPU. Distinguishes HFS detection from assumed ProDOS on other partitions. Source CPU: Architecture context: 6502. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: No image or raw device operations executed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Raw-device writing exists; cataloguing does not recommend unattended device writes. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/bobbimanners/mdttool/blob/904552c71b495ec727c4e8ba63e4b2afd05b6c5d/README.md https://github.com/bobbimanners/mdttool/blob/904552c71b495ec727c4e8ba63e4b2afd05b6c5d/mdttool",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "st3fan-rsrc": {
+      "id": "st3fan-rsrc",
+      "title": "RSRC — Macintosh resource parser",
+      "upstream_name": "rsrc",
+      "display_title": "RSRC — Macintosh resource parser",
+      "subjects": [
+        "RSRC"
+      ],
+      "repo": "https://github.com/st3fan/rsrc",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Classic Mac OS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Go"
+      ],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: RSRC — Macintosh resource parser. Repository root and implementation inspected at pinned revisions. Classification: Go resource-fork parser with big-endian resource-map decoding and typed resource extraction. Not a native68k application merely because inputs are Macintosh files. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/st3fan/rsrc/blob/479992258435e49933b89e96201db85ba7a12e21/README.md https://github.com/st3fan/rsrc/blob/479992258435e49933b89e96201db85ba7a12e21/rsrc.go",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "laulandn-reslib": {
+      "id": "laulandn-reslib",
+      "title": "reslib — Macintosh resource library",
+      "upstream_name": "reslib",
+      "display_title": "reslib — Macintosh resource library",
+      "subjects": [
+        "reslib"
+      ],
+      "repo": "https://github.com/laulandn/reslib",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Classic Mac OS",
+        "Palm OS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: reslib — Macintosh resource library. Repository root and implementation inspected at pinned revisions. Classification: Standalone standard-C++ resource abstractions and Mac/Palm format classes. Explicitly work in progress; sample map implementation initializes fields and must not be treated as proof all resource operations are finished. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Implementation and documentation inspected; no independent build or execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/laulandn/reslib/blob/10b840efbf06e07f1bc2f6b068f3cda4f6a5069a/README.md https://github.com/laulandn/reslib/blob/10b840efbf06e07f1bc2f6b068f3cda4f6a5069a/RMacResMap.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "knightfox75-msx-diagnostics": {
+      "id": "knightfox75-msx-diagnostics",
+      "title": "MSX Diagnostics — native hardware tests",
+      "upstream_name": "msx_diagnostics",
+      "display_title": "MSX Diagnostics — native hardware tests",
+      "subjects": [
+        "MSX Diagnostics"
+      ],
+      "repo": "https://github.com/knightfox75/msx_diagnostics",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MSX Diagnostics — native hardware tests. Repository root and implementation inspected at pinned revisions. Classification: Native Z80 diagnostics for display modes, sprites, keyboard, joystick and PSG. Inspected source selects ROM/COM/CAS/BASIC output formats and BIOS calls. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: z80. Build: asMSX0.19+ documented; no hardware test executed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Basic MSX hardware diagnostics, not blanket conformance certification. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/knightfox75/msx_diagnostics/blob/780925eb5b316a513a1409de54c8f213ea607997/README.md https://github.com/knightfox75/msx_diagnostics/blob/780925eb5b316a513a1409de54c8f213ea607997/source/msxdiag.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "nataliapc-msx-z80bench": {
+      "id": "nataliapc-msx-z80bench",
+      "title": "Z80BENCH — MSX CPU and memory measurements",
+      "upstream_name": "msx_z80bench",
+      "display_title": "Z80BENCH — MSX CPU and memory measurements",
+      "subjects": [
+        "Z80BENCH"
+      ],
+      "repo": "https://github.com/nataliapc/msx_z80bench",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "profiler",
+        "cycle-analysis"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Z80BENCH — MSX CPU and memory measurements. Repository root and implementation inspected at pinned revisions. Classification: Native CPU-frequency and mixed read/write memory benchmarks with opcode-based CPU detection. Inspected SDCC naked Z280 probe; Z280 detection marked experimental. Timing is VDP-interrupt-based and approximate, not a universal CPU-clock oracle. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: z80. Build: No run on hardware or emulator. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Z80/R800/Z280/Z380 distinctions supported or probed; minimum host model is not inferred from every detectable CPU. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/nataliapc/msx_z80bench/blob/74d49e9eec0150b99188931282967862f75ad543/README.md https://github.com/nataliapc/msx_z80bench/blob/74d49e9eec0150b99188931282967862f75ad543/src/libs/utils_detectZ280.c",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "reidrac-msx-pixel-tools": {
+      "id": "reidrac-msx-pixel-tools",
+      "title": "MSX Pixel Tools — Screen2 asset conversion",
+      "upstream_name": "msx-pixel-tools",
+      "display_title": "MSX Pixel Tools — Screen2 asset conversion",
+      "subjects": [
+        "MSX Pixel Tools"
+      ],
+      "repo": "https://github.com/reidrac/msx-pixel-tools",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MSX Pixel Tools — Screen2 asset conversion. Repository root and implementation inspected at pinned revisions. Classification: PNG-to-Screen2 sprites, tiles and SCR converters used for Night Knight. Supports16x16 sprite decomposition and256tile limit; output C/assembly is data, not a CPU-bound program. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Python3/Pillow workflow documented, not run. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/reidrac/msx-pixel-tools/blob/468fb1e3f15b117db60dd9da2eb51f451e70ef87/README.md https://github.com/reidrac/msx-pixel-tools/blob/468fb1e3f15b117db60dd9da2eb51f451e70ef87/png2sprites.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "kata68k-x68000-tools-sntp-x": {
+      "id": "kata68k-x68000-tools-sntp-x",
+      "title": "SNTP client — X68000 Human68k",
+      "upstream_name": "X68000_Tools_sntp.x",
+      "display_title": "SNTP client — X68000 Human68k",
+      "subjects": [
+        "SNTP client"
+      ],
+      "repo": "https://github.com/kata68k/X68000_Tools_sntp.x",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp X68000"
+      ],
+      "target_platforms": [
+        "Sharp X68000"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SNTP client — X68000 Human68k. Repository root and implementation inspected at pinned revisions. Classification: Native IPv4 UDP SNTP client for ESP/X libnetwork sockets and Human68k RTC setting. C implementation avoids floating point and64-bit assumptions; README documents legacy socket-API quirks. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: m68k. Build: No compilation, networking or RTC modification performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Requires Human68k ESP/X networking and libnetwork.a, not a generic Windows/Linux NTP client. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/kata68k/x68000_tools_sntp.x/blob/daad6369c9803a36397da6ac8319d0e0da4d0890/Readme.md https://github.com/kata68k/X68000_Tools_sntp.x/blob/daad6369c9803a36397da6ac8319d0e0da4d0890/Readme.md https://github.com/kata68k/X68000_Tools_sntp.x/blob/daad6369c9803a36397da6ac8319d0e0da4d0890/src/sntp.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "hyano-bluescsi-x68k": {
+      "id": "hyano-bluescsi-x68k",
+      "title": "BlueSCSI tools — X68000 DaynaPORT driver",
+      "upstream_name": "BlueSCSI-x68k",
+      "display_title": "BlueSCSI tools — X68000 DaynaPORT driver",
+      "subjects": [
+        "BlueSCSI tools"
+      ],
+      "repo": "https://github.com/hyano/BlueSCSI-x68k",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp X68000"
+      ],
+      "target_platforms": [
+        "Sharp X68000"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: BlueSCSI tools — X68000 DaynaPORT driver. Repository root and implementation inspected at pinned revisions. Classification: Native DaynaPORT network-adapter driver tooling for BlueSCSIV2 on X68000; inspected SCSI C implementation. Separate from BlueSCSI firmware and hardware. Source CPU: No instruction-set dependency is established for the input format or host-side implementation. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: m68k. Build: elf2x68k build documented; no device execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/hyano/bluescsi-x68k/blob/940bbafeb4e644e0cbe63b96d0e5d69b4e68a929/README.md https://github.com/hyano/BlueSCSI-x68k/blob/940bbafeb4e644e0cbe63b96d0e5d69b4e68a929/README.md https://github.com/hyano/BlueSCSI-x68k/blob/940bbafeb4e644e0cbe63b96d0e5d69b4e68a929/dyptether/daynaport.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "noema-lands-power-strike-teardown": {
+      "id": "noema-lands-power-strike-teardown",
+      "title": "Power Strike — Master System sound and asset analysis",
+      "upstream_name": "power-strike-teardown",
+      "display_title": "Power Strike — Master System sound and asset analysis",
+      "subjects": [
+        "Power Strike"
+      ],
+      "repo": "https://github.com/noema-lands/power-strike-teardown",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Master System"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "data-format-analysis",
+        "patching"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "hybrid"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Power Strike — Master System sound and asset analysis. Repository root and implementation inspected at pinned revisions. Classification: Partial sound-bank disassembly and compression/tile research. Dynamic-programming RLE encoder and in-budget reskin scripts are implemented; not a full game-source reconstruction. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Author reports encoder round trips; no independent ROM or emulator test. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: README explicitly attributes the work to Noema, an AI agent. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/noema-lands/power-strike-teardown/blob/bb716db8ffe92163917365616233692559f7a56f/README.md https://github.com/noema-lands/power-strike-teardown/blob/bb716db8ffe92163917365616233692559f7a56f/tools/enc.py",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Noema"
+        ]
+      }
+    },
+    "markdryan-specasm": {
+      "id": "markdryan-specasm",
+      "title": "Specasm — native Spectrum assembler IDE",
+      "upstream_name": "specasm",
+      "display_title": "Specasm — native Spectrum assembler IDE",
+      "subjects": [
+        "Specasm"
+      ],
+      "repo": "https://github.com/markdryan/specasm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum",
+        "ZX Spectrum Next"
+      ],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "ide",
+        "assembler-toolchain",
+        "cycle-analysis"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Specasm — native Spectrum assembler IDE. Repository root and implementation inspected at pinned revisions. Classification: On-machine assembler/editor/linker with instruction timing analysis. Inspected opcode cycle tables support the documented Z80 assembler rather than merely example binaries. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: z80. Build: Source and build documentation reviewed, not executed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Separate48K/128K/Next packages; classic Spectrum requires ESXDOS0.87+ storage. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/markdryan/specasm/blob/83f3cf4c402be8209383078411feac352dcfe6f0/README.md https://github.com/markdryan/specasm/blob/83f3cf4c402be8209383078411feac352dcfe6f0/src/analysis.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "royaltm-z80-rb": {
+      "id": "royaltm-z80-rb",
+      "title": "ruby-Z80 — assembler DSL and Spectrum tooling",
+      "upstream_name": "z80-rb",
+      "display_title": "ruby-Z80 — assembler DSL and Spectrum tooling",
+      "subjects": [
+        "ruby-Z80"
+      ],
+      "repo": "https://github.com/royaltm/z80-rb",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Ruby"
+      ],
+      "reconstructed_languages": [
+        "Ruby"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "assembler-toolchain",
+        "language-tooling"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: ruby-Z80 — assembler DSL and Spectrum tooling. Repository root and implementation inspected at pinned revisions. Classification: Ruby macro-assembler DSL with labels, relocation/debug metadata, TAP output and Spectrum BASIC helpers. Ruby host requirements separate from generated Z80 code. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: z80. Build: Requires Ruby2.1+ per README; no execution performed. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/royaltm/z80-rb/blob/96571a27143f30471e638496e231b6a1cc1fe6b9/README.rdoc https://github.com/royaltm/z80-rb/blob/96571a27143f30471e638496e231b6a1cc1fe6b9/lib/z80.rb",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "oldcompcz-prometheus": {
+      "id": "oldcompcz-prometheus",
+      "title": "PROMETHEUS — Spectrum assembler reconstruction",
+      "upstream_name": "prometheus",
+      "display_title": "PROMETHEUS — Spectrum assembler reconstruction",
+      "subjects": [
+        "PROMETHEUS"
+      ],
+      "repo": "https://github.com/oldcompcz/prometheus",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [
+        "z80"
+      ],
+      "target_cpu": [
+        "z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "disassembly"
+      ],
+      "tool_kinds": [
+        "assembler-toolchain",
+        "debugger",
+        "ide"
+      ],
+      "types": [
+        "hybrid"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: PROMETHEUS — Spectrum assembler reconstruction. Repository root and implementation inspected at pinned revisions. Classification: Annotated historical assembler/editor/monitor reconstruction with installer and relocation/configuration tables. Inspected source documents interleaved code/data and relocation design. Source CPU: Architecture context: z80. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: z80. Build: Author reports exact18356-byte binary; new TAP builder also accepts deliberately changed output lengths. No independent rebuild. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Python3 and z80asm1.8 documented; preserved loader blocks remain distinct from reconstructed code. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: One coherent repository-level project; no separate entries invented from implementation directories. Evidence: https://github.com/oldcompcz/prometheus/blob/4998e47f8285f177a7e6e1a8f7abda9021b20163/README.md https://github.com/oldcompcz/prometheus/blob/4998e47f8285f177a7e6e1a8f7abda9021b20163/src/prometheus.asm",
       "ai": {
         "usage": null,
         "tools": []
