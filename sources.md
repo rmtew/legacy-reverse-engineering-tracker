@@ -1226,3 +1226,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-22 — Review nine material upstream changes spanning reconstruction exactness, original-media fidelity, retro firmware and filesystem/tooling evidence.
 
 [Research record](docs/research/maintenance-2026-10-22-upstream-fidelity.md).
+
+## 2026-10-22 — Review nine material post-pass changes across reconstruction fidelity, emulated protocol/runtime tests, format tooling and explicit AI evidence; add the newly surfaced Spider-claude research archive.
+
+[Research record](docs/research/maintenance-2026-10-22-pm-runtime-tools-ai.md).
