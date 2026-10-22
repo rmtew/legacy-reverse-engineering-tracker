@@ -155,6 +155,8 @@ def daily_description(event, project):
     platforms = project_platforms(project)
     if platforms:
         bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
+    if ((project.get("github") or {}).get("source_availability") or {}).get("status") == "unavailable":
+        bits.append("<p>Repository unavailable (HTTP 404); prior metadata retained; retryable.</p>")
 
     if event.get("authors"):
         bits.append("<p><strong>Authors:</strong> " + html.escape(", ".join(event["authors"])) + "</p>")
@@ -195,6 +197,8 @@ def release_description(event, project):
     platforms = project_platforms(project)
     if platforms:
         bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
+    if ((project.get("github") or {}).get("source_availability") or {}).get("status") == "unavailable":
+        bits.append("<p>Repository unavailable (HTTP 404); prior metadata retained; retryable.</p>")
     if event.get("message"):
         bits.append("<p>" + html.escape(str(event["message"])) + "</p>")
     return "".join(bits)

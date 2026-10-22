@@ -11,10 +11,12 @@ import hashlib
 from io import StringIO
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import tempfile
 from urllib.parse import quote, urlencode
+from urllib.error import HTTPError
 
 import collect_activity as activity
 import refresh_github as probe
@@ -23,7 +25,8 @@ from catalogue_storage import bounded, encode, load_projects, write_projects, st
 from collection_budget import Budget, BudgetStop, RecordStop
 from merge_pending_projects import main as merge_pending
 from record_project_activity import main as record_catalogue, snapshot
-from refresh_scope import catalogue_delta, pending_publication, prepare_publication, repository
+from refresh_scope import (catalogue_delta, pending_publication, prepare_publication, repository,
+                           publication_fingerprint, retained_metadata)
 from research_submission import REFRESH_REQUEST, refresh_repositories
 from validate_site_data import validate
 
@@ -124,6 +127,14 @@ def due(repo, record_group, rs, now):
 
 def plan(progress, records, poll, now, request_id, full=False, research_repositories=None):
     progress = copy.deepcopy(progress)
+    # Long unavailable-source retries must not pin the active cycle and prevent
+    # later healthy repositories from entering a new sweep.
+    if cycle := progress.get("cycle"):
+        for work in ("probe", "activity"):
+            for repo in list(cycle["pending"][work]):
+                if not ready(progress, repo, work, now):
+                    cycle["pending"][work].remove(repo)
+                    cycle["deferred"][work].append(repo)
     research = research_repositories is not None
     if research and full:
         raise ValueError("A research refresh cannot request a full sweep")
@@ -140,7 +151,7 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
         probes = sorted(
             repo
             for repo, rows in by_repo.items()
-            if repo in selected and (
+            if repo in selected and ready(progress, repo, "probe", now) and (
                 research or full
                 or repo in progress["retry"]["probe"]
                 or due(repo, rows, poll["repositories"].get(repo, {}), now)
@@ -149,9 +160,9 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
         scans = sorted(
             repo
             for repo in selected
-            if full
+            if ready(progress, repo, "activity", now) and (full
             or repo in progress["retry"]["activity"]
-            or poll["repositories"].get(repo, {}).get("scan_requested")
+            or poll["repositories"].get(repo, {}).get("scan_requested"))
         )
         progress["cycle"] = {
             "id": digest([request_id, progress["revision"], stamp(now)])[:24],
@@ -170,7 +181,7 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
                 repo for repo in selected if repo in progress["retry"][work]
                 or poll["repositories"].get(repo, {}).get("scan_requested")
             }
-            extra = sorted(requested - set(cycle["targets"][work]))
+            extra = sorted(r for r in requested - set(cycle["targets"][work]) if ready(progress, r, work, now))
             cycle["targets"][work].extend(extra)
             cycle["pending"][work].extend(extra)
         # Bounded replay suppression. Very late duplicates may recheck only
@@ -184,7 +195,7 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
         cycle = progress["cycle"]
         cycle["mode"] = "full"
         for work in ("probe", "activity"):
-            extra = sorted(repos - set(cycle["targets"][work]))
+            extra = sorted(r for r in repos - set(cycle["targets"][work]) if ready(progress, r, work, now))
             cycle["targets"][work].extend(extra)
             cycle["pending"][work].extend(extra)
     if full:
@@ -201,7 +212,7 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
             publication = rs.get("publication") or {}
             if pending_publication(rs):
                 for work, complete in (("probe", "metadata_complete"), ("activity", "history_complete")):
-                    if not publication.get(complete) and repo not in cycle["deferred"][work]:
+                    if not publication.get(complete) and ready(progress, repo, work, now) and repo not in cycle["deferred"][work]:
                         for field in ("targets", "pending"):
                             if repo not in cycle[field][work]:
                                 cycle[field][work].append(repo)
@@ -236,17 +247,18 @@ def candidates(progress, poll, work, now, cap):
     return priority[:share] + ordinary + priority[share:]
 
 
-def defer(progress, poll, repo, work, now, outcomes):
+def defer(progress, poll, repo, work, now, outcomes, *, seconds=None, block_activity=False):
     retry = progress["retry"][work].get(repo, {})
     failures = min(5, retry.get("failures", 0) + 1)
     entry = {
         "failures": failures,
         "attempt_at": stamp(now),
-        "retry_at": stamp(now + timedelta(seconds=60 * 2**failures)),
+        "retry_at": stamp(now + timedelta(seconds=seconds if seconds is not None else 60 * 2**failures)),
     }
     lanes = [work]
     rs = poll["repositories"].get(repo, {})
-    if work == "probe" and pending_publication(rs) and not rs["publication"].get("metadata_complete"):
+    if work == "probe" and ((pending_publication(rs) and not rs["publication"].get("metadata_complete"))
+                            or block_activity):
         lanes.append("activity")
     for lane in lanes:
         progress["retry"][lane][repo] = copy.deepcopy(entry)
@@ -255,6 +267,38 @@ def defer(progress, poll, repo, work, now, outcomes):
             cycle["pending"][lane].remove(repo)
             cycle["deferred"][lane].append(repo)
         outcomes.setdefault(repo, {})[lane] = "retry"
+
+
+def clear_unavailability(records, rs):
+    rs.pop("repository_availability", None)
+    work = rs.get("publication") or {}
+    if work.get("outcome") == "source-unavailable":
+        work.pop("outcome")
+    for project in records:
+        (project.get("github") or {}).pop("source_availability", None)
+
+
+def unavailable(progress, poll, working, repo, now, outcomes):
+    """Record a verified root 404, never successful metadata/history/freshness."""
+    rs, records = poll["repositories"][repo], working[repo]
+    defer(progress, poll, repo, "probe", now, outcomes, seconds=24 * 60 * 60, block_activity=True)
+    rs["repository_availability"] = {
+        "repository": repo, "status": "unavailable", "http_status": 404,
+        "observed_at": stamp(now), "retry_at": progress["retry"]["probe"][repo]["retry_at"], "retryable": True,
+    }
+    rs["last_error"] = "Repository lookup returned HTTP 404; retained facts; retryable"
+    work = rs.get("publication") or {}
+    if (pending_publication(rs) and work.get("reset_project_ids") == []
+            and work.get("fingerprint") == publication_fingerprint(records)
+            and retained_metadata(repo, records, rs)):
+        work["outcome"] = "source-unavailable"
+    for project in records:
+        if project.get("github"):
+            project["github"]["source_availability"] = {
+                "status": "unavailable", "http_status": 404, "retryable": True,
+            }
+    log(repo=repo, work="probe", status="source-unavailable", retry_at=rs["repository_availability"]["retry_at"],
+        publication_outcome=work.get("outcome", "pending"))
 
 
 class Interrupted(BaseException):
@@ -294,6 +338,7 @@ class Response:
 
 @contextmanager
 def transport(module, budget, now, opener=None):
+    root_lookups = {}
     names = (
         "urlopen",
         "api",
@@ -339,9 +384,18 @@ def transport(module, budget, now, opener=None):
 
     def api(*args, **kwargs):
         try:
-            return original_api(*args, **kwargs)
+            result = original_api(*args, **kwargs)
         except (module.RateStop, module.PublicationBudget) as exc:
             raise Interrupted(exc) from exc
+        except Exception as exc:
+            cause = exc if isinstance(exc, HTTPError) else exc.__cause__
+            if isinstance(cause, HTTPError) and args and re.fullmatch(r"/repos/[^/]+/[^/]+", args[0]):
+                root_lookups[args[0]] = cause.code
+            raise
+        else:
+            if args and re.fullmatch(r"/repos/[^/]+/[^/]+", args[0]):
+                root_lookups[args[0]] = result[0]
+            return result
 
     for name in ("REQUESTS", "NOT_MODIFIED", "CONDITIONAL_REQUESTS"):
         if hasattr(module, name):
@@ -359,7 +413,7 @@ def transport(module, budget, now, opener=None):
     module.NOW, module.NOW_ISO = now, stamp(now)
     module.FORCE_FULL_PROBE = True
     try:
-        yield
+        yield root_lookups
     except Interrupted as exc:
         exc.rate = module.rate_snapshot()
         raise
@@ -560,13 +614,17 @@ def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None
         and datetime.fromisoformat(rate["reset_at"].replace("Z", "+00:00")) <= now
     ):
         poll["rate"]["probe"] = {}
-    with transport(module, budget, now, opener), redirect_stdout(StringIO()):
+    with transport(module, budget, now, opener) as lookups, redirect_stdout(StringIO()):
         if work == "probe":
             records, poll = probe.main(records=records, state=poll, scope={"mode": "adaptive"}, persist=False)
             rs = poll["repositories"][repo]
             complete = bool(rs.get("last_probe_at") == stamp(now) and not rs.get("last_error"))
             if pending_publication(rs) and not rs["publication"].get("metadata_complete"):
                 complete = False
+            status_code = lookups.get(f"/repos/{repo}")
+            if status_code in (200, 304):
+                clear_unavailability(records, rs)
+            rs["_repository_lookup_status"] = status_code  # Popped before any persistence below.
         else:
             activity.load_rate_from_state(poll)
             records, rs, events, complete = activity_unit(repo, records, rs, events, now)
@@ -657,6 +715,7 @@ def collect(
                         opener,
                         rate,
                     )
+                    lookup_status = rs.pop("_repository_lookup_status", None)
                 except BudgetStop:
                     break
                 except Interrupted as exc:
@@ -685,7 +744,12 @@ def collect(
                     budget.end_record()
                 touched.add(repo)
                 if not done and work == "probe":
-                    defer(progress, poll, repo, work, now, outcomes)
+                    if lookup_status == 404:
+                        unavailable(progress, poll, working, repo, now, outcomes)
+                    else:
+                        if lookup_status in (200, 304):
+                            clear_unavailability(working[repo], poll["repositories"][repo])
+                        defer(progress, poll, repo, work, now, outcomes)
                     continue
                 before = digest([working[repo], poll["repositories"].get(repo, {}), events.get(repo, [])])
                 after = digest([rows, rs, evs])
@@ -762,7 +826,7 @@ def collect(
     return bundle
 
 
-def add_publication_work(progress, records, poll):
+def add_publication_work(progress, records, poll, now):
     cycle = progress.get("cycle")
     if not cycle:
         return
@@ -775,7 +839,7 @@ def add_publication_work(progress, records, poll):
         if not pending_publication(rs):
             continue
         for work, field in (("probe", "metadata_complete"), ("activity", "history_complete")):
-            if not rs["publication"].get(field) and repo not in cycle["deferred"][work]:
+            if not rs["publication"].get(field) and ready(progress, repo, work, now) and repo not in cycle["deferred"][work]:
                 for queue in ("targets", "pending"):
                     if repo not in cycle[queue][work]:
                         cycle[queue][work].append(repo)
@@ -912,7 +976,7 @@ def apply_bundle(root, bundle, now=None):
             poll["repositories"][repo] = copy.deepcopy(row["state_after"])
             events[repo] = copy.deepcopy(row["events_after"])
             accepted.append(repo)
-        add_publication_work(progress, records, poll)
+        add_publication_work(progress, records, poll, now)
         live = set(by_repo)
         poll["repositories"] = {r: v for r, v in poll["repositories"].items() if r in live}
         for work in ("probe", "activity"):

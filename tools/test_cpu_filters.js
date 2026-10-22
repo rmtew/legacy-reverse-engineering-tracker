@@ -187,3 +187,10 @@ test("obsolete execution terminology is not a UI search alias", () => {
   assert.equal(matches({execution_paths:[{method:"baked-emulation",name:"embedded runtime",status:"playable"}]}),false);
   elements.get("q").value="";
 });
+
+
+test("unavailable repository details preserve classification and expose a retryable cached status", () => {
+  context.testRecord = { github: {source_availability: {status:"unavailable", http_status:404, retryable:true}} };
+  assert.match(vm.runInContext("repositoryAvailability(testRecord)", context), /HTTP 404.*cached metadata retained; retryable/);
+  assert.equal(vm.runInContext("repositoryAvailability({})", context), "");
+});

@@ -15,6 +15,7 @@ import json
 import os
 import re
 import subprocess
+from datetime import datetime
 from pathlib import Path
 
 from record_project_activity import snapshot
@@ -41,6 +42,44 @@ def tracking(project):
     return (repository(project), project.get("github_branch"), project.get("github_path"))
 
 
+def publication_fingerprint(projects):
+    records = sorted((material(p) for p in projects), key=lambda p: p["id"])
+    return hashlib.sha256(json.dumps(records, sort_keys=True).encode()).hexdigest()
+
+
+def retained_metadata(repo, projects, rs):
+    """An unavailable source cannot waive new identities or unknown metadata."""
+    return bool(projects and rs.get("last_probe_at")) and all(
+        (p.get("github") or {}).get("repository", "").casefold() == repo.casefold()
+        and any((p.get("github") or {}).get(k) for k in ("default_branch", "latest_commit", "created_at", "languages"))
+        for p in projects
+    )
+
+
+def publication_resolved(repo, rs, fingerprint):
+    """Resolved attempt is distinct from successful metadata/history completion."""
+    work = rs.get("publication") or {}
+    if not isinstance(work, dict):
+        return False
+    if work.get("metadata_complete") and work.get("history_complete"):
+        return True
+    proof = rs.get("repository_availability") or {}
+    if not isinstance(proof, dict):
+        return False
+    if not (work.get("outcome") == "source-unavailable" and work.get("reset_project_ids") == []
+            and fingerprint and work.get("fingerprint") == fingerprint
+            and proof.get("repository") == repo and proof.get("status") == "unavailable"
+            and type(proof.get("http_status")) is int and proof["http_status"] == 404
+            and proof.get("retryable") is True and rs.get("last_probe_at")):
+        return False
+    try:
+        observed, retry, prior = (datetime.fromisoformat(value.replace("Z", "+00:00")) for value in
+                                  (proof["observed_at"], proof["retry_at"], rs["last_probe_at"]))
+        return bool(observed.tzinfo and retry.tzinfo and prior.tzinfo and prior <= observed < retry)
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return False
+
+
 def catalogue_delta(before, after):
     old = {p["id"]: p for p in before}
     new = {p["id"]: p for p in after}
@@ -53,8 +92,7 @@ def catalogue_delta(before, after):
                          for p in (old.get(pid, {}), new.get(pid, {})) if repository(p)})
     fingerprints = {}
     for repo in repositories:
-        records = sorted((material(p) for p in after if repository(p) == repo), key=lambda p: p["id"])
-        fingerprints[repo] = hashlib.sha256(json.dumps(records, sort_keys=True).encode()).hexdigest()
+        fingerprints[repo] = publication_fingerprint(p for p in after if repository(p) == repo)
     return {"mode": "publication", "repositories": repositories,
             "changed_project_ids": changed, "reset_project_ids": reset, "left_github_project_ids": left_github,
             "removed_project_ids": removed, "membership_repositories": membership,
@@ -122,8 +160,9 @@ def prepare_publication(repositories, state, scope, projects=None):
                              "history_complete": False, "reset_project_ids": reset_ids}
         # Do not let an old repository scan freeze context for a new project or
         # changed branch/path before its full history has actually completed.
-        rs.pop("last_deep_scan", None)
-        rs.pop("last_deep_scan_project_ids", None)
+        if reset_ids:
+            rs.pop("last_deep_scan", None)
+            rs.pop("last_deep_scan_project_ids", None)
         rs["scan_requested"] = True
         rs["scan_reason"] = "publication"
         for project in repositories[repo]:
@@ -146,7 +185,7 @@ def check_complete(scope, state):
     for repo in scope["repositories"]:
         work = (state.get("repositories", {}).get(repo) or {}).get("publication") or {}
         if (work.get("fingerprint") != scope["fingerprints"][repo]
-                or not work.get("metadata_complete") or not work.get("history_complete")):
+                or not publication_resolved(repo, state.get("repositories", {}).get(repo, {}), scope["fingerprints"][repo])):
             incomplete.append(repo)
     if incomplete:
         raise SystemExit("Publication enrichment is still pending (retry state retained): " + ", ".join(incomplete))
@@ -158,9 +197,13 @@ def check_publishable(state, projects, catalogue=None):
         previous = {pid: material(p) for pid, p in catalogue.get("projects", {}).items()}
         if current != previous:
             raise SystemExit("Catalogue changes must be refreshed and recorded before deploying")
-    tracked = {repository(project) for project in projects}
+    tracked = {}
+    for project in projects:
+        if repo := repository(project):
+            tracked.setdefault(repo, []).append(project)
     pending = sorted(repo for repo, rs in state.get("repositories", {}).items()
-                     if repo in tracked and pending_publication(rs))
+                     if repo in tracked and rs.get("publication")
+                     and not publication_resolved(repo, rs, publication_fingerprint(tracked[repo])))
     if pending:
         raise SystemExit("Publication enrichment must finish before deploying: " + ", ".join(pending))
 

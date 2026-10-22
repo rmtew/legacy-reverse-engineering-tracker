@@ -4,10 +4,20 @@ import unittest
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from generate_rss import generate, release_events
+from generate_rss import generate, release_events, daily_description, release_description, change_description
 
 
 class RssTest(unittest.TestCase):
+    def test_unavailable_status_discloses_retained_facts_without_removing_history(self):
+        project = {"id": "p", "github": {"source_availability": {
+            "status": "unavailable", "http_status": 404, "retryable": True}}}
+        for render in (daily_description, release_description, change_description):
+            with self.subTest(render=render.__name__):
+                text = render({}, project)
+                self.assertIn("prior metadata retained; retryable", text)
+                self.assertNotIn("removed", text)
+                self.assertNotIn("unavailable", render({}, {"id": "p"}))
+
     def test_release_keeps_calendar_date_without_inventing_noon_utc(self):
         project = {"id": "p", "github": {"latest_release": {
             "tag": "v1", "published_at": "2026-09-26"}}}

@@ -265,6 +265,13 @@ def validate(projects_path, activity_path, rss_path=None):
     source_count, audit_count, research_event_count, decision_count = validate_research_state(projects_path, project_ids, errors)
 
     for index, project in enumerate(projects):
+        availability = (project.get("github") or {}).get("source_availability")
+        if availability is not None and (not isinstance(availability, dict)
+                or set(availability) != {"status", "http_status", "retryable"}
+                or availability.get("status") != "unavailable"
+                or type(availability.get("http_status")) is not int or availability["http_status"] != 404
+                or availability.get("retryable") is not True):
+            fail(f"project {index} has invalid source_availability", errors)
         for field in ("upstream_name", "display_title"):
             value = project.get(field)
             if not isinstance(value, str) or not value.strip():

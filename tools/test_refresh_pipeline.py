@@ -1,7 +1,7 @@
 """Bounded collection and durable offline refresh/recovery contracts."""
 
 import copy
-from contextlib import ExitStack, redirect_stdout
+from contextlib import ExitStack, redirect_stdout, redirect_stderr
 from datetime import datetime, timedelta, timezone
 from io import BytesIO, StringIO
 import json
@@ -691,6 +691,243 @@ class RefreshPipelineTests(unittest.TestCase):
             self.assertNotIn(first, progress["research_requests"])
             late = pipeline.plan(progress, records, poll, NOW, first, research_repositories={"owner/a"})
         self.assertEqual(late["cycle"]["pending"]["probe"], ["owner/a"])
+
+    def unavailable_source_fixture(self, status=404, healthy=False):
+        rows = [project('a', last_checked='2026-10-17')]
+        if healthy:
+            rows.append(project('b'))
+        states = {p['github']['repository']: {
+            'last_probe_at': pipeline.stamp(NOW - timedelta(days=1)),
+            'project_ids': [p['id']], 'default_branch': 'main',
+            'last_deep_scan': pipeline.stamp(NOW - timedelta(days=1)),
+            'last_deep_scan_project_ids': [p['id']],
+        } for p in rows}
+        self.seed(rows, states)
+        prior = copy.deepcopy(rows[0])
+        rows[0]['title'] = 'Existing reviewed classification update'
+        write_projects(self.root / 'data/projects.json', rows)
+        normal = self.net.open
+        def unavailable(request, timeout):
+            if urlsplit(request.full_url).path == '/repos/owner/a':
+                self.net.calls.append((request.full_url, timeout))
+                raise HTTPError(request.full_url, status, 'Unavailable', {}, BytesIO(b'not found'))
+            return normal(request, timeout)
+        self.net.open = unavailable
+        return prior, normal
+
+    def test_root_404_resolves_existing_attempt_honestly_and_replays_idempotently(self):
+        prior, _ = self.unavailable_source_fixture()
+        old = pipeline.activity.event_from_commit("a", "owner/a", commit(1))
+        old["branches"] = ["main"]
+        old.pop("message")  # Canonical history omits a message identical to the title.
+        self.put("data/activity.json", {"generated_at": pipeline.stamp(NOW), "window_days": 180, "events": [old]})
+        batch = self.collect()
+        self.assertEqual(batch['summary']['completed'], {'probe': 0, 'activity': 0})
+        self.assertEqual(len(self.net.calls), 1)  # No dependent history or missing-file probes.
+        self.apply(batch)
+        actual = load_projects(self.root / 'data/projects.json')[0]
+        gh = copy.deepcopy(actual['github']); availability = gh.pop('source_availability')
+        self.assertEqual(gh, prior['github'])
+        self.assertEqual(availability, {'status': 'unavailable', 'http_status': 404, 'retryable': True})
+        self.assertEqual(actual['last_checked'], prior['last_checked'])
+        self.assertEqual(actual['last_activity'], prior['last_activity'])
+        self.assertEqual([e for e in self.read('data/activity.json')['events'] if e.get('sha')], [old])
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertEqual(rs['last_probe_at'], pipeline.stamp(NOW - timedelta(days=1)))
+        self.assertEqual(rs['last_deep_scan'], pipeline.stamp(NOW - timedelta(days=1)))
+        self.assertFalse(rs['publication']['metadata_complete'])
+        self.assertFalse(rs['publication']['history_complete'])
+        self.assertEqual(rs['publication']['outcome'], 'source-unavailable')
+        self.assertNotIn('_repository_lookup_status', rs)
+        self.assertEqual(rs['repository_availability']['retry_at'], pipeline.stamp(NOW + timedelta(days=1)))
+        check_publishable(self.read(pipeline.POLL), [actual], self.read('state/project-catalog-state.json'))
+        before = self.bytes(); self.apply(batch); self.assertEqual(self.bytes(), before)
+
+    def test_public_availability_schema_rejects_false_or_ambiguous_status(self):
+        self.unavailable_source_fixture(); self.apply(self.collect())
+        rows = load_projects(self.root / 'data/projects.json')
+        for invalid in ({"status": "removed", "http_status": 404, "retryable": True},
+                        {"status": "unavailable", "http_status": 403, "retryable": True},
+                        {"status": "unavailable", "http_status": 404, "retryable": False},
+                        {"status": "unavailable", "http_status": 404, "retryable": True, "observed_at": "new"}):
+            with self.subTest(invalid=invalid):
+                rows[0]['github']['source_availability'] = invalid
+                write_projects(self.root / 'data/projects.json', rows)
+                errors = StringIO()
+                with redirect_stderr(errors), self.assertRaises(SystemExit):
+                    pipeline.validate(self.root / 'data/projects.json', self.root / 'data/activity.json')
+                self.assertIn('invalid source_availability', errors.getvalue())
+
+    def test_unavailable_backoff_does_not_pin_healthy_future_cycles(self):
+        _, _ = self.unavailable_source_fixture(healthy=True)
+        self.apply(self.collect())
+        calls = sum('/repos/owner/a' in url for url, _ in self.net.calls)
+        later = NOW + timedelta(hours=2)
+        second = self.collect(now=later, request_id='healthy-next-cycle')
+        self.apply(second, later)
+        self.assertEqual(sum('/repos/owner/a' in url for url, _ in self.net.calls), calls)
+        self.assertIn('owner/b', [r['repo'] for r in second['results']])
+        self.assertNotIn('owner/a', second['progress_after']['cycle']['pending']['probe'])
+        self.assertIn('owner/a', second['progress_after']['retry']['probe'])
+        check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'), self.read('state/project-catalog-state.json'))
+
+    def test_unavailable_probe_blocks_future_forced_history_without_pending_publication(self):
+        self.unavailable_source_fixture()
+        records = load_projects(self.root / 'data/projects.json')
+        baseline = self.read('state/project-catalog-state.json')
+        baseline['projects'] = {p['id']: snapshot(p) for p in records}
+        self.put('state/project-catalog-state.json', baseline)
+        first = self.collect()
+        self.apply(first)
+        self.assertIn('owner/a', first['progress_after']['retry']['activity'])
+        calls = len(self.net.calls)
+        later = NOW + timedelta(hours=1)
+        self.apply(self.collect(now=later, request_id='forced-before-backoff', full=True), later)
+        self.assertEqual(len(self.net.calls), calls)
+
+    def test_unavailable_source_recovery_resumes_real_metadata_and_history(self):
+        _, normal = self.unavailable_source_fixture()
+        self.apply(self.collect())
+        self.net.open = normal; self.net.pages = {1: [commit(10)]}
+        later = NOW + timedelta(days=1)
+        recovered = self.collect(now=later, request_id='recovered')
+        self.apply(recovered, later)
+        actual = load_projects(self.root / 'data/projects.json')[0]
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertNotIn('source_availability', actual['github'])
+        self.assertNotIn('repository_availability', rs)
+        self.assertNotIn('outcome', rs['publication'])
+        self.assertTrue(rs['publication']['metadata_complete'])
+        self.assertTrue(rs['publication']['history_complete'])
+        self.assertEqual(rs['last_probe_at'], pipeline.stamp(later))
+        check_publishable(self.read(pipeline.POLL), [actual], self.read('state/project-catalog-state.json'))
+
+    def test_reachable_root_with_partial_metadata_failure_reopens_gate(self):
+        prior, normal = self.unavailable_source_fixture()
+        self.apply(self.collect())
+        def partial(request, timeout):
+            if urlsplit(request.full_url).path.endswith('/languages'):
+                raise HTTPError(request.full_url, 500, 'Temporary', {}, BytesIO(b'server error'))
+            return normal(request, timeout)
+        self.net.open = partial
+        later = NOW + timedelta(days=1)
+        self.apply(self.collect(now=later, request_id='partial-recovery'), later)
+        actual = load_projects(self.root / 'data/projects.json')[0]
+        self.assertNotIn('source_availability', actual['github'])
+        self.assertEqual(actual['github'], prior['github'])
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertNotIn('outcome', rs['publication'])
+        self.assertNotIn('repository_availability', rs)
+        with self.assertRaises(SystemExit):
+            check_publishable(self.read(pipeline.POLL), [actual], self.read('state/project-catalog-state.json'))
+
+    def test_new_source_root_404_does_not_waive_initial_context(self):
+        self.seed([project('b')])
+        self.put('data/pending-projects.json', [project('a')])
+        normal = self.net.open
+        def unavailable(request, timeout):
+            if urlsplit(request.full_url).path == '/repos/owner/a':
+                raise HTTPError(request.full_url, 404, 'Unavailable', {}, BytesIO())
+            return normal(request, timeout)
+        self.net.open = unavailable
+        self.apply(self.collect())
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertNotIn('outcome', rs['publication'])
+        self.assertEqual(rs['publication']['reset_project_ids'], ['a'])
+        with self.assertRaises(SystemExit):
+            check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'), self.read('state/project-catalog-state.json'))
+
+    def test_changed_tracking_root_404_does_not_waive_new_context(self):
+        for field, value in (("github_path", "new-path"), ("github_branch", "new-branch"),
+                             ("repo", "https://github.com/owner/new")):
+            with self.subTest(field=field):
+                (self.root / pipeline.PROGRESS).unlink(missing_ok=True)
+                self.net = Network(); self.unavailable_source_fixture()
+                if field == "repo":
+                    normal = self.net.open
+                    def missing_root(request, timeout):
+                        if urlsplit(request.full_url).path == '/repos/owner/new':
+                            raise HTTPError(request.full_url, 404, 'Unavailable', {}, BytesIO())
+                        return normal(request, timeout)
+                    self.net.open = missing_root
+                records = load_projects(self.root / 'data/projects.json'); records[0][field] = value
+                write_projects(self.root / 'data/projects.json', records)
+                self.apply(self.collect(request_id=field))
+                with self.assertRaises(SystemExit):
+                    check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'), self.read('state/project-catalog-state.json'))
+
+    def test_missing_retained_metadata_cannot_resolve_as_unavailable(self):
+        self.unavailable_source_fixture()
+        records = load_projects(self.root / 'data/projects.json'); records[0]['github'] = {}
+        write_projects(self.root / 'data/projects.json', records)
+        self.apply(self.collect())
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertNotIn('outcome', rs['publication'])
+        with self.assertRaises(SystemExit):
+            check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'), self.read('state/project-catalog-state.json'))
+
+    def test_repeated_root_404_keeps_facts_and_history_without_freshness(self):
+        prior, _ = self.unavailable_source_fixture()
+        self.apply(self.collect())
+        first = load_projects(self.root / 'data/projects.json')[0]
+        later = NOW + timedelta(days=1)
+        self.apply(self.collect(now=later, request_id='retry-unavailable'), later)
+        self.assertEqual(load_projects(self.root / 'data/projects.json')[0], first)
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertEqual(rs['last_probe_at'], pipeline.stamp(NOW - timedelta(days=1)))
+        self.assertEqual(rs['last_deep_scan'], pipeline.stamp(NOW - timedelta(days=1)))
+        self.assertFalse(rs['publication']['metadata_complete'])
+        self.assertFalse(rs['publication']['history_complete'])
+        self.assertEqual(rs['repository_availability']['observed_at'], pipeline.stamp(later))
+        check_publishable(self.read(pipeline.POLL), [first], self.read('state/project-catalog-state.json'))
+
+    def test_server_auth_and_file_errors_do_not_create_unavailable_outcome(self):
+        for status in (401, 403, 429, 500):
+            with self.subTest(status=status):
+                (self.root / pipeline.PROGRESS).unlink(missing_ok=True)
+                self.net = Network(); self.unavailable_source_fixture(status)
+                self.apply(self.collect(request_id=str(status)))
+                rs = self.read(pipeline.POLL)['repositories']['owner/a']
+                self.assertNotIn('repository_availability', rs)
+                self.assertNotIn('outcome', rs['publication'])
+                with self.assertRaises(SystemExit):
+                    check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'), self.read('state/project-catalog-state.json'))
+        (self.root / pipeline.PROGRESS).unlink(missing_ok=True)
+        self.net = Network(); _, normal = self.unavailable_source_fixture()
+        def missing_file(request, timeout):
+            if urlsplit(request.full_url).path.endswith('/languages'):
+                raise HTTPError(request.full_url, 404, 'Missing file', {}, BytesIO())
+            return normal(request, timeout)
+        self.net.open = missing_file; self.apply(self.collect(request_id='file-404'))
+        rs = self.read(pipeline.POLL)['repositories']['owner/a']
+        self.assertNotIn('repository_availability', rs)
+        self.assertNotIn('outcome', rs['publication'])
+
+    def test_unavailable_observation_cannot_bless_concurrent_research(self):
+        self.unavailable_source_fixture(); batch = self.collect()
+        records = load_projects(self.root / 'data/projects.json'); records[0]['notes'] = 'Concurrent reviewed source update'
+        write_projects(self.root / 'data/projects.json', records)
+        result = self.apply(batch)
+        self.assertEqual(result['conflicts'], ['owner/a'])
+        self.assertEqual(load_projects(self.root / 'data/projects.json')[0]['notes'], 'Concurrent reviewed source update')
+        with self.assertRaises(SystemExit):
+            check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'), self.read('state/project-catalog-state.json'))
+
+    def test_unavailable_resolution_fails_closed_for_invalid_or_stale_proof(self):
+        self.unavailable_source_fixture(); self.apply(self.collect())
+        state = self.read(pipeline.POLL); projects = load_projects(self.root / 'data/projects.json')
+        mutations = [
+            lambda r: r['repository_availability'].update(repository='other/repo'),
+            lambda r: r['repository_availability'].update(http_status=500),
+            lambda r: r['repository_availability'].update(retryable=False),
+            lambda r: r['repository_availability'].update(observed_at='invalid'),
+            lambda r: r['publication'].update(fingerprint='0' * 64),
+            lambda r: r['publication'].update(reset_project_ids=['a']),
+        ]
+        for mutate in mutations:
+            changed = copy.deepcopy(state); mutate(changed['repositories']['owner/a'])
+            with self.assertRaises(SystemExit):
+                check_publishable(changed, projects, self.read('state/project-catalog-state.json'))
 
 
 if __name__ == "__main__":

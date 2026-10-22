@@ -142,6 +142,8 @@ const executionLabel = value => executionLabels[value] || String(value ?? "");
 const executionPaths = record => arr(record?.execution_paths).filter(path=>path?.method);
 const executionSearchValues = record => executionPaths(record).flatMap(path=>[executionLabel(path.method),path.method,path.method.replaceAll("-"," "),path.name,path.status,path.notes]);
 const executionMethods = record => [...new Set(executionPaths(record).map(path=>path.method))];
+const repositoryAvailability = record => record.github?.source_availability?.status === "unavailable"
+  ? "Repository unavailable (HTTP 404); cached metadata retained; retryable" : "";
 const executionBadges = record => executionPaths(record).map(path=>{
   const label=executionLabel(path.method)+(path.status==="partial"?": partial":"");
   const hint=[path.name,path.status,path.notes].filter(Boolean).join(" · ");
@@ -621,6 +623,7 @@ function showDetails(record) {
     + line("Subjects", tags(record.subjects))
     + (project ? line("Project page", project) : "")
     + line("Repository", repo)
+    + (repositoryAvailability(record) ? line("Repository availability", esc(repositoryAvailability(record))) : "")
     + line("Source platform", tags(record.source_platforms))
     + line("Target platform", tags(record.target_platforms))
     + line("CPU family", tags(cpuFamilyValues(record)))

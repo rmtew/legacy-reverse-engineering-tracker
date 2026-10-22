@@ -280,3 +280,29 @@ The prior comparison baseline is left intact. Normal metadata refresh records
 the architecture changes and advances that baseline through its existing atomic
 publication; Pages waits for completion. Pending unrelated differences, clocks
 and historical evidence are never silently blessed or rewritten.
+
+### Unavailable existing repositories
+
+A verified HTTP 404 from the repository-root API may resolve a publication
+attempt as `publication.outcome: source-unavailable` only for previously tracked
+records with retained metadata, unchanged tracking (`reset_project_ids: []`) and
+a proof bound to the current catalogue fingerprint. The private
+`repository_availability` records the repository, HTTP status, observation time,
+retry time and `retryable: true`. A 404 does not prove deletion or distinguish
+a private repository from a removed one. This is not successful enrichment:
+no `metadata_complete` or `history_complete` flag is set by a 404; cached facts, successful
+check dates and existing history are retained without invented zero activity.
+
+The public `github.source_availability` contains only `status: unavailable`,
+`http_status: 404` and `retryable: true`. Project details and RSS disclose that
+cached metadata is retained. Attempt/retry clocks stay private, avoiding a new
+public change for every identical failed retry. Retry remains durable, with a
+24-hour backoff and no dependent history requests while metadata is unavailable.
+Deferred unavailable roots cannot pin healthy work behind that backoff.
+
+New records and changed repo/branch/path still require verified metadata/history;
+file-level 404s, authentication/rate-limit responses and server errors do not
+create an unavailable publication outcome. A confirmed root 200/304 clears the
+unavailable outcome, reopens any incomplete publication prerequisite and resumes
+actual metadata/history work. Offline replay retains the same source/owned-state
+compare-and-set guards, so stale observations cannot bless concurrent research.
