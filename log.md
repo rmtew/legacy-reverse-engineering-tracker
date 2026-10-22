@@ -1390,3 +1390,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-23 — Review seven material post-pass changes across reconstruction fidelity, authenticated runtime handoff, mod infrastructure and evidence-preserving tooling.
 
 [Research record](docs/research/maintenance-2026-10-23-am-upstream-reconstruction-tooling.md).
+
+## 2026-10-22 — Personally inspect 36 roots: 31 additions, one fork consolidation and four qualified deferrals.
+
+[Research record](docs/research/2026-10-22-wide-cross-platform-discovery-47.md).
