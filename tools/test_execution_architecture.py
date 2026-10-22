@@ -13,7 +13,7 @@ from apply_discovery_batch import apply_batch
 from catalogue_storage import encode, load_projects, render, write_all, write_projects
 from execution_architecture import activity_v1_event, check_methods
 from generate_recent_activity import recent_activity
-from migrate_baked_emulation import migrate, migrate_record
+from migrate_baked_emulation import migrate, migrate_record, path_digest
 from research_record import compile_records, review_digest, seal_review
 from test_research_record import sample_record
 
@@ -55,7 +55,11 @@ class ExecutionArchitectureTests(unittest.TestCase):
         ordinary = record(method='native-translation', name='Recovered game logic with API shims')
         mixed = record()
         mixed['execution_paths'].append(ordinary['execution_paths'][0])
-        migrated = migrate_record(compiled)
+        with patch.dict('migrate_baked_emulation.EXPECTED_COMPILED_PATHS', {compiled['id']: path_digest(compiled['execution_paths'][0])}):
+            migrated = migrate_record(compiled)
+            changed = copy.deepcopy(compiled); changed['execution_paths'][0]['notes'] = 'Concurrent architecture revision'
+            with self.assertRaisesRegex(ValueError, 'Execution path changed'):
+                migrate_record(changed)
         self.assertEqual(migrated['execution_paths'][0]['method'], 'baked-emulation')
         self.assertEqual(migrated['execution_paths'][0]['evidence'], compiled['execution_paths'][0]['evidence'])
         self.assertEqual(migrated['execution_paths'][0]['status'], 'partial')
