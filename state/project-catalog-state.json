@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-23T16:12:09Z",
+  "updated_at": "2026-10-23T18:17:23Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -32564,7 +32564,7 @@
         "source-only port"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "Active source-only v1.9.2 native Mega Drive port; fixes early-hit boss invulnerability and wrapped Round 3 arena arrivals",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -32576,7 +32576,9 @@
         "MAME observation oracles",
         "native 68000 reimplementation",
         "build-time asset conversion",
-        "source-versus-port regression comparisons"
+        "source-versus-port regression comparisons",
+        "controlled encounter fixtures",
+        "cross-emulator smoke testing"
       ],
       "tags": [
         "Black Tiger",
@@ -32588,7 +32590,7 @@
         "68000",
         "source-only"
       ],
-      "notes": "Native SGDK port of Black Tiger with Arcade, Home and Boss Rush modes. Requires the user's exact hash-locked 20-file arcade ROM set; builds graphics, maps, animation and sound data locally. Build and playability are supported by upstream clean-rebuild and emulator regression reports, not a local independent build. v1.7 reports 183 regression commands plus sprite fixtures passing; physical EverDrive/NTSC validation remains pending. Matching regenerated assets or repeated port builds does not establish byte-exact reconstruction of the original arcade program.",
+      "notes": "Identity: Root README, manifest and repository metadata identify a source-only Black Tiger arcade-to-Mega Drive port. The manifest says the exact revision is unknown despite hash-locked files; do not silently claim an independently verified arcade revision. Classification: v1.9.2 remains a native SGDK/Mega Drive behavioral port. The release text explicitly says the cartridge does not execute the arcade CPU, so the update is not relabelled as embedded emulation or original-source recovery. Source CPU: Z80 established by player audit and MAME primary driver, which identifies main and audio Z80 CPUs. Driver also describes an 8751 protection MCU; the reviewed port scope reconstructs Z80 gameplay/audio behavior, not that MCU's program. Target CPU: README explicitly states native 68000 game logic; Makefile invokes m68k-elf-gcc -m68000. No inferred host CPU. Build: Upstream reports all 191 Makefile test recipes and strict packaging passing, with controlled boss fixtures plus Genesis Plus GX and isolated PicoDrive smoke tests for the final 4 MiB ROM. Limitations: No local build, emulator run, natural full playthrough or physical-hardware retest was performed; the repository remains source-only and supplies no public release binary. Runtime profiles: The release cites emulator checks and an earlier user report involving a Mega Drive Model 2 VA0 and EverGenesis V3, but explicitly says those physical configurations were unavailable for retest. No minimum hardware profile is recorded. AI: The reviewed release commit contains no development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: Distinct from Side Arms MD; shares author/SGDK/native-port approach. MAME is an offline reference/oracle, not runtime. No canonical or subject duplicate in catalogue. Evidence: https://github.com/rester159/blacktiger_MD/blob/main/README.md https://github.com/rester159/blacktiger_MD/blob/main/STATUS.md https://github.com/rester159/blacktiger_MD/blob/main/Makefile https://github.com/rester159/blacktiger_MD/blob/main/docs/source-only.md https://github.com/rester159/blacktiger_MD/blob/main/reference/player_audit.md https://github.com/rester159/blacktiger_MD/blob/main/reference/audio_audit.md https://github.com/rester159/blacktiger_MD/blob/main/src/main.c https://github.com/rester159/blacktiger_MD/blob/main/src/game.c https://github.com/rester159/blacktiger_MD/blob/main/assets/rom_manifest.json https://github.com/mamedev/mame/blob/master/src/mame/capcom/blktiger.cpp https://github.com/rester159/blacktiger_MD/commit/11d356548eb0b5683b498e8a16a2efd674b4e202",
       "ai": {
         "usage": null,
         "tools": []
@@ -86797,7 +86799,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "v0.57.2 Atari 2600 emulator/debugger with published Linux, Windows and dual-architecture macOS builds",
+      "status": "Active Atari 2600 emulator/debugger; terminal command dispatch now avoids a channel deadlock exposed by repeated RELOAD commands",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -86807,13 +86809,15 @@
       "techniques": [
         "ARM coprocessor emulation",
         "instruction-edge-case regression",
-        "mapper and cartridge fingerprint analysis"
+        "mapper and cartridge fingerprint analysis",
+        "debugger concurrency testing",
+        "goroutine deadlock avoidance"
       ],
       "tags": [
         "Atari 2600",
         "reverse-engineering tooling"
       ],
-      "notes": "High-accuracy Atari 2600 emulator with developer debugger, mapper support and a distinct ARM coprocessor debugger. Current ARM fixes correct ASR zero/immediate and variable shifts, carry/sign extension, SMUL/SMLA, saturation, alignment and bitfield masks; these are bounded coprocessor-correctness changes rather than universal compatibility claims. Release v0.57.2 publishes Linux amd64, Windows amd64, macOS Intel and macOS Apple Silicon packages. The build workflow sets macOS deployment targets 10.11 for Intel and 11.0 for Apple Silicon; no RAM or CPU-generation minimum is stated. The README identifies Stella as a visual and format/reference source, not as a fork or derived code base. Searches of current code and commit history for Claude and ChatGPT found no development-AI evidence, so AI use remains unknown. No package was independently executed. Evidence: https://github.com/JetSetIlly/Gopher2600 https://github.com/JetSetIlly/Gopher2600/releases/tag/v0.57.2 https://github.com/JetSetIlly/Gopher2600/blob/master/.github/workflows/build.yml https://github.com/JetSetIlly/Gopher2600/commit/ca1e5ec",
+      "notes": "Identity: The reviewed repository remains the existing Gopher2600 — Atari 2600 emulator and debugger project. Classification: Gopher2600 remains a general Atari 2600 emulator and debugger. The current change corrects debugger command concurrency and does not alter its project identity or introduce a separate tool. Source CPU: The retained source CPU decision remains 6507; no architecture is inferred from host language or platform alone. Target CPU: Release v0.57.2 explicitly publishes Linux/Windows amd64, macOS Intel and macOS Apple Silicon packages. The record therefore adds x86-64 and arm64 output architectures. Build: Terminal input is now copied and sent from an ephemeral goroutine so the GUI does not block while the emulation goroutine is waiting for feature-set channel traffic; the commit identifies repeated RELOAD commands as the observable trigger. Limitations: The tracker did not build the emulator or reproduce the deadlock. Runtime profiles: The existing published x86-64 Linux/Windows and x86-64/arm64 macOS profiles remain unchanged; the concurrency fix states no new minimum hardware requirement. AI: The reviewed commit contains no development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: The README identifies Stella as a visual reference and source for CDF/audio/cartridge fingerprints, plus 6502.ts as an audio reference. This is documented reference lineage, not evidence that Gopher2600 is a fork or derived code base. Evidence: https://github.com/JetSetIlly/Gopher2600 https://github.com/JetSetIlly/Gopher2600/commit/9af96801db6004a012f811bfe3bdf0d93b3e31bd https://github.com/JetSetIlly/Gopher2600/releases/tag/v0.57.2 https://github.com/JetSetIlly/Gopher2600/blob/master/.github/workflows/build.yml https://github.com/JetSetIlly/Gopher2600/blob/master/go.mod https://github.com/JetSetIlly/Gopher2600/commits/master https://github.com/JetSetIlly/Gopher2600/blob/master/README.md",
       "ai": {
         "usage": null,
         "tools": []
@@ -93081,19 +93085,23 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "Active Hyper Neo Geo 64 SDK; current tools add MAME instrumentation for MIPS/IOMCU command-response analysis",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "MAME Lua instrumentation",
+        "IOMCU command-response logging",
+        "behavioral analysis"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Very early native Hyper Neo Geo 64 SDK with MIPS startup/vector setup, TLB/core initialization, linker/build rules and an implemented Go ELF-to-cartridge ROM packer. The empty sample is only an example of the reusable SDK, not a separate game. Classification: Pinned implementation, build files, documentation/license notices and complete latest commit message including trailers inspected. Root URL screened across all indexes; title and code lineage checked. Review bounded to selected files; dependencies/assets not exhaustively audited. MIT for code; README separately assigns documentation CC BY-SA 4.0. No BIOS shipped. Source CPU: Authored native homebrew/SDK; no separately recovered predecessor source architecture. Target CPU: Native build and implementation establish output architecture; compiler host is separate. Build: Dockerfile builds mips64-elf binutils/GCC/newlib and Go tools. CMake targets -march=vr4300 -mtune=vr4300 -EB and links crt0. mkrom writes the HNG64 header and split program ROMs under roadedge with empty placeholder chips. Toolchain versions are declared, not independently verified available. No build performed; build/run/play/byte-identity flags remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Author explicitly reports testing only on MAME. External HNG64 BIOS is required. roadedge naming is a MAME packaging workaround and does not make this a Road Edge game port or CPU wrapper. No real-hardware claim. AI: Unknown. No explicit development-AI attribution found in inspected documentation/source or latest full commit message/trailers. Gameplay AI references do not establish AI-assisted development. Latest full commit message: readme: Add disclamer Relationships: Targets HNG64 native code; Linux/Docker and Go are host tooling. No binary predecessor or source architecture is assigned to this authored SDK. Evidence: https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/src/crt0.s https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/src/libhng64/core.c https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/cmake/hng64.cmake https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/cmake/hng64kit.cmake https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/tools/hng64kit-mkrom/main.go https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/Dockerfile https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/docs/sdk/getting-started.md https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/README.md https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/LICENSE https://github.com/SheatNoisette/hng64kit/commit/386c6d781ae3953526693b6058076fb0092e94b5",
+      "notes": "Identity: Very early native Hyper Neo Geo 64 SDK with MIPS startup/vector setup, TLB/core initialization, linker/build rules and an implemented Go ELF-to-cartridge ROM packer. The empty sample is only an example of the reusable SDK, not a separate game. Classification: The repository remains an original Hyper Neo Geo 64 development kit. The new iomcutap.lua is directly relevant reverse-engineering instrumentation, but it does not turn the SDK itself into a reconstructed commercial game. Source CPU: Authored native homebrew/SDK; no separately recovered predecessor source architecture. Target CPU: Native build and implementation establish output architecture; compiler host is separate. Build: The new Lua tap records main-CPU commands, I/O-MCU replies, port activity, events and EEPROM traffic through MAME's scripting API for behavioral analysis. Limitations: The tracker did not run MAME, supply ROMs or capture a tap log. Runtime profiles: Author explicitly reports testing only on MAME. External HNG64 BIOS is required. roadedge naming is a MAME packaging workaround and does not make this a Road Edge game port or CPU wrapper. No real-hardware claim. AI: The reviewed commit contains no development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: Targets HNG64 native code; Linux/Docker and Go are host tooling. No binary predecessor or source architecture is assigned to this authored SDK. Evidence: https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/src/crt0.s https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/src/libhng64/core.c https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/cmake/hng64.cmake https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/cmake/hng64kit.cmake https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/tools/hng64kit-mkrom/main.go https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/Dockerfile https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/docs/sdk/getting-started.md https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/README.md https://github.com/SheatNoisette/hng64kit/blob/386c6d781ae3953526693b6058076fb0092e94b5/LICENSE https://github.com/SheatNoisette/hng64kit/commit/386c6d781ae3953526693b6058076fb0092e94b5 https://github.com/SheatNoisette/hng64kit/commit/e39cc6b6997d6cf7b6e79c40fae550d6f2d264be",
       "ai": {
         "usage": null,
         "tools": []
@@ -130231,7 +130239,7 @@
         "MCP-enabled analysis environment"
       ],
       "re_started": null,
-      "status": "active; GDG VRAM wait states now follow a netlist-derived memory-slot schedule validated against 129,504 simulated measurements",
+      "status": "Active Sharp MZ emulator/debugger; MCP breakpoint names now persist, ignored DD/FD prefixes are modeled explicitly, and MZF size checks handle unreadable files",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -130250,7 +130258,10 @@
         "candidate freeze and write-origin tracing",
         "multi-space typed memory scanning",
         "netlist-derived GDG VRAM wait-state modeling",
-        "memory-slot schedule regression"
+        "memory-slot schedule regression",
+        "Z80 ignored-prefix disassembly",
+        "MCP breakpoint regression testing",
+        "MZF error-path validation"
       ],
       "tags": [
         "Sharp MZ-800",
@@ -130260,7 +130271,7 @@
         "SDL3",
         "MCP"
       ],
-      "notes": "Identity: Open-source Sharp MZ emulator with cycle-accurate Z80A execution, chip/peripheral emulation, a built-in debugger and an MCP bridge exposing screenshots, coverage, profiling and analysis controls. Primary docs provide Linux, Windows and macOS build paths; no minimum host CPU or RAM is stated. Claude client configuration documents a supported integration, not evidence that AI authored the project. Current main saves hidden Z80 MEMPTR, interrupt, EI-delay and T-state state plus CTC, scroll, VRAM-wait and floppy-controller state; it safely adapts RAMdisk/IDE8 snapshot loads. Debugger/MCP fixes expose all 532 expanded memory regions, keep debugger reads from firing guest watchpoints, correctly stop temporary run-to breakpoints and record the instruction bytes actually fetched by self-modifying code. Evidence: https://github.com/michalhucik/mz800emu/commit/1f477d90e2efd6808253c1c3d5f31fa56f465570 https://github.com/michalhucik/mz800emu/commit/a5726b9658d10b4412cf4a28bc212a78351f28a4 Current main adds frame-boundary-synchronized memory search across user RAM, logical Z80 space, VRAM, extension banks, RAM disks and other writable memory, with numeric/string types, filters, undo/redo, candidate actions, freeze controls and write-origin inspection. Matching MCP tools expose searches and freezes for automation, and the same change fixes the missing second half of PEHU 512 KiB memory. A maintained locale catalog at the reviewed commit explicitly names Claude Code as Last-Translator, correcting the prior no-evidence AI audit while keeping attribution limited to that content. Evidence: https://github.com/michalhucik/mz800emu/commit/0e4967ca56d162bcd2dc3607ebab986f9e029e78 https://github.com/michalhucik/mz800emu/blob/0e4967ca56d162bcd2dc3607ebab986f9e029e78/src/locale/de/LC_MESSAGES/mz800emu.po Classification: README and MCP documentation establish a core emulator, debugger, profiler and automation environment directly useful to retro development. Source CPU: README explicitly states cycle-accurate Z80A CPU emulation. Target CPU: Host emulator and analysis environment; no fixed emitted target CPU. Build: The reviewed commit adds synchronized GUI/MCP memory search, freeze and write-origin tooling across multiple spaces and fixes access to the second half of PEHU 512 KiB. No independent build or run was performed. Current main replaces the simplified MZ-700 write latch in the MZ-800 build with GDG-slot scheduling: reads wait for CPU memory slots and writes use the GDG buffer/release path. The new tests say the model matches all 129,504 measurements from the referenced GDG netlist simulation, with representative cases retained in-tree. This is upstream simulation/test evidence, not tracker-side execution. Runtime profiles: Host-side emulator; supported host OSes are documented, but no minimum CPU or RAM profile is stated. AI: A maintained locale catalog at the reviewed commit explicitly identifies Claude Code as Last-Translator. This is direct attribution for maintained project content, not an inference from client configuration or a claim about the entire codebase. Relationships: README identifies the SourceForge predecessor and the related z80-mz800, TapeMZ and mzdisk projects. Evidence: https://github.com/michalhucik/mz800emu/blob/main/README.md https://github.com/michalhucik/mz800emu/blob/main/mcp-server/README.md https://github.com/michalhucik/mz800emu https://github.com/michalhucik/mz800emu/commit/0e4967ca56d162bcd2dc3607ebab986f9e029e78 https://github.com/michalhucik/mz800emu/commit/dbaa0fbcd74f5cf5e4762accd35e1a6ecba17bf4 https://github.com/michalhucik/mz800emu/blob/0e4967ca56d162bcd2dc3607ebab986f9e029e78/src/locale/de/LC_MESSAGES/mz800emu.po",
+      "notes": "Identity: Open-source Sharp MZ emulator with cycle-accurate Z80A execution, chip/peripheral emulation, a built-in debugger and an MCP bridge exposing screenshots, coverage, profiling and analysis controls. Primary docs provide Linux, Windows and macOS build paths; no minimum host CPU or RAM is stated. Claude client configuration documents a supported integration, not evidence that AI authored the project. Current main saves hidden Z80 MEMPTR, interrupt, EI-delay and T-state state plus CTC, scroll, VRAM-wait and floppy-controller state; it safely adapts RAMdisk/IDE8 snapshot loads. Debugger/MCP fixes expose all 532 expanded memory regions, keep debugger reads from firing guest watchpoints, correctly stop temporary run-to breakpoints and record the instruction bytes actually fetched by self-modifying code. Evidence: https://github.com/michalhucik/mz800emu/commit/1f477d90e2efd6808253c1c3d5f31fa56f465570 https://github.com/michalhucik/mz800emu/commit/a5726b9658d10b4412cf4a28bc212a78351f28a4 Current main adds frame-boundary-synchronized memory search across user RAM, logical Z80 space, VRAM, extension banks, RAM disks and other writable memory, with numeric/string types, filters, undo/redo, candidate actions, freeze controls and write-origin inspection. Matching MCP tools expose searches and freezes for automation, and the same change fixes the missing second half of PEHU 512 KiB memory. A maintained locale catalog at the reviewed commit explicitly names Claude Code as Last-Translator, correcting the prior no-evidence AI audit while keeping attribution limited to that content. Evidence: https://github.com/michalhucik/mz800emu/commit/0e4967ca56d162bcd2dc3607ebab986f9e029e78 https://github.com/michalhucik/mz800emu/blob/0e4967ca56d162bcd2dc3607ebab986f9e029e78/src/locale/de/LC_MESSAGES/mz800emu.po Classification: The current change materially improves debugger semantics and automation: user breakpoint names survive MCP address updates, and ignored DD/FD prefixes are displayed as DD*/FD* rather than mislabelled NOP* instructions. Source CPU: README explicitly states cycle-accurate Z80A CPU emulation. Target CPU: Host emulator and analysis environment; no fixed emitted target CPU. Build: The commit adds standalone disassembler-prefix coverage and an MCP end-to-end breakpoint-name test, while guarding MZF size inspection when a file cannot be opened or measured. Limitations: The tracker reviewed source and tests but did not build or execute the emulator or test suite. Runtime profiles: Host-side emulator; supported host OSes are documented, but no minimum CPU or RAM profile is stated. AI: The existing project-level Claude Code attribution remains based on the maintained locale catalogue. The reviewed commit itself adds no new AI attribution, so its authorship is not inferred. Relationships: README identifies the SourceForge predecessor and the related z80-mz800, TapeMZ and mzdisk projects. Evidence: https://github.com/michalhucik/mz800emu/blob/main/README.md https://github.com/michalhucik/mz800emu/blob/main/mcp-server/README.md https://github.com/michalhucik/mz800emu/commit/8980aec807f26768e3c0760d56e58aaffb1b73cf https://github.com/michalhucik/mz800emu https://github.com/michalhucik/mz800emu/commit/0e4967ca56d162bcd2dc3607ebab986f9e029e78 https://github.com/michalhucik/mz800emu/commit/dbaa0fbcd74f5cf5e4762accd35e1a6ecba17bf4 https://github.com/michalhucik/mz800emu/blob/0e4967ca56d162bcd2dc3607ebab986f9e029e78/src/locale/de/LC_MESSAGES/mz800emu.po",
       "ai": {
         "usage": true,
         "tools": [
@@ -178275,19 +178286,23 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "Work in progress; snapshot saving now coordinates interpreter-linked object memory, garbage-collection roots and host file operations",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "snapshot serialization",
+        "garbage-collection root preservation",
+        "host filesystem bridging"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Independent implementation of the complete Bluebook Smalltalk-80 VM and environment in Smalltalk itself, with Tonel-format interpreter, object memory, BitBlt, display and filesystem adapters for Pharo. Classification: README marks project work in progress. Banay VM helped debugging but this is Smalltalk source implementation rather than a C++ mirror. GPL-3.0 license text supplied; included historical image assets have separate provenance. Source CPU: No physical predecessor input architecture established; compiler/VM host CPU is not treated as recovered input. Target CPU: No particular physical output CPU established; implementation-language portability does not prove host support. Build: README installs package with Pharo Git repositories browser then launches ST80VirtualMachine with image path and keyboard layout; no native compiler build. No candidate software, build script, compiler, interpreter, emulator or tests were executed. Build/run/play/byte-identity flags remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Requires Pharo >=11 and image assets; US and FR keyboard mappings documented. AI: No explicit actual AI contribution attribution found in bounded documentation/source front-matter and full pinned latest commit-message inspection; unknown rather than non-use. Relationships: Credits Banay implementation for debugging reference, Bluebook chapters, and Mario Wolczko image archive. Evidence: https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/README.md https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/src/Smalltalk-80%20VM/Interpreter.class.st https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/src/Smalltalk-80%20VM/ObjectMemory.class.st https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/LICENSE https://github.com/ljulliar/smalltalk-80-sources/commit/888028e157c272dcb49ffa04367de598bbd305bf",
+      "notes": "Identity: Independent implementation of the complete Bluebook Smalltalk-80 VM and environment in Smalltalk itself, with Tonel-format interpreter, object memory, BitBlt, display and filesystem adapters for Pharo. Classification: The project remains a Pharo-hosted implementation of the Bluebook Smalltalk-80 VM. The current commit deepens VM implementation rather than preserving or decompiling a native historical binary. Source CPU: No physical predecessor input architecture established; compiler/VM host CPU is not treated as recovered input. Target CPU: No particular physical output CPU established; implementation-language portability does not prove host support. Build: The snapshot path now links ObjectMemory to the interpreter, preserves active/new-process roots around collection, and adds host file create/delete/close operations used by image persistence. Limitations: The tracker did not install Pharo, load the package, save a snapshot or validate image compatibility. Runtime profiles: Pharo 11 or newer remains the documented host requirement, but the current change states no minimum CPU, RAM or operating-system version. AI: The reviewed commit contains no development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: Credits Banay implementation for debugging reference, Bluebook chapters, and Mario Wolczko image archive. Evidence: https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/README.md https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/src/Smalltalk-80%20VM/Interpreter.class.st https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/src/Smalltalk-80%20VM/ObjectMemory.class.st https://github.com/ljulliar/smalltalk-80-sources/blob/888028e157c272dcb49ffa04367de598bbd305bf/LICENSE https://github.com/ljulliar/smalltalk-80-sources/commit/888028e157c272dcb49ffa04367de598bbd305bf https://github.com/ljulliar/smalltalk-80-sources/commit/ac41c5a6699a040dcfb8a9f10499a2f7afb4ff10",
       "ai": {
         "usage": null,
         "tools": []
@@ -192109,7 +192124,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "active; CPU baselines are isolated from GPU qualification and QuickDraw/QD3D bind groups are reused",
+      "status": "Active classic-Mac API runtime; PPC CarbonLib math exports now fall back through MathLib with compatibility tests",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -192118,13 +192133,15 @@
       },
       "techniques": [
         "CPU/GPU differential qualification",
-        "bounded GPU bind-group caching"
+        "bounded GPU bind-group caching",
+        "PPC CFM import dispatch",
+        "CarbonLib/MathLib ABI compatibility testing"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Rust high-level runtime implementing classic Mac Toolbox/OS managers and 68k/PPC application loaders so original Macintosh applications can execute without a Macintosh ROM or installed System. Classification: Inspected CODE 0/A5 jump-table parser and per-manager trap dispatch implementation. Scope includes broad applications and games, so it is not a per-game CPU wrapper. Browser catalogue entries are part of the same runtime project rather than separately reconstructed games. GPL-3.0-or-later runtime; bundled font files/compatibility data have separate OFL notices, documented in LICENSING.md. Source CPU: Documented source/input platforms: Macintosh. Processor scope: m68k, PowerPC. Target CPU: Documented output/support targets: macOS, Linux, Windows, Web. Processor scope: ARM64, x86-64, WebAssembly. Build: Cargo package requires Rust 1.93 and registry dependencies including m68k, ppc, stuffit and graphical/audio crates. Native release instructions cover macOS/Linux/Windows; browser is a workspace member. User supplies original app/resource forks or archives; no ROM/System image dependency. No candidate code was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: README lists native x86-64 and ARM64 releases, Linux glibc 2.35+ and ALSA runtime. No complete RAM or minimal processor model established. AI: Bounded README, source metadata and tip-commit inspection found no explicit development-AI attribution. This does not establish non-use. Relationships: 68k and PPC execution cores are Cargo dependencies, while Toolbox/OS manager reimplementation is project-specific. Do not label it original recovered Apple OS source. Evidence: https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/README.md https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/Cargo.toml Current main labels CPU-only baselines separately from GPU qualification while preserving the same guest/page sweeps and pixel comparisons, so CPU results cannot be mistaken for GPU coverage. QuickDraw and QD3D now reuse bounded compute bind-group slots and invalidate them when scratch storage grows. The reviewed commits include explicit Claude Opus 5.5 co-author attribution; these are upstream test/implementation receipts, not an independent run. Evidence: https://github.com/benletchford/systemless/commit/e847c8506e5f701fcaa657c3c65372de8e39ef30 https://github.com/benletchford/systemless/commit/e4e590d010b0fbc685a59869ec7a52ef7aa3e9df https://github.com/benletchford/systemless/commit/a42eee8225905be448d4e412b665921eade9263d",
+      "notes": "Identity: Rust high-level runtime implementing classic Mac Toolbox/OS managers and 68k/PPC application loaders so original Macintosh applications can execute without a Macintosh ROM or installed System. Classification: Systemless remains a clean high-level classic-Mac API/runtime reimplementation. The current change extends PPC CFM import compatibility rather than introducing recovered Apple system source. Source CPU: Documented source/input platforms: Macintosh. Processor scope: m68k, PowerPC. Target CPU: Documented output/support targets: macOS, Linux, Windows, Web. Processor scope: ARM64, x86-64, WebAssembly. Build: When CarbonLib lacks a requested symbol, the PPC loader now resolves supported floating-point entry points through MathLib while retaining InterfaceLib bindings for Toolbox names; regression coverage checks representative symbols. Limitations: The tracker did not compile or run the runtime or a Carbon application. Runtime profiles: README lists native x86-64 and ARM64 releases, Linux glibc 2.35+ and ALSA runtime. No complete RAM or minimal processor model established. AI: Prior reviewed commits explicitly establish Claude contribution to parts of the project. The current commit carries no new AI trailer, so no additional attribution is inferred. Relationships: 68k and PPC execution cores are Cargo dependencies, while Toolbox/OS manager reimplementation is project-specific. Do not label it original recovered Apple OS source. Evidence: https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/README.md https://github.com/benletchford/systemless/blob/28dffcaac3fef67b277ccfac280a3ca3988753e1/Cargo.toml https://github.com/benletchford/systemless/commit/4deb29fce932a3d2653e67e5ce00a6b5c7e04f87 https://github.com/benletchford/systemless/commit/e847c8506e5f701fcaa657c3c65372de8e39ef30 https://github.com/benletchford/systemless/commit/e4e590d010b0fbc685a59869ec7a52ef7aa3e9df https://github.com/benletchford/systemless/commit/a42eee8225905be448d4e412b665921eade9263d",
       "ai": {
         "usage": true,
         "tools": [
@@ -240750,7 +240767,7 @@
       "id": "mega-man-x4-ps1-decompilation",
       "title": "Mega Man X4 PlayStation decompilation",
       "upstream_name": "Mega Man X4 PlayStation decompilation",
-      "display_title": "Mega Man X4 PlayStation decompilation",
+      "display_title": "Mega Man X4 decompilation — PlayStation, Linux & Saturn",
       "subjects": [
         "Mega Man X4 PlayStation decompilation"
       ],
@@ -240762,13 +240779,16 @@
         "PlayStation"
       ],
       "target_platforms": [
-        "PlayStation"
+        "PlayStation",
+        "Linux",
+        "Sega Saturn"
       ],
       "source_cpu": [
         "MIPS"
       ],
       "target_cpu": [
-        "MIPS"
+        "MIPS",
+        "SH-2"
       ],
       "runtime_profiles": [],
       "execution_paths": null,
@@ -240781,26 +240801,32 @@
         "game"
       ],
       "work_kinds": [
-        "decompilation"
+        "decompilation",
+        "reverse-engineering-derived-port"
       ],
       "tool_kinds": [],
       "types": [
-        "decompilation"
+        "decompilation",
+        "native ports"
       ],
       "re_started": null,
-      "status": "US executable reconstruction with typed engine/gameplay C and original-file extraction requirements. ROM/executable matching and completeness not independently tested.",
+      "status": "Active multi-platform decompilation: current CI builds the PlayStation variants, Linux ports and a native Sega Saturn SH-2 image; runtime/playability not independently tested",
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "cross-platform native porting",
+        "SH-2 assembly integration",
+        "scene-oracle regression comparison"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: US executable reconstruction with typed engine/gameplay C and original-file extraction requirements. ROM/executable matching and completeness not independently tested. Classification: Inspected source supports game / decompilation. US executable reconstruction with typed engine/gameplay C and original-file extraction requirements. ROM/executable matching and completeness not independently tested. Source CPU: Source architecture: MIPS. Target CPU: Target architecture: MIPS. Build: No candidate code compiled or executed. Rebuild hashes, runtime fidelity and completeness remain upstream claims; matching with original binary/assembly fallback is not full source recovery. Runtime profiles: No independently verified minimum hardware profile established. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/sozud/mmx4 https://github.com/sozud/mmx4/blob/f57f491299bd6206d16e2ef960e5782673b2b5b5/src/main/102FC.c",
+      "notes": "Identity: US executable reconstruction with typed engine/gameplay C and original-file extraction requirements. ROM/executable matching and completeness not independently tested. Classification: The project remains a Mega Man X4 decompilation and now also carries native Linux and Sega Saturn output paths; the Saturn path is a port, not evidence that the original PlayStation executable used SH-2. Source CPU: Source architecture: MIPS. Target CPU: The existing PlayStation output remains MIPS. The new Saturn-native manifest and assembly compile with gcc-sh-elf using -m2, explicitly establishing SH-2 as an additional output CPU. Build: GitHub Actions completed the PlayStation, Linux and new `Build Saturn with GCC` jobs successfully for the reviewed commit. This supports compilable=true as an upstream CI result. Limitations: The tracker did not compile, execute or play any build, and CI success does not establish runtime completeness or byte identity. Runtime profiles: The Saturn job creates a no-disc image, but the reviewed change and successful CI check do not establish a runnable-hardware test, minimum RAM, chipset revision or other minimum hardware profile. AI: The reviewed commit contains no development-AI attribution; absence in this bounded commit is not proof of non-use. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/sozud/mmx4 https://github.com/sozud/mmx4/blob/f57f491299bd6206d16e2ef960e5782673b2b5b5/src/main/102FC.c https://github.com/sozud/mmx4/commit/6a6b4555e775820b5f4e45c6f50bd5859223a453",
       "ai": {
         "usage": null,
         "tools": []
@@ -278304,16 +278330,20 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "Active GBA decompilation; current source names room-script actor operations, turn-key handling, hit results and the intro sweep flip",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "symbol recovery",
+        "room-script command recovery",
+        "decompilation symbol mapping"
+      ],
       "tags": [],
-      "notes": "Identity: Harry Potter and the Prisoner of Azkaban — GBA decompilation. Repository root and implementation inspected at pinned revisions. Classification: Matching US/Japanese reconstruction with semantic actor data and extracted graphics symbols. AI disclosure separates human-reviewed source from largely generated tools/docs. Source CPU: Architecture context: arm. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: arm. Build: Author documents Nix setup, extraction and check-all workflow; not independently built. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Owned international and Japanese ROMs required; Linux/WSL toolchain. Raw art assets not included. AI: README explicitly discloses AI-assisted work and mostly AI-generated assets/tools; no specific model/tool inferred from configuration filenames. Relationships: Credits speedrunning researchers, Krawall LGPL engine and Pucrunch algorithm; third-party library source is not newly reversed game code. Evidence: https://github.com/holly-hacker/hp3-gba-decomp/blob/207d6c1754077e6e10c125e49eee3d39c886250a/README.md https://github.com/holly-hacker/hp3-gba-decomp/blob/207d6c1754077e6e10c125e49eee3d39c886250a/src/actor/action_state_data.c",
+      "notes": "Identity: Harry Potter and the Prisoner of Azkaban — GBA decompilation. Repository root and implementation inspected at pinned revisions. Classification: The reviewed change advances semantic recovery inside the existing GBA decompilation by replacing generic actor-animation labels with tile-actor route/stop operations and naming additional gameplay and presentation behavior. Source CPU: Architecture context: arm. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: arm. Build: The repository's deploy check completed successfully for the reviewed commit, supporting continued generated-output publication while not proving a complete or independently reproduced game build. Limitations: The tracker did not compile, run or compare the candidate ROM. Runtime profiles: Owned international and Japanese ROMs required; Linux/WSL toolchain. Raw art assets not included. AI: The reviewed commit explicitly credits Claude Opus 5.5 as co-author. This confirms AI contribution for this commit only and does not generalize authorship across the project. Relationships: Credits speedrunning researchers, Krawall LGPL engine and Pucrunch algorithm; third-party library source is not newly reversed game code. Evidence: https://github.com/holly-hacker/hp3-gba-decomp/blob/207d6c1754077e6e10c125e49eee3d39c886250a/README.md https://github.com/holly-hacker/hp3-gba-decomp/blob/207d6c1754077e6e10c125e49eee3d39c886250a/src/actor/action_state_data.c https://github.com/holly-hacker/hp3-gba-decomp/commit/3dd472dacf9e0d0fcc49498c92ebfce8ed23dd46",
       "ai": {
         "usage": true,
         "tools": [
