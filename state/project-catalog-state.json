@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-23T03:27:34Z",
+  "updated_at": "2026-10-23T06:11:46Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -12550,7 +12550,8 @@
         "Void Trader",
         "Planet Chomp",
         "Rolling Steel",
-        "Spectral Keep"
+        "Spectral Keep",
+        "Terra Strike"
       ],
       "repo": "https://github.com/geekychris/amiga_games",
       "project_url": null,
@@ -12618,6 +12619,30 @@
             "https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48",
             "https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4"
           ]
+        },
+        {
+          "name": "Terra Strike: classic 68k AGA build",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "min_cpu": "68020",
+          "chipsets": [
+            "AGA"
+          ],
+          "os": "AmigaOS 3.0+",
+          "notes": "The primary README explicitly states 68020+, AGA and AmigaOS 3.0+ for the classic build. No minimum RAM is stated; the tracker did not run it.",
+          "evidence": [
+            "https://github.com/geekychris/amiga_games/commit/498e8c6ed167fd09d64a012d103b51d90b376b6d"
+          ]
+        },
+        {
+          "name": "Terra Strike: PowerPC AmigaOS 4.1 build",
+          "platform": "Amiga",
+          "cpu_family": "PowerPC",
+          "os": "AmigaOS 4.1",
+          "notes": "ARCH=ppc produces terra_strike_os4 with windowed/full-screen graphics and AHI audio. No physical PowerPC model or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/geekychris/amiga_games/commit/498e8c6ed167fd09d64a012d103b51d90b376b6d"
+          ]
         }
       ],
       "execution_paths": null,
@@ -12636,7 +12661,7 @@
         "native homebrew game collection"
       ],
       "re_started": null,
-      "status": "Six substantive game anchors reviewed across classic 68k and PPC AmigaOS variants; independently unbuilt",
+      "status": "Seven substantive original/homebrew game anchors reviewed across classic 68k and PowerPC AmigaOS variants; Terra Strike now has a shared-gameplay AmigaOS 4.1 port; independently unbuilt",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -12650,7 +12675,7 @@
         "independent-build-untested",
         "native homebrew game collection"
       ],
-      "notes": "amiga_games is one source-available AmigaBridge game collection with its own canonical root, distinct from the already-tracked parent tooling. Three inspected anchors establish the bounded game collection: Dot Chase implements maze dot-eating, ghost states, power pellets, fruit, score, lives and level completion; Fractalus implements terrain flight, pilot rescue/deception, landing/airlock/takeoff, combat, fuel/shield win/loss and attract mode; Void Trader implements space combat, docking, station trading, cargo/credits, salvage and win/game-over states. Void Trader prices are fixed with 90% resale; variable-price trade routes remain future work. The complete 426-entry tree was inspected and three game anchors were read in depth; this is not a claim that every listed game or asset was audited. One subject/game collection is counted, with Dot Chase, Fractalus and Void Trader as the reviewed subjects. These are substantial native homebrew/homage implementations; no original-binary reconstruction is established. Fractalus source explicitly calls itself a Rescue on Fractalus homage. Demos, utilities and tests are outside this game scope. Hubert, although listed among games in README, is an interactive shell/REPL with LLM support and is excluded from the game anchors. No extra project is made for uninspected collection labels. The reviewed anchors are original native C/C++ game implementations and homages, not analysed historical instruction streams. source_cpu and source_language remain empty; the selected 68020 and PowerPC 440 outputs belong in target_cpu. Historical inspirations and an Amiga label do not establish an original binary CPU. Dot Chase explicitly uses m68k-amigaos-gcc -m68020 with no reviewed PPC branch. Fractalus and Void Trader have separate ARCH=m68k/-m68020 and ARCH=ppc/ppc-amigaos-gcc(-g++) -mcpu=440 branches. Their PowerPC support cannot be generalized to Dot Chase, all games, every PPC processor or every AmigaOS release. The three per-game Makefiles require the external parent AmigaBridge headers and libbridge.a at ../../amiga-bridge, so the game repository alone is insufficient without that layout, dependency and matching compiler/library architecture. Classic builds use -noixemul; the two PPC branches use newlib and architecture-specific audio stubs. Fractalus/Void Trader treat failed ab_init as optional at runtime, so a running host MCP/daemon is not established as universally required merely by README deployment instructions. Dot Chase ignores that return value; daemon-free execution remains unverified. Parent examples-pin mismatch is retained under relationships. No collection build, binary availability or playthrough was independently verified; all four build flags remain null. Requirements differ by inspected game and architecture. Dot Chase builds with -m68020, opens intuition.library and graphics.library v39, and uses a four-plane LORES custom screen; no PPC branch or chipset minimum is asserted for it. Fractalus and Void Trader default to -m68020, AmigaOS 3.x/v39 libraries and explicit AGA 320x256x8bpp. Their separate PPC builds use -mcpu=440, newlib and AmigaOS 4.1 sam460ex/QEMU intent, with silent audio stubs replacing Paula access; Fractalus also falls back to graphics.library rendering. This establishes selected compiler targets, not independently tested accelerator/RAM minima or general PPC compatibility. Source requests 65536-byte stacks in the two 3D games; stack allocations are not total-RAM minima. Upstream reports Fractalus uncapped at 150–200 fps after Delay(2) froze on OS4, resulting in very fast combat/short attract delay; Void Trader uses an explicitly temporary CPU-burn pacing loop. None of those author observations was reproduced here. Explicit game-source commit trailers attribute Fractalus attract-mode work and draw-overlay correction to Claude Opus 4.7 (1M context); the MIT copyright-line update credits Claude Opus 4.7. These are affirmative development-assistance evidence, so ai.usage is true and tools contains only Claude. The claim does not quantify generated code, cover every game, or rely on an instruction filename, provider email or the unrelated Hubert LLM feature. Latest five commit messages were freshly rechecked. The existing amiga-devbench-mcp tracker record covers the separate parent geekychris/amiga_mcp debugger/development tooling, not this game inventory. All three inspected games require its ../../amiga-bridge/include and libbridge.a in the expected layout, with matching target architecture. The parent examples gitlink at a346995a30948fff03faa3b3efbaf5a3bdb131dc pins 2dad36f1c16e158ba9e951c0a92760d25366680a and .gitmodules hints feat/initial-import, whereas this collection was reviewed at c3a23bec0328cf716fac6536f9164ea6209bf397; the recursive-parent-clone recipe does not necessarily reproduce this snapshot. Root LICENSE and inspected SPDX headers grant MIT, overriding the stale README license-TBD sentence for those files. Sampled stakattack/ptplayer.asm is Frank Wille public-domain code, so the README all-original wording is not a whole-collection provenance guarantee. Full asset/dependency licensing remains partial. Canonical root and subject/lineage aliases were screened against the 1715-project baseline f8c70d18333dad71c511eda424fadd2627c5f6fc and prior review index without an existing equivalent. Current default-branch metadata and latest commits were rechecked on 2026-10-06; snapshot c3a23bec0328cf716fac6536f9164ea6209bf397. last_activity is the latest default-branch commit date, not pushed_at; re_started remains unknown. Overall review and the broader source graph remain partial. No candidate build, execution, gameplay test, binary correspondence check or byte comparison was performed. Evidence: https://github.com/geekychris/amiga_games https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/game.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/game.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/combat.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/trade.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/README.md https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/main.cpp https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/hubert/main.c https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/fractalus/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/void_trader/Makefile https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/dot_chase/main.c https://github.com/geekychris/amiga_games/commit/0b22777413670059b1f8c12d1a8eacf8511a9c78 https://github.com/geekychris/amiga_games/commit/8fc73947ef92fdc2d06b170ed39e38da22a14549 https://github.com/geekychris/amiga_games/commit/3cc8ad907c06b51834ae9d622a5f46fdec3dd4c3 https://github.com/geekychris/amiga_games/commit/07193a647bc68a70ba3802599789eb26333c8c14 https://github.com/geekychris/amiga_mcp/blob/a346995a30948fff03faa3b3efbaf5a3bdb131dc/.gitmodules https://github.com/geekychris/amiga_mcp/tree/a346995a30948fff03faa3b3efbaf5a3bdb131dc/examples https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/LICENSE https://github.com/geekychris/amiga_games/blob/c3a23bec0328cf716fac6536f9164ea6209bf397/stakattack/ptplayer.asm Since that bounded three-title review, the repository added three distinct AmigaOS 4.1 PPC source ports derived from the author's 3DO versions: Planet Chomp, Rolling Steel and Spectral Keep. Rolling Steel retains the 3DO physics, rules, course loader and renderer maths while substituting OSMesa output; Spectral Keep retains the 3DO rules, rooms, physics, level data and voxel-sprite renderer while replacing cel output with a software framebuffer. All three now share window/full-screen display support. These are source-level fan/homebrew ports, not reverse-engineered binaries, and the author-reported QEMU sam460ex frame rates were not independently reproduced. Evidence: https://github.com/geekychris/amiga_games/blob/main/README.md https://github.com/geekychris/amiga_games/commit/c032294638c09e783174c8fe859c9c6ebd996f48 https://github.com/geekychris/amiga_games/commit/ffeff787f3b35625fe2b73b9f3492de2bd29aec4 https://github.com/geekychris/amiga_games/commit/6cf1cdf6b4",
+      "notes": "Identity: Terra Strike is now a seventh substantive game subject in the existing multi-project homebrew collection, alongside the six previously reviewed anchors. Classification: Terra Strike is original Zarch/Carrier Command-style homebrew, not a reverse-engineered or binary-derived project; the new work ports the same source-level game to AmigaOS 4.1. Source CPU: Terra Strike is a source-level original game, so no historical input-binary CPU is inferred. Target CPU: The classic variant is explicitly 68020+ and the new AmigaOS 4.1 build is explicit PowerPC output; both families were already represented in the collection record. Build: The commit factors shared simulation/render/model/bridge code, adds ARCH=ppc output, a 25 Hz timer schedule, OS4 display paths and AHI plus software ProTracker audio. Limitations: The tracker did not compile, launch, test controls, measure timing or verify audio on either architecture. Runtime profiles: The classic Terra Strike README explicitly states 68020+, AGA and AmigaOS 3.0+. The PPC variant requires AmigaOS 4.1 but states no physical processor or RAM minimum. AI: The commit explicitly credits Claude Opus 5.5, consistent with the collection's prior affirmative AI evidence. Relationships: Terra Strike remains a subject within amiga_games and shares its AmigaBridge-oriented codebase; it is not split into a second repository record. Evidence: https://github.com/geekychris/amiga_games https://github.com/geekychris/amiga_games/commit/498e8c6ed167fd09d64a012d103b51d90b376b6d",
       "ai": {
         "usage": true,
         "tools": [
@@ -75106,7 +75131,19 @@
       "target_cpu": [
         "m68k"
       ],
-      "runtime_profiles": [],
+      "runtime_profiles": [
+        {
+          "name": "Flynn 512Ke edition",
+          "platform": "Macintosh",
+          "min_ram_kib": 512,
+          "os": "System 6",
+          "notes": "Published minimal-plus-Finger edition for a Macintosh 512Ke over LocalTalk, linked with talkip. Requires AppleTalk and a MacIP gateway; no MacTCP or networking INIT. The paired talkip release documentation states 128K ROM or later. No minimum CPU is inferred from the machine name.",
+          "evidence": [
+            "https://github.com/ecliptik/flynn/commit/b80789df40d41841d80533f00a2f5b72e4e26384",
+            "https://github.com/ecliptik/talkip/commit/917aa8521824f16340025125b6adaff2a41385d0"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -75122,7 +75159,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "v1.13.2 adds a published Flynn 512Ke Telnet/Finger edition using talkip over LocalTalk without MacTCP or a networking INIT; independently unbuilt and unrun",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -75134,7 +75171,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Native classic-Mac network terminal with Telnet IAC negotiation, VT100/VT220/xterm rendering, Finger, multiple sessions and settings. Independent application from the author's Geomys Gopher client; variants remain one project. Classification: Pinned implementation, build instructions and latest full commit message reviewed. Source review establishes project substance, not independent build/runtime validation. ISC license; telnet implementation retains subtext attribution. Source CPU: CPU describes recovered/input subject provenance only; empty for new homebrew or CPU-independent formats. Target CPU: CPU describes native/generated output, not compiler host; portable host-side code leaves architecture unspecified. Build: CMake and scripts/build.sh use Retro68; conditional editions share terminal/network modules. README documents Linux cross-compilation. No builds or candidate software execution performed; compilable, runnable, playable and byte_exact remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Mac Plus or later, 4MB recommended, MacTCP or Open Transport compatibility; monochrome System 6 / color System 7. AI: README explicitly says 100% built agentically with Claude Code; pinned commit includes Co-Authored-By Claude Opus 5.5. Relationships: Sibling to ecliptik/geomys, already catalogued; different protocol/application, not a mirror. Telnet module adapted from jcs subtext server-side code. Evidence: https://github.com/ecliptik/flynn/blob/04b852ecb762a0b9123a031e232e89eb5d68a731/README.md https://github.com/ecliptik/flynn/blob/04b852ecb762a0b9123a031e232e89eb5d68a731/src/telnet.c https://github.com/ecliptik/flynn/blob/04b852ecb762a0b9123a031e232e89eb5d68a731/src/terminal.c https://github.com/ecliptik/flynn/blob/04b852ecb762a0b9123a031e232e89eb5d68a731/CMakeLists.txt https://github.com/ecliptik/flynn/blob/04b852ecb762a0b9123a031e232e89eb5d68a731/LICENSE https://github.com/ecliptik/flynn/commit/04b852ecb762a0b9123a031e232e89eb5d68a731",
+      "notes": "Identity: Flynn remains one native classic-Mac Telnet/Finger application; the 512Ke build is a fourth release edition, not a separate project. Classification: This remains substantial original homebrew/networking software rather than reverse-engineered code. Source CPU: There is no recovered original binary whose architecture belongs in source_cpu. Target CPU: The output remains native m68k Macintosh software; the reviewed release adds a 512Ke-specific build but does not justify a narrower CPU claim. Build: The new preset combines the minimal edition, Finger and talkip; release tooling pins talkip v0.1.0 and publishes dedicated 512Ke disk, BinHex and StuffIt artifacts. Limitations: The tracker did not cross-compile, install or run the release. Runtime profiles: Primary documentation now establishes a concrete 512 KiB System 6 variant over LocalTalk with AppleTalk and a MacIP gateway, without MacTCP or a networking INIT. A CPU minimum is deliberately not inferred. AI: The reviewed release commit explicitly credits Claude Opus 5.5. Relationships: The 512Ke edition vendors/pins sibling project talkip as its network stack while Flynn and talkip remain separately tracked projects. Evidence: https://github.com/ecliptik/flynn https://github.com/ecliptik/flynn/commit/b80789df40d41841d80533f00a2f5b72e4e26384 https://github.com/ecliptik/talkip/commit/917aa8521824f16340025125b6adaff2a41385d0",
       "ai": {
         "usage": true,
         "tools": [
@@ -115286,7 +115323,9 @@
         "macOS"
       ],
       "source_cpu": [],
-      "target_cpu": null,
+      "target_cpu": [
+        "m68k"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -115306,7 +115345,7 @@
         "AmigaPorts cross toolchain"
       ],
       "re_started": null,
-      "status": "active; v16.2-rc17 with a volamos 0.11-backed test path",
+      "status": "Active m68k-AmigaOS cross toolchain; current tests run 68000 boards on an emulated 68000 and add an explicit 68020/68881 FPU board; tracker did not reproduce the suite",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115321,7 +115360,7 @@
       "tags": [
         "Amiga"
       ],
-      "notes": "AmigaPorts continuation of bebbo's amiga-gcc, forked from jeffv03/amiga-gcc; README says fixes flow both ways. Packages GCC/binutils with Hunk, vasm/vlink, Ira and Amiga libraries. Author's build and packaging commits demonstrate maintained toolchain work; no claim of original Amiga binary restoration. Current test packaging pins volamos 0.11 artifacts for x86-64 Linux, arm64 Linux and arm64 macOS, adding the DOS calls needed by newlib's POSIX layer. This is upstream test-harness evidence, not a minimum host or Amiga runtime requirement. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/d2d61849a10269590e761b37ac31c42305abf6fd",
+      "notes": "Identity: This remains the AmigaPorts cross-compiler/toolchain continuation for m68k AmigaOS output. Classification: The repository is retro-development tooling, not a recovered game or an emulator project. Source CPU: There is no recovered historical binary input whose architecture should be recorded as source_cpu. Target CPU: The toolchain emits m68k AmigaOS code. Current primary diffs distinguish 68000 test boards from a 68020 plus 68881 FPU board, supporting the output family without implying one universal minimum. Build: Upstream changed 68000 boards to execute on an emulated 68000 so misaligned accesses trap rather than being tolerated by a 68020, and added a CI-selected 68020/68881 FPU board because prior GCC tests used soft-float. Limitations: The tracker did not build the toolchain or run either test suite. Runtime profiles: The reviewed emulator board RAM and stack settings are test-harness allocations, not minimum runtime requirements for software built by the toolchain. AI: These two commits contain no development-AI attribution; that bounded absence does not establish non-use elsewhere. Relationships: The project remains the AmigaPorts continuation of the established m68k-AmigaOS GCC lineage. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/6da8ee3daa3e56c8d8bfe0fe98c7cd457bf0cc74 https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/75aaa1516f6a598c3475e7dbd892ac7118537fd0",
       "ai": {
         "usage": true,
         "tools": [
@@ -182619,7 +182658,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Upstream now exercises VHLSAI.ROM's LambdaSpeak &E9 protocol end to end in MAME with a stub card; speech rules, physical hardware, audio output and minimum hardware remain unverified",
+      "status": "Current ROM separates firmware initialization from |VH and upstream MAME coverage asserts no speech exchange occurs before |VH; physical LambdaSpeak hardware, native audio and minimum CPC requirements remain unverified",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -182631,7 +182670,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Z80 revival of a historical BASIC vector head, with viseme animation, speech synchronization and typed-text speech integration. Classification: head.asm replaces BASIC coordinate conversion and firmware drawing with precomputed screen coordinates, direct line drawing and double-buffered mouth/eye states. Separate routines hook an optional NRL speech engine. GPL-3 root licence; LICENSE-NOTE.md explicitly excludes proprietary 1985 Amstrad driver from all repository/disc files. User-supplied extracted driver remains outside project licence. Source CPU: Architecture of historical host/guest or source-platform program, not a minimum runtime-machine claim. Target CPU: Architecture follows inspected native code/toolchain; host-side tools leave CPU unspecified. Peripheral firmware uses its microcontroller architecture. Full minimum runtime configurations were not independently verified. Build: A new MAME Lua stub and runner exercise VHLSAI.ROM's &E9 exchange end to end: the ROM sends text, the stub returns a sync byte, count and five allophones, and the test verifies those bytes reach the head's speech buffer. The commit also fixes callback lifetime by retaining MAME subscription tokens. Limitations: The stub deliberately does not implement the letter-to-sound rules. This proves the emulated protocol path only, not the physical LambdaSpeak card, native audio, display, input or full program behavior; the tracker did not run the script. Runtime profiles: The reviewed commit adds an emulated LambdaSpeak protocol stub but states no minimum CPC model, RAM or physical-card configuration. Existing speech-hardware and separately obtained NRL-driver requirements remain, so no hardware minimum is inferred. AI: README credits Claude Code (Claude Opus 5) for Z80 port, animation, speech integration and documentation; assembly source credits LAMBDAMIKEL + CLAUDE. Pinned latest commit credits Claude Opus 5.5 for README link update. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/lambdamikel/animated-speaking-cpc-vector-head/blob/54b4a9feb0d6bf64f48d4932daecd90c1e0c0c5c/LICENSE-NOTE.md https://github.com/lambdamikel/animated-speaking-cpc-vector-head/blob/54b4a9feb0d6bf64f48d4932daecd90c1e0c0c5c/README.md https://github.com/lambdamikel/animated-speaking-cpc-vector-head/commit/afe55fa34e144dc2d8151996245db7ab3c92913b",
+      "notes": "Identity: Speaking Vector Head remains a Z80 CPC revival with separate disc and ROM builds plus optional LambdaSpeak speech integration. Classification: The ROM jump block now has a no-op firmware initialization entry and a separate |VH command, correcting the prior boot-time autorun while retaining an explicit user-start route. Source CPU: The historical host/program architecture remains Z80. Target CPU: The inspected ROM implementation remains native Z80 output. Build: The MAME regression regenerates and reads build symbols, counts LambdaSpeak exchanges before |VH, fails on any autorun and then checks the complete three-line intro buffer; upstream says the pre-fix ROM produces four premature exchanges. Limitations: The tracker did not assemble the ROM or execute MAME, physical hardware or audio output. Runtime profiles: The changes establish ROM behavior but state no minimum CPC model, RAM or physical-card configuration. AI: Both reviewed commits explicitly credit Claude Opus 5. Relationships: The corrected ROM remains a build variant within the existing project; the disc version is explicitly unchanged. Evidence: https://github.com/lambdamikel/animated-speaking-cpc-vector-head https://github.com/lambdamikel/animated-speaking-cpc-vector-head/commit/f72207e17cd8772165f77251ba7e47c65d6925f3 https://github.com/lambdamikel/animated-speaking-cpc-vector-head/commit/e747c4128ab31089f38c8dedfa408f0485ed19de",
       "ai": {
         "usage": true,
         "tools": [
@@ -192443,10 +192482,11 @@
           "name": "512K Lite-client integration",
           "platform": "Macintosh",
           "min_ram_kib": 512,
-          "os": "System 6 with LocalTalk and a MacIP gateway",
-          "notes": "Primary documentation gives concrete Geomys Lite and Flynn Lite build commands using talkip instead of MacTCP. No minimum CPU is inferred from the machine family.",
+          "os": "System 6 with 128K ROM or later, LocalTalk and a MacIP gateway",
+          "notes": "The v0.1.0 release packages five tools, the TalkIP Driver and AppleTalk On as an 800K HFS disk and StuffIt 1.5 archive. Primary documentation states a Macintosh with 128K ROM or later and 512 KiB RAM, but no minimum CPU is inferred from the machine family.",
           "evidence": [
-            "https://github.com/ecliptik/talkip/commit/699f53ce8e62a67b9040edf29ff50b00fbbe5b2f"
+            "https://github.com/ecliptik/talkip/commit/699f53ce8e62a67b9040edf29ff50b00fbbe5b2f",
+            "https://github.com/ecliptik/talkip/commit/917aa8521824f16340025125b6adaff2a41385d0"
           ]
         }
       ],
@@ -192468,7 +192508,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "active; documented Geomys Lite and Flynn Lite 512K integrations",
+      "status": "v0.1.0 released: packaged 512K System 6 TCP/IP tools and MacTCP-compatible driver for LocalTalk/MacIP, without MacTCP",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -192480,7 +192520,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: New small-footprint TCP/IP and MacIP stack linked into native Macintosh applications, plus a MacTCP-compatible driver, for a 512Ke with System 6 over LocalTalk. Classification: TCP implementation explicitly limits in-flight segments and handles modular sequence numbers; tests and on-hardware claims are upstream evidence only. ISC; Apple MacTCP interface header separately identified. Source CPU: No recovered predecessor machine-code input; source CPU is not inferred from compiler host. Target CPU: Documented output/support targets: Macintosh 512Ke, Macintosh Plus, System 6. Processor scope: 68000. Build: Retro68 m68k toolchain and CMake; produces MacBinary, APPL and disk-image applications; separate host tests documented. Build flags remain unknown; no build or execution performed. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Requires 128K-ROM-or-later Mac, LocalTalk and a MacIP gateway; no MacTCP installation needed. AI: Pinned latest full commit has Claude Opus 5.5 Co-Authored-By trailer. Relationships: Distinct stack used by Geomys/Flynn Lite; API compatibility does not make it a mirror of those clients. Evidence: https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/README.md https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/src/tcp.c https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/src/ip.c https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/CMakeLists.txt https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/scripts/build.sh https://github.com/ecliptik/talkip/blob/4ab2d4867486e95b744c7c5c006426dff8cfdf8d/LICENSE https://github.com/ecliptik/talkip/commit/4ab2d4867486e95b744c7c5c006426dff8cfdf8d Current documentation provides concrete minimal-build commands for Geomys Lite and Flynn Lite against talkip on 512K Macs, confirming the integration relationship. Evidence: https://github.com/ecliptik/talkip/commit/699f53ce8e62a67b9040edf29ff50b00fbbe5b2f",
+      "notes": "Identity: talkip remains a compact TCP/IP/MacIP stack, tools and MacTCP-compatible driver for early Macintosh systems over LocalTalk. Classification: The v0.1.0 packaging confirms substantive native networking software and developer tooling; it is original homebrew rather than recovered historical source. Source CPU: No historical binary input is being reconstructed, so source_cpu remains empty. Target CPU: The documented native output remains 68000 Macintosh software. Build: Release scripts now build a tagged checkout and package five tools, TalkIP Driver, AppleTalk On and documentation into an 800K HFS disk and StuffIt 1.5 archive. Limitations: The tracker did not build or inspect the binary artifacts. Runtime profiles: The release Read Me explicitly requires 512 KiB RAM, 128K ROM or later, System 6, LocalTalk and a MacIP gateway. No CPU minimum is inferred beyond the separately evidenced 68000 output family. AI: The release commit explicitly credits Claude Opus 5.5. Relationships: The packaged stack remains a sibling dependency used by Flynn and Geomys; those applications retain separate records. Evidence: https://github.com/ecliptik/talkip https://github.com/ecliptik/talkip/commit/917aa8521824f16340025125b6adaff2a41385d0",
       "ai": {
         "usage": true,
         "tools": [
@@ -244773,7 +244813,7 @@
         "reimplementation"
       ],
       "re_started": null,
-      "status": "General PS1 emulator/debugger and development tooling derived from PCSX. Inspected debugger implementation; classify as reusable tooling, not a game-specific emulation port.",
+      "status": "Active PS1 emulator/debugger: current source adds tested NTSC 480i DFE row suppression, SPU-mix WAV capture, safer legacy save-state GPU restoration and correct Lua breakpoint labels; independently unbuilt and unrun",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -244785,7 +244825,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: General PS1 emulator/debugger and development tooling derived from PCSX. Inspected debugger implementation; classify as reusable tooling, not a game-specific emulation port. Classification: Inspected source supports development tooling. General PS1 emulator/debugger and development tooling derived from PCSX. Inspected debugger implementation; classify as reusable tooling, not a game-specific emulation port. Source CPU: Source architecture: MIPS. Target CPU: No fixed target CPU inferred from modern host or asset format. Build: No candidate code compiled or executed. Rebuild hashes, runtime fidelity and completeness remain upstream claims; matching with original binary/assembly fallback is not full source recovery. Runtime profiles: No independently verified minimum hardware profile established. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/grumpycoders/pcsx-redux https://github.com/grumpycoders/pcsx-redux/blob/91285bf736af1b35c8ad22c0b5c601be9176ff68/src/core/debug.cc https://github.com/grumpycoders/pcsx-redux/blob/91285bf736af1b35c8ad22c0b5c601be9176ff68/README.md",
+      "notes": "Identity: PCSX-Redux remains a general PlayStation emulator, debugger and development environment rather than a game-specific port. Classification: The reviewed changes materially extend hardware-fidelity and debugging facilities: the soft GPU now suppresses the displayed field's rows in NTSC 480i when DFE is clear, and Lua breakpoint labels are preserved. Source CPU: The emulated PlayStation program architecture remains MIPS; this is source-platform provenance, not a host minimum. Target CPU: The reviewed commits do not establish a fixed native host CPU target or minimum. Build: Upstream added a GPU regression test, SPU-mix capture to stereo 16-bit 44.1 kHz WAV, clean handling of write errors and the RIFF 4 GB limit, and a legacy save-state restoration correction. Limitations: The tracker reviewed source diffs but did not build, run, capture audio or reproduce the GPU regression. Runtime profiles: No minimum host CPU, RAM, operating system or GPU requirement is stated by these changes. AI: The reviewed commits contain no development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: The work remains in the existing PCSX-Redux lineage and does not introduce a separate project. Evidence: https://github.com/grumpycoders/pcsx-redux https://github.com/grumpycoders/pcsx-redux/commit/7f37315bdebe50b6144bd3c27ec284eb000b1db2 https://github.com/grumpycoders/pcsx-redux/commit/cce1b22d1da6f2f779b6c4f931a3a16092f079d4 https://github.com/grumpycoders/pcsx-redux/commit/02119dcfb97ed7d5167f9aad0b9630d83584ff21 https://github.com/grumpycoders/pcsx-redux/commit/bd436998c87982ecc42fc5bc78ede878bc6f6fff https://github.com/grumpycoders/pcsx-redux/commit/21856098f3c1d0779f6eb53471f9900d23844cec",
       "ai": {
         "usage": null,
         "tools": []
@@ -260921,7 +260961,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "Upstream now publishes the USA cartridge's annotated RGBDS assembly disassembly as a complete byte-exact reconstruction; optional semantic research and physical-hardware verification remain open",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -260930,7 +260970,7 @@
       },
       "techniques": [],
       "tags": [],
-      "notes": "Identity: BattleTanx GBC — annotated disassembly. Repository root and implementation inspected at pinned revisions. Classification: RGBDS assembly reconstruction of the USA 1 MiB MBC5 CGB-only game. Named routines and asset boundaries are present; author byte-exact and coverage totals are not independent verification. Unreferenced bytes retain unknown purpose. Source CPU: Architecture context: sm83. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: sm83. Build: RGBDS 1.0.4 documented. Bootstrap make disasm can overwrite reviewed source; ordinary assembly is distinct. No ROM assembled. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: Cartridge header explicitly requires Game Boy Color, not monochrome Game Boy. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: A decompilation registry descriptor does not make this recovered C; implementation is assembly. Evidence: https://github.com/TheGh0stShip/BattleTanx-GBC/blob/065a50d35a0f9f81644a62a69fdd5530fa589141/README.md https://github.com/TheGh0stShip/BattleTanx-GBC/blob/065a50d35a0f9f81644a62a69fdd5530fa589141/src/bank_00.asm",
+      "notes": "Identity: This remains the BattleTanx Game Boy Color USA-ROM annotated assembly disassembly. Classification: The primary manifest now marks reconstruction status complete while explicitly distinguishing complete binary reconstruction from complete semantic recovery. Source CPU: The recovered original program uses the Game Boy SM83 architecture. Target CPU: The RGBDS rebuild remains SM83 Game Boy Color output. Build: The current manifest and status document publish a complete byte-exact USA-cartridge reconstruction, and the repository check now requires status=complete. Limitations: The tracker did not obtain the original ROM, rebuild it or independently compare hashes; build flags remain unknown rather than converting the upstream claim into an independent test. Runtime profiles: The completion update states no minimum physical hardware configuration beyond the existing GBC target, so no runtime profile is inferred. AI: The reviewed completion commit contains no development-AI attribution; absence in this commit is not proof of non-use. Relationships: The completion publication updates the existing disassembly; it does not establish a separate fork or successor. Evidence: https://github.com/TheGh0stShip/BattleTanx-GBC https://github.com/TheGh0stShip/BattleTanx-GBC/commit/97cc8dcfd6a9c104a9c88b55378f87f131fe85ce",
       "ai": {
         "usage": null,
         "tools": []
@@ -275345,8 +275385,23 @@
       "source_cpu": [
         "m68k"
       ],
-      "target_cpu": [],
-      "runtime_profiles": [],
+      "target_cpu": [
+        "68020"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "OpenSWOS AGA WHDLoad package",
+          "platform": "Amiga",
+          "cpu_family": "m68k",
+          "chipsets": [
+            "AGA"
+          ],
+          "notes": "The project now builds and packages its own OpenSWOS.slave, launches SWOS2 directly without a Kickstart image or third-party slave, and was tested upstream under WHDLoad 19.2 in FS-UAE plus the project's harness. Exact physical CPU and RAM minima are not stated.",
+          "evidence": [
+            "https://github.com/benbaker76/OpenSWOS/commit/591326789a51f5be4e145cf7fc00f4e893c21e86"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "C",
@@ -275368,7 +275423,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "Active Amiga-derived C port; setup accepts floppy, HDF, LHA and ZIP sources and now packages a project-owned AGA WHDLoad slave without a Kickstart image or third-party slave; independently unbuilt and unrun",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -275377,7 +275432,7 @@
       },
       "techniques": [],
       "tags": [],
-      "notes": "Identity: Open SWOS — Ben Baker Amiga-derived C port. Repository root and implementation inspected at pinned revisions. Classification: Amiga-derived C port with semantic ball/physics structures and platform shims. Shared C builds SDL hosts and native AGA; hardware emulation shims alone do not establish BAKED EMULATION. No whole-project architecture certification from one sample. Source CPU: Architecture context: m 68 k. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Author advertises whole-game play and multiplayer; no independent build or run. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: AGA output targets A 1200/A 4000; owned 96/97 assets required. Switch build described as licensee-devkit-only, not a public supported package. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: Distinct from already tracked angree/openswos Godot/C# recreation. Derived from benbaker 76/SWOS-RE; old C/SDL trees combined here. Matching title is not identity. Evidence: https://github.com/benbaker76/openswos/blob/c6ebb3aabe895f1ca723b3c32324b40755f94e3a/README.md https://github.com/benbaker76/OpenSWOS/blob/c6ebb3aabe895f1ca723b3c32324b40755f94e3a/README.md https://github.com/benbaker76/OpenSWOS/blob/c6ebb3aabe895f1ca723b3c32324b40755f94e3a/docs/DEVELOPERS.md https://github.com/benbaker76/OpenSWOS/blob/c6ebb3aabe895f1ca723b3c32324b40755f94e3a/src/ball_physics.c",
+      "notes": "Identity: OpenSWOS remains Ben Baker's Amiga-derived C port, distinct from the separately tracked Godot/C# recreation. Classification: The new setup recognizes multiple owned-source formats and the repository now contains its own WHDLoad slave and file/memory bridge, rather than merely repackaging a third-party slave. Source CPU: The source/input lineage remains the Amiga m68k version of SWOS. Target CPU: The reviewed Amiga Makefile assembles the native output and WHDLoad slave with explicit 68020 settings; this records the output architecture, not an independently measured hardware minimum. Build: Upstream reports that its own slave reaches the intro, menus and a match under WHDLoad 19.2 in FS-UAE, that Delete quits, and that the plain Workbench path still reaches the main menu. The setup now consumes floppy, HDF, LHA and ZIP sources and builds the package. Limitations: The tracker did not build, install or run these paths. Runtime profiles: A bounded AGA WHDLoad variant is recorded from the upstream test. The project explicitly removes the prior Kickstart-image and third-party-slave requirements; CPU and RAM minima remain unstated. AI: The reviewed commits explicitly credit Claude Opus 5.5 as co-author. Relationships: The new WHDLoad packaging is a variant of this repository's existing OpenSWOS output, not a separate project. Evidence: https://github.com/benbaker76/OpenSWOS https://github.com/benbaker76/OpenSWOS/commit/9359bc5fd72c15fc98507f1fc69fc8cea4c675c6 https://github.com/benbaker76/OpenSWOS/commit/591326789a51f5be4e145cf7fc00f4e893c21e86",
       "ai": {
         "usage": true,
         "tools": [
