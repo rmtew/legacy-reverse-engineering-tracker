@@ -1414,3 +1414,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-24 — Review an old Level 9 source and four rotated GitHub code-search routes; add CP/M-65 and pkIntvMCP, and refresh the reconstructed Level 9 toolchain.
 
 [Research record](docs/research/2026-10-24-cpm65-intellivision-level9-discovery.md).
+
+## 2026-10-24 — Review eight material upstream changes spanning a new native Saturn output, source-only release validation, decompilation semantics, emulator/debugger correctness and reverse-engineering instrumentation.
+
+[Research record](docs/research/maintenance-2026-10-24-am-upstream-runtime-debugging.md).
