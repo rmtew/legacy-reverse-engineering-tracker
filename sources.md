@@ -1254,3 +1254,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-23 — Personally review 17 roots: add 11 projects, consolidate three lineage duplicates and defer three candidates.
 
 [Research record](docs/research/2026-10-23-wide-cross-platform-discovery-50.md).
+
+## 2026-10-23 — Review eight material upstream changes spanning emulator fidelity, native runtime variants, completed disassembly status, compiler test architecture and release packaging.
+
+[Research record](docs/research/maintenance-2026-10-23-pm-hardware-runtime-releases.md).
