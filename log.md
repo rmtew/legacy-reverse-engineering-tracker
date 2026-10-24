@@ -1418,3 +1418,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-24 — Review eight material upstream changes spanning a new native Saturn output, source-only release validation, decompilation semantics, emulator/debugger correctness and reverse-engineering instrumentation.
 
 [Research record](docs/research/maintenance-2026-10-24-am-upstream-runtime-debugging.md).
+
+## 2026-10-24 — Review ten material upstream changes across Pandora layout diagnosis, cross-platform reconstruction evidence, static recompilation safety, disk preservation, debugger determinism and emulator/tooling workflows.
+
+[Research record](docs/research/maintenance-2026-10-24-pm-upstream-fidelity-tooling.md).
