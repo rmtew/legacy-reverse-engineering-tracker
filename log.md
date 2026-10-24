@@ -1426,3 +1426,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-25 — Reviewed the final four title directories in tony-cruise/colecovision-games-source, promoted four compilable Z80 disassemblies, completed the 24-title queue task, and screened fresh Atari 8-bit, Apple II, MSX, TI-99 and BBC Micro repository searches against existing catalogue state.
 
 [Research record](docs/research/2026-10-25-colecovision-final-four-discovery.md).
+
+## 2026-10-25 — Review eight material upstream changes across emulator determinism, disassembly-derived distribution builds, reconstruction validation, native Apple II probes, gameplay progress and retro-analysis tooling.
+
+[Research record](docs/research/maintenance-2026-10-25-am-determinism-multiplatform-regression.md).
