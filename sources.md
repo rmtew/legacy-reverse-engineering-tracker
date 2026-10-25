@@ -1278,3 +1278,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-25 — Review eight material upstream changes across emulator determinism, disassembly-derived distribution builds, reconstruction validation, native Apple II probes, gameplay progress and retro-analysis tooling.
 
 [Research record](docs/research/maintenance-2026-10-25-am-determinism-multiplatform-regression.md).
+
+## 2026-10-25 — Review ten material upstream changes spanning reconstruction qualification, PowerPC compatibility, Falcon030 FPGA integration, analysis correctness, input fidelity and emulator timing.
+
+[Research record](docs/research/maintenance-2026-10-25-pm-reconstruction-runtime-tooling.md).
