@@ -1282,3 +1282,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-25 — Review ten material upstream changes spanning reconstruction qualification, PowerPC compatibility, Falcon030 FPGA integration, analysis correctness, input fidelity and emulator timing.
 
 [Research record](docs/research/maintenance-2026-10-25-pm-reconstruction-runtime-tooling.md).
+
+## 2026-10-26 — Promoted Intel80Tools, NeoWidEx and two BBC ROM reassemblies; resolved queued source reviews and linked Thames to the Intel build workflow.
+
+[Research record](docs/research/2026-10-26-isis-lisa-bbc-rom-discovery.md).
