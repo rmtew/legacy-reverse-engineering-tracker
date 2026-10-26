@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-26T20:53:12Z",
+  "updated_at": "2026-10-26T21:00:19Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -301160,6 +301160,1793 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: Sidecartridge ROM Switcher — bare-metal selector firmware. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Bare-metal ROM selector firmware implements native display/input paths and device self-tests across ST/STE and selected Amiga systems. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Documented target ISA is m68k. Build: Requires matching ROM-emulator hardware/firmware major version; v4 is not interchangeable with older firmware. No device access or flashing performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Firmware component of Sidecartridge hardware, not replacement TOS/Kickstart or a general emulator. Evidence: https://github.com/sidecartridge/romemul-switcher-rom/blob/cf75314ccd89d801cc06201533979f0efc25982b/README.md https://github.com/sidecartridge/romemul-switcher-rom/blob/cf75314ccd89d801cc06201533979f0efc25982b/src/common/rom_check.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "alexanderk23-nyukomatic": {
+      "id": "alexanderk23-nyukomatic",
+      "title": "Nyukomatic — native Spectrum live coding",
+      "upstream_name": "nyukomatic",
+      "display_title": "Nyukomatic — native Spectrum live coding",
+      "subjects": [
+        "Nyukomatic"
+      ],
+      "repo": "https://github.com/alexanderk23/nyukomatic",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Nyukomatic — native Spectrum live coding. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Native live-coding editor embeds SJASMPlus-derived assembly and a Pentagon 128 execution view, with network broadcast modes. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Documented target ISA is Z80. Build: CMake and bundled/submodule dependencies; compiler prepends Spectrum128 device and origin 0x6000. Network features require compatible relay server. Cycle accuracy not independently tested. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Inspired by Bazematic/Bonzomatic, using kosarev Z80 and SJASMPlus components rather than a newly authored CPU core. Evidence: https://github.com/alexanderk23/nyukomatic/blob/41b9befdab14ebc41f3872f85e054597b453058a/README.md https://github.com/alexanderk23/nyukomatic/blob/41b9befdab14ebc41f3872f85e054597b453058a/src/compiler.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "0xcafed00d-taptool": {
+      "id": "0xcafed00d-taptool",
+      "title": "taptool — Go Spectrum tape inspection",
+      "upstream_name": "taptool",
+      "display_title": "taptool — Go Spectrum tape inspection",
+      "subjects": [
+        "taptool"
+      ],
+      "repo": "https://github.com/0xcafed00d/taptool",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Go"
+      ],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "language-tooling"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: taptool — Go Spectrum tape inspection. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Analyzes TAP headers/checksums, extracts BASIC and CODE data with manifests, and creates or appends loader/code blocks. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Go CLI; input scope is TAP records, not arbitrary TZX pulse encodings. Manifest preserves record metadata rather than claiming text detokenization alone is byte-reversible. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Independent tape-format implementation with BASIC support, not an assembler wrapper. Evidence: https://github.com/0xcafed00d/taptool/blob/bf9da06ba0bb6283b16b68bf077029d10766599c/README.md https://github.com/0xcafed00d/taptool/blob/bf9da06ba0bb6283b16b68bf077029d10766599c/internal/tap/tap.go",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "x-seti-amiga-icon-converter": {
+      "id": "x-seti-amiga-icon-converter",
+      "title": "Amiga Icon Converter — Python image export",
+      "upstream_name": "Amiga-Icon-converter",
+      "display_title": "Amiga Icon Converter — Python image export",
+      "subjects": [
+        "Amiga Icon Converter"
+      ],
+      "repo": "https://github.com/X-Seti/Amiga-Icon-converter",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Amiga Icon Converter — Python image export. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Converts classic DiskObject icons and IFF-family graphics using palette input, with PNG/ICO/SVG exports and newer icon decoding paths. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Python/Pillow; current CLI filename differs from README. Palette selection and optional index-zero transparency change interpretation; format coverage was not tested against a corpus. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Classic .info parser credits DP5 Workshop; one converter project, not the bundled sample icon collection. Evidence: https://github.com/X-Seti/Amiga-Icon-converter/blob/4fa688219533d98b4d6db3b541a468fb2c6c3f85/README.md https://github.com/X-Seti/Amiga-Icon-converter/blob/4fa688219533d98b4d6db3b541a468fb2c6c3f85/amigaicon_converter_cli.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "jungjozef-protracker-go": {
+      "id": "jungjozef-protracker-go",
+      "title": "ProTracker Go — MOD playback and WAV conversion",
+      "upstream_name": "protracker-go",
+      "display_title": "ProTracker Go — MOD playback and WAV conversion",
+      "subjects": [
+        "ProTracker Go"
+      ],
+      "repo": "https://github.com/jungjozef/protracker-go",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Go"
+      ],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: ProTracker Go — MOD playback and WAV conversion. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: MOD loader and tick-based replay engine provide effects, stereo separation, filtered playback and WAV rendering. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Go 1.26+ and oto v3 for playback. README contradicts itself about BLEP; inspected replayer contains residual-table generation/injection, so absence is not repeated as fact. Fidelity remains unverified. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Independent Go engine with separate playback frontend and converter modules. Evidence: https://github.com/jungjozef/protracker-go/blob/cc10da2fe9f64b6267494378206710e4fbe8a72d/README.md https://github.com/jungjozef/protracker-go/blob/cc10da2fe9f64b6267494378206710e4fbe8a72d/engine/replayer.go",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "the-thing-chipamp": {
+      "id": "the-thing-chipamp",
+      "title": "Chipamp — Java ProTracker replay engine",
+      "upstream_name": "chipamp",
+      "display_title": "Chipamp — Java ProTracker replay engine",
+      "subjects": [
+        "Chipamp"
+      ],
+      "repo": "https://github.com/the-thing/chipamp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Java"
+      ],
+      "reconstructed_languages": [
+        "Java"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Chipamp — Java ProTracker replay engine. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: MOD parser/replayer implements channel/effect state, seeking snapshots and PCM output through Java audio. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Java/Maven and javax.sound.sampled; tick-based implementation is not independently verified cycle-accurate Paula emulation despite README phrasing. Malformed-loop correction may change input behavior. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Pure-Java implementation supporting several tracker signatures, not a native-library binding. Evidence: https://github.com/the-thing/chipamp/blob/bbe863234175ddad9a2e30f651de98d4730c4077/README.md https://github.com/the-thing/chipamp/blob/bbe863234175ddad9a2e30f651de98d4730c4077/chipamp-player/src/main/java/com/github/thething/chipamp/mod/Channel.java",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "davervw-scrledit": {
+      "id": "davervw-scrledit",
+      "title": "Scrolling BASIC Editor — original 1987 C64 source",
+      "upstream_name": "scrledit",
+      "display_title": "Scrolling BASIC Editor — original 1987 C64 source",
+      "subjects": [
+        "Scrolling BASIC Editor"
+      ],
+      "repo": "https://github.com/davervw/scrledit",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64"
+      ],
+      "target_platforms": [
+        "Commodore 64"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 assembly",
+        "BASIC"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "BASIC"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Scrolling BASIC Editor — original 1987 C64 source. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Author-published original source for the scrolling editor distributed in COMPUTE! Gazette January 1988, including keyboard and IRQ-vector integration. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: 6502. Target CPU: Documented target ISA is 6502. Build: Builds with Fast Assembler or FA+ on Commodore; main preserves the historical source, while control-left-right branch contains later updates. No historical byte comparison rerun. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Original author source preservation, not a new disassembly or generic BASIC text editor. Evidence: https://github.com/davervw/scrledit/blob/e17aab225abb945e84e819934c0ef012329f1797/README.md https://github.com/davervw/scrledit/blob/e17aab225abb945e84e819934c0ef012329f1797/scrledit.src.txt",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "asig-cbm-font-editor": {
+      "id": "asig-cbm-font-editor",
+      "title": "CBM Font Editor — browser character-ROM editing",
+      "upstream_name": "cbm-font-editor",
+      "display_title": "CBM Font Editor — browser character-ROM editing",
+      "subjects": [
+        "CBM Font Editor"
+      ],
+      "repo": "https://github.com/asig/cbm-font-editor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64",
+        "Commodore 128",
+        "Commodore VIC-20",
+        "Commodore PET"
+      ],
+      "target_platforms": [
+        "Commodore 64",
+        "Commodore 128",
+        "Commodore VIC-20",
+        "Commodore PET"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: CBM Font Editor — browser character-ROM editing. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Browser font editor maintains 256-character sets with binary/PRG, BASIC and cbmasm-style export paths. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: npm/React application; supported machine font layouts and exported loaders need separate runtime checks. No remote data upload or app execution performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Independent font editing tool, not another copy of bundled character ROMs. Evidence: https://github.com/asig/cbm-font-editor/blob/bc9f205f1bc65962b7ba0049e2e6334b210b833b/README.md https://github.com/asig/cbm-font-editor/blob/bc9f205f1bc65962b7ba0049e2e6334b210b833b/src/model/Font.js https://github.com/asig/cbm-font-editor/blob/bc9f205f1bc65962b7ba0049e2e6334b210b833b/src/Utils.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rlamorea-edcbm": {
+      "id": "rlamorea-edcbm",
+      "title": "edcbm — annotated Commodore BASIC editor",
+      "upstream_name": "edcbm",
+      "display_title": "edcbm — annotated Commodore BASIC editor",
+      "subjects": [
+        "edcbm"
+      ],
+      "repo": "https://github.com/rlamorea/edcbm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64",
+        "Commodore 128",
+        "Commodore PET",
+        "Commodore Plus/4"
+      ],
+      "target_platforms": [
+        "Commodore 64",
+        "Commodore 128",
+        "Commodore PET",
+        "Commodore Plus/4"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "language-tooling"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: edcbm — annotated Commodore BASIC editor. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Web editor provides annotated BASIC workflows and dialect-aware token tables, with disk and VICE debugging integration in separate components. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Browser frontend and Node/VICE integration paths; token/line limits vary by dialect. No server or emulator session started and no universal BASIC compatibility inferred. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: One editor suite, not separate records for its tokenizer, disk and debugger helpers. Evidence: https://github.com/rlamorea/edcbm/blob/eec5fcc405e88ff31fc5893f8da7b1f18f931a4c/README.md https://github.com/rlamorea/edcbm/blob/eec5fcc405e88ff31fc5893f8da7b1f18f931a4c/scripts/toker.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "anders-h-cbmcodeedit": {
+      "id": "anders-h-cbmcodeedit",
+      "title": "Commodore BASIC Code Editor — macro-enhanced source",
+      "upstream_name": "CbmCodeEdit",
+      "display_title": "Commodore BASIC Code Editor — macro-enhanced source",
+      "subjects": [
+        "Commodore BASIC Code Editor"
+      ],
+      "repo": "https://github.com/Anders-H/CbmCodeEdit",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Commodore VIC-20",
+        "Commodore 64",
+        "Commodore 128"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C#"
+      ],
+      "reconstructed_languages": [
+        "C#"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "language-tooling"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Commodore BASIC Code Editor — macro-enhanced source. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Editor rewrites labels, long variables, constants and compound assignments into numbered Commodore BASIC text. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: C# desktop project; target-dependent source line lengths checked. Output remains BASIC source, not native machine code or a full optimizing compiler. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Standalone source-preprocessing editor with explicit transformation stages. Evidence: https://github.com/Anders-H/CbmCodeEdit/blob/a0c93ce3bf508b9eb997a4048a6c5a6146be52ca/README.md https://github.com/Anders-H/CbmCodeEdit/blob/a0c93ce3bf508b9eb997a4048a6c5a6146be52ca/Source/CbmCode/CodeGeneration/Generate.cs",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "smiteshl-mc68000-memory-debugger": {
+      "id": "smiteshl-mc68000-memory-debugger",
+      "title": "MC68000 Memory Debugger — assembly monitor",
+      "upstream_name": "MC68000-Memory-Debugger",
+      "display_title": "MC68000 Memory Debugger — assembly monitor",
+      "subjects": [
+        "MC68000 Memory Debugger"
+      ],
+      "repo": "https://github.com/SmiteshL/MC68000-Memory-Debugger",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "68000 assembly"
+      ],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "debugger"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MC68000 Memory Debugger — assembly monitor. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Educational command monitor implements memory display/modification, fill/move/search, register-status display and numeric helpers in 68000 assembly. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Documented target ISA is m68k. Build: X68 simulator-style source at fixed addresses; monitor services and deployment environment need separate qualification. Block trace entry is commented out and no real-board operation is claimed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Substantial native monitor source from an ECE441 project, not a complete 68000 simulator. Evidence: https://github.com/SmiteshL/MC68000-Memory-Debugger/blob/3efc144c485c8fc1a88a4134f2c70003a2139ffa/README.md https://github.com/SmiteshL/MC68000-Memory-Debugger/blob/3efc144c485c8fc1a88a4134f2c70003a2139ffa/Slokare_441%20project.X68",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "zaroc-dev-mc68000-emulator": {
+      "id": "zaroc-dev-mc68000-emulator",
+      "title": "MC68000 Rust Lab — partial CPU and GUI debugger",
+      "upstream_name": "mc68000-emulator",
+      "display_title": "MC68000 Rust Lab — partial CPU and GUI debugger",
+      "subjects": [
+        "MC68000 Rust Lab"
+      ],
+      "repo": "https://github.com/zaroc-dev/mc68000-emulator",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Rust"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "assembler-toolchain"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MC68000 Rust Lab — partial CPU and GUI debugger. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Educational interpreter and assembly parser provide stepping, register inspection and a native GUI for a bounded instruction subset. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: m68k. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Cargo/GUI dependencies; source leaves instructions unimplemented, treats BSR condition as false and simplifies some condition handling. README complete-CPU wording is not accepted as compatibility evidence. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Teaching implementation rather than a hardware-accurate general-purpose machine emulator. Evidence: https://github.com/zaroc-dev/mc68000-emulator/blob/6130dcaedf2da65f062778560c32e5a254653779/README.md https://github.com/zaroc-dev/mc68000-emulator/blob/6130dcaedf2da65f062778560c32e5a254653779/src/cpu.rs",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dpt-module-ditherext": {
+      "id": "dpt-module-ditherext",
+      "title": "DitherExtend — RISC OS disassembly and C port",
+      "upstream_name": "Module.DitherExt",
+      "display_title": "DitherExtend — RISC OS disassembly and C port",
+      "subjects": [
+        "DitherExtend"
+      ],
+      "repo": "https://github.com/dpt/Module.DitherExt",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "RISC OS"
+      ],
+      "target_platforms": [
+        "RISC OS"
+      ],
+      "source_cpu": [
+        "ARM"
+      ],
+      "target_cpu": [
+        "ARM"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "ARM assembly",
+        "C"
+      ],
+      "reconstructed_languages": [
+        "ARM assembly",
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: DitherExtend — RISC OS disassembly and C port. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Restores Computer Concepts DitherExtend 0.60 as annotated ObjAsm and a routine-by-routine C module, covering dithering, blending and color-conversion SWIs. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: ARM. Target CPU: Documented target ISA is ARM. Build: ObjAsm or C/CMHG toolchain and user-supplied original module required for comparison. Upstream byte-identical assembly claim is not a claim that the C port matches binary bytes. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Two representations of the same module; original copyrighted binary deliberately absent. Evidence: https://github.com/dpt/Module.DitherExt/blob/6eb5ea08b33fb62e83ca9a34d90af2c24ad68f69/README.md https://github.com/dpt/Module.DitherExt/blob/6eb5ea08b33fb62e83ca9a34d90af2c24ad68f69/C/src/blend.c https://github.com/dpt/Module.DitherExt/blob/6eb5ea08b33fb62e83ca9a34d90af2c24ad68f69/Asm/DitherExt.s",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tschak909-ilbmview": {
+      "id": "tschak909-ilbmview",
+      "title": "ilbmview — Wayland Amiga image viewer",
+      "upstream_name": "ilbmview",
+      "display_title": "ilbmview — Wayland Amiga image viewer",
+      "subjects": [
+        "ilbmview"
+      ],
+      "repo": "https://github.com/tschak909/ilbmview",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: ilbmview — Wayland Amiga image viewer. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Native Wayland viewer decodes ILBM bitplanes, ByteRun1, HAM/EHB and deep-color modes with CAMG/aspect-aware display. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Wayland client/protocols/scanner and C toolchain; software wl_shm rendering. Palette and aspect heuristics are implementation choices, not independently proven display identity. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Dependency-light viewer with its own decoder, not an SDL frontend. Evidence: https://github.com/tschak909/ilbmview/blob/91c06e7bfe617b43c89e5ff66fed85770af48708/README.md https://github.com/tschak909/ilbmview/blob/91c06e7bfe617b43c89e5ff66fed85770af48708/src/ilbm.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sirxyzzy-ilbm": {
+      "id": "sirxyzzy-ilbm",
+      "title": "ilbm — Rust image-decoder library",
+      "upstream_name": "ilbm",
+      "display_title": "ilbm — Rust image-decoder library",
+      "subjects": [
+        "ilbm"
+      ],
+      "repo": "https://github.com/sirxyzzy/ilbm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "DOS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Rust"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: ilbm — Rust image-decoder library. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Library reads IFF chunks and compressed/uncompressed ILBM plane rows, with info and SDL2 demonstration programs. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Cargo; SDL2 example is explicitly awkward/test-oriented. Encoding is an aspiration, not an implemented capability established here. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Reusable read-side format library, not just a viewer or complete image-crate integration. Evidence: https://github.com/sirxyzzy/ilbm/blob/0fa0838ab4a9f396f9544b27537bf8943460caad/README.md https://github.com/sirxyzzy/ilbm/blob/0fa0838ab4a9f396f9544b27537bf8943460caad/src/read.rs",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "prestige-exe-swiftilbm": {
+      "id": "prestige-exe-swiftilbm",
+      "title": "SwiftILBM — indexed ILBM decoding",
+      "upstream_name": "SwiftILBM",
+      "display_title": "SwiftILBM — indexed ILBM decoding",
+      "subjects": [
+        "SwiftILBM"
+      ],
+      "repo": "https://github.com/prestige-exe/SwiftILBM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "macOS",
+        "iOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Swift"
+      ],
+      "reconstructed_languages": [
+        "Swift"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SwiftILBM — indexed ILBM decoding. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Pure-Swift parser converts 1–8 plane indexed ILBM and ByteRun1 data into CoreGraphics images. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Swift 6+, macOS14+/iOS17+; HAM, EHB, truecolor and dynamic palettes are unsupported. Mask planes are skipped rather than interpreted. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Narrow indexed decoder, distinct from more comprehensive QuickLook parser projects. Evidence: https://github.com/prestige-exe/SwiftILBM/blob/94506dea3978c9d359dc2af9bf371a50393308f9/README.md https://github.com/prestige-exe/SwiftILBM/blob/94506dea3978c9d359dc2af9bf371a50393308f9/Sources/SwiftILBM/PlanarToChunky.swift",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "shadester-amigamand": {
+      "id": "shadester-amigamand",
+      "title": "amigamand — native 68020 fractal explorer",
+      "upstream_name": "amigamand",
+      "display_title": "amigamand — native 68020 fractal explorer",
+      "subjects": [
+        "amigamand"
+      ],
+      "repo": "https://github.com/Shadester/amigamand",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "68020 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "68020 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: amigamand — native 68020 fractal explorer. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Mandelbrot/Julia explorer combines native fixed-point assembly, chunky-to-planar drawing, ARexx controls and ILBM export with an optional FPU build. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Documented target ISA is m68k. Build: AmigaOS3.1 and 68020 minimum; 68881/68882 or suitable integrated FPU for floating-point build. AGA256 colors with fewer-color OCS/ECS paths. FS-UAE-only upstream tests; no real-hardware proof. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Original application rather than recovery of an older fractal program. CLAUDE.md development account alone does not establish actual AI authorship. Evidence: https://github.com/Shadester/amigamand/blob/3db6549e2c3490b46f8ffa73365bab8cb2a5c4ad/README.md https://github.com/Shadester/amigamand/blob/3db6549e2c3490b46f8ffa73365bab8cb2a5c4ad/iter020.s https://github.com/Shadester/amigamand/blob/3db6549e2c3490b46f8ffa73365bab8cb2a5c4ad/CLAUDE.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "fredrik-rambris-java-iff": {
+      "id": "fredrik-rambris-java-iff",
+      "title": "java-iff — image and audio codec integration",
+      "upstream_name": "java-iff",
+      "display_title": "java-iff — image and audio codec integration",
+      "subjects": [
+        "java-iff"
+      ],
+      "repo": "https://github.com/fredrik-rambris/java-iff",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Java"
+      ],
+      "reconstructed_languages": [
+        "Java"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: java-iff — image and audio codec integration. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: IFF FORM reader/writer with ILBM and 8SVX codecs registered through Java ImageIO and AudioSystem providers. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Java17+/Maven; native-image metadata included. Unknown chunks and format variant handling remain codec-specific, with no full corpus or lossless round-trip claim. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: General container layer plus image/audio integrations as one library project. Evidence: https://github.com/fredrik-rambris/java-iff/blob/d72195200768f7c89db4402ba20bc1fb2fc0b1a4/README.md https://github.com/fredrik-rambris/java-iff/blob/d72195200768f7c89db4402ba20bc1fb2fc0b1a4/src/main/java/dev/rambris/iff/codec/IlbmCodec.java",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rcoenen-iff-it-quicklook": {
+      "id": "rcoenen-iff-it-quicklook",
+      "title": "IFF-it QuickLook — macOS Amiga asset integration",
+      "upstream_name": "IFF-it-QuickLook",
+      "display_title": "IFF-it QuickLook — macOS Amiga asset integration",
+      "subjects": [
+        "IFF-it QuickLook"
+      ],
+      "repo": "https://github.com/rcoenen/IFF-it-QuickLook",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Swift",
+        "C"
+      ],
+      "reconstructed_languages": [
+        "Swift",
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: IFF-it QuickLook — macOS Amiga asset integration. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Shared ILBM decoder supports Finder previews/thumbnails and Spotlight metadata across indexed, HAM/EHB and selected deep-color formats. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: macOS14+, Xcode16+/XcodeGen and signing setup; no extensions installed. Broad mode support and thumbnail behavior remain unverified on a running Mac. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Substantial independent decoder plus native OS integration, not a wrapper around SwiftILBM. Evidence: https://github.com/rcoenen/IFF-it-QuickLook/blob/4961a64cf76a86d1e81f2a9700fef9b3f5c31fd1/README.md https://github.com/rcoenen/IFF-it-QuickLook/blob/4961a64cf76a86d1e81f2a9700fef9b3f5c31fd1/Shared/ILBMParser.swift",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "fabrizioc-seabattle-1994": {
+      "id": "fabrizioc-seabattle-1994",
+      "title": "SeaBattle 1994 — original QuickBASIC game source",
+      "upstream_name": "SeaBattle-1994",
+      "display_title": "SeaBattle 1994 — original QuickBASIC game source",
+      "subjects": [
+        "SeaBattle 1994"
+      ],
+      "repo": "https://github.com/FabrizioC/SeaBattle-1994",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "BASIC"
+      ],
+      "reconstructed_languages": [
+        "BASIC"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SeaBattle 1994 — original QuickBASIC game source. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Author preserves a 1994 Battleship game with RS-232 two-PC experiments, single-player logic, sprite editor and custom Amiga ILBM import. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: QuickBASIC4.5-era source plus QB64 artifacts. Inspected SBM variant forces computer opponent despite retaining serial routines; no modern or original executable run performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Original DOS game source; Amiga was the artwork source platform, not the game runtime. Evidence: https://github.com/FabrizioC/SeaBattle-1994/blob/19e333f722fd7fc7e5b83376c2c80440ebc67fbc/README.md https://github.com/FabrizioC/SeaBattle-1994/blob/19e333f722fd7fc7e5b83376c2c80440ebc67fbc/src/LOAD_IFF.BAS https://github.com/FabrizioC/SeaBattle-1994/blob/19e333f722fd7fc7e5b83376c2c80440ebc67fbc/src/SBM.BAS",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "saschaklick-libilbm": {
+      "id": "saschaklick-libilbm",
+      "title": "libilbm — GIMP loader with obfuscated-chunk heuristics",
+      "upstream_name": "libilbm",
+      "display_title": "libilbm — GIMP loader with obfuscated-chunk heuristics",
+      "subjects": [
+        "libilbm"
+      ],
+      "repo": "https://github.com/saschaklick/libilbm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "DOS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: libilbm — GIMP loader with obfuscated-chunk heuristics. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: ILBM parser and GIMP loader recognize standard layouts and selected renamed chunk identifiers used in games such as The Clue and Whales Voyage. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: GIMP2.10/gimptool2.0 build; core palette support only, no truecolor or mask-plane interpretation. Unknown chunk-role inference is heuristic, not universal deobfuscation. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Library/CLI/plugin treated together, rather than separate game reconstruction records. Evidence: https://github.com/saschaklick/libilbm/blob/8ab7d7c2b2f78304c4f9e3cd3f4e4e350138cd5c/README.md https://github.com/saschaklick/libilbm/blob/8ab7d7c2b2f78304c4f9e3cd3f4e4e350138cd5c/src/libilbm.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "damir-sijakovic-iffliction": {
+      "id": "damir-sijakovic-iffliction",
+      "title": "iffliction — unified Amiga image and icon decoding",
+      "upstream_name": "iffliction",
+      "display_title": "iffliction — unified Amiga image and icon decoding",
+      "subjects": [
+        "iffliction"
+      ],
+      "repo": "https://github.com/damir-sijakovic/iffliction",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: iffliction — unified Amiga image and icon decoding. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: C API detects, inspects and decodes ILBM/PBM, classic/MagicWB, NewIcons and GlowIcons into RGBA with PNG and optional SDL output. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: C/libpng and optional SDL; global error buffer and ownership conventions require caller care. Format correctness and malformed input handling not independently tested. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Consolidates author’s earlier ddd-iff, magicwb, newicons and glowicons tools into a reusable library. Evidence: https://github.com/damir-sijakovic/iffliction/blob/49c90edaaa906fdea51e975c02dc96a556dfc1b1/README.md https://github.com/damir-sijakovic/iffliction/blob/49c90edaaa906fdea51e975c02dc96a556dfc1b1/iffliction.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "pipagerardo-nmsxtiles": {
+      "id": "pipagerardo-nmsxtiles",
+      "title": "nMSXtiles — tile, screen and sprite editor",
+      "upstream_name": "nMSXtiles",
+      "display_title": "nMSXtiles — tile, screen and sprite editor",
+      "subjects": [
+        "nMSXtiles"
+      ],
+      "repo": "https://github.com/pipagerardo/nMSXtiles",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX",
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: nMSXtiles — tile, screen and sprite editor. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Qt editor manages tiles, screens, sprite sets and palettes for SCREEN2/SCREEN4-oriented graphics workflows. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: QtCreator/qmake project; bundled desktop builds do not establish current OS compatibility. Native bit/color constraints need validation per export. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Continuation of Pentacour original by PipaGerardo with Jos contributions, not an unrelated new editor. Evidence: https://github.com/pipagerardo/nMSXtiles/blob/e4db1b88f27345c4105eb8255888861ea9df778f/README.md https://github.com/pipagerardo/nMSXtiles/blob/e4db1b88f27345c4105eb8255888861ea9df778f/src/spritesw.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "jannone-msx-tinysprite": {
+      "id": "jannone-msx-tinysprite",
+      "title": "TinySprite — browser MSX sprite editor",
+      "upstream_name": "msx-tinysprite",
+      "display_title": "TinySprite — browser MSX sprite editor",
+      "subjects": [
+        "TinySprite"
+      ],
+      "repo": "https://github.com/jannone/msx-tinysprite",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX",
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: TinySprite — browser MSX sprite editor. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Browser editor represents 16x16 pattern masks and per-line mode2 attributes, evaluates layers and exports sprite data. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Legacy JavaScript/browser UI; mask ordering and OR-color attributes are explicit. No modern-browser or hardware test run. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Rafael Jannone original editor, separate from later image conversion scripts. Evidence: https://github.com/jannone/msx-tinysprite/blob/34cf49e1f1fc8a18205acb1987dacb445a9c98d4/js/sprite.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "pvmm-spritetools-py": {
+      "id": "pvmm-spritetools-py",
+      "title": "Sprite Tools — layered MSX2 image conversion",
+      "upstream_name": "spritetools.py",
+      "display_title": "Sprite Tools — layered MSX2 image conversion",
+      "subjects": [
+        "Sprite Tools"
+      ],
+      "repo": "https://github.com/pvmm/spritetools.py",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Sprite Tools — layered MSX2 image conversion. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: PNG conversion and checker build MSX2-compatible sprite layers, palette and OR-color combinations for native VRAM. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Python/Pillow; color/layer constraints and combinatorial search cost matter. Generated visual equivalence not independently checked. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Heavily modified ubox-msx-lib png2sprites lineage, credited to Juan Martinez and Pedro de Medeiros. Evidence: https://github.com/pvmm/spritetools.py/blob/77798a6aee940a65f71066f68773cdcd21b75d19/README.md https://github.com/pvmm/spritetools.py/blob/77798a6aee940a65f71066f68773cdcd21b75d19/png2sprites.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "h-o-soft-msxsprconv": {
+      "id": "h-o-soft-msxsprconv",
+      "title": "MSX Sprite Converter — single-color layer separation",
+      "upstream_name": "msxsprconv",
+      "display_title": "MSX Sprite Converter — single-color layer separation",
+      "subjects": [
+        "MSX Sprite Converter"
+      ],
+      "repo": "https://github.com/h-o-soft/msxsprconv",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MSX Sprite Converter — single-color layer separation. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Splits 8x8/16x16 images into MSX1 single-color sprite layers and emits assembly or binary in hardware quadrant order. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Python3/Pillow; palette matching is approximate and multicolor images require multiple hardware sprites. Does not remove scanline sprite limits. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Distinct converter for MSX1 layers, not a SCREEN5 bitmap encoder. Evidence: https://github.com/h-o-soft/msxsprconv/blob/9d03fce35af7d8b857c4f4a1c0b0163f8093c8ce/README.md https://github.com/h-o-soft/msxsprconv/blob/9d03fce35af7d8b857c4f4a1c0b0163f8093c8ce/msxsprconv.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "antxiko-msxjuaneditor": {
+      "id": "antxiko-msxjuaneditor",
+      "title": "MSXJuanEditor — constrained tile and sprite composition",
+      "upstream_name": "MSXJuanEditor",
+      "display_title": "MSXJuanEditor — constrained tile and sprite composition",
+      "subjects": [
+        "MSXJuanEditor"
+      ],
+      "repo": "https://github.com/antxiko/MSXJuanEditor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript",
+        "Rust"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "Rust"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MSXJuanEditor — constrained tile and sprite composition. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Tauri desktop tool edits SCREEN2 tiles/maps and sprite sets, constrains per-row colors and exports JSON, C and raw VRAM data. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Windows/WebView2 and Tauri build; 256-tile and 8x8/16x16 sprite limits are explicit. Mixed composition is an editor preview, not proof of runtime scanline behavior. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: One integrated asset application, not a separate game engine or a general emulator. Evidence: https://github.com/antxiko/MSXJuanEditor/blob/9efd4ccf66147d7ef1d85fb8715cbb91eb79f8d6/README.md https://github.com/antxiko/MSXJuanEditor/blob/9efd4ccf66147d7ef1d85fb8715cbb91eb79f8d6/src/index.html",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "symsx-spritepath": {
+      "id": "symsx-spritepath",
+      "title": "SpritePath — MSX motion-path authoring",
+      "upstream_name": "SpritePath",
+      "display_title": "SpritePath — MSX motion-path authoring",
+      "subjects": [
+        "SpritePath"
+      ],
+      "repo": "https://github.com/symsx/SpritePath",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Java"
+      ],
+      "reconstructed_languages": [
+        "Java"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SpritePath — MSX motion-path authoring. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Swing editor records paths on a 256x212 canvas and exports absolute or relative C coordinate tables. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Java desktop/resources; runtime interpolation, timing and sprite rendering are outside this tool. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Motion data editor distinct from sprite-pixel editors. Evidence: https://github.com/symsx/SpritePath/blob/be365387984b870ffd3aeb7afaf567bd11aae529/README.md https://github.com/symsx/SpritePath/blob/be365387984b870ffd3aeb7afaf567bd11aae529/src/SpritePath/SpritePath.java",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "antxiko-dunkshot-msx2-patch": {
+      "id": "antxiko-dunkshot-msx2-patch",
+      "title": "Dunk Shot — MSX2 sprite-flicker patch",
+      "upstream_name": "DunkShot-MSX2-Patch",
+      "display_title": "Dunk Shot — MSX2 sprite-flicker patch",
+      "subjects": [
+        "Dunk Shot"
+      ],
+      "repo": "https://github.com/antxiko/DunkShot-MSX2-Patch",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "MSX",
+        "MSX2"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "patching",
+        "subsystem-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Dunk Shot — MSX2 sprite-flicker patch. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Patch ports sprite presentation to SCREEN4/mode2 on MSX2, disables the old sprite-sharing scheme and preserves an MSX1 conditional path. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: Documented target ISA is Z80. Build: Pasmo/Python/make and original ROM required; upstream openMSX flicker measurements not rerun, real hardware explicitly untested. No ROM distributed in this project. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Derived from the already tracked antxiko DunkShot disassembly, but represents a separate functional hardware-enhancement patch. Evidence: https://github.com/antxiko/DunkShot-MSX2-Patch/blob/b278ccdd77cea5fe4962f6cc6d2cd558e5bc137a/README.md https://github.com/antxiko/DunkShot-MSX2-Patch/blob/b278ccdd77cea5fe4962f6cc6d2cd558e5bc137a/parche/parche_msx2.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "glufke-msx-fusionc-spritegen": {
+      "id": "glufke-msx-fusionc-spritegen",
+      "title": "Fusion C SpriteGen — native MSX sprite editor",
+      "upstream_name": "msx_FusionC_SpriteGen",
+      "display_title": "Fusion C SpriteGen — native MSX sprite editor",
+      "subjects": [
+        "Fusion C SpriteGen"
+      ],
+      "repo": "https://github.com/glufke/msx_FusionC_SpriteGen",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Fusion C SpriteGen — native MSX sprite editor. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Native Fusion C editor manages a 16x16 pixel grid with live sprite preview and multi-sprite positioning. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Fusion C headers/libraries and MSX execution environment required; source uses ifdef on a DEBUG macro defined as zero, so that block still compiles. Does not alter the hardware four-sprites-per-line limit. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Native authoring utility, not another host-side PNG converter. Evidence: https://github.com/glufke/msx_FusionC_SpriteGen/blob/34bf26c2e887618d9cbdadc3408a8c9079ac91ed/README.md https://github.com/glufke/msx_FusionC_SpriteGen/blob/34bf26c2e887618d9cbdadc3408a8c9079ac91ed/editor.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "slumpmax-pic2spr": {
+      "id": "slumpmax-pic2spr",
+      "title": "PIC2SPR — GIF to MSX2 mode2 sprite data",
+      "upstream_name": "PIC2SPR",
+      "display_title": "PIC2SPR — GIF to MSX2 mode2 sprite data",
+      "subjects": [
+        "PIC2SPR"
+      ],
+      "repo": "https://github.com/slumpmax/PIC2SPR",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Pascal"
+      ],
+      "reconstructed_languages": [
+        "Pascal"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: PIC2SPR — GIF to MSX2 mode2 sprite data. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Delphi utility converts a 256x16 sixteen-color GIF strip to sprite-mode2 pattern/color tables with BLOAD output. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Windows/VCL Delphi project; fixed strip geometry and SCREEN5/mode2 conventions, not arbitrary full-screen image conversion. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Native-format export tool, distinct from generic MSX image viewers. Evidence: https://github.com/slumpmax/PIC2SPR/blob/229a99d484affb35ffa24a968b0c3022852ac925/README.md https://github.com/slumpmax/PIC2SPR/blob/229a99d484affb35ffa24a968b0c3022852ac925/Source/Engine/MSXSprite.pas",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dihaltstudio-sol-negro-msx-v9990": {
+      "id": "dihaltstudio-sol-negro-msx-v9990",
+      "title": "Sol Negro — V9990 graphics-engine port",
+      "upstream_name": "Sol-Negro-MSX-V9990",
+      "display_title": "Sol Negro — V9990 graphics-engine port",
+      "subjects": [
+        "Sol Negro"
+      ],
+      "repo": "https://github.com/DiHaltStudio/Sol-Negro-MSX-V9990",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "MSX"
+      ],
+      "target_platforms": [
+        "MSX"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "subsystem-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Sol Negro — V9990 graphics-engine port. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Retains reconstructed original game logic while replacing display with V9990 tile planes, metasprites, smooth scrolling and recolored editable assets. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: Documented target ISA is Z80. Build: MSX1+64KB, V9990 and dual-cartridge setup; classic sjasm0.42c, Python/Pillow and external reconstructed MSX1 sibling input required. Original reassembly and replay fidelity are upstream claims, not binary identity of the enhanced port. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Native same-CPU hardware adaptation, not game-specific emulation. Private original-game reconstruction is a real build dependency, not supplied by this repository. Evidence: https://github.com/DiHaltStudio/Sol-Negro-MSX-V9990/blob/5812df9eab2e568080c1ee9a5892ed21fdae9fce/README.md https://github.com/DiHaltStudio/Sol-Negro-MSX-V9990/blob/5812df9eab2e568080c1ee9a5892ed21fdae9fce/src/game_a_renderer.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "mvac7-sdcc-vdp-sprites-mode2-msxrom-lib": {
+      "id": "mvac7-sdcc-vdp-sprites-mode2-msxrom-lib",
+      "title": "VDP Sprites Mode2 — SDCC MSX ROM library",
+      "upstream_name": "SDCC_VDP_SPRITES_mode2_MSXROM_Lib",
+      "display_title": "VDP Sprites Mode2 — SDCC MSX ROM library",
+      "subjects": [
+        "VDP Sprites Mode2"
+      ],
+      "repo": "https://github.com/mvac7/SDCC_VDP_SPRITES_mode2_MSXROM_Lib",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: VDP Sprites Mode2 — SDCC MSX ROM library. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Library exposes V9938 mode2 sprite position/pattern/visibility/EarlyClock functions through MSX BIOS for ROM applications. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Documented target ISA is Z80. Build: SDCC3.9+; patterns/colors must already be in VRAM. EarlyClock helper changes all rows rather than exploiting per-line offsets. SCREEN4 initialization uses a separate VDP library. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Specific fR3eL component with independent repository/API, not the entire fR3eL toolkit. Evidence: https://github.com/mvac7/SDCC_VDP_SPRITES_mode2_MSXROM_Lib/blob/55e5950173f8eb7f4381b1de3ee2b9e4f86af3b0/README.md https://github.com/mvac7/SDCC_VDP_SPRITES_mode2_MSXROM_Lib/blob/55e5950173f8eb7f4381b1de3ee2b9e4f86af3b0/sources/src/VDP_SPRITES_mode2_MSXROM.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "bferguson3-msx2tools": {
+      "id": "bferguson3-msx2tools",
+      "title": "MSX2 Tools — sprite, screen and bitmap editors",
+      "upstream_name": "msx2tools",
+      "display_title": "MSX2 Tools — sprite, screen and bitmap editors",
+      "subjects": [
+        "MSX2 Tools"
+      ],
+      "repo": "https://github.com/bferguson3/msx2tools",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "MSX2"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool",
+        "language-tooling"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MSX2 Tools — sprite, screen and bitmap editors. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Tkinter Spriter/Screener/Bitmapper suite prepares V9938 sprite patterns, maps and bitmap data, with BASIC detokenization utility. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Python3.7+; upstream explicitly records broken single-pattern and Z80 exports in current release notes and sluggish large canvas updates. No completeness inferred from menu options. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: One coherent authoring suite, not separate catalogue records for each GUI script. Evidence: https://github.com/bferguson3/msx2tools/blob/80954b98464a824aebd6d19039746c167c0db76c/README.md https://github.com/bferguson3/msx2tools/blob/80954b98464a824aebd6d19039746c167c0db76c/msx2spriter.py",
       "ai": {
         "usage": null,
         "tools": []
