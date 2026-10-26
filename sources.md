@@ -1334,3 +1334,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-27 — Review nine materially changed projects, capture MPX68K runtime requirements, expand ZX84 CPU scope, close the game-music-extraction build audit, and record current reconstruction and emulator fixes.
 
 [Research record](docs/research/maintenance-2026-10-27-am-reconstruction-runtime-tooling.md).
+
+## 2026-10-27 — Personally screen 129 candidate URLs and add 29 projects, with one unimplemented-tool exclusion and one unavailable-artifact deferral.
+
+[Research record](docs/research/2026-10-27-large-amiga-assets-cpc-c64-st-discovery.md).
