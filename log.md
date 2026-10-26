@@ -1446,3 +1446,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-26 — Personally screen 109 search hits, inspect fourteen new roots, add thirteen projects and defer one migrated source.
 
 [Research record](docs/research/2026-10-26-atari-tools-c64-discovery.md).
+
+## 2026-10-26 — Personally screen 77 search hits, review twelve roots, add nine projects including requested Kult C, defer two and exclude one starter.
+
+[Research record](docs/research/2026-10-26-kult-cpc-sega-discovery.md).
