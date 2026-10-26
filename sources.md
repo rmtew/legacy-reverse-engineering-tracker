@@ -1298,3 +1298,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-26 — Personally screen 77 search hits, review twelve roots, add nine projects including requested Kult C, defer two and exclude one starter.
 
 [Research record](docs/research/2026-10-26-kult-cpc-sega-discovery.md).
+
+## 2026-10-26 — Personally screen 235 unique URLs from 238 search hits, review 30 roots, add 27 projects, consolidate one predecessor and defer two source-container claims.
+
+[Research record](docs/research/2026-10-26-large-msx-apple-bbc-c64-discovery.md).
