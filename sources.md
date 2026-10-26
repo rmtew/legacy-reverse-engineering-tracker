@@ -1314,3 +1314,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-26 — Review ten material post-pass changes across reconstruction evidence, emulator fidelity, archive tooling and verified FPGA/runtime configurations.
 
 [Research record](docs/research/maintenance-2026-10-26-pm-reconstruction-runtime-tools.md).
+
+## 2026-10-26 — Personally screen 377 candidate URLs and add 31 source-backed projects, with two empty or README-only exclusions.
+
+[Research record](docs/research/2026-10-26-large-msx-forth-amiga-discovery.md).
