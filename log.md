@@ -1442,3 +1442,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-26 — Personally screen 94 search hits, inspect nine new roots, add six source-backed projects and defer three candidates.
 
 [Research record](docs/research/2026-10-26-amiga-kult-cpc-sc3000-discovery.md).
+
+## 2026-10-26 — Personally screen 109 search hits, inspect fourteen new roots, add thirteen projects and defer one migrated source.
+
+[Research record](docs/research/2026-10-26-atari-tools-c64-discovery.md).
