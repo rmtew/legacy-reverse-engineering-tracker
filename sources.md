@@ -1326,3 +1326,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-26 — Personally screen 236 candidate URLs and add 29 projects, with two empty/README-only exclusions and one binary-database inspection deferral.
 
 [Research record](docs/research/2026-10-26-large-amiga-libraries-st-acorn-discovery.md).
+
+## 2026-10-27 — Reviewed an older CPC collection and a rotated Jaguar/TRS-80/X68000/Vectrex search slice
+
+[Research record](docs/research/2026-10-27-jaguar-cpc-discovery.md).
