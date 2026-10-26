@@ -1474,3 +1474,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-26 — Personally screen 330 candidate URLs and add 30 projects; record five exclusions and one specific template-versus-port deferral.
 
 [Research record](docs/research/2026-10-26-large-cpc-c64-bbc-st-discovery.md).
+
+## 2026-10-26 — Personally screen 236 candidate URLs and add 29 projects, with two empty/README-only exclusions and one binary-database inspection deferral.
+
+[Research record](docs/research/2026-10-26-large-amiga-libraries-st-acorn-discovery.md).
