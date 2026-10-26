@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-26T16:22:37Z",
+  "updated_at": "2026-10-26T18:12:17Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -10884,7 +10884,7 @@
         "general Amiga machine emulator"
       ],
       "re_started": null,
-      "status": "v8.4.2 remains the published baseline; development head adds transactional configuration loading and matching load/save configuration actions across IPC and Swift interfaces.",
+      "status": "v8.4.2 remains the published baseline; development head now hard-resets stale 24/32-bit address-space transitions and adds bounded x86-64 JIT fault diagnostics",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -10916,7 +10916,7 @@
         "Haiku",
         "general Amiga machine emulator"
       ],
-      "notes": "Identity: General-purpose UAE/WinUAE-derived Amiga machine emulator. v8.4.0 publishes Windows ARM64/x86-64, macOS universal and Linux ARM64/x86-64 assets, establishing upstream compilable and runnable variants without establishing minimum hardware. The release adds ZZ9000 AHI/SANA-II/SDK/MHI/MPEGA/image/ZZPlay support, optional external MiniGL and dma-buf paths, relative media paths, cartridge and .A1000 ROM handling, runtime GL fallback, Raspberry Pi 4 drawing improvements, ARM64 JIT fixes, FreeBSD amd64/aarch64 CI and broad networking/display/input/libretro/Android corrections. m68k remains the guest CPU; ARM/x86/RISC-V/LoongArch are host families, not guest minima. External Kickstart ROMs and game media remain outside the GPL source grant. No independent execution or equivalence test was performed. Evidence: https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/blob/master/README.md Post-v8.4.0 development fixes apply RetroArch auto-loaded save states only after the emulated CPU loop is active, correct CIA-B time-of-day increments in fast and programmed-sync paths, preserve open-file keys across host renames, honor cache-inhibited pages in 68030/68040/68060 fast-cache paths and restore USE_PPC=OFF linking. These are source-level fixes on current main, not a new published release or independently executed verification. Evidence: https://github.com/BlitterStudio/amiberry/commit/71ac39e07d339d9d8e296e15db79642e6ab5619a https://github.com/BlitterStudio/amiberry/commit/3b5e647578e667adff3a88ef9557e2f3702b8ebe https://github.com/BlitterStudio/amiberry/commit/bdc870008140cff3dbbb4379df94aa92d7322e27 Current main ports WinUAE's optional loopback GDB remote server, disabled by default and unavailable with the threaded CPU, with m68k registers, physical RAM/ROM, stepping, breakpoints, watchpoints and memory-map support. A separate MacPorts integration covers Apple Silicon and x86 hosts and explicitly credits ChatGPT for substantial assistance; this extends the AI record without implying whole-project generation. Evidence: https://github.com/BlitterStudio/amiberry/commit/4faddbe399757a663fb3f2e8dc4be678eda96d4d https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15 Development head now honors database-requested 68040 AGA configurations, disables cycle-exact mode when requested, aligns Android previews with the launched CPU/FPU configuration and follows with 68030 database handling. IPC was redesigned to keep up to 16 clients across frames, bound per-frame work, cap requests at 64 KiB and queue replies without blocking the emulation thread. These guest CPU selections are emulated configurations, not Amiberry host target CPUs or minimum machines. No tracker-side WHDLoad or IPC run was performed. Evidence: https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7 https://github.com/BlitterStudio/amiberry/commit/69b4be8173 https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c Development head ports WinUAE monitor extensions for AmigaDOS entry stops, Exec task controls, exceptions, DMA/range watchpoints, guest diagnostics, input, screenshots and frame checkpoints. Follow-up fixes bound replies, preserve resets, report checkpoint write failures and safely disassemble at memory-bank ends. This is source-level development evidence, not a new v8.4.0 release or an independent run. Evidence: https://github.com/BlitterStudio/amiberry/commit/42335beeafe955c81df4dec31dd508867a6b3b4d Development head makes the local control interface available on Windows through account-scoped named pipes and exercises pipelining, stalled clients, size limits, abandoned connections, multi-instance endpoints and reply-before-quit on real headless emulator processes. Follow-up CPU work restores threaded-JIT block chaining, fixes stale interrupt and breakpoint handling, and prevents keyboard reset from racing a running CPU thread. These are source/CI receipts, not a new v8.4.0 artifact. Evidence: https://github.com/BlitterStudio/amiberry/commit/caf799a4c7dc3c99f2b69ee4834e5f4a00a77aae https://github.com/BlitterStudio/amiberry/commit/7dda88f302e74d38509a9ab0b37dfe79641cf8aa https://github.com/BlitterStudio/amiberry/commit/e28372fec0e9a957bce3cf5e791db3e3931e1724 Classification: The configuration work remains system-emulator interface and state-management development; it does not change guest or host CPU classification. Source CPU: src/newcpu.cpp explicitly identifies MC68000 emulation and contains 68020/030/040/060 cache/MMU state. m68k is the emulated guest family, distinct from the host CPU families. Target CPU: README explicitly names ARM, x86, RISC-V and LoongArch64 host hardware and ARM64/x86-64 JIT paths. Broad family values preserve these direct claims without inferring host minimums from C++ or OS names. Build: Development head adds LOAD_CONFIG and SAVE_CONFIG actions across IPC and Swift, preserves pending configuration when file reads fail, avoids autosave description renames, and resolves named files in the configuration directory before checks. Limitations: This is source-level development evidence, not a new release or tracker-side emulator run. Runtime profiles: The configuration actions state no new host CPU, RAM or OS minimum; the existing v8.4.2 glibc 2.35 AppImage requirement remains unchanged. AI: Existing Claude and ChatGPT evidence remains; the keyboard-reset fix additionally has an explicit Copilot co-author trailer. Attribution is scoped to evidenced commits. Relationships: General-purpose Amiga machine emulator built on the UAE/WinUAE core, eligible as system emulation rather than a single-game emulator. Amiga is the emulated source machine, not a claim that the emulator runs natively on a classic Amiga. Host ARM/x86/RISC-V/LoongArch claims do not redefine the guest CPU. Individual model/chipset/ROM combinations were not tested. GPL-3.0 source does not license external Kickstart ROMs, game disks or bundled third-party components. Repository metadata is not marked as a GitHub fork, but this does not erase explicit code/asset ancestry. Root-normalized dedup and prior-root screening passed the 1498-project baseline. Evidence: https://github.com/BlitterStudio/amiberry/blob/master/README.md https://github.com/BlitterStudio/amiberry/blob/master/src/custom.cpp https://github.com/BlitterStudio/amiberry/blob/master/src/newcpu.cpp https://github.com/BlitterStudio/amiberry https://github.com/BlitterStudio/amiberry/commit/aa9661d4144bddd54782939777a68219cab9f4db https://github.com/BlitterStudio/amiberry/commit/5dc6c79f956b4a76b793cbc957242cb65345fed7 https://github.com/BlitterStudio/amiberry/commit/2685d3e774cbdd3c99db0cee66aa6836642ed36c https://github.com/BlitterStudio/amiberry/blob/master/CMakeLists.txt https://github.com/BlitterStudio/amiberry/commit/caf799a4c7dc3c99f2b69ee4834e5f4a00a77aae https://github.com/BlitterStudio/amiberry/commit/7dda88f302e74d38509a9ab0b37dfe79641cf8aa https://github.com/BlitterStudio/amiberry/commit/e28372fec0e9a957bce3cf5e791db3e3931e1724 https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.2 https://github.com/BlitterStudio/amiberry/commit/2de3bf82280be045ea81dd0c55407061dfdbaa3e https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15 https://github.com/BlitterStudio/amiberry/blob/master/LICENSE",
+      "notes": "Identity: General-purpose UAE/WinUAE-derived Amiga system emulator. Current work continues post-v8.4.2 CPU, JIT and configuration correctness rather than creating a separate product. Classification: System emulation and debugging/runtime maintenance. Guest CPU-mode correctness does not change the distinction between Amiga m68k guests and modern host CPU families. Source CPU: m68k remains the emulated guest family. The reviewed change explicitly handles transitions between 24-bit and 32-bit guest address-space layouts. Target CPU: Existing documented ARM, x86, RISC-V and LoongArch64 host families remain unchanged. The new diagnostic path is specifically bounded to supported x86-64 JIT hosts and does not establish a new target. Build: Current head forces a hard reset when a CPU-mode change leaves the bank table laid out for the old 24/32-bit address space. It also logs bounded backtraces, memory-bank data and CPU state for x86-64 faults outside JIT code, guarded to libc platforms that provide backtrace support. Limitations: This is upstream source evidence on development head, not a new release or an independent emulator run. Runtime profiles: The change states no new host CPU, RAM or OS minimum. Existing published Windows/macOS ARM64/x86-64 variants and v8.4.2 Linux AppImage glibc 2.35 floor remain unchanged. AI: Existing scoped ChatGPT, Claude and Copilot evidence remains. The reviewed address-space commit contains no additional co-author attribution. Relationships: Amiberry remains a UAE/WinUAE-derived Amiga system emulator. External Kickstart ROMs, game media and third-party components retain separate provenance; the current CPU/JIT fix does not alter lineage. Evidence: https://github.com/BlitterStudio/amiberry https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.2 https://github.com/BlitterStudio/amiberry/commit/a44fb280caa79dafda1e498cde4a6e21c423e30a https://github.com/BlitterStudio/amiberry/blob/a44fb280caa79dafda1e498cde4a6e21c423e30a/src/newcpu.cpp https://github.com/BlitterStudio/amiberry/blob/master/README.md https://github.com/BlitterStudio/amiberry/releases/tag/v8.4.0 https://github.com/BlitterStudio/amiberry/commit/831f13e71ee6e872d6d3570f2c23068493d0dd15 https://github.com/BlitterStudio/amiberry/commit/e28372fec0e9a957bce3cf5e791db3e3931e1724 https://github.com/BlitterStudio/amiberry/blob/master/LICENSE",
       "ai": {
         "usage": true,
         "tools": [
@@ -81053,7 +81053,7 @@
         "sequence-data analysis"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Host-side multi-system music archaeology suite; current analysis conservatively reconstructs baked tracker chords with explicit ambiguity and authored validation controls",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -81065,7 +81065,10 @@
         "MIDI reconstruction",
         "disassembly-style sequence output",
         "game-code analysis notes",
-        "AKAO format decoding"
+        "AKAO format decoding",
+        "baked-chord spectral analysis",
+        "tracker-rendered probe validation",
+        "ambiguity-preserving reconstruction"
       ],
       "tags": [
         "game music",
@@ -81076,7 +81079,7 @@
         "SNES",
         "PlayStation"
       ],
-      "notes": "Coherent root project organized by system. Primary README documents scripts that read user-supplied ROM or disk images, produce General MIDI and disassembly-style sequence listings, and preserve code-analysis notes; system directories cover arcade, C64, NES, PlayStation, SNES and Wii work. Individual directories are implementations within the shared extractor rather than independent projects.",
+      "notes": "Identity: Coherent multi-system collection of extraction and analysis scripts that read user-supplied ROM/disk images and produce MIDI, sequence listings and research notes. Current instrument-analysis modules remain part of the same root project. Classification: Music-sequence and instrument archaeology tooling spanning arcade, console and home-computer data. It reconstructs musical structure and analysis outputs rather than executable CPU code. Source CPU: The reviewed work analyzes sample, tracker and sequence data across systems rather than one original executable architecture; platform names are not converted into source CPU guesses. Target CPU: Outputs are MIDI, text, diagnostics and reconstructed event data rather than CPU-targeted binaries. Build: The repository documents directly runnable Perl extractors and a Python analysis package. Current code adds conservative baked-chord detection, event expansion, fixture generation and validation: upstream reports exact component sets for four priority tracker triads, avoids false composite calls on three single-tone controls, and abstains on ambiguous power/octave material. Limitations: The new validation uses authored controls, not held-out commercial-game accuracy. The tracker did not install Perl/Python dependencies, render audio, run tests or inspect user-supplied media. Runtime profiles: This is host-side extraction and analysis tooling, not a runnable legacy-hardware output. The reviewed docs state tool/sample-rate choices but no meaningful minimum host CPU or RAM profile. AI: Claude and Codex project instruction/configuration files remain explicit workflow signals but do not by themselves attribute the new analysis code. The reviewed commit has no co-author trailer, so project AI usage remains scoped to existing evidence. Relationships: Ghidra Retro Machines remains an incubating child/related effort; system directories and the instrument-analysis package form one coherent root project rather than separate promoted titles. Evidence: https://github.com/CBongo/game-music-extraction/blob/c26e9fd0744bb8fc8515c5cad335758c3ef0efa9/README.md https://github.com/CBongo/game-music-extraction/commit/c26e9fd0744bb8fc8515c5cad335758c3ef0efa9 https://github.com/CBongo/game-music-extraction/blob/c26e9fd0744bb8fc8515c5cad335758c3ef0efa9/docs/instrument-composites.md https://github.com/CBongo/game-music-extraction/blob/c26e9fd0744bb8fc8515c5cad335758c3ef0efa9/docs/instrument-composite-validation.md https://github.com/CBongo/game-music-extraction",
       "ai": {
         "usage": true,
         "tools": [
@@ -115424,7 +115427,7 @@
         "AmigaPorts cross toolchain"
       ],
       "re_started": null,
-      "status": "Active m68k-AmigaOS cross toolchain; current tests run 68000 boards on an emulated 68000 and add an explicit 68020/68881 FPU board; tracker did not reproduce the suite",
+      "status": "Active m68k-AmigaOS cross toolchain; tests now distinguish 68000 boards from 68020/68881 ixemul and newlib -fbaserel32 boards; tracker did not run the suite",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115439,7 +115442,7 @@
       "tags": [
         "Amiga"
       ],
-      "notes": "Identity: This remains the AmigaPorts cross-compiler/toolchain continuation for m68k AmigaOS output. Classification: The repository is retro-development tooling, not a recovered game or an emulator project. Source CPU: There is no recovered historical binary input whose architecture should be recorded as source_cpu. Target CPU: The toolchain emits m68k AmigaOS code. Current primary diffs distinguish 68000 test boards from a 68020 plus 68881 FPU board, supporting the output family without implying one universal minimum. Build: Upstream changed 68000 boards to execute on an emulated 68000 so misaligned accesses trap rather than being tolerated by a 68020, and added a CI-selected 68020/68881 FPU board because prior GCC tests used soft-float. Limitations: The tracker did not build the toolchain or run either test suite. Runtime profiles: The reviewed emulator board RAM and stack settings are test-harness allocations, not minimum runtime requirements for software built by the toolchain. AI: These two commits contain no development-AI attribution; that bounded absence does not establish non-use elsewhere. Relationships: The project remains the AmigaPorts continuation of the established m68k-AmigaOS GCC lineage. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/6da8ee3daa3e56c8d8bfe0fe98c7cd457bf0cc74 https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/75aaa1516f6a598c3475e7dbd892ac7118537fd0",
+      "notes": "Identity: AmigaPorts continuation of the m68k-AmigaOS GCC cross-compiler and associated binutils, libraries, SDK integration and tests. Classification: Retro-development compiler/toolchain infrastructure, not a recovered game, original-machine emulator or binary-derived program reconstruction. Source CPU: There is no historical input executable whose CPU should be recorded as source_cpu for this compiler toolchain. Target CPU: The cross toolchain emits m68k AmigaOS code. Current tests explicitly cover baseline 68000 and 68020 plus 68881 configurations without implying one universal minimum. Build: New DejaGnu boards exercise ixemul with 68020/68881 libraries and newlib with 68020/68881 plus -fbaserel32. The commit notes these are for PR testing and not run by the ordinary make check target. Limitations: The tracker did not build the toolchain or run the new boards; test-harness coverage must not be read as universal output compatibility. Runtime profiles: The reviewed 68000 and 68020/68881 DejaGnu boards are compiler test configurations, not minimum runtime requirements for all software produced by the toolchain. AI: The reviewed testsuite commit explicitly carries a Claude Opus 5.5 co-author trailer. Existing Copilot and Claude attribution remains scoped to evidenced commits rather than the entire toolchain. Relationships: The repository remains the AmigaPorts continuation of the established m68k-AmigaOS GCC lineage; ixemul and newlib are alternative runtime/library test configurations inside the same toolchain. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/ec2840b1a549e73ec328dfc3137dbabc915327c7 https://github.com/AmigaPorts/m68k-amigaos-gcc/blob/ec2840b1a549e73ec328dfc3137dbabc915327c7/doc/testing.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -128153,7 +128156,30 @@
         "ARM64",
         "x86-64"
       ],
-      "runtime_profiles": [],
+      "runtime_profiles": [
+        {
+          "name": "macOS Apple Silicon build",
+          "platform": "macOS",
+          "cpu_family": "ARM64",
+          "min_ram_kib": 4194304,
+          "os": "macOS 12.0 Monterey or later",
+          "notes": "README also states 1 GB free disk space for ROM and disk images. Required original CGROM.DAT and IPLROM.DAT are not included.",
+          "evidence": [
+            "https://github.com/YosAwed/MPX68K/blob/b7172329f790c8cc0523de02ba8ffcc56e524689/README.md"
+          ]
+        },
+        {
+          "name": "macOS Intel build",
+          "platform": "macOS",
+          "cpu_family": "x86-64",
+          "min_ram_kib": 4194304,
+          "os": "macOS 12.0 Monterey or later",
+          "notes": "README also states 1 GB free disk space for ROM and disk images. Required original CGROM.DAT and IPLROM.DAT are not included.",
+          "evidence": [
+            "https://github.com/YosAwed/MPX68K/blob/b7172329f790c8cc0523de02ba8ffcc56e524689/README.md"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
@@ -128174,7 +128200,7 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "macOS X68000 emulator for Apple Silicon and Intel; current head restores the XDF file handle needed by the macOS disk-image path",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -128186,7 +128212,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Substantially developed macOS X68000 emulator with SwiftUI/SpriteKit integration, SASI/SCSI disk handling, monitor interface and C68K-based hardware emulation. Classification: Reviewed the actual SASI controller command/state code and FDD mounting regression test, plus architecture/provenance. This is a system emulator port with modern native integration, not an original game reconstruction. Mixed upstream terms: C68K and SC-55 GPL-2.0-or-later; px68k/WinX68k and fmgen upstream terms; d68k and BSD-style components documented individually. Do not collapse into one blanket MIT licence. Source CPU: Documented source/input platforms: Sharp X68000. Processor scope: m68k. Target CPU: Documented output/support targets: macOS. Processor scope: ARM64, x86-64. Build: Xcode project X68000.xcodeproj and bundled C68K static-library dependency. Original CGROM.DAT and IPLROM.DAT are mandatory external executable ROM data; optional SCSI/SASI ROMs and disk software remain separately obtained. No candidate code was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: README specifies macOS 12.0+, Apple Silicon or Intel Mac, minimum 4GB RAM and 1GB disk; claims not independently runtime-tested. AI: Tip commit explicitly states Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>. Configuration files alone were not used as contribution evidence. Relationships: px68k by hissorii derives from Kenjo WinX68k; GOROman made the intervening iOS port. macOS application, disk/monitor work is distinct from those ancestors. Evidence: https://github.com/YosAwed/MPX68K/blob/0498eaecc2060a617a0aaa7c4cd205e403027f95/README.md https://github.com/YosAwed/MPX68K/blob/0498eaecc2060a617a0aaa7c4cd205e403027f95/ARCHITECTURE.md",
+      "notes": "Identity: MPX68K is a macOS Sharp X68000 emulator using a C68K-based core with native Swift UI, storage, monitor and media integration. Classification: System-emulator port and modern native integration, not original game reconstruction. Mixed upstream component licences and required proprietary ROM/data remain distinct. Source CPU: The README explicitly describes M68000 CPU emulation for the Sharp X68000 guest. Target CPU: README explicitly supports both Apple Silicon and Intel Macs, recorded as ARM64 and x86-64 host architectures. Build: README documents the Xcode project and bundled C68K dependency. Current head restores the local FILEH declaration used by XDF_SetFD on the macOS file-backed path, fixing that build path without changing disk format scope. Limitations: The tracker did not build the Xcode project, supply ROMs, mount an XDF image or run the emulator. Runtime profiles: The README explicitly states macOS 12.0 or later, Apple Silicon or Intel, minimum 4 GB RAM and 1 GB free disk. Two host-CPU variants are captured; mandatory original ROM files remain separate prerequisites. Limitations: These are author-stated requirements and were not independently runtime-tested. AI: Existing direct Claude co-author evidence remains valid and distinct from configuration files. The reviewed merge commit itself carries no new AI attribution. Relationships: README explicitly traces the project through hissorii/px68k and GOROman's intervening iOS conversion. The macOS app and its disk/monitor integration remain this project's distinct work. Evidence: https://github.com/YosAwed/MPX68K/blob/b7172329f790c8cc0523de02ba8ffcc56e524689/README.md https://github.com/YosAwed/MPX68K/blob/b7172329f790c8cc0523de02ba8ffcc56e524689/ARCHITECTURE.md https://github.com/YosAwed/MPX68K/commit/b7172329f790c8cc0523de02ba8ffcc56e524689 https://github.com/YosAwed/MPX68K/commit/5458a6f77047",
       "ai": {
         "usage": true,
         "tools": [
@@ -221747,7 +221773,9 @@
         "Web"
       ],
       "source_cpu": [
-        "Z80"
+        "Z80",
+        "6502",
+        "65C02"
       ],
       "target_cpu": null,
       "runtime_profiles": null,
@@ -221777,7 +221805,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "Active browser-based multi-system 8-bit emulator, debugger and MCP automation bench; v0.10.0 adds major Atari, Electron, Enterprise and shared-machine expansion",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -221791,7 +221819,8 @@
         "execution tracing",
         "memory and register inspection",
         "OCR",
-        "disk and sector inspection"
+        "disk and sector inspection",
+        "multi-system chip and peripheral emulation"
       ],
       "tags": [
         "ZX Spectrum",
@@ -221804,7 +221833,7 @@
         "reverse-engineering tooling",
         "retro development"
       ],
-      "notes": "Browser-based multi-system Z80 emulator with integrated debugging/inspection tools and a persistent MCP server designed for automated testing and reverse engineering. Especially relevant to Spectrum/CPC work: headless execution, stepping/disassembly, memory/register access, breakpoints/watchpoints, tracing, OCR, media mounting, and CPC/+3 disk geometry and sector inspection.",
+      "notes": "Identity: ZX84 is a browser-based 8-bit computer emulator with machine-specific hardware models, developer tools and a headless MCP server. Release 0.10.0 substantially broadens the same product rather than splitting platform-specific projects. Classification: Core multi-system emulator, debugger and automated reverse-engineering environment. It is original tooling informed by published hardware behavior and selectively adapted data/code, not a collection of reconstructed games. Source CPU: The supported-machine table explicitly distinguishes Z80, 6502 and 65C02 guests. These are emulated source architectures, not inferred from platform labels. Target CPU: ZX84 is browser/Node-hosted tooling and does not emit a fixed native CPU-targeted retro binary. No host CPU is inferred from TypeScript or browser execution. Build: Release 0.10.0 merges a very large implementation expansion including Atari 8-bit, Acorn Electron and Enterprise systems plus shared machine/service refactoring. README documents browser execution and the headless MCP server with debugging, media and inspection controls. Limitations: The tracker did not install dependencies, build the web application, run the MCP server, supply ROMs/media or test any emulated machine. Runtime profiles: The inspected release documentation describes browser and headless use but does not state a minimum host CPU, RAM or OS/browser version suitable for a verified runtime profile. AI: Existing explicit Claude and unnamed OpenAI co-author evidence remains scoped to evidenced commits. The MCP server's use by AI assistants is a product capability and kept distinct from authorship evidence. Relationships: README and third-party notices now document lineage precisely: behavior references include MAME, Fuse/libspectrum, openMSX, ep128emu and Clock Signal; selected MAME data, xBR shaders, Bedstead glyphs, ZXDB transforms, dskmanager-rust and retro-render material are adapted or consumed under separately stated terms. The multiple machine implementations remain one shared ZX84 project. Evidence: https://github.com/damieng-zx/zx84/blob/a95a85f353c086fe4fdf588bf17539f9a2f9ca4d/README.md https://github.com/damieng-zx/zx84/commit/a95a85f353c086fe4fdf588bf17539f9a2f9ca4d https://github.com/damieng-zx/zx84/blob/a95a85f353c086fe4fdf588bf17539f9a2f9ca4d/THIRD_PARTY.md https://github.com/damieng-zx/zx84/blob/a95a85f353c086fe4fdf588bf17539f9a2f9ca4d/docs/developer-tools.md https://github.com/damieng-zx/zx84/commit/a5d5faf06c84416d51d7b66986c69cec46030560",
       "ai": {
         "usage": true,
         "tools": [
@@ -224800,7 +224829,7 @@
         "decompilation"
       ],
       "re_started": null,
-      "status": "Disc-driven executable reconstruction with symbol/asset maps and C equivalents. Checked source still has generic FUN labels; byte-identical baseline and equivalent C progress are distinct. README's no-game-code wording coexists with checked-in small C functions.",
+      "status": "Dreamcast SH-4 decompilation with disc-driven reconstruction and C-equivalence workflow; upstream reports 93.9% of C-capable functions and 66.4% of eligible code bytes complete, with 45.9% aggregate instruction coverage",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -224812,7 +224841,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Disc-driven executable reconstruction with symbol/asset maps and C equivalents. Checked source still has generic FUN labels; byte-identical baseline and equivalent C progress are distinct. README's no-game-code wording coexists with checked-in small C functions. Classification: Scope: decompilation / game. Primary README, repository file layout and selected implementation files were reviewed. Source CPU: Documented input architecture: SH-4. Target CPU: Target architecture SH-4. Host ports and minimum variants are not inferred from source CPU. Build: Source/analysis artifacts inspected; author build or matching claims are attributed. No candidate software was compiled, executed or byte-compared. Runtime profiles: No independently verified runtime profile. Any explicit author limitation is retained in the identity note. AI: Project-scoped agent instructions/configuration provide an AI-use signal; the particular agent is not inferred. Relationships: Checked current catalogue, source and decision URLs and related titles. Disc-driven executable reconstruction with symbol/asset maps and C equivalents. Checked source still has generic FUN labels; byte-identical baseline and equivalent C progress are distinct. README's no-game-code wording coexists with checked-in small C functions. Evidence: https://github.com/consolesplayingconsoles/virtua-tennis-decomp https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/HEAD/README.md",
+      "notes": "Identity: Virtua Tennis Dreamcast decompilation with disc-derived executable reconstruction, symbol/asset maps, generated C and side-by-side Shuriken Explorer presentation. Classification: Original-platform game decompilation. Byte-identical executable assembly fallback, C-capable function completion, eligible-byte completion and test coverage are separate measures and are not collapsed into one completeness claim. Source CPU: The source executable remains Dreamcast SH-4 machine code. Target CPU: The reconstruction targets SH-4 for the original Dreamcast executable; no modern host port output is established. Build: Upstream reports 140 newly generated C functions, 93.9% of 3,281 C-capable functions complete, 66.4% of 787,322 eligible bytes complete, 45.9% total instruction coverage and only 16 remaining FUN-style names. SDK matching was recalculated with updated structure-return, argument-area and block-copy handling. Limitations: These are upstream generator/classifier and test results, not independent full-game correctness. The tracker did not extract, regenerate, compile, compare or execute the game. Runtime profiles: No minimum Dreamcast accessory/model profile or host runtime minimum is stated in the inspected decompilation documentation. AI: The reviewed generator/progress commit explicitly carries a Claude Opus 5.5 co-author trailer. Attribution is scoped to evidenced work, not generalized to every recovered function. Relationships: SDK-identical library functions are explicitly tracked separately from game-derived C recovery. The repository remains a title-specific project sharing tooling and the Shuriken Explorer presentation with related Dreamcast decomps. Evidence: https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d/README.md https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d/sdk-identical.txt",
       "ai": {
         "usage": true,
         "tools": [
@@ -225220,7 +225249,7 @@
         "source-restoration"
       ],
       "re_started": null,
-      "status": "Portable Z80 assembly OS with kernel, drivers, filesystem, target configurations and SDK examples; native source development rather than binary reconstruction.",
+      "status": "Portable native Z80 assembly OS with documented CMake/z88dk builds; generated libraries now use deterministic archive metadata",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -225232,7 +225261,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Portable Z80 assembly OS with kernel, drivers, filesystem, target configurations and SDK examples; native source development rather than binary reconstruction. Classification: Scope: source-restoration / operating-system. Primary README, repository file layout and selected implementation files were reviewed. Source CPU: Documented input architecture: Z80. Target CPU: Target architecture Z80. Host ports and minimum variants are not inferred from source CPU. Build: Source/analysis artifacts inspected; author build or matching claims are attributed. No candidate software was compiled, executed or byte-compared. Runtime profiles: No independently verified runtime profile. Any explicit author limitation is retained in the identity note. AI: No AI-use disclosure established from inspected evidence; non-use is not inferred. Relationships: Checked current catalogue, source and decision URLs and related titles. Portable Z80 assembly OS with kernel, drivers, filesystem, target configurations and SDK examples; native source development rather than binary reconstruction. Evidence: https://github.com/Zeal8bit/Zeal-8-bit-OS https://github.com/Zeal8bit/Zeal-8-bit-OS/blob/HEAD/README.md",
+      "notes": "Identity: Zeal 8-bit OS remains a portable operating system written in Z80 assembly, with kernel, drivers, filesystems, target configurations and SDK examples. Classification: Substantial original retro operating-system development, inspired by Linux and CP/M interfaces but not described as binary-derived reconstruction. Source CPU: The README explicitly states the OS is written entirely in Z80 assembly for Z80 computers. Target CPU: The documented native output architecture is Z80. Broad supported targets are not converted into additional CPU claims. Build: The README documents CMake configuration and build commands using z88dk/z80asm. Current CMake compiler modules pass deterministic archive options so generated static libraries zero variable time, UID and GID metadata. Limitations: The tracker did not install dependencies, build the OS, flash hardware or boot an emulator. Runtime profiles: The README gives configurable kernel-size observations and a four-page MMU design, but requirements vary by target and drivers. Those design values are not promoted to a universal verified minimum hardware profile. AI: The inspected README and deterministic-build commit contain no explicit development-AI attribution. This bounded absence does not establish non-use. Relationships: The OS is part of the wider Zeal 8-bit Computer project and explicitly cites Linux and CP/M as interface inspirations; it remains one coherent OS repository rather than a reconstruction of either predecessor. Evidence: https://github.com/Zeal8bit/Zeal-8-bit-OS/blob/4d6c869ab57d2417f916258bb813408726b86c6e/README.md https://github.com/Zeal8bit/Zeal-8-bit-OS/commit/4d6c869ab57d2417f916258bb813408726b86c6e",
       "ai": {
         "usage": null,
         "tools": []
@@ -240885,7 +240914,7 @@
         "decompilation"
       ],
       "re_started": null,
-      "status": "Region-pinned extraction, assembly rebuild and per-function C equivalence/matching workflow. Game-derived source generated locally; matching whole executable with ASM fallback is not complete C recovery. Test equivalence is scoped to supplied cases and excludes selected SR flags.",
+      "status": "Dreamcast SH-4 decompilation with region-pinned rebuild and function-equivalence workflow; upstream reports 60.1% of C-capable functions and 23.3% of eligible code bytes complete, with 13.2% aggregate instruction coverage",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -240897,7 +240926,7 @@
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Region-pinned extraction, assembly rebuild and per-function C equivalence/matching workflow. Game-derived source generated locally; matching whole executable with ASM fallback is not complete C recovery. Test equivalence is scoped to supplied cases and excludes selected SR flags. Classification: Inspected source supports game / decompilation. Region-pinned extraction, assembly rebuild and per-function C equivalence/matching workflow. Game-derived source generated locally; matching whole executable with ASM fallback is not complete C recovery. Test equivalence is scoped to supplied cases and excludes selected SR flags. Source CPU: Source architecture: SH-4. Target CPU: Target architecture: SH-4. Build: No candidate code compiled or executed. Rebuild hashes, runtime fidelity and completeness remain upstream claims; matching with original binary/assembly fallback is not full source recovery. Runtime profiles: No independently verified minimum hardware profile established. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/consolesplayingconsoles/zombie-revenge-decomp https://github.com/consolesplayingconsoles/zombie-revenge-decomp/blob/c48560b9cd1269d6824f0dd0d4990b8973f35834/tools/equiv.py https://github.com/consolesplayingconsoles/zombie-revenge-decomp/blob/c48560b9cd1269d6824f0dd0d4990b8973f35834/README.md",
+      "notes": "Identity: Zombie Revenge Dreamcast decompilation with disc-derived local extraction, generated C, assembly fallback and an interactive Shuriken Explorer view. Classification: Original-platform game decompilation and source reconstruction. Whole-executable matching with assembly fallback is kept distinct from complete C recovery and from per-function behavioral equivalence. Source CPU: The reconstructed Dreamcast executable remains SH-4 input. Target CPU: The matching rebuild remains SH-4 output for the original Dreamcast executable; no host port CPU is claimed. Build: Upstream reports 34 newly generated C functions, 384 functions identified as byte-identical SDK library code, 60.1% of 3,998 C-capable functions complete, 23.3% of 655,494 eligible bytes complete and 13.2% total instruction coverage. Individual equivalence records retain development/holdout case scope. Limitations: Progress percentages are upstream classifications, not independent whole-game correctness. The tracker did not extract media, regenerate sources, compile, compare or execute the game. Runtime profiles: The reviewed material does not state a minimum Dreamcast model/accessory profile or a verified host runtime profile beyond the original-platform SH-4 reconstruction context. AI: The reviewed progress commit explicitly carries a Claude Opus 5.5 co-author trailer. Attribution is limited to evidenced work rather than treating the full decompilation as AI-generated. Relationships: SDK-identical functions are now explicitly separated from game-derived recovery. The repository remains one title-specific decompilation in the consolesplayingconsoles tool/explorer ecosystem. Evidence: https://github.com/consolesplayingconsoles/zombie-revenge-decomp/blob/ed22b044680a2b7e513470e99ff16e3e2f7fefeb/README.md https://github.com/consolesplayingconsoles/zombie-revenge-decomp/blob/ed22b044680a2b7e513470e99ff16e3e2f7fefeb/docs/equivalent.md https://github.com/consolesplayingconsoles/zombie-revenge-decomp/commit/ed22b044680a2b7e513470e99ff16e3e2f7fefeb https://github.com/consolesplayingconsoles/zombie-revenge-decomp/blob/ed22b044680a2b7e513470e99ff16e3e2f7fefeb/sdk-identical.txt",
       "ai": {
         "usage": true,
         "tools": [
@@ -266002,7 +266031,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "In-progress PlayStation matching decompilation; current collision work replaces opaque shape handling with typed polygon/cylinder structures and clearer pass-state logic; no independent build or execution",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -266011,7 +266040,7 @@
       },
       "techniques": [],
       "tags": [],
-      "notes": "Identity: Silent Hill — PlayStation matching decompilation. Repository root and implementation inspected at pinned revisions. Classification: In-progress original-platform reconstruction with separate executable/overlay matching. Explicitly not a PC port or port-ready codebase; naming, typed data, documentation and shiftability remain separate work after code matching. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Version-specific owned game extraction and original-target toolchain needed; no matching build independently run. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: README states no AI-generated game code knowingly included, while acknowledging some AI-created throwaway decompilation helpers. Usage=true is limited to those helpers, not the recovered game code. Relationships: Old Vatuu links reflect project lineage. Human-driven game reconstruction is distinct from any AI-assisted throwaway helper scripts. Evidence: https://github.com/shdecompilations/silent-hill-decomp/blob/3939dac3fe91ceb3eceac64fe6ac941dee28078b/README.md https://github.com/shdecompilations/silent-hill-decomp/blob/3939dac3fe91ceb3eceac64fe6ac941dee28078b/src/bodyprog/bodyprog_80089090.c https://github.com/shdecompilations/silent-hill-decomp",
+      "notes": "Identity: Silent Hill PlayStation matching decompilation. Current head materially refines the body-program collision subsystem rather than introducing a separate project. Classification: Original-platform source reconstruction with executable and overlay matching. The collision commit turns previously opaque layout and control flow into typed polygon/cylinder attributes and named pass-state behavior; it is not a PC port. Source CPU: The reviewed project remains a PlayStation MIPS executable reconstruction; the collision refactor does not change that source architecture. Target CPU: Matching output remains original-target MIPS code; no additional port architecture is established by the reviewed change. Build: The current diff restructures collision attributes while preserving explicit structure sizes and updates the corresponding C implementation. Upstream matching remains version-specific and dependent on owned game extraction and the documented target toolchain. Limitations: The tracker did not extract the game, compile, run, or byte-compare the result. Runtime profiles: The inspected README and collision change do not state a minimum original or host CPU, RAM, ROM/OS or chipset profile suitable for a verified runtime record. AI: The repository's existing bounded disclosure remains: game code is not knowingly AI-generated, while some throwaway decompilation helpers used AI. The reviewed collision commit carries no additional AI attribution. Relationships: The README's Vatuu references remain project lineage. The collision subsystem is part of the same body-program reconstruction, not a separately promoted component. Evidence: https://github.com/shdecompilations/silent-hill-decomp https://github.com/shdecompilations/silent-hill-decomp/commit/59fd80f8180f18d9d90c3442cc04ed1293786973 https://github.com/shdecompilations/silent-hill-decomp/blob/59fd80f8180f18d9d90c3442cc04ed1293786973/README.md",
       "ai": {
         "usage": true,
         "tools": []
