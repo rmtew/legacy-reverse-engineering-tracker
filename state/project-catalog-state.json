@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-25T22:58:50Z",
+  "updated_at": "2026-10-26T00:37:07Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -280574,6 +280574,361 @@
         "tools": [
           "Claude Code"
         ]
+      }
+    },
+    "markyturtle-newzealandstory-amiga": {
+      "id": "markyturtle-newzealandstory-amiga",
+      "title": "The New Zealand Story — Amiga disassembly and disk rebuild",
+      "upstream_name": "NewzealandStory--Amiga",
+      "display_title": "The New Zealand Story — Amiga disassembly and disk rebuild",
+      "subjects": [
+        "The New Zealand Story"
+      ],
+      "repo": "https://github.com/MarkyTurtle/NewzealandStory--Amiga",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Amiga"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k assembly",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": true
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: The New Zealand Story — Amiga disassembly and disk rebuild. Immutable root listing and linked source/build material personally reviewed. Classification: Original main, loader and two boot sources have byte-comparison build gates; a separate enhanced path replaces disk routines and boot chain to build an AmigaDOS-format disk. Extracted graphics/music and tools are included. Keep original-byte matching distinct from the deliberately modified enhanced build. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: m68k. Target CPU: Native assembly output uses m68k. Build: BUILDING.md and original/build.sh specify vasm -m68000 and hashes for four original binaries plus packed main; README reports enhanced boot/play in FS-UAE, with WinUAE and real hardware still untested. These are upstream claims, not runs performed in this pass. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Uses the author's 4489_byteloader in the enhanced native Amiga game. The study emulator is analysis tooling, not evidence that the shipped Amiga path is baked emulation. Evidence: https://github.com/MarkyTurtle/NewzealandStory--Amiga/blob/085eb38546bdae4de6c021ae52d7e62f7cd287f4/README.md https://github.com/MarkyTurtle/NewzealandStory--Amiga/blob/085eb38546bdae4de6c021ae52d7e62f7cd287f4/BUILDING.md https://github.com/MarkyTurtle/NewzealandStory--Amiga/blob/085eb38546bdae4de6c021ae52d7e62f7cd287f4/original/build.sh https://github.com/MarkyTurtle/NewzealandStory--Amiga/blob/085eb38546bdae4de6c021ae52d7e62f7cd287f4/enhanced/src/diskload.s",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "hunkstalker-kult-atari-st-decomp": {
+      "id": "hunkstalker-kult-atari-st-decomp",
+      "title": "Kult: The Temple of Flying Saucers — Atari ST matching reconstruction",
+      "upstream_name": "kult-atari-st-decomp",
+      "display_title": "Kult: The Temple of Flying Saucers — Atari ST matching reconstruction",
+      "subjects": [
+        "Kult: The Temple of Flying Saucers"
+      ],
+      "repo": "https://github.com/hunkstalker/kult-atari-st-decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "m68k assembly",
+        "C",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "m68k assembly",
+        "C",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Kult: The Temple of Flying Saucers — Atari ST matching reconstruction. Immutable root listing and linked source/build material personally reviewed. Classification: Assembly reconstruction of the original Atari ST engine with transcribed tables, Alcyon C startup/music and relocation reconstruction. Concrete assembly and build scripts are present; not merely a decompilation goal. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: m68k. Target CPU: Native assembly output uses m68k. Build: Upstream reports a byte-identical 184291-byte KULT.PRG and all 2171 relocations. make vasm/check/indep are documented. Initial resource ingestion requires the owner's original PRG; independence means no original PRG at build time after ingestion, not asset-free building. No build run here. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Separate related kult-atari-st-c repository is a C core and differential harness, not the matching ASM deliverable. Reviewed separately and not silently represented as a playable native port. Evidence: https://github.com/hunkstalker/kult-atari-st-decomp/blob/5ef7c171dc71760bc9bb1e6abe4b0405319e4f5f/README.md https://github.com/hunkstalker/kult-atari-st-decomp/blob/5ef7c171dc71760bc9bb1e6abe4b0405319e4f5f/matching/Makefile https://github.com/hunkstalker/kult-atari-st-decomp/blob/5ef7c171dc71760bc9bb1e6abe4b0405319e4f5f/matching/src/auto_011e5e.s",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "kaosoverride-capricerpi": {
+      "id": "kaosoverride-capricerpi",
+      "title": "CapriceRPI — Raspberry Pi CPC emulator port",
+      "upstream_name": "CapriceRPI",
+      "display_title": "CapriceRPI — Raspberry Pi CPC emulator port",
+      "subjects": [
+        "CapriceRPI"
+      ],
+      "repo": "https://github.com/KaosOverride/CapriceRPI",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [
+        "Raspberry Pi"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: CapriceRPI — Raspberry Pi CPC emulator port. Immutable root listing and linked source/build material personally reviewed. Classification: Substantive Caprice32 4.1.0 adaptation with joystick-driven virtual keyboard, four-controller/ToTo support, autorun, snapshots and Pi-specific display handling. Includes emulator core and source build files rather than only a packaged binary. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Inspected g++/SDL1 makefile and port release notes; dependencies include SDL_image/SDL_ttf, zlib and older image libraries. No compilation or device run performed; contemporary Pi OS compatibility unverified. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Credits Ulrich Doewich's Caprice32, GP2x port menu lineage, Kevin Thacker/Troels K autotype work. Catalogue this distinct adaptation without treating the shared emulator core as newly authored. Evidence: https://github.com/KaosOverride/CapriceRPI/blob/7d86ebdc6a5e645220c6f30cf407ac57c3256054/README%20for%20this%20port.txt https://github.com/KaosOverride/CapriceRPI/blob/7d86ebdc6a5e645220c6f30cf407ac57c3256054/src/makefile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "djopensource-who-ate-rudys-sandwich": {
+      "id": "djopensource-who-ate-rudys-sandwich",
+      "title": "Who ate Rudy's sandwich? — CPC BASIC game",
+      "upstream_name": "who-ate-rudys-sandwich",
+      "display_title": "Who ate Rudy's sandwich? — CPC BASIC game",
+      "subjects": [
+        "Who ate Rudy's sandwich?"
+      ],
+      "repo": "https://github.com/djopensource/who-ate-rudys-sandwich",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [
+        "Amstrad CPC"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "BASIC"
+      ],
+      "reconstructed_languages": [
+        "BASIC"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "homebrew"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Who ate Rudy's sandwich? — CPC BASIC game. Immutable root listing and linked source/build material personally reviewed. Classification: Original 2021 CPC game by Angelos Mavros. The substantial readable BASIC listing contains title flow, character drawing, dialogue and game interaction, accompanied by tape/audio distribution files. Source CPU: Interpreted BASIC source identifies CPC 464 but does not itself declare a machine-code instruction set; no CPU value asserted. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Listing identifies CPC 464 and version 1.0 Beta; no build procedure or independent loading/play test was verified. Tape and WAV presence alone is not a proven runnable build. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Author/copyright identity is stated in the source and copyright.txt. No predecessor or reconstruction relationship is established; classify as original homebrew, not reverse engineering. Evidence: https://github.com/djopensource/who-ate-rudys-sandwich/blob/cd4e706cb7bcf031d964dbe1f36800e546e086bd/copyright.txt https://github.com/djopensource/who-ate-rudys-sandwich/blob/cd4e706cb7bcf031d964dbe1f36800e546e086bd/rudys.bas",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "shippoiincho-sc3000emulator": {
+      "id": "shippoiincho-sc3000emulator",
+      "title": "SC-3000 emulator for Raspberry Pi Pico",
+      "upstream_name": "sc3000emulator",
+      "display_title": "SC-3000 emulator for Raspberry Pi Pico",
+      "subjects": [
+        "SC-3000 emulator for Raspberry Pi Pico"
+      ],
+      "repo": "https://github.com/shippoiincho/sc3000emulator",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SC-3000"
+      ],
+      "target_platforms": [
+        "Raspberry Pi Pico"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SC-3000 emulator for Raspberry Pi Pico. Immutable root listing and linked source/build material personally reviewed. Classification: Pico-hosted SC-3000 emulator implements RAM, TMS9918 video, PSG, cartridge/tape handling and keyboard/gamepad input. CMake lists actual machine, Z80, VGA, filesystem and USB implementation units. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Pico SDK/CMake build and UF2 distribution are present. README documents 32KiB cartridge limit, excludes 40KiB/mega ROMs and describes LittleFS tape loading. No firmware was built or flashed during review. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Explicitly credits redcode Z80/Zeta, Hunter-Adams VGA, littlefs, vrEmuTms9918, C-BIOS fonts and HID parser lineage; this is an integrated machine emulator, not a new CPU-core claim. Evidence: https://github.com/shippoiincho/sc3000emulator/blob/54e614763d61d6e2acfb9d2db5b6143565dc640f/README.md https://github.com/shippoiincho/sc3000emulator/blob/54e614763d61d6e2acfb9d2db5b6143565dc640f/sc3000emulator/CMakeLists.txt",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "siriokds-sc-3000-keyboard-support": {
+      "id": "siriokds-sc-3000-keyboard-support",
+      "title": "SC-3000 / SG-1000 keyboard and joystick routines",
+      "upstream_name": "SC-3000-Keyboard-support",
+      "display_title": "SC-3000 / SG-1000 keyboard and joystick routines",
+      "subjects": [
+        "SC-3000 / SG-1000 keyboard and joystick routines"
+      ],
+      "repo": "https://github.com/siriokds/SC-3000-Keyboard-support",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SC-3000",
+        "SG-1000"
+      ],
+      "target_platforms": [
+        "SC-3000",
+        "SG-1000"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SC-3000 / SG-1000 keyboard and joystick routines. Immutable root listing and linked source/build material personally reviewed. Classification: Reusable Z80 routines detect keyboard/PPI availability and merge cursor/key rows with joystick inputs; companion startup, interrupt and VDP/PSG templates support native game development. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: Native assembly output uses Z80. Build: Actual assembly instructions and port definitions inspected. Essentials contains literal unfinished placeholders and unresolved symbolic references; treat it as integration snippets, not a standalone compilable program. No assembler or hardware test performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Repository also contains a CVBasic prologue. No claim that this repo originates the broader compiler runtime; inclusion is for its demonstrated SC-3000 input integration routines. Evidence: https://github.com/siriokds/SC-3000-Keyboard-support/blob/4e4c8c736b22fe5f1d767f5cb978b2534cabaf39/SC3000_SG1000_KeybJoy.asm https://github.com/siriokds/SC-3000-Keyboard-support/blob/4e4c8c736b22fe5f1d767f5cb978b2534cabaf39/SG-1000_SC-3000_essentials.asm",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     }
   },
