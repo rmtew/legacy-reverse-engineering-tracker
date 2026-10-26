@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-26T15:02:16Z",
+  "updated_at": "2026-10-26T16:22:37Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -292237,6 +292237,263 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: Compressed ROMs — Acorn native data loaders. Immutable root listing and linked primary material personally reviewed; inspection limits are recorded in build notes. Classification: Host Huffman/run-length/distance-pair compression packages data with native decompression and ROM headers. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Documented target ISA is 6502. Build: Python/Ophis required; inspected decoder template checks Electron OS before proceeding. Do not assume every template works on every Acorn8-bit system or arbitrary replacement input. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: ROM-packaging development tools, not original game ROM disassemblies. Evidence: https://github.com/dboddie/Compressed-ROMs/blob/dc185e3ad04e57accbf7d87f6559843f4c6db26e/README.txt https://github.com/dboddie/Compressed-ROMs/blob/dc185e3ad04e57accbf7d87f6559843f4c6db26e/decode_template.oph",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "typer-inner-checker-locomotive-basic": {
+      "id": "typer-inner-checker-locomotive-basic",
+      "title": "Typer Inner Checker",
+      "upstream_name": "Typer Inner Checker",
+      "display_title": "Typer Inner Checker — Locomotive BASIC listing validator",
+      "subjects": [],
+      "repo": "https://github.com/BrettHallen/Amstrad-CPC",
+      "project_url": "https://github.com/BrettHallen/Amstrad-CPC/tree/main/Typer-Inner-Checker",
+      "github_path": "Typer-Inner-Checker",
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Locomotive BASIC source listings"
+      ],
+      "reconstructed_languages": [
+        "HTML",
+        "JavaScript",
+        "CSS"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "static-analysis",
+        "language-tooling"
+      ],
+      "types": [
+        "Locomotive BASIC listing checker"
+      ],
+      "re_started": null,
+      "status": "Primary source and development transcript reviewed; independent browser execution not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "keyword recognition",
+        "syntax validation",
+        "jump-target analysis",
+        "BAS text normalization"
+      ],
+      "tags": [
+        "Amstrad CPC",
+        "Locomotive BASIC",
+        "AI-assisted"
+      ],
+      "notes": "Identity: The monorepo root identifies Typer Inner Checker as a browser page for checking Locomotive BASIC program listings, and the directory contains the self-contained implementation. Classification: This is modern retro-development tooling: it validates source listings, recognizes BASIC vocabulary, checks line structure and references, and supports listing load/save; it is not an emulator and does not execute programs. Source CPU: The tool analyzes textual Locomotive BASIC listings rather than an original machine-code binary, so assigning the CPC's processor as a recovered source CPU would be misleading. Target CPU: The output is normalized BASIC text and saved BAS files, not a native CPU-targeted port or reconstructed binary. Build: The inspected artifact is a self-contained HTML/CSS/JavaScript page. No browser execution or functional test was performed in this pass, so build and runnable flags remain unknown. Runtime profiles: The reviewed material says the page opens in a browser but gives no minimum CPU, RAM, browser or operating-system requirement suitable for a runtime profile. AI: The repository preserves a detailed Brett/Claude development transcript in which Claude states that it built, extended and tested the checker; this is explicit project-specific AI contribution evidence. Relationships: Typer Inner Checker is a separate titled tool inside BrettHallen/Amstrad-CPC. It supports transcribing CPC listings and is distinct from the repository's Laserwarp analysis and hardware subprojects. Evidence: https://github.com/BrettHallen/Amstrad-CPC/blob/5570544eeb983c5a58893272335011cf44615521/README.md https://github.com/BrettHallen/Amstrad-CPC/blob/5570544eeb983c5a58893272335011cf44615521/Typer-Inner-Checker/Typer-Inner-Checker.html https://github.com/BrettHallen/Amstrad-CPC/blob/5570544eeb983c5a58893272335011cf44615521/Typer-Inner-Checker/Claude-discussion.txt",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "atari-jaguar-240p-test-suite-port": {
+      "id": "atari-jaguar-240p-test-suite-port",
+      "title": "Atari Jaguar 240p Test Suite",
+      "upstream_name": "Atari Jaguar 240p Test Suite",
+      "display_title": "240p Test Suite — Atari Jaguar native diagnostics",
+      "subjects": [
+        "240p Test Suite"
+      ],
+      "repo": "https://github.com/JoeMatt/atari_jaguar_240p_test_suite",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Atari Jaguar"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "assembly",
+        "Make"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Native homebrew diagnostic port"
+      ],
+      "re_started": null,
+      "status": "Active Jaguar fork with v0.x releases; primary source reviewed, independent build/run not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "bare-metal console port",
+        "display calibration patterns",
+        "hardware diagnostics"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "homebrew",
+        "diagnostics"
+      ],
+      "notes": "Identity: The project identifies itself as the Atari Jaguar 240p Test Suite, a bare-metal port of Artemio Urbina's diagnostic suite with Jaguar-specific tests and tagged pre-1.0 releases. Classification: This is substantial original homebrew porting work, not reverse engineering: it implements calibration patterns, lag/audio tests and Jaguar hardware probes as native console software. Source CPU: The port is derived from the high-level 240p Test Suite project rather than recovery of an original machine-code binary, so no predecessor CPU is assigned. Target CPU: The build documentation explicitly requires m68k-atari-mint cross tools and produces Atari Jaguar ROM formats, establishing the native m68k output architecture without asserting a minimum runtime CPU. Build: The README documents Docker and native toolchain paths, multiple ROM formats, releases and emulator smoke tests. No build, ROM execution or real-hardware test was independently performed, so boolean build/run flags remain unknown. Runtime profiles: Native Atari Jaguar execution and cartridge/emulator loading routes are documented, but no variant-specific minimum CPU/RAM profile beyond the target console was established. AI: The repository contains agent-configuration files, but those are not contribution evidence; the reviewed README and primary project material do not explicitly attribute implementation to an AI tool, so usage remains unknown. Relationships: The README identifies JoeMatt's project as an active fork of BitJag's original Jaguar port and as a port of Artemio Urbina's broader 240p Test Suite. BitJag and ArtemioUrbina Jaguar repositories are recorded as lineage duplicates, not independent projects. Evidence: https://github.com/JoeMatt/atari_jaguar_240p_test_suite/blob/1649ab0f539fbcb81c95eff1054b0264d41557c7/README.md https://github.com/JoeMatt/atari_jaguar_240p_test_suite/tree/1649ab0f539fbcb81c95eff1054b0264d41557c7 https://github.com/BitJag/atari_jaguar_240p_test_suite/blob/a65a646df41e2ca2f343d864b749875a3674b1ec/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "jaglba-atari-jaguar-port": {
+      "id": "jaglba-atari-jaguar-port",
+      "title": "JagLBA",
+      "upstream_name": "JagLBA",
+      "display_title": "JagLBA — Little Big Adventure source port for Atari Jaguar",
+      "subjects": [
+        "Little Big Adventure"
+      ],
+      "repo": "https://github.com/vs-sr-dev/jag-lba",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Atari Jaguar"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68k",
+        "Jaguar GPU/DSP"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "m68k assembly",
+        "Jaguar GPU/DSP assembly",
+        "Python",
+        "Batch"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "Source-derived native port"
+      ],
+      "re_started": null,
+      "status": "Work in progress; first room and scripts run in BigPEmu, earlier renderer tested on real Jaguar; far from playable",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "GPL source transplant",
+        "Jaguar GPU rendering",
+        "Jaguar DSP audio synthesis",
+        "cartridge asset packing"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "Little Big Adventure",
+        "source port",
+        "work in progress"
+      ],
+      "notes": "Identity: JagLBA identifies itself as a 6 MB Atari Jaguar cartridge port of Little Big Adventure, built from the released GPL engine source and requiring user-supplied game data. Classification: This is a source-derived native port, not a binary-derived reconstruction. The current project is explicitly far from playable; the first room, scripts and interaction run in BigPEmu, while an earlier renderer-only build was tested on real hardware. Source CPU: The input is a released C engine lineage with formerly x86 assembly modules translated to C, not recovery from a specific original executable, so an original binary CPU is not assigned. Target CPU: The README explicitly says the engine runs on the Jaguar's 68000 and describes GPU rendering plus DSP audio work; the repository contains 68000 boot/interrupt code and GPU/DSP kernels. Build: The Windows build path requires owned LBA data, Python, Docker with a documented m68k toolchain image, RMAC and Jaguar SDK headers, and writes separate emulator and hardware ROMs. No build or execution was independently performed. Runtime profiles: The documentation establishes Atari Jaguar and BigPEmu execution paths and a 6 MB cartridge image, but it does not provide a variant minimum CPU/RAM profile beyond the console target. AI: No explicit development-AI attribution was established in the reviewed README and provenance document; absence is recorded as unknown rather than non-use. Relationships: The provenance file records a direct chain from lba1-classic-community through PSX-LBA and DS-LBA, with selected HS-LBA fixes. These are source-port predecessors, not evidence of Jaguar binary reverse engineering. Evidence: https://github.com/vs-sr-dev/jag-lba/blob/c8708485ca8baef78a1f1a05743008c80bc9534d/README.md https://github.com/vs-sr-dev/jag-lba/blob/c8708485ca8baef78a1f1a05743008c80bc9534d/engine_c/fork/PROVENANCE.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "tolbat-jaguar-cartridge-reader": {
+      "id": "tolbat-jaguar-cartridge-reader",
+      "title": "jaguarcartreader",
+      "upstream_name": "jaguarcartreader",
+      "display_title": "Jaguar Cartridge Reader — 16-bit dump and bus-analysis firmware",
+      "subjects": [],
+      "repo": "https://github.com/Tolbat/jaguarcartreader",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari Jaguar"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Atari Jaguar cartridge ROM and bus data"
+      ],
+      "reconstructed_languages": [
+        "Arduino C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "rom-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "Cartridge dumping and analysis firmware"
+      ],
+      "re_started": null,
+      "status": "Primary firmware and documentation reviewed; independent hardware execution not performed",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "non-destructive cartridge probing",
+        "data-bus characterization",
+        "big-endian ROM dumping",
+        "repeated-read stability checks"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "cartridge preservation",
+        "firmware"
+      ],
+      "notes": "Identity: Tolbat's jaguarcartreader is a modified standalone Atari Jaguar cartridge-reader firmware with 4 MB and 6 MB 16-bit dump modes and a read-only cartridge analyzer. Classification: This qualifies as preservation and binary-analysis tooling: it measures cartridge bus behavior, samples address ranges and output-enable states, checks read stability, and writes standard J64 images. It is not a reverse-engineered game or a general hardware project record. Source CPU: The tool dumps cartridge ROM bytes and characterizes the physical data-bus layout without interpreting a specific game's executable CPU instructions, so no original CPU is assigned. Target CPU: The reviewed fork documents Arduino IDE and library dependencies but does not explicitly identify a processor model in its own primary material; no firmware CPU is inferred from the hardware family. Build: The README lists Arduino IDE 1.8.19 and pinned display/storage libraries, and the repository contains the Arduino firmware. The firmware was not compiled, flashed or run on reader hardware in this pass. Runtime profiles: The reviewed fork does not provide a complete minimum hardware profile for the standalone reader, so no CPU/RAM/chipset runtime profile is recorded. AI: No explicit development-AI attribution was found in the reviewed README or firmware header; usage remains unknown. Relationships: The README identifies Tolbat's work as a modification of PsychoFox11/GrumpyGopher/sakman55 reader lineage. The OSCR User Group fork carries the same analyzer and 16-bit modes with build/release automation, so it is recorded as a duplicate successor rather than a separate project. Evidence: https://github.com/Tolbat/jaguarcartreader/blob/809541c8dd76e81df1fe3ff424188d4fd879288a/README.md https://github.com/Tolbat/jaguarcartreader/blob/809541c8dd76e81df1fe3ff424188d4fd879288a/Cart_Reader/JAG/jag.ino https://github.com/oscrusergroup/firmware-jaguar-standalone/blob/debf9a3cadc281f82efbc1a804b53c0b8e079550/README.md",
       "ai": {
         "usage": null,
         "tools": []
