@@ -1330,3 +1330,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-27 — Reviewed an older CPC collection and a rotated Jaguar/TRS-80/X68000/Vectrex search slice
 
 [Research record](docs/research/2026-10-27-jaguar-cpc-discovery.md).
+
+## 2026-10-27 — Review nine materially changed projects, capture MPX68K runtime requirements, expand ZX84 CPU scope, close the game-music-extraction build audit, and record current reconstruction and emulator fixes.
+
+[Research record](docs/research/maintenance-2026-10-27-am-reconstruction-runtime-tooling.md).
