@@ -1498,3 +1498,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-27 — Personally screen 136 candidate URLs and add 33 projects, with one thin tool-bundle exclusion.
 
 [Research record](docs/research/2026-10-27-large-retro-audio-sega-bbc-tools-discovery.md).
+
+## 2026-10-27 — Personally screen 73 candidate URLs and add 33 projects, with one minimal-boilerplate exclusion.
+
+[Research record](docs/research/2026-10-27-large-amiga-hunk-iigs-basic-discovery.md).
