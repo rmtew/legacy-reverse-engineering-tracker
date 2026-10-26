@@ -1286,3 +1286,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-26 — Review ten material upstream changes spanning reconstruction exactness, measured FPGA runtime variants, original-homebrew rendering, emulator failure paths and multi-platform build claims.
 
 [Research record](docs/research/maintenance-2026-10-26-am-upstream-runtime-reconstruction.md).
+
+## 2026-10-26 — Personally screen 94 search hits, inspect nine new roots, add six source-backed projects and defer three candidates.
+
+[Research record](docs/research/2026-10-26-amiga-kult-cpc-sc3000-discovery.md).
