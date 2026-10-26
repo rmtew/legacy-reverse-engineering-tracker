@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-26T00:47:21Z",
+  "updated_at": "2026-10-26T01:01:42Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -281654,6 +281654,507 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: c64SIDkit — SID sound-effect authoring. Immutable root listing and linked source/build material personally reviewed. Classification: SID-oriented JSON patch editor, preview/export pipeline and native C64 audition support. Assembly exporter emits seven-byte effect records and separate sweep/vibrato tables for game integration. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Native assembly output uses 6502. Build: Python >=3.10 with numpy/scipy; optional pygame tools. Source exporter packs/clamps effect parameters and outputs assembly data, not a full player by itself. Preview chip accuracy and on-device output not independently tested. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Several preview backends and a native audition tool are distinguished. Audio emulation here is asset-authoring support, not game-specific baked emulation or a complete C64 emulator. Evidence: https://github.com/devinvenable/c64SIDkit/blob/fc541093c5cc3ae3664a36a274c3c3f938de2d07/README.md https://github.com/devinvenable/c64SIDkit/blob/fc541093c5cc3ae3664a36a274c3c3f938de2d07/pyproject.toml https://github.com/devinvenable/c64SIDkit/blob/fc541093c5cc3ae3664a36a274c3c3f938de2d07/sid_sfx/asm_export.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "hunkstalker-kult-atari-st-c": {
+      "id": "hunkstalker-kult-atari-st-c",
+      "title": "Kult: The Temple of Flying Saucers — reconstructed C core",
+      "upstream_name": "kult-atari-st-c",
+      "display_title": "Kult: The Temple of Flying Saucers — reconstructed C core",
+      "subjects": [
+        "Kult: The Temple of Flying Saucers"
+      ],
+      "repo": "https://github.com/hunkstalker/kult-atari-st-c",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": false,
+        "byte_exact": false
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Kult: The Temple of Flying Saucers — reconstructed C core. Immutable root listing and linked source/build material personally reviewed. Classification: Readable C reconstruction derived from the separately tracked matching Atari ST assembly. README describes 33 modules, 423 identified functions and differential checking against Musashi. Included at the user's explicit request; preserve core/reconstruction scope rather than call this repository a playable port. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: m68k. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Upstream reports 518 passing differential tests and a built shared core library. It explicitly does not produce a playable executable, and explicitly is not byte-exact C. No tests/build were rerun in this catalogue review. Retains flat big-endian 68000 address-space data and width/arithmetic helpers; do not infer deployed execution architecture simply from C or reference-emulator use. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Matching ASM lives in kult-atari-st-decomp; playable SDL3 backend is a separate kult-atari-st-pc-port repository. That port imports this core with local deltas. The previous dated deferral is superseded for inclusion by the user request, while architecture limits remain documented. Evidence: https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/README.md https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/AGENTS.md https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/src/input.c https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/Makefile https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/include/kult_port.h https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/include/kult_api.h https://github.com/hunkstalker/kult-atari-st-c/blob/beebb5219f67ae2879a7cddf0b6a85e35aaca164/tools/recreate_kit/include/machine.h",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "pacomix-dsktest": {
+      "id": "pacomix-dsktest",
+      "title": "DskTest — native CPC floppy diagnostics",
+      "upstream_name": "DskTest",
+      "display_title": "DskTest — native CPC floppy diagnostics",
+      "subjects": [
+        "DskTest"
+      ],
+      "repo": "https://github.com/pacomix/DskTest",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [
+        "Amstrad CPC"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Z80 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "profiler"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: DskTest — native CPC floppy diagnostics. Immutable root listing and linked source/build material personally reviewed. Classification: Native CPC utility measures floppy rotation speed, searches sector IDs and assists head alignment. Source includes direct FDC routines, firmware numeric operations and a Z80 interrupt timer. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: Native assembly output uses Z80. Build: Upstream currently excludes CPC 464/664 despite broad platform wording. SDCC/Python build pipeline relies on pinned local tool directories; README sources/DskTestFirm example does not match the inspected src/ tree, so clean build is unverified. Alignment mode can loop until a sector is found and needs known-good media; no hardware action performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Credits Targhan/Julien Nevo FDC Tools influence while describing the RPM routine and other integration as original work. Vendored Exomizer/compiler files are not independent discoveries. Evidence: https://github.com/pacomix/DskTest/blob/01105b8083892708e13d622b55caa81a2bba4348/README.md https://github.com/pacomix/DskTest/blob/01105b8083892708e13d622b55caa81a2bba4348/src/main.c https://github.com/pacomix/DskTest/blob/01105b8083892708e13d622b55caa81a2bba4348/src/crt0_cpc.s",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "fragarco-tixel": {
+      "id": "fragarco-tixel",
+      "title": "Tixel — CPC pixel-art editor",
+      "upstream_name": "tixel",
+      "display_title": "Tixel — CPC pixel-art editor",
+      "subjects": [
+        "Tixel"
+      ],
+      "repo": "https://github.com/fragarco/tixel",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amstrad CPC"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Tixel — CPC pixel-art editor. Immutable root listing and linked source/build material personally reviewed. Classification: Python pixel-art/editor implementation with CPC firmware/hardware palette mappings and mode-dependent pixel packing for modes 0, 1 and 2. Reviewed image conversion code in addition to the short README. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Python GUI and conversion sources are present; no dependency lock, complete build package or independent conversion/display test was established. Palette mapping and bit layout implementation are not proof of all image import/export edge cases. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Standalone CPC art tool by Javier Garcia in source credits. No legacy-game reconstruction or common compiler-origin claim. Evidence: https://github.com/fragarco/tixel/blob/de3fc952e437e311802bc03a0ff6b9bd137f9120/README.md https://github.com/fragarco/tixel/blob/de3fc952e437e311802bc03a0ff6b9bd137f9120/src/imgconv.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "tom1975-sugarconvtape": {
+      "id": "tom1975-sugarconvtape",
+      "title": "SugarConvTape — CPC tape-format converter",
+      "upstream_name": "SugarConvTape",
+      "display_title": "SugarConvTape — CPC tape-format converter",
+      "subjects": [
+        "SugarConvTape"
+      ],
+      "repo": "https://github.com/Tom1975/SugarConvTape",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SugarConvTape — CPC tape-format converter. Immutable root listing and linked source/build material personally reviewed. Classification: Command-line batch tape conversion frontend supporting WAV, CDT DRB/CSW and CSW1.1/2.0 outputs, with directory filtering and optional recursion. Actual dispatch to CTape readers/writers inspected. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: CMake and C++17 required; upstream lists Windows x86/x64 and Ubuntu. CPCCore is a submodule dependency. Recursive-directory handling and output error propagation were not validated; no conversion executed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Uses Tom1975 CPCCore/Sugarbox tape machinery rather than claiming a new decoding core. Keep the standalone converter as the distinct user-facing workflow. Evidence: https://github.com/Tom1975/SugarConvTape/blob/317066989c7f3547a323175941ca994540a087d0/README.md https://github.com/Tom1975/SugarConvTape/blob/317066989c7f3547a323175941ca994540a087d0/SugarConvTape/main.cpp https://github.com/Tom1975/SugarConvTape/blob/317066989c7f3547a323175941ca994540a087d0/.gitmodules",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "mikeburnslondon-amsspritetool": {
+      "id": "mikeburnslondon-amsspritetool",
+      "title": "AmsSpriteTool — CPC sprite and palette editor",
+      "upstream_name": "AmsSpriteTool",
+      "display_title": "AmsSpriteTool — CPC sprite and palette editor",
+      "subjects": [
+        "AmsSpriteTool"
+      ],
+      "repo": "https://github.com/MikeBurnsLondon/AmsSpriteTool",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Amstrad CPC"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C#"
+      ],
+      "reconstructed_languages": [
+        "C#"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: AmsSpriteTool — CPC sprite and palette editor. Immutable root listing and linked source/build material personally reviewed. Classification: Windows WPF sprite manipulation tool with CPC mode0/1/2 palette handling and explicit firmware/hardware/RGB colour conversion. Actual palette class and UI project inspected. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Upstream recommends Visual Studio Community 2019 16.10. Source validates pen range and supported colours. No build, GUI run or output-image equivalence check performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Explicitly designed to complement ConvImgCPC, not replace or claim authorship of it. One root-level project covers editor and palette capabilities. Evidence: https://github.com/MikeBurnsLondon/AmsSpriteTool/blob/e9cf73569b4edcd54d6beba7517a8ef6c6acea0e/README.md https://github.com/MikeBurnsLondon/AmsSpriteTool/blob/e9cf73569b4edcd54d6beba7517a8ef6c6acea0e/CPCPalette.cs",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "sikorama-sna-header-analyzer": {
+      "id": "sikorama-sna-header-analyzer",
+      "title": "CPC SNA snapshot-header analyser",
+      "upstream_name": "sna-header-analyzer",
+      "display_title": "CPC SNA snapshot-header analyser",
+      "subjects": [
+        "CPC SNA snapshot-header analyser"
+      ],
+      "repo": "https://github.com/sikorama/sna-header-analyzer",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Amstrad CPC"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript",
+        "ImHex pattern"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "ImHex pattern"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "graphics-debugger"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: CPC SNA snapshot-header analyser. Immutable root listing and linked source/build material personally reviewed. Classification: Browser-based CPC snapshot-header inspection for Z80 registers, CRTC, gate array, bank mapping and palette, with companion ImHex structures for versions and extension chunks. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: All-in-one HTML is the documented entrypoint. ImHex source describes CPC+, MEM and WinAPE breakpoint chunks; this does not establish complete compressed-RAM validation or safe handling of all malformed chunks. No browser/parser execution performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Analysis utility for snapshot data, not an emulator or claim of reconstructing the programs contained in snapshots. Evidence: https://github.com/sikorama/sna-header-analyzer/blob/517391baaeeab8ef202ff10a2dbba29c4d9611bd/README.md https://github.com/sikorama/sna-header-analyzer/blob/517391baaeeab8ef202ff10a2dbba29c4d9611bd/sna.imhex",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rvmtech-mini-daad-linux": {
+      "id": "rvmtech-mini-daad-linux",
+      "title": "Mini DAAD Linux — retro adventure build workflows",
+      "upstream_name": "mini-daad-linux",
+      "display_title": "Mini DAAD Linux — retro adventure build workflows",
+      "subjects": [
+        "Mini DAAD Linux"
+      ],
+      "repo": "https://github.com/rvmtech/mini-daad-linux",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "ZX Spectrum",
+        "Amstrad CPC",
+        "Commodore 64",
+        "MSX",
+        "DOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Shell",
+        "PHP",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Shell",
+        "PHP",
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "development-environment"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Mini DAAD Linux — retro adventure build workflows. Immutable root listing and linked source/build material personally reviewed. Classification: Linux workflows assemble DAAD adventure distributions for multiple retro systems and HTML. Inspected CPC script builds DDB/interpreter data, prepares images and inserts outputs into a disk image. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: PHP required; optional php-gd for HTML, VICE utilities for C64 and Python/NumPy for MSX2. Emulators are configurable and optional launch is explicit. Target interpreter binaries are bundled dependencies, not new reconstructed CPUs. No build or emulator run performed. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Based on DAAD Ready and credits DRC, PCDAAD, MALUVA, ZX0, CPCXfs and DSKTOOL. Distinct integration and image-preparation work is tracked at repository scope, not duplicated as each upstream component. Evidence: https://github.com/rvmtech/mini-daad-linux/blob/868037eabb653a7eb58f41a0c938f9cf15c616f5/README.md https://github.com/rvmtech/mini-daad-linux/blob/868037eabb653a7eb58f41a0c938f9cf15c616f5/cpc6128.sh",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "khedoros-khedgehog": {
+      "id": "khedoros-khedgehog",
+      "title": "Khedgehog — experimental Sega console emulator",
+      "upstream_name": "khedgehog",
+      "display_title": "Khedgehog — experimental Sega console emulator",
+      "subjects": [
+        "Khedgehog"
+      ],
+      "repo": "https://github.com/khedoros/khedgehog",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "SG-1000",
+        "Sega Master System",
+        "Game Gear",
+        "Mega Drive"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80",
+        "m68k"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Khedgehog — experimental Sega console emulator. Immutable root listing and linked source/build material personally reviewed. Classification: C++ Sega emulator implementation with Z80 and 68000 cores, machine memory maps, VDP/audio components and SDL2 event/render loop. Source selects SG-1000/SMS/GG and Genesis paths. Source CPU: Architecture established by inspected assembly or named emulator CPU implementation: Z80, m68k. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: C++17/SDL2 Makefile inspected. Current detection relies on filename extension and region detection returns US NTSC; alternate header-detection logic is commented out. Small Genesis audio components indicate incomplete areas; no overall compatibility/playability claim or runtime test. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: General multi-system emulation project, not game-specific baked emulation. Presence of multiple CPU and VDP implementations is not equal to complete support for every selected console. Evidence: https://github.com/khedoros/khedgehog/blob/d7dd8102ca0d0c9f3d4eca1fabb26bc9c24245fe/Makefile https://github.com/khedoros/khedgehog/blob/d7dd8102ca0d0c9f3d4eca1fabb26bc9c24245fe/config.cpp https://github.com/khedoros/khedgehog/blob/d7dd8102ca0d0c9f3d4eca1fabb26bc9c24245fe/emulator.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "gufranco-sms-rom-image-python": {
+      "id": "gufranco-sms-rom-image-python",
+      "title": "SMS ROM Image — Sega cartridge metadata and integrity tools",
+      "upstream_name": "sms-rom-image-python",
+      "display_title": "SMS ROM Image — Sega cartridge metadata and integrity tools",
+      "subjects": [
+        "SMS ROM Image"
+      ],
+      "repo": "https://github.com/gufranco/sms-rom-image-python",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sega Master System",
+        "Game Gear",
+        "SG-1000"
+      ],
+      "target_platforms": [],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "rom-tool",
+        "binary-analysis"
+      ],
+      "types": [
+        "tooling"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build claims qualified in notes",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SMS ROM Image — Sega cartridge metadata and integrity tools. Immutable root listing and linked source/build material personally reviewed. Classification: Python cartridge-image library separates copier-stub detection, Sega header anchors/region/size, checksum, file identity and manifest comparison. Inspected actual header/checksum and dump code, not only coverage statistics. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: No explicit host/native minimum ISA established in reviewed build material; board names are kept separately from CPU requirements. Build: Python >=3.12 standard-library-only package. Copier-stub removal is explicitly length-based, not content authentication. README reports corpus/test counts, not independently rerun here. A matching additive checksum is not cryptographic authenticity or proof of emulator compatibility. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Grounded in Sega reference documentation and recorded corpus observations. Missing header is a normal SG-1000/image state; do not invent metadata or CPU minimum from a file extension. Evidence: https://github.com/gufranco/sms-rom-image-python/blob/4f6b3278a6ceb717270b0210b67793ab46c3a63f/README.md https://github.com/gufranco/sms-rom-image-python/blob/4f6b3278a6ceb717270b0210b67793ab46c3a63f/smsimage/header.py https://github.com/gufranco/sms-rom-image-python/blob/4f6b3278a6ceb717270b0210b67793ab46c3a63f/smsimage/dump.py",
       "ai": {
         "usage": null,
         "tools": []
