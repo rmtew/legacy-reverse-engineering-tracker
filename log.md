@@ -1494,3 +1494,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-27 — Personally screen 182 candidate URLs and add 30 projects, with three scope/implementation exclusions and one relocated-source access deferral.
 
 [Research record](docs/research/2026-10-27-large-msx-acorn-gem-media-discovery.md).
+
+## 2026-10-27 — Personally screen 136 candidate URLs and add 33 projects, with one thin tool-bundle exclusion.
+
+[Research record](docs/research/2026-10-27-large-retro-audio-sega-bbc-tools-discovery.md).
