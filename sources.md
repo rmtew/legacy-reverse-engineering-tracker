@@ -1302,3 +1302,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-26 — Personally screen 235 unique URLs from 238 search hits, review 30 roots, add 27 projects, consolidate one predecessor and defer two source-container claims.
 
 [Research record](docs/research/2026-10-26-large-msx-apple-bbc-c64-discovery.md).
+
+## 2026-10-26 — Personally screen 350 unique URLs from 390 search hits; review 42 repository roots, add 33 projects, consolidate seven forks and exclude two unsupported game claims.
+
+[Research record](docs/research/2026-10-26-large-amiga-st-cpc-tools-discovery.md).
