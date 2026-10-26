@@ -1350,3 +1350,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-27 — Personally screen 73 candidate URLs and add 33 projects, with one minimal-boilerplate exclusion.
 
 [Research record](docs/research/2026-10-27-large-amiga-hunk-iigs-basic-discovery.md).
+
+## 2026-10-27 — Personally screen 104 candidate URLs and add 32 projects, with two duplicate decisions and one collection exclusion.
+
+[Research record](docs/research/2026-10-27-large-atari-media-spectrum-reconstruction-discovery.md).
