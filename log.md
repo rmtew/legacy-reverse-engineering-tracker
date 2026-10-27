@@ -1530,3 +1530,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-28 — Personally screen 111 candidate URLs and add 26 projects, with nine explicit non-promotion decisions.
 
 [Research record](docs/research/2026-10-28-large-oric-ti99-6502-6809-tools-discovery.md).
+
+## 2026-10-28 — Personally screen 378 candidate URLs and add 20 projects, with eleven explicit non-promotion decisions.
+
+[Research record](docs/research/2026-10-28-large-amiga-st-cpc-dos-restoration-discovery.md).
