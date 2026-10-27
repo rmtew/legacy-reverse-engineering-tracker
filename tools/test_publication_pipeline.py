@@ -9,7 +9,7 @@ from unittest.mock import patch
 from apply_discovery_batch import FILES, run
 from publication_pipeline import blob_sha, digest, prepare, verify_files, verify_live, verify_remote
 from test_discovery_batch import DiscoveryBatchTests
-from catalogue_storage import load_projects, index_name
+from catalogue_storage import load_projects, index_name, write_all
 
 
 class PublicationPipelineTests(DiscoveryBatchTests):
@@ -76,6 +76,12 @@ class PublicationPipelineTests(DiscoveryBatchTests):
                 verify_live(self.out, live, self.tree)
 
     def test_source_only_changes_leave_project_and_audit_storage_untouched(self):
+        # Localized-write invariant applies after legacy storage migration.
+        # Migration equality itself is covered by test_catalogue_storage.
+        write_all(self.data, self.logical)
+        self.tree = {"tree": [{"path": str(path.relative_to(self.root)), "type": "blob",
+                               "sha": blob_sha(path.read_bytes())}
+                              for path in self.root.rglob("*") if path.is_file()]}
         batch = self.batch()
         batch['projects'] = []
         batch['decisions'] = []

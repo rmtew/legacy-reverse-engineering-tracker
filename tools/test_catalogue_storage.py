@@ -161,3 +161,34 @@ class StorageTests(unittest.TestCase):
         self.assertTrue(all(not (self.data/p).exists() for p in obsolete))
         self.assertEqual(load_projects(self.data/'projects.json'),records)
         self.assertEqual(write_all(self.data,{'projects.json':records}),[])
+
+    def test_decision_collection_preserves_metadata_order_and_local_updates(self):
+        value = {'indexed_at':'2026-10-28', 'custom':{'kept':True},
+                 'decisions':[{'id':str(i),'reason':'reviewed','evidence_urls':['https://example.org/'+str(i)]} for i in range(100)]}
+        name = 'discovery-decisions.json'
+        (self.data/name).write_bytes(encode(value))
+        write_all(self.data, {name:value})
+        self.assertFalse((self.data/name).exists())
+        self.assertEqual(load_dataset(self.data,name),value)
+        self.assertEqual(write_all(self.data,{name:value}),[])
+        value['decisions'][12]['reason']='updated evidence'
+        self.assertEqual(set(write_all(self.data,{name:value})),
+            {'discovery-decisions.index.json',f'discovery-decisions/{route("12")[:1]}.json'})
+        self.assertEqual(load_dataset(self.data,name),value)
+        (self.data/name).write_bytes(encode(value))
+        with self.assertRaisesRegex(ValueError,'mixed'):
+            load_dataset(self.data,name)
+
+    def test_oversized_legacy_decisions_migrate_without_raising_request_limit(self):
+        name='discovery-decisions.json'
+        value={'indexed_at':'2026-10-28','decisions':[{'id':str(i),'reason':'x'*5000} for i in range(900)]}
+        self.assertGreater(request_size(encode(value)),REQUEST_LIMIT)
+        (self.data/name).write_bytes(encode(value))
+        write_all(self.data,{name:value})
+        self.assertEqual(load_dataset(self.data,name),value)
+        self.assertTrue(all(request_size((self.data/p).read_bytes())<=REQUEST_LIMIT for p in storage_paths(self.data,[name])))
+
+    def test_empty_decisions_preserve_metadata(self):
+        value={'indexed_at':'2026-10-28','decisions':[]}
+        write_all(self.data,{'discovery-decisions.json':value})
+        self.assertEqual(load_dataset(self.data,'discovery-decisions.json'),value)

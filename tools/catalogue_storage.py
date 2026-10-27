@@ -11,8 +11,10 @@ from pathlib import Path
 import re
 import subprocess
 
-KINDS = {'projects.json': ('projects', 'id'), 'project-audits.json': ('project-audits', 'project_id')}
-FILES = (*KINDS, 'discovery-sources.json', 'discovery-decisions.json', 'research-activity.json')
+KINDS = {'projects.json': ('projects', 'id'), 'project-audits.json': ('project-audits', 'project_id'),
+         'discovery-decisions.json': ('discovery-decisions', 'id')}
+FILES = (*KINDS, 'discovery-sources.json', 'research-activity.json')
+RECORD_KEYS = {'project-audits.json': 'projects', 'discovery-decisions.json': 'decisions'}
 # One quarter of the connector's 16 MiB limit, including escaped content/envelope.
 REQUEST_LIMIT = 4 * 1024 * 1024
 REPOSITORY = 'rmtew/legacy-reverse-engineering-tracker'
@@ -47,7 +49,7 @@ def route(pid):
 
 def render(name, value, limit=REQUEST_LIMIT):
     kind, key = KINDS[name]
-    records = value if name == 'projects.json' else value['projects']
+    records = value if name == 'projects.json' else value[RECORD_KEYS[name]]
     ids = [r[key] for r in records]
     if len(set(ids)) != len(ids):
         raise ValueError(f'Duplicate IDs in {name}')
@@ -76,7 +78,7 @@ def render(name, value, limit=REQUEST_LIMIT):
         partition(prefix, items)
     index = {'format': 'tracker-partitions/v1', 'kind': kind, 'order': ids, 'shards': refs}
     if name != 'projects.json':
-        index['metadata'] = {k: v for k, v in value.items() if k != 'projects'}
+        index['metadata'] = {k: v for k, v in value.items() if k != RECORD_KEYS[name]}
     output[index_name(name)] = bounded(encode(index), index_name(name), limit)
     return output
 
@@ -109,7 +111,7 @@ def load_dataset(data_dir, name, *, read=None, exists=None):
     if not isinstance(index, dict):
         raise ValueError(f'Invalid storage index: {ix}')
     if name != 'projects.json' and not isinstance(index.get('metadata'), dict):
-        raise ValueError(f'Invalid audit metadata: {ix}')
+        raise ValueError(f'Invalid collection metadata: {ix}')
     if index.get('format') != 'tracker-partitions/v1' or index.get('kind') != kind:
         raise ValueError(f'Invalid storage index: {ix}')
     refs, order = index.get('shards'), index.get('order')
@@ -147,7 +149,7 @@ def load_dataset(data_dir, name, *, read=None, exists=None):
     if set(records) != set(order):
         raise ValueError(f'Index record coverage mismatch: {ix}')
     result = [records[pid] for pid in order]
-    return result if name == 'projects.json' else {**index['metadata'], 'projects': result}
+    return result if name == 'projects.json' else {**index['metadata'], RECORD_KEYS[name]: result}
 
 
 def load_projects(path):

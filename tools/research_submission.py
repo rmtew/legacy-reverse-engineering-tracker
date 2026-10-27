@@ -263,13 +263,13 @@ def apply(root, event):
         manifest = prepare(document, root, bundle, baseline, tree(root, baseline))
         verify_files(bundle / 'payload', manifest)
         allowed = {'data/projects.index.json', 'data/project-audits.index.json', 'data/discovery-sources.json',
-                   'data/discovery-decisions.json', 'data/research-activity.json', 'sources.md', 'log.md',
+                   'data/discovery-decisions.json', 'data/discovery-decisions.index.json', 'data/research-activity.json', 'sources.md', 'log.md',
                    f'docs/research/{event}.md'}
         names = []
         for entry in manifest['files']:
             name = entry['path']
             safe_path(name)
-            if name not in allowed and not re.fullmatch(r'data/(?:projects|project-audits)/[0-9a-f]{1,64}\.json', name):
+            if name not in allowed and not re.fullmatch(r'data/(?:projects|project-audits|discovery-decisions)/[0-9a-f]{1,64}\.json', name):
                 raise ValueError('Unsupported research output path: ' + name)
             names.append(name)
         # Projection generation runs on the server, before any canonical writes.

@@ -51,7 +51,9 @@ def validate_research_state(projects_path, project_ids, errors):
     research_path = data_dir / "research-activity.json"
     decisions_path = data_dir / "discovery-decisions.json"
 
-    missing_files = [str(path) for path in (discovery_path, research_path, decisions_path) if not path.exists()]
+    missing_files = [str(path) for path in (discovery_path, research_path) if not path.exists()]
+    if not decisions_path.exists() and not (data_dir / "discovery-decisions.index.json").exists():
+        missing_files.append(str(decisions_path))
     if missing_files:
         fail("research state files missing: " + ", ".join(missing_files), errors)
         return 0, 0, 0, 0
@@ -59,7 +61,7 @@ def validate_research_state(projects_path, project_ids, errors):
     discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
     audits = load_dataset(data_dir, "project-audits.json")
     research = json.loads(research_path.read_text(encoding="utf-8"))
-    decisions = json.loads(decisions_path.read_text(encoding="utf-8"))
+    decisions = load_dataset(data_dir, "discovery-decisions.json")
     validate_date(decisions.get("indexed_at"), "discovery decisions indexed_at", errors, allow_none=False)
 
     source_ids = []

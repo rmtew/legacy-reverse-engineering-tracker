@@ -69,8 +69,8 @@ class DiscoveryBatchTests(unittest.TestCase):
         self.assertEqual(next(a for a in audits["projects"] if a["project_id"] == "sample-research-test")["overall_state"], "partial")
         self.assertIn("sample-research-test", next(s for s in sources["sources"] if s["id"] == self.source_id)["projects_promoted"])
         self.assertEqual(events["events"][0]["id"], batch["event_id"])
-        original_count = len(json.loads(self.before["discovery-decisions.json"])["decisions"])
-        self.assertEqual(len(json.loads((self.data / "discovery-decisions.json").read_text())["decisions"]), original_count + 1)
+        original_count = len(self.logical["discovery-decisions.json"]["decisions"])
+        self.assertEqual(len(load_dataset(self.data, "discovery-decisions.json")["decisions"]), original_count + 1)
 
     def test_new_project_requires_cpu_review(self):
         batch = self.batch()

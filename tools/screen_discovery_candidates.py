@@ -7,7 +7,7 @@ requests and never changes the research indexes.
 """
 from __future__ import annotations
 
-from catalogue_storage import load_projects
+from catalogue_storage import load_projects, load_dataset
 
 import argparse
 from collections import Counter, defaultdict
@@ -71,7 +71,7 @@ class CandidateIndex:
         self.project_urls = {}
         projects = load_projects(data_dir / "projects.json")
         discovery = json.loads((data_dir / "discovery-sources.json").read_text(encoding="utf-8"))
-        decisions = json.loads((data_dir / "discovery-decisions.json").read_text(encoding="utf-8"))
+        decisions = load_dataset(data_dir, "discovery-decisions.json")
 
         for project in projects:
             url = project.get("project_url") or project.get("repo")

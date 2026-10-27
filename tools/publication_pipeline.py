@@ -92,8 +92,8 @@ def verify_live(bundle, live, tree):
     for filename, groups in (("discovery-sources.json", ("sources", "backlog")),
                              ("discovery-decisions.json", ("decisions",)),
                              ("research-activity.json", ("events",))):
-        wanted = load(bundle / "payload/data" / filename)
-        served = load(live / "data" / filename)
+        wanted = load_dataset(bundle / "payload/data", filename)
+        served = load_dataset(live / "data", filename)
         for group in groups:
             present = {item["id"]: item for item in served[group]}
             for item in wanted[group]:

@@ -306,3 +306,7 @@ create an unavailable publication outcome. A confirmed root 200/304 clears the
 unavailable outcome, reopens any incomplete publication prerequisite and resumes
 actual metadata/history work. Offline replay retains the same source/owned-state
 compare-and-set guards, so stale observations cannot bless concurrent research.
+
+### Discovery decision storage
+
+Discovery decisions use the same validated hash-prefix partitions as projects and audits: `data/discovery-decisions.index.json` preserves metadata and record order, and `data/discovery-decisions/<prefix>.json` contains records keyed by decision ID. Readers retain legacy monolith support, but the next canonical write migrates it atomically. Mixed layouts, invalid routes and digest mismatches are rejected. The existing per-request size limit is unchanged; no historical decisions are discarded.

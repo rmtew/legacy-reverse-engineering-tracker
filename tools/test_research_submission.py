@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 
 import research_submission as submission
-from catalogue_storage import encode, load_all, load_projects, write_all, write_projects
+from catalogue_storage import encode, load_all, load_projects, load_dataset, storage_paths, write_all, write_projects
 from merge_pending_projects import new_audit
 from research_record import seal_review
 from test_research_record import sample_record
@@ -102,6 +102,21 @@ class SubmissionTests(unittest.TestCase):
         self.assertTrue(repeated['duplicate'])
         self.assertEqual(state, load_all(self.root / 'data'))
         self.assertEqual(len([e for e in state['research-activity.json']['events'] if e['id'] == self.document['event_id']]), 1)
+
+    def test_submission_migrates_legacy_decisions_atomically(self):
+        data = self.root / 'data'
+        value = load_dataset(data, 'discovery-decisions.json')
+        for name in storage_paths(data, ['discovery-decisions.json']):
+            (data / name).unlink()
+        self.put('data/discovery-decisions.json', value)
+        self.commit()
+        result = self.apply()
+        self.assertIn('data/discovery-decisions.json', result['changed'])
+        self.assertIn('data/discovery-decisions.index.json', result['changed'])
+        self.assertFalse((data / 'discovery-decisions.json').exists())
+        self.assertEqual(load_dataset(data, 'discovery-decisions.json')['decisions'], value['decisions'])
+        self.commit()
+        self.assertTrue(self.apply()['duplicate'])
 
     def test_conflicting_id_and_unreviewed_input_preserve_all_data(self):
         self.apply(); self.commit()
