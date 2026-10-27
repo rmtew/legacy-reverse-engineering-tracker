@@ -1366,3 +1366,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-27 — Reviewed Enterprise, SAM Coupe, Thomson, Oric, CoCo and SourceGen discovery leads
 
 [Research record](docs/research/2026-10-27-deep-cross-platform-discovery.md).
+
+## 2026-10-28 — Review eleven materially changed reconstruction, emulation and source-derived port projects against current primary commits.
+
+[Research record](docs/research/maintenance-2026-10-28-am-reconstruction-emulation-ports.md).
