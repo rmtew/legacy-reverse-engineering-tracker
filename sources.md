@@ -1398,3 +1398,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-28 — Personally screen 234 candidate URLs and add 17 projects, with five explicit non-promotion decisions.
 
 [Research record](docs/research/2026-10-28-large-cpc-amiga-dos-applications-and-restoration-discovery.md).
+
+## 2026-10-28 — Personally screen 429 candidate URLs and add 15 projects, with eight explicit non-promotion decisions.
+
+[Research record](docs/research/2026-10-28-large-amiga-dos-native-recovery-and-source-preservation-discovery.md).
