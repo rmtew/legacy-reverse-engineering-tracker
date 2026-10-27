@@ -1510,3 +1510,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-27 — Personally screen 138 candidate URLs and add 33 projects, with two implementation-based exclusions.
 
 [Research record](docs/research/2026-10-27-large-msx-graphics-amiga-iff-acorn-discovery.md).
+
+## 2026-10-27 — Review ten materially changed projects spanning exact reconstruction, original-platform enhancements, emulator compatibility, filesystem preservation and source-restored CP/M utilities.
+
+[Research record](docs/research/maintenance-2026-10-27-pm-reconstruction-emulation-preservation.md).
