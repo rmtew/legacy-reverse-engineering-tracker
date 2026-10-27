@@ -1374,3 +1374,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-28 — Personally screen 394 candidate URLs and add 26 projects, with six explicit non-promotion decisions.
 
 [Research record](docs/research/2026-10-28-large-native-editors-tape-tools-reconstruction-discovery.md).
+
+## 2026-10-28 — Personally screen 111 candidate URLs and add 26 projects, with nine explicit non-promotion decisions.
+
+[Research record](docs/research/2026-10-28-large-oric-ti99-6502-6809-tools-discovery.md).
