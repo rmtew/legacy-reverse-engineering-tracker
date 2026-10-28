@@ -1614,3 +1614,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-28 — Personally screen 466 candidate URLs and add 18 projects, with six explicit non-promotion decisions.
 
 [Research record](docs/research/2026-10-28-large-amiga-st-cpc-dos-engines-and-wordstar-recovery-discovery.md).
+
+## 2026-10-28 — Review eleven material upstream changes across reconstruction fidelity, emulator scheduling, static recompilation, enhanced Amiga variants and reverse-engineering tooling.
+
+[Research record](docs/research/maintenance-2026-10-28-pm-reconstruction-emulation-tooling.md).
