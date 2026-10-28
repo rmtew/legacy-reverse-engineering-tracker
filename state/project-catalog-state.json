@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-28T03:17:25Z",
+  "updated_at": "2026-10-28T03:26:59Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -319391,6 +319391,626 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: Champions of Krynn Amiga — format recovery and Python remake. Repository identity, pinned tree and available implementation inspected. Classification: ADF/DAX/graphics/map/ECL extraction and native Python interpreter for original event scripts; inspected ECL decoder and explicit rule-change ledger. Script VM is game bytecode, not 68000 emulation. Source CPU: Documented original ISA: 68000. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Python and original ADFs/data. Overhead combat, pooled money, healing, training, UI and some rule choices intentionally differ. Recovered story/assets do not prove full engine equivalence. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Amiga-binary research with deliberately enhanced remake, not a byte-matching C/assembly decompilation. Evidence: https://github.com/MOLEDesign/ChampionsOfKrynn/blob/aa0dcb3163bd3f45bf9e8804d3a753b61395b977/README.md https://github.com/MOLEDesign/ChampionsOfKrynn/blob/aa0dcb3163bd3f45bf9e8804d3a753b61395b977/docs/CHANGES.md https://github.com/MOLEDesign/ChampionsOfKrynn/blob/aa0dcb3163bd3f45bf9e8804d3a753b61395b977/cok/ecl.py",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "opencol-mapedit": {
+      "id": "opencol-mapedit",
+      "title": "Colonization Map Editor — native recovered-source port",
+      "upstream_name": "mapedit",
+      "display_title": "Colonization Map Editor — native recovered-source port",
+      "subjects": [
+        "Colonization Map Editor"
+      ],
+      "repo": "https://github.com/OpenCol/mapedit",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Colonization Map Editor — native recovered-source port. Repository identity, pinned tree and available implementation inspected. Classification: Native C99/SDL3 map editor derived from the MAPEDIT executable recovery; inspected connected-region numbering and original-layout records. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: CMake/SDL3 and original Colonization assets. Upstream compares six scripted map-write sessions with DOSBox-X; that bounds the fidelity claim, not all operations. Linked mapedit-decomp source repository was not retrievable during this pass, so its standalone build is not asserted. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Distinct application from the Colonization game engine; public port source is inspectable independently of unavailable upstream recovery repository. Evidence: https://github.com/OpenCol/mapedit/blob/02fe3922ef4a568c22c6049386fde980d0272e7d/README.md https://github.com/OpenCol/mapedit/blob/02fe3922ef4a568c22c6049386fde980d0272e7d/src/core/continents.c",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "tehel-csbweb": {
+      "id": "tehel-csbweb",
+      "title": "Dungeon Master / Chaos Strikes Back — TypeScript source-derived port",
+      "upstream_name": "CSBweb",
+      "display_title": "Dungeon Master / Chaos Strikes Back — TypeScript source-derived port",
+      "subjects": [
+        "Dungeon Master / Chaos Strikes Back"
+      ],
+      "repo": "https://github.com/Tehel/CSBweb",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "TypeScript"
+      ],
+      "reconstructed_languages": [
+        "TypeScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Dungeon Master / Chaos Strikes Back — TypeScript source-derived port. Repository identity, pinned tree and available implementation inspected. Classification: Native TypeScript game logic ported from Paul Stevens CSBWin, itself recovered from Atari ST binary. Inspected typed monster-attack logic and source-line mappings. Source CPU: Documented original ISA: 68000. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Node24/build tools, fetched CSBWin reference and original dungeon data. Save compatibility/game completion claimed upstream but debt lists known divergences, missing/debug features and deferred original-frame comparisons. Port golden images are not independent CSBWin parity evidence. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: One coherent browser engine for both games; modern site/sharing features are not historical game reconstruction. Evidence: https://github.com/Tehel/CSBweb/blob/e7f72312db7a6715183c7412da3bcc41ea692cb7/README.md https://github.com/Tehel/CSBweb/blob/e7f72312db7a6715183c7412da3bcc41ea692cb7/src/core/Die.ts https://github.com/Tehel/CSBweb/blob/e7f72312db7a6715183c7412da3bcc41ea692cb7/DEBT.md https://github.com/Tehel/CSBweb/blob/e7f72312db7a6715183c7412da3bcc41ea692cb7/src/engine/MonsterAttack.ts",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dahlskebank-magic-maze-web": {
+      "id": "dahlskebank-magic-maze-web",
+      "title": "Magic Maze — original Pascal game restored for browser",
+      "upstream_name": "magic-maze-web",
+      "display_title": "Magic Maze — original Pascal game restored for browser",
+      "subjects": [
+        "Magic Maze"
+      ],
+      "repo": "https://github.com/dahlskebank/magic-maze-web",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript",
+        "Pascal"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "Pascal"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Magic Maze — original Pascal game restored for browser. Repository identity, pinned tree and available implementation inspected. Classification: Source-derived port of Kent Dahls 1996 DOS game with original Pascal/archive and extracted assets; inspected combat functions mapping to original source lines. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Static ES modules/Canvas/Web Audio. Original save file replaced by localStorage; browser presentation/input adaptation remains distinct from byte-matching executable. No independent full-game parity test. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README explicitly credits Claude assistance in analysing original Pascal source and implementing JavaScript port. Relationships: Earlier Atari ST prototype is historical lineage, not the source recovered here; this port follows the later DOS Pascal implementation. Evidence: https://github.com/dahlskebank/magic-maze-web/blob/0ab0e76f3fca1d778bce52f16781b459121ec527/README.md https://github.com/dahlskebank/magic-maze-web/blob/0ab0e76f3fca1d778bce52f16781b459121ec527/js/combat.js",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "missingno7-duke1-recon": {
+      "id": "missingno7-duke1-recon",
+      "title": "Duke Nukum v2.0 — complete historical source reconstruction",
+      "upstream_name": "duke1_recon",
+      "display_title": "Duke Nukum v2.0 — complete historical source reconstruction",
+      "subjects": [
+        "Duke Nukum v2.0"
+      ],
+      "repo": "https://github.com/missingno7/duke1_recon",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "x86 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "decompilation",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Duke Nukum v2.0 — complete historical source reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Maintained two-unit C/assembly source for all three episodes, original-toolchain packed equality claimed upstream. Inspected GAME1.C and actual host generation design. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Turbo C2/TASM1/TLINK2/LZEXE and own game data. SDL3 port transforms source types/names and emulates EGA/PIT/DOS services; it is not original binary CPU interpretation, but hardware semantics remain. Runtime timing profiles and exact historical build are different proofs. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: One three-episode source programme; byte equality remains upstream not independently rerun. Evidence: https://github.com/missingno7/duke1_recon/blob/d2cc7e448889a4f870600d94459ae61a0af07e22/README.md https://github.com/missingno7/duke1_recon/blob/d2cc7e448889a4f870600d94459ae61a0af07e22/port/README.md https://github.com/missingno7/duke1_recon/blob/d2cc7e448889a4f870600d94459ae61a0af07e22/src/GAME1.C",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "missingno7-pre2-recon": {
+      "id": "missingno7-pre2-recon",
+      "title": "Prehistorik 2 — semantic assembly and C reconstruction",
+      "upstream_name": "pre2_recon",
+      "display_title": "Prehistorik 2 — semantic assembly and C reconstruction",
+      "subjects": [
+        "Prehistorik 2"
+      ],
+      "repo": "https://github.com/missingno7/pre2_recon",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "x86 assembly",
+        "C"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly",
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Prehistorik 2 — semantic assembly and C reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Maintained exact TASM oracle plus native C player/game/service translations and SDL3 host. Inspected player-state contracts and original dispatch quirks. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Original assets and pinned historical tools. Coverage records 259 fully exercised of 308 callable entries, with partial/platform/dead/joystick cases explicitly separated. Per-routine tests and 90.1% instruction execution are not exhaustive complete-game validation. C retains original memory/register interface identities. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Separate historical-source programme from tracked pre2_port; no claim that all original hardware/error modes are natively supported. Evidence: https://github.com/missingno7/pre2_recon/blob/1fa38aa2c88d150d3f15049c50bcd5d64ef3c798/README.md https://github.com/missingno7/pre2_recon/blob/1fa38aa2c88d150d3f15049c50bcd5d64ef3c798/docs/completeness.md https://github.com/missingno7/pre2_recon/blob/1fa38aa2c88d150d3f15049c50bcd5d64ef3c798/c/player.c",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "missingno7-dostales-recon": {
+      "id": "missingno7-dostales-recon",
+      "title": "DuckTales DOS — executable/overlay and resource research",
+      "upstream_name": "dostales_recon",
+      "display_title": "DuckTales DOS — executable/overlay and resource research",
+      "subjects": [
+        "DuckTales DOS"
+      ],
+      "repo": "https://github.com/missingno7/dostales_recon",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python",
+        "C",
+        "x86 assembly"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "C",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: DuckTales DOS — executable/overlay and resource research. Repository identity, pinned tree and available implementation inspected. Classification: Early reconstruction research identifies EXEPACK root, ten MZ overlays and 16 resource containers. Inspected symbolic put-string probe and actual outer-container format study. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Python and external original assets/toolchain. Zero accepted game C/ASM bytes and no reconstructed complete game; probe equality is diagnostic, not historical module attribution. Inner compression and prefix meanings remain unknown; exact container repack preserves opaque members. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: DOS Quest for Gold research, distinct from earlier Amiga/Aztec recovery; promoted as useful analysis, not finished source port. Evidence: https://github.com/missingno7/dostales_recon/blob/2929ed1544592b1028f678f45c91d46e984d326b/README.md https://github.com/missingno7/dostales_recon/blob/2929ed1544592b1028f678f45c91d46e984d326b/evidence/probes/putstr.asm https://github.com/missingno7/dostales_recon/blob/2929ed1544592b1028f678f45c91d46e984d326b/evidence/resource-containers.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "missingno7-lemmings-recon": {
+      "id": "missingno7-lemmings-recon",
+      "title": "Lemmings DOS VGA — semantic assembly and partial C recovery",
+      "upstream_name": "lemmings_recon",
+      "display_title": "Lemmings DOS VGA — semantic assembly and partial C recovery",
+      "subjects": [
+        "Lemmings DOS VGA"
+      ],
+      "repo": "https://github.com/missingno7/lemmings_recon",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "x86 assembly",
+        "C"
+      ],
+      "reconstructed_languages": [
+        "x86 assembly",
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Lemmings DOS VGA — semantic assembly and partial C recovery. Repository identity, pinned tree and available implementation inspected. Classification: Maintained exact ASM and structured C routines over canonical original memory; inspected decimal renderer and separate completeness ledger. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Pinned VGALEMMI/assets/tools. Main inventory retains 450 unknown bytes and two open runtime-modified transfers; sound views have separate gaps. Routine C coverage and retained exact-image hashes do not establish aggregate acceptance or runnable whole-game integration. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Do not label this a finished native game; field/register-preserving C and platform startup remain separate restoration work. Evidence: https://github.com/missingno7/lemmings_recon/blob/9e3b58e2cfbe039e9f3dafe86aa68395dd7eff01/README.md https://github.com/missingno7/lemmings_recon/blob/9e3b58e2cfbe039e9f3dafe86aa68395dd7eff01/docs/completeness.md https://github.com/missingno7/lemmings_recon/blob/9e3b58e2cfbe039e9f3dafe86aa68395dd7eff01/c/decimal_digits.c",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "missingno7-secret-agent-editor": {
+      "id": "missingno7-secret-agent-editor",
+      "title": "Secret Agent — recovered-format level editor",
+      "upstream_name": "secret_agent_editor",
+      "display_title": "Secret Agent — recovered-format level editor",
+      "subjects": [
+        "Secret Agent"
+      ],
+      "repo": "https://github.com/missingno7/secret_agent_editor",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application",
+        "development-tool"
+      ],
+      "work_kinds": [
+        "data-format-analysis",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Secret Agent — recovered-format level editor. Repository identity, pinned tree and available implementation inspected. Classification: Tkinter/Pillow editor decodes and rewrites encrypted maps and EGA tile banks for three episodes. Inspected structured row parsing and background/foreground ownership. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Extracted game files or ZIP required; no installer/SHR extraction. Camoto/SAMLEV-derived mappings and unknown-code overlays make evidence scope explicit; no full engine or exhaustive editor round-trip test performed here. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Separate game-data authoring application from historical Secret Agent source recovery. Evidence: https://github.com/missingno7/secret_agent_editor/blob/06f1d0edc3a0a88daf6e0d7e994e7f03e836e6e3/README.md https://github.com/missingno7/secret_agent_editor/blob/06f1d0edc3a0a88daf6e0d7e994e7f03e836e6e3/secret_agent_editor/levels.py",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "missingno7-ishar2-cestina": {
+      "id": "missingno7-ishar2-cestina",
+      "title": "Ishar II DOS — Czech resource/VM translation toolchain",
+      "upstream_name": "ishar2-cestina",
+      "display_title": "Ishar II DOS — Czech resource/VM translation toolchain",
+      "subjects": [
+        "Ishar II DOS"
+      ],
+      "repo": "https://github.com/missingno7/ishar2-cestina",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "DOS",
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python",
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "translation",
+        "patching",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Ishar II DOS — Czech resource/VM translation toolchain. Repository identity, pinned tree and available implementation inspected. Classification: Source-built patcher and recovered compression/font/text/VM literal formats enable Czech translation. Inspected bounded relative-jump relocation code and exact input validation. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Own supported multilingual DOS release matched by hashes. Installer verification is not full gameplay proof; README still requests playtesting. Nine-file replacement is recoverable but not one atomic operation. VM relocation supports only vetted literal forms/segment and jump bounds. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Translation/resource reconstruction rather than whole engine source recovery; no original EXE or unchanged assets included in the described patch payload. Evidence: https://github.com/missingno7/ishar2-cestina/blob/d2f64410b1a96ebaf91feb220ef4b5287c5a5e59/README.md https://github.com/missingno7/ishar2-cestina/blob/d2f64410b1a96ebaf91feb220ef4b5287c5a5e59/tools/relocation.py https://github.com/missingno7/ishar2-cestina/blob/d2f64410b1a96ebaf91feb220ef4b5287c5a5e59/docs/FORMAT.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "linupa-ultimavsdl": {
+      "id": "linupa-ultimavsdl",
+      "title": "Ultima V — C++ SDL2 recovered-engine port",
+      "upstream_name": "ultimaVSDL",
+      "display_title": "Ultima V — C++ SDL2 recovered-engine port",
+      "subjects": [
+        "Ultima V"
+      ],
+      "repo": "https://github.com/linupa/ultimaVSDL",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Ultima V — C++ SDL2 recovered-engine port. Repository identity, pinned tree and available implementation inspected. Classification: Native C++ game modules from DOS decompilation, with structured combat/save field registration. EGA/CGA/Hercules support does not imply running original x86 code. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: C++17/make/SDL2 and IBM PC release files only. Original other-platform data unsupported; save directory is separate. Whole-game playability claimed upstream, not independently checked. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Distinct Ultima V port from u5d/Impera; historical Amiga/ST releases in README are compatibility exclusions, not additional source-platform evidence. Evidence: https://github.com/linupa/ultimaVSDL/blob/923499ebee7d712e40bf866bc814999a34691a44/README.md https://github.com/linupa/ultimaVSDL/blob/923499ebee7d712e40bf866bc814999a34691a44/src/combat.cpp",
       "ai": {
         "usage": true,
         "tools": [
