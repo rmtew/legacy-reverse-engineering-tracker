@@ -1478,3 +1478,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-29 — Promoted six evidence-reviewed retro-development projects and recorded two specific deferred leads
 
 [Research record](docs/research/2026-10-29-deep-discovery-oric-bbc-apple2gs.md).
+
+## 2026-10-28 — Review 24 Dizzy-related roots: add ten source/reconstruction projects; hold or exclude fourteen insufficient, derivative or unrelated candidates.
+
+[Research record](docs/research/2026-10-28-dizzy-series-source-ports-and-reconstructions-discovery.md).
