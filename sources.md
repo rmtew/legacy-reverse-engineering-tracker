@@ -1406,3 +1406,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-28 — Personally screen 563 candidate URLs and add 20 projects, with eight explicit non-promotion decisions.
 
 [Research record](docs/research/2026-10-28-large-st-amiga-dos-application-and-matching-game-discovery.md).
+
+## 2026-10-28 — Personally screen 518 candidate URLs and add 15 projects, with 11 explicit non-promotion decisions.
+
+[Research record](docs/research/2026-10-28-large-dos-engine-and-historical-application-source-discovery.md).
