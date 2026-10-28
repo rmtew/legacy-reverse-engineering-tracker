@@ -1618,3 +1618,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-28 — Review eleven material upstream changes across reconstruction fidelity, emulator scheduling, static recompilation, enhanced Amiga variants and reverse-engineering tooling.
 
 [Research record](docs/research/maintenance-2026-10-28-pm-reconstruction-emulation-tooling.md).
+
+## 2026-10-28 — Personally screen 477 candidate URLs and add 15 projects, with nine explicit non-promotion decisions.
+
+[Research record](docs/research/2026-10-28-large-amiga-dos-game-resources-and-tracker-format-discovery.md).
