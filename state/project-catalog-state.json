@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-28T06:05:56Z",
+  "updated_at": "2026-10-28T06:13:57Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -48968,7 +48968,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "active; 68EC030, 68EC040 and 68EC060 guest CPU models now boot Kickstart 3.1 and bundled AROS in upstream tests",
+      "status": "Copperline improves JIT memory access and fastest-mode CPU scheduling, with documented benchmark recipes separating deterministic fixed-frequency emulation from host-dependent fastest mode.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -48992,7 +48992,9 @@
         "Kickstart boot-menu regression testing",
         "MMU-less 68EC CPU modelling",
         "68EC030 access-control-unit emulation",
-        "guest CPU boot regression"
+        "guest CPU boot regression",
+        "JIT memory-access optimization",
+        "fixed-versus-fastest scheduling benchmarks"
       ],
       "tags": [
         "Amiga",
@@ -49002,7 +49004,7 @@
         "AI-assisted",
         "retro development"
       ],
-      "notes": "Cycle-driven Amiga emulator with reverse stepping and source debugging. Native screenshot capture preserves original pixels before presentation effects, and memory-write output follows WinUAE conventions. WASM board plugins can now opt into manifest-scoped persistent-resource writes; upstream tests cover capability denial, bounds, reset/cache coherence and host-file write-through. Current main preserves AGA Alice's hard $D8 bitplane-fetch stop, weaves both chipset fields into full-height native interlaced screenshots and persists menu-only settings without discarding launcher-less keys. A second change adds CYL.SIDE display plus WinUAE/FS-UAE floppy sample-set playback while serializing mechanism events so save states, run-ahead and netplay checksums do not depend on installed host sounds. These are targeted fidelity/tooling improvements rather than universal compatibility proof. Evidence: https://github.com/CopperlineHQ/Copperline/commit/9e8359ea6cce6fc5e5028d1f4e31b960b53f7da6 https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2 The Fat Gary model now keeps COLDBOOT clear across keyboard/CPU warm reset and sets it only on power-on, matching the documented WinUAE behavior and preserving A3000/A4000 Kickstart state such as boot-menu choices, residents and recoverable RAM disks. Chip-, bus- and CPU-level regressions cover the path. Evidence: https://github.com/CopperlineHQ/Copperline/commit/535fb60a828d88c292935c536b269ac512d301af Current main adds MMU-less 68EC030, 68EC040 and 68EC060 guest models with family caches, buses and instruction behavior preserved; the 68EC030 access-control unit is completed around the core's F-line trap. Upstream reports Kickstart 3.1 and bundled AROS booting on all three, including EC030 JIT. These guest variants do not establish host CPU or minimum hardware requirements. Evidence: https://github.com/CopperlineHQ/Copperline/commit/d843c620b529f925ca9d175a72a958d144cedee1",
+      "notes": "Identity: Seeded from curated upstream_name/display_title/subjects. Classification: Seeded from record_class and structured kind fields. Source CPU: The source cpu decision remains unchanged after reviewing the current primary commit. Target CPU: The target cpu decision remains unchanged after reviewing the current primary commit. Build: The merged primary change improves JIT memory access and fastest-mode CPU scheduling and documents the benchmark configurations used to compare fixed deterministic and host-dependent fastest modes. Limitations: The tracker did not build Copperline or reproduce its benchmark results. Runtime profiles: The documented A1200/68040 and A500-style configurations are guest benchmark recipes, not minimum host hardware requirements or verified minimum runnable Amiga profiles; no runtime minimum is inferred from them. AI: Existing affirmative Claude/Copilot/Codex evidence remains valid. The floppy-sound change also received an explicit Copilot-review follow-up; attribution remains scoped to evidenced work. Relationships: Copperline is an independent emulator/debugger with WinUAE state/configuration interoperability and a maintained public fork of the Bartman VS Code Amiga debugger extension. Evidence: https://github.com/CopperlineHQ/Copperline/commit/49c36005e9974b427096fe045d7fc849e4f1cd54 https://github.com/CopperlineHQ/Copperline/commit/272e6f779f0d7afdbdf273ab5ca478596301840a https://github.com/CopperlineHQ/Copperline/commit/c3220bc325d68f85a5730b50627ef419879b19a2 https://github.com/CopperlineHQ/Copperline/blob/main/README.md https://github.com/CopperlineHQ/Copperline/blob/main/docs/debugger/vscode-bartman.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -72169,7 +72171,7 @@
         "static recompilation"
       ],
       "re_started": null,
-      "status": "playable",
+      "status": "Playable NES-to-PC static recompilation; v2.5.0 adds an experimental Seamless mod, disabled by default, while cross-room combat/projectile behavior and broad progression testing remain incomplete.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -72181,7 +72183,9 @@
         "6502-to-C static recompilation",
         "ROM checksum gating",
         "Nestopia oracle comparison",
-        "generated native code"
+        "generated native code",
+        "native/interpreter agreement testing",
+        "experimental cross-room actor continuity"
       ],
       "tags": [
         "NES",
@@ -72189,7 +72193,7 @@
         "x86-64",
         "Faxanadu"
       ],
-      "notes": "Independent game project built on NESRecomp. The primary README states that original 6502 ROM machine code is translated to C and compiled to native x64. README reports normal gameplay from title through credits, while explicitly noting it is not exhaustively playtested. User supplies the matching ROM; no ROM is distributed.",
+      "notes": "Identity: The identity decision remains unchanged after reviewing the current primary commit. Classification: The classification decision remains unchanged after reviewing the current primary commit. Source CPU: Primary README explicitly identifies original NES 6502 ROM machine code as the recompilation input. Target CPU: Primary README explicitly says generated C is compiled to native x64. Build: The v2.5.0 primary release commit puts the experimental Seamless mod first in the Mods menu, disabled by default, with moving neighboring actors and adaptive fit-to-screen behavior; it is mutually exclusive with Play as Link. Limitations: Upstream records preliminary owner playtesting and native/interpreter agreement, but broader progression, bosses and secrets remain open and cross-room combat/projectiles are incomplete; the tracker did not run the release. Runtime profiles: The reviewed release and README do not state a minimum host CPU, RAM or OS version; no runtime floor is inferred from the generated x64 target. AI: A bounded review of the current release commit and project documentation found no explicit development-AI contribution disclosure; absence does not establish non-use. Relationships: Primary README identifies NESRecomp as the shared framework; this repository has an independent title-specific configuration, generated output and status boundary. Evidence: https://github.com/mstan/FaxanaduRecomp/commit/f743ae4c87406947de7a6a61cacd2cc036ca631c",
       "ai": {
         "usage": null,
         "tools": []
@@ -73682,7 +73686,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "Firestaff v3.0.416 and current head add bounded authenticated launcher, Theron and cross-platform startup evidence while explicitly limiting picker coverage to available media and leaving full campaign/display parity open.",
+      "status": "Firestaff now rescans authenticated game data after folder access is granted or repaired, keeping launcher access ownership separate from the runtime; full campaign and presentation parity remain open.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73733,7 +73737,9 @@
         "authenticated mixed-media AUTO launcher regression",
         "Saturn BKR save-card decoding",
         "native FM Towns RLE decoding",
-        "authenticated graphics regression"
+        "authenticated graphics regression",
+        "post-permission authenticated-media rescan",
+        "launcher/runtime access-owner separation"
       ],
       "tags": [
         "game engine",
@@ -73742,7 +73748,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Identity: Firestaff remains a clean-room Dungeon Master-family engine using authenticated original media across documented platform variants. Classification: Clean-room cross-platform engine reconstruction. Launcher and source-trace receipts are bounded verification evidence, not proof of full campaign, display, audio or save parity. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: The release and current documentation cover available authenticated alternate PC, Atari ST, Amiga and Macintosh selections from the no-game menu, original-archive immutability checks, Japanese Theron input/source-pointer evidence and qualified startup checkpoints. Limitations: Coverage depends on available authenticated media and explicitly does not establish native CD boot, movement transactions or full campaign/display parity. The tracker did not run any build or media. Next check: Continue authenticated campaign and presentation validation while preserving platform- and checkpoint-specific limits. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: DM1, Chaos Strikes Back, DM2, Nexus and Theron's Quest remain variants within the same source-faithful engine effort, with their evidence limits kept distinct. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md",
+      "notes": "Identity: Firestaff remains a clean-room Dungeon Master-family engine using authenticated original media across documented platform variants. Classification: Clean-room cross-platform engine reconstruction. Launcher and source-trace receipts are bounded verification evidence, not proof of full campaign, display, audio or save parity. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: The primary change adds a regression for selecting an inaccessible data folder, granting access, rescanning it and discovering Dungeon Master media while preserving a separate runtime access owner. Limitations: This upstream test covers launcher recovery and media discovery, not native display, input, audio or complete campaign parity; the tracker did not execute it. Next check: Continue authenticated campaign and presentation validation while preserving platform- and checkpoint-specific limits. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: DM1, Chaos Strikes Back, DM2, Nexus and Theron's Quest remain variants within the same source-faithful engine effort, with their evidence limits kept distinct. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -115368,7 +115374,7 @@
         "automation"
       ],
       "re_started": null,
-      "status": "Starglider 2 output remains byte-exact while a canonical common-prefix join restores six typed XYZ projections, reducing unresolved record accesses from 277 to 271; broader semantics remain incomplete.",
+      "status": "Starglider 2 output remains byte-exact while six projectile-creator call contracts and their storage roles are restored; 24 orphan layout coordinates were removed, but broader semantics and minimum runtime requirements remain incomplete.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115387,7 +115393,9 @@
         "binary-layout contract accounting",
         "operand provenance admission",
         "native reference catalogue consistency",
-        "canonical custom-type prefix joining"
+        "canonical custom-type prefix joining",
+        "projectile creator contract recovery",
+        "orphan layout-element rejection"
       ],
       "tags": [
         "Amiga",
@@ -115395,7 +115403,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed change advances its Starglider 2 restoration rather than creating a separate project. Classification: The change is bounded reconstruction/tooling work: canonical ancestry is used to retain a safe common custom pointer prefix without treating that prefix as proof of equal values, subtype, lifetime or complete semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: Upstream reports 103 focused checks and 832 native tests passing. Six XYZ projections return, type conflicts in this inventory fall from nine to zero, typed accesses rise from 436 to 442, and unresolved accesses fall from 277 to 271 while the rebuilt 412,736-byte output remains exact. Limitations: The tracker did not run the generator, assembler or tests. Three angle reads remain honest field gaps and substantial game semantics remain unresolved. Next check: Continue classifying the 271 unresolved record accesses and qualify behavior without promoting local exactness to complete reconstruction. Runtime profiles: The byte-exact generation receipt does not establish a minimum Amiga CPU, RAM, chipset or ROM profile for running the original game. Next check: Add a runtime profile only when primary documentation or qualified hardware/emulator testing states a concrete minimum configuration. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
+      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed change advances its Starglider 2 restoration rather than creating a separate project. Classification: The change is bounded reconstruction/tooling work: canonical ancestry is used to retain a safe common custom pointer prefix without treating that prefix as proof of equal values, subtype, lifetime or complete semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: The primary change restores six recovered projectile-creator callers, types their storage roles (including type 12/25 writes and the steered-projectile path), and rejects 24 orphan layout coordinates while retaining the existing byte-exact Starglider 2 generation route. Limitations: These are upstream targeted checks and generated-output claims; the tracker did not run the generator or game, and the remaining unresolved accesses still require semantic classification. Next check: Continue classifying the remaining unresolved record accesses and qualify behavior without promoting local exactness to complete reconstruction. Runtime profiles: The reviewed creator-contract receipt does not state a minimum Amiga CPU, RAM, chipset or ROM configuration. Next check: Add a runtime profile only when primary documentation or qualified hardware/emulator testing states a concrete minimum configuration. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
       "ai": {
         "usage": true,
         "tools": [
@@ -213878,7 +213886,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Working Win32 reconstruction and SDL2 port; upstream now reports 517,025 of 518,656 strict-matching bytes (99.6855%), leaving 1,631 differences in 264 runs while all 1,539 mapped functions retain their addresses.",
+      "status": "Working Win32 reconstruction and SDL2 port; the scramble/cutscene change now matches the original register allocation byte for byte, while the remaining strict-byte runs and whole-project completion stay open.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -213890,13 +213898,14 @@
         "per-function machine-code similarity auditing",
         "discarded-probe recording",
         "register-lifetime probe recording",
-        "byte-for-byte function matching"
+        "byte-for-byte function matching",
+        "register-allocation matching"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Recovered native Win32 Wing Commander source plus SDL2 port and original-binary comparison workflow; the current work refines matching in the same reconstruction. Classification: Incomplete byte-oriented reconstruction with a modern SDL2 port. Per-function similarity and strict byte coverage remain separate from gameplay-completeness claims. Source CPU: The reconstructed Kilrathi Saga executable remains x86 input. Target CPU: The README documents modern host operating systems but does not establish a fixed supported output CPU; none is inferred from C/C++ portability. Build: Upstream reorders existing locals in RestoreSpriteBackground, preserving its body and 40-byte frame while reducing differing instruction encodings from 23 to 12. The complete report reaches 517,025/518,656 strict bytes (99.6855%), 1,532/1,550 normalized exact matches and 1,519 byte-identical complete spans; make verify passes upstream. Limitations: The tracker did not compile, compare or run the project. Declaration order is a matching device, not recovered original source spelling, and 1,631 strict differences remain. Next check: Track closure of the remaining strict-byte runs and require a complete build/runtime claim before promoting whole-project exactness. Runtime profiles: The inspected change provides no minimum host CPU, RAM or OS profile; user-supplied game data remains required. AI: The repository explicitly documents Codex and Claude use; the current matching commit does not broaden that attribution beyond evidenced work. Relationships: The project continues to use binary-comp for verification and retains its documented historical compatibility references; the reviewed change creates no separate component. Evidence: https://github.com/neuromancer/wc1-re/commit/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0 https://github.com/neuromancer/wc1-re/blob/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0/README.md",
+      "notes": "Identity: Recovered native Win32 Wing Commander source plus SDL2 port and original-binary comparison workflow; the current work refines matching in the same reconstruction. Classification: Incomplete byte-oriented reconstruction with a modern SDL2 port. Per-function similarity and strict byte coverage remain separate from gameplay-completeness claims. Source CPU: The reconstructed Kilrathi Saga executable remains x86 input. Target CPU: The README documents modern host operating systems but does not establish a fixed supported output CPU; none is inferred from C/C++ portability. Build: The primary commit changes the scramble cutscene implementation and associated declarations to reproduce the original register allocation byte for byte. Limitations: This is a bounded exact-match result, not proof that every remaining function, executable byte or gameplay route is complete; the tracker did not compile or compare the executable. Next check: Track closure of the remaining strict-byte runs and require a complete build/runtime claim before promoting whole-project exactness. Runtime profiles: The inspected change provides no minimum host CPU, RAM or OS profile; user-supplied game data remains required. AI: The repository explicitly documents Codex and Claude use; the current matching commit does not broaden that attribution beyond evidenced work. Relationships: The project continues to use binary-comp for verification and retains its documented historical compatibility references; the reviewed change creates no separate component. Evidence: https://github.com/neuromancer/wc1-re/commit/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0 https://github.com/neuromancer/wc1-re/commit/43299bf5742aee892d7159de0f97347ebad1b672 https://github.com/neuromancer/wc1-re/blob/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0/README.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -241316,19 +241325,21 @@
         "decompilation"
       ],
       "re_started": null,
-      "status": "US/EU source with actual C routines. EU assembly support is not equal to US decompilation progress; NON_MATCHING functional paths are distinct from byte-perfect matching. Own ROM required.",
+      "status": "Work-in-progress Nintendo 64 decompilation; upstream now reports 93% matching for the US build, while EU support and NON_MATCHING functional paths remain distinct from completed source recovery.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "region-separated matching progress accounting"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: US/EU source with actual C routines. EU assembly support is not equal to US decompilation progress; NON_MATCHING functional paths are distinct from byte-perfect matching. Own ROM required. Classification: Inspected source supports game / decompilation. US/EU source with actual C routines. EU assembly support is not equal to US decompilation progress; NON_MATCHING functional paths are distinct from byte-perfect matching. Own ROM required. Source CPU: Source architecture: MIPS. Target CPU: Target architecture: MIPS. Build: No candidate code compiled or executed. Rebuild hashes, runtime fidelity and completeness remain upstream claims; matching with original binary/assembly fallback is not full source recovery. Runtime profiles: No independently verified minimum hardware profile established. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/mkst/sssv https://github.com/mkst/sssv/blob/8bff37d73ce5909737f35f1abf2b5f1d1094e76f/src.us/core/controller.c https://github.com/mkst/sssv/blob/8bff37d73ce5909737f35f1abf2b5f1d1094e76f/README.md",
+      "notes": "Identity: US/EU source with actual C routines. EU assembly support is not equal to US decompilation progress; NON_MATCHING functional paths are distinct from byte-perfect matching. Own ROM required. Classification: Inspected source supports game / decompilation. US/EU source with actual C routines. EU assembly support is not equal to US decompilation progress; NON_MATCHING functional paths are distinct from byte-perfect matching. Own ROM required. Source CPU: Source architecture: MIPS. Target CPU: Target architecture: MIPS. Build: The primary 93% update changes multiple US source units and reports 93% matching progress for the US build; the README continues to distinguish EU support and NON_MATCHING functional paths from matching reconstruction. Limitations: The tracker did not build or hash a ROM. The percentage is an upstream aggregate and does not establish complete source recovery, runtime fidelity or EU parity. Runtime profiles: No independently verified minimum hardware profile established. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/mkst/sssv https://github.com/mkst/sssv/blob/8bff37d73ce5909737f35f1abf2b5f1d1094e76f/src.us/core/controller.c https://github.com/mkst/sssv/blob/8bff37d73ce5909737f35f1abf2b5f1d1094e76f/README.md https://github.com/mkst/sssv/commit/27c472eb01d2990a832a1a12c0b083c7fd240e14",
       "ai": {
         "usage": null,
         "tools": []
@@ -258272,16 +258283,21 @@
         "tooling"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "Version 0.7.1 adds whole-game m68k-to-C translation roots and overlays, exact display-gap comparison, a web engine and an interrupt-aware Paula state model; upstream reports 2,376 tests, but the tracker did not run them.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "whole-game m68k-to-C translation",
+        "display differential validation",
+        "interrupt-aware Paula state modelling",
+        "Emscripten web-engine validation"
+      ],
       "tags": [],
-      "notes": "Identity: amiga-re-kit — measured Amiga reverse-engineering toolkit. Repository root and implementation inspected at pinned revisions. Classification: Game-agnostic extraction of instruments from SWIV, Turrican II and Superfrog projects. ADF/HUNK readers, checksum-aware unpackers, conservative 68000 walking, MCP and capture comparison are implemented. Recompiler is explicitly a prototype with a restricted blitter/custom-chip model; unmodelled accesses are logged, not proof of a complete native game port. Source CPU: Architecture context: m68k. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Python package with optional MCP/PNG/dev extras; headless captures require patched vAmiga plus user-supplied disk and Kickstart. Synthetic test count is an upstream claim, not independently repeated. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: Related game projects are extraction provenance, not extra projects created from the toolkit directories. Evidence: https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/README.md https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/src/arek/m68k/recomp.py",
+      "notes": "Identity: amiga-re-kit — measured Amiga reverse-engineering toolkit. Repository root and implementation inspected at pinned revisions. Classification: Game-agnostic extraction of instruments from SWIV, Turrican II and Superfrog projects. ADF/HUNK readers, checksum-aware unpackers, conservative 68000 walking, MCP and capture comparison are implemented. Recompiler is explicitly a prototype with a restricted blitter/custom-chip model; unmodelled accesses are logged, not proof of a complete native game port. Source CPU: Architecture context: m68k. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: The pinned 0.7.1 documentation describes whole-game translation roots and overlays, a web engine, exact display comparison against vAmiga, an interrupt-aware Paula model and 2,376 passing pytest tests without bundling game data. Limitations: The test total and exactness statements are upstream results; the tracker did not install the package, run pytest, translate a game or compare captures. Runtime profiles: The inspected 0.7.1 material documents tools and test environments but no minimum host CPU, RAM or OS requirement, and no minimum Amiga configuration is inferred from its input formats. AI: The reviewed 0.7.1 commit explicitly credits Claude Fable 5.1 as co-author; attribution is limited to evidenced work. Relationships: Related game projects are extraction provenance, not extra projects created from the toolkit directories. Evidence: https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/README.md https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/src/arek/m68k/recomp.py https://github.com/smikes75/amiga-re-kit/commit/445674974d9f346bb42d3f85b1599a6bc973709c",
       "ai": {
         "usage": true,
         "tools": [
@@ -271853,16 +271869,18 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "Nintendo 64 matching reconstruction; the US course-select player-panel update was simplified while preserving its exact match, without implying whole-project or regional completion.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "source simplification under exact-match constraints"
+      ],
       "tags": [],
-      "notes": "Identity: Snowboard Kids — N64 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: Matching original-target reconstruction with region-specific code/data progress and recovered scheduler/audio structures. Not a PC port; original asset extraction remains required. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Owned regional ROM and MIPS tooling; Linux verified upstream, macOS instructions require revalidation upstream. No independent build. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: Distinct from the already tracked sequel Snowboard Kids2; avoid title-family deduplication that merges separate games. Evidence: https://github.com/cdlewis/snowboardkids-decomp/blob/a9a845ba9747edb3124daf1c8d9ee5951af3c924/README.md https://github.com/cdlewis/snowboardkids-decomp/blob/a9a845ba9747edb3124daf1c8d9ee5951af3c924/src.jp/audio/scheduler.c https://github.com/cdlewis/snowboardkids-decomp",
+      "notes": "Identity: Snowboard Kids — N64 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: Matching original-target reconstruction with region-specific code/data progress and recovered scheduler/audio structures. Not a PC port; original asset extraction remains required. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: The primary commit simplifies the US course-select player-panel update while preserving the function's exact match against the original target. Limitations: The exactness claim is bounded to the changed routine; the tracker did not build or compare a ROM and does not extend it to whole-project or other-region completion. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: Distinct from the already tracked sequel Snowboard Kids2; avoid title-family deduplication that merges separate games. Evidence: https://github.com/cdlewis/snowboardkids-decomp/blob/a9a845ba9747edb3124daf1c8d9ee5951af3c924/README.md https://github.com/cdlewis/snowboardkids-decomp/blob/a9a845ba9747edb3124daf1c8d9ee5951af3c924/src.jp/audio/scheduler.c https://github.com/cdlewis/snowboardkids-decomp https://github.com/cdlewis/snowboardkids-decomp/commit/2cc5a236faeb9ae67db6efd9f1123200a033bbd9",
       "ai": {
         "usage": null,
         "tools": []
@@ -272094,7 +272112,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source reconstruction reports 30,108 of 30,875 functions identified (97.52%), 88.6% code bytes matched and 87.3% clean source; no independent build or playable result is established.",
+      "status": "Gran Turismo 4 PS2 reconstruction now reports 30,157 of 30,875 matching functions (97.7%), 89.0% matching code bytes and 87.3% clean source; the separate experimental native port is not represented as playable.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -272104,10 +272122,12 @@
       "techniques": [
         "cross-game function matching",
         "objdiff progress accounting",
-        "source-cleanliness reporting"
+        "source-cleanliness reporting",
+        "data-source reconstruction accounting",
+        "function/code/data progress separation"
       ],
       "tags": [],
-      "notes": "Identity: Gran Turismo 4 — PS2 engine reconstruction. Repository root and implementation inspected at pinned revisions. Classification: The current progress update remains a PS2 source-reconstruction effort and records bounded function, byte-match and source-cleanliness metrics. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Upstream reports 30,108 of 30,875 identified functions, 88.6% matched code bytes and 87.3% clean source at this revision. Limitations: These are upstream progress metrics; the tracker did not compile, link, boot or play the reconstruction. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: The reviewed progress commit explicitly credits Claude Sonnet 5.5 as co-author; attribution is limited to this evidenced commit. Relationships: Tourist Trophy sharing and duplicate functions can inflate function counts relative to unique logic; clean-report filters are not semantic proof. Evidence: https://github.com/gustavocanepa/gt4-decomp/blob/0d055fc01f5c9fa53bdef69a9967845ba28a15cd/README.md https://github.com/gustavocanepa/gt4-decomp/blob/0d055fc01f5c9fa53bdef69a9967845ba28a15cd/tools/clean_report.py https://github.com/gustavocanepa/gt4-decomp/blob/0d055fc01f5c9fa53bdef69a9967845ba28a15cd/src/startup/CarIconMaker/GranTurismo4__GameObjectPS2__internal_render.c https://github.com/gustavocanepa/gt4-decomp https://github.com/gustavocanepa/gt4-decomp/commit/0bb9c22e24a65ab3b9938cee6e1afb06f5bf7856",
+      "notes": "Identity: Gran Turismo 4 — PS2 engine reconstruction. Repository root and implementation inspected at pinned revisions. Classification: The reviewed repository remains the matching PS2 CORE.GT4 reconstruction for NTSC-U SCUS-97328 v1.01. Its separately linked gt4-native experiment is not conflated with this record or represented as a playable PC port. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: The pinned README reports 30,157 of 30,875 matching functions (97.7%), 89.0% matching code bytes, 87.3% clean source, 30,128 functions linked from C/C++, and 68,346 of 2,664,152 data bytes reconstructed. Limitations: These are upstream progress counters. The tracker did not compile, link, boot or play the reconstruction, and the counters do not establish complete data recovery. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: The reviewed progress commit explicitly credits Claude Sonnet 5.5 as co-author; attribution is limited to evidenced work. Relationships: Tourist Trophy sharing and duplicate functions can inflate function counts relative to unique logic; clean-report filters are not semantic proof. Evidence: https://github.com/gustavocanepa/gt4-decomp/blob/0d055fc01f5c9fa53bdef69a9967845ba28a15cd/README.md https://github.com/gustavocanepa/gt4-decomp/blob/0d055fc01f5c9fa53bdef69a9967845ba28a15cd/tools/clean_report.py https://github.com/gustavocanepa/gt4-decomp/blob/0d055fc01f5c9fa53bdef69a9967845ba28a15cd/src/startup/CarIconMaker/GranTurismo4__GameObjectPS2__internal_render.c https://github.com/gustavocanepa/gt4-decomp https://github.com/gustavocanepa/gt4-decomp/commit/0bb9c22e24a65ab3b9938cee6e1afb06f5bf7856 https://github.com/gustavocanepa/gt4-decomp/commit/ca851d2a956beb28917f8d00cbc26cf71a455b8d",
       "ai": {
         "usage": true,
         "tools": [
@@ -272163,16 +272183,19 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "PAL 2.00 PlayStation 2 matching reconstruction; the hero refactor types sound slots and draw queues and removes overlay-private hero structures, while matching and playability remain upstream work in progress.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "shared-structure recovery across overlays",
+        "typed sound-slot and draw-queue recovery"
+      ],
       "tags": [],
-      "notes": "Identity: Ratchet and Clank — PS2 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: PAL2.00 reconstruction links recovered functions at original addresses and fills gaps from local disassembly. Readability refinement and future PC reimplementation remain separate work. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Owned SCES_509.16, period ProDG toolchains, Wine/container or Windows setup; no build. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: No explicit development-AI contribution disclosure was established in the inspected material; absence does not establish non-use. Agent configuration or MCP integration alone does not establish authorship. Relationships: Two original code segments use different compiler sub-builds; one toolchain label is insufficient for reproducibility. Evidence: https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/README.md https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/Makefile.sn https://github.com/OpenRAC/rac1-decomp",
+      "notes": "Identity: Ratchet and Clank — PS2 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: PAL2.00 reconstruction links recovered functions at original addresses and fills gaps from local disassembly. Readability refinement and future PC reimplementation remain separate work. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: The primary refactor introduces shared typed hero sound-slot and draw-queue structures and removes private overlay copies while retaining the project's original-address reconstruction model. Limitations: The tracker did not compile with the period toolchains or independently compare the result; structural cleanup alone does not establish whole-project matching or playability. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: Recent primary commit trailers explicitly credit both Codex and Claude on this repository; project-level attribution remains limited to those evidenced commits and is not inferred from configuration files. Relationships: Two original code segments use different compiler sub-builds; one toolchain label is insufficient for reproducibility. Evidence: https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/README.md https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/Makefile.sn https://github.com/OpenRAC/rac1-decomp https://github.com/OpenRAC/rac1-decomp/commit/209d3381ebaa8c06d5df98eeabad4adad45bdfb7 https://github.com/OpenRAC/rac1-decomp/commit/3af68fae6f9b https://github.com/OpenRAC/rac1-decomp/commit/04f012c1f4ca",
       "ai": {
         "usage": true,
         "tools": [
@@ -280727,7 +280750,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Byte-exact Amiga disassembly/rebuild plus enhanced branch; upstream now reports WinUAE tests for the corkscrew scroller, 48 KiB mirror cache and 50 Hz presentation, while real-hardware validation remains open.",
+      "status": "Byte-exact Amiga disassembly/rebuild plus enhanced variant; the enhanced branch now adds a title/options menu, two-button joystick controls, sound test, cheat fly mode and F2 level skip alongside its existing smooth-scroller work.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -280739,10 +280762,12 @@
         "frame-by-frame emulator comparison",
         "double-buffered corkscrew scrolling",
         "on-demand mirrored-frame caching",
-        "interpolated 50 Hz presentation"
+        "interpolated 50 Hz presentation",
+        "enhanced-variant menu regression testing",
+        "all-level cheat-route testing"
       ],
       "tags": [],
-      "notes": "Identity: The New Zealand Story Amiga disassembly and disk rebuild now also carries an enhanced hand-edited branch for optional display and memory improvements. Classification: Original-platform disassembly/reassembly with a clearly separated enhanced Amiga variant. The optional enhancements do not relabel the work as a modern host port. Source CPU: The original and enhanced Amiga assembly remain Motorola 68000-family source. Target CPU: The project continues to emit native m68k Amiga disk output; no other CPU target is introduced. Build: Upstream reports the enhanced scroller, 48 KiB mirror cache and interpolated 50 Hz play tested in WinUAE, including progress screens and return to title. The frame comparison reports identical displays for sampled frames across all 20 levels with four joystick inputs until timer phase divergence. Limitations: The tracker did not build or run the disk. Real hardware remains untested and the 50 Hz mode may fall back to 25 Hz on a busy pass. Runtime profiles: The mirror cache explicitly targets 512 KiB machines, but the reviewed documentation does not state a complete minimum CPU, chip/fast RAM, chipset and Kickstart profile for the enhanced variant; no composite minimum is inferred. AI: The reviewed documentation commit explicitly carries a Claude Opus 5.5 co-author trailer and session reference; attribution remains scoped to evidenced work. Relationships: The exact rebuild and enhanced branch are variants of the same Amiga title project; proposed menu/input work remains a TODO rather than a separately promoted project. Evidence: https://github.com/MarkyTurtle/NewzealandStory--Amiga/commit/98a83e1b98c61d80bdf6608c2e71124036b7583f https://github.com/MarkyTurtle/NewzealandStory--Amiga/blob/98a83e1b98c61d80bdf6608c2e71124036b7583f/BUILDING.md https://github.com/MarkyTurtle/NewzealandStory--Amiga/commit/96983457501d34c21112f768a2cf3b6784699283",
+      "notes": "Identity: The New Zealand Story Amiga disassembly and disk rebuild now also carries an enhanced hand-edited branch for optional display and memory improvements. Classification: The exact disk rebuild and optional enhanced variant remain one Amiga disassembly project; the menu, input and cheat additions are original enhancements and are not mislabelled as recovered original behavior. Source CPU: The original and enhanced Amiga assembly remain Motorola 68000-family source. Target CPU: The project continues to emit native m68k Amiga disk output; no other CPU target is introduced. Build: The primary merge adds a title/options menu, two-button joystick controls, sound test, cheat fly mode and F2 level skip, with upstream menu, fly-mode and smooth-scroll tests across the enhanced branch. Limitations: The tracker did not assemble or run the disk. Emulator coverage does not establish physical-hardware compatibility or a complete minimum machine profile. Runtime profiles: The documentation gives tested emulator configurations and a 512 KiB mirror-cache design constraint but does not state a complete minimum CPU, chip/fast RAM, chipset and Kickstart profile for the enhanced variant. AI: The reviewed merge explicitly credits Claude Opus 5.5 and links its session; attribution is limited to that evidenced work. Relationships: The exact rebuild and enhanced branch are variants of the same Amiga title project; proposed menu/input work remains a TODO rather than a separately promoted project. Evidence: https://github.com/MarkyTurtle/NewzealandStory--Amiga/commit/98a83e1b98c61d80bdf6608c2e71124036b7583f https://github.com/MarkyTurtle/NewzealandStory--Amiga/commit/013f2a91c7651546f50c04c17ff22ed3d69bcf93 https://github.com/MarkyTurtle/NewzealandStory--Amiga/blob/98a83e1b98c61d80bdf6608c2e71124036b7583f/BUILDING.md https://github.com/MarkyTurtle/NewzealandStory--Amiga/commit/96983457501d34c21112f768a2cf3b6784699283",
       "ai": {
         "usage": true,
         "tools": [
