@@ -1622,3 +1622,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-28 — Personally screen 477 candidate URLs and add 15 projects, with nine explicit non-promotion decisions.
 
 [Research record](docs/research/2026-10-28-large-amiga-dos-game-resources-and-tracker-format-discovery.md).
+
+## 2026-10-28 — Personally screen 611 candidate URLs and add 16 projects, with seven explicit non-promotion decisions.
+
+[Research record](docs/research/2026-10-28-large-amiga-st-dos-engines-and-language-recovery-discovery.md).
