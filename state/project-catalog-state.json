@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-28T13:59:56Z",
+  "updated_at": "2026-10-28T16:16:48Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -330305,6 +330305,424 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: MS-DOS assembler — experimental assembly-to-C recovery. Repository identity, pinned tree and available implementation inspected. Classification: Targets released MS-DOS 1.25 ASM.ASM source with parsing, liveness, function-entry and C-emission analysis. Inspected actual hardcoded subject path and analysis pipeline. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: Deno and separately supplied MS-DOS source tree. No README/build/parity contract or completed assembler runtime established; experimental source translator, not finished DOS operating-system reconstruction. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: No actual named development-AI contribution established in reviewed evidence. Agent files or absent attribution alone establish neither use nor non-use. Relationships: Specific original assembler-source recovery experiment, not compiled EXE decompiler or proof of correct round-trip assembly. Evidence: https://github.com/qnighy/dos-decompile/blob/8f1301d26382fecd654b6f1fae82150e3e745aa4/main.ts",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "stop-press-bbc-disassembly": {
+      "id": "stop-press-bbc-disassembly",
+      "title": "Stop Press v1.9",
+      "upstream_name": "Stop Press disassembly",
+      "display_title": "Stop Press v1.9 — BBC Micro ROM disassembly and PALPROM rebuild",
+      "subjects": [
+        "Stop Press v1.9"
+      ],
+      "repo": "https://github.com/ZornsLemma/stop-press-disassembly",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python",
+        "Shell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "ROM disassembly",
+        "PALPROM reconstruction"
+      ],
+      "re_started": null,
+      "status": "Both source ROMs rebuild byte-for-byte; a combined PALPROM image is also produced",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": true
+      },
+      "techniques": [
+        "py8dis-assisted disassembly",
+        "beebasm reassembly",
+        "binary comparison",
+        "ROM combination"
+      ],
+      "tags": [
+        "BBC Micro",
+        "Stop Press",
+        "Watford Electronics",
+        "PALPROM"
+      ],
+      "notes": "Identity: The README identifies the source as the Watford Electronics release of AMS Stop Press v1.9 for the BBC Micro and names the two original ROM images used by the project. Classification: This is a binary-derived ROM disassembly and source reconstruction with an additional combined PALPROM output, not an original homebrew project. Source CPU: The project disassembles BBC Micro ROMs as 6502 code through py8dis and beebasm source generation. Target CPU: The generated assembly is reassembled into BBC Micro ROM images for the same 6502 target. Build: The build script generates assembly from the disassembly drivers, assembles both original ROM outputs with beebasm, compares each against its original with cmp, and builds the combined PALPROM image. Limitations: No execution test or minimum hardware claim was found in the reviewed files. Runtime profiles: The README and build script identify BBC Micro ROM outputs but do not state a verified minimum machine, RAM, ROM or sideways-ROM configuration; none was inferred. AI: The reviewed README, build script and latest commit metadata contain no explicit development-AI disclosure; this does not establish non-use. Relationships: The README attributes the original application to the Watford Electronics release of AMS Stop Press and explains that this project combines its two ROMs into one Computer Concepts-style PALPROM image. Evidence: https://github.com/ZornsLemma/stop-press-disassembly/blob/79d739d3e3a44d869293db3e12b5db845a7323c5/README.md https://github.com/ZornsLemma/stop-press-disassembly/blob/79d739d3e3a44d869293db3e12b5db845a7323c5/go.sh https://github.com/ZornsLemma/stop-press-disassembly/commit/79d739d3e3a44d869293db3e12b5db845a7323c5",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "grime6502-bbc-restoration": {
+      "id": "grime6502-bbc-restoration",
+      "title": "Grime",
+      "upstream_name": "Grime6502",
+      "display_title": "Grime — BBC Micro game recovery and enhanced source version",
+      "subjects": [
+        "Grime"
+      ],
+      "repo": "https://github.com/TobyLobster/Grime6502",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro"
+      ],
+      "target_platforms": [
+        "BBC Micro"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code",
+        "surviving 6502 assembly"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "game source recovery",
+        "enhanced original-platform version"
+      ],
+      "re_started": null,
+      "status": "Recovered labelled source builds a BBC Micro SSD with documented controls, fixes and optimizations",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "binary disassembly",
+        "surviving-source recovery",
+        "video-assisted labelling",
+        "original-platform patching"
+      ],
+      "tags": [
+        "BBC Micro",
+        "Grime",
+        "beebasm"
+      ],
+      "notes": "Identity: The author README identifies Grime as a BBC Micro game by Mark Bell and describes this repository as its recovery plus improved version. Classification: This is a source recovery reconstructed from the original binary and surviving source files, followed by explicitly documented controls, fixes and optimizations on the original platform. Source CPU: The README describes disassembly of the BBC Micro binary into beebasm-compatible 6502 assembly source. Target CPU: The recovered and enhanced assembly is built back into a BBC Micro SSD, retaining the 6502 target. Build: The README requires beebasm and Python 3 and gives `python3 build.py`, which creates an SSD image. Limitations: No independent execution, gameplay or byte comparison was performed; the explicit improvements mean the original binary should not be assumed to match. Runtime profiles: The reviewed README names the BBC Micro and SSD output but states no minimum model, RAM or ROM requirements; none were inferred. AI: The reviewed README and latest commit metadata contain no explicit development-AI disclosure; this does not establish non-use. Relationships: The README distinguishes the original Mark Bell game, its surviving source fragments, the recovered labelled disassembly and Toby Lobster's gameplay-preserving enhanced version. Evidence: https://github.com/TobyLobster/Grime6502/blob/0d63a56a2d7569e29bedff6f13c2ea758dfc33b9/README.md https://github.com/TobyLobster/Grime6502/commit/0d63a56a2d7569e29bedff6f13c2ea758dfc33b9",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "beeb-6502-timing-tests": {
+      "id": "beeb-6502-timing-tests",
+      "title": "BBC Micro 6502 timing tests",
+      "upstream_name": "beeb_6502_timing_tests",
+      "display_title": "BBC Micro 6502/65C02 timing tests for emulator validation",
+      "subjects": [],
+      "repo": "https://github.com/tom-seddon/beeb_6502_timing_tests",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "BBC Micro",
+        "BBC Master"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502",
+        "65C02"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "cycle-analysis",
+        "automation"
+      ],
+      "types": [
+        "native CPU timing test suite",
+        "emulator conformance tests"
+      ],
+      "re_started": null,
+      "status": "Released SSD tests run on BBC Micro and BBC Master hardware to expose specific 6502/65C02 timing errors",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cycle-timing edge-case tests",
+        "real-hardware validation",
+        "emulator conformance testing"
+      ],
+      "tags": [
+        "BBC Micro",
+        "BBC Master",
+        "6502",
+        "65C02"
+      ],
+      "notes": "Identity: The primary README identifies the repository as tests for specific 6502 and 65C02 timing cases on BBC Micro and Master systems. Classification: This is original native diagnostic software and emulator-validation tooling, not a reverse-engineered subject or an RE-derived port. Source CPU: No original binary is being analysed or reconstructed; the project authors native timing tests, so an original source CPU does not sensibly apply. Target CPU: The README explicitly says the tests exercise 6502 and 65C02 timing cases and can run on BBC B and Master 128 hardware. Build: The project publishes an SSD release with documented boot instructions and success/failure output for real BBC hardware. Limitations: The reviewed README did not establish a source-build command, so compilability remains unknown. Runtime profiles: The author reports tests on BBC B and Master 128 and warns about the 1 MHz bus, but does not claim either machine as a minimum hardware profile; no minimum CPU, RAM or ROM was inferred. AI: The reviewed README and latest commit metadata contain no explicit development-AI disclosure; this does not establish non-use. Relationships: The README explicitly positions these tests alongside dp111/6502Timing and as a way to validate emulator CPU timing; those are dependencies/context rather than reconstructed subjects in this record. Evidence: https://github.com/tom-seddon/beeb_6502_timing_tests/blob/f3dec4fddd1acce008949551ffbf2c4fea181989/README.md https://github.com/tom-seddon/beeb_6502_timing_tests/commit/f3dec4fddd1acce008949551ffbf2c4fea181989",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lib6502-jit": {
+      "id": "lib6502-jit",
+      "title": "lib6502-jit",
+      "upstream_name": "lib6502-jit",
+      "display_title": "lib6502-jit — LLVM JIT implementation of the 6502 emulator API",
+      "subjects": [],
+      "repo": "https://github.com/ZornsLemma/lib6502-jit",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "LLVM IR"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "translation"
+      ],
+      "tool_kinds": [
+        "emulator",
+        "binary-analysis"
+      ],
+      "types": [
+        "6502 JIT emulator library",
+        "dynamic binary translator"
+      ],
+      "re_started": null,
+      "status": "Mostly compatible lib6502 API implementation that JIT-compiles 6502 code with LLVM",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "LLVM just-in-time compilation",
+        "6502 dynamic binary translation",
+        "lib6502 API compatibility"
+      ],
+      "tags": [
+        "6502",
+        "LLVM",
+        "lib6502",
+        "JIT"
+      ],
+      "notes": "Identity: The repository README identifies lib6502-jit as a mostly compatible implementation of Ian Piumarta's lib6502 API. Classification: This is modern emulator/dynamic-translation tooling: it uses LLVM JIT compilation to translate 6502 machine code to host code while exposing the lib6502 API. Source CPU: The README explicitly states that the input machine code and emulated API are for the 6502. Target CPU: The reviewed documentation says LLVM emits host code but does not restrict or enumerate host output architectures; none was inferred from LLVM or the implementation language. Build: The reviewed project overview and imported lib6502 documentation establish implementation scope and compatibility limits but not a verified current build or runnable artifact. Runtime profiles: This is a host library rather than a runnable legacy-hardware output, so the tracker's minimum retro-hardware runtime profile does not sensibly apply. AI: The reviewed README and first public release commit metadata contain no explicit development-AI disclosure; this does not establish non-use. Relationships: The repository explicitly implements Ian Piumarta's lib6502 API and preserves the upstream lib6502 README while documenting deliberate compatibility differences in the JIT implementation. Evidence: https://github.com/ZornsLemma/lib6502-jit/blob/5d5ddba7f10596fc574fb0639012d720b9d66c62/README.md https://github.com/ZornsLemma/lib6502-jit/blob/5d5ddba7f10596fc574fb0639012d720b9d66c62/README.lib6502 https://github.com/ZornsLemma/lib6502-jit/commit/5d5ddba7f10596fc574fb0639012d720b9d66c62",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "vscode-osdk-oric": {
+      "id": "vscode-osdk-oric",
+      "title": "VS Code OSDK",
+      "upstream_name": "VS Code OSDK",
+      "display_title": "VS Code OSDK — Oric development and source-level debugging environment",
+      "subjects": [],
+      "repo": "https://github.com/Oric-Software-Development-Kit/vscode-osdk",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Oric"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "ide",
+        "debugger",
+        "graphics-debugger",
+        "profiler",
+        "automation",
+        "development-environment"
+      ],
+      "types": [
+        "VS Code extension",
+        "Oric source-level debugger"
+      ],
+      "re_started": null,
+      "status": "Released VS Code extension for OSDK editing, building, testing and Oricutron-backed C/assembly debugging",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Oricutron GDB-stub integration",
+        "source-map debugging",
+        "reverse trace",
+        "screen and memory inspection",
+        "headless test automation"
+      ],
+      "tags": [
+        "Oric",
+        "OSDK",
+        "Oricutron",
+        "VS Code"
+      ],
+      "notes": "Identity: The primary README identifies VS Code OSDK as a Visual Studio Code extension for Oric development and debugging with OSDK and Oricutron. Classification: This is original development tooling, not a reverse-engineered program: it provides Oric C/assembly language support, source-level debugging, reverse trace, graphics/memory inspection and automated tests. Source CPU: The extension does not analyse a particular original binary, so an original source CPU does not sensibly apply. Target CPU: The README explicitly documents 6502/XA references and debugging of Oric assembly/C output through OSDK and Oricutron, establishing the 6502 development target. Build: The README documents the released VS Code extension, its requirements and operating features; version 1.0.0 was published as the first Marketplace release. Limitations: No independent package build was run, so compilability remains unknown. Runtime profiles: The documented requirements are for the modern VS Code/OSDK/Oricutron host environment, not a minimum runnable retro-hardware build variant, so no runtime profile was added. AI: The first Marketplace release commit explicitly credits Claude Opus 5 (1M context) in a co-author trailer. The README's MCP interaction feature is a capability and is not used by itself as authorship evidence. Relationships: The extension is a distinct front end built around OSDK 2.0+ and the included Oricutron GDB stub; those dependencies remain separate projects rather than subjects reconstructed here. Evidence: https://github.com/Oric-Software-Development-Kit/vscode-osdk/blob/b9edb61078d7759d60bb5244194c5e8a1bd05909/README.md https://github.com/Oric-Software-Development-Kit/vscode-osdk/commit/b9edb61078d7759d60bb5244194c5e8a1bd05909",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude Opus 5"
+        ]
+      }
+    },
+    "edasm-prodos-assembler-tools-disassembly": {
+      "id": "edasm-prodos-assembler-tools-disassembly",
+      "title": "EdAsm",
+      "upstream_name": "EdAsm",
+      "display_title": "EdAsm — ProDOS Assembler Tools Release 1.1 disassembled source",
+      "subjects": [
+        "ProDOS Assembler Tools Release 1.1",
+        "EDASM"
+      ],
+      "repo": "https://github.com/markpmlim/EdAsm",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Apple II"
+      ],
+      "source_cpu": [
+        "6502",
+        "65C02"
+      ],
+      "target_cpu": [
+        "6502",
+        "65C02"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "6502/65C02 machine code"
+      ],
+      "reconstructed_languages": [
+        "6502/65C02 assembly"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [
+        "assembler-toolchain",
+        "language-tooling"
+      ],
+      "types": [
+        "historical assembler disassembly",
+        "source reconstruction"
+      ],
+      "re_started": null,
+      "status": "Disassembled sources for five ProDOS Assembler Tools programs are published with assembly prerequisites and byte-comparison intent",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Flaming Bird Disassembler",
+        "manual source reconstruction",
+        "byte-comparison preparation",
+        "SWEET16 analysis"
+      ],
+      "tags": [
+        "Apple II",
+        "ProDOS 8",
+        "EDASM",
+        "assembler"
+      ],
+      "notes": "Identity: The repository README identifies the work as disassembled source for five programs in the ProDOS Assembler Tools Release 1.1 package, including EDASM.SYSTEM and its command-line tools. Classification: This is binary-derived source reconstruction of a historical Apple development tool, so it is both a reconstructed subject and preserved development tooling; it is not labelled as original homebrew. Source CPU: The README says the disassembly requires 6502/65C02 knowledge and SWEET16 understanding, and the published source uses those instruction families for the original ProDOS tools. Target CPU: The reconstructed assembly is intended to reassemble the same ProDOS 8 programs using 6502/65C02 source, establishing the same output CPU families. Build: The README explains that a copy of ProDOS Assembler Tools Release 1.1 is required to assemble the five programs and that retained DS data permits comparison with the originals. Limitations: The repository describes the source as for viewing and does not report a verified successful or byte-identical rebuild. Next check: Assemble the five documented source files with the stated Release 1.1 environment and compare each output with the corresponding original program. Runtime profiles: The reviewed material identifies ProDOS 8 and the original Apple II package but states no minimum model, CPU, RAM or ROM requirements; none were inferred. AI: The reviewed README, source headers and latest commit metadata contain no explicit development-AI disclosure; this does not establish non-use. Relationships: The README ties this repository specifically to ProDOS Assembler Tools Release 1.1 and identifies the original package as both the source artifact and required assembly environment. Evidence: https://github.com/markpmlim/EdAsm/blob/05a19d8693a3b511ebdf97a8e8adb3eef886e698/README.MD https://github.com/markpmlim/EdAsm https://github.com/markpmlim/EdAsm/commit/05a19d8693a3b511ebdf97a8e8adb3eef886e698",
       "ai": {
         "usage": null,
         "tools": []
