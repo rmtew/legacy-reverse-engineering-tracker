@@ -1486,3 +1486,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-28 — Review 23 roots: add fourteen Powermonger, Populous and Bullfrog recovery projects; record nine duplicates, deferrals or exclusions.
 
 [Research record](docs/research/2026-10-28-powermonger-populous-and-bullfrog-game-discovery.md).
+
+## 2026-10-29 — Review eleven material upstream changes across reconstruction fidelity, decompilation, emulator determinism, release safety and tooling.
+
+[Research record](docs/research/maintenance-2026-10-29-am-reconstruction-emulation-fidelity.md).
