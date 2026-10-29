@@ -72,10 +72,11 @@ class PublicationTests(unittest.TestCase):
         self.put("state/project-catalog-state.json", {"projects": {"p": snapshot(self.project)}})
         self.put("state/github-poll-state.json", {"repositories": {}})
         (self.root / "index.html").write_text(
-            '<link href="web/tracker.css"><script src="web/tracker.js"></script>'
+            '<link href="web/tracker.css"><script src="web/reading-state.js"></script><script src="web/tracker.js"></script>'
         )
         (self.root / "web").mkdir()
         (self.root / "web/tracker.css").write_text("body{color:red}")
+        (self.root / "web/reading-state.js").write_text("// local reading state")
         (self.root / "web/tracker.js").write_text('console.log("ok")')
         self.a = self.commit()
         self.api = API(self.a)

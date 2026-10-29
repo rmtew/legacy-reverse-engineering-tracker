@@ -205,10 +205,21 @@ def identify(raw):
  payload=copy.deepcopy(doc); review=payload.pop('review',{})
  proofs=payload.get('proofs',{})
  assert isinstance(proofs,dict), 'Invalid research proofs'
- for proof in proofs.values():
-  assert isinstance(proof,dict) and isinstance(proof.get('text'),str), 'Research proofs need inline text'
-  text=proof.pop('text').encode('utf-8')
-  assert hashlib.sha1(b'blob '+str(len(text)).encode()+bytes([0])+text).hexdigest()==proof.get('blob','').lower(), 'Research proof bytes changed'
+ locations={}
+ for proof_id,proof in proofs.items():
+  assert isinstance(proof_id,str) and proof_id.strip(), 'Invalid research proof ID'
+  assert isinstance(proof,dict) and not set(proof)-{'repository','commit','path','blob','text'}, 'Invalid research proof fields'
+  repository=proof.get('repository'); commit=proof.get('commit'); blob=proof.get('blob'); path=proof.get('path')
+  assert isinstance(repository,str) and re.fullmatch(r'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?',repository), 'Invalid research proof repository'
+  assert all(isinstance(v,str) and re.fullmatch(r'[0-9a-fA-F]{40}',v) for v in (commit,blob)), 'Invalid research proof SHA'
+  assert isinstance(path,str) and path.strip() and not any(p in {'','.','..'} for p in path.split('/')) and chr(92) not in path and not any(ord(c)<32 for c in path), 'Invalid research proof path'
+  location=(repository.rstrip('/').casefold(),commit.lower(),path)
+  assert location not in locations or locations[location]==blob.lower(), 'Conflicting research proof blobs'
+  locations[location]=blob.lower()
+  if 'text' in proof:
+   assert isinstance(proof['text'],str), 'Research proof text must be a string'
+   text=proof.pop('text').encode('utf-8')
+   assert hashlib.sha1(b'blob '+str(len(text)).encode()+bytes([0])+text).hexdigest()==blob.lower(), 'Research proof bytes changed'
  digest=hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode()).hexdigest()
  assert review.get('status')=='ready' and review.get('digest')==digest, 'Invalid ready research seal'
  return {'event_id':event,'digest':digest}

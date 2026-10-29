@@ -10,6 +10,22 @@ The tracker has two views:
 - **Projects** — filterable catalogue using additive facet chips for **Project type / Platform / CPU / Software type / Work / Development tool**, plus compact single-choice controls for AI/build/playability state. The internal subject/tooling/hybrid enum is presented as the clearer **Retro software / Development tools** distinction; hybrid records simply belong to both.
 - **Activity** — the default view: day-by-day recent commits, releases and catalogue changes, with the same topical additive facets including CPU family. Branch, author, project and output-language dropdowns are intentionally omitted.
 
+## Reading updates and bookmarks
+
+The activity inbox is local to your browser. On the first visit it starts from the
+current published snapshot; use **All activity** to read existing history.
+**Fetch updates** adds newly discovered activity without clearing unread entries,
+including commits whose original dates are old. **Mark all read** acknowledges the
+loaded snapshot, including items hidden by filters. The available feed retains
+30 days; expired unread activity cannot be recovered and is flagged honestly.
+
+Star a project to highlight its activity, then use **Bookmarked projects** or
+**Bookmarked activity**. The Bookmarks menu exports/imports a small JSON list;
+import merges rather than replacing existing stars. Bookmarks and reading position
+(including filters) use local storage, not an account or cross-device sync. Export
+bookmarks before clearing browser data. If storage fails, a warning explains that
+changes last only for the current tab.
+
 ## Repository structure
 
 - `data/projects.index.json` + `data/projects/*.json` — canonical structured project data

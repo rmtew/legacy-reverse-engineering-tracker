@@ -39,6 +39,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - name: Publish reviewed research atomically
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           RESEARCH_EVENT: ${{ inputs.event_id || '' }}
         run: >-
           python tools/research_submission.py publish

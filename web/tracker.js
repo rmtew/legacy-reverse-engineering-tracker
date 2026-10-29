@@ -15,6 +15,148 @@ const tri = value => value === true ? "Yes" : value === false ? "No" : "Unknown"
 const projectTitle = record => record?.display_title || record?.title || record?.upstream_name || record?.id || "?";
 const upstreamName = record => record?.upstream_name || record?.title || projectTitle(record);
 
+const reading=TrackerReading;
+let readingState=reading.empty(), bookmarks=new Set(), inboxView='unread', shownReadingIds=[], displayedSnapshotIds=[];
+let fetchingUpdates=false, readingInitialized=false, initialRequestsPending=2;
+let storageBroken=false;
+function storageFailure(message){
+  storageBroken=true;
+  $('storageWarning').hidden=false;
+  $('storageWarning').textContent=message+' Changes are kept for this tab only; export bookmarks before leaving.';
+}
+try{readingState=reading.parse(localStorage.getItem(reading.KEY));}
+catch{storageFailure('Reading storage is unavailable or damaged.');}
+try{const raw=localStorage.getItem(reading.BOOKMARKS);if(raw)bookmarks=new Set(reading.parseBookmarks(raw));}
+catch{storageFailure('Bookmark storage is unavailable or damaged.');}
+function saveReading(){
+  if(storageBroken)return;
+  try{localStorage.setItem(reading.KEY,JSON.stringify(readingState));}
+  catch{storageFailure('Could not save reading progress.');}
+}
+function latestReading(){
+  if(storageBroken)return readingState;
+  try{return reading.parse(localStorage.getItem(reading.KEY));}
+  catch{storageFailure('Could not read saved progress.');return readingState;}
+}
+function saveBookmarks(){
+  if(storageBroken)return;
+  try{localStorage.setItem(reading.BOOKMARKS,JSON.stringify({version:1,project_ids:[...bookmarks].sort()}));}
+  catch{storageFailure('Could not save bookmarks.');}
+}
+function bookmarkButton(project){
+  const selected=bookmarks.has(project.id);
+  return '<button type="button" class="bookmark-star" data-bookmark="'+esc(project.id)+'" aria-pressed="'+selected+'" aria-label="'+esc((selected?'Remove bookmark for ':'Bookmark ')+projectTitle(project))+'" title="'+(selected?'Remove bookmark':'Bookmark project')+'">'+(selected?'★':'☆')+'</button>';
+}
+function unreadEvent(event){return reading.ids(event).some(id=>readingState.seen[id]===true);}
+function updateReadingControls(message){
+  const count=combinedActivityEvents().filter(unreadEvent).length;
+  $('unreadCount').textContent=count;
+  $('markRead').disabled=fetchingUpdates||!displayedSnapshotIds.some(id=>readingState.seen[id]===true)||!activityVisible();
+  $('fetchUpdates').disabled=fetchingUpdates||initialRequestsPending>0;
+  $('fetchUpdates').textContent=fetchingUpdates?'Fetching…':'Fetch updates';
+  if(message!==undefined)$('readingStatus').textContent=message+(readingState.checked?' Last successful check: '+new Date(readingState.checked).toLocaleString()+'.':'');
+}
+function captureFilters(){
+  const serialize=state=>Object.fromEntries(Object.entries(state).map(([key,value])=>[key,value instanceof Set?[...value]:value]));
+  return {project:serialize(projectFilterState),activity:serialize(activityFilterState),q:$('q').value,activityQ:$('activityQ').value,bookmarkedProjects:$('bookmarkedProjects').checked,sort:{...sort}};
+}
+function restoreFilters(saved){
+  if(!saved)return true;
+  const short=value=>typeof value==='string'&&value.length<=2000;
+  if(!short(saved.q)||!short(saved.activityQ)||typeof saved.bookmarkedProjects!=='boolean')return false;
+  const enums={directionMode:['quick','route'],side:['either','source','target'],days:['2','7','30'],ai:['','Yes','No','Unknown'],compilable:['','Yes','No','Unknown'],playable:['','Yes','No','Unknown'],exact:['','Yes','No','Unknown']};
+  for(const [name,target] of [['project',projectFilterState],['activity',activityFilterState]]){
+    const source=saved[name];if(!source||typeof source!=='object')return false;
+    for(const [key,current] of Object.entries(target)){
+      const value=source[key];
+      if(current instanceof Set){if(!Array.isArray(value)||value.length>500||value.some(v=>!short(v)))return false;}
+      else if(typeof value!==typeof current||(typeof value==='string'&&!short(value))||(enums[key]&&!enums[key].includes(value)))return false;
+    }
+  }
+  if(!saved.sort||!['title','source','target','language','classification','started','updated','compilable','playable','exact','ai'].includes(saved.sort.key)||![1,-1].includes(saved.sort.dir))return false;
+  for(const [name,target] of [['project',projectFilterState],['activity',activityFilterState]])for(const key of Object.keys(target))target[key]=target[key] instanceof Set?new Set(saved[name][key]):saved[name][key];
+  $('q').value=saved.q;$('activityQ').value=saved.activityQ;$('bookmarkedProjects').checked=saved.bookmarkedProjects;sort={...saved.sort};
+  $('directionSide').value=projectFilterState.side;$('sameCpuFamily').checked=projectFilterState.sameFamily;$('activityDirectionSide').value=activityFilterState.side;
+  return true;
+}
+function capturePosition(){
+  const items=[...document.querySelectorAll(activityVisible()?'[data-reading-anchor]':'#rows [data-id]')];
+  const item=items.find(node=>node.getBoundingClientRect().bottom>0);
+  return {view:activityVisible()?'activityView':'projects',scope:inboxView,anchor:item?.dataset.readingAnchor||item?.dataset.id||null,offset:item?.getBoundingClientRect().top||0,y:window.scrollY||0,visible:activityVisibleCount,filters:captureFilters()};
+}
+function restorePosition(position){
+  if(!position)return;
+  const node=[...document.querySelectorAll(position.view==='projects'?'#rows [data-id]':'[data-reading-anchor]')].find(node=>(node.dataset.readingAnchor||node.dataset.id)===position.anchor);
+  window.scrollTo?.(0,node?(window.scrollY||0)+node.getBoundingClientRect().top-position.offset:position.y||0);
+}
+function setInboxView(value){
+  inboxView=['all','bookmarks'].includes(value)?value:'unread';
+  document.querySelectorAll('[data-inbox]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.inbox===inboxView)));
+}
+function ingestReadingSnapshot(){
+  const result=reading.reconcile(latestReading(),combinedActivityEvents(),activityData.generated_at);
+  readingState=result.state;saveReading();
+  $('historyNotice').hidden=!(result.limited||activityData.events.some(e=>e.type==='daily_commits'&&!Array.isArray(e.shas)));
+  $('historyNotice').textContent=result.limited?'History is limited to the available 30 days. Some unread activity has expired or is no longer available; older content cannot be recovered.':'Some older summaries lack commit identities. They are treated conservatively as summaries, not reconstructed individual commits.';
+  updateReadingControls(result.stale?'This published snapshot is older than your saved check. Saved unread progress is preserved; fetch again shortly.':result.baseline?'Your inbox starts here. Existing activity is available in All activity.':result.added+' new item'+(result.added===1?'':'s')+' found; unread items stay until you mark them read.');
+}
+$('fetchUpdates').addEventListener('click',()=>fetchUpdates());
+$('markRead').addEventListener('click',()=>{
+  if(fetchingUpdates)return;
+  const captured=[...displayedSnapshotIds];
+  readingState=reading.acknowledge(latestReading(),captured);saveReading();
+  const position=capturePosition();renderActivity();restorePosition(position);
+  updateReadingControls('All activity in this loaded snapshot marked read. Subsequently fetched activity remains unread.');
+});
+document.querySelectorAll('[data-inbox]').forEach(button=>button.addEventListener('click',()=>{
+  setInboxView(button.dataset.inbox);requestActivityRender();
+}));
+$('bookmarkedProjects').addEventListener('change',()=>{if(projectUiReady)render();});
+function bookmarkClick(event){
+  const button=event.target.closest('[data-bookmark]');if(!button)return;
+  event.preventDefault();event.stopPropagation();
+  if(!storageBroken)try{const raw=localStorage.getItem(reading.BOOKMARKS);bookmarks=new Set(raw?reading.parseBookmarks(raw):[]);}catch{storageFailure('Could not read bookmarks.');}
+  const id=button.dataset.bookmark;
+  if(bookmarks.has(id))bookmarks.delete(id);else bookmarks.add(id);
+  saveBookmarks();
+  const position=capturePosition();
+  if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);
+  const replacement=[...document.querySelectorAll('[data-bookmark]')].find(node=>node.dataset.bookmark===id&&node.closest('.view-panel.active'));
+  replacement?.focus({preventScroll:true});
+}
+$('rows').addEventListener('click',bookmarkClick);
+$('activityFeed').addEventListener('click',bookmarkClick);
+$('exportBookmarks').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify({version:1,project_ids:[...bookmarks].sort()},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='retro-tracker-bookmarks.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+$('importBookmarks').addEventListener('change',async event=>{
+  const file=event.target.files?.[0];if(!file)return;
+  try{
+    if(file.size>2*1024*1024)throw Error('Bookmark file must be under 2 MB.');
+    const incoming=reading.parseBookmarks(await file.text());
+    if(!storageBroken){const raw=localStorage.getItem(reading.BOOKMARKS);if(raw)bookmarks=new Set(reading.parseBookmarks(raw));}
+    incoming.forEach(id=>bookmarks.add(id));saveBookmarks();
+    if(projectUiReady)render();if(activityUiReady)renderActivity();updateReadingControls('Imported bookmarks; existing bookmarks preserved.');
+  }catch(error){updateReadingControls('Import failed: '+error.message);}
+  finally{event.target.value='';}
+});
+window.addEventListener?.('storage',event=>{
+  if(storageBroken)return;
+  const position=readingInitialized?capturePosition():null;
+  try{
+    if(event.key===reading.KEY)readingState=reading.parse(event.newValue);
+    else if(event.key===reading.BOOKMARKS)bookmarks=new Set(event.newValue?reading.parseBookmarks(event.newValue):[]);
+    else return;
+    if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);
+    updateReadingControls('Local state updated from another tab.');
+  }catch{storageFailure('Another tab saved unreadable local state.');}
+});
+function persistPosition(){if(!readingInitialized)return;const position=capturePosition();readingState=latestReading();readingState.position=position;saveReading();}
+window.addEventListener?.('pagehide',persistPosition);
+let scrollSaveTimer;
+window.addEventListener?.('scroll',()=>{clearTimeout(scrollSaveTimer);scrollSaveTimer=setTimeout(persistPosition,250);},{passive:true});
+
 const THEME_STORAGE_KEY="retro-development-tracker.theme";
 const browserDarkMode=window.matchMedia("(prefers-color-scheme: dark)");
 const effectiveTheme = () => {
@@ -375,6 +517,9 @@ function bindChoiceFacet(containerId,values,state,key,labeler,onChange){
   const options=sortedUnique(values,labeler);
   container.innerHTML='<button type="button" class="facet-chip choice-chip selected" data-value="" aria-pressed="true">Any</button>'
     +options.map(value=>'<button type="button" class="facet-chip choice-chip" data-value="'+esc(value)+'" aria-pressed="false">'+esc(labeler(value))+'</button>').join("");
+  container.querySelectorAll(".choice-chip").forEach(button=>{
+    const selected=button.dataset.value===state[key];button.classList.toggle("selected",selected);button.setAttribute("aria-pressed",String(selected));
+  });
   container.querySelectorAll(".choice-chip").forEach(button=>button.addEventListener("click",()=>{
     state[key]=button.dataset.value;
     container.querySelectorAll(".choice-chip").forEach(item=>{
@@ -387,6 +532,7 @@ function bindChoiceFacet(containerId,values,state,key,labeler,onChange){
 
 function bindSegment(containerId,state,key,onChange){
   const container=$(containerId);
+  resetSegment(containerId,state[key]);
   container.querySelectorAll("button").forEach(button=>button.addEventListener("click",()=>{
     state[key]=button.dataset.value;
     container.querySelectorAll("button").forEach(item=>item.classList.toggle("selected",item===button));
@@ -507,7 +653,7 @@ function projectCell(record) {
 }
 
 function render() {
-  const rows = projects.filter(matches).sort(compare);
+  const rows = projects.filter(record=>(!$("bookmarkedProjects").checked||bookmarks.has(record.id))&&matches(record)).sort(compare);
   $("count").textContent = rows.length;
   $("total").textContent = projects.length;
   $("sortnote").textContent = "Sorted by " + sort.key + (sort.dir < 0 ? " ↓" : " ↑");
@@ -527,8 +673,8 @@ function render() {
     const ai = record.ai || {};
     const started = record.re_started ?? (record.github?.created_at ? record.github.created_at.slice(0, 4) + "*" : "?");
 
-    return '<tr class="project-row" data-id="' + esc(record.id) + '">'
-      + "<td>" + projectCell(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+    return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
+      + "<td>" + bookmarkButton(record) + projectCell(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + "<td>" + tags(record.source_platforms) + "</td>"
       + "<td>" + tags(record.target_platforms) + "</td>"
       + "<td>" + tags(record.reconstructed_languages) + "</td>"
@@ -544,7 +690,7 @@ function render() {
 
   document.querySelectorAll("#rows tr.project-row").forEach(row => {
     row.addEventListener("click", event => {
-      if (event.target.closest("a")) return;
+      if (event.target.closest("a,button")) return;
       showDetails(projects.find(record => record.id === row.dataset.id));
     });
   });
@@ -857,7 +1003,7 @@ function activityPlatformTags(project) {
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(projectTitle(project))+'</a>':esc(projectTitle(project));
-  return '<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+  return bookmarkButton(project)+'<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
     +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 
@@ -1098,17 +1244,20 @@ function localDayLabel(day) {
 function renderActivity() {
   activityDirty=false;
   const map=projectById();
-  const cutoff=Date.now()-Number(activityFilterState.days||30)*86400000;
+  const cutoff=inboxView==="unread"?-Infinity:Date.now()-Number(activityFilterState.days||30)*86400000;
   const query=$("activityQ").value.trim().toLowerCase();
-  const events=combinedActivityEvents().filter(event=>activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
+  const events=combinedActivityEvents().filter(event=>(inboxView!=="unread"||unreadEvent(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
   $("activityCount").textContent=events.length;
   $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
-  const shown=Math.min(activityVisibleCount,events.length);
+  const shown=inboxView==="unread"?events.length:Math.min(activityVisibleCount,events.length);
+  shownReadingIds=events.slice(0,shown).flatMap(reading.ids);
+  displayedSnapshotIds=combinedActivityEvents().flatMap(reading.ids);
+  updateReadingControls();
   $("activityMore").hidden=shown===events.length;
   $("activityMore").textContent=`Show more (${shown} of ${events.length})`;
 
   if(!events.length){
-    $("activityFeed").innerHTML='<div class="activity-empty">No activity matches the current filters.</div>';
+    $("activityFeed").innerHTML='<div class="activity-empty">'+(inboxView==='unread'?'No unread activity matches. Fetch updates to check for more, or browse All activity.':'No activity matches the current filters.')+'</div>';
     return;
   }
 
@@ -1160,7 +1309,7 @@ function renderActivity() {
         const classes=event.type==="release"?"commit release-event":(isProjectActivity(event)?"commit project-event":"commit");
         return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
       }).join("");
-      return '<div class="activity-project"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
+      return '<div class="activity-project '+(bookmarks.has(projectId)?'bookmarked':'')+'" data-reading-anchor="'+esc(JSON.stringify([day,projectId]))+'"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
     }).join("");
     return '<section class="activity-day"><h2>'+esc(dateLabel)+'</h2>'+projectsHtml+'</section>';
   }).join("");
@@ -1177,6 +1326,7 @@ document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("
   document.querySelectorAll(".view-tab").forEach(x=>x.classList.toggle("active",x===button));
   document.querySelectorAll(".view-panel").forEach(panel=>panel.classList.toggle("active",panel.id===button.dataset.view));
   initializeReadyViews();
+  updateReadingControls();
 }));
 
 $("activityMore").addEventListener("click",()=>{
@@ -1210,6 +1360,18 @@ function renderReadyActivity(){
 }
 
 function initializeReadyViews(){
+  if(projectsReady&&activityReady&&!readingInitialized){
+    let position=readingState.position;
+    if(position&&!restoreFilters(position.filters))position=null;
+    if(position){
+      setInboxView(position.scope);
+      activityVisibleCount=Math.max(ACTIVITY_PAGE_SIZE,Math.min(position.visible||0,100000));
+      document.querySelectorAll('.view-tab').forEach(button=>button.classList.toggle('active',button.dataset.view===position.view));
+      document.querySelectorAll('.view-panel').forEach(panel=>panel.classList.toggle('active',panel.id===position.view));
+    }
+    ingestReadingSnapshot();readingInitialized=true;
+    if(position)setTimeout(()=>restorePosition(position),0);
+  }
   if(projectsReady&&activityReady&&!activityUiReady){
     initActivityFilters();
     activityUiReady=true;
@@ -1269,15 +1431,38 @@ loadProjectCatalogue()
   .catch(error=>{
     $("rows").innerHTML='<tr><td colspan="11" class="empty">Could not load projects: '+esc(error.message)+'</td></tr>';
     $("activityFeed").innerHTML='<div class="activity-empty">Could not load projects: '+esc(error.message)+'</div>';
-  });
+    updateReadingControls('Could not load projects. Use Fetch updates to retry.');
+  }).finally(()=>{initialRequestsPending--;updateReadingControls();});
 
-fetch("data/activity-30d.json",{cache:"no-cache"})
-  .then(response=>{if(!response.ok) throw new Error("activity HTTP "+response.status);return response.json();})
-  .then(data=>{
-    activityData=data;
-    activityReady=true;
-    $("dataFreshness").textContent=formatFreshness(data.generated_at);
+async function loadActivitySnapshot(){
+  const response=await fetch("data/activity-30d.json",{cache:"no-cache"});
+  if(!response.ok)throw Error('activity HTTP '+response.status);
+  const data=await response.json();
+  if(!Array.isArray(data.events)||!Number.isFinite(Date.parse(data.generated_at))||data.events.some(event=>!event||typeof event.project_id!=='string'||typeof event.type!=='string'||!Number.isFinite(Date.parse(event.date))))throw Error('Invalid activity snapshot');
+  return data;
+}
+loadActivitySnapshot().then(data=>{
+  activityData=data;activityReady=true;
+  $("dataFreshness").textContent=formatFreshness(data.generated_at);initializeReadyViews();
+}).catch(error=>{
+  $("activityFeed").innerHTML='<div class="activity-empty">Could not load activity: '+esc(error.message)+'</div>';
+  updateReadingControls('Could not load activity. Use Fetch updates to retry.');
+}).finally(()=>{initialRequestsPending--;updateReadingControls();});
+async function fetchUpdates(){
+  if(fetchingUpdates)return;
+  fetchingUpdates=true;updateReadingControls('Checking published activity and project metadata…');
+  try{
+    const [newProjects,newActivity]=await Promise.all([loadProjectCatalogue(),loadActivitySnapshot()]);
+    if(activityReady&&Date.parse(newActivity.generated_at)<Date.parse(activityData.generated_at))throw Error('Received an older snapshot; please retry.');
+    const position=readingInitialized?capturePosition():null;
+    projects=newProjects;activityData=newActivity;projectsReady=true;activityReady=true;activityDirty=true;
+    if(readingInitialized)ingestReadingSnapshot();
     initializeReadyViews();
-  }).catch(error=>{
-    $("activityFeed").innerHTML='<div class="activity-empty">Could not load activity: '+esc(error.message)+'</div>';
-  });
+    bindActivityProjectFacets();
+    if(projectUiReady)render();
+    if(activityVisible())renderActivity();
+    $("dataFreshness").textContent=formatFreshness(activityData.generated_at);
+    restorePosition(position);
+  }catch(error){updateReadingControls('Fetch failed: '+error.message+'. Your unread items and last successful check are unchanged.');}
+  finally{fetchingUpdates=false;updateReadingControls();}
+}

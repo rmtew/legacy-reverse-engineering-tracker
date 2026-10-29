@@ -40,6 +40,7 @@ const context = vm.createContext({
   Map,
   Promise
 });
+vm.runInContext(fs.readFileSync(path.join(root, 'web/reading-state.js'), 'utf8'), context);
 vm.runInContext(source, context, { filename: "web/tracker.js" });
 const family = value => vm.runInContext(`cpuFamily(${JSON.stringify(value)})`, context);
 const choose = value => vm.runInContext(`projectFilterState.cpu = new Set([${JSON.stringify(value)}])`, context);

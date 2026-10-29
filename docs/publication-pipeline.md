@@ -34,11 +34,27 @@ catalogue bundles and older unmarked bundles retain strict baseline checks.
 Never upload expanded catalogue partitions for a new research pass.
 `package` can produce a single compact input file for native Git transport.
 
-The route requires a ready review digest, inline pinned proof text (or `--cache`
-to embed verified cached text), at most 100 project records / 500 batch entries,
+The route requires a ready review digest and pinned proof identities (repository,
+commit, path and blob), at most 100 project records / 500 batch entries,
 and at most 1 MiB of UTF-8 input. The JSON-escaped connector request must also fit
 the shared 4 MiB ceiling. IDs are safe filename components of at most 128
 characters. Oversized passes must be split and reviewed explicitly.
+
+Packaging strips verified inline proof bodies; `--cache` optionally verifies local
+bytes without embedding them. Identity-only submissions are accepted offline.
+On first application only, the runner retrieves pinned Git commit/tree/blob API
+objects into a temporary cache, verifying exact path membership and UTF-8 blob
+hashes. It rejects redirects, symlinks, submodules, truncated trees and missing or
+changed content. Retrieval is capped per event at 500 proofs/requests, 300 seconds,
+4 MiB per API response, 1 MiB per source, 16 MiB unique source bytes and 32 MiB
+JSON transfer. Repeated identities/API objects are reused within that application.
+A retrieval failure leaves the event pending and writes no catalogue or receipt;
+retry later or explicitly review a smaller/new submission. No source code runs.
+Routine inbox validation and already-applied receipt replays never fetch evidence.
+The temporary cache is removed on success or failure; it is never committed.
+Legacy inline submissions remain readable and their bytes are checked. Successful
+first application also compacts their retained input atomically with the receipt;
+the receipt still names the original committed input blob.
 
 A seal records an author review and protects content integrity; it cannot prove
 that the judgments are correct. Only writers authorized to commit to main may
@@ -102,3 +118,20 @@ The old `automation/discovery-*` fast-forward landing workflow is removed;
 research submissions cannot replace executable tools/workflows or choose output
 paths/commands. Legacy batch input and historical publication verification remain
 readable through their existing tools.
+
+## Compacting historical proof bodies
+
+`python tools/compact_research_evidence.py --root .` previews removal of only
+redundant `proofs.*.text`; add `--write` to apply. It verifies every affected
+review seal, original receipt input blob and published report before any write.
+It refuses unapplied or unverifiable inputs. Conclusions, proof identities,
+reports, catalogue data and receipts remain unchanged. No Git history is rewritten.
+
+The receipt's `input_blob` intentionally remains the immutable **original input**
+identity recoverable from Git history; it is not the current compact archive's
+blob hash. The unchanged review digest binds the equivalent authored content.
+Do not rewrite receipts to make the compact file masquerade as the original.
+The October 2026 cleanup removed 2,338 proof bodies from 47 applied submissions:
+27,504,345 bytes became 6,903,565 bytes (20,600,780 bytes saved). Other submissions
+and all unique authored evidence are retained. No tracked standalone evidence
+cache existed. Existing Git history still contains the original source snapshots.

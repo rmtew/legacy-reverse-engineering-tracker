@@ -43,8 +43,9 @@ class SubmissionTests(unittest.TestCase):
         self.put('state/github-poll-state.json', {'repositories': {}})
         (self.root / 'web').mkdir()
         (self.root / 'web/tracker.js').write_text('console.log("ok")')
+        (self.root / 'web/reading-state.js').write_text('console.log("reading state")')
         (self.root / 'web/tracker.css').write_text('body{}')
-        (self.root / 'index.html').write_text('<link href="web/tracker.css"><script src="web/tracker.js"></script>')
+        (self.root / 'index.html').write_text('<link href="web/tracker.css"><script src="web/reading-state.js"></script><script src="web/tracker.js"></script>')
         for name in ('sources.md', 'log.md'):
             (self.root / name).write_text('# Existing provenance\n')
         self.refresh_mock = patch.object(submission, 'dispatch_refresh')
@@ -87,6 +88,136 @@ class SubmissionTests(unittest.TestCase):
         self.git('remote', 'add', 'origin', str(origin))
         self.git('fetch', 'origin')
         return origin
+
+    def proof_document(self):
+        from research_record import git_blob_sha
+        document = copy.deepcopy(self.document)
+        document['proofs'] = {'source': {'repository': 'https://github.com/owner/repo',
+            'commit': 'a' * 40, 'path': 'source.txt', 'blob': git_blob_sha('source\r\n'),
+            'text': 'source\r\n'}}
+        return seal_review(document)
+
+    def test_package_omits_bodies_preserves_seal_and_accepts_identity_only(self):
+        from research_record import EvidenceCache
+        document = self.proof_document()
+        raw, info = submission.package(document)
+        lean = submission.decode(raw)
+        self.assertNotIn('text', lean['proofs']['source'])
+        self.assertEqual(lean['review'], document['review'])
+        self.assertIn('text', document['proofs']['source'])
+        self.assertEqual(submission.package(lean), (raw, info))
+        cache = Path(self.temp.name) / 'local-cache'
+        EvidenceCache(cache).put(document['proofs']['source'], 'source\r\n')
+        self.assertEqual(submission.package(lean, cache), (raw, info))
+        document['proofs']['source']['text'] = 'wrong'
+        with self.assertRaisesRegex(ValueError, 'text/blob'):
+            submission.package(document)
+
+    def test_lean_first_apply_fetches_and_receipt_replay_is_offline(self):
+        from research_record import EvidenceCache
+        document = self.proof_document()
+        self.input(document); self.commit()
+        directories = []
+        def hydrate(doc, directory, fetcher=None):
+            self.assertNotIn('text', doc['proofs']['source'])
+            directories.append(directory)
+            cache = EvidenceCache(directory)
+            cache.put(doc['proofs']['source'], 'source\r\n')
+            return cache
+        with patch('research_evidence.hydrate', side_effect=hydrate) as fetch:
+            self.apply()
+            fetch.assert_called_once()
+        self.assertFalse(directories[0].exists())
+        self.commit()
+        with patch('research_evidence.hydrate', side_effect=AssertionError('must stay offline')):
+            self.assertTrue(self.apply()['duplicate'])
+            self.assertEqual(submission.selected(self.root), [self.document['event_id']])
+        (self.root / submission.path_for(submission.OUTBOX, self.document['event_id'])).unlink()
+        self.commit()
+        with patch('research_evidence.hydrate', side_effect=AssertionError('must stay offline')):
+            self.assertEqual(submission.selected(self.root), [])
+
+    def test_compact_archive_retains_original_receipt_and_replays_offline(self):
+        from compact_research_evidence import compact
+        from research_record import EvidenceCache
+        document = self.proof_document()
+        # Preserve a legacy inline input exactly, rather than the new packager.
+        input_path = submission.path_for(submission.INBOX, document['event_id'])
+        self.put(input_path, document); self.commit()
+        def hydrate(doc, directory, fetcher=None):
+            cache = EvidenceCache(directory)
+            cache.put(doc['proofs']['source'], 'source\r\n')
+            return cache
+        original_input_blob = self.git('rev-parse', 'HEAD:' + input_path)
+        with patch('research_evidence.hydrate', side_effect=hydrate):
+            result = self.apply()
+        self.assertIn(input_path, result['changed'])
+        self.assertNotIn('text', submission.decode((self.root / input_path).read_bytes())['proofs']['source'])
+        receipt_path = self.root / submission.path_for(submission.RECEIPTS, document['event_id'])
+        self.assertEqual(json.loads(receipt_path.read_bytes())['input_blob'], original_input_blob)
+        self.commit()
+        with patch('research_evidence.hydrate', side_effect=AssertionError('must stay offline')):
+            self.assertTrue(self.apply()['duplicate'])
+        # Recreate an archive written by the historical publisher to exercise
+        # standalone migration, independently of the new first-apply compaction.
+        self.put(input_path, document); self.commit()
+        receipt_path = self.root / submission.path_for(submission.RECEIPTS, document['event_id'])
+        original_receipt = receipt_path.read_bytes()
+        state = load_all(self.root / 'data')
+        report = (self.root / f"docs/research/{document['event_id']}.md").read_bytes()
+        stats = compact(self.root, write=True)
+        self.assertEqual(stats['proof_bodies'], 1)
+        self.assertEqual(compact(self.root, write=True)['submissions'], 0)
+        self.assertEqual(receipt_path.read_bytes(), original_receipt)
+        self.assertEqual(state, load_all(self.root / 'data'))
+        self.assertEqual(report, (self.root / f"docs/research/{document['event_id']}.md").read_bytes())
+        self.commit()
+        current_blob = self.git('rev-parse', 'HEAD:' + input_path)
+        self.assertNotEqual(current_blob, json.loads(original_receipt)['input_blob'])
+        with patch('research_evidence.hydrate', side_effect=AssertionError('must stay offline')):
+            self.assertTrue(self.apply()['duplicate'])
+            submission.selected(self.root)
+        changed = submission.decode((self.root / input_path).read_bytes())
+        changed['summary'] = 'different authored conclusion'
+        self.put(input_path, seal_review(changed)); self.commit()
+        with self.assertRaisesRegex(ValueError, 'conflicting reviewed content'):
+            self.apply()
+
+    def test_inline_compaction_write_failure_rolls_back_original_input(self):
+        from research_record import EvidenceCache
+        document = self.proof_document()
+        input_path = self.root / submission.path_for(submission.INBOX, document['event_id'])
+        self.put(str(input_path.relative_to(self.root)), document); self.commit()
+        original_input = input_path.read_bytes()
+        before = load_all(self.root / 'data')
+        def hydrate(doc, directory, fetcher=None):
+            cache = EvidenceCache(directory)
+            cache.put(doc['proofs']['source'], 'source\r\n')
+            return cache
+        original_write = Path.write_bytes
+        failed = False
+        def write(path, raw):
+            nonlocal failed
+            result = original_write(path, raw)
+            if path == input_path and not failed:
+                failed = True
+                raise OSError('compaction write interrupted')
+            return result
+        with patch('research_evidence.hydrate', side_effect=hydrate), patch.object(Path, 'write_bytes', write):
+            with self.assertRaisesRegex(OSError, 'compaction write'):
+                self.apply()
+        self.assertEqual(input_path.read_bytes(), original_input)
+        self.assertEqual(load_all(self.root / 'data'), before)
+        self.assertFalse((self.root / submission.path_for(submission.RECEIPTS, document['event_id'])).exists())
+
+    def test_failed_first_fetch_leaves_canonical_state_and_receipts_untouched(self):
+        self.input(self.proof_document()); self.commit()
+        before = load_all(self.root / 'data')
+        with patch('research_evidence.hydrate', side_effect=ValueError('missing source')):
+            with self.assertRaisesRegex(ValueError, 'missing source'):
+                self.apply()
+        self.assertEqual(before, load_all(self.root / 'data'))
+        self.assertFalse((self.root / submission.RECEIPTS).exists())
 
     def test_atomic_validated_apply_receipt_and_identical_replay(self):
         before = copy.deepcopy(self.project)

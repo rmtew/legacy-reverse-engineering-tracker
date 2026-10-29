@@ -13,7 +13,7 @@ import tempfile
 
 from catalogue_storage import bounded, encode, load_dataset
 from publication_pipeline import prepare, safe_path, verify_files, file_entry, digest as content_digest
-from research_record import EvidenceCache, compile_records, review_digest
+from research_record import compile_records, review_digest, validate_manifest
 from build_site import build
 from refresh_scope import repository
 
@@ -72,17 +72,20 @@ def checked(document, event=None):
         raise ValueError('Research batch collections must be arrays')
     if len(document.get('records', [])) > 100 or sum(len(document.get(k, [])) for k in arrays) > 500:
         raise ValueError('Research submission exceeds bounded batch entry limits')
-    compile_records(document)  # Includes inline proof integrity and all authoring checks; no fetches.
+    if len(document.get('proofs', {})) > 500:
+        raise ValueError('Research submission exceeds the 500 pinned proof limit')
+    validate_manifest(document)  # Offline structure and any inline byte integrity, never fetches.
     bounded(encode(document), name)
     return name, review_digest(document)
 
 
 def package(document, cache=None):
     document = copy.deepcopy(document)
-    for proof in document.get('proofs', {}).values():
-        if 'text' not in proof and cache is not None:
-            proof['text'] = EvidenceCache(cache).get(proof)
     event, digest = checked(document)
+    if cache is not None:
+        compile_records(document, evidence_cache=cache)
+    for proof in document.get('proofs', {}).values():
+        proof.pop('text', None)
     raw = encode(document)
     if len(raw) > MAX_BYTES:
         raise ValueError('Research submission exceeds the 1 MiB input ceiling; split the reviewed pass')
@@ -239,7 +242,7 @@ def selected(root, event=None):
     return pending
 
 
-def apply(root, event):
+def apply(root, event, *, fetcher=None):
     """Validate in isolation; caller publishes data, receipt and outbox in one commit."""
     root = Path(root)
     baseline = revision(root)
@@ -260,7 +263,9 @@ def apply(root, event):
     with tempfile.TemporaryDirectory(prefix='research-apply-') as directory:
         temporary = Path(directory)
         bundle = temporary / 'bundle'
-        manifest = prepare(document, root, bundle, baseline, tree(root, baseline))
+        from research_evidence import hydrate
+        cache = hydrate(document, temporary / 'evidence', fetcher=fetcher)
+        manifest = prepare(document, root, bundle, baseline, tree(root, baseline), evidence_cache=cache)
         verify_files(bundle / 'payload', manifest)
         allowed = {'data/projects.index.json', 'data/project-audits.index.json', 'data/discovery-sources.json',
                    'data/discovery-decisions.json', 'data/discovery-decisions.index.json', 'data/research-activity.json', 'sources.md', 'log.md',
@@ -294,6 +299,13 @@ def apply(root, event):
         changes = {e['path']: None if e['sha'] is None else (bundle / 'payload' / e['path']).read_bytes()
                    for e in manifest['files']}
         changes.update(extras)
+        # Legacy clients may still submit inline bytes. Retain only the manifest
+        # after successful validation, atomically with its original-input receipt.
+        if any('text' in proof for proof in document.get('proofs', {}).values()):
+            archived = copy.deepcopy(document)
+            for proof in archived.get('proofs', {}).values():
+                proof.pop('text', None)
+            changes[input_path] = encode(archived)
         backups = {name: (root / name).read_bytes() if (root / name).exists() else None for name in changes}
         try:
             for name, content in changes.items():

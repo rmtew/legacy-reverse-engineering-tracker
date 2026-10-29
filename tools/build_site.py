@@ -24,7 +24,7 @@ def build(root, destination):
         shutil.copytree(root / name, destination / name)
     index = destination / "index.html"
     html = index.read_text()
-    for asset in ("tracker.css", "tracker.js"):
+    for asset in ("tracker.css", "tracker.js", "reading-state.js"):
         path = "web/" + asset
         digest = sha256((destination / path).read_bytes()).hexdigest()[:12]
         html, count = re.subn(re.escape(path) + r'(?:\?v=[^"\s]*)?', path + "?v=" + digest, html)

@@ -42,7 +42,14 @@
     <button class="view-tab" data-view="projects" type="button">Projects</button>
   </nav>
 
+  <section class="reading-toolbar" aria-label="Reading inbox">
+    <div class="reading-actions"><button id="fetchUpdates" type="button" disabled>Fetch updates</button><button id="markRead" type="button" disabled title="Marks all updates in this loaded snapshot, including filtered-out items">Mark all read</button>
+    <details class="bookmark-tools"><summary>Bookmarks</summary><button id="exportBookmarks" type="button">Export bookmarks</button><label class="import-label">Import bookmarks<input id="importBookmarks" type="file" accept="application/json,.json"></label><p>Saved only in this browser. Import adds to your existing bookmarks.</p></details></div>
+    <p id="readingStatus" role="status" aria-live="polite">Loading your reading inbox…</p>
+    <p id="storageWarning" role="alert" hidden></p><p id="historyNotice" hidden></p>
+  </section>
   <section id="projects" class="view-panel">
+  <label class="bookmark-filter"><input id="bookmarkedProjects" type="checkbox"> Bookmarked projects</label>
   <section class="filter-panel" aria-label="Project filters">
     <div class="filter-top">
       <label class="filter-search"><span>Search</span>
@@ -156,6 +163,7 @@
   </section>
 
   <section id="activityView" class="view-panel active">
+    <div class="inbox-views" role="group" aria-label="Activity scope"><button type="button" data-inbox="unread" aria-pressed="true">Unread <span id="unreadCount">0</span></button><button type="button" data-inbox="all" aria-pressed="false">All activity</button><button type="button" data-inbox="bookmarks" aria-pressed="false">Bookmarked activity</button></div>
     <section class="filter-panel activity-filter-panel" aria-label="Activity filters">
       <div class="filter-top">
         <label class="filter-search"><span>Search</span>
@@ -163,9 +171,10 @@
         </label>
         <button id="activityClear" class="clear-filters" type="button" hidden>Clear filters</button>
       </div>
-      <div class="segment-filter activity-period"><span>Period</span><div id="activityDaysSegment" class="segment-control">
+      <div class="segment-filter activity-period"><span>History period</span><div id="activityDaysSegment" class="segment-control">
         <button type="button" data-value="2">2 days</button><button type="button" data-value="7">7 days</button><button type="button" data-value="30" class="selected">30 days</button>
       </div></div>
+      <p class="filter-hint">Unread includes the entire available inbox, regardless of history period. Other filters still apply.</p>
       <div class="activity-filter-grid">
         <div class="direction-field"><span>Activity type</span><details id="activityTypeFacet" class="facet-picker" data-label="Activity type" data-empty="Any activity"><summary>Any activity</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search activity type" placeholder="Search…"><div class="picker-options"></div></div></details></div>
         <div class="direction-field"><span>Project type</span><details id="activityProjectTypeFacet" class="facet-picker" data-label="Project type" data-empty="Any project type"><summary>Any project type</summary><div class="picker-popover"><input type="search" class="picker-search" aria-label="Search project type" placeholder="Search…"><div class="picker-options"></div></div></details></div>
@@ -196,6 +205,7 @@
   <div id="detailbody"></div>
 </dialog>
 
+<script src="web/reading-state.js?v=build"></script>
 <script src="web/tracker.js?v=build"></script>
 </body>
 </html>

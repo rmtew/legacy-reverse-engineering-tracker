@@ -202,3 +202,23 @@ html[data-theme="dark"] dialog{background:#161b22;color:#f0f3f6}
 .activity-filter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:9px;margin:8px 0}
 .picker-selected{display:flex;flex-wrap:wrap;gap:3px}.picker-selected:empty{display:none}
 .picker-selected button{font-size:11px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+/* Reading inbox: restrained local controls and project bookmarks. */
+.reading-toolbar { margin: 1rem 0; padding: .85rem 1rem; border: 1px solid var(--border); border-radius: .5rem; }
+.reading-actions,.inbox-views { display:flex; align-items:center; flex-wrap:wrap; gap:.55rem; }
+.reading-toolbar button,.inbox-views button,.bookmark-tools summary,.import-label { cursor:pointer; padding:.5rem .75rem; border:1px solid var(--border); border-radius:.35rem; background:var(--panel); color:inherit; font:inherit; }
+.reading-toolbar p { margin:.6rem 0 0; font-size:.85rem; }
+#storageWarning,#historyNotice { color:var(--muted); }
+.inbox-views { margin: 1rem 0; }
+.inbox-views [aria-pressed="true"] { font-weight:700; border-color:currentColor; }
+.bookmark-tools { position:relative; }
+.bookmark-tools[open] { flex-basis:100%; }
+.import-label { display:inline-block; margin:.5rem; }
+.import-label input { display:block; margin-top:.4rem; max-width:100%; }
+.bookmark-filter { display:block; margin:1rem 0; }
+.bookmark-star { cursor:pointer; background:transparent; border:0; color:var(--muted); font-size:1.25rem; padding:.25rem .4rem; flex-shrink:0; }
+.bookmark-star[aria-pressed="true"] { color:#a97813; }
+.bookmarked { box-shadow:inset 3px 0 0 #b890394d; }
+.activity-project { content-visibility:auto; contain-intrinsic-size:auto 180px; }
+button:disabled { cursor:default; opacity:.55; }
+button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid currentColor; outline-offset:3px; }

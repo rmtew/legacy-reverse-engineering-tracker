@@ -23,6 +23,11 @@ class RecentActivityTest(unittest.TestCase):
         ])
         self.assertEqual(len(activity["events"]), 3)
 
+    def test_preserves_summary_membership_for_reading_inbox(self):
+        event = {"date": "2026-09-20T07:00:00Z", "type": "daily_commits", "project_id": "p", "count": 2, "shas": ["a", "b"]}
+        result = recent_activity({"generated_at": "2026-09-25T08:00:00Z", "events": [event]})
+        self.assertEqual(result["events"][0]["shas"], ["a", "b"])
+
 
 if __name__ == "__main__":
     unittest.main()

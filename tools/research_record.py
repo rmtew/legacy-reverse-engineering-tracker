@@ -171,7 +171,7 @@ def seal_review(document: dict) -> dict:
     return result
 
 
-def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, require_ready=False) -> tuple[dict, dict]:
+def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, require_ready=False, require_bytes=True) -> tuple[dict, dict]:
     _require(isinstance(document, dict), "Research document must be an object")
     allowed = set(BATCH_FIELDS) | {"format", "title", "records", "proofs", "review"}
     _require(not set(document) - allowed, "Unknown research document fields")
@@ -224,7 +224,7 @@ def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, re
             _require(heads[identity["repository"]] == identity["commit"], f"Stale proof commit for {proof_id}; inspect the new upstream snapshot")
         if "text" in proof:
             _require(git_blob_sha(proof["text"]) == identity["blob"], f"Mismatched proof text/blob for {proof_id}")
-        else:
+        elif require_bytes:
             _require(cache is not None, f"Proof {proof_id} needs inline text or a pinned evidence cache")
             cache.get(proof)
         proof_urls[proof_id] = proof_url(proof)
@@ -333,6 +333,16 @@ def _normalize(document: dict, *, evidence_cache=None, expected_commits=None, re
             if "text" in proof:
                 cache.put(proof, proof["text"])
     return batch, proof_urls
+
+
+def validate_manifest(document: dict) -> None:
+    """Offline structural/seal check; identity-only proofs do not assert byte verification.
+
+    Already-applied receipts and routine inbox checks must not depend on source
+    availability. First application separately retrieves and verifies bytes.
+    Any inline bytes supplied are still checked, never silently discarded.
+    """
+    _normalize(document, require_ready=True, require_bytes=False)
 
 
 def compile_records(document: dict, *, evidence_cache=None, expected_commits=None) -> dict:

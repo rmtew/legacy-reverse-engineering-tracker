@@ -30,7 +30,8 @@ jobs:
       - name: Check browser and connector behavior
         run: |
           node --check web/tracker.js
-          node --test tools/test_cpu_filters.js tools/test_browser_storage.js tools/test_publish_discovery.js
+          node --check web/reading-state.js
+          node --test tools/test_cpu_filters.js tools/test_browser_storage.js tools/test_publish_discovery.js tools/test_reading_state.js
       - name: Validate data and generated feeds
         run: |
           python tools/generate_rss.py data/activity.json data/projects.json /tmp/activity.xml

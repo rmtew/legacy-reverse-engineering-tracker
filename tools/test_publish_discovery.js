@@ -595,3 +595,52 @@ test('large alternate compact serialization validates through bounded remote bri
     assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);assert.ok(maximum>90000);
   }
 });
+
+function setCompactDocument(x, doc) {
+  const payload=JSON.parse(JSON.stringify(doc));delete payload.review;
+  for(const proof of Object.values(payload.proofs||{}))if(proof && typeof proof==='object')delete proof.text;
+  const digest=crypto.createHash('sha256').update(JSON.stringify(canonical(payload))).digest('hex');
+  doc.review={status:'ready',digest};
+  const text=JSON.stringify(doc),entry=x.manifest.files[0];
+  Object.assign(entry,{bytes:Buffer.byteLength(text),chars:Array.from(text).length,sha:referenceDigest(text),sha256:crypto.createHash('sha256').update(text).digest('hex')});
+  x.manifest.submission.digest=digest;x.remote.expectedText=text;
+  fs.writeFileSync(path.join(x.bundle,'payload',entry.path),text);x.save();
+  return {text,digest};
+}
+
+const leanProof=()=>({repository:'https://github.com/owner/evidence',commit:'a'.repeat(40),path:'src/README.md',blob:referenceDigest('Pinned evidence.\n')});
+
+test('identity-only proofs publish and replay against inline input or original receipt without writes',async t=>{
+  for(const mode of ['new','lean-input','legacy-input','original-receipt']){
+    const x=compactSetup(t),doc=JSON.parse(x.text);doc.proofs={p:leanProof()};
+    if(mode==='legacy-input'||mode==='original-receipt'){
+      doc.proofs.p.text='Pinned evidence.\n';
+      const legacy=setCompactDocument(x,doc);
+      if(mode==='legacy-input')x.remote.addInput(legacy.text);
+      else x.remote.addReceipt(legacy.digest);
+      delete doc.proofs.p.text;
+    }
+    const lean=setCompactDocument(x,doc);
+    if(mode==='lean-input')x.remote.addInput(lean.text);
+    const out=await publishDiscovery(x.tools,x.options);
+    if(mode==='new'){assert.equal(out.ref_verified,true);assert.equal(x.remote.blobs,1);}
+    else{assert.equal(out.already_submitted,true);assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);}
+  }
+});
+
+test('lean wire proofs reject invalid identities and invalid optional text before mutations',async t=>{
+  for(const change of [
+    {repository:'https://example.org/owner/repo'}, {repository:'https://github.com/owner/repo/tree/main'},
+    {commit:'main'}, {blob:'a'.repeat(39)}, {path:'../README.md'}, {path:'/README.md'},
+    {path:'a//b'}, {path:'a\\b'}, {path:'a\nb'}, {path:42}, {text:null}, {unexpected:'field'},
+  ]){
+    const x=compactSetup(t),doc=JSON.parse(x.text);doc.proofs={p:{...leanProof(),...change}};
+    setCompactDocument(x,doc);
+    await assert.rejects(publishDiscovery(x.tools,x.options),/research proof|Research proof/);
+    assert.equal(x.remote.blobs,0);assert.equal(x.remote.refs,0);
+  }
+  const x=compactSetup(t),doc=JSON.parse(x.text);doc.proofs={p:leanProof(),q:{...leanProof(),blob:'b'.repeat(40)}};
+  setCompactDocument(x,doc);
+  await assert.rejects(publishDiscovery(x.tools,x.options),/Conflicting research proof blobs/);
+  assert.equal(x.remote.blobs,0);
+});

@@ -24,8 +24,7 @@ def recent_activity(activity, days=30, projects=None):
         browser_event = activity_v1_event(event)
         if event["type"] == "commit":
             browser_event.pop("message", None)  # The page displays/searches the subject.
-        elif event["type"] == "daily_commits":
-            browser_event.pop("shas", None)  # Used by the collector, not the UI.
+        # Summary SHA membership lets the local inbox reconcile compaction and late discoveries.
         events.append(browser_event)
     return {
         "generated_at": activity["generated_at"],
