@@ -1658,3 +1658,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-29 — Review 27 roots: add fifteen game/application research and reconstruction projects; record twelve duplicates, deferrals or out-of-scope candidates.
 
 [Research record](docs/research/2026-10-29-six-platform-game-and-application-discovery.md).
+
+## 2026-10-29 — Review 28 roots: add fifteen source/reconstruction projects, correct the Kult ASM repository rename and record twelve deferrals or out-of-scope candidates.
+
+[Research record](docs/research/2026-10-29-c64-spectrum-dos-source-and-reconstruction-discovery.md).
