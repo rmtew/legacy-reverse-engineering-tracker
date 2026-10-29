@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-29T19:43:04Z",
+  "updated_at": "2026-10-29T19:48:07Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -332633,8 +332633,10 @@
       "tags": [],
       "notes": "Identity: C64 games — eight-game/application reconstruction collection. Repository root and implementation inspected. Classification: Repository-root collection covers Barbarian, Blue Max, Boulder Dash, Bruce Lee, Falcon Patrol, Hover Bovver, Koala Painter and The Way of the Exploding Fist. Named assembly, canonical analysis knowledge, release-specific build variants and emulator scenarios accompany implementation-level documentation. Preserve distinction between commercial releases and cracked captures: several byte-identity claims apply only to named cracks, not unexamined publisher originals. Source CPU: Original/source architecture: 6502. Target CPU: Native target architecture: 6502. Build: Rebuild and test tooling is organized per game; original/reference captures and the c64-source toolchain are required. Sampled flood-fill assembly and combat/release documentation inspected; no independent assembly, full-corpus audit or emulator run. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: One root entry rather than eight subpaths. Related games may already have independent disassemblies, but this is a separate evidence-bearing collection. Evidence: https://github.com/henols/c64_games/blob/59ff692b3c401c9048ccc56082ef447a049f51d9/README.md https://github.com/henols/c64_games/blob/59ff692b3c401c9048ccc56082ef447a049f51d9/bruce_lee/README.md https://github.com/henols/c64_games/blob/59ff692b3c401c9048ccc56082ef447a049f51d9/koala_painter/v2/src/tools/fill.asm https://github.com/henols/c64_games/blob/59ff692b3c401c9048ccc56082ef447a049f51d9/barbarian/game_v1/docs/combat.md",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "popesick-julius-caesar": {
@@ -332695,7 +332697,8 @@
       "ai": {
         "usage": true,
         "tools": [
-          "ChatGPT"
+          "ChatGPT",
+          "Claude"
         ]
       }
     },
@@ -333138,8 +333141,10 @@
       "tags": [],
       "notes": "Identity: Cyclone — Spectrum analysis and Rust 3D reconstruction. Repository root and implementation inspected. Classification: Annotated SkoolKit analysis, world/sprite extraction and trace tooling underpin a Rust/wgpu remake. Native per-routine logic retains the original 64 KiB address layout and self-modified data operands, while a new 3D renderer replaces original projection routines. Retained memory layout alone is not a generic CPU interpreter. Source CPU: Original/source architecture: z80. Target CPU: No host CPU minimum established from inspected source. Build: Rust/wgpu plus wasm-bindgen for browser build. Original-vs-remake trace tooling inspected; completeness and state-parity claims not rerun. The 3D camera/renderer is an intentional presentation change, not pixel-identical original rendering. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: One root covers analysis and its dependent remake, not two independent projects. Evidence: https://github.com/jamescarruthers/cyclone/blob/0ec5f1723a7aabb209d6a10cc5eb9251b44730a3/README.md https://github.com/jamescarruthers/cyclone/blob/0ec5f1723a7aabb209d6a10cc5eb9251b44730a3/re/README.md https://github.com/jamescarruthers/cyclone/blob/0ec5f1723a7aabb209d6a10cc5eb9251b44730a3/remake/README.md https://github.com/jamescarruthers/cyclone/blob/0ec5f1723a7aabb209d6a10cc5eb9251b44730a3/re/tools/reftrace.py https://github.com/jamescarruthers/cyclone/blob/0ec5f1723a7aabb209d6a10cc5eb9251b44730a3/remake/src/game.rs",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "kylofon-street-rod-2-sdl3": {
@@ -333200,8 +333205,10 @@
       "tags": [],
       "notes": "Identity: Street Rod 2 — native C/SDL3 reconstruction. Repository root and implementation inspected. Classification: Function-by-function DOS reconstruction carries original-address references into native garage, race, event and game-flow routines. Reuses the earlier Street Rod engine and identifies sequel-specific deltas rather than retranslating shared functionality. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: MSYS2 mingw64/SDL3, optional wxWidgets launcher and separately supplied installed game. v0.1.0 publication and function coverage are author-reported; plan still awaits playtest/fix cycles. No build or end-to-end driving verified. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Sequel delta port based on kylofon/street-rod-sdl3, not merely a fork or an enhanced-mode branch. Evidence: https://github.com/kylofon/street-rod-2-sdl3/blob/9a3d488143d108985422c2eeb9501e4aa5a0fe72/README.md https://github.com/kylofon/street-rod-2-sdl3/blob/9a3d488143d108985422c2eeb9501e4aa5a0fe72/PLAN.md https://github.com/kylofon/street-rod-2-sdl3/blob/9a3d488143d108985422c2eeb9501e4aa5a0fe72/sr2port/src/game/flow_loop.c",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "vorticoncmdr-re-magicpockets": {
@@ -333260,8 +333267,10 @@
       "tags": [],
       "notes": "Identity: Magic Pockets DOS — JavaScript reconstruction with original-data decoders. Repository root and implementation inspected. Classification: Semantic JavaScript gameplay and format decoders reference original routines and use capture-based conformance/mutation tests. Important mixed architecture: the AdLib subsystem can execute original driver bytes in a small x86 interpreter, while gameplay is reconstructed. Do not advertise the entire package as emulator-free. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: Node/Vite and user-supplied DOS executables/assets. External DOSBox captures are not published and comparisons can skip when absent. Full-game fidelity is not established; boss/carry/render branches and non-AdLib sound remain open. No execution here. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Distinct from whole-game CPU-state recompilation; explicitly retain the sound-driver emulation boundary and evidence grading. Evidence: https://github.com/VorticonCmdr/re-magicpockets/blob/0b5a354923114df37cfe1bab1696cd5b528df5f0/README.md https://github.com/VorticonCmdr/re-magicpockets/blob/0b5a354923114df37cfe1bab1696cd5b528df5f0/docs/port-plan.md https://github.com/VorticonCmdr/re-magicpockets/blob/0b5a354923114df37cfe1bab1696cd5b528df5f0/tools/attract-capture/conformance.mjs https://github.com/VorticonCmdr/re-magicpockets/blob/0b5a354923114df37cfe1bab1696cd5b528df5f0/web/audio/x86-lite.js https://github.com/VorticonCmdr/re-magicpockets/blob/0b5a354923114df37cfe1bab1696cd5b528df5f0/web/audio/pin-driver.js",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "too101-wordpc-disasm": {
