@@ -1502,3 +1502,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-30 — Review nine material upstream changes across reconstruction fidelity, original retro tooling, playable ports, disk-image preservation and repository lineage.
 
 [Research record](docs/research/maintenance-2026-10-30-am-upstream-reconstruction-and-runtime.md).
+
+## 2026-10-29 — Review 27 roots: add fifteen game/application research and reconstruction projects; record twelve duplicates, deferrals or out-of-scope candidates.
+
+[Research record](docs/research/2026-10-29-six-platform-game-and-application-discovery.md).
