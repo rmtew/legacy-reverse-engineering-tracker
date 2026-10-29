@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-29T16:19:10Z",
+  "updated_at": "2026-10-29T18:13:11Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -10070,12 +10070,12 @@
     "amberstar-amber-framework": {
       "id": "amberstar-amber-framework",
       "title": "Amber — early Amberstar reimplementation and data framework",
-      "upstream_name": "Amber / Amberstar.net",
+      "upstream_name": "Amberstar.net",
       "display_title": "Amber — early Amberstar reimplementation and data framework",
       "subjects": [
         "Amberstar"
       ],
-      "repo": "https://github.com/Pyrdacor/Amber",
+      "repo": "https://github.com/Pyrdacor/Amberstar.net",
       "project_url": null,
       "github_path": null,
       "github_branch": null,
@@ -10091,7 +10091,9 @@
         "Android"
       ],
       "source_cpu": [],
-      "target_cpu": [],
+      "target_cpu": [
+        "x86-64"
+      ],
       "runtime_profiles": null,
       "execution_paths": null,
       "source_language": [],
@@ -10111,10 +10113,10 @@
         "game reimplementation"
       ],
       "re_started": null,
-      "status": "Amberstar framework now loads English Amiga data, reproduces Amiga outro pictures/copper gradients and handles Amiga COSO/TFMX music and samples, including the seven-voice outro path; complete-game parity is not claimed.",
+      "status": "Amberstar implementation, data, tests and documentation moved from the shared Amber repository to Amberstar.net, which now publishes an explicitly early 0.1.0-alpha for Windows and Linux x64 with embedded Amiga/Atari ST data variants.",
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
@@ -10123,7 +10125,10 @@
         "scenario-driven battle regression",
         "Amiga copper-gradient reconstruction",
         "COSO and TFMX module playback",
-        "legacy outro data decoding"
+        "legacy outro data decoding",
+        "headless scenario regression",
+        "native AOT release packaging",
+        "embedded multi-version data packaging"
       ],
       "tags": [
         "prototype",
@@ -10132,7 +10137,7 @@
         "macOS",
         "Android"
       ],
-      "notes": "Identity: The shared Amber framework and Amberstar implementation remain one early reimplementation project. Current work adds an integrated encounter/battle/loot/defeat slice without claiming game completion. Classification: This remains direct C# gameplay and data-framework reimplementation, not recovered source or a binary-derived port claim. Source CPU: Reviewed project documentation identifies legacy Atari ST, Amiga, DOS data or game heritage, but does not establish analyzed original CPU instructions; architecture is not inferred from the platform alone. Target CPU: Reviewed source/build documentation names platforms or language/runtime but no explicit output CPU architecture; no target CPU is inferred from Java, C#, C/C++, or a portable framework. Build: The reviewed series adds English Amiga data, original-style map-song selection, sampled Amiga music, EXTRO.UDO pictures with 15-step copper-gradient fades, and COSO/TFMX playback including the seven-voice Amiga outro. Limitations: The tracker did not run the game or compare audio/video output to original Amiga hardware; these bounded data, outro and player paths do not establish complete-game parity. Next check: Track scenario tests and original-output comparisons for the expanded Amiga-specific paths. Runtime profiles: The gameplay slice adds no explicit minimum host CPU, RAM, OS or mobile-device profile. AI: The inspected commit explicitly credits Claude Opus 5.5, supporting the existing Claude development attribution. Relationships: Exact root absent; related Ambermoon projects known, but Amberstar game and Amber framework are distinct work. Keep the shared framework and Amberstar under one root, separate from Ambermoon.net. Evidence: https://github.com/Pyrdacor/Amber/blob/main/README.md https://github.com/Pyrdacor/Amber/blob/main/Amberstar.Game/Game.cs https://github.com/Pyrdacor/Amber/commit/09fa24f211431f201d0bf66e81e0fcef5fedc2d8 https://github.com/Pyrdacor/Amber/blob/main/Amberstar.net/Amberstar.net.csproj https://github.com/Pyrdacor/Amber/commit/79fc7499ac2df1f6152c995f1484057846edf939 https://github.com/Pyrdacor/Amber/commit/15b236abf172a4beb9acda6fb087fdf05c51a4f4 https://github.com/Pyrdacor/Amber/commit/cc7aaa9d93cca43793d72b05f6053e0576ba008f",
+      "notes": "Identity: The existing Amberstar reimplementation moved its game projects, data, documentation and tests from Pyrdacor/Amber to Pyrdacor/Amberstar.net. This is a repository migration of the tracked project, not a newly promoted duplicate. Classification: Amberstar.net remains a direct C# reimplementation using legacy Amiga/Atari ST/DOS data loaders; it is not relabelled as recovered original source or a binary-derived port. Source CPU: The project loads legacy platform data but the reviewed migration and README do not establish analysis of original CPU instructions; no source CPU is inferred from Amiga, Atari ST or DOS heritage. Target CPU: The v0.1.0-alpha release publishes explicitly named win-x64 and linux-x64 assets, establishing x86-64 output for those builds only. Build: The new repository documents native AOT Windows/Linux builds, embedded English/German Amiga and Atari ST data versions, a headless runner and scenario tests. The published 0.1.0-alpha contains both x64 assets. Limitations: The README explicitly calls the project early development. The tracker did not run the release, execute scenario tests or compare gameplay/audio/video output to original hardware. Runtime profiles: Release asset names establish x86-64 output but no minimum CPU generation, RAM or Windows/Linux version; no minimum runtime profile is inferred. AI: The migration and release-workflow commits explicitly credit Claude Opus 5.5; attribution remains limited to evidenced changes. Relationships: Amberstar.net now consumes the shared Amber engine through NuGet packages. The older Pyrdacor/Amberstar research repository remains a distinct format-analysis project, while the former duplicate decision for Amberstar.net still resolves to this same tracked project after the repository direction reversed. Evidence: https://github.com/Pyrdacor/Amber/commit/77e7bbe2aa53e1088f47d94febe6a4c290df79de https://github.com/Pyrdacor/Amberstar.net/blob/d3dae6abf978193995cc02336cfe1c19379de172/README.md https://github.com/Pyrdacor/Amberstar.net/releases/tag/v0.1.0-alpha",
       "ai": {
         "usage": true,
         "tools": [
@@ -115401,7 +115406,7 @@
         "automation"
       ],
       "re_started": null,
-      "status": "Starglider 2 output remains byte-exact while six projectile-creator call contracts and their storage roles are restored; 24 orphan layout coordinates were removed, but broader semantics and minimum runtime requirements remain incomplete.",
+      "status": "Starglider 2 output remains byte-exact across 412,736 bytes while common airborne and ground launch-state contracts reduce unresolved record accesses from 219 to 207; broader semantics and minimum Amiga requirements remain open.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115422,7 +115427,9 @@
         "native reference catalogue consistency",
         "canonical custom-type prefix joining",
         "projectile creator contract recovery",
-        "orphan layout-element rejection"
+        "orphan layout-element rejection",
+        "producer-phase launch-state contract recovery",
+        "guarded actor-field ownership"
       ],
       "tags": [
         "Amiga",
@@ -115430,7 +115437,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed change advances its Starglider 2 restoration rather than creating a separate project. Classification: The change is bounded reconstruction/tooling work: canonical ancestry is used to retain a safe common custom pointer prefix without treating that prefix as proof of equal values, subtype, lifetime or complete semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: The primary change restores six recovered projectile-creator callers, types their storage roles (including type 12/25 writes and the steered-projectile path), and rejects 24 orphan layout coordinates while retaining the existing byte-exact Starglider 2 generation route. Limitations: These are upstream targeted checks and generated-output claims; the tracker did not run the generator or game, and the remaining unresolved accesses still require semantic classification. Next check: Continue classifying the remaining unresolved record accesses and qualify behavior without promoting local exactness to complete reconstruction. Runtime profiles: The reviewed creator-contract receipt does not state a minimum Amiga CPU, RAM, chipset or ROM configuration. Next check: Add a runtime profile only when primary documentation or qualified hardware/emulator testing states a concrete minimum configuration. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
+      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed change advances its Starglider 2 restoration rather than creating a separate project. Classification: The change is bounded reconstruction/tooling work: canonical ancestry is used to retain a safe common custom pointer prefix without treating that prefix as proof of equal values, subtype, lifetime or complete semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: The reviewed launch-state pass recovers 12 typed accesses across finite airborne and ground spawn tables, raising typed accesses to 2,589 and reducing unresolved record accesses to 207 while retaining the existing exact 412,736-byte output. Limitations: These are upstream generated-output and targeted semantic checks. The tracker did not run the generator or game, and BYTE 41 parameters, ground BYTE 43 writes and 264 ownership intervals remain unresolved. Next check: Continue classifying unresolved accesses and ownership intervals without promoting bounded exact generation to complete behavioral reconstruction. Runtime profiles: The reviewed restoration evidence does not state a minimum Amiga CPU, RAM, chipset or ROM configuration. Next check: Add a runtime profile only when primary documentation or qualified hardware/emulator testing states a concrete minimum configuration. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/commit/c290215f5884eeee74185c563530915f324c2684 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
       "ai": {
         "usage": true,
         "tools": [
@@ -131202,19 +131209,23 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "ND100X adds a disk-image CPU-identity editor that resolves SINTRAN symbols and segment pages from the mounted pack, ejects before patching, verifies the stored image and remounts it; upstream reports 37 focused checks.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "symbol-driven SINTRAN disk patching",
+        "eject-patch-verify-remount workflow",
+        "in-memory destructive-write testing"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: ND-100/CX full-system emulator with memory-management, storage/network peripherals, BPUN loading, disassembly and DAP debugging, maintained as a substantial nd100em continuation. Classification: Independent substantial extension: rewritten I/O and memory management, multiple frontends and debugger; author compatibility/boot claims are not independent verification. CPU and debugger headers identify GPL-2.0-or-later and README agrees; root LICENSE contains GPL-3.0 text. Preserve this mixed licensing evidence instead of claiming a clean project-wide resolution. Historical media rights are separate. Source CPU: Documented source/input platforms: Norsk Data ND-100. Processor scope: ND-100. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: README documents CMake/Make, native Linux/Windows/macOS and Emscripten/RISC-V builds. Source supplies instruction dispatch and memory management; CMake disables DAP debugging on Windows and RISC-V. External dependency submodules were not fetched. No upstream code, build, test, emulator, installer or utility was executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: No complete host CPU/RAM minimum established from inspected documentation; supported host systems are not hardware minima. AI: No explicit actual development-AI attribution found in bounded README, implementation front matter and latest commit-message inspection. Unknown rather than non-use. Relationships: Fork of tingox/nd100em 0.2.4; README names original authors and extensive changes. Optional ND-500 support integrates sibling ND500X but this remains the ND-100 system implementation. Evidence: https://github.com/RetroCoreLabs/nd100x/blob/0d5eedbc63c2ff944eed692ef51054f4d35611b3/README.md https://github.com/RetroCoreLabs/nd100x/blob/0d5eedbc63c2ff944eed692ef51054f4d35611b3/CMakeLists.txt",
+      "notes": "Identity: ND-100/CX full-system emulator with memory-management, storage/network peripherals, BPUN loading, disassembly and DAP debugging, maintained as a substantial nd100em continuation. Classification: Independent substantial extension: rewritten I/O and memory management, multiple frontends and debugger; author compatibility/boot claims are not independent verification. CPU and debugger headers identify GPL-2.0-or-later and README agrees; root LICENSE contains GPL-3.0 text. Preserve this mixed licensing evidence instead of claiming a clean project-wide resolution. Historical media rights are separate. Source CPU: Documented source/input platforms: Norsk Data ND-100. Processor scope: ND-100. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: The web UI now reads and changes SINTRAN CPU number/type, resident-page copies, generation symbols, directory stamps and segment locations through the norskdata-ndfs library. Apply ejects unit 0, patches persistent or demo storage, reads it back and remounts it; upstream reports 37 checks with writes confined to an in-memory copy. Limitations: The tracker did not run the emulator, edit a disk image or reproduce the tests. The UI warns that writes should be made with the emulated machine stopped or at the boot prompt. Runtime profiles: No complete host CPU/RAM minimum established from inspected documentation; supported host systems are not hardware minima. AI: No explicit actual development-AI attribution found in bounded README, implementation front matter and latest commit-message inspection. Unknown rather than non-use. Relationships: Fork of tingox/nd100em 0.2.4; README names original authors and extensive changes. Optional ND-500 support integrates sibling ND500X but this remains the ND-100 system implementation. Evidence: https://github.com/RetroCoreLabs/nd100x/blob/0d5eedbc63c2ff944eed692ef51054f4d35611b3/README.md https://github.com/RetroCoreLabs/nd100x/blob/0d5eedbc63c2ff944eed692ef51054f4d35611b3/CMakeLists.txt https://github.com/RetroCoreLabs/nd100x/commit/c403c02077421dac33e8571fbc14ac975a2150d7",
       "ai": {
         "usage": true,
         "tools": [
@@ -135159,19 +135170,22 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "Original Z80 development tooling now includes a headless CyborgOS platform alias and pause/state services; upstream compared 954 generated programs and platform outputs without changes outside the new platform scope.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "cross-platform generated-output regression",
+        "headless Z80 platform integration"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: VB-style BASIC compiler and browser IDE emitting Z80 stack-threaded programs with per-platform keyword libraries. Classification: ntc_compiler.js implements multi-pass type/mode/call-graph handling and thread emission; ntc_lib.asm implements arithmetic, string/control-flow keywords, interrupt safe points and stack-thread dispatch. Not just a language proposal. MIT root licence and explicit MIT headers in compiler/runtime; historical examples, benchmark inputs and bundled external material should retain separate notices. Source CPU: Architecture of historical host/guest or source-platform program, not a minimum runtime-machine claim. Target CPU: Architecture follows inspected native code/toolchain; host-side tools leave CPU unspecified. Peripheral firmware uses its microcontroller architecture. Full minimum runtime configurations were not independently verified. Build: Browser-side ES5 compiler consumes parser/library JS and outputs assembler source; runtime/platform libraries assemble with sjasmplus and support AMSDOS/CPM/Next configurations. Bundled generated examples are not clean-build proof. No upstream software was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: NTC uses SP as instruction pointer and disables interrupts inside keywords; normal mode admits them at defined safe points, turbo keeps them disabled. Feature/performance comparisons in README are author measurements and unverified. AI: Unknown: inspected primary documentation, sampled implementation/build/licence files and pinned latest full commit message provide no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/PrimalNinja/ntc/blob/6606354759c6a0a7575157bf7a1b9fdd9dc9673f/README.md https://github.com/PrimalNinja/ntc/blob/6606354759c6a0a7575157bf7a1b9fdd9dc9673f/LICENSE",
+      "notes": "Identity: NTC remains an original VB-style BASIC compiler and browser IDE emitting Z80 stack-threaded programs; the Headless Horseman target is a new platform variant within the same toolchain, not a separate project. Classification: This is substantial original retro-development tooling, not a reverse-engineered compiler. The new cyborgoshh platform inherits CyborgOS/CP/M behavior for a headless vCPC slot. Source CPU: Architecture of historical host/guest or source-platform program, not a minimum runtime-machine claim. Target CPU: Architecture follows inspected native code/toolchain; host-side tools leave CPU unspecified. Peripheral firmware uses its microcontroller architecture. Full minimum runtime configurations were not independently verified. Build: The change adds cyborgoshh to the compiler, hosted IDE, test runner and Z80 platform assembly and adds CybSys pause/state calls. Upstream reports byte-for-byte equality for the CyborgOS PS.CYB output and unchanged results across 954 existing programs/platforms. Limitations: The tracker did not run the compiler, test harness or a headless CyborgOS instance; the equality and regression totals are upstream results. Runtime profiles: The new headless vCPC/CyborgOS variant states its Z80 software environment but no minimum CPU speed, RAM, host hardware or operating-system floor; none is inferred from the platform name. AI: Unknown: inspected primary documentation, sampled implementation/build/licence files and pinned latest full commit message provide no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: cyborgoshh explicitly derives from the existing cyborgos platform and emits the same .CYB format; it remains one build target of NTC rather than an independently titled compiler project. Evidence: https://github.com/PrimalNinja/ntc/commit/4bd61350bd65ac26d0622f73ef98f55775a1d55b https://github.com/PrimalNinja/ntc/blob/4bd61350bd65ac26d0622f73ef98f55775a1d55b/README.md https://github.com/PrimalNinja/ntc/blob/6606354759c6a0a7575157bf7a1b9fdd9dc9673f/README.md https://github.com/PrimalNinja/ntc/blob/6606354759c6a0a7575157bf7a1b9fdd9dc9673f/LICENSE",
       "ai": {
         "usage": null,
         "tools": []
@@ -139593,19 +139607,22 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "Original Oric Atmos homebrew now shares one IVM bytecode generator and printer between its TPI compiler and parser, with constant-pool, accumulator and bounds checks consolidated in the same implementation.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "shared IVM bytecode generation",
+        "constant-pool and accumulator-state validation"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Experimental native text-window, cooperative-task and Unix-like shell environment for Oric Atmos. Classification: orwin.c contains window allocation, drawing, input routing, task start and scheduler implementations; oric.c abstracts direct text/charset memory and machine clock. Numerous apps and language/storage experiments are one environment, not independent records. No root licence/general reuse grant found. README explicitly reserves handwritten copyright and disclaims copyright claims over some AI-generated auxiliary apps; that statement is not a blanket licence. Source CPU: Architecture of historical host/guest or source-platform program, not a minimum runtime-machine claim. Target CPU: Architecture follows inspected native code/toolchain; host-side tools leave CPU unspecified. Peripheral firmware uses its microcontroller architecture. Full minimum runtime configurations were not independently verified. Build: Root orwin shell script generates app registries, runs cl65 twice with atmos.cfg and packages orwin.tap; separate Oscar64 and host-simulation routes are present. Script contains local paths and experimental alternatives. No upstream software was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: Cooperative event/task design, statically compiled C apps and limited windows. README marks VT compatibility, storage/telnet integration and several scripting operations unfinished. No claim of preemptive multitasking or compatibility with arbitrary binaries. AI: Explicit README AI-usage section says some app_X.c files may be Gemini-generated and author-edited, with AI also used for design/search. Main code is described as handwritten. Pinned commit has no AI trailer; scope is auxiliary apps/support, not whole implementation. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/yesco/OrWin-ATMOS/blob/386ec2266c0df4d29ec22965f0930593ec358592/ai-session https://github.com/yesco/OrWin-ATMOS/blob/386ec2266c0df4d29ec22965f0930593ec358592/app_clock.c",
+      "notes": "Identity: Experimental native text-window, cooperative-task and Unix-like shell environment for Oric Atmos. Classification: OrWin ATMOS remains substantial original Oric homebrew and development-environment work. The shared IVM generator is an internal compiler/runtime improvement and is not evidence of reverse engineering or recovered source. Source CPU: Architecture of historical host/guest or source-platform program, not a minimum runtime-machine claim. Target CPU: Architecture follows inspected native code/toolchain; host-side tools leave CPU unspecified. Peripheral firmware uses its microcontroller architecture. Full minimum runtime configurations were not independently verified. Build: The primary commit factors the IVM byte buffer, constants, accumulator mirror and emit operations into ivm-gen.c for both tpi.c and parse.c, and aligns their shared bytecode printer. Limitations: The tracker did not build the cc65 target, execute its parser/compiler or run the resulting Oric image. Runtime profiles: Cooperative event/task design, statically compiled C apps and limited windows. README marks VT compatibility, storage/telnet integration and several scripting operations unfinished. No claim of preemptive multitasking or compatibility with arbitrary binaries. AI: Explicit README AI-usage section says some app_X.c files may be Gemini-generated and author-edited, with AI also used for design/search. Main code is described as handwritten. Pinned commit has no AI trailer; scope is auxiliary apps/support, not whole implementation. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/yesco/OrWin-ATMOS/blob/386ec2266c0df4d29ec22965f0930593ec358592/ai-session https://github.com/yesco/OrWin-ATMOS/blob/386ec2266c0df4d29ec22965f0930593ec358592/app_clock.c https://github.com/yesco/OrWin-ATMOS/commit/89a400341f1be0ac55ea4016da2c68c8543870f9 https://github.com/yesco/OrWin-ATMOS/blob/89a400341f1be0ac55ea4016da2c68c8543870f9/README.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -213919,7 +213936,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Working Win32 reconstruction and SDL2 port; the scramble/cutscene change now matches the original register allocation byte for byte, while the remaining strict-byte runs and whole-project completion stay open.",
+      "status": "MAIN message functions now use standard varargs while the full 518,656-byte executable and mandatory hash remain exact; two instruction-value checks cover 1,550 functions, with documented declaration and qualifier blockers still open.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -213932,13 +213949,16 @@
         "discarded-probe recording",
         "register-lifetime probe recording",
         "byte-for-byte function matching",
-        "register-allocation matching"
+        "register-allocation matching",
+        "whole-executable hash verification",
+        "instruction-operand cross-checking",
+        "compiler-input cleanup under exactness constraints"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Recovered native Win32 Wing Commander source plus SDL2 port and original-binary comparison workflow; the current work refines matching in the same reconstruction. Classification: Incomplete byte-oriented reconstruction with a modern SDL2 port. Per-function similarity and strict byte coverage remain separate from gameplay-completeness claims. Source CPU: The reconstructed Kilrathi Saga executable remains x86 input. Target CPU: The README documents modern host operating systems but does not establish a fixed supported output CPU; none is inferred from C/C++ portability. Build: The primary commit changes the scramble cutscene implementation and associated declarations to reproduce the original register allocation byte for byte. Limitations: This is a bounded exact-match result, not proof that every remaining function, executable byte or gameplay route is complete; the tracker did not compile or compare the executable. Next check: Track closure of the remaining strict-byte runs and require a complete build/runtime claim before promoting whole-project exactness. Runtime profiles: The inspected change provides no minimum host CPU, RAM or OS profile; user-supplied game data remains required. AI: The repository explicitly documents Codex and Claude use; the current matching commit does not broaden that attribution beyond evidenced work. Relationships: The project continues to use binary-comp for verification and retains its documented historical compatibility references; the reviewed change creates no separate component. Evidence: https://github.com/neuromancer/wc1-re/commit/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0 https://github.com/neuromancer/wc1-re/commit/43299bf5742aee892d7159de0f97347ebad1b672 https://github.com/neuromancer/wc1-re/blob/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0/README.md",
+      "notes": "Identity: Recovered native Win32 Wing Commander source plus SDL2 port and original-binary comparison workflow; the current work refines matching in the same reconstruction. Classification: Incomplete byte-oriented reconstruction with a modern SDL2 port. Per-function similarity and strict byte coverage remain separate from gameplay-completeness claims. Source CPU: The reconstructed Kilrathi Saga executable remains x86 input. Target CPU: The README documents modern host operating systems but does not establish a fixed supported output CPU; none is inferred from C/C++ portability. Build: The change replaces manual stack traversal in two MAIN message functions with va_list/va_start/vsprintf/va_end and removes two redundant copies. Upstream reports both instruction-value checks covering 1,550 functions with no mismatches or skips and the complete 518,656-byte executable retaining its mandatory hash. Limitations: The tracker did not compile or hash the executable. The commit records remaining header, prototype, qualifier and word-copy blockers; normalized byte reports alone missed an operand swap, so full-file and detailed operand checks remain necessary. Next check: Continue the ordered MAIN cleanup and retain mandatory executable hashing plus detailed operand checks for every accepted source change. Runtime profiles: The inspected change provides no minimum host CPU, RAM or OS profile; user-supplied game data remains required. AI: The repository explicitly documents Codex and Claude use; the current matching commit does not broaden that attribution beyond evidenced work. Relationships: The project continues to use binary-comp for verification and retains its documented historical compatibility references; the reviewed change creates no separate component. Evidence: https://github.com/neuromancer/wc1-re/commit/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0 https://github.com/neuromancer/wc1-re/commit/43299bf5742aee892d7159de0f97347ebad1b672 https://github.com/neuromancer/wc1-re/commit/77c4b4f1af41dd929868b1544005b2b753112a6a https://github.com/neuromancer/wc1-re/blob/e4f4f7085ca5f06c18e20f3d0c71b1022b505ed0/README.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -225567,7 +225587,7 @@
         "source-reconstruction"
       ],
       "re_started": null,
-      "status": "Scoped PC-98 reconstruction now accepts 33 OP extents / 32 procedures / 4,370 owned bytes, including 487 initialized DATA bytes with actual-consumer and mutation contracts; whole-product source/link ownership remains open.",
+      "status": "MAINL gains source-present DOS exception throw and global-unwind recovery covering 2,524 original bank bytes, but adds zero exact bytes; candidate size, EFLAGS and whole-TU gaps remain explicit.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -225583,13 +225603,16 @@
         "scoped launcher and transfer acceptance",
         "product-specific renderer and sound ownership",
         "initialized-data ownership contracts",
-        "actual-consumer mutation coverage"
+        "actual-consumer mutation coverage",
+        "DOS exception ABI recovery",
+        "bounded global-unwind reconstruction",
+        "raw context-register probing"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Scoped source recovery of MAIN, OP, MAINL and ZUN artifacts. README separates exact owned functions from source-present work and says whole-game reconstruction remains unfinished. The new candidates remain within the same scoped MAIN/OP/MAINL/ZUN recovery; neither controlled layout experiments nor candidate bodies expand the exact-function ledger. Classification: Scope: source-reconstruction / game. Primary README, repository file layout and selected implementation files were reviewed. Source CPU: Documented input architecture: x86. Target CPU: Target architecture x86. Host ports and minimum variants are not inferred from source CPU. Build: Upstream accepts OP's complete 487-byte initialized entry DATA contribution alongside 3,883 CODE bytes. The scope checks public boundaries, raw bytes, semantic declarations, 94 consumer entries per image/load and 3,769 single-bit mutations across 472 consumed bytes; it adds zero procedures and leaves six non-file-backed BSS bytes separate. Limitations: The tracker did not run the 2,413-test suite or rebuild the product. Physical output, hardware/DOS behavior, successful executable replacement and whole-product ownership remain explicitly open. Runtime profiles: The new scoped acceptance material adds no verified minimum PC-98 CPU, RAM or peripheral requirement. AI: Project-scoped agent instructions/configuration provide an AI-use signal; the particular agent is not inferred. Relationships: Checked current catalogue, source and decision URLs and related titles. Scoped source recovery of MAIN, OP, MAINL and ZUN artifacts. README separates exact owned functions from source-present work and says whole-game reconstruction remains unfinished. Evidence: https://github.com/N0zoM1z0/th03 https://github.com/N0zoM1z0/th03/blob/HEAD/README.md https://github.com/N0zoM1z0/th03/commit/0285623896adc8ecc5bf4ba8359b345a4a01cd84 https://github.com/N0zoM1z0/th03/commit/9f950dacbc46e65649f90ded29e494c8a5c3b253 https://github.com/N0zoM1z0/th03/commit/df4b1071c1e8312d85f1b0c978c1c99cc8396967 https://github.com/N0zoM1z0/th03/commit/932eb1533adfb1df62d049c398f35153862cabdf https://github.com/N0zoM1z0/th03/commit/478db34 https://github.com/N0zoM1z0/th03/commit/f246274 https://github.com/N0zoM1z0/th03/commit/bcdf24a5987d9edad9e3de6cb40a5390104eade6",
+      "notes": "Identity: Scoped source recovery of MAIN, OP, MAINL and ZUN artifacts. README separates exact owned functions from source-present work and says whole-game reconstruction remains unfinished. The new candidates remain within the same scoped MAIN/OP/MAINL/ZUN recovery; neither controlled layout experiments nor candidate bodies expand the exact-function ledger. Classification: Scope: source-reconstruction / game. Primary README, repository file layout and selected implementation files were reviewed. Source CPU: Documented input architecture: x86. Target CPU: Target architecture x86. Host ports and minimum variants are not inferred from source CPU. Build: The review resolves 2,446 instruction bytes plus 78 compiler-generated exception-handling bytes across eight far procedures, with native BCC 4.5/TASM/TLINK rounds and focused 386 context/unwind probes. Accepted MAINL ownership remains 211 extents, 288 procedures and 36,946 bytes, so this adds source presence but zero new exact bytes. Limitations: The candidate bank remains raw-different, the saved EFLAGS probe differs (0x80 versus original 0x84), the 16-bit resume branch and complete throw/catch lifecycle were not executed, and this is not a complete translation unit or whole-game result. Next check: Recover the remaining front jump/name and tail RTTI functions, integrate the full translation unit, and resolve the code-generation, frame and storage gaps. Runtime profiles: The new scoped acceptance material adds no verified minimum PC-98 CPU, RAM or peripheral requirement. AI: Project-scoped agent instructions/configuration provide an AI-use signal; the particular agent is not inferred. Relationships: Checked current catalogue, source and decision URLs and related titles. Scoped source recovery of MAIN, OP, MAINL and ZUN artifacts. README separates exact owned functions from source-present work and says whole-game reconstruction remains unfinished. Evidence: https://github.com/N0zoM1z0/th03 https://github.com/N0zoM1z0/th03/blob/HEAD/README.md https://github.com/N0zoM1z0/th03/commit/0285623896adc8ecc5bf4ba8359b345a4a01cd84 https://github.com/N0zoM1z0/th03/commit/9f950dacbc46e65649f90ded29e494c8a5c3b253 https://github.com/N0zoM1z0/th03/commit/df4b1071c1e8312d85f1b0c978c1c99cc8396967 https://github.com/N0zoM1z0/th03/commit/932eb1533adfb1df62d049c398f35153862cabdf https://github.com/N0zoM1z0/th03/commit/478db34 https://github.com/N0zoM1z0/th03/commit/f246274 https://github.com/N0zoM1z0/th03/commit/eb7b6f45d5722b19ea8c94596382a49145ec5554 https://github.com/N0zoM1z0/th03/blob/eb7b6f45d5722b19ea8c94596382a49145ec5554/docs/MAINL_XX_THROW_REVIEW.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -227488,11 +227511,18 @@
       "source_platforms": [
         "DOS"
       ],
-      "target_platforms": [],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS",
+        "Browser host"
+      ],
       "source_cpu": [
         "x86"
       ],
-      "target_cpu": [],
+      "target_cpu": [
+        "x86-64"
+      ],
       "runtime_profiles": [],
       "execution_paths": null,
       "source_language": [],
@@ -227511,19 +227541,24 @@
         "source-restoration"
       ],
       "re_started": null,
-      "status": "1995 DOS source with modern compatibility layer and Zig build recipes. README distinguishes compilation success from incomplete SDL/audio and potentially crashing stub runtime.",
+      "status": "The preserved 1995 DOS source now ships playable Linux, Windows x64, macOS and web ports plus a compatible level editor; differential fuzzing also corrected the documented same-turn arrow/glass rule.",
       "build": {
-        "compilable": null,
-        "runnable": null,
-        "playable": null,
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "DOS compatibility-layer preservation",
+        "cross-platform Zig/SDL2 porting",
+        "differential gameplay-rule fuzzing",
+        "byte-exact level-format round trips"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: 1995 DOS source with modern compatibility layer and Zig build recipes. README distinguishes compilation success from incomplete SDL/audio and potentially crashing stub runtime. Classification: Scope: source-restoration / game. Primary README, repository file layout and selected implementation files were reviewed. Source CPU: Documented input architecture: x86. Target CPU: No fixed output CPU established in this pass. Build: Source/analysis artifacts inspected; author build or matching claims are attributed. No candidate software was compiled, executed or byte-compared. Runtime profiles: No independently verified runtime profile. Any explicit author limitation is retained in the identity note. AI: No AI-use disclosure established from inspected evidence; non-use is not inferred. Relationships: Checked current catalogue, source and decision URLs and related titles. 1995 DOS source with modern compatibility layer and Zig build recipes. README distinguishes compilation success from incomplete SDL/audio and potentially crashing stub runtime. Evidence: https://github.com/LaPingvino/The-Puzzle-Pits https://github.com/LaPingvino/The-Puzzle-Pits/blob/HEAD/README.md",
+      "notes": "Identity: The project remains a source-restoration and compatibility port of Abe Pralle's 1995 DOS game. Current releases, browser build and editor are maintained within the same project. Classification: This is preserved original source with modern compatibility layers and native/browser ports, not a binary-derived reconstruction. The Rocks'n'Diamonds engine is related but remains a separate downstream implementation. Source CPU: Documented input architecture: x86. Target CPU: The README gives an explicit x86_64 Windows cross-build and publishes Windows/Linux x64 releases. No CPU is inferred for the macOS or browser outputs. Build: The README documents Zig 0.17/SDL2 builds, downloadable playable releases, a web build and editor, and a byte-for-byte level-format round-trip test. The changed rule note records a differential-fuzzing finding for blue-pull/green-return interactions with same-turn arrows and glass. Limitations: The tracker did not compile or play the ports, run the format test or reproduce the differential fuzzing. Level-file round trips do not establish byte identity for the game executable. Runtime profiles: The README names SDL2 and release platforms but gives no minimum CPU generation, RAM or operating-system version. x86-64 release architecture is recorded as an output CPU, not a minimum hardware profile. AI: The gameplay-rule commit explicitly credits Claude Opus 5.5 as co-author; attribution is limited to evidenced work. Relationships: The project preserves the DOS source and supplies the modern ports/editor. rocksndiamonds-pits is a separately described downstream rules implementation and is not merged into this record. Evidence: https://github.com/LaPingvino/The-Puzzle-Pits/commit/a80fdf24446f4740aca1ca02702bbc50eac4083e https://github.com/LaPingvino/The-Puzzle-Pits/blob/a80fdf24446f4740aca1ca02702bbc50eac4083e/README.md https://github.com/LaPingvino/The-Puzzle-Pits https://github.com/LaPingvino/The-Puzzle-Pits/blob/HEAD/README.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -326363,16 +326398,19 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "status": "Wizardry VII reconstruction now routes maze sounds through a recovered semantic C routine; the pinned README reports 271 of 1,099 routines in C (24.7%), with full C conversion still open.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "semantic C replacement under assembly comparison",
+        "sound-route recovery"
+      ],
       "tags": [],
-      "notes": "Identity: Wizardry VII — PHOONZANG staged C reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Layout-oriented assembly reconstruction gradually replaced by semantic C routines. Inspected spell-selection dialog using named structures and original UI functions, not instruction dispatch. Source CPU: Documented original ISA: x86. Target CPU: Documented target instruction sets: x86. Build: Manx Aztec 4.2b via DOSBox plus NASM; original DSAVANT files required. Upstream reports 268/1226 routines, 21.9 percent C coverage. Remaining assembly is not a complete high-level C port; byte comparisons not independently rerun. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README explicitly integrates a Claude reversing agent; source judgments remain bounded by actual inspected routines. Relationships: Repository also contains disassembler/debugger tooling, but substantial named Wizardry VII recovery earns a subject entry. Evidence: https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/README.md https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/src_DSAVANT/vtrea/spell_select_dialog.c",
+      "notes": "Identity: Wizardry VII — PHOONZANG staged C reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Layout-oriented assembly reconstruction gradually replaced by semantic C routines. Inspected spell-selection dialog using named structures and original UI functions, not instruction dispatch. Source CPU: Documented original ISA: x86. Target CPU: Documented target instruction sets: x86. Build: The commit replaces the named maze-sound assembly body with C that preserves direct sound IDs and replaceable slot 16 behavior. The pinned README reports 271 of 1,099 routines in C (24.7%) and retains the Manx Aztec/NASM comparison workflow. Limitations: The tracker did not run DOSBox, rebuild DSAVANT or reproduce byte comparisons. The reported coverage is upstream and does not establish a complete high-level port. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README explicitly integrates a Claude reversing agent; source judgments remain bounded by actual inspected routines. Relationships: Repository also contains disassembler/debugger tooling, but substantial named Wizardry VII recovery earns a subject entry. Evidence: https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/README.md https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/src_DSAVANT/vtrea/spell_select_dialog.c https://github.com/ldkeeton/phoonzang/commit/ea7fe37f0854353c627bde6cf3edd13fe5530e08 https://github.com/ldkeeton/phoonzang/blob/ea7fe37f0854353c627bde6cf3edd13fe5530e08/README.md",
       "ai": {
         "usage": true,
         "tools": [
