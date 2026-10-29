@@ -1490,3 +1490,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-29 — Review eleven material upstream changes across reconstruction fidelity, decompilation, emulator determinism, release safety and tooling.
 
 [Research record](docs/research/maintenance-2026-10-29-am-reconstruction-emulation-fidelity.md).
+
+## 2026-10-29 — Review ten material upstream changes across reconstruction fidelity, decompilation, ports, networking and original-hardware evidence.
+
+[Research record](docs/research/maintenance-2026-10-29-pm-upstream-fidelity-and-runtime-evidence.md).
