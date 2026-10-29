@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-29T06:10:15Z",
+  "updated_at": "2026-10-29T06:18:18Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -10111,7 +10111,7 @@
         "game reimplementation"
       ],
       "re_started": null,
-      "status": "Early Amberstar reimplementation now integrates fight-or-flee choice, encounter triggering, battle outcomes, loot, defeated-monster removal and rescue/game-over handling; no complete-game claim.",
+      "status": "Amberstar framework now loads English Amiga data, reproduces Amiga outro pictures/copper gradients and handles Amiga COSO/TFMX music and samples, including the seven-voice outro path; complete-game parity is not claimed.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -10120,7 +10120,10 @@
       },
       "techniques": [
         "direct gameplay implementation",
-        "scenario-driven battle regression"
+        "scenario-driven battle regression",
+        "Amiga copper-gradient reconstruction",
+        "COSO and TFMX module playback",
+        "legacy outro data decoding"
       ],
       "tags": [
         "prototype",
@@ -10129,7 +10132,7 @@
         "macOS",
         "Android"
       ],
-      "notes": "Identity: The shared Amber framework and Amberstar implementation remain one early reimplementation project. Current work adds an integrated encounter/battle/loot/defeat slice without claiming game completion. Classification: This remains direct C# gameplay and data-framework reimplementation, not recovered source or a binary-derived port claim. Source CPU: Reviewed project documentation identifies legacy Atari ST, Amiga, DOS data or game heritage, but does not establish analyzed original CPU instructions; architecture is not inferred from the platform alone. Target CPU: Reviewed source/build documentation names platforms or language/runtime but no explicit output CPU architecture; no target CPU is inferred from Java, C#, C/C++, or a portable framework. Build: Upstream adds fight-or-flee confirmation, chance-based fleeing, monster advantage, encounter activation when the party is reached, loot display, monster removal after victory, and Shandra rescue or game-over after defeat, with scenario tests and scripting commands. The tracker did not compile or play the project; build/run/play flags remain unknown. Runtime profiles: The gameplay slice adds no explicit minimum host CPU, RAM, OS or mobile-device profile. AI: The inspected commit explicitly credits Claude Opus 5.5, supporting the existing Claude development attribution. Relationships: Exact root absent; related Ambermoon projects known, but Amberstar game and Amber framework are distinct work. Keep the shared framework and Amberstar under one root, separate from Ambermoon.net. Evidence: https://github.com/Pyrdacor/Amber/blob/main/README.md https://github.com/Pyrdacor/Amber/blob/main/Amberstar.Game/Game.cs https://github.com/Pyrdacor/Amber/commit/09fa24f211431f201d0bf66e81e0fcef5fedc2d8 https://github.com/Pyrdacor/Amber/blob/main/Amberstar.net/Amberstar.net.csproj",
+      "notes": "Identity: The shared Amber framework and Amberstar implementation remain one early reimplementation project. Current work adds an integrated encounter/battle/loot/defeat slice without claiming game completion. Classification: This remains direct C# gameplay and data-framework reimplementation, not recovered source or a binary-derived port claim. Source CPU: Reviewed project documentation identifies legacy Atari ST, Amiga, DOS data or game heritage, but does not establish analyzed original CPU instructions; architecture is not inferred from the platform alone. Target CPU: Reviewed source/build documentation names platforms or language/runtime but no explicit output CPU architecture; no target CPU is inferred from Java, C#, C/C++, or a portable framework. Build: The reviewed series adds English Amiga data, original-style map-song selection, sampled Amiga music, EXTRO.UDO pictures with 15-step copper-gradient fades, and COSO/TFMX playback including the seven-voice Amiga outro. Limitations: The tracker did not run the game or compare audio/video output to original Amiga hardware; these bounded data, outro and player paths do not establish complete-game parity. Next check: Track scenario tests and original-output comparisons for the expanded Amiga-specific paths. Runtime profiles: The gameplay slice adds no explicit minimum host CPU, RAM, OS or mobile-device profile. AI: The inspected commit explicitly credits Claude Opus 5.5, supporting the existing Claude development attribution. Relationships: Exact root absent; related Ambermoon projects known, but Amberstar game and Amber framework are distinct work. Keep the shared framework and Amberstar under one root, separate from Ambermoon.net. Evidence: https://github.com/Pyrdacor/Amber/blob/main/README.md https://github.com/Pyrdacor/Amber/blob/main/Amberstar.Game/Game.cs https://github.com/Pyrdacor/Amber/commit/09fa24f211431f201d0bf66e81e0fcef5fedc2d8 https://github.com/Pyrdacor/Amber/blob/main/Amberstar.net/Amberstar.net.csproj https://github.com/Pyrdacor/Amber/commit/79fc7499ac2df1f6152c995f1484057846edf939 https://github.com/Pyrdacor/Amber/commit/15b236abf172a4beb9acda6fb087fdf05c51a4f4 https://github.com/Pyrdacor/Amber/commit/cc7aaa9d93cca43793d72b05f6053e0576ba008f",
       "ai": {
         "usage": true,
         "tools": [
@@ -10158,8 +10161,21 @@
       "source_cpu": [
         "m68000"
       ],
-      "target_cpu": null,
-      "runtime_profiles": null,
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Atari ST port",
+          "platform": "Atari ST",
+          "cpu_family": "m68k",
+          "min_ram_kib": 2048,
+          "notes": "Primary port documentation states that Hatari configured as an STE works, a plain ST also works, and at least 2 MB RAM is required. This is an upstream documented minimum, not tracker-side physical-hardware validation.",
+          "evidence": [
+            "https://github.com/Pyrdacor/Ambermoon/commit/9eae91ea17f4e5a0fa4b78f5921c2dee8aac5b05"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "m68k machine code"
@@ -10183,7 +10199,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "v1.22 game and Tools 1.19 published; development head adds AmbermoonImageEditor to the next cross-platform tool package",
+      "status": "The Atari ST port now carries its unpacked original player/song data in-tree, no longer needs ORIGINAL at build time, and has accepted conversions for the documented Amiga song set through song 32; tracker-side build and listening tests were not performed.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -10195,14 +10211,17 @@
         "format decoding",
         "source restoration",
         "recovered-source build",
-        "native asset painting and palette editing"
+        "native asset painting and palette editing",
+        "Pack-Ice music extraction",
+        "Amiga-to-Atari-ST music conversion",
+        "song-specific conversion overrides"
       ],
       "tags": [
         "game",
         "amber",
         "68k"
       ],
-      "notes": "Ambermoon v1.21 now ships AM2_CPU and the loader built from Jurie Horneman's original source plus restored missing kernel, 3D-renderer and music-player parts and subsequent fixes. The release fixes plain-68000 odd-size decompression and several memory, loader, conversation and gameplay faults; the tools release workflow publishes Windows, Linux and Amiga artifacts. These are upstream source-build/release claims, not an independent rebuild or byte comparison. Evidence: https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.21 https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.18 The current release baseline is Ambermoon v1.22 and Tools v1.19. Development head adds the separately titled AmbermoonImageEditor paint program for PNG, BMP and Ambermoon Amiga graphics and wires it into the Windows, Linux and Amiga tool-package workflow. It remains a component of the repository's versioned Ambermoon tool suite rather than a separately released project, so no duplicate project record is added. Evidence: https://github.com/Pyrdacor/Ambermoon/releases/tag/game-v1.22 https://github.com/Pyrdacor/Ambermoon/releases/tag/tools-v1.19 https://github.com/Pyrdacor/Ambermoon/commit/ebaf2d63b05ee718b97a61f531a2c6c00857b399",
+      "notes": "Identity: Seeded from curated upstream_name/display_title/subjects. Classification: Seeded from record_class and structured kind fields. Source CPU: The v1.21 changelog explicitly identifies a plain-68000 decompression fault and source-built Amiga program, reinforcing the existing m68000 source-architecture record without asserting a RAM minimum. Target CPU: The Atari ST port documentation explicitly identifies its retained player as 68000 code and builds a runnable ST output, establishing an m68k output architecture without broadening compatibility beyond the documented port. Build: The port stores the unchanged 8,314-byte ST player and split song data in port/MUSIC, removes the build-time ORIGINAL dependency, and records accepted conversions across the subsequently reviewed song commits through Game Over (song 32). Limitations: Acceptance is upstream listening/conversion evidence. The tracker did not rebuild the port, compare generated player bytes or audit audible parity for each song. Next check: Follow reproducible port builds and retain per-song acceptance separately from complete music or game parity. Runtime profiles: The Atari ST port documentation explicitly states that an STE or plain ST works with at least 2 MB RAM; no narrower CPU model, ROM revision or physical-hardware test is inferred. AI: The v1.21 changelog/source-build commit has an explicit Claude Opus 5.5 co-author trailer; AI usage is affirmative but its extent is not inferred. Relationships: AmbermoonImageEditor was reviewed as a separately titled repository component, but it is documented, built and versioned inside the Ambermoon Tools suite rather than released as an independent project. Existing separate records for Ambermoon source restoration and Ambermoon.net remain distinct. Evidence: https://github.com/Pyrdacor/Ambermoon/blob/master/README.md https://github.com/Pyrdacor/Ambermoon/commit/faca6448dea37b24d59a161d4680583822812d7b https://github.com/Pyrdacor/Ambermoon/commit/9eae91ea17f4e5a0fa4b78f5921c2dee8aac5b05 https://github.com/Pyrdacor/Ambermoon/commit/620c782ee1c8bc89621f9bdbe03a8e9a6c856d9e https://github.com/Pyrdacor/Ambermoon/commit/ebaf2d63b05ee718b97a61f531a2c6c00857b399 https://github.com/Pyrdacor/Ambermoon/blob/master/Tools/README.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -15554,19 +15573,22 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "active; current main drives an Ameristar A2065 on physical Amiga 3000 hardware; no independent local build/run",
+      "status": "AmiNetXDuo now pins reviewed NetX Duo TCP corrections for FIN acknowledgement, recovery boundaries/timers and DATA/FIN SACK recovery; the existing physical A3000/A2065 profile remains the only measured tracker runtime profile.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "pinned upstream TCP recovery integration",
+        "SACK DATA/FIN recovery"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Independent bsdsocket.library implementation for classic AmigaOS backed by hosted ThreadX/NetX Duo, SANA-II network drivers and command-line networking clients. Classification: Substantial native socket lifecycle/descriptor handling and cooperative Exec/ThreadX integration; code-level original ABI implementation rather than redistributed Roadshow/AmiTCP code. Current1.0.0-rc1; Pi Wi-Fi driver experimental and hardware coverage varies. MIT main stack and ThreadX/NetX; exceptions include BSD-2 NE2000 code, Dropbear MIT-style, separate Commodore/Sylvan Installer notices, MPL2 CA roots/WiFiPi and BSD WirelessManager. README licence table pins their scopes. Source CPU: No predecessor machine-code input or processor-specific source architecture is established; no CPU is inferred from the host language. Target CPU: Documented output/support targets: Amiga. Processor scope: m68k. Build: CMake3.20+, m68k-amigaos toolchain and recursive pinned ThreadX/NetX Duo and other submodules. CPU any defaults68000 with selected per-CPU loops; configurable full/minimal/micro/fat stack. No upstream software was compiled or executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: AmigaOS2.04+,68000+,~1MB RAM and SANA-II hardware; fat stack68020+. Ordinary classic68k ABI, not a generic AROS/MorphOS/OS4 port. AI: Pinned HEAD commit explicitly carries Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. This supports AI-assisted contribution to that commit; extent across the complete implementation is not established. Relationships: Original published-ABI implementation atop maintained ThreadX/NetX Duo forks; not a fork of proprietary Roadshow, Miami or AmiTCP. Evidence: https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/README.md https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/docs/DEVELOPMENT.md Current main adds the Ameristar A2065 identity and fixes LANCE chip addressing at $8000 plus BSWP handling that emulators had masked. Upstream reports a physical Amiga 3000/Ameristar board obtaining DHCP, answering ping/TCP and completing traffic without errors, resets or transmit wedges. This is a verified configuration, not a minimum CPU/RAM or all-hardware compatibility claim. Evidence: https://github.com/tinic/AmiNetXDuo/commit/dfed6d9c77ab5d8a3b5aff438d5eb322f7745546 https://github.com/tinic/AmiNetXDuo/commit/fce3575311d97f0bb13414cef3b97bbd026c6640 https://github.com/tinic/AmiNetXDuo/commit/64aa0de7024fad44d7af698e6dfac2f17ff02996",
+      "notes": "Identity: Independent bsdsocket.library implementation for classic AmigaOS backed by hosted ThreadX/NetX Duo, SANA-II network drivers and command-line networking clients. Classification: Substantial native socket lifecycle/descriptor handling and cooperative Exec/ThreadX integration; code-level original ABI implementation rather than redistributed Roadshow/AmiTCP code. Current1.0.0-rc1; Pi Wi-Fi driver experimental and hardware coverage varies. MIT main stack and ThreadX/NetX; exceptions include BSD-2 NE2000 code, Dropbear MIT-style, separate Commodore/Sylvan Installer notices, MPL2 CA roots/WiFiPi and BSD WirelessManager. README licence table pins their scopes. Source CPU: No predecessor machine-code input or processor-specific source architecture is established; no CPU is inferred from the host language. Target CPU: Documented output/support targets: Amiga. Processor scope: m68k. Build: The project advances its pinned NetX Duo dependency through reviewed FIN acknowledgement, retransmission-boundary/timer and DATA/FIN SACK recovery corrections. Limitations: The reviewed top-level commits pin dependency revisions; the tracker did not run TCP fault-injection tests or repeat the physical Amiga network test. Next check: Retain the physical A3000/A2065 profile and seek end-to-end recovery evidence before broadening runtime or interoperability claims. Runtime profiles: A physical Amiga 3000 with an Ameristar A2065 is now an upstream-tested configuration. No CPU generation or RAM floor is inferred from the machine model. AI: Pinned HEAD commit explicitly carries Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. This supports AI-assisted contribution to that commit; extent across the complete implementation is not established. Relationships: Original published-ABI implementation atop maintained ThreadX/NetX Duo forks; not a fork of proprietary Roadshow, Miami or AmiTCP. Evidence: https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/README.md https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/docs/DEVELOPMENT.md https://github.com/tinic/AmiNetXDuo/commit/2c24ac1f4950fed9c9c5c1ff19f399f8abede33b https://github.com/tinic/AmiNetXDuo/commit/73055cf88246d8d97e54d7269f48e89cf705849e https://github.com/tinic/AmiNetXDuo/commit/d3734d57e5a0198b6294682f82a1d3c8adb7c651 https://github.com/tinic/AmiNetXDuo/commit/fce3575311d97f0bb13414cef3b97bbd026c6640",
       "ai": {
         "usage": true,
         "tools": [
@@ -73688,7 +73710,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "Firestaff now rescans authenticated game data after folder access is granted or repaired, keeping launcher access ownership separate from the runtime; full campaign and presentation parity remain open.",
+      "status": "Authenticated Nexus evidence now carries a retained retail BKR through Continue into a four-champion dungeon view, while FM Towns DM2 traces cover startup source frames; Firestaff-side Continue loading, HUD/viewport and presentation parity remain unimplemented or unverified.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73741,7 +73763,10 @@
         "native FM Towns RLE decoding",
         "authenticated graphics regression",
         "post-permission authenticated-media rescan",
-        "launcher/runtime access-owner separation"
+        "launcher/runtime access-owner separation",
+        "authenticated save-image replay",
+        "VDP source-span verification",
+        "startup source-frame tracing"
       ],
       "tags": [
         "game engine",
@@ -73750,7 +73775,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Identity: Firestaff remains a clean-room Dungeon Master-family engine using authenticated original media across documented platform variants. Classification: Clean-room cross-platform engine reconstruction. Launcher and source-trace receipts are bounded verification evidence, not proof of full campaign, display, audio or save parity. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: The primary change adds a regression for selecting an inaccessible data folder, granting access, rescanning it and discovering Dungeon Master media while preserving a separate runtime access owner. Limitations: This upstream test covers launcher recovery and media discovery, not native display, input, audio or complete campaign parity; the tracker did not execute it. Next check: Continue authenticated campaign and presentation validation while preserving platform- and checkpoint-specific limits. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: DM1, Chaos Strikes Back, DM2, Nexus and Theron's Quest remain variants within the same source-faithful engine effort, with their evidence limits kept distinct. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md",
+      "notes": "Identity: Firestaff remains a clean-room Dungeon Master-family engine using authenticated original media across documented platform variants. Classification: Clean-room cross-platform engine reconstruction. Launcher and source-trace receipts are bounded verification evidence, not proof of full campaign, display, audio or save parity. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: A hash-retained Japanese retail BKR was replayed in Ymir 0.4.2-dev from cold boot through Continue to a four-champion dungeon view, and a paired Up-input replay changed the rendered view. Separate FM Towns DM2 work records every startup source frame used during Timer-A catch-up. Limitations: The Nexus replay verifies a retail reference flow in Ymir, not Firestaff's Continue implementation or input parity. The source-frame trace is diagnostic and does not establish native FM Towns presentation parity. Next check: Bind the cold-boot BKR scan/load path and compare Firestaff Continue, HUD, viewport and startup presentation against the authenticated references. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: DM1, Chaos Strikes Back, DM2, Nexus and Theron's Quest remain variants within the same source-faithful engine effort, with their evidence limits kept distinct. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/commit/07f371b437cc0e2ed02082beaec2598d58eab80e https://github.com/yeager/firestaff/commit/6bd8bddac9ed6c82befa3a3f2949ee5540816105",
       "ai": {
         "usage": true,
         "tools": [
@@ -176775,7 +176800,7 @@
         "multi-platform port"
       ],
       "re_started": null,
-      "status": "ZX Spectrum disassembly now underpins v1.1.0 distribution builds for Aquarius+, Z88, Mitsubishi Multi 8, PC-8801 and SAM Coupé; tracker-side build/run not performed.",
+      "status": "The shared Z80 reconstruction adds scenario disasters, square minimaps for PC-88 and Multi 8, and Aquarius+ 4bpp minimap plus text-layer menus, dialogs, budget and evaluation screens; Aquarius+ display details remain hardware-unverified.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -176784,7 +176809,10 @@
       },
       "techniques": [
         "shared simulation with platform-specific display, input, sound and file layers",
-        "multi-target distribution packaging"
+        "multi-target distribution packaging",
+        "shared multi-platform Z80 UI adaptation",
+        "Aquarius+ bitmap/text-layer integration",
+        "scenario disaster reconstruction"
       ],
       "tags": [
         "ZX Spectrum",
@@ -176794,7 +176822,7 @@
         "PC-8801",
         "SAM Coupé"
       ],
-      "notes": "Identity: The repository is now a multi-platform Sim City port rooted in the ZX Spectrum disassembly. The v1.1.0 distribution target packages separately documented Aquarius+, Z88, Mitsubishi Multi 8, PC-8801 and SAM Coupé outputs; these are one shared implementation, not separate projects. Classification: README documentation says the original simulation is retained while each machine rewrites screen, keyboard, sound and file handling. This is a disassembly-derived multi-platform port rather than analysis-only work. Source CPU: The existing Z80 source-CPU decision remains tied to the inspected ZX Spectrum disassembly; the new ports do not change that historical input architecture. Target CPU: The reviewed distribution and per-machine documentation establish output platforms but do not explicitly establish a processor architecture for every produced variant. No target CPU is inferred from platform names, z88dk or shared source. Build: The new Make dist target and make_dist.py create runnable distribution archives with machine-specific launch files and README material for Aquarius+, Z88, Mitsubishi Multi 8, PC-8801 and SAM Coupé; GitHub also publishes v1.1.0 as a multi-platform release. compilable/runnable are upstream-supported claims only: the tracker did not build, launch or play any package. Runtime profiles: Per-platform documentation records media, display, audio and file-system behavior, but the reviewed change does not state verified minimum CPU, RAM, ROM or machine revisions. No runtime minimum is inferred. AI: No explicit development-AI disclosure was found in the reviewed commit and distribution documentation; non-use is not established. Relationships: The five new output packages share the same repository, retained simulation and disassembly lineage. They remain one catalogue project rather than five inflated records. Evidence: https://github.com/suborb/simcity_z80/commit/3409dc87b3a117a79378c93c2388ff6c3be27d25",
+      "notes": "Identity: The repository is now a multi-platform Sim City port rooted in the ZX Spectrum disassembly. The v1.1.0 distribution target packages separately documented Aquarius+, Z88, Mitsubishi Multi 8, PC-8801 and SAM Coupé outputs; these are one shared implementation, not separate projects. Classification: README documentation says the original simulation is retained while each machine rewrites screen, keyboard, sound and file handling. This is a disassembly-derived multi-platform port rather than analysis-only work. Source CPU: The existing Z80 source-CPU decision remains tied to the inspected ZX Spectrum disassembly; the new ports do not change that historical input architecture. Target CPU: The reviewed distribution and per-machine documentation establish output platforms but do not explicitly establish a processor architecture for every produced variant. No target CPU is inferred from platform names, z88dk or shared source. Build: The reviewed commits implement scenario-triggered animated disasters, share square minimaps across PC-88 and Multi 8, and move Aquarius+ menus, dialogs, budget, evaluation and title screens to its text layer over the bitmap display. Limitations: The Aquarius+ commit explicitly leaves text transparency, popup colour and border remapping unverified on hardware. The tracker did not build or run any target. Next check: Seek hardware evidence for the Aquarius+ layer composition while keeping platform-specific UI verification separate. Runtime profiles: Per-platform documentation records media, display, audio and file-system behavior, but the reviewed change does not state verified minimum CPU, RAM, ROM or machine revisions. No runtime minimum is inferred. AI: No explicit development-AI disclosure was found in the reviewed commit and distribution documentation; non-use is not established. Relationships: The five new output packages share the same repository, retained simulation and disassembly lineage. They remain one catalogue project rather than five inflated records. Evidence: https://github.com/suborb/simcity_z80/commit/3409dc87b3a117a79378c93c2388ff6c3be27d25 https://github.com/suborb/simcity_z80/commit/97f40874c6562127070f51a221ce85f34d835c51 https://github.com/suborb/simcity_z80/commit/db283d373fc1b10ed7aa0a4bc97c21d8b78ae959 https://github.com/suborb/simcity_z80/commit/904f6309b70d00024c1a159ee6afd23a951f949b",
       "ai": {
         "usage": null,
         "tools": []
@@ -220046,7 +220074,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Apple IIe 6502/Z80 SoftCard environment; current source fixes CP/M file truncation and directory search, caches terminal personality for faster output, and makes tab switching interrupt DIR/TYPE. Independent build/run not performed.",
+      "status": "The Apple IIe/SoftCard environment now exposes kernel-managed W5100 socket and packetless TX/RX APIs, migrates Telnet to the kernel interface and adds a first working WGET client; network execution was not independently repeated.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -220056,13 +220084,15 @@
       "techniques": [
         "terminal personality caching",
         "CP/M file-semantics regression",
-        "virtualized directory search"
+        "virtualized directory search",
+        "bank-safe W5100 socket API integration",
+        "CP/M Telnet and WGET client integration"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Native dual-CPU CP/M-compatible CCP/BDOS/BIOS environment translating Z80 program file operations into Apple II ProDOS services. Classification: Substantial 6502 loader/terminal/ProDOS backend and Z80 BDOS/BIOS/CCP code with bank gateway and FCB/DMA transfers. Real SoftCard Z80 executes applications; this is not a CPU emulator. Newly updated default branch inspected at pinned commit. BSD-2-Clause for project code. Bundled assemblers have separate notices; CP/M programs including WordStar/Turbo Pascal/dBase are third-party content and not automatically relicensed by root BSD grant. Source CPU: Original/inspected source architecture is 6502, Z80. This is not an inferred minimum runnable machine. Target CPU: Inspected implementation/build establishes 6502, Z80 output architecture; a complete minimum runtime configuration was not independently verified. Build: The reviewed assembly caches the active terminal personality instead of walking each tab context for every character, restores the Soroc default during tab initialization, and makes manual tab switches terminate DIR or TYPE. Adjacent commits repair CP/M close truncation and virtualize directory search. The tracker did not assemble or run the disk image. Runtime profiles: The reviewed terminal and CP/M changes do not state a minimum Apple IIe revision, RAM, SoftCard model, ROM or display requirement. No minimum is inferred from the 6502/Z80 code. AI: Unknown: bounded primary documentation, sampled implementation/build/licence files and up to three latest full commit messages contain no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/README.md https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/softcard65.asm https://github.com/bobbimanners/Zapple-II/commit/4f5f5c6ac0768c8e205be90740684679030e2345",
+      "notes": "Identity: Native dual-CPU CP/M-compatible CCP/BDOS/BIOS environment translating Z80 program file operations into Apple II ProDOS services. Classification: Substantial 6502 loader/terminal/ProDOS backend and Z80 BDOS/BIOS/CCP code with bank gateway and FCB/DMA transfers. Real SoftCard Z80 executes applications; this is not a CPU emulator. Newly updated default branch inspected at pinned commit. BSD-2-Clause for project code. Bundled assemblers have separate notices; CP/M programs including WordStar/Turbo Pascal/dBase are third-party content and not automatically relicensed by root BSD grant. Source CPU: Original/inspected source architecture is 6502, Z80. This is not an inferred minimum runnable machine. Target CPU: Inspected implementation/build establishes 6502, Z80 output architecture; a complete minimum runtime configuration was not independently verified. Build: The reviewed changes add ownership-checked BDOS socket management and a bounded 16-byte packetless W5100 TX/RX path, migrate Telnet to dynamic kernel sockets, and introduce the upstream-described first working WGET.COM. Limitations: The tracker reviewed source changes only; it did not assemble the image, exercise W5100 hardware or verify Telnet/WGET interoperability. Next check: Retain kernel/socket ownership boundaries and seek reproducible Apple IIe/SoftCard network execution evidence. Runtime profiles: The reviewed terminal and CP/M changes do not state a minimum Apple IIe revision, RAM, SoftCard model, ROM or display requirement. No minimum is inferred from the 6502/Z80 code. AI: Unknown: bounded primary documentation, sampled implementation/build/licence files and up to three latest full commit messages contain no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/README.md https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/softcard65.asm https://github.com/bobbimanners/Zapple-II/commit/4f5f5c6ac0768c8e205be90740684679030e2345 https://github.com/bobbimanners/Zapple-II/commit/65b215c64ed9b74b7b81596f7fa61c883ef91666 https://github.com/bobbimanners/Zapple-II/commit/4398794c9a3e36383e2559ff39414e1d2e8cfb03",
       "ai": {
         "usage": null,
         "tools": []
@@ -224867,7 +224897,7 @@
         "decompilation"
       ],
       "re_started": null,
-      "status": "Dreamcast SH-4 decompilation now reports 98.3% of C-capable functions, 90.8% of eligible code bytes and 64.7% aggregate instruction coverage, with 57 functions left after seven newly proven functions and reader/repair fixes.",
+      "status": "Dreamcast SH-4 decompilation now reports 99.5% of C-capable functions, 97.8% of eligible code bytes and 70.6% aggregate test coverage, with 18 of 3,299 C-capable functions and 17,086 eligible bytes left.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -224877,13 +224907,15 @@
       "techniques": [
         "directed function-equivalence testing",
         "holdout-tested function equivalence",
-        "SH-4 call-argument recovery"
+        "SH-4 call-argument recovery",
+        "development/holdout function equivalence testing",
+        "instruction-coverage accounting"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Virtua Tennis Dreamcast decompilation with disc-derived executable reconstruction, symbol/asset maps, generated C and side-by-side Shuriken Explorer presentation. Classification: Original-platform game decompilation. Byte-identical executable assembly fallback, C-capable function completion, eligible-byte completion and test coverage are separate measures and are not collapsed into one completeness claim. Source CPU: The source executable remains Dreamcast SH-4 machine code. Target CPU: The reconstruction targets SH-4 for the original Dreamcast executable; no modern host port output is established. Build: The pinned README after the reviewed commits reports 57 of 3,299 C-capable functions left, 73,258 of 794,498 eligible bytes left and 64.7% aggregate test coverage; playerControl, emotKeysDefault, resultSideDraw, nlSetPaletteData, emotFaceReset, playerChooseSwing and selCursorInputC gained development/holdout equivalence evidence. Limitations: The figures and per-function equivalence are upstream results. The tracker did not execute the tests or boot a reconstructed game, and 35 checked-with-errors functions plus 22 drawn-with-errors functions remain. Runtime profiles: No minimum Dreamcast accessory/model profile or host runtime minimum is stated in the inspected decompilation documentation. AI: The reviewed equivalence and reader commits explicitly credit Claude Opus 5.5 as co-author; attribution is limited to those evidenced changes. Relationships: SDK-identical library functions are explicitly tracked separately from game-derived C recovery. The repository remains a title-specific project sharing tooling and the Shuriken Explorer presentation with related Dreamcast decomps. Evidence: https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d/README.md https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/5c3062a3ebc613061ea8e5a94ac01ec92fac299d https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/ffa09820ec2427a759d2bba61c6303152cc73880 https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/86aa92ad3d86b6b6187d630c71bb5c720075c89a https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d/sdk-identical.txt",
+      "notes": "Identity: Virtua Tennis Dreamcast decompilation with disc-derived executable reconstruction, symbol/asset maps, generated C and side-by-side Shuriken Explorer presentation. Classification: Original-platform game decompilation. Byte-identical executable assembly fallback, C-capable function completion, eligible-byte completion and test coverage are separate measures and are not collapsed into one completeness claim. Source CPU: The source executable remains Dreamcast SH-4 machine code. Target CPU: The reconstruction targets SH-4 for the original Dreamcast executable; no modern host port output is established. Build: The pinned progress commits report playerStartReactions, ADXF_AddPartition, latticeBind, FBCompQueue, entryCharaSelExec, rankNameEntryExec and entryPickRandomChara as proven and update the project to 99.5% of C-capable functions, 97.8% of eligible bytes and 70.6% aggregate test coverage. Limitations: These are upstream counters and per-function equivalence results. Some newly proven functions have explicitly thin instruction coverage, and the tracker did not run the suite or boot a reconstructed disc. Next check: Track the remaining 18 C-capable functions and require the project to keep function proof, eligible-byte completion and aggregate coverage separate. Runtime profiles: No minimum Dreamcast accessory/model profile or host runtime minimum is stated in the inspected decompilation documentation. AI: The reviewed equivalence and reader commits explicitly credit Claude Opus 5.5 as co-author; attribution is limited to those evidenced changes. Relationships: SDK-identical library functions are explicitly tracked separately from game-derived C recovery. The repository remains a title-specific project sharing tooling and the Shuriken Explorer presentation with related Dreamcast decomps. Evidence: https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d/README.md https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/5c3062a3ebc613061ea8e5a94ac01ec92fac299d https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/f701c9450c307dda7fc45205213440b3c0b61803 https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/832f5eddc4f7b6fe62bc354fff534528df5081d6 https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/ffa09820ec2427a759d2bba61c6303152cc73880 https://github.com/consolesplayingconsoles/virtua-tennis-decomp/commit/86aa92ad3d86b6b6187d630c71bb5c720075c89a https://github.com/consolesplayingconsoles/virtua-tennis-decomp/blob/d82fc50aa7af487a308c5ceac87b4f7a2b01a14d/sdk-identical.txt",
       "ai": {
         "usage": true,
         "tools": [
@@ -272193,7 +272225,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "PAL 2.00 PlayStation 2 matching reconstruction; the hero refactor types sound slots and draw queues and removes overlay-private hero structures, while matching and playability remain upstream work in progress.",
+      "status": "PAL 2.00 PS2 reconstruction now shares typed LevelState/camera, render, pause, particle, puzzle and memory-card structures across overlays; these structural refactors do not by themselves establish additional matching or playability.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -272202,10 +272234,12 @@
       },
       "techniques": [
         "shared-structure recovery across overlays",
-        "typed sound-slot and draw-queue recovery"
+        "typed sound-slot and draw-queue recovery",
+        "cross-overlay shared-structure recovery",
+        "typed memory-card state recovery"
       ],
       "tags": [],
-      "notes": "Identity: Ratchet and Clank — PS2 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: PAL2.00 reconstruction links recovered functions at original addresses and fills gaps from local disassembly. Readability refinement and future PC reimplementation remain separate work. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: The primary refactor introduces shared typed hero sound-slot and draw-queue structures and removes private overlay copies while retaining the project's original-address reconstruction model. Limitations: The tracker did not compile with the period toolchains or independently compare the result; structural cleanup alone does not establish whole-project matching or playability. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: Recent primary commit trailers explicitly credit both Codex and Claude on this repository; project-level attribution remains limited to those evidenced commits and is not inferred from configuration files. Relationships: Two original code segments use different compiler sub-builds; one toolchain label is insufficient for reproducibility. Evidence: https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/README.md https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/Makefile.sn https://github.com/OpenRAC/rac1-decomp https://github.com/OpenRAC/rac1-decomp/commit/209d3381ebaa8c06d5df98eeabad4adad45bdfb7 https://github.com/OpenRAC/rac1-decomp/commit/3af68fae6f9b https://github.com/OpenRAC/rac1-decomp/commit/04f012c1f4ca",
+      "notes": "Identity: Ratchet and Clank — PS2 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: PAL2.00 reconstruction links recovered functions at original addresses and fills gaps from local disassembly. Readability refinement and future PC reimplementation remain separate work. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Eleven reviewed refactors replace duplicate and raw-offset overlay structures with shared hero, LevelState, camera, render, pause, particle, Trespasser-puzzle and memory-card types while preserving the original-address reconstruction model. Limitations: The tracker did not compile with the period toolchains or independently compare the result; type consolidation is not a whole-project matching or playability claim. Next check: Follow matching reports and toolchain reproducibility evidence independently of structural typing progress. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: Recent primary commit trailers explicitly credit both Codex and Claude on this repository; project-level attribution remains limited to those evidenced commits and is not inferred from configuration files. Relationships: Two original code segments use different compiler sub-builds; one toolchain label is insufficient for reproducibility. Evidence: https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/README.md https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/Makefile.sn https://github.com/OpenRAC/rac1-decomp https://github.com/OpenRAC/rac1-decomp/commit/209d3381ebaa8c06d5df98eeabad4adad45bdfb7 https://github.com/OpenRAC/rac1-decomp/commit/e02169335967d5e090eee47fd50ce3824c63e11a https://github.com/OpenRAC/rac1-decomp/commit/0f0bfcfe98553a7a0ea9a26db94ff00deecf8be5 https://github.com/OpenRAC/rac1-decomp/commit/3af68fae6f9b https://github.com/OpenRAC/rac1-decomp/commit/04f012c1f4ca",
       "ai": {
         "usage": true,
         "tools": [
@@ -321891,7 +321925,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "The scoped DOS real-mode p-code view recovers 15 additional C decompilations across six builds (3,460/3,468 versus stock Ghidra's 3,445/3,468) and verifies a bounded renderer ownership block; whole-renderer and gameplay parity remain open.",
+      "status": "Six-image DOS analysis now fixes the 55,015-byte save-slot layout, exercises caller/blitter contracts in 4,536 cases, and traces the default viewport split chain in 492 cases; runtime reachability, VGA output and whole-game parity remain open.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -321900,10 +321934,13 @@
       },
       "techniques": [
         "scoped real-mode p-code modelling",
-        "cross-version renderer ownership verification"
+        "cross-version renderer ownership verification",
+        "save-slot layout verification",
+        "blitter caller-contract verification",
+        "viewport split-chain provenance"
       ],
       "tags": [],
-      "notes": "Identity: Nitemare 3D — DOS/Win16 research and partial C++ engine. Repository identity, pinned tree and available implementation inspected. Classification: Detailed original runtime/static findings integrated into partial C++/SDL3 components. Inspected structured map/player/level state; DOS and Win16 evidence are separately bounded. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: The primary pass-5 report separates stock Ghidra from an explicit real-mode p-code model: 3,460 of 3,468 detected candidates decompile in the explicit view, fifteen more than stock, while 8,226 controlled post-projection renderer cases verify the bounded ownership block across six DOS images. Limitations: Successful C output is not semantic closure; eight candidates remain, the full renderer and VGA path were not executed, and runtime reachability, save/load and gameplay parity remain unverified. Next check: Resolve the eight remaining candidates and connect the verified post-projection block to projection, rasterization and runtime-reachable framebuffer tests. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README identifies AI-assisted reverse-engineering project; specific development AI not established in inspected evidence. Relationships: Distinct from directory-format-only Nitemare research. AI assistance explicit but tool identity not established here. Evidence: https://github.com/marek177/Nitemare3d-reversed/blob/f5c37abbbdc3ff8bd806af10fb1eb6dd01e9df68/README.md https://github.com/marek177/Nitemare3d-reversed/blob/f5c37abbbdc3ff8bd806af10fb1eb6dd01e9df68/src/game/LevelState.cpp https://github.com/marek177/Nitemare3d-reversed/commit/5ff61fa1c86e6c591efc20b14598d90148f4da58",
+      "notes": "Identity: Nitemare 3D — DOS/Win16 research and partial C++ engine. Repository identity, pinned tree and available implementation inspected. Classification: Detailed original runtime/static findings integrated into partial C++/SDL3 components. Inspected structured map/player/level state; DOS and Win16 evidence are separately bounded. Source CPU: Documented original ISA: x86. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: The reviewed pass 21, 25 and 26 reports account for the fixed 55,015-byte Win16 save slot, exercise signed page-gate and split-boundary caller contracts in 4,536 cases, and verify 492 default viewport setter-to-blitter chains across six DOS images. Limitations: The caller-contract run intercepts the original blitter, the viewport run mocks two downstream dependencies, and neither establishes full DOS/VGA reachability, save/load parity or playable-game fidelity. Next check: Connect the bounded save, viewport and blitter findings to original runtime execution, framebuffer output and end-to-end save/load checks. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README identifies AI-assisted reverse-engineering project; specific development AI not established in inspected evidence. Relationships: Distinct from directory-format-only Nitemare research. AI assistance explicit but tool identity not established here. Evidence: https://github.com/marek177/Nitemare3d-reversed/blob/f5c37abbbdc3ff8bd806af10fb1eb6dd01e9df68/README.md https://github.com/marek177/Nitemare3d-reversed/blob/f5c37abbbdc3ff8bd806af10fb1eb6dd01e9df68/src/game/LevelState.cpp https://github.com/marek177/Nitemare3d-reversed/commit/154f6539cc8fa48edf88ef9dbf5d489895bc69bf https://github.com/marek177/Nitemare3d-reversed/commit/c5bd56d950c3d829ac6c647797219ed919829f87 https://github.com/marek177/Nitemare3d-reversed/commit/b743f999a2eb30876467dcc39b091719a5438b65",
       "ai": {
         "usage": true,
         "tools": []
@@ -328396,7 +328433,9 @@
       "source_cpu": [
         "Z80"
       ],
-      "target_cpu": [],
+      "target_cpu": [
+        "Xtensa"
+      ],
       "runtime_profiles": [],
       "execution_paths": null,
       "source_language": [
@@ -328419,16 +328458,19 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source reviewed; upstream build and fidelity claims qualified",
+      "status": "The reconstruction now records three passing Xtensa firmware profiles with exact size budgets and an original-ROM oracle with 14/14 scalar STRING cases observed twice; device execution and broad BASIC compatibility remain explicitly unverified.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "three-profile Xtensa size and ABI verification",
+        "independent original-ROM oracle capture"
+      ],
       "tags": [],
-      "notes": "Identity: Locomotive BASIC — native C compatibility reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Reconstructs CPC 6128 BASIC 1.1 tokens, expression and execution semantics using original disassembly as behavioral reference. Inspected original-address-backed token catalogue and emitter. Source CPU: Documented original ISA: Z80. Target CPU: No explicit minimum host ISA established; do not infer one from the host operating system. Build: C99 with Linux verification and ESP32 CYD target. Full compatibility explicitly not reached; accepted bounded integer/token tests do not prove all language, five-byte real arithmetic, graphics or device behavior. Hardware target is not claimed independently validated. Limitations: Read-only upstream source inspection; no upstream compiler, game, installer, protocol program or firmware executed. Success statements remain attributed to upstream. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README explicitly assigns design/review and implementation roles to ChatGPT assistants. Relationships: Native language runtime, no original ROM/Z80 execution. Internal tests and historical CPC oracle confirmation distinguished. Evidence: https://github.com/Kharn27/ESP32-Locomotive-Basic/blob/2ca96fde8e50251b4bcdfaf642e8052f3c828e5d/README.md https://github.com/Kharn27/ESP32-Locomotive-Basic/blob/2ca96fde8e50251b4bcdfaf642e8052f3c828e5d/core/basic_tokenizer.c https://github.com/Kharn27/ESP32-Locomotive-Basic/blob/2ca96fde8e50251b4bcdfaf642e8052f3c828e5d/docs/PROJECT_STATUS.md",
+      "notes": "Identity: Locomotive BASIC — native C compatibility reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Reconstructs CPC 6128 BASIC 1.1 tokens, expression and execution semantics using original disassembly as behavioral reference. Inspected original-address-backed token catalogue and emitter. Source CPU: Documented original ISA: Z80. Target CPU: ESP-IDF 5.5.6 CI explicitly builds three Xtensa firmware profiles (CONSOLE, HW3 and BASIC_PROBE), establishing Xtensa as an output CPU architecture without implying a minimum CPU model. Build: Upstream records ESP-IDF 5.5.6 Xtensa CI passing CONSOLE, HW3 and BASIC_PROBE profiles with exact Flash/IRAM/DRAM/image budgets, 16/16 ABI fields and 83/83 CTest results per C99 matrix cell. A separate original-ROM acquisition records two exact RAM/printer observations for each of 14 scalar STRING cases. Limitations: The size and ABI readings are build/ELF evidence, not hardware measurements. The report remains ON_DEVICE_UNVERIFIED, and the pre-B C99 implementation still classifies all 14 STRING cases as unsupported. Next check: Repeat the final-head CI and perform the explicitly requested flash/monitor hardware run before recording any runnable-device profile. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README explicitly assigns design/review and implementation roles to ChatGPT assistants. Relationships: The native C runtime does not embed or execute the CPC ROM. The newly pinned original-ROM runs are an external behavior oracle, kept distinct from internal tests and target firmware execution. Evidence: https://github.com/Kharn27/ESP32-Locomotive-Basic/blob/2ca96fde8e50251b4bcdfaf642e8052f3c828e5d/README.md https://github.com/Kharn27/ESP32-Locomotive-Basic/blob/2ca96fde8e50251b4bcdfaf642e8052f3c828e5d/core/basic_tokenizer.c https://github.com/Kharn27/ESP32-Locomotive-Basic/blob/2ca96fde8e50251b4bcdfaf642e8052f3c828e5d/docs/PROJECT_STATUS.md https://github.com/Kharn27/ESP32-Locomotive-Basic/commit/1e0459e1fb9e3f78d786f073ec7be6403dce0630 https://github.com/Kharn27/ESP32-Locomotive-Basic/commit/6723ff0d51f23ada0a6913c6006db68ea51595eb",
       "ai": {
         "usage": true,
         "tools": [
