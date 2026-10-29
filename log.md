@@ -1666,3 +1666,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-29 — Add twelve qualified game remakes/source restorations and record evidence-based exclusions and duplicate derivatives.
 
 [Research record](docs/research/2026-10-29-game-remakes-source-provenance-discovery.md).
+
+## 2026-10-29 — Add fourteen requested game-source, format-research and patch projects with explicit limits; defer four emulation-based or redesigned games.
+
+[Research record](docs/research/2026-10-29-requested-port-source-groundwork-discovery.md).
