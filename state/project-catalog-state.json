@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-29T14:21:15Z",
+  "updated_at": "2026-10-29T16:19:10Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -332259,6 +332259,278 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "mortal-kombat-atari-jaguar-fan-demo": {
+      "id": "mortal-kombat-atari-jaguar-fan-demo",
+      "title": "Mortal Kombat Atari Jaguar",
+      "upstream_name": "Mortal-Kombat-Atari-Jaguar",
+      "display_title": "Mortal Kombat — Atari Jaguar character-select fan conversion",
+      "subjects": [
+        "Mortal Kombat"
+      ],
+      "repo": "https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Arcade"
+      ],
+      "target_platforms": [
+        "Atari Jaguar"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Motorola 68000"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Motorola 68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "original fan conversion",
+        "character-select proof of concept"
+      ],
+      "re_started": null,
+      "status": "Jaguar character-select proof of concept with source and documented RAPTOR build path; independent build/run unverified",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "RAPTOR sprite animation",
+        "sampled-audio playback",
+        "Jaguar controller input"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "Mortal Kombat",
+        "RAPTOR",
+        "fan conversion",
+        "original homebrew"
+      ],
+      "notes": "Identity: Chris Bryant's readme identifies the repository as a Mortal Kombat character-select proof of concept for Atari Jaguar and the assembly header names the same example and author. Classification: This is an original fan conversion/demo that reuses credited arcade graphics, music and sound effects to implement the selection screen. The project does not claim disassembly, decompilation or recovered original program code, so it is not labelled RE-derived. Source CPU: The project imports original arcade audiovisual assets but does not analyse or translate an original executable, so assigning the arcade program's CPU as a source architecture would be misleading. Target CPU: The application source is Motorola 68000 assembly using data/address registers, Jaguar hardware includes and RAPTOR calls, and the build invokes RMAC/RLN for the native Jaguar executable. Build: The readme directs users to copy the project into RAPTOR's examples directory and execute BUILD.bat; that script assembles, links an ABS image and launches Virtual Jaguar. Limitations: The build, emulator launch and hardware behavior were not independently tested in this review, so runnable/playable remain unknown. Runtime profiles: The reviewed documentation names Atari Jaguar and a Virtual Jaguar development launch but does not state a minimum Jaguar revision, RAM, ROM, cartridge device or other runnable hardware requirement; none was inferred. AI: The reviewed readme, assembly, build script and complete three-commit history contain no explicit development-AI attribution; this does not establish non-use. Relationships: The readme credits RAPTOR as the development API and separately credits the Mortal Kombat sprite, module-music and sound-conversion sources. Those assets and dependencies are not claimed as original code recovered by this project. Evidence: https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar/blob/58d3f11016ad147c233fb81a5a52acdb5dcf5f2f/readme.txt https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar/blob/58d3f11016ad147c233fb81a5a52acdb5dcf5f2f/_RAPAPP.S https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar/blob/58d3f11016ad147c233fb81a5a52acdb5dcf5f2f/BUILD.bat https://github.com/trufungames/Mortal-Kombat-Atari-Jaguar/commits/main",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "horace-goes-skiing-skoolkit-disassembly": {
+      "id": "horace-goes-skiing-skoolkit-disassembly",
+      "title": "Horace Goes Skiing",
+      "upstream_name": "skiing",
+      "display_title": "Horace Goes Skiing — annotated ZX Spectrum SkoolKit disassembly",
+      "subjects": [
+        "Horace Goes Skiing"
+      ],
+      "repo": "https://github.com/Ritchie333/skiing",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Z80 machine code"
+      ],
+      "reconstructed_languages": [
+        "SkoolKit skool format",
+        "Python",
+        "Shell"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "annotated game disassembly",
+        "interactive HTML analysis"
+      ],
+      "re_started": null,
+      "status": "Annotated SkoolKit disassembly and generated HTML analysis; no rebuilt game binary established",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SkoolKit control-file annotation",
+        "memory-map documentation",
+        "graphics extraction"
+      ],
+      "tags": [
+        "ZX Spectrum",
+        "Horace Goes Skiing",
+        "SkoolKit",
+        "Z80"
+      ],
+      "notes": "Identity: Repository metadata says it is a disassembly of Horace Goes Skiing, while skiing.ref identifies the game and credits William Tang/Beam Software for the 1982 code and Ritchie Swann for the 2024 disassembly. Classification: The repository contains a Z80 snapshot, annotated SkoolKit control/skool material, graphics metadata and a custom HTML writer. It is an analysis/disassembly project, not a source-faithful rebuild or modern game port. Source CPU: The source artifact is a .z80 snapshot and the skool/control files decode its address space and Z80 instruction/data layout for the ZX Spectrum game. Target CPU: The documented output is SkoolKit-generated HTML analysis, not a rebuilt or ported executable, so no target output CPU applies. Build: build.sh invokes skool2html.py with the custom SkiingHtmlWriter to generate the analysis site from skiing.skool. Limitations: No game reassembly, binary comparison or generated HTML run was performed, and the repository does not document a reconstructed game executable. Runtime profiles: The reviewed project publishes analysis source and an HTML-generation command rather than a runnable legacy-hardware build, so a minimum retro runtime profile does not sensibly apply. AI: The complete small tree, nested metadata and four commit messages contain no explicit development-AI attribution; this does not establish non-use. Relationships: skiing.ref distinguishes the original 1982 William Tang/Beam Software game from Ritchie Swann's 2024 disassembly, and the project depends on SkoolKit for presentation rather than claiming SkoolKit itself as part of the recovered game. Evidence: https://github.com/Ritchie333/skiing https://github.com/Ritchie333/skiing/blob/166945789eacfcd640aaea9c16501cff9338d70a/src/skiing.ref https://github.com/Ritchie333/skiing/tree/166945789eacfcd640aaea9c16501cff9338d70a/src https://github.com/Ritchie333/skiing/blob/166945789eacfcd640aaea9c16501cff9338d70a/build.sh https://github.com/Ritchie333/skiing/blob/166945789eacfcd640aaea9c16501cff9338d70a/src/skiing.z80 https://github.com/Ritchie333/skiing/blob/166945789eacfcd640aaea9c16501cff9338d70a/src/skiing.skool https://github.com/Ritchie333/skiing/blob/166945789eacfcd640aaea9c16501cff9338d70a/src/skiing.ctl https://github.com/Ritchie333/skiing/blob/166945789eacfcd640aaea9c16501cff9338d70a/src/skiing.py https://github.com/Ritchie333/skiing/tree/166945789eacfcd640aaea9c16501cff9338d70a https://github.com/Ritchie333/skiing/commits/main",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "particle-man-atari-jaguar": {
+      "id": "particle-man-atari-jaguar",
+      "title": "Particle-Man",
+      "upstream_name": "Particle-Man",
+      "display_title": "Particle-Man — original Atari Jaguar procedural maze game",
+      "subjects": [
+        "Particle-Man"
+      ],
+      "repo": "https://github.com/Tolbat/Particle-man",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Atari Jaguar"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Motorola 68000"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "Motorola 68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew game",
+        "native Atari Jaguar game"
+      ],
+      "re_started": null,
+      "status": "Public release-candidate source with upstream-reported real-Jaguar gameplay; final current-build persistence acceptance remains pending",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "procedural point-cloud graphics",
+        "RAPTOR Object Processor integration",
+        "GPU particle effects",
+        "cartridge EEPROM persistence"
+      ],
+      "tags": [
+        "Atari Jaguar",
+        "JagStudio",
+        "RAPTOR",
+        "original homebrew",
+        "maze game"
+      ],
+      "notes": "Identity: The primary README identifies Particle-Man as a procedural neon maze-chase game for Atari Jaguar with a fifty-level campaign, eight-enemy roster, generated graphics and persistent progression. Classification: This is substantial original Jaguar homebrew. Its maze-chase design is genre-inspired, but the repository does not claim recovered Pac-Man code, binary analysis or an RE-derived port; procedural game logic and audiovisual generation are implemented locally. Source CPU: Particle-Man is original homebrew rather than a reconstruction or port of an original binary, so an original source CPU does not apply. Target CPU: The native Jaguar wrapper is Motorola 68000 assembly and transfers control into the compiled C game, while the README separately describes Object Processor/GPU work; the CPU record is limited to the evidenced 68000 execution path. Build: The README instructs users to build the normal JagStudio C project `particlepac` and reports C13 as an accepted smooth real-Jaguar gameplay baseline; the current C19f source still awaits its final hardware acceptance run and EEPROM power-cycle retention check. Limitations: No local compilation or hardware test was performed. Runnable/playable reflect upstream real-hardware reports, not independent verification of the current revision. Runtime profiles: The README documents real-Jaguar testing and a current 128-byte GameDrive save configuration, but it does not state a minimum Jaguar revision, RAM floor, ROM requirement or generally supported cartridge device. These test details were not converted into a minimum profile. AI: The README explicitly describes the project's current testing agreement with Codex: the user compiles and tests on real Jaguar hardware, while Codex does not compile or launch the game. This establishes Codex involvement but not independent build verification. Relationships: JagStudio and RAPTOR are the documented native development/runtime framework. Genre resemblance does not make Particle-Man a Pac-Man code port, and no external original-game binary is an input to the reviewed build. Evidence: https://github.com/Tolbat/Particle-man/blob/066a5e07fae40e2400e1e87fb82c5b509a91f33f/README.md https://github.com/Tolbat/Particle-man/blob/066a5e07fae40e2400e1e87fb82c5b509a91f33f/ParticlePac.c https://github.com/Tolbat/Particle-man/blob/066a5e07fae40e2400e1e87fb82c5b509a91f33f/rapapp.s",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "OpenAI Codex"
+        ]
+      }
+    },
+    "retrocastx-rgb-capture-stack": {
+      "id": "retrocastx-rgb-capture-stack",
+      "title": "RetroCastX",
+      "upstream_name": "RetroCastX",
+      "display_title": "RetroCastX — framebuffer-less retro-PC RGB capture and host reconstruction stack",
+      "subjects": [],
+      "repo": "https://github.com/kunichiko/RetroCastX",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Sharp X68000",
+        "NEC PC-98",
+        "macOS",
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Python",
+        "Rust",
+        "LiteX",
+        "Atopile"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "asset-tool",
+        "automation"
+      ],
+      "types": [
+        "analog RGB capture hardware",
+        "FPGA line transport",
+        "host video reconstruction client"
+      ],
+      "re_started": null,
+      "status": "Host loopback/client and simulated FPGA path reported working; physical FPGA/ADC capture remains unverified",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "raw line-oriented UDP transport",
+        "analog RGB timing preservation",
+        "host-side frame reconstruction",
+        "palette snapping",
+        "FPGA simulation"
+      ],
+      "tags": [
+        "Sharp X68000",
+        "NEC PC-98",
+        "video preservation",
+        "FPGA",
+        "analog RGB"
+      ],
+      "notes": "Identity: The README identifies RetroCastX as a framebuffer-less analog-RGB capture system for retro PCs such as X68000 and PC-98, spanning an ADC, ECP5 FPGA UDP transport and PC/Mac reconstruction client. Classification: This is original preservation/capture tooling, not a reverse-engineered X68000 or PC-98 software subject. Its relevant contribution is lossless timing-aware acquisition and host reconstruction of legacy video output. Source CPU: RetroCastX samples analog video signals rather than analysing a particular original executable, so no original source CPU applies. Target CPU: The client is documented for Mac, Windows and Linux and the capture device uses ECP5 FPGA logic, but the reviewed material does not constrain the host program to a specific CPU architecture. No host ISA was inferred from Rust, Python or operating-system names. Build: The README provides Python loopback, waveform and NTSC tests plus simulator/receiver commands; it reports generated FPGA bitstreams, simulation-verified gateware and an end-to-end viewer test against sender_sim. Limitations: The same status list says physical gateware, board manufacture and real X68000/PC-98 capture remain unfinished. No local test or hardware operation was performed. Runtime profiles: The documented runtime is a modern host/capture stack rather than a runnable build for legacy hardware, and the README states no minimum host CPU/RAM/OS versions suitable for a tracker runtime profile. AI: Viewer 0.10.0 and its preceding implementation commit explicitly credit Claude Opus 5.5 as co-author and include Claude session URLs. Relationships: The README credits OSSC hardware as the TVP7002 analog-front-end reference. RetroCastX remains a separate design whose FPGA side retains only line buffering while frame reconstruction is performed by its host client. Evidence: https://github.com/kunichiko/RetroCastX/blob/01c2b5cdf0227ca12a563020126a55dca0ddcc23/README.md https://github.com/kunichiko/RetroCastX/commit/5e235dd12fcd5008b247dfee4efae59de12cebd9 https://github.com/kunichiko/RetroCastX/commit/8b6c980fbaa34721800ddd51f4d1b05be5e0ca5b",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Claude Opus 5.5"
+        ]
       }
     }
   },
