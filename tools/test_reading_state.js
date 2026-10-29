@@ -3,13 +3,13 @@ const assert=require('node:assert/strict');
 const r=require('../web/reading-state.js');
 const date='2026-10-29T00:00:00Z',now=Date.parse(date);
 const commit=(sha,date='2026-10-28T00:00:00Z')=>({type:'commit',project_id:'p',sha,date});
-test('first visit baselines history; reload, late old commits and repeated snapshots preserve unread without duplicates',()=>{
+test('first visit is unread; reload, late old commits and repeated snapshots never auto-acknowledge',()=>{
   let x=r.reconcile(r.empty(),[commit('a')],date,now);
-  assert.equal(x.baseline,true);assert.equal(x.added,0);
+  assert.equal(x.firstVisit,true);assert.equal(x.added,1);
   x=r.reconcile(r.parse(JSON.stringify(x.state)),[commit('a'),commit('late','2026-10-06T00:00:00Z')],date,now+1);
-  assert.equal(x.added,1);assert.equal(Object.values(x.state.seen).filter(v=>v).length,1);
+  assert.equal(x.added,1);assert.equal(Object.values(x.state.seen).filter(v=>v).length,2);
   x=r.reconcile(x.state,[commit('a'),commit('late','2026-10-06T00:00:00Z')],date,now+2);
-  assert.equal(x.added,0);assert.equal(Object.values(x.state.seen).filter(v=>v).length,1);
+  assert.equal(x.added,0);assert.equal(Object.values(x.state.seen).filter(v=>v).length,2);
 });
 test('compaction retains SHA identities and unread membership; late additions to a summary are new',()=>{
   let x=r.reconcile(r.empty(),[commit('a')],date,now).state;
@@ -32,7 +32,7 @@ test('retention and identity-less legacy summaries are honest and conservative',
   x=r.reconcile(x,[commit('a')],date,now+1).state;
   const expired=r.reconcile(x,[],'2026-12-01T00:00:00Z',now+33*86400000);
   assert.equal(expired.limited,true);assert.equal(expired.expired,1);assert.equal(Object.keys(expired.state.seen).length,0);
-  assert.equal(r.reconcile(x,[{type:'daily_commits',project_id:'p',date,count:5}],date,now+2).added,0);
+  assert.equal(r.reconcile(x,[{type:'daily_commits',project_id:'p',date,count:5}],date,now+2).added,1);
 });
 test('project changes have stable, compact identities independent of object key order',()=>{
   const a={type:'project_changed',project_id:'p',date,change_details:[{field:'notes',before:'x'.repeat(50000),after:'y'}]};
@@ -47,11 +47,11 @@ test('bookmark imports validate, deduplicate, and preserve IDs as plain text',()
 });
 
 const fs=require('node:fs'),vm=require('node:vm');
-function browser(storage={}){
+function browser(storage={},extras={}){
   const elements=new Map(),handlers=new Map();
-  const node=id=>({value:'',dataset:{},checked:false,hidden:false,innerHTML:'',textContent:'',classList:{contains:()=>id==='activityView',toggle:()=>{}},setAttribute:()=>{},addEventListener:(event,fn)=>handlers.set(id+':'+event,fn),querySelectorAll:()=>[],querySelector:()=>node('child'),close:()=>{}});
+  const node=id=>({value:'',dataset:{},checked:false,hidden:false,innerHTML:'',insertAdjacentHTML:function(_,html){this.innerHTML+=html;},textContent:'',classList:{contains:()=>id==='activityView',toggle:()=>{}},setAttribute:()=>{},addEventListener:(event,fn)=>handlers.set(id+':'+event,fn),querySelectorAll:()=>[],querySelector:()=>node('child'),close:()=>{}});
   const get=id=>{if(!elements.has(id))elements.set(id,node(id));return elements.get(id);};
-  const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node('q'),querySelectorAll:()=>[]},window:{matchMedia:()=>({matches:false,addEventListener:()=>{}}),addEventListener:()=>{},scrollTo:()=>{}},localStorage:{getItem:key=>storage[key]||null,setItem:(key,value)=>{storage[key]=value;}},fetch:()=>new Promise(()=>{}),console,Date,Set,Map,Promise,setTimeout:()=>{},clearTimeout:()=>{},TrackerReading:r});
+  const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node('q'),querySelectorAll:()=>[]},window:{matchMedia:()=>({matches:false,addEventListener:()=>{}}),addEventListener:()=>{},scrollTo:()=>{}},localStorage:{getItem:key=>storage[key]||null,setItem:(key,value)=>{storage[key]=value;}},fetch:()=>new Promise(()=>{}),console,Date,Set,Map,Promise,setTimeout:()=>{},clearTimeout:()=>{},TrackerReading:r,...extras});
   vm.runInContext(fs.readFileSync(require.resolve('../web/tracker.js'),'utf8'),context);
   const run=code=>vm.runInContext(code,context);
   run(`projects=[{id:'p',title:'Project'}];projectsReady=true;activityReady=true;activityUiReady=true;readingInitialized=true;bindActivityProjectFacets=()=>{};loadProjectCatalogue=async()=>projects;activityData={generated_at:'${date}',events:[]};readingState=reading.reconcile(reading.empty(),[],activityData.generated_at).state;saveReading();`);
@@ -106,10 +106,10 @@ test('all-read captures loaded snapshot even under filters, preserving another t
   const saved=r.parse(b.storage[r.KEY]);
   assert.equal(saved.seen[r.ids(commit('a'))[0]],false);assert.equal(saved.seen[r.ids(commit('b'))[0]],false);assert.equal(saved.seen[r.ids(commit('concurrent'))[0]],true);
 });
-test('unread renders the entire range without show-more; bookmark scope and project list remain filterable',()=>{
+test('unread exposes the whole range with bounded incremental rendering; bookmarks remain filterable',()=>{
   const b=browser();b.context.many=Array.from({length:180},(_,i)=>commit(String(i)));
   b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');
-  assert.equal(b.get('activityCount').textContent,180);assert.equal(b.get('activityMore').hidden,true);
+  assert.equal(b.get('activityCount').textContent,180);assert.equal(b.run('activityRenderedCount'),150);assert.equal((b.get('activityFeed').innerHTML.match(/data-reading-anchor=/g)||[]).length,150);b.run('renderActivity(true)');assert.equal(b.run('activityRenderedCount'),180);assert.equal((b.get('activityFeed').innerHTML.match(/data-reading-anchor=/g)||[]).length,180);assert.equal(b.get('activityMore').hidden,true);
   b.run("inboxView='bookmarks';renderActivity()");assert.equal(b.get('activityCount').textContent,0);
   b.run("bookmarks.add('p');renderActivity()");assert.equal(b.get('activityCount').textContent,180);
   b.run("projects.push({id:'other',title:'Other'});document.getElementById('bookmarkedProjects').checked=true;render()");assert.equal(b.get('count').textContent,1);
@@ -134,4 +134,72 @@ test('return restores both views’ queries, facets, direction, bookmark-only fi
   assert.equal(b.run("projectFilterState.cpu.has('68000 family')"),true);assert.equal(b.run("activityFilterState.type.has('release')"),true);
   assert.equal(b.get('q').value,'project');assert.equal(b.get('activityQ').value,'release');assert.equal(b.get('bookmarkedProjects').checked,true);assert.equal(b.run('sort.dir'),-1);
   b.run("savedFilters.activity.days='bad';savedFilters.q='not applied'");assert.equal(b.run('restoreFilters(savedFilters)'),false);assert.equal(b.get('q').value,'project');
+});
+test('v1 migration restores all available entries unread once, including explicit reads whose origin cannot be proved',()=>{
+  const a=commit('a'),b=commit('b');
+  const old={version:1,checked:now,snapshot:date,seen:{[r.ids(a)[0]]:false,[r.ids(b)[0]]:true},position:null};
+  const migrated=r.parse(JSON.stringify(old));assert.equal(migrated.version,2);assert.equal(migrated.migrationNotice,true);
+  let state=r.reconcile(migrated,[a,b],date,now+1).state;
+  assert.equal(state.seen[r.ids(a)[0]],true);assert.equal(state.seen[r.ids(b)[0]],true);
+  state=r.acknowledge(state,r.ids(a));assert.equal(state.migrationNotice,false);
+  state=r.reconcile(r.parse(JSON.stringify(state)),[a,b],date,now+2).state;
+  assert.equal(state.seen[r.ids(a)[0]],false);assert.equal(state.seen[r.ids(b)[0]],true);
+});
+test('empty first visit does not acknowledge later arrivals; explicit reads persist on reload/fetch and through summary compaction',()=>{
+  const a=commit('a'),b=commit('b');
+  let state=r.reconcile(r.empty(),[],date,now).state;
+  state=r.reconcile(state,[a],date,now+1).state;assert.equal(state.seen[r.ids(a)[0]],true);
+  state=r.acknowledge(state,r.ids(a));
+  const summary={type:'daily_commits',project_id:'p',date,day:'2026-10-29',count:2,shas:['a','b']};
+  state=r.reconcile(r.parse(JSON.stringify(state)),[summary],date,now+2).state;
+  assert.equal(state.seen[r.ids(a)[0]],false);assert.equal(state.seen[r.ids(b)[0]],true);
+  state=r.acknowledge(state,r.ids(summary));
+  assert.ok(Object.values(r.reconcile(r.parse(JSON.stringify(state)),[summary],date,now+3).state.seen).every(value=>value===false));
+});
+test('identity-less summaries start unread and only explicit acknowledgement clears them; changed counts reappear honestly',()=>{
+  const summary={type:'daily_commits',project_id:'p',date,count:5};
+  let state=r.reconcile(r.empty(),[summary],date,now).state;
+  assert.equal(state.seen[r.ids(summary)[0]],true);
+  state=r.reconcile(r.parse(JSON.stringify(state)),[summary],date,now+1).state;assert.equal(state.seen[r.ids(summary)[0]],true);
+  state=r.acknowledge(state,r.ids(summary));
+  state=r.reconcile(state,[summary],date,now+2).state;assert.equal(state.seen[r.ids(summary)[0]],false);
+  const changed={...summary,count:6};state=r.reconcile(state,[changed],date,now+3).state;assert.equal(state.seen[r.ids(changed)[0]],true);
+});
+test('large first inbox creates only one render batch, and mark all read acknowledges even not-yet-rendered entries',()=>{
+  const b=browser();b.context.many=Array.from({length:47000},(_,i)=>commit(String(i)));
+  b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');
+  assert.equal(b.get('activityCount').textContent,47000);assert.equal(b.run('activityRenderedCount'),150);assert.equal((b.get('activityFeed').innerHTML.match(/data-reading-anchor=/g)||[]).length,150);
+  b.handlers.get('markRead:click')();assert.equal(b.get('unreadCount').textContent,0);
+  b.run('readingState=reading.parse(localStorage.getItem(reading.KEY));ingestReadingSnapshot();renderActivity()');assert.equal(b.get('unreadCount').textContent,0);
+});
+test('intersection observer automatically appends batches without repeated controls or duplicate entries',()=>{
+  let notify;
+  const b=browser({}, {IntersectionObserver:class{constructor(callback){notify=callback;}observe(){}}});
+  b.context.many=Array.from({length:460},(_,i)=>commit(String(i)));
+  b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');
+  assert.equal(b.get('activityMore').hidden,true);assert.equal(b.run('activityRenderedCount'),150);
+  for(let i=0;i<4;i++)notify([{isIntersecting:true}]);
+  assert.equal(b.run('activityRenderedCount'),460);assert.equal((b.get('activityFeed').innerHTML.match(/data-reading-anchor=/g)||[]).length,460);assert.equal(b.get('activitySentinel').hidden,true);
+});
+test('deep reading-position restore yields between bounded batches, and newer navigation cancels pending restoration',()=>{
+  const queue=[];let scroll;
+  const b=browser({}, {setTimeout:callback=>queue.push(callback)});
+  b.context.many=Array.from({length:460},(_,i)=>commit(String(i)));
+  b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');
+  b.context.targetAnchor=r.ids(b.context.many[400])[0];b.context.scroll=(x,y)=>{scroll=y;};
+  b.run("window.scrollTo=scroll;document.querySelectorAll=()=>activityRenderedEvents.slice(0,activityRenderedCount).map(event=>({dataset:{readingAnchor:reading.ids(event)[0]},getBoundingClientRect:()=>({top:75})}));restorePosition({view:'activityView',anchor:targetAnchor,offset:25,y:0})");
+  assert.equal(b.run('activityRenderedCount'),150);assert.equal(queue.length,1);
+  queue.shift()();assert.equal(b.run('activityRenderedCount'),300);
+  queue.shift()();assert.equal(b.run('activityRenderedCount'),450);assert.equal(scroll,50);
+  b.run('renderActivity();restorePosition({view:"activityView",anchor:targetAnchor,offset:25,y:0});requestActivityRender()');
+  while(queue.length)queue.shift()();assert.equal(b.run('activityRenderedCount'),150);
+});
+test('one-time migration persists v2 and leaves bookmark export untouched',()=>{
+  const bookmarkJSON=JSON.stringify({version:1,project_ids:['p']});
+  const b=browser({[r.BOOKMARKS]:bookmarkJSON});
+  b.context.old=JSON.stringify({version:1,checked:now,snapshot:date,seen:{},position:null});
+  b.run(`localStorage.setItem(reading.KEY,old);activityData.events=[${JSON.stringify(commit('a'))}];ingestReadingSnapshot()`);
+  assert.equal(b.get('migrationNotice').hidden,false);assert.equal(JSON.parse(b.storage[r.KEY]).version,2);assert.equal(b.storage[r.BOOKMARKS],bookmarkJSON);
+  b.run('renderActivity()');b.handlers.get('markRead:click')();b.run('ingestReadingSnapshot();renderActivity()');
+  assert.equal(b.get('unreadCount').textContent,0);assert.equal(b.get('migrationNotice').hidden,true);
 });

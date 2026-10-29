@@ -46,6 +46,7 @@
     <div class="reading-actions"><button id="fetchUpdates" type="button" disabled>Fetch updates</button><button id="markRead" type="button" disabled title="Marks all updates in this loaded snapshot, including filtered-out items">Mark all read</button>
     <details class="bookmark-tools"><summary>Bookmarks</summary><button id="exportBookmarks" type="button">Export bookmarks</button><label class="import-label">Import bookmarks<input id="importBookmarks" type="file" accept="application/json,.json"></label><p>Saved only in this browser. Import adds to your existing bookmarks.</p></details></div>
     <p id="readingStatus" role="status" aria-live="polite">Loading your reading inbox…</p>
+    <p id="migrationNotice" role="status" hidden></p>
     <p id="storageWarning" role="alert" hidden></p><p id="historyNotice" hidden></p>
   </section>
   <section id="projects" class="view-panel">
@@ -195,6 +196,7 @@
     <div id="activityFeed" class="activity-feed">
       <div class="loading">Loading activity…</div>
     </div>
+    <p id="activitySentinel" class="hint" role="status" aria-live="polite" hidden></p>
     <button id="activityMore" class="activity-more" type="button" hidden>Show more</button>
     <p class="hint">Activity is grouped by day and project. Recent commits appear individually; older days show commit summaries. Project additions show a frozen upstream snapshot with its original metric window. Activity older than 30 days expires; project research and evidence are retained. Routine probe timestamps are not logged as project changes.</p>
   </section>

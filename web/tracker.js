@@ -16,7 +16,7 @@ const projectTitle = record => record?.display_title || record?.title || record?
 const upstreamName = record => record?.upstream_name || record?.title || projectTitle(record);
 
 const reading=TrackerReading;
-let readingState=reading.empty(), bookmarks=new Set(), inboxView='unread', shownReadingIds=[], displayedSnapshotIds=[];
+let readingState=reading.empty(), bookmarks=new Set(), inboxView='unread', displayedSnapshotIds=[];
 let fetchingUpdates=false, readingInitialized=false, initialRequestsPending=2;
 let storageBroken=false;
 function storageFailure(message){
@@ -84,11 +84,30 @@ function capturePosition(){
   const item=items.find(node=>node.getBoundingClientRect().bottom>0);
   return {view:activityVisible()?'activityView':'projects',scope:inboxView,anchor:item?.dataset.readingAnchor||item?.dataset.id||null,offset:item?.getBoundingClientRect().top||0,y:window.scrollY||0,visible:activityVisibleCount,filters:captureFilters()};
 }
-function restorePosition(position){
-  if(!position)return;
+function restorePosition(position,revision=activityRenderRevision,targetIndex){
+  if(!position||revision!==activityRenderRevision)return;
+  if(position.view==='activityView'&&position.anchor){
+    if(targetIndex===undefined){
+      targetIndex=activityRenderedEvents.findIndex(event=>reading.ids(event)[0]===position.anchor);
+      // Old saved positions used day/project groups instead of individual event anchors.
+      if(targetIndex<0&&position.anchor.startsWith('['))try{
+        const [day,projectId]=JSON.parse(position.anchor);
+        targetIndex=activityRenderedEvents.findIndex(event=>event.project_id===projectId&&localDayKey(event.date)===day);
+        if(targetIndex>=0)position={...position,anchor:reading.ids(activityRenderedEvents[targetIndex])[0]};
+      }catch{}
+    }
+    if(targetIndex>=activityRenderedCount){
+      positionRestoreRevision=revision;
+      // Restore deep positions in small batches rather than a giant synchronous DOM rebuild.
+      setTimeout(()=>{if(revision!==activityRenderRevision)return;renderActivity(true);restorePosition(position,revision,targetIndex);},0);
+      return;
+    }
+  }
   const node=[...document.querySelectorAll(position.view==='projects'?'#rows [data-id]':'[data-reading-anchor]')].find(node=>(node.dataset.readingAnchor||node.dataset.id)===position.anchor);
+  positionRestoreRevision=null;
   window.scrollTo?.(0,node?(window.scrollY||0)+node.getBoundingClientRect().top-position.offset:position.y||0);
 }
+
 function setInboxView(value){
   inboxView=['all','bookmarks'].includes(value)?value:'unread';
   document.querySelectorAll('[data-inbox]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.inbox===inboxView)));
@@ -96,15 +115,17 @@ function setInboxView(value){
 function ingestReadingSnapshot(){
   const result=reading.reconcile(latestReading(),combinedActivityEvents(),activityData.generated_at);
   readingState=result.state;saveReading();
-  $('historyNotice').hidden=!(result.limited||activityData.events.some(e=>e.type==='daily_commits'&&!Array.isArray(e.shas)));
-  $('historyNotice').textContent=result.limited?'History is limited to the available 30 days. Some unread activity has expired or is no longer available; older content cannot be recovered.':'Some older summaries lack commit identities. They are treated conservatively as summaries, not reconstructed individual commits.';
-  updateReadingControls(result.stale?'This published snapshot is older than your saved check. Saved unread progress is preserved; fetch again shortly.':result.baseline?'Your inbox starts here. Existing activity is available in All activity.':result.added+' new item'+(result.added===1?'':'s')+' found; unread items stay until you mark them read.');
+  $('migrationNotice').hidden=!readingState.migrationNotice;
+  $('migrationNotice').textContent='Inbox rule updated: available activity has been restored to unread once. The old version could not distinguish automatic read status from your explicit choices. Bookmarks are unchanged; only Mark all read acknowledges activity now.';
+  $('historyNotice').hidden=!(result.limited||activityData.events.some(e=>e.type==='daily_commits'&&!e.shas?.length));
+  $('historyNotice').textContent=result.limited?'History is limited to the available 30 days. Some unread activity has expired or is no longer available; older content cannot be recovered.':'Some older summaries lack commit identities. They stay unread until explicitly acknowledged; a changed or newly compacted summary may reappear as unread because individual read states cannot be matched.';
+  updateReadingControls(result.stale?'This published snapshot is older than your saved check. Saved unread progress is preserved; fetch again shortly.':result.firstVisit?'All available activity starts unread. Only Mark all read acknowledges it; visiting, reloading and fetching do not.':result.added+' new item'+(result.added===1?'':'s')+' found; unread items stay until you mark them read.');
 }
 $('fetchUpdates').addEventListener('click',()=>fetchUpdates());
 $('markRead').addEventListener('click',()=>{
   if(fetchingUpdates)return;
   const captured=[...displayedSnapshotIds];
-  readingState=reading.acknowledge(latestReading(),captured);saveReading();
+  readingState=reading.acknowledge(latestReading(),captured);saveReading();$("migrationNotice").hidden=true;
   const position=capturePosition();renderActivity();restorePosition(position);
   updateReadingControls('All activity in this loaded snapshot marked read. Subsequently fetched activity remains unread.');
 });
@@ -137,7 +158,8 @@ $('importBookmarks').addEventListener('change',async event=>{
     const incoming=reading.parseBookmarks(await file.text());
     if(!storageBroken){const raw=localStorage.getItem(reading.BOOKMARKS);if(raw)bookmarks=new Set(reading.parseBookmarks(raw));}
     incoming.forEach(id=>bookmarks.add(id));saveBookmarks();
-    if(projectUiReady)render();if(activityUiReady)renderActivity();updateReadingControls('Imported bookmarks; existing bookmarks preserved.');
+    const position=capturePosition();
+    if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);updateReadingControls('Imported bookmarks; existing bookmarks preserved.');
   }catch(error){updateReadingControls('Import failed: '+error.message);}
   finally{event.target.value='';}
 });
@@ -145,15 +167,18 @@ window.addEventListener?.('storage',event=>{
   if(storageBroken)return;
   const position=readingInitialized?capturePosition():null;
   try{
-    if(event.key===reading.KEY)readingState=reading.parse(event.newValue);
+    if(event.key===reading.KEY){readingState=reading.parse(event.newValue);if(!readingState.checked&&readingInitialized)readingState=reading.reconcile(readingState,combinedActivityEvents(),activityData.generated_at).state;$('migrationNotice').hidden=!readingState.migrationNotice;}
     else if(event.key===reading.BOOKMARKS)bookmarks=new Set(event.newValue?reading.parseBookmarks(event.newValue):[]);
     else return;
     if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);
     updateReadingControls('Local state updated from another tab.');
   }catch{storageFailure('Another tab saved unreadable local state.');}
 });
-function persistPosition(){if(!readingInitialized)return;const position=capturePosition();readingState=latestReading();readingState.position=position;saveReading();}
+function persistPosition(){if(!readingInitialized||positionRestoreRevision===activityRenderRevision)return;const position=capturePosition();readingState=latestReading();readingState.position=position;saveReading();}
 window.addEventListener?.('pagehide',persistPosition);
+for(const event of ['wheel','touchstart','keydown'])window.addEventListener?.(event,()=>{
+  if(positionRestoreRevision===activityRenderRevision){activityRenderRevision++;positionRestoreRevision=null;}
+},{passive:true});
 let scrollSaveTimer;
 window.addEventListener?.('scroll',()=>{clearTimeout(scrollSaveTimer);scrollSaveTimer=setTimeout(persistPosition,250);},{passive:true});
 
@@ -898,6 +923,7 @@ let activityData = { generated_at: null, window_days: 30, events: [] };
 let activityDirty = true;
 const ACTIVITY_PAGE_SIZE=150;
 let activityVisibleCount=ACTIVITY_PAGE_SIZE;
+let activityRenderedCount=0,activityRenderedEvents=[],activityRenderRevision=0,positionRestoreRevision=null;
 const activityVisible = () => $("activityView").classList.contains("active");
 const projectById = () => new Map(projects.map(project => [project.id, project]));
 const isProjectActivity = event => String(event.type || "").startsWith("project_");
@@ -1241,19 +1267,26 @@ function localDayLabel(day) {
   );
 }
 
-function renderActivity() {
+function renderActivity(append=false) {
   activityDirty=false;
   const map=projectById();
   const cutoff=inboxView==="unread"?-Infinity:Date.now()-Number(activityFilterState.days||30)*86400000;
   const query=$("activityQ").value.trim().toLowerCase();
-  const events=combinedActivityEvents().filter(event=>(inboxView!=="unread"||unreadEvent(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
+  if(!append)activityRenderRevision++;
+  const events=append?activityRenderedEvents:combinedActivityEvents().filter(event=>(inboxView!=="unread"||unreadEvent(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
   $("activityCount").textContent=events.length;
   $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
-  const shown=inboxView==="unread"?events.length:Math.min(activityVisibleCount,events.length);
-  shownReadingIds=events.slice(0,shown).flatMap(reading.ids);
-  displayedSnapshotIds=combinedActivityEvents().flatMap(reading.ids);
-  updateReadingControls();
-  $("activityMore").hidden=shown===events.length;
+  activityRenderedEvents=events;
+  const start=append?activityRenderedCount:0;
+  const shown=Math.min(start+ACTIVITY_PAGE_SIZE,events.length);
+  activityRenderedCount=shown;activityVisibleCount=shown;
+  if(!append){
+    displayedSnapshotIds=combinedActivityEvents().flatMap(reading.ids);
+    updateReadingControls();
+  }
+  $("activityMore").hidden=shown===events.length||typeof IntersectionObserver!=="undefined";
+  $("activitySentinel").hidden=shown===events.length;
+  $("activitySentinel").textContent=`${shown} of ${events.length} displayed. More loads as you scroll.`;
   $("activityMore").textContent=`Show more (${shown} of ${events.length})`;
 
   if(!events.length){
@@ -1262,7 +1295,7 @@ function renderActivity() {
   }
 
   const days=new Map();
-  for(const event of events.slice(0,shown)){
+  for(const event of events.slice(start,shown)){
     const day=localDayKey(event.date);
     if(!days.has(day)) days.set(day,new Map());
     const byProject=days.get(day);
@@ -1270,8 +1303,8 @@ function renderActivity() {
     byProject.get(event.project_id).push(event);
   }
 
-  $("activityFeed").innerHTML=[...days.entries()].map(([day,byProject])=>{
-    const dateLabel=localDayLabel(day);
+  const html=[...days.entries()].map(([day,byProject])=>{
+    const dateLabel=localDayLabel(day)+(append&&start>0&&day===localDayKey(events[start-1].date)?" (continued)":"");
     const projectsHtml=[...byProject.entries()].sort((a,b)=>{
       const ad=Math.max(...a[1].map(e=>activityEventTime(e.date)));
       const bd=Math.max(...b[1].map(e=>activityEventTime(e.date)));
@@ -1307,12 +1340,13 @@ function renderActivity() {
           details=detailParts.join('<span class="detail-separator">·</span>');
         }
         const classes=event.type==="release"?"commit release-event":(isProjectActivity(event)?"commit project-event":"commit");
-        return '<div class="'+classes+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
+        return '<div class="'+classes+'" data-reading-anchor="'+esc(reading.ids(event)[0])+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
       }).join("");
-      return '<div class="activity-project '+(bookmarks.has(projectId)?'bookmarked':'')+'" data-reading-anchor="'+esc(JSON.stringify([day,projectId]))+'"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
+      return '<div class="activity-project '+(bookmarks.has(projectId)?'bookmarked':'')+'"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
     }).join("");
     return '<section class="activity-day"><h2>'+esc(dateLabel)+'</h2>'+projectsHtml+'</section>';
   }).join("");
+  if(append)$("activityFeed").insertAdjacentHTML("beforeend",html);else $("activityFeed").innerHTML=html;
 }
 
 function requestActivityRender(){
@@ -1330,9 +1364,15 @@ document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("
 }));
 
 $("activityMore").addEventListener("click",()=>{
-  activityVisibleCount+=ACTIVITY_PAGE_SIZE;
-  renderActivity();
+  renderActivity(true);
 });
+
+if(typeof IntersectionObserver!=='undefined'){
+  const observer=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)&&activityVisible()&&activityRenderedCount<activityRenderedEvents.length)renderActivity(true);
+  },{rootMargin:'800px 0px'});
+  observer.observe($('activitySentinel'));
+}
 
 $("activityQ").addEventListener("input",()=>{updateClearButtons();requestActivityRender();});
 $("activityClear").addEventListener("click",()=>{

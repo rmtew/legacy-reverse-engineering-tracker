@@ -9,33 +9,34 @@
     for(const c of canonical(value)){a=Math.imul(a^c.charCodeAt(0),16777619);b=Math.imul(b,33)^c.charCodeAt(0);}
     return (a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0');
   }
-  const identity=(event,sha)=>fingerprint([event.project_id,event.type==='daily_commits'?'commit':event.type,sha||event.sha||event.tag||event.id||event.event_id||[event.date,event.url,fingerprint(event.change_details||event.changes||event.title||event.message||"")]]);
+  const identity=(event,sha)=>fingerprint([event.project_id,event.type==='daily_commits'?'commit':event.type,sha||event.sha||event.tag||event.id||event.event_id||[event.date,event.url,event.type==='daily_commits'?[event.day,event.count]:null,fingerprint(event.change_details||event.changes||event.title||event.message||"")]]);
   const identityCache=new WeakMap();
   function ids(event){
     if(!identityCache.has(event))identityCache.set(event,event.type==='daily_commits'&&Array.isArray(event.shas)&&event.shas.length?event.shas.map(sha=>identity(event,sha)):[identity(event)]);
     return identityCache.get(event);
   }
-  const empty=()=>({version:1,checked:null,snapshot:null,seen:{},position:null});
+  const empty=()=>({version:2,checked:null,snapshot:null,seen:{},position:null});
   function parse(raw){
     if(!raw)return empty();
     const value=JSON.parse(raw);
-    if(value.version!==1||!value.seen||typeof value.seen!=='object'||Array.isArray(value.seen)||Object.entries(value.seen).some(([id,v])=>!validId(id)||typeof v!=='boolean')|| (value.checked!==null&&!Number.isFinite(value.checked)))throw Error('Invalid reading state');
+    if(![1,2].includes(value.version)||!value.seen||typeof value.seen!=='object'||Array.isArray(value.seen)||Object.entries(value.seen).some(([id,v])=>!validId(id)||typeof v!=='boolean')|| (value.checked!==null&&!Number.isFinite(value.checked)))throw Error('Invalid reading state');
     if(value.snapshot!==null&&(typeof value.snapshot!=='string'||!Number.isFinite(Date.parse(value.snapshot))))throw Error('Invalid snapshot boundary');
     const p=value.position;
     if(p&&(!['activityView','projects'].includes(p.view)||!['unread','all','bookmarks'].includes(p.scope)||!Number.isFinite(p.y)||p.y<0||p.y>1e9||!Number.isFinite(p.offset)||Math.abs(p.offset)>1e9||!Number.isInteger(p.visible)||p.visible<0||p.visible>100000||(p.anchor!==null&&!validId(p.anchor))))value.position=null;
+    // v1 false values mix implicit baseline and explicit acknowledgements: neither is provable.
+    if(value.version===1)return {...empty(),position:value.position,migrationNotice:true};
     return value;
   }
   function reconcile(state,events,snapshot,now=Date.now()){
-    if(state.snapshot&&Date.parse(snapshot)<Date.parse(state.snapshot))return {state,added:0,baseline:false,limited:false,expired:0,stale:true};
-    const next=JSON.parse(JSON.stringify(state)),baseline=!state.checked;
+    if(state.snapshot&&Date.parse(snapshot)<Date.parse(state.snapshot))return {state,added:0,firstVisit:false,limited:false,expired:0,stale:true};
+    const next=JSON.parse(JSON.stringify(state)),firstVisit=!state.checked;
     const available=new Set(),cutoff=Date.parse(snapshot)-30*86400000;
     let added=0,expired=0;
     for(const event of events)for(const id of ids(event)){
       available.add(id);
       if(!Object.hasOwn(next.seen,id)){
-        const unread=!baseline&&!(event.type==='daily_commits'&&!Array.isArray(event.shas));
-        next.seen[id]=unread;
-        if(unread)added++;
+        next.seen[id]=true;
+        added++;
       }
     }
     for(const [id,value] of Object.entries(next.seen))if(!available.has(id)){
@@ -43,10 +44,11 @@
       delete next.seen[id];
     }
     next.checked=now;next.snapshot=snapshot;
-    return {state:next,added,baseline,limited:!!state.checked&&(Date.parse(state.snapshot)<cutoff||expired>0),expired};
+    return {state:next,added,firstVisit,limited:!!state.checked&&(Date.parse(state.snapshot)<cutoff||expired>0),expired};
   }
   function acknowledge(state,shownIds){
     const next=JSON.parse(JSON.stringify(state));
+    next.migrationNotice=false;
     for(const id of shownIds)if(Object.hasOwn(next.seen,id))next.seen[id]=false;
     return next;
   }
