@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-30T06:04:53Z",
+  "updated_at": "2026-10-30T06:13:46Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -12266,7 +12266,7 @@
         "disk-image-tool"
       ],
       "re_started": null,
-      "status": "Active Rust/C++ Amiga disk toolkit; decoded views now cover Workbench icons and indexed, EHB, HAM and 24-bit ILBM images with upstream corpus accounting and fuzz-bounded allocation checks.",
+      "status": "Amiga Disk Engine now follows executable control flow into functions, cross-references and call graphs, names proven library calls, and exports source that GNU as rebuilds byte-for-byte across 39,363 corpus programs.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -12278,7 +12278,10 @@
         "reimplementation",
         "whole-corpus differential measurement",
         "format-aware fuzzing",
-        "byte-accounting validation"
+        "byte-accounting validation",
+        "entry-point control-flow traversal",
+        "proven-library-base naming",
+        "whole-corpus GNU as round-trip export"
       ],
       "tags": [
         "Amiga",
@@ -12290,7 +12293,7 @@
         "documentation drift",
         "Apache-2.0"
       ],
-      "notes": "Identity: Amiga Disk Engine is a cross-platform Rust core, CLI, C ABI and Qt GUI for Amiga disks, filesystems, containers and decoded content. Classification: Preservation and disk-analysis tooling with independently implemented format decoders; it is not a recovered Amiga application or emulator. Source CPU: The reviewed inputs are disk structures, Workbench icon records and ILBM image data rather than one executable architecture. Target CPU: The existing x86-64 host output evidence remains; the decoded-format work does not establish an additional host architecture. Build: Upstream reports 12,817/12,826 corpus icons and 4,664 ILBM pictures decoded, with 12,807 icons fully accounting for every file byte and 4,637 images consuming BODY exactly. Indexed, EHB, HAM and 24-bit images, ByteRun1 and masks are covered; two oversized-allocation cases found by fuzzing are rejected early. Limitations: These are upstream corpus and fuzz results. The tracker did not compile the Rust/Qt workspace, supply the corpus or execute either decoder. Runtime profiles: The inspected change states no minimum host CPU, RAM or OS profile for CLI or Qt operation. AI: The decoder commit explicitly carries a Claude Opus 5.5 co-author trailer; attribution is scoped to evidenced work. Relationships: AROS icon.library and ilbm.datatype are documented behavioral references read locally and not copied into the repository; ADFlib remains a black-box differential oracle rather than a linked dependency. Evidence: https://github.com/Darian-Frey/Amiga-Disk-Engine/commit/acdaee96caf1ccac7e2b093f81fc08381655046b",
+      "notes": "Identity: The disassembly suite is a new capability within Amiga Disk Engine's existing disk/container/filesystem toolkit, not a separate project or game reconstruction. Classification: The project remains an original preservation and software-archaeology tool. Its new code-following disassembler is broadly reusable rather than a baked emulator for one title. Source CPU: The reviewed inputs are disk structures, Workbench icon records and ILBM image data rather than one executable architecture. Target CPU: The existing x86-64 host output evidence remains; the decoded-format work does not establish an additional host architecture. Build: Control-flow walks begin at loader entry points rather than linearly sweeping data, expose functions/xrefs/call graphs, name calls only after proving the library base, and export source rebuilt byte-for-byte with GNU as for all 39,363 corpus programs. Limitations: The tracker did not repeat the corpus run. Upstream explicitly leaves Devpac and vasm export compatibility untried. Runtime profiles: The new disassembly/export feature states no additional host CPU, RAM or OS minimum. AI: The reviewed feature commit explicitly credits Claude Opus 5.5; this establishes an attributed contribution to this feature, not independent validation of its corpus results. Relationships: AROS icon.library and ilbm.datatype are documented behavioral references read locally and not copied into the repository; ADFlib remains a black-box differential oracle rather than a linked dependency. Evidence: https://github.com/Darian-Frey/Amiga-Disk-Engine/commit/8869eb149731d2d399e526f65144bea75e39f87e https://github.com/Darian-Frey/Amiga-Disk-Engine/commit/acdaee96caf1ccac7e2b093f81fc08381655046b",
       "ai": {
         "usage": true,
         "tools": [
@@ -54023,19 +54026,22 @@
         "source maintenance"
       ],
       "re_started": null,
-      "status": "Primary source and build workflow reviewed; independent execution unverified",
+      "status": "DCTelnet now builds with m68k-amigaos GCC 16.2, and its GCC binary restores cursor-key navigation in the shell and Mystic BBS by correcting signed CSI-byte handling.",
       "build": {
-        "compilable": null,
-        "runnable": null,
+        "compilable": true,
+        "runnable": true,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "dual VBCC/GCC Amiga build maintenance",
+        "compiler-specific terminal control validation"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Maintained version of Zed's DCTelnet with BBS terminal support, ZModem and a restored 68000-compatible build. Classification: Source maintenance and portability fixes based on published DCTelnet 1.5/1.6 sources; not a binary-derived reconstruction. Source CPU: README explicitly says the original 1.5/1.6 releases were compiled for 68020+; this source-maintenance lineage is distinguished from the new 68000 output. Target CPU: src/Makefile explicitly builds separate 68000 and 68020 variants using VBCC or GCC. Build: README describes recompiled releases since 1.7 and src/Makefile implements both CPU builds. Current C99 versions cannot be built with historical SAS/C. No independent compilation, execution, gameplay or byte comparison was performed; all four build flags remain unknown. Runtime profiles: The runtime profile records the documented requirement, not an independent hardware test. AI: No explicit development-AI contribution attribution was found in the inspected documentation, implementation/build samples and latest default-branch commit. This bounded review does not prove non-use; integration/configuration files are not contribution evidence. Relationships: Credits Zed's Aminet sources, Bruno Frederic and spotUP improvements, and third-party ReqTools/XPR/XEM sources. LICENSE states original code remains all rights reserved. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/README.md https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/src/Makefile https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/src/DCTelnet.c https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/LICENSE https://github.com/bruno-frederic/dctelnet/commit/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94",
+      "notes": "Identity: DCTelnet remains the maintained Amiga Telnet/BBS client derived from the published 1.5/1.6 sources. Classification: The new commits are source maintenance and compiler-portability work, not binary reconstruction or a new terminal project. Source CPU: README explicitly says the original 1.5/1.6 releases were compiled for 68020+; this source-maintenance lineage is distinguished from the new 68000 output. Target CPU: src/Makefile explicitly builds separate 68000 and 68020 variants using VBCC or GCC. Build: Upstream enables m68k-amigaos GCC 16.2 and reports a working GCC binary after changing CSI from a signed character constant to numeric 0x9B; cursor keys then work in the shell and Mystic BBS reader as they did in the VBCC binary. Limitations: The tracker did not compile or run either binary. Runnable and compilable flags reflect the upstream build and exercised-binary report, not independent verification. Runtime profiles: The existing AmigaOS 2.0+, 68000 minimum profile remains supported; GCC 16.2 changes the toolchain rather than the documented runtime floor. AI: Earlier current-line maintenance explicitly credits Claude Opus 5.5, including the ibmcon screen-buffer and blink feature. The attribution does not imply that every DCTelnet change used AI. Relationships: Credits Zed's Aminet sources, Bruno Frederic and spotUP improvements, and third-party ReqTools/XPR/XEM sources. LICENSE states original code remains all rights reserved. The repository URL and title were compared with the current catalogue; no equivalent project record was found. Evidence: https://github.com/bruno-frederic/dctelnet/commit/ecfcbc9ded28e5b7cfd89edff851669d1508da04 https://github.com/bruno-frederic/dctelnet/commit/0225cd98a90b605552d5d54e7578a4bace1e3d64 https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/README.md https://github.com/bruno-frederic/dctelnet/blob/90f8615ce4ee4b67f1122a4761f9ee65ab90ac94/src/Makefile https://github.com/bruno-frederic/dctelnet/commit/d694f3831c00206238967c8082b07c393f2d381f",
       "ai": {
         "usage": true,
         "tools": [
@@ -73715,7 +73721,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "Authenticated Nexus evidence now carries a retained retail BKR through Continue into a four-champion dungeon view, while FM Towns DM2 traces cover startup source frames; Firestaff-side Continue loading, HUD/viewport and presentation parity remain unimplemented or unverified.",
+      "status": "Firestaff now hash-locks four authentic DM1 SNES cartridge images, decodes both H03 ROMDUNGEON slots and validates their shared 14-map structure; native SNES runtime, rendering, input and audio remain out of scope.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73771,7 +73777,9 @@
         "launcher/runtime access-owner separation",
         "authenticated save-image replay",
         "VDP source-span verification",
-        "startup source-frame tracing"
+        "startup source-frame tracing",
+        "authenticated SNES media classification",
+        "bounded H03 ROMDUNGEON decoding"
       ],
       "tags": [
         "game engine",
@@ -73780,7 +73788,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Identity: Firestaff remains a clean-room Dungeon Master-family engine using authenticated original media across documented platform variants. Classification: Clean-room cross-platform engine reconstruction. Launcher and source-trace receipts are bounded verification evidence, not proof of full campaign, display, audio or save parity. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: A hash-retained Japanese retail BKR was replayed in Ymir 0.4.2-dev from cold boot through Continue to a four-champion dungeon view, and a paired Up-input replay changed the rendered view. Separate FM Towns DM2 work records every startup source frame used during Timer-A catch-up. Limitations: The Nexus replay verifies a retail reference flow in Ymir, not Firestaff's Continue implementation or input parity. The source-frame trace is diagnostic and does not establish native FM Towns presentation parity. Next check: Bind the cold-boot BKR scan/load path and compare Firestaff Continue, HUD, viewport and startup presentation against the authenticated references. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: DM1, Chaos Strikes Back, DM2, Nexus and Theron's Quest remain variants within the same source-faithful engine effort, with their evidence limits kept distinct. Evidence: https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/commit/07f371b437cc0e2ed02082beaec2598d58eab80e https://github.com/yeager/firestaff/commit/6bd8bddac9ed6c82befa3a3f2949ee5540816105",
+      "notes": "Identity: Firestaff remains the clean-room Dungeon Master-family engine and evidence framework; the SNES work is another bounded original-media path inside the same project. Classification: The new SNES decoder is authenticated-media analysis supporting a clean-room reconstruction, not proof of a complete SNES port or campaign implementation. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: A skip-safe real-media test hash-locks four local SMC images, decodes both H03 ROMDUNGEON slots and verifies the shared 14-map dungeon structure without tracking ROM bytes. Limitations: Cartridge admission, remaining resource readers, tile/palette mapping, controller input, SPC/music handling and version-specific behavior gates remain before any native SNES runtime claim. Next check: Continue from authenticated SNES media classification into bounded resource readers without claiming a native runtime before rendering, input and audio gates exist. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: SNES DM1 is retained as a platform variant within Firestaff's shared Dungeon Master-family scope, not split into a second catalogue project. Evidence: https://github.com/yeager/firestaff/commit/6317b039f1f756c4b220525a0ea4b704ade0e978 https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae",
       "ai": {
         "usage": true,
         "tools": [
@@ -115406,7 +115414,7 @@
         "automation"
       ],
       "re_started": null,
-      "status": "Starglider 2 output remains byte-exact across 412,736 bytes while common airborne and ground launch-state contracts reduce unresolved record accesses from 219 to 207; broader semantics and minimum Amiga requirements remain open.",
+      "status": "Starglider 2 remains byte-exact across 412,736 bytes; six connected disk/media helpers and two shared service-state fields now have bounded roles, while physical-media behavior and minimum Amiga requirements remain open.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115429,7 +115437,9 @@
         "projectile creator contract recovery",
         "orphan layout-element rejection",
         "producer-phase launch-state contract recovery",
-        "guarded actor-field ownership"
+        "guarded actor-field ownership",
+        "disk/media helper role recovery",
+        "shared disk/audio service-state modeling"
       ],
       "tags": [
         "Amiga",
@@ -115437,7 +115447,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed change advances its Starglider 2 restoration rather than creating a separate project. Classification: The change is bounded reconstruction/tooling work: canonical ancestry is used to retain a safe common custom pointer prefix without treating that prefix as proof of equal values, subtype, lifetime or complete semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: The reviewed launch-state pass recovers 12 typed accesses across finite airborne and ground spawn tables, raising typed accesses to 2,589 and reducing unresolved record accesses to 207 while retaining the existing exact 412,736-byte output. Limitations: These are upstream generated-output and targeted semantic checks. The tracker did not run the generator or game, and BYTE 41 parameters, ground BYTE 43 writes and 264 ownership intervals remain unresolved. Next check: Continue classifying unresolved accesses and ownership intervals without promoting bounded exact generation to complete behavioral reconstruction. Runtime profiles: The reviewed restoration evidence does not state a minimum Amiga CPU, RAM, chipset or ROM configuration. Next check: Add a runtime profile only when primary documentation or qualified hardware/emulator testing states a concrete minimum configuration. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/commit/c290215f5884eeee74185c563530915f324c2684 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
+      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed disk/media pass advances the existing Starglider 2 target. Classification: This remains bounded reconstruction/tooling work: names and fields are admitted from native accesses and control flow without promoting unresolved gaps or physical-media semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: The pass names six existing disk/media helpers, identifies an 80-cycle WORD field and a 5,632-byte alternate-playback countdown, and retains byte-exact C/vasm output with 57 assets and 14 headers. Limitations: The tracker did not regenerate the output. Upstream did not repeat unchanged framework tests and makes no new runtime, media-validity, physical-timing or playback claim. Next check: Continue resolving bounded service-state and ownership gaps without converting exact generation into a complete behavioral claim. Runtime profiles: The reviewed pass adds no minimum Amiga CPU, RAM, chipset or ROM evidence. Next check: Add a runtime profile only after primary documentation or qualified hardware/emulator testing states a concrete minimum. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/d2ad3422b53a30d6dd9cdea0bd80e63362f38878 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
       "ai": {
         "usage": true,
         "tools": [
@@ -131275,19 +131285,22 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "ND500X documents and indexes the ND-5000 '87 extension: 23 of 25 manual-labelled instructions are represented, with explicit implementation plans and unresolved RHOLE/AMODB scope.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "reference-manual opcode reconciliation",
+        "extension-specific opcode matrix filtering"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: ND-500 emulator with instruction implementations and generated decoding tables, disassembler, DOM/program loaders, interactive debugger and DAP adapter. Classification: Substantial independent 32-bit architecture implementation, usable as standalone CPU front end or ND100X co-processor. Instruction count and accuracy claims are author assertions. MIT root license and inspected instruction/disassembler headers. Historical program images and external dependencies require their own provenance. Source CPU: Documented source/input platforms: Norsk Data ND-500. Processor scope: ND-500. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: CMake C11 native/WASM and Make wrappers inspected. README explicitly says no release has yet been published because external/ndmonlib must become public; macOS release targets have never been built. Submodules and optional generated code paths were not exercised. No upstream code, build, test, emulator, installer or utility was executed. No candidate software was compiled or executed in this pass; build/run/play/byte-identity flags remain unknown. Runtime profiles: No complete host CPU/RAM minimum established from inspected documentation; supported host systems are not hardware minima. AI: No explicit actual development-AI attribution found in bounded README, implementation front matter and latest commit-message inspection. Unknown rather than non-use. Relationships: Sibling ND100X uses ND500X as a library/submodule for ND-5000 attached-CPU support; each repository provides a different CPU implementation. Evidence: https://github.com/RetroCoreLabs/nd500x/blob/d309ee512672655a5e59b27c3ad80a1a0627f21d/README.md https://github.com/RetroCoreLabs/nd500x/blob/d309ee512672655a5e59b27c3ad80a1a0627f21d/CMakeLists.txt",
+      "notes": "Identity: ND500X remains the C11 Norsk Data ND-500-family CPU emulator; the '87 material extends its existing ND-5000 instruction scope. Classification: This is emulator and software-archaeology work grounded in the ND-500 reference manual, with documentation and implementation state kept distinct. Source CPU: Documented source/input platforms: Norsk Data ND-500. Processor scope: ND-500. Target CPU: No fixed target CPU is established; portability of the implementation language is not proof of supported architectures. Build: The generated extension page counts 23 of 25 manual-labelled '87 instructions in instructions.json, adds extension tagging and opcode-matrix filtering, and keeps RHOLE/AMODB explicitly absent. The follow-up plan distinguishes existing emulator behavior from unimplemented semantics. Limitations: The tracker did not compile or execute the emulator; documentation coverage is not treated as instruction-semantic correctness or hardware validation. Runtime profiles: The reviewed extension documentation states no verified host CPU, RAM or OS minimum and does not identify a new runnable hardware profile. AI: No explicit actual development-AI attribution found in bounded README, implementation front matter and latest commit-message inspection. Unknown rather than non-use. Relationships: Sibling ND100X uses ND500X as a library/submodule for ND-5000 attached-CPU support; each repository provides a different CPU implementation. Evidence: https://github.com/RetroCoreLabs/nd500x/commit/a8d295d0213d861f76137a163113326bf103d065 https://github.com/RetroCoreLabs/nd500x/commit/dc5202ca00af62fa6af2d8ab5e13acff0257e5e9 https://github.com/RetroCoreLabs/nd500x/blob/d309ee512672655a5e59b27c3ad80a1a0627f21d/README.md https://github.com/RetroCoreLabs/nd500x/blob/d309ee512672655a5e59b27c3ad80a1a0627f21d/CMakeLists.txt",
       "ai": {
         "usage": true,
         "tools": [
@@ -148933,7 +148946,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "v0.10.4 published; packaged demos now open from writable per-user copies, while Windows emulator integration remains explicitly experimental",
+      "status": "PiST now analyzes TOS executables with persistent names/comments/code-data marks, live stopped-PC and Hatari coverage notes, picture inspection and source export admitted as a reconstruction only after vasm byte matching.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -148948,7 +148961,10 @@
         "hardware-register inspection",
         "profiling",
         "floppy-image tooling",
-        "MCP automation"
+        "MCP automation",
+        "persistent sidecar analysis notes",
+        "live Hatari execution coverage",
+        "byte-matched vasm source export"
       ],
       "tags": [
         "Atari ST",
@@ -148959,7 +148975,7 @@
         "reverse-engineering tooling",
         "retro development"
       ],
-      "notes": "Identity: PiST is a cross-platform Atari ST/STE 68000 assembly IDE and debugger integrating vasm, vlink and Hatari, with MCP control as adjacent retro-development tooling. Classification: The release remains original development/debugging tooling rather than a reconstructed game or emulator-derived port. Source CPU: PiST targets Atari ST/STE source projects written for Motorola 68000; this source architecture is retained independently of host package architectures. Target CPU: v0.10.4 publishes Linux and Windows x86-64 packages plus macOS arm64 packages. These establish host outputs without implying minimum CPU generations. Build: v0.10.4 fixes packaged first-run demos by copying the read-only installed tree into writable per-user storage, migrates saved installed-demo paths and scopes stop-hook trust to files PiST copied. Linux/macOS integration is exercised upstream; Windows emulator integration remains explicitly experimental. The tracker did not run a package. Runtime profiles: Release assets explicitly support Linux x86-64, Windows x86-64 and macOS arm64. Linux packages require glibc 2.35 or newer; no minimum CPU generation or RAM is stated. Windows emulator integration is experimental. AI: The reviewed v0.10.4 release notes provide no explicit development-AI attribution; configuration files are not treated as proof of contribution. Relationships: The bundled Hatari fork and upstream Hatari/vasm/vlink relationships are identified but the fork's independent catalogue scope has not been fully reconciled. Next check: Check the bundled Hatari fork and credited toolchain relationships against existing catalogue records. Evidence: https://github.com/idontwantyourspamthanks/PiST/releases/tag/v0.10.4",
+      "notes": "Identity: The new TOS-program analysis tab is integrated into PiST's existing Atari ST IDE/debugger rather than a separate disassembler project. Classification: PiST remains a general Atari ST development and software-archaeology environment. It distinguishes guessed picture readings and only labels exported source a reconstruction after assembled bytes match. Source CPU: PiST targets Atari ST/STE source projects written for Motorola 68000; this source architecture is retained independently of host package architectures. Target CPU: v0.10.4 publishes Linux and Windows x86-64 packages plus macOS arm64 packages. These establish host outputs without implying minimum CPU generations. Build: The analysis module reads TOS programs, persists names/comments/forced code-data ranges, follows the live basepage and stopped PC, imports executed-address coverage, shows selected spans as pictures and checks source export with vasm. Limitations: The tracker did not run PiST, Hatari or vasm; the result is capability evidence, not proof that arbitrary binaries are correctly recovered. Runtime profiles: Existing v0.10.4 Linux x86-64, Windows x86-64 and macOS arm64 profiles remain current; the analysis commits add no new CPU, RAM or OS minimum. AI: The reviewed v0.10.4 release notes provide no explicit development-AI attribution; configuration files are not treated as proof of contribution. Relationships: PiST pins its Hatari fork to commit 41fc91d and rejects a built binary lacking the required coverage command. The fork is an explicit integrated dependency, not promoted as a second project by this pass. Evidence: https://github.com/idontwantyourspamthanks/PiST/commit/21796b9e08c8f733304c694671ae392bb0741d9c https://github.com/idontwantyourspamthanks/PiST/commit/4099c396f49b854c42866d78d078202ec4bcfcde https://github.com/idontwantyourspamthanks/PiST/releases/tag/v0.10.4 https://github.com/idontwantyourspamthanks/PiST/commit/7787e88c08f92f7aa440a23fa0b0969f11d84024",
       "ai": {
         "usage": true,
         "tools": [
@@ -220094,7 +220110,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "The Apple IIe/SoftCard environment now exposes kernel-managed W5100 socket and packetless TX/RX APIs, migrates Telnet to the kernel interface and adds a first working WGET client; network execution was not independently repeated.",
+      "status": "Zapple-II / BP/M now includes a kernel-backed NETCCP remote-login server with Telnet option negotiation and terminal-independent command output; network execution remains upstream-reported.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -220106,13 +220122,15 @@
         "CP/M file-semantics regression",
         "virtualized directory search",
         "bank-safe W5100 socket API integration",
-        "CP/M Telnet and WGET client integration"
+        "CP/M Telnet and WGET client integration",
+        "CP/M-compatible remote-login service",
+        "Telnet option negotiation"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Native dual-CPU CP/M-compatible CCP/BDOS/BIOS environment translating Z80 program file operations into Apple II ProDOS services. Classification: Substantial 6502 loader/terminal/ProDOS backend and Z80 BDOS/BIOS/CCP code with bank gateway and FCB/DMA transfers. Real SoftCard Z80 executes applications; this is not a CPU emulator. Newly updated default branch inspected at pinned commit. BSD-2-Clause for project code. Bundled assemblers have separate notices; CP/M programs including WordStar/Turbo Pascal/dBase are third-party content and not automatically relicensed by root BSD grant. Source CPU: Original/inspected source architecture is 6502, Z80. This is not an inferred minimum runnable machine. Target CPU: Inspected implementation/build establishes 6502, Z80 output architecture; a complete minimum runtime configuration was not independently verified. Build: The reviewed changes add ownership-checked BDOS socket management and a bounded 16-byte packetless W5100 TX/RX path, migrate Telnet to dynamic kernel sockets, and introduce the upstream-described first working WGET.COM. Limitations: The tracker reviewed source changes only; it did not assemble the image, exercise W5100 hardware or verify Telnet/WGET interoperability. Next check: Retain kernel/socket ownership boundaries and seek reproducible Apple IIe/SoftCard network execution evidence. Runtime profiles: The reviewed terminal and CP/M changes do not state a minimum Apple IIe revision, RAM, SoftCard model, ROM or display requirement. No minimum is inferred from the 6502/Z80 code. AI: Unknown: bounded primary documentation, sampled implementation/build/licence files and up to three latest full commit messages contain no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/README.md https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/softcard65.asm https://github.com/bobbimanners/Zapple-II/commit/4f5f5c6ac0768c8e205be90740684679030e2345 https://github.com/bobbimanners/Zapple-II/commit/65b215c64ed9b74b7b81596f7fa61c883ef91666 https://github.com/bobbimanners/Zapple-II/commit/4398794c9a3e36383e2559ff39414e1d2e8cfb03",
+      "notes": "Identity: NETCCP remains part of the same Apple IIe/SoftCard Zapple-II and BP/M environment rather than a separate catalogue project. Classification: This is original CP/M-compatible system and networking development for legacy Apple II/SoftCard hardware, not reverse-engineered game code. Source CPU: Original/inspected source architecture is 6502, Z80. This is not an inferred minimum runnable machine. Target CPU: Inspected implementation/build establishes 6502, Z80 output architecture; a complete minimum runtime configuration was not independently verified. Build: The kernel-backed NETCCP server now negotiates Telnet ECHO/SGA, refuses client LINEMODE and receives cleanup plus terminal-independent output fixes. Limitations: The tracker did not run the server or repeat a remote-login session, so interoperability remains an upstream claim. Runtime profiles: The reviewed server commits provide no new minimum Apple II, SoftCard, memory or W5100 firmware profile. AI: Unknown: bounded primary documentation, sampled implementation/build/licence files and up to three latest full commit messages contain no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/bobbimanners/Zapple-II/commit/614b04a39b7dba3185831c762a4a28ec0273ce16 https://github.com/bobbimanners/Zapple-II/commit/c4ca56aba263703cb7085ab0a14acb5a164d7dcd https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/README.md https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/softcard65.asm",
       "ai": {
         "usage": null,
         "tools": []
@@ -242940,7 +242958,7 @@
         "decompilation"
       ],
       "re_started": null,
-      "status": "BO5 is reported 100% for its bounded boss-overlay scope, while the in-tree PC runtime adds most stage overlays and fixes menu/prologue text; upstream explicitly says PC coverage is incomplete.",
+      "status": "Castlevania Symphony of the Night decompilation has begun RBO6 boss-overlay asset/entity recovery and corrected Saturn stage-15 sprite/table typing; broader PC and overlay coverage remains incomplete.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -242950,13 +242968,15 @@
       "techniques": [
         "bounded overlay completion",
         "PC stage-overlay integration",
-        "cross-version boss reconstruction"
+        "cross-version boss reconstruction",
+        "boss-overlay asset extraction",
+        "cross-version entity unification"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Multi-platform/version reconstruction with actual palette-state C alongside remaining INCLUDE_ASM stubs. Own game assets required; matching builds do not mean equal source completeness across PS1/PSP/Saturn targets. Classification: Inspected source supports game / decompilation. Multi-platform/version reconstruction with actual palette-state C alongside remaining INCLUDE_ASM stubs. Own game assets required; matching builds do not mean equal source completeness across PS1/PSP/Saturn targets. Source CPU: Source architecture: MIPS, SH-2. Target CPU: Target architecture: MIPS, SH-2. Build: Upstream marks the BO5 boss-overlay scope 100% and wires most stage overlays into the in-tree PC runtime, fixing crashes found during play and later restoring menu/prologue text. The PC author explicitly says coverage is imperfect and incomplete; BO5 completion is not project-wide completeness. The tracker did not compile or play either target. Runtime profiles: The overlay work and PC runtime commits state no minimum host CPU, RAM, OS or original-console configuration. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/Xeeynamo/sotn-decomp https://github.com/Xeeynamo/sotn-decomp/blob/66a337e30f839a9c724ae008190d3dc60a6b5392/src/dra/4A538.c https://github.com/Xeeynamo/sotn-decomp/blob/66a337e30f839a9c724ae008190d3dc60a6b5392/README.md https://github.com/Xeeynamo/sotn-decomp/commit/46f0b7d263ed5a5afbf9f09bcaf924424d9ec6ba https://github.com/Xeeynamo/sotn-decomp/commit/2297499a58dc7e70ca6a50f9b83c3bb0553af41f https://github.com/Xeeynamo/sotn-decomp/commit/625075774c5802e35097731b16d4fc90f8fff2f3 https://github.com/Xeeynamo/sotn-decomp/commit/2be55ee17221ee306e330edf2df2d49d48ba47ae",
+      "notes": "Identity: The repository remains the multi-version Symphony of the Night decompilation; RBO6 and Saturn stage-15 work are bounded overlays within the same project. Classification: The reviewed changes are matching decompilation and data extraction/typing work, not a complete modern-source port. Source CPU: Source architecture: MIPS, SH-2. Target CPU: Target architecture: MIPS, SH-2. Build: RBO6 now has its initial assets and common entity data, including one function unified across US and PSP versions. Saturn stage 15 receives corrected sprite splitting and typed water, breakable and gold tables. Limitations: Upstream describes the RBO6 work as an initial step with no single large completeness change; the tracker did not build any version or verify matching output. Runtime profiles: These overlay and typing commits state no new minimum hardware or verified native-PC runtime configuration. AI: No explicit completed-work AI disclosure established in inspected evidence. Config files, workflow instructions and algorithmic neural features alone are not proof of authorship. Relationships: Screened URL, title and prior decisions. GitHub fork flag is not treated as conclusive lineage evidence. Evidence: https://github.com/Xeeynamo/sotn-decomp/commit/a6c3ef9d0189a0cc67b23d93b7b4f3abc91c5fa2 https://github.com/Xeeynamo/sotn-decomp/commit/c89791437ba9992c83b5936f0220b6a9aed145b3 https://github.com/Xeeynamo/sotn-decomp/commit/02459775f180d94afa73e4ebf61699a10fea5392 https://github.com/Xeeynamo/sotn-decomp https://github.com/Xeeynamo/sotn-decomp/blob/66a337e30f839a9c724ae008190d3dc60a6b5392/src/dra/4A538.c",
       "ai": {
         "usage": null,
         "tools": []
@@ -258359,7 +258379,7 @@
         "tooling"
       ],
       "re_started": null,
-      "status": "Version 0.7.1 adds whole-game m68k-to-C translation roots and overlays, exact display-gap comparison, a web engine and an interrupt-aware Paula state model; upstream reports 2,376 tests, but the tracker did not run them.",
+      "status": "amiga-re-kit 0.8.4 fixes long-run CIA timing, A500-style 24-bit/chip-RAM address decoding and CPU-versus-Copper register precedence from Alien Breed II full-game runs.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -258370,10 +258390,13 @@
         "whole-game m68k-to-C translation",
         "display differential validation",
         "interrupt-aware Paula state modelling",
-        "Emscripten web-engine validation"
+        "Emscripten web-engine validation",
+        "full-game runtime regression diagnosis",
+        "A500 address-decoding model",
+        "CPU/Copper write-precedence modeling"
       ],
       "tags": [],
-      "notes": "Identity: amiga-re-kit — measured Amiga reverse-engineering toolkit. Repository root and implementation inspected at pinned revisions. Classification: Game-agnostic extraction of instruments from SWIV, Turrican II and Superfrog projects. ADF/HUNK readers, checksum-aware unpackers, conservative 68000 walking, MCP and capture comparison are implemented. Recompiler is explicitly a prototype with a restricted blitter/custom-chip model; unmodelled accesses are logged, not proof of a complete native game port. Source CPU: Architecture context: m68k. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: The pinned 0.7.1 documentation describes whole-game translation roots and overlays, a web engine, exact display comparison against vAmiga, an interrupt-aware Paula model and 2,376 passing pytest tests without bundling game data. Limitations: The test total and exactness statements are upstream results; the tracker did not install the package, run pytest, translate a game or compare captures. Runtime profiles: The inspected 0.7.1 material documents tools and test environments but no minimum host CPU, RAM or OS requirement, and no minimum Amiga configuration is inferred from its input formats. AI: The reviewed 0.7.1 commit explicitly credits Claude Fable 5.1 as co-author; attribution is limited to evidenced work. Relationships: Related game projects are extraction provenance, not extra projects created from the toolkit directories. Evidence: https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/README.md https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/src/arek/m68k/recomp.py https://github.com/smikes75/amiga-re-kit/commit/445674974d9f346bb42d3f85b1599a6bc973709c",
+      "notes": "Identity: Version 0.8.4 remains the same measured Amiga reverse-engineering and recompilation toolkit; Alien Breed II is a regression workload, not a separate bundled project record. Classification: This is original reverse-engineering/recompilation tooling whose runtime model is corrected from whole-game observations; it is not itself a recovered game source tree. Source CPU: Architecture context: m68k. Source and target roles are recorded separately. Target CPU: No minimum host instruction set established; a retro input platform is not a host CPU requirement. Build: Upstream full-game runs identified and fixed 32-bit wasm CIA timer exhaustion near 151,000 frames, A500 24-bit/chip-RAM mirroring and CPU/Copper register-write precedence that caused slowdown or a level-15 freeze. Limitations: The tracker did not run Alien Breed II or the web runtime, and the upstream observations do not establish compatibility with every Amiga title or configuration. Runtime profiles: The commit models an A500 address bus for the recompilation runtime but states no minimum host CPU, RAM, browser or operating-system configuration. AI: The 0.8.4 commit explicitly credits Claude Opus 5.5; the attribution is scoped to the reviewed changes. Relationships: Related game projects are extraction provenance, not extra projects created from the toolkit directories. Evidence: https://github.com/smikes75/amiga-re-kit/commit/05a85cee3c0415af0893f8a2c5ec075c6a7d207a https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/README.md https://github.com/smikes75/amiga-re-kit/blob/34fe20cfd007b5737b601af6fb374c62e030b19c/src/arek/m68k/recomp.py",
       "ai": {
         "usage": true,
         "tools": [
@@ -326400,7 +326423,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Wizardry VII reconstruction now routes maze sounds through a recovered semantic C routine; the pinned README reports 271 of 1,099 routines in C (24.7%), with full C conversion still open.",
+      "status": "Wizardry VII reconstruction adds named maze/region routines and derives typed data-file layouts from C declarations and recovered records; the pinned README still reports 271 of 1,099 routines in C (24.7%).",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -326409,10 +326432,12 @@
       },
       "techniques": [
         "semantic C replacement under assembly comparison",
-        "sound-route recovery"
+        "sound-route recovery",
+        "declaration-driven data-file layout recovery",
+        "maze and region routine recovery"
       ],
       "tags": [],
-      "notes": "Identity: Wizardry VII — PHOONZANG staged C reconstruction. Repository identity, pinned tree and available implementation inspected. Classification: Layout-oriented assembly reconstruction gradually replaced by semantic C routines. Inspected spell-selection dialog using named structures and original UI functions, not instruction dispatch. Source CPU: Documented original ISA: x86. Target CPU: Documented target instruction sets: x86. Build: The commit replaces the named maze-sound assembly body with C that preserves direct sound IDs and replaceable slot 16 behavior. The pinned README reports 271 of 1,099 routines in C (24.7%) and retains the Manx Aztec/NASM comparison workflow. Limitations: The tracker did not run DOSBox, rebuild DSAVANT or reproduce byte comparisons. The reported coverage is upstream and does not establish a complete high-level port. Runtime profiles: No independent hardware compatibility or minimum memory/CPU testing; dependencies and limits are recorded in build notes. AI: README explicitly integrates a Claude reversing agent; source judgments remain bounded by actual inspected routines. Relationships: Repository also contains disassembler/debugger tooling, but substantial named Wizardry VII recovery earns a subject entry. Evidence: https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/README.md https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/src_DSAVANT/vtrea/spell_select_dialog.c https://github.com/ldkeeton/phoonzang/commit/ea7fe37f0854353c627bde6cf3edd13fe5530e08 https://github.com/ldkeeton/phoonzang/blob/ea7fe37f0854353c627bde6cf3edd13fe5530e08/README.md",
+      "notes": "Identity: PHOONZANG remains the staged Wizardry VII C/assembly reconstruction and its supporting disassembler/decompiler rather than a new standalone data-layout project. Classification: The changes extend semantic routine recovery and generate data-file layouts from the declarations and recovered record evidence used by the existing reconstruction. Source CPU: Documented original ISA: x86. Target CPU: Documented target instruction sets: x86. Build: Upstream adds named maze/region routines plus declaration-driven data-layout tooling while retaining the Manx Aztec/NASM comparison workflow. The pinned README remains at 271 of 1,099 routines in C (24.7%). Limitations: The tracker did not run DOSBox, rebuild DSAVANT or reproduce byte comparisons; the unchanged percentage must not be inflated from the number of labels in a commit message. Runtime profiles: The reviewed commits and pinned README provide no verified minimum CPU, RAM or DOS configuration beyond the existing build dependencies. AI: README explicitly integrates a Claude reversing agent; source judgments remain bounded by actual inspected routines. Relationships: Repository also contains disassembler/debugger tooling, but substantial named Wizardry VII recovery earns a subject entry. Evidence: https://github.com/ldkeeton/phoonzang/commit/c28f6502870a9e2b5ecb76231be342ff3bd05149 https://github.com/ldkeeton/phoonzang/commit/7699fd50c040f293d31899138cacd7760010be56 https://github.com/ldkeeton/phoonzang/blob/7699fd50c040f293d31899138cacd7760010be56/README.md https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/README.md https://github.com/ldkeeton/phoonzang/blob/fc5429e259b016ac5d7c9d23123d11b55302a14a/src_DSAVANT/vtrea/spell_select_dialog.c",
       "ai": {
         "usage": true,
         "tools": [
