@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-30T18:59:56Z",
+  "updated_at": "2026-10-30T19:07:07Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -340332,8 +340332,11 @@
       "tags": [],
       "notes": "Identity: Wizardry 8 — matching C/C++ reconstruction. Repository root and implementation inspected. Classification: Substantial retail-executable reconstruction with recovered types, game/UI systems and SurRender interfaces. Inspected spell-info dialog uses named spellbook, usage, target and range tables with original-address annotations. Reuses released SGP material under its non-commercial licence. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: MSVC 6, CMake, Docker/Wine, Ghidra and reccmp; requires original data and middleware. Upstream reports linking/running but explicitly leaves semantic, binary-structure and behavioural audits open. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Matching workflow and runtime claims are distinct from verified whole-game equivalence; no independent build or comparison. Evidence: https://github.com/agluszak/wizardry-8-decomp/blob/075cbd0b853c4670e94f6ae4fe48d53b52b5e819/README.md https://github.com/agluszak/wizardry-8-decomp/blob/075cbd0b853c4670e94f6ae4fe48d53b52b5e819/src/wiz8/dialog_code/SpellInfoDialog.cpp",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Codex"
+        ]
       }
     },
     "buyukcaglar-openciv2": {
@@ -340520,8 +340523,10 @@
       "tags": [],
       "notes": "Identity: MechWarrior 2 — Windows 95 matching decompilation. Repository root and implementation inspected. Classification: Reconstructs simulator, shell and network binaries, with a separate Matrox edition target. Inspected TargetAttacker uses named AI flags, targets and teammate selection with addresses for both simulator variants. README explicitly says many placeholder names and non-identical functions remain. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: CMake and original-era MSVC 4.1; target is 32-bit Windows, not a portable host build. Original input binaries/data required. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Source-recovery counterpart to the already tracked ReMech2 Rust/C port; distinct upstream repository and purpose. Evidence: https://github.com/anpage/demech2/blob/0221c58c5164a76b95d1859569c3cf62eefaf24f/README.md https://github.com/anpage/demech2/blob/0221c58c5164a76b95d1859569c3cf62eefaf24f/MW2/src/aiattacker.c",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "vonhoff-lemball-decomp": {
@@ -340647,8 +340652,10 @@
       "tags": [],
       "notes": "Identity: Colin McRae Rally 2.0 — native SDL3 port. Repository root and implementation inspected. Classification: Source-derived native port of CMR2Decomp, replacing platform graphics/audio/input/network/video APIs rather than emulating the CPU. Inspected fixed-point matrix helpers preserve explicit x87 conversion/rounding operations. Widescreen and bug fixes deliberately extend original behaviour. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86, x86-64, ARM64. Build: SDL3, SDL GPU or OpenGL 3.3; targets Linux, Windows, macOS and Android. Original assets required. Windows gameplay claim is under Wine; macOS/Linux ARM64 gameplay remains untested upstream. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Port consumes CMR2Decomp recovery; test coverage and platform claims remain attributed and do not establish complete equivalence. Evidence: https://github.com/pablocpas/OpenCMR2/blob/c4f3452922656e0063dabbbddcd59e8c160fc7d1/README.md https://github.com/pablocpas/OpenCMR2/blob/c4f3452922656e0063dabbbddcd59e8c160fc7d1/game/FixedPoint.cpp",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "jodusnodus-rerbr": {
@@ -340706,8 +340713,10 @@
       "tags": [],
       "notes": "Identity: Richard Burns Rally — Rust reimplementation with NGP physics. Repository root and implementation inspected. Classification: Native RBR 1.02/NGP reconstruction with typed spring-damper state, explicit x87 precision and recording-based comparison tooling. Inspected physics source separates typed values from binary-layout adapters. The hybrid oracle is a test facility, not evidence that the standalone engine executes guest game code. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: Rust and SDL3; original game and exact NGP 7.4.778 DLL supplied by user. No first release at inspected revision. Vector tests can skip without external recording data. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Separate rbr-recomp project provides C++98 research. RSF cars/stages, some damage levels, changed aids and setups are not yet compared with original upstream; no blanket bit-exact claim. Evidence: https://github.com/JodusNodus/rerbr/blob/772e41543cb4580270d72266660ea25e32be9e21/README.md https://github.com/JodusNodus/rerbr/blob/772e41543cb4580270d72266660ea25e32be9e21/crates/rbr-physics/README.md https://github.com/JodusNodus/rerbr/blob/772e41543cb4580270d72266660ea25e32be9e21/crates/rbr-physics/src/spring_damper/mod.rs",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "aimfeld-dark-planet": {
@@ -340764,8 +340773,10 @@
       "tags": [],
       "notes": "Identity: Dark Planet — original-author TypeScript reconstruction. Repository root and implementation inspected. Classification: Reconstructs lost Turbo Pascal game source from the 1998 executable using Ghidra, prototype/library sources and DOSBox-X comparisons. Inspected weapons code cites original addresses and implements shot allocation, pod reloads and targeting. Classic/remastered renderers share a fixed-tick simulation. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: Node/TypeScript web build with PixiJS remaster; assets and extraction/research tooling included. Upstream completion/playability claims not independently tested. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Different project from rm3g25/dark-planet-win. Deliberate original bug fixes, translation and control changes mean classic presentation is not a byte-identical reconstruction. Evidence: https://github.com/aimfeld/dark-planet/blob/75aca2920bd2ed87464c7ddb417047003a1d0f5f/README.md https://github.com/aimfeld/dark-planet/blob/75aca2920bd2ed87464c7ddb417047003a1d0f5f/game/src/sim/weapons.ts",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "berobloom-redcat-rrr-re": {
@@ -340825,8 +340836,10 @@
       "tags": [],
       "notes": "Identity: RedCat's Razende Rekenrace — DOS research and C port. Repository root and implementation inspected. Classification: Watcom DOS/4GW executable and data research plus new SDL2 engine for the 1996 arithmetic racer. Named evidence confidence levels distinguish findings from hypotheses. Inspected headless race simulator loads original archives and traces opponent waypoint/finish behaviour. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: CMake, C compiler and SDL2; Emscripten for browser. Own original CD/install data required, no independent execution. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Intro, races, arithmetic and scores are upstream scope claims; headless trace tooling is not proof of full behavioural equivalence. Evidence: https://github.com/berobloom/redcat-rrr-re/blob/d931c45688ebb4ec3989ba17d3820adcad9093a5/README.md https://github.com/berobloom/redcat-rrr-re/blob/d931c45688ebb4ec3989ba17d3820adcad9093a5/port/src/race_sim.c",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "dealpete-c64-remakes": {
