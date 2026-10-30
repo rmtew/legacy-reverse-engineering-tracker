@@ -1550,3 +1550,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-30 — Add 22 qualified projects from a 32-repository review; retain scope and fidelity caveats.
 
 [Research record](docs/research/2026-10-30-windows-decompilations-and-eight-bit-remakes-discovery.md).
+
+## 2026-10-30 — Add 27 qualified projects from a 36-repository review; retain scope and fidelity caveats.
+
+[Research record](docs/research/2026-10-30-windows-application-recovery-and-amiga-remakes-discovery.md).
