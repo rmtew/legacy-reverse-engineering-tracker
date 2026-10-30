@@ -1670,3 +1670,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-29 — Add fourteen requested game-source, format-research and patch projects with explicit limits; defer four emulation-based or redesigned games.
 
 [Research record](docs/research/2026-10-29-requested-port-source-groundwork-discovery.md).
+
+## 2026-10-30 — Add sixteen qualified game and application-source projects after reviewing 28 roots; record twelve deferrals and derivative cases.
+
+[Research record](docs/research/2026-10-30-dos-amiga-st-remakes-and-application-sources.md).
