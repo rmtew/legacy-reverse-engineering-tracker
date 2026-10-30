@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-30T18:50:58Z",
+  "updated_at": "2026-10-30T18:59:56Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -340205,6 +340205,1316 @@
         "python"
       ],
       "notes": "Identity: The monorepo now contains a separately titled Alpha Centauri port with a native engine, Python binding/frontend and dedicated test suite, distinct from the aggregate port programme. Classification: This is a source-derived fan port/adaptation using the Thinker and OpenSMACX lineages, not a reverse-engineered binary reconstruction and not original homebrew. Source CPU: The port derives from source-level Thinker/OpenSMACX work rather than translating a pre-existing executable, so no original binary CPU is assigned. Target CPU: The native documentation explicitly reports generated big-endian 68040 controls under qemu-m68k and an isolated AmigaOS command-line probe, establishing an m68040 output path without a minimum-hardware claim. Build: The documented host build produces libasmac.so and the Python frontend; tests require byte-identical native/Python 20-turn outputs and saves, plus headless, API, frontend and fixture-backed title-to-save/reload art-flow checks. Limitations: The tracker did not build or run the project. Fixture tests use computed assets, while real play requires owner-supplied rules and art; voice-overs and movies are not played and playability remains unasserted. Runtime profiles: The docs name pygame 2.6.1 as tested and a 68040 control path, but do not state a complete minimum host CPU, RAM, Amiga chipset, OS or ROM profile for the game port. AI: No explicit development-AI attribution appears in the reviewed port documentation or feature commit; the organisation name is not evidence of AI contribution. Relationships: The Python layer uses the same native C++ engine and play session; the native rules reader derives from Brendan Casey's OpenSMACX, while this subject remains linked to the AmigaChrome aggregate repository record. Evidence: https://github.com/DalsinAI/amigachrome-gameports/blob/f49df0d7122968f99a2f97f3f1a8fb97c763332f/ports/alpha-centauri/python/README.md https://github.com/DalsinAI/amigachrome-gameports/commit/e1adfb38b4a7c1d8e2729d414097d77bfacd5031 https://github.com/DalsinAI/amigachrome-gameports/blob/f49df0d7122968f99a2f97f3f1a8fb97c763332f/ports/alpha-centauri/native/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "quackster-tonkareconstruction": {
+      "id": "quackster-tonkareconstruction",
+      "title": "Tonka Construction — WinG compatibility repair and format research",
+      "upstream_name": "TonkaReconstruction",
+      "display_title": "Tonka Construction — WinG compatibility repair and format research",
+      "subjects": [
+        "Tonka Construction"
+      ],
+      "repo": "https://github.com/Quackster/TonkaReconstruction",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python"
+      ],
+      "record_class": "hybrid",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "patching"
+      ],
+      "tool_kinds": [
+        "asset-tool"
+      ],
+      "types": [
+        "hybrid"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Tonka Construction — WinG compatibility repair and format research. Repository root and implementation inspected. Classification: Compatibility shim rather than a reconstructed game engine. Inspected C replaces WinG calls with GDI and redirects INI/file paths through import hooks; Python tools decode module image and object/path formats. Original TONKA.EXE still executes. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: MSYS2 32-bit MinGW builds WING32.dll; requires original game disc data and executable. No independent test. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Despite repository name, this is host API replacement plus asset research, not complete source recovery or a guest CPU emulator. Evidence: https://github.com/Quackster/TonkaReconstruction/blob/8dd24d2aa1fa1ac82388a4999e485abd7994f9f5/README.md https://github.com/Quackster/TonkaReconstruction/blob/8dd24d2aa1fa1ac82388a4999e485abd7994f9f5/patch/wing32.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "agluszak-wizardry-8-decomp": {
+      "id": "agluszak-wizardry-8-decomp",
+      "title": "Wizardry 8 — matching C/C++ reconstruction",
+      "upstream_name": "wizardry-8-decomp",
+      "display_title": "Wizardry 8 — matching C/C++ reconstruction",
+      "subjects": [
+        "Wizardry 8"
+      ],
+      "repo": "https://github.com/agluszak/wizardry-8-decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Wizardry 8 — matching C/C++ reconstruction. Repository root and implementation inspected. Classification: Substantial retail-executable reconstruction with recovered types, game/UI systems and SurRender interfaces. Inspected spell-info dialog uses named spellbook, usage, target and range tables with original-address annotations. Reuses released SGP material under its non-commercial licence. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: MSVC 6, CMake, Docker/Wine, Ghidra and reccmp; requires original data and middleware. Upstream reports linking/running but explicitly leaves semantic, binary-structure and behavioural audits open. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Matching workflow and runtime claims are distinct from verified whole-game equivalence; no independent build or comparison. Evidence: https://github.com/agluszak/wizardry-8-decomp/blob/075cbd0b853c4670e94f6ae4fe48d53b52b5e819/README.md https://github.com/agluszak/wizardry-8-decomp/blob/075cbd0b853c4670e94f6ae4fe48d53b52b5e819/src/wiz8/dialog_code/SpellInfoDialog.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "buyukcaglar-openciv2": {
+      "id": "buyukcaglar-openciv2",
+      "title": "Civilization II MGE — native Windows reconstruction fork",
+      "upstream_name": "OpenCiv2",
+      "display_title": "Civilization II MGE — native Windows reconstruction fork",
+      "subjects": [
+        "Civilization II MGE"
+      ],
+      "repo": "https://github.com/Buyukcaglar/OpenCiv2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86-64"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Civilization II MGE — native Windows reconstruction fork. Repository root and implementation inspected. Classification: Substantive Windows fork of richardpenman/civ2. Adds original-media ingestion, native launcher, menus, video/music handling and path adaptations. Inspected fixups reconstruct window procedures and resource cleanup from machine code; this is not a simple unchanged mirror. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86-64. Build: Native Windows x64 launcher for Windows 10/11, original MGE files required. Upstream validation and screenshots are not independent play tests. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: README credits assistance from Anthropic's Claude. Relationships: Upstream richardpenman/civ2 supplies reconstructed game logic. Fork deliberately changes text metrics, path handling and some usability behaviour; do not claim byte identity. Evidence: https://github.com/Buyukcaglar/OpenCiv2/blob/0715a2fb7df70daed93e57aaf4808a94fb576466/README.md https://github.com/Buyukcaglar/OpenCiv2/blob/0715a2fb7df70daed93e57aaf4808a94fb576466/src/game/fixups.cpp",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "adamxbot-brickpark-decomp": {
+      "id": "adamxbot-brickpark-decomp",
+      "title": "LEGOLAND — BrickPark matching C decompilation",
+      "upstream_name": "brickpark-decomp",
+      "display_title": "LEGOLAND — BrickPark matching C decompilation",
+      "subjects": [
+        "LEGOLAND"
+      ],
+      "repo": "https://github.com/adamXbot/brickpark-decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: LEGOLAND — BrickPark matching C decompilation. Repository root and implementation inspected. Classification: Matching-oriented recovery of LEGOLAND (2000), with readable map accessors and original function annotations. README distinguishes exported-function counts from game-code byte coverage and acknowledges WIP functions. Portable-only fixes are guarded separately. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: Original-era MSVC 6.0 SP3 matching workflow and reccmp tools; own retail executable needed. Browser/native portable host is a separate brickpark-browser repository. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Not the separate marijnvdwerf/legoland project. Matching percentages and browser playability are upstream claims, not our verified results. Evidence: https://github.com/adamXbot/brickpark-decomp/blob/9445298212edd2c945e79a8c063cacbab2b0493b/README.md https://github.com/adamXbot/brickpark-decomp/blob/9445298212edd2c945e79a8c063cacbab2b0493b/LEGOLAND/map.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "anpage-demech2": {
+      "id": "anpage-demech2",
+      "title": "MechWarrior 2 — Windows 95 matching decompilation",
+      "upstream_name": "demech2",
+      "display_title": "MechWarrior 2 — Windows 95 matching decompilation",
+      "subjects": [
+        "MechWarrior 2"
+      ],
+      "repo": "https://github.com/anpage/demech2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "C++",
+        "x86 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "C++",
+        "x86 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: MechWarrior 2 — Windows 95 matching decompilation. Repository root and implementation inspected. Classification: Reconstructs simulator, shell and network binaries, with a separate Matrox edition target. Inspected TargetAttacker uses named AI flags, targets and teammate selection with addresses for both simulator variants. README explicitly says many placeholder names and non-identical functions remain. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: CMake and original-era MSVC 4.1; target is 32-bit Windows, not a portable host build. Original input binaries/data required. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Source-recovery counterpart to the already tracked ReMech2 Rust/C port; distinct upstream repository and purpose. Evidence: https://github.com/anpage/demech2/blob/0221c58c5164a76b95d1859569c3cf62eefaf24f/README.md https://github.com/anpage/demech2/blob/0221c58c5164a76b95d1859569c3cf62eefaf24f/MW2/src/aiattacker.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "vonhoff-lemball-decomp": {
+      "id": "vonhoff-lemball-decomp",
+      "title": "Lemmings Paintball — matching C++ decompilation",
+      "upstream_name": "lemball-decomp",
+      "display_title": "Lemmings Paintball — matching C++ decompilation",
+      "subjects": [
+        "Lemmings Paintball"
+      ],
+      "repo": "https://github.com/vonhoff/lemball-decomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows",
+        "Macintosh"
+      ],
+      "target_platforms": [
+        "Windows"
+      ],
+      "source_cpu": [
+        "x86",
+        "68000"
+      ],
+      "target_cpu": [
+        "x86"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Lemmings Paintball — matching C++ decompilation. Repository root and implementation inspected. Classification: Windows matching reconstruction informed by Macintosh debug symbols and cross-version structural comparison. Inspected CGameStatus reconstructs password level-data packing and state handling with meaningful constants. Exact, fuzzy and effective metrics are explicitly separate. Source CPU: Original/source architecture: x86, 68000. Target CPU: Native target architecture: x86. Build: Targets 32-bit Windows with MSVC 4.0, Python and PowerShell build tooling. Original assets excluded; modern port lives in separate lemball-portable repository. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: README explicitly discloses AI research, tooling and code reconstruction with manual review; no specific model established. Relationships: Macintosh is a source of recovered symbols, not a claimed build target. No whole-binary or full-game equivalence verified. Evidence: https://github.com/vonhoff/lemball-decomp/blob/10df931cb338ed31f3e0a2dde81347d2e2c7db47/README.md https://github.com/vonhoff/lemball-decomp/blob/10df931cb338ed31f3e0a2dde81347d2e2c7db47/src/Application/CGameStatus.cpp",
+      "ai": {
+        "usage": true,
+        "tools": []
+      }
+    },
+    "pablocpas-opencmr2": {
+      "id": "pablocpas-opencmr2",
+      "title": "Colin McRae Rally 2.0 — native SDL3 port",
+      "upstream_name": "OpenCMR2",
+      "display_title": "Colin McRae Rally 2.0 — native SDL3 port",
+      "subjects": [
+        "Colin McRae Rally 2.0"
+      ],
+      "repo": "https://github.com/pablocpas/OpenCMR2",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Windows",
+        "macOS",
+        "Android"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [
+        "x86",
+        "x86-64",
+        "ARM64"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "source-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Colin McRae Rally 2.0 — native SDL3 port. Repository root and implementation inspected. Classification: Source-derived native port of CMR2Decomp, replacing platform graphics/audio/input/network/video APIs rather than emulating the CPU. Inspected fixed-point matrix helpers preserve explicit x87 conversion/rounding operations. Widescreen and bug fixes deliberately extend original behaviour. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86, x86-64, ARM64. Build: SDL3, SDL GPU or OpenGL 3.3; targets Linux, Windows, macOS and Android. Original assets required. Windows gameplay claim is under Wine; macOS/Linux ARM64 gameplay remains untested upstream. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Port consumes CMR2Decomp recovery; test coverage and platform claims remain attributed and do not establish complete equivalence. Evidence: https://github.com/pablocpas/OpenCMR2/blob/c4f3452922656e0063dabbbddcd59e8c160fc7d1/README.md https://github.com/pablocpas/OpenCMR2/blob/c4f3452922656e0063dabbbddcd59e8c160fc7d1/game/FixedPoint.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "jodusnodus-rerbr": {
+      "id": "jodusnodus-rerbr",
+      "title": "Richard Burns Rally — Rust reimplementation with NGP physics",
+      "upstream_name": "rerbr",
+      "display_title": "Richard Burns Rally — Rust reimplementation with NGP physics",
+      "subjects": [
+        "Richard Burns Rally"
+      ],
+      "repo": "https://github.com/JodusNodus/rerbr",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Windows"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Rust"
+      ],
+      "reconstructed_languages": [
+        "Rust"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Richard Burns Rally — Rust reimplementation with NGP physics. Repository root and implementation inspected. Classification: Native RBR 1.02/NGP reconstruction with typed spring-damper state, explicit x87 precision and recording-based comparison tooling. Inspected physics source separates typed values from binary-layout adapters. The hybrid oracle is a test facility, not evidence that the standalone engine executes guest game code. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: Rust and SDL3; original game and exact NGP 7.4.778 DLL supplied by user. No first release at inspected revision. Vector tests can skip without external recording data. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Separate rbr-recomp project provides C++98 research. RSF cars/stages, some damage levels, changed aids and setups are not yet compared with original upstream; no blanket bit-exact claim. Evidence: https://github.com/JodusNodus/rerbr/blob/772e41543cb4580270d72266660ea25e32be9e21/README.md https://github.com/JodusNodus/rerbr/blob/772e41543cb4580270d72266660ea25e32be9e21/crates/rbr-physics/README.md https://github.com/JodusNodus/rerbr/blob/772e41543cb4580270d72266660ea25e32be9e21/crates/rbr-physics/src/spring_damper/mod.rs",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "aimfeld-dark-planet": {
+      "id": "aimfeld-dark-planet",
+      "title": "Dark Planet — original-author TypeScript reconstruction",
+      "upstream_name": "dark-planet",
+      "display_title": "Dark Planet — original-author TypeScript reconstruction",
+      "subjects": [
+        "Dark Planet"
+      ],
+      "repo": "https://github.com/aimfeld/dark-planet",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "TypeScript"
+      ],
+      "reconstructed_languages": [
+        "TypeScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "source-reconstruction",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Dark Planet — original-author TypeScript reconstruction. Repository root and implementation inspected. Classification: Reconstructs lost Turbo Pascal game source from the 1998 executable using Ghidra, prototype/library sources and DOSBox-X comparisons. Inspected weapons code cites original addresses and implements shot allocation, pod reloads and targeting. Classic/remastered renderers share a fixed-tick simulation. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: Node/TypeScript web build with PixiJS remaster; assets and extraction/research tooling included. Upstream completion/playability claims not independently tested. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Different project from rm3g25/dark-planet-win. Deliberate original bug fixes, translation and control changes mean classic presentation is not a byte-identical reconstruction. Evidence: https://github.com/aimfeld/dark-planet/blob/75aca2920bd2ed87464c7ddb417047003a1d0f5f/README.md https://github.com/aimfeld/dark-planet/blob/75aca2920bd2ed87464c7ddb417047003a1d0f5f/game/src/sim/weapons.ts",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "berobloom-redcat-rrr-re": {
+      "id": "berobloom-redcat-rrr-re",
+      "title": "RedCat's Razende Rekenrace — DOS research and C port",
+      "upstream_name": "redcat-rrr-re",
+      "display_title": "RedCat's Razende Rekenrace — DOS research and C port",
+      "subjects": [
+        "RedCat's Razende Rekenrace"
+      ],
+      "repo": "https://github.com/berobloom/redcat-rrr-re",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Web"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "binary-analysis",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: RedCat's Razende Rekenrace — DOS research and C port. Repository root and implementation inspected. Classification: Watcom DOS/4GW executable and data research plus new SDL2 engine for the 1996 arithmetic racer. Named evidence confidence levels distinguish findings from hypotheses. Inspected headless race simulator loads original archives and traces opponent waypoint/finish behaviour. Source CPU: Original/source architecture: x86. Target CPU: No host CPU minimum established from inspected source. Build: CMake, C compiler and SDL2; Emscripten for browser. Own original CD/install data required, no independent execution. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Intro, races, arithmetic and scores are upstream scope claims; headless trace tooling is not proof of full behavioural equivalence. Evidence: https://github.com/berobloom/redcat-rrr-re/blob/d931c45688ebb4ec3989ba17d3820adcad9093a5/README.md https://github.com/berobloom/redcat-rrr-re/blob/d931c45688ebb4ec3989ba17d3820adcad9093a5/port/src/race_sim.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dealpete-c64-remakes": {
+      "id": "dealpete-c64-remakes",
+      "title": "C64 GoodGame collection — Python and browser remakes",
+      "upstream_name": "c64-remakes",
+      "display_title": "C64 GoodGame collection — Python and browser remakes",
+      "subjects": [
+        "C64 GoodGame collection"
+      ],
+      "repo": "https://github.com/DealPete/c64-remakes",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "C64"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python",
+        "JavaScript"
+      ],
+      "reconstructed_languages": [
+        "Python",
+        "JavaScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: C64 GoodGame collection — Python and browser remakes. Repository root and implementation inspected. Classification: Small-game recreation collection including Pong, Letter Catcher, Tunnel Journey, Tetris variants and Magic Bunny Hop. Inspected Bunny Hop has explicit power/jump/landing state and success detection; these are semantic remakes, not a C64 CPU wrapper. Source CPU: Original/source architecture: 6502. Target CPU: No host CPU minimum established from inspected source. Build: Individual Python scripts and HTML canvas games; no single verified dependency/runtime floor. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Keep at repository root as a coherent remake collection; coverage and exact fidelity vary between games. Evidence: https://github.com/DealPete/c64-remakes/blob/fe5b1c084b32e77e233ddc6ec7e3c7be40adf977/README.md https://github.com/DealPete/c64-remakes/blob/fe5b1c084b32e77e233ddc6ec7e3c7be40adf977/games/12365-magic-bunny-hop/bunny.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "glebb-spoony": {
+      "id": "glebb-spoony",
+      "title": "Snoopy — unfinished Qt tribute remake",
+      "upstream_name": "Spoony",
+      "display_title": "Snoopy — unfinished Qt tribute remake",
+      "subjects": [
+        "Snoopy"
+      ],
+      "repo": "https://github.com/glebb/Spoony",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "C64"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Snoopy — unfinished Qt tribute remake. Repository root and implementation inspected. Classification: Qt game-development study based on C64 Snoopy, with replacement penguin artwork. Inspected movement handler implements jumping, solid-platform collision, death/reset and level exit; author explicitly calls it unfinished. Source CPU: Original/source architecture: 6502. Target CPU: No host CPU minimum established from inspected source. Build: Qt Creator project, QTestLib and Cucumber/Testability Driver material; historical Qt compatibility unverified. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Tribute with altered character/presentation, not a recovered original game or complete remake. Evidence: https://github.com/glebb/Spoony/blob/13a6c26b9f10a71e2d8fcd32aa24a1574960a8f9/README.md https://github.com/glebb/Spoony/blob/13a6c26b9f10a71e2d8fcd32aa24a1574960a8f9/src/jumpingstate.cpp https://github.com/glebb/Spoony/blob/13a6c26b9f10a71e2d8fcd32aa24a1574960a8f9/src/movehandler.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "drkgrimes-aztecchallenge": {
+      "id": "drkgrimes-aztecchallenge",
+      "title": "Aztec Challenge — Python/Pygame remake",
+      "upstream_name": "AztecChallenge",
+      "display_title": "Aztec Challenge — Python/Pygame remake",
+      "subjects": [
+        "Aztec Challenge"
+      ],
+      "repo": "https://github.com/DrKGrimes/AztecChallenge",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "C64"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Python"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Aztec Challenge — Python/Pygame remake. Repository root and implementation inspected. Classification: Seven level modules recreate the C64 challenge structure. Inspected piranha level implements swimming/diving, pursuit, patrol and random fish behaviour with collision tests. No disassembly or original-code derivation established. Source CPU: Original/source architecture: 6502. Target CPU: No host CPU minimum established from inspected source. Build: Python with Pygame and audio dependencies; source only inspected, gameplay completion unverified. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Semantic remake. A bundled third-party walkthrough is reference material, not original-source evidence or a verified implementation specification. Evidence: https://github.com/DrKGrimes/AztecChallenge/blob/94978812e8493ee8261b1d4ebed60363f6fce1cb/src/levels/level5_piranhas.py https://github.com/DrKGrimes/AztecChallenge/blob/94978812e8493ee8261b1d4ebed60363f6fce1cb/walkthrough.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "strax-hacks-ggz": {
+      "id": "strax-hacks-ggz",
+      "title": "The Great Giana Sisters — OpenGGS Cardputer ZERO fork",
+      "upstream_name": "GGZ",
+      "display_title": "The Great Giana Sisters — OpenGGS Cardputer ZERO fork",
+      "subjects": [
+        "The Great Giana Sisters"
+      ],
+      "repo": "https://github.com/strax-hacks/GGZ",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "C64"
+      ],
+      "target_platforms": [
+        "Linux"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "ARM64"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: The Great Giana Sisters — OpenGGS Cardputer ZERO fork. Repository root and implementation inspected. Classification: Substantive OpenGGS fork with Cardputer-oriented viewport/input/package work and recreated C64-style intro/audio. Inspected stage-zero code builds named tile and letter patterns into the intro stage rather than running C64 instructions. Source CPU: Original/source architecture: 6502. Target CPU: Native target architecture: ARM64. Build: SDL2-based CMake project; ARM64 Cardputer ZERO package and desktop harness. README explicitly says no physical Cardputer ZERO test yet. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Native OpenGGS adaptation with changed presentation and hardware goals; not independently verified hardware support. Evidence: https://github.com/strax-hacks/GGZ/blob/9fda3075412dd68637a10c6ff88e0bb89c61abe1/README.md https://github.com/strax-hacks/GGZ/blob/9fda3075412dd68637a10c6ff88e0bb89c61abe1/src/CONTENT_Intro_Stage0.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "rossipo-montezumas-revenge-godot": {
+      "id": "rossipo-montezumas-revenge-godot",
+      "title": "Montezuma's Revenge — first-level Godot remake",
+      "upstream_name": "montezumas-revenge-godot",
+      "display_title": "Montezuma's Revenge — first-level Godot remake",
+      "subjects": [
+        "Montezuma's Revenge"
+      ],
+      "repo": "https://github.com/rossipo/montezumas-revenge-godot",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "C64"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "GDScript"
+      ],
+      "reconstructed_languages": [
+        "GDScript"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Montezuma's Revenge — first-level Godot remake. Repository root and implementation inspected. Classification: Explicit first-level recreation with room transitions, inventory pickups, doors, player lives and intro control. Inspected game controller switches active room and input source and handles restart state. Source CPU: Original/source architecture: 6502. Target CPU: No host CPU minimum established from inspected source. Build: Godot project; sound and the first-level treasure ending are explicitly missing. No independent build. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Incomplete first-level learning project, not a full-game restoration; limitations are intentional and visible. Evidence: https://github.com/rossipo/montezumas-revenge-godot/blob/30a7e01b032fe1e1bb826afb569c5ea2b61b2bb6/README.md https://github.com/rossipo/montezumas-revenge-godot/blob/30a7e01b032fe1e1bb826afb569c5ea2b61b2bb6/project/scripts/game.gd",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "uvadzucumi-jetlee": {
+      "id": "uvadzucumi-jetlee",
+      "title": "Bruce Lee — JetLee C++ remake",
+      "upstream_name": "JetLee",
+      "display_title": "Bruce Lee — JetLee C++ remake",
+      "subjects": [
+        "Bruce Lee"
+      ],
+      "repo": "https://github.com/Uvadzucumi/JetLee",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C++"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Bruce Lee — JetLee C++ remake. Repository root and implementation inspected. Classification: Contest remake with player-selectable JetLee, Ninja and Yamo. Inspected hero code defines movement, attacks, sprite hitboxes and different enemy/player objects. New selectable-character behaviour distinguishes it from binary recovery. Source CPU: Original/source architecture: Z80. Target CPU: No host CPU minimum established from inspected source. Build: CMake, SDL2, OpenGL, OpenAL, Ogg/Vorbis; Windows/MSYS2 and Linux instructions. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Semantic remake of the Spectrum version with gameplay options; fidelity and completeness unverified. Evidence: https://github.com/Uvadzucumi/JetLee/blob/636f8c7b9025a8cf190d7447a013e25085ac7baf/README.md https://github.com/Uvadzucumi/JetLee/blob/636f8c7b9025a8cf190d7447a013e25085ac7baf/src/hero.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "codehoose-jetpac-retroremake": {
+      "id": "codehoose-jetpac-retroremake",
+      "title": "Jetpac — Unity remake",
+      "upstream_name": "jetpac-retroremake",
+      "display_title": "Jetpac — Unity remake",
+      "subjects": [
+        "Jetpac"
+      ],
+      "repo": "https://github.com/codehoose/jetpac-retroremake",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C#"
+      ],
+      "reconstructed_languages": [
+        "C#"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Jetpac — Unity remake. Repository root and implementation inspected. Classification: Unity recreation with rocket, fuel, alien and player systems. Inspected GameManager reconstructs death/explosion/respawn and obtains game state from the level loader; no original Z80-code recovery established. Source CPU: Original/source architecture: Z80. Target CPU: No host CPU minimum established from inspected source. Build: Unity project, scene/prefab assets and C# scripts; exact compatible editor version and full campaign coverage unverified. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Own semantic game implementation; source presence alone does not prove complete playability. Evidence: https://github.com/codehoose/jetpac-retroremake/blob/ecd455004c16a05e5a7929797b8913bd397a32ea/README.md https://github.com/codehoose/jetpac-retroremake/blob/ecd455004c16a05e5a7929797b8913bd397a32ea/Jetpac Retro Remake/Assets/Scripts/GameManager.cs",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "nateprojects-adarkroom-zx": {
+      "id": "nateprojects-adarkroom-zx",
+      "title": "A Dark Room — compressed Spectrum 48K adaptation",
+      "upstream_name": "adarkroom-zx",
+      "display_title": "A Dark Room — compressed Spectrum 48K adaptation",
+      "subjects": [
+        "A Dark Room"
+      ],
+      "repo": "https://github.com/nateProjects/adarkroom-zx",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Web"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "BASIC"
+      ],
+      "reconstructed_languages": [
+        "BASIC"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: A Dark Room — compressed Spectrum 48K adaptation. Repository root and implementation inspected. Classification: Boriel BASIC settlement, procedural journey and ship-interior adaptation. Source includes a 64-column renderer and explicit game state. Design notes document changed combat/economy, reduced population/map, missing resource tiers, story, sound and save/load. Source CPU: No single original binary architecture established for this format/engine or multi-version recreation. Target CPU: Native target architecture: Z80. Build: Boriel ZX BASIC make target produces TAP for Spectrum 48K. Design note code-size figures conflict with its quoted budget, so successful build is not assumed. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Reduced and changed native adaptation, not full original feature parity or a port of browser machine code. Evidence: https://github.com/nateProjects/adarkroom-zx/blob/770fd5f6dd505bfda77afc9c00b8de3d99920552/README.md https://github.com/nateProjects/adarkroom-zx/blob/770fd5f6dd505bfda77afc9c00b8de3d99920552/src/adarkroomzx48k.bas https://github.com/nateProjects/adarkroom-zx/blob/770fd5f6dd505bfda77afc9c00b8de3d99920552/docs/design-notes.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "padriaan-ufo-zx-spectrum": {
+      "id": "padriaan-ufo-zx-spectrum",
+      "title": "UFO / Satellite Attack — Spectrum remake",
+      "upstream_name": "UFO-ZX-SPECTRUM",
+      "display_title": "UFO / Satellite Attack — Spectrum remake",
+      "subjects": [
+        "UFO / Satellite Attack"
+      ],
+      "repo": "https://github.com/padriaan/UFO-ZX-SPECTRUM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Odyssey 2"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: UFO / Satellite Attack — Spectrum remake. Repository root and implementation inspected. Classification: Native Spectrum reimplementation of Ed Averett’s Videopac/Odyssey 2 game, using z88dk SP1 sprites, asteroid/bullet/UFO state and beeper effects. Source CPU: No single original binary architecture established for this format/engine or multi-version recreation. Target CPU: Native target architecture: Z80. Build: z88dk build.sh produces TAP; Spectrum 48K target, redefinable keyboard and Kempston/Cursor controls. Hardware claim not independently verified. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Semantic cross-platform remake, not an Odyssey 2 emulation wrapper. Evidence: https://github.com/padriaan/UFO-ZX-SPECTRUM/blob/2bd9aa14ac7e2c10bb36f0a9d713e2c41b1d068b/README.md https://github.com/padriaan/UFO-ZX-SPECTRUM/blob/2bd9aa14ac7e2c10bb36f0a9d713e2c41b1d068b/src/main.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "padriaan-munchkin-zx-spectrum": {
+      "id": "padriaan-munchkin-zx-spectrum",
+      "title": "K.C. Munchkin — Spectrum remake",
+      "upstream_name": "MUNCHKIN-ZX-SPECTRUM",
+      "display_title": "K.C. Munchkin — Spectrum remake",
+      "subjects": [
+        "K.C. Munchkin"
+      ],
+      "repo": "https://github.com/padriaan/MUNCHKIN-ZX-SPECTRUM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Odyssey 2"
+      ],
+      "target_platforms": [
+        "ZX Spectrum"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Z80"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "C",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "C",
+        "Z80 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: K.C. Munchkin — Spectrum remake. Repository root and implementation inspected. Classification: Native Spectrum reimplementation with explicit maze geometry, moving pills, ghosts and sprite collision state. Version 0.7 source uses z88dk/SP1 and beeper effects. Source CPU: No single original binary architecture established for this format/engine or multi-version recreation. Target CPU: Native target architecture: Z80. Build: z88dk build.sh and TAP/WAV outputs for Spectrum 48K; no independent build or hardware run. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Cross-platform remake of Videopac/Odyssey 2 Munchkin; do not infer complete fidelity from versioned releases. Evidence: https://github.com/padriaan/MUNCHKIN-ZX-SPECTRUM/blob/7541cb936290faa5fe9bbc83d2bd5e3dc277dd30/README.md https://github.com/padriaan/MUNCHKIN-ZX-SPECTRUM/blob/7541cb936290faa5fe9bbc83d2bd5e3dc277dd30/src/main.c",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "louzaonet-don-quijote": {
+      "id": "louzaonet-don-quijote",
+      "title": "Don Quijote de la Mancha — original-author browser remake",
+      "upstream_name": "don_quijote",
+      "display_title": "Don Quijote de la Mancha — original-author browser remake",
+      "subjects": [
+        "Don Quijote de la Mancha"
+      ],
+      "repo": "https://github.com/louzaonet/don_quijote",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "JavaScript",
+        "Python",
+        "PAW-like adventure source"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "Python",
+        "PAW-like adventure source"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Don Quijote de la Mancha — original-author browser remake. Repository root and implementation inspected. Classification: Original author expands the 1989 PAW adventure into a browser implementation with more text, locations and an alternate novel-based ending. Inspected JS engine implements PAW-style flags, vocabulary, objects and condacts, with separate authored adventure text. Source CPU: Original/source architecture: Z80. Target CPU: No host CPU minimum established from inspected source. Build: Python/Node compile adventure files into standalone HTML; optional Playwright checks. Browser needs no server after build. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Spanish/English expanded remake; actual Spectrum/DAAD deployment was abandoned because content no longer fits. Rocinante is a separate editor project. Evidence: https://github.com/louzaonet/don_quijote/blob/5e20cf10c70b8cce2abd9045382c4ca395435e82/README.md https://github.com/louzaonet/don_quijote/blob/5e20cf10c70b8cce2abd9045382c4ca395435e82/src/engine.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "wicanr2-sundog-remake-zh-hant-public": {
+      "id": "wicanr2-sundog-remake-zh-hant-public",
+      "title": "SunDog: Frozen Legacy — Go multilingual HD remake",
+      "upstream_name": "sundog-remake-zh-hant-public",
+      "display_title": "SunDog: Frozen Legacy — Go multilingual HD remake",
+      "subjects": [
+        "SunDog: Frozen Legacy"
+      ],
+      "repo": "https://github.com/wicanr2/sundog-remake-zh-hant-public",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Go"
+      ],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: SunDog: Frozen Legacy — Go multilingual HD remake. Repository root and implementation inspected. Classification: Native Go/Ebitengine reconstruction with separate ST, HD and Apple II-style presentation. Inspected enemy-course state uses semantic values and explicitly refuses an unproven mode-0/cloak helper, preserving a documented approximation boundary. Source CPU: Original/source architecture: 68000. Target CPU: No host CPU minimum established from inspected source. Build: Requires original Atari ST sundog.st for original graphics/data. Linux testing and Wine Windows checks are upstream claims; physical Windows/macOS tests remain unverified. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Independent remake, distinct from laanwj p-system runtime and iolo Apple II reconstruction. Original AI/GUI/RNG/combat parity remains incomplete; HD artwork/music and translation deliberately change presentation. Evidence: https://github.com/wicanr2/sundog-remake-zh-hant-public/blob/73321040039fd291ac1228e01271c7802b025600/README.md https://github.com/wicanr2/sundog-remake-zh-hant-public/blob/73321040039fd291ac1228e01271c7802b025600/internal/game/enemy_course.go",
       "ai": {
         "usage": null,
         "tools": []
