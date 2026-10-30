@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-30T16:15:28Z",
+  "updated_at": "2026-10-30T16:19:58Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -366,7 +366,7 @@
         "Z80"
       ],
       "target_cpu": null,
-      "runtime_profiles": null,
+      "runtime_profiles": [],
       "execution_paths": null,
       "source_language": [
         "Z80 machine code"
@@ -386,7 +386,7 @@
         "disassembly"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Primary source documents a SkoolKit HTML disassembly build; no reconstructed binary/runtime claim",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -402,7 +402,7 @@
         "z80",
         "SkoolKit"
       ],
-      "notes": "Pobtastic annotated ZX Spectrum disassembly created with SkoolKit.",
+      "notes": "Identity: Pobtastic's 180 repository remains the canonical SkoolKit disassembly of the 1986 ZX Spectrum game. Classification: The record remains a subject disassembly, not original homebrew and not a native modern port. Source CPU: The original/source architecture remains Z80, as established by the ZX Spectrum machine-code disassembly context. Target CPU: Target CPU is not applicable: the documented output is browsable HTML disassembly, not a rebuilt native executable. Build: The README documents installing/cloning SkoolKit and running utils/mkhtml.py to build the current HTML development version; the Makefile delegates to SkoolKit's disassembly framework. It does not claim a rebuilt runnable binary or byte identity. Limitations: No SkoolKit command, original-game extraction, assembly, executable or emulator was run. Runtime profiles: No reconstructed runnable build or minimum hardware requirement is documented; the original game is required as disassembly input. AI: No explicit development-AI attribution was found in the reviewed primary files; this does not establish non-use. Relationships: The README links SkoolKit, the hosted disassembly and an external mirror; these are tool/output relationships, not separate reconstruction projects. Evidence: https://github.com/pobtastic/180/blob/b59f6d00c1afa39c1cafe3ce2649c3d33c41b3d5/README.md https://github.com/pobtastic/180/blob/b59f6d00c1afa39c1cafe3ce2649c3d33c41b3d5/Makefile",
       "ai": {
         "usage": null,
         "tools": []
@@ -339438,6 +339438,680 @@
         "tools": [
           "Claude"
         ]
+      }
+    },
+    "mz-basictoqd-sharp-mz-transfer-tool": {
+      "id": "mz-basictoqd-sharp-mz-transfer-tool",
+      "title": "BASIC to QD — Sharp MZ BASIC transfer and listing tools",
+      "upstream_name": "mz-basictoqd",
+      "display_title": "BASIC to QD — Sharp MZ BASIC transfer and listing tools",
+      "subjects": [
+        "Sharp MZ BASIC transfer tools"
+      ],
+      "repo": "https://github.com/lukq/mz-basictoqd",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp MZ-700",
+        "Sharp MZ-800"
+      ],
+      "target_platforms": [
+        "Web",
+        "Sharp MZ-700",
+        "Sharp MZ-800"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "Sharp MZ BASIC text and binary files"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "HTML"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "language-tooling"
+      ],
+      "types": [
+        "original retro-development tool",
+        "media conversion"
+      ],
+      "re_started": null,
+      "status": "Browser transfer/listing utility documented upstream; not independently executed",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Quick Disk image generation",
+        "MZF BASIC listing"
+      ],
+      "tags": [
+        "sharp-mz",
+        "basic",
+        "quick-disk"
+      ],
+      "notes": "Identity: The repository documents a browser application that turns Sharp MZ-800 BASIC text into Quick Disk or cassette data and includes a reverse listing utility for MZF BASIC files. Classification: This is original retro-development and transfer tooling, not a reverse-engineered program or RE-derived port. Source CPU: Source CPU is not applicable: the tool transforms BASIC text and binary media records rather than analysing an original machine-code program. Target CPU: Target CPU is not applicable: the outputs are BASIC/media data, not native machine code. Build: The README gives an end-to-end browser workflow and names supported BASIC versions and emulators; the application was not executed in this review. Limitations: Primary documentation review only; no generated image was loaded into an emulator. Runtime profiles: No minimum browser, host CPU, RAM, or physical Sharp MZ hardware requirement is stated. AI: No explicit development-AI attribution was found in the reviewed primary documentation; this does not establish non-use. Relationships: The README names EmuZ-800/mz800emu usage and separate Quick Disk and cassette output paths; this entry tracks the converter/listing tool rather than those emulators. Evidence: https://github.com/lukq/mz-basictoqd/blob/455203562a112b14d0411dc49dee0a780686e5c2/Readme.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "arem-mzf-parser-sharp-mz800": {
+      "id": "arem-mzf-parser-sharp-mz800",
+      "title": "AREM MZF Parser — Sharp MZ-800 assembler-source recovery",
+      "upstream_name": "arem-mzf-parser",
+      "display_title": "AREM MZF Parser — Sharp MZ-800 assembler-source recovery",
+      "subjects": [
+        "AREM MZF assembler sources"
+      ],
+      "repo": "https://github.com/bver/arem-mzf-parser",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp MZ-800"
+      ],
+      "target_platforms": [
+        "Modern host"
+      ],
+      "source_cpu": [
+        "Z80"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "arem_src_parse.rb",
+          "platform": "Modern host",
+          "os": "Ruby with Bundler and BinData",
+          "notes": "README documents bundle install and command-line invocation.",
+          "evidence": [
+            "https://github.com/bver/arem-mzf-parser/blob/7d798c1431f05c99fb4fa20415aa730b0b00075c/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "AREM binary source format",
+        "Z80 assembly"
+      ],
+      "reconstructed_languages": [
+        "Ruby",
+        "Z80 assembly text"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "language-tooling"
+      ],
+      "types": [
+        "source recovery tool",
+        "binary parser"
+      ],
+      "re_started": null,
+      "status": "Documented AREM source parser; not independently executed",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "BinData parsing",
+        "MZF type 0x41 decoding"
+      ],
+      "tags": [
+        "sharp-mz",
+        "z80",
+        "arem"
+      ],
+      "notes": "Identity: The repository identifies a Ruby parser for assembler source stored in AREM-format MZF type 0x41 files from the Sharp MZ-800. Classification: This is binary-format and language tooling for recovering historical assembler text, not a reconstructed game or emulator. Source CPU: The README explicitly identifies Z80 assembler input and the implementation decodes AREM records and Z80 instruction/register forms. Target CPU: Target CPU is not applicable because the tool emits assembler text rather than a compiled executable. Build: The README documents bundle install and a command that emits my_source.asm.txt; no sample file was parsed here. Limitations: Static source review only; Ruby dependencies and parser execution were not run. Runtime profiles: The documented Ruby/Bundler/BinData host requirement is captured, with no minimum CPU or RAM inferred. AI: No explicit development-AI attribution was found in the README or inspected parser; this does not establish non-use. Relationships: The input is the AREM assembler-source container used on Sharp MZ-800; the project is distinct from general MZF disk/tape emulators. Evidence: https://github.com/bver/arem-mzf-parser/blob/7d798c1431f05c99fb4fa20415aa730b0b00075c/README.md https://github.com/bver/arem-mzf-parser/blob/7d798c1431f05c99fb4fa20415aa730b0b00075c/arem_src_parse.rb",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "theodore-thomson-libretro-debugger": {
+      "id": "theodore-thomson-libretro-debugger",
+      "title": "Theodore — Thomson MO/TO emulator and debugger",
+      "upstream_name": "theodore",
+      "display_title": "Theodore — Thomson MO/TO emulator and debugger",
+      "subjects": [
+        "Thomson MO/TO computers"
+      ],
+      "repo": "https://github.com/Zlika/theodore",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Thomson MO5",
+        "Thomson MO6",
+        "Thomson TO7",
+        "Thomson TO8",
+        "Thomson TO9"
+      ],
+      "target_platforms": [
+        "Libretro"
+      ],
+      "source_cpu": [
+        "Motorola 6809"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Theodore libretro core",
+          "platform": "Libretro",
+          "os": "RetroArch-compatible environment",
+          "notes": "README lists RetroArch and multiple libretro distributions; no hardware minimum is stated.",
+          "evidence": [
+            "https://github.com/Zlika/theodore/blob/4d469ce0f71ee046ceb78cdbf8e9f18364aaa918/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6809 machine code"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "disassembler"
+      ],
+      "types": [
+        "libretro core",
+        "software archaeology tool"
+      ],
+      "re_started": null,
+      "status": "Maintained libretro emulator with interactive debugger; not independently built",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6809 emulation",
+        "interactive disassembly",
+        "breakpoints"
+      ],
+      "tags": [
+        "thomson",
+        "6809",
+        "libretro"
+      ],
+      "notes": "Identity: Theodore is a libretro core for Thomson TO7/TO8/TO9 and MO5/MO6 families, with documented media support and installation routes. Classification: It qualifies as core emulator/debugger/disassembler tooling directly useful to retro development and software archaeology. Source CPU: The emulated Thomson family uses the Motorola 6809 lineage and the project documents 6809 CPU emulation and disassembly. Target CPU: No native host/output CPU is specified; a portable libretro target is not evidence for a particular host architecture. Build: The README documents make-based and Android NDK builds plus installation through libretro distributions; no build was run here. Limitations: Upstream-documented build and runtime only; no compilation, ROM loading, or debugger session was performed. Runtime profiles: A libretro runtime route is documented, but no minimum CPU, RAM, chipset, or OS version is stated. AI: No explicit development-AI attribution was found in the reviewed primary documentation; this does not establish non-use. Relationships: The README explicitly traces Theodore to Daniel Coulom's DCTO8D, DCTO9P and DCMO5 emulators; this is the maintained libretro descendant. Evidence: https://github.com/zlika/theodore/blob/4d469ce0f71ee046ceb78cdbf8e9f18364aaa918/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "crayon-thomson-mo5-emulator-debugger": {
+      "id": "crayon-thomson-mo5-emulator-debugger",
+      "title": "Crayon — Thomson MO5 emulator and debugger",
+      "upstream_name": "crayon",
+      "display_title": "Crayon — Thomson MO5 emulator and debugger",
+      "subjects": [
+        "Thomson MO5"
+      ],
+      "repo": "https://github.com/qam4/crayon",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Thomson MO5"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS",
+        "Android",
+        "Libretro"
+      ],
+      "source_cpu": [
+        "Motorola 6809"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Crayon emulator",
+          "platform": "Modern host",
+          "os": "CMake 3.15+, C++17 compiler and SDL2; presets cover Linux, macOS, Windows and Android",
+          "notes": "Requires separately supplied 12 KiB MO5 BASIC 1.0 ROM and 4 KiB Monitor ROM; no host hardware minimum is stated.",
+          "evidence": [
+            "https://github.com/qam4/crayon/blob/136d6b9c49076485abc48e1d9fed62293231f36d/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Motorola 6809 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "disassembler"
+      ],
+      "types": [
+        "standalone emulator",
+        "libretro core"
+      ],
+      "re_started": null,
+      "status": "C++17 MO5 emulator with standalone, headless and libretro routes; not independently built",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6809E emulation",
+        "ImGui debugger",
+        "save states"
+      ],
+      "tags": [
+        "thomson",
+        "mo5",
+        "6809"
+      ],
+      "notes": "Identity: Crayon is a C++17 Thomson MO5 emulator with standalone SDL2, headless CLI and libretro execution paths. Classification: Its debugger, disassembler, tests and hardware documentation make it directly relevant development and archaeology tooling. Source CPU: The README explicitly states full Motorola 6809E CPU emulation for the MO5. Target CPU: No native host CPU is specified; supported compiler/OS families do not establish a target architecture. Build: CMake presets, compiler/SDL2 requirements, tests and launcher examples are documented; none was executed in this review. Limitations: Static documentation review only; no compiler, test, ROM, cassette, emulator or debugger was run. Runtime profiles: The explicit ROM requirements are captured without converting the historical MO5's 48 KiB RAM description into a host minimum. AI: Kiro configuration/specification files exist in the repository, but inspected primary documentation does not establish an actual AI-authored contribution. Relationships: Crayon is a distinct new MO5 emulator rather than a fork of the already indexed Maurice or Theodore lineages. Evidence: https://github.com/qam4/crayon/blob/136d6b9c49076485abc48e1d9fed62293231f36d/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lisa-utilities-monitor-image-extractor": {
+      "id": "lisa-utilities-monitor-image-extractor",
+      "title": "Lisa Utilities — Lisa Monitor image extractor",
+      "upstream_name": "lisa-utilities",
+      "display_title": "Lisa Utilities — Lisa Monitor image extractor",
+      "subjects": [
+        "Apple Lisa Monitor disk images"
+      ],
+      "repo": "https://github.com/d235j/lisa-utilities",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple Lisa"
+      ],
+      "target_platforms": [
+        "Modern host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "extract_lisamonitor_image.py",
+          "platform": "Modern host",
+          "os": "Python 2.7 or 3.x",
+          "notes": "Primary README states the supported Python generations; no CPU/RAM minimum is given.",
+          "evidence": [
+            "https://github.com/d235j/lisa-utilities/blob/d79ac35fdc366c49ed16c6a9d3948809862c7f68/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Apple Pascal/Lisa Monitor disk images"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "preservation utility",
+        "disk image extractor"
+      ],
+      "re_started": null,
+      "status": "Python Lisa Monitor image extractor documented upstream; not independently executed",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "DC42/raw/PO parsing",
+        "Twiggy track ordering"
+      ],
+      "tags": [
+        "apple-lisa",
+        "disk-image",
+        "preservation"
+      ],
+      "notes": "Identity: The repository provides Python utilities for extracting files from Apple Pascal/Lisa Monitor images used in early Lisa and Macintosh development. Classification: This is preservation and disk-format tooling, not a recovered Lisa application or emulator. Source CPU: Source CPU is not applicable because the inspected subject is a disk-image format and file extractor, not original executable code. Target CPU: Target CPU is not applicable because extraction produces host files rather than native machine code. Build: The README documents the extractor's purpose and Python invocation context; it was not run against an image here. Limitations: Read-only review; no disk image or extracted file was processed. Runtime profiles: Python 2.7 or 3.x is explicitly documented and captured; no minimum host CPU or RAM is stated. AI: No explicit development-AI attribution was found in the reviewed primary documentation; this does not establish non-use. Relationships: Lisa Monitor is identified as a development image format used by Apple and others; the entry is scoped to the extractor rather than those historical tools. Evidence: https://github.com/d235j/lisa-utilities/blob/d79ac35fdc366c49ed16c6a9d3948809862c7f68/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "lisafilemover-native-lisa-utility": {
+      "id": "lisafilemover-native-lisa-utility",
+      "title": "LisaFileMover — native Lisa Office System file utility",
+      "upstream_name": "LisaFileMover",
+      "display_title": "LisaFileMover — native Lisa Office System file utility",
+      "subjects": [
+        "LisaFileMover"
+      ],
+      "repo": "https://github.com/GyroPilot/Apple-LisaFileMover",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple Lisa"
+      ],
+      "target_platforms": [
+        "Apple Lisa"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "LisaFileMover 1.1",
+          "platform": "Apple Lisa",
+          "os": "Lisa Office System 3.1",
+          "notes": "README states every 1.1 feature ran on LisaFPGA and 1.0 was verified on a Lisa 2/10; no minimum CPU/RAM is inferred.",
+          "evidence": [
+            "https://github.com/GyroPilot/Apple-LisaFileMover/blob/5fe3ce40f6e3d744a2966f0c08b603ca249e302b/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Lisa Pascal"
+      ],
+      "reconstructed_languages": [
+        "Lisa Pascal"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application",
+        "development-tool"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew",
+        "native file utility"
+      ],
+      "re_started": null,
+      "status": "Released native Lisa Office System utility with documented Workshop build",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "Lisa Office System desktop integration",
+        "Workshop exec build scripts"
+      ],
+      "tags": [
+        "apple-lisa",
+        "lisa-office-system",
+        "original-homebrew"
+      ],
+      "notes": "Identity: LisaFileMover is a native Lisa Office System desktop utility for listing, copying, renaming and deleting invisible files and tool sets. Classification: It is substantial original homebrew/native application development, not reverse-engineered or RE-derived software. Source CPU: Source CPU is not applicable: this is original source development rather than analysis of a historical binary. Target CPU: No explicit target CPU statement was found; Apple Lisa and Lisa Pascal alone are not used to infer Motorola 68000 output metadata. Build: The repository includes Lisa Pascal Workshop 3.0 compile/link/install scripts, released DC42 images and a documented Lisa-side build route. Limitations: Upstream source/build/release evidence only; no Lisa Workshop, disk image, emulator or physical Lisa was run. Runtime profiles: Lisa Office System 3.1 and upstream hardware/emulator verification are captured without inventing CPU or RAM minima. AI: A primary icon-format analysis note explicitly credits Claude; this supports limited AI-use metadata for that documentation work, not a claim that the application code was AI-generated. Relationships: The README places LisaFileMover in the GyroPilot Lisa utility series and says its working-volume model derives from LISACom 1.6. Evidence: https://github.com/gyropilot/apple-lisafilemover/blob/5fe3ce40f6e3d744a2966f0c08b603ca249e302b/README.md https://github.com/gyropilot/apple-lisafilemover/blob/5fe3ce40f6e3d744a2966f0c08b603ca249e302b/icon/LOS_ICON_FORMAT.txt",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "daad-reborn-compiler-drc": {
+      "id": "daad-reborn-compiler-drc",
+      "title": "DAAD Reborn Compiler — modern DAAD compiler and media tools",
+      "upstream_name": "DRC",
+      "display_title": "DAAD Reborn Compiler — modern DAAD compiler and media tools",
+      "subjects": [
+        "DAAD Reborn Compiler"
+      ],
+      "repo": "https://github.com/Utodev/DRC",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DAAD adventure source"
+      ],
+      "target_platforms": [
+        "ZX Spectrum",
+        "Amstrad CPC",
+        "Modern host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "DAAD Reborn Compiler",
+          "platform": "Modern host",
+          "os": "Windows, Linux or macOS",
+          "notes": "README explicitly states these host OS families; no version, CPU or RAM floor is stated.",
+          "evidence": [
+            "https://github.com/Utodev/DRC/blob/71df4e54b7db39b5e7ceeb3b7e5d7dea1cebda95/README"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "DAAD source"
+      ],
+      "reconstructed_languages": [
+        "Pascal",
+        "PHP"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "disk-filesystem-tool",
+        "language-tooling"
+      ],
+      "types": [
+        "retro adventure compiler",
+        "media builder"
+      ],
+      "re_started": null,
+      "status": "Modern DAAD replacement compiler and CPC/Spectrum media tooling",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "DAAD compilation",
+        "CPC MCRF replacement",
+        "Spectrum tape/disk generation"
+      ],
+      "tags": [
+        "daad",
+        "adventure-authoring",
+        "compiler"
+      ],
+      "notes": "Identity: DRC is the DAAD Reborn Compiler, a modern replacement for the historical DAAD compiler with companion CPC and Spectrum media tools. Classification: It is maintained retro-development compiler/media tooling; the separate canonical DAAD archive remains a historical distribution source, not an interpreter-source project. Source CPU: Source CPU is not applicable because the reviewed input is DAAD adventure source/data rather than an original machine-code binary. Target CPU: Target CPU is not applicable: the documented compiler/media outputs are DAAD databases and tape/disk media, not evidence of native generated instruction sets. Build: The README points to usage/build wiki material and downloads and states the compiler runs on modern desktop OSes; no local build or execution was performed. Limitations: Primary documentation/source-tree review only; compiler and generated media were not built or run. Runtime profiles: Windows, Linux and macOS are captured as documented host families; no CPU, RAM or OS-version minimum is stated. AI: No explicit development-AI attribution was found in the reviewed primary documentation; this does not establish non-use. Relationships: DRC replaces the historical DAAD compiler and includes a modern MCRF replacement and DAADMAKER; already tracked DAAD ecosystem tools remain separate projects. Evidence: https://github.com/utodev/drc/blob/71df4e54b7db39b5e7ceeb3b7e5d7dea1cebda95/README",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dsbxida-dosbox-x-ida-debugger": {
+      "id": "dsbxida-dosbox-x-ida-debugger",
+      "title": "DoSBoXIDA — DOSBox-X–based IDA debugger",
+      "upstream_name": "dsbxida",
+      "display_title": "DoSBoXIDA — DOSBox-X–based IDA debugger",
+      "subjects": [
+        "MS-DOS programs"
+      ],
+      "repo": "https://github.com/lab313ru/dsbxida",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "DOS"
+      ],
+      "target_platforms": [
+        "IDA",
+        "Modern host"
+      ],
+      "source_cpu": [
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [
+        "DOS x86 machine code"
+      ],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "binary-analysis"
+      ],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "binary-analysis"
+      ],
+      "types": [
+        "DOSBox-X fork",
+        "IDA debugger plugin"
+      ],
+      "re_started": null,
+      "status": "DOSBox-X fork with independent IDA debugger plugin; not independently built",
+      "build": {
+        "compilable": null,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "IDA debugger API",
+        "DOSBox callbacks",
+        "segmented address translation"
+      ],
+      "tags": [
+        "dos",
+        "ida",
+        "dosbox-x"
+      ],
+      "notes": "Identity: DoSBoXIDA is a DOSBox-X-based project that connects MS-DOS program execution to IDA debugging. Classification: Although it is a fork, the inspected dsbxida plugin implements its own IDA debugger integration and DOSBox callback handling, so it is a distinct archaeology tool rather than an ordinary mirror. Source CPU: The README identifies MS-DOS programs and the plugin accepts DOS executable contexts through IDA's PC processor/debugger interfaces, supporting x86 source-program metadata. Target CPU: No native host/output CPU requirement was found; DOSBox-X lineage and IDA support do not establish a host architecture. Build: The repository includes plugin and Visual Studio integration, but the README does not provide a complete reproducible build procedure and no build was run. Limitations: Static source review only; no IDA installation, plugin build, DOS program or emulator process was run. Runtime profiles: No minimum IDA, host OS, CPU or RAM requirement was established from the inspected primary files. AI: No explicit development-AI attribution was found in the reviewed primary documentation or plugin source; this does not establish non-use. Relationships: The older idados_dosbox README names dsbxida as its successor; dsbxida is based on DOSBox-X and carries the current independent plugin implementation. Evidence: https://github.com/lab313ru/dsbxida/blob/eb452362a6bd188743df8524fb0b12cd4526babe/README.md https://github.com/lab313ru/dsbxida/blob/eb452362a6bd188743df8524fb0b12cd4526babe/dsbxida/ida_plugin.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "neowidex-apple-lisa-widget-utility": {
+      "id": "neowidex-apple-lisa-widget-utility",
+      "title": "NeoWidEx — Apple Lisa Widget diagnostics and formatter",
+      "upstream_name": "NeoWidEx",
+      "display_title": "NeoWidEx — Apple Lisa Widget diagnostics and formatter",
+      "subjects": [
+        "NeoWidEx"
+      ],
+      "repo": "https://github.com/stepleton/NeoWidEx",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple Lisa Widget drive"
+      ],
+      "target_platforms": [
+        "Apple Lisa 2/10",
+        "Apple Lisa 2/5"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Motorola 68000"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "NeoWidEx 0.4",
+          "platform": "Apple Lisa 2",
+          "os": "Lisa 2 ROM version H",
+          "notes": "Requires a working floppy drive or emulator; Lisa 2/5 can access only external-port drives and most options require a Widget.",
+          "evidence": [
+            "https://github.com/stepleton/NeoWidEx/blob/5e41885791b56299c3944c273e0b08dc93e13116/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Widget commands and disk structures"
+      ],
+      "reconstructed_languages": [
+        "Motorola 68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "application",
+        "development-tool"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew",
+        "drive diagnostic",
+        "low-level formatter"
+      ],
+      "re_started": null,
+      "status": "Original Lisa Widget diagnostic/formatter with documented 68000 build and hardware requirements",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "low-level Widget commands",
+        "EASy68K assembly",
+        "bootable DC42 generation"
+      ],
+      "tags": [
+        "apple-lisa",
+        "widget",
+        "original-homebrew"
+      ],
+      "notes": "Identity: NeoWidEx is a low-level formatting and diagnostic utility for Apple's 10 MB Widget hard drive on Lisa 2 systems. Classification: It is substantial original homebrew and hardware-development software, not a reverse-engineered application or RE-derived port. Source CPU: Source CPU is not applicable because NeoWidEx is original software rather than analysis of a pre-existing binary. Target CPU: The repository explicitly describes roughly 10,000 lines of 68000 macro assembly and a native Lisa boot image, supporting Motorola 68000 target metadata. Build: BUILDING documents EASy68K assembly, srec_cat conversion at address $800 and bootable DC42 generation with the Stepleton bootloader; no step was executed here. Limitations: Read-only documentation review; destructive drive operations, assembly, boot image generation and hardware/emulator execution were not performed. Runtime profiles: The README's ROM, floppy/emulator and Widget access requirements are captured exactly; no CPU or RAM minimum is inferred. AI: No explicit development-AI attribution was found in the reviewed README/build documentation; this does not establish non-use. Relationships: The README distinguishes NeoWidEx from Apple's Widex and credits related BLU/UsbWidEx work without claiming shared source. Evidence: https://github.com/stepleton/neowidex/blob/5e41885791b56299c3944c273e0b08dc93e13116/README.md https://github.com/stepleton/neowidex/blob/5e41885791b56299c3944c273e0b08dc93e13116/BUILDING.md",
+      "ai": {
+        "usage": null,
+        "tools": []
       }
     }
   },
