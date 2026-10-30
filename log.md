@@ -1690,3 +1690,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-30 — Review ten material upstream changes across reconstruction fidelity, executable analysis, original retro tooling, emulation and maintained native source.
 
 [Research record](docs/research/maintenance-2026-10-30-pm-upstream-analysis-and-runtime.md).
+
+## 2026-10-31 — Review thirteen queue/search candidates; promote nine projects and close three old discovery tasks
+
+[Research record](docs/research/discovery-2026-10-31-sharp-mz-thomson-daad-lisa.md).
