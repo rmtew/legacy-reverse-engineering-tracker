@@ -1682,3 +1682,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-30 — Add seventeen qualified game and application research projects after reviewing 42 roots; record twenty-five deferrals and derivative cases.
 
 [Research record](docs/research/2026-10-30-native-retro-remakes-and-application-research.md).
+
+## 2026-10-30 — Add fourteen qualified projects after reviewing 32 roots; record eighteen deferrals and duplicate-adjacent cases.
+
+[Research record](docs/research/2026-10-30-retro-game-remakes-and-native-application-discovery.md).
