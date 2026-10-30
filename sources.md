@@ -1546,3 +1546,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-31 — Review eight material upstream changes and split one newly substantial Alpha Centauri port from its multi-project repository.
 
 [Research record](docs/research/maintenance-2026-10-31-am-upstream-tooling-and-runtime.md).
+
+## 2026-10-30 — Add 22 qualified projects from a 32-repository review; retain scope and fidelity caveats.
+
+[Research record](docs/research/2026-10-30-windows-decompilations-and-eight-bit-remakes-discovery.md).
