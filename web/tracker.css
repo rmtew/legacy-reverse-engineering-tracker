@@ -222,3 +222,10 @@ html[data-theme="dark"] dialog{background:#161b22;color:#f0f3f6}
 .activity-project { content-visibility:auto; contain-intrinsic-size:auto 180px; }
 button:disabled { cursor:default; opacity:.55; }
 button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid currentColor; outline-offset:3px; }
+
+/* Keep names and their bookmark control on one row; long names wrap beside it. */
+.project-name-line{display:flex;align-items:flex-start;gap:4px;min-width:0}
+.project-name-line>:first-child{flex:1;min-width:0;overflow-wrap:anywhere}
+.project-name-line .bookmark-star{padding:0 4px;line-height:1.2;min-width:24px;min-height:24px}
+.activity-project-head .project-name-line{margin-bottom:5px}
+.activity-project-head .project-name-line strong{margin-bottom:0}

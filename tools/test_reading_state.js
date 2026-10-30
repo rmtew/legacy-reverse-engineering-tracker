@@ -203,3 +203,13 @@ test('one-time migration persists v2 and leaves bookmark export untouched',()=>{
   b.run('renderActivity()');b.handlers.get('markRead:click')();b.run('ingestReadingSnapshot();renderActivity()');
   assert.equal(b.get('unreadCount').textContent,0);assert.equal(b.get('migrationNotice').hidden,true);
 });
+test('bookmark controls follow the name in a shared compact row, retaining accessible toggle semantics',()=>{
+  const b=browser();
+  b.run("projects=[{id:'p',title:'A long <project> name',repo:'https://example.com/project'}];render()");
+  assert.match(b.get('rows').innerHTML,/<div class="project-name-line"><a class="project-link"[^>]*>A long &lt;project&gt; name<\/a><button[^>]*data-bookmark="p"[^>]*aria-pressed="false"[^>]*aria-label="Bookmark A long &lt;project&gt; name"/);
+  const header=b.run("activityProjectHeader(projects[0])");
+  assert.match(header,/<div class="project-name-line"><strong><a[^>]*>A long &lt;project&gt; name<\/a><\/strong><button/);
+  b.run("bookmarks.add('p');projects[0].repo=null;render()");
+  assert.match(b.get('rows').innerHTML,/<div class="project-name-line"><strong>A long &lt;project&gt; name<\/strong><button[^>]*aria-pressed="true"/);
+  assert.match(b.run('activityProjectHeader(projects[0])'),/aria-label="Remove bookmark for A long &lt;project&gt; name"/);
+});

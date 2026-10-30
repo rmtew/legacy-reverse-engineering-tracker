@@ -699,7 +699,7 @@ function render() {
     const started = record.re_started ?? (record.github?.created_at ? record.github.created_at.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + "<td>" + bookmarkButton(record) + projectCell(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + '</div>' + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + "<td>" + tags(record.source_platforms) + "</td>"
       + "<td>" + tags(record.target_platforms) + "</td>"
       + "<td>" + tags(record.reconstructed_languages) + "</td>"
@@ -1029,7 +1029,7 @@ function activityPlatformTags(project) {
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(projectTitle(project))+'</a>':esc(projectTitle(project));
-  return bookmarkButton(project)+'<strong>'+title+'</strong>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+  return '<div class="project-name-line"><strong>'+title+'</strong>'+bookmarkButton(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
     +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 
