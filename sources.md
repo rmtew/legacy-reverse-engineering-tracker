@@ -1526,3 +1526,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-30 — Add twelve qualified game and system-source projects after reviewing 32 roots; record twenty deferrals and derivative cases.
 
 [Research record](docs/research/2026-10-30-c64-spectrum-dos-engine-source-discovery.md).
+
+## 2026-10-30 — Add seventeen qualified game and application research projects after reviewing 42 roots; record twenty-five deferrals and derivative cases.
+
+[Research record](docs/research/2026-10-30-native-retro-remakes-and-application-research.md).
