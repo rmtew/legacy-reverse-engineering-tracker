@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-30T16:19:58Z",
+  "updated_at": "2026-10-30T18:13:07Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -15581,7 +15581,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "AmiNetXDuo now pins reviewed NetX Duo TCP corrections for FIN acknowledgement, recovery boundaries/timers and DATA/FIN SACK recovery; the existing physical A3000/A2065 profile remains the only measured tracker runtime profile.",
+      "status": "AmiNetXDuo now repairs a lost SACK retransmission after later data is acknowledged and exposes per-interface initial-window and ABC limits; the physical A3000/A2065 run remains its only measured tracker runtime profile.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -15590,13 +15590,15 @@
       },
       "techniques": [
         "pinned upstream TCP recovery integration",
-        "SACK DATA/FIN recovery"
+        "SACK DATA/FIN recovery",
+        "lost-retransmission repair",
+        "per-interface TCP congestion configuration"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Independent bsdsocket.library implementation for classic AmigaOS backed by hosted ThreadX/NetX Duo, SANA-II network drivers and command-line networking clients. Classification: Substantial native socket lifecycle/descriptor handling and cooperative Exec/ThreadX integration; code-level original ABI implementation rather than redistributed Roadshow/AmiTCP code. Current1.0.0-rc1; Pi Wi-Fi driver experimental and hardware coverage varies. MIT main stack and ThreadX/NetX; exceptions include BSD-2 NE2000 code, Dropbear MIT-style, separate Commodore/Sylvan Installer notices, MPL2 CA roots/WiFiPi and BSD WirelessManager. README licence table pins their scopes. Source CPU: No predecessor machine-code input or processor-specific source architecture is established; no CPU is inferred from the host language. Target CPU: Documented output/support targets: Amiga. Processor scope: m68k. Build: The project advances its pinned NetX Duo dependency through reviewed FIN acknowledgement, retransmission-boundary/timer and DATA/FIN SACK recovery corrections. Limitations: The reviewed top-level commits pin dependency revisions; the tracker did not run TCP fault-injection tests or repeat the physical Amiga network test. Next check: Retain the physical A3000/A2065 profile and seek end-to-end recovery evidence before broadening runtime or interoperability claims. Runtime profiles: A physical Amiga 3000 with an Ameristar A2065 is now an upstream-tested configuration. No CPU generation or RAM floor is inferred from the machine model. AI: Pinned HEAD commit explicitly carries Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>; Co-authored-by: Claude Opus 5.5 <noreply@anthropic.com>. This supports AI-assisted contribution to that commit; extent across the complete implementation is not established. Relationships: Original published-ABI implementation atop maintained ThreadX/NetX Duo forks; not a fork of proprietary Roadshow, Miami or AmiTCP. Evidence: https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/README.md https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/docs/DEVELOPMENT.md https://github.com/tinic/AmiNetXDuo/commit/2c24ac1f4950fed9c9c5c1ff19f399f8abede33b https://github.com/tinic/AmiNetXDuo/commit/73055cf88246d8d97e54d7269f48e89cf705849e https://github.com/tinic/AmiNetXDuo/commit/d3734d57e5a0198b6294682f82a1d3c8adb7c651 https://github.com/tinic/AmiNetXDuo/commit/fce3575311d97f0bb13414cef3b97bbd026c6640",
+      "notes": "Identity: AmiNetXDuo remains the classic Amiga IPv4/IPv6 stack and its pinned NetX Duo integration. Classification: This is maintained original Amiga networking software and upstream-stack integration, not reverse-engineered or RE-derived code. Source CPU: The reviewed input is portable NetX Duo source integrated into an original stack, not a pre-existing executable being reconstructed. Target CPU: The existing m68k Amiga target remains; the TCP changes establish no additional output architecture. Build: The pinned NetX Duo update repairs lost retransmissions from SACK sequence evidence and adds zero-default interface knobs preserving RFC 3390/5681 behavior. Limitations: The tracker did not build or run the stack and did not reproduce WAN loss recovery. Runtime profiles: The existing physical A3000/A2065 profile remains the only measured configuration; the congestion changes state no new CPU, RAM, chipset or OS minimum. AI: The reviewed integration commit explicitly credits Claude Opus 5.5; the attribution is scoped to that change. Relationships: The tinic/netxduo submodule is a pinned dependency of AmiNetXDuo rather than a new tracker subject created by this pass. Evidence: https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/README.md https://github.com/tinic/AmiNetXDuo/commit/477a95e7a07e9da32a8d8c01ef7425a042ecb033 https://github.com/tinic/AmiNetXDuo/blob/511dc69ecf77cac9379ed6fd730b7aa439b87dd6/docs/DEVELOPMENT.md https://github.com/tinic/AmiNetXDuo/commit/5b076d8a37e1ee262ac7681d36069f0b6ce3d2f2 https://github.com/tinic/AmiNetXDuo/commit/fce3575311d97f0bb13414cef3b97bbd026c6640",
       "ai": {
         "usage": true,
         "tools": [
@@ -73721,7 +73723,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "Firestaff now hash-locks four authentic DM1 SNES cartridge images, decodes both H03 ROMDUNGEON slots and validates their shared 14-map structure; native SNES runtime, rendering, input and audio remain out of scope.",
+      "status": "Firestaff's authenticated current-main startup matrix now passes four bounded real-media tests across all five games; Atari CSB rebirth/explosion rendering and executed-code CD-write tracing advanced, while Nexus playability and native display/input completeness remain open.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73788,7 +73790,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Identity: Firestaff remains the clean-room Dungeon Master-family engine and evidence framework; the SNES work is another bounded original-media path inside the same project. Classification: The new SNES decoder is authenticated-media analysis supporting a clean-room reconstruction, not proof of a complete SNES port or campaign implementation. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported by the documented original-platform scope; no new CPU is established by this pass. Target CPU: Published v3.0.416 assets retain x86-64 and arm64 modern outputs. Asset publication is not converted into an unstated minimum CPU generation. Build: A skip-safe real-media test hash-locks four local SMC images, decodes both H03 ROMDUNGEON slots and verifies the shared 14-map dungeon structure without tracking ROM bytes. Limitations: Cartridge admission, remaining resource readers, tile/palette mapping, controller input, SPC/music handling and version-specific behavior gates remain before any native SNES runtime claim. Next check: Continue from authenticated SNES media classification into bounded resource readers without claiming a native runtime before rendering, input and audio gates exist. Runtime profiles: Existing evidenced Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid. v3.0.416 publishes additional assets but does not establish a new measured minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; the reviewed release metadata does not justify broadening the project-level claim. Relationships: SNES DM1 is retained as a platform variant within Firestaff's shared Dungeon Master-family scope, not split into a second catalogue project. Evidence: https://github.com/yeager/firestaff/commit/6317b039f1f756c4b220525a0ea4b704ade0e978 https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae",
+      "notes": "Identity: Firestaff remains one clean-room Dungeon Master-family engine and evidence framework; the five-game matrix and CSB visual work are bounded platform paths within it. Classification: The changes are authenticated-media reconstruction and regression evidence, not proof of a complete native port for every original platform. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported; this pass establishes no new original CPU. Target CPU: Existing x86-64 and arm64 modern outputs remain; no new target architecture follows from the reconstructed Atari or CD code paths. Build: Upstream reports 4/4 bounded real-media startup/menu tests on current main and successful Actions across Linux, macOS and Windows. Limitations: The tracker did not repeat the tests. SDL dummy startup gates do not establish native display, physical input or complete gameplay; Nexus remains capture-gated. Next check: Continue bounded Nexus and platform-runtime gates without converting startup coverage into a complete playability claim. Runtime profiles: Existing measured Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid; the new startup matrix states no additional minimum CPU, RAM or OS floor. AI: Existing explicit Claude commit attribution remains scoped to evidenced contributions; no broader inference is made. Relationships: The five game/platform startup routes remain variants within Firestaff rather than newly titled nested projects. Evidence: https://github.com/yeager/firestaff/commit/99f0a1db23853c3a65fbb377bc30dbaedd242fa9 https://github.com/yeager/firestaff/commit/79568c536b3a4e766d8a2359f63257cdc74b7a53 https://github.com/yeager/firestaff/commit/0c6a290ff99fd035512d3b1b3f41b2a5a0e986f7 https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae",
       "ai": {
         "usage": true,
         "tools": [
@@ -115346,21 +115348,29 @@
         "assembler-toolchain"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Attackwave m68k 2.4.7 now ships a VS Code extension and UAE-backed source debugger, exact 68000 cycle hints, Amiga custom-register diagnostics and decoded Copper views; CI builds tested VSIX packages for Linux x64, Windows x64 and macOS arm64.",
       "build": {
-        "compilable": null,
+        "compilable": true,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "assembler",
+        "disassembler",
+        "Amiga Hunk analysis",
+        "source-level UAE debugging",
+        "68000 cycle-table validation",
+        "Amiga custom-register diagnostics",
+        "Copper-list decoding"
+      ],
       "tags": [
         "Amiga",
         "Motorola 68000 family",
         "68k",
         "tooling"
       ],
-      "notes": "Two-pass Rust assembler and disassembler with explicit 68000–68060 CPU limits, FPU/MMU decoding and Amiga Hunk relocation/symbol support. Repository documents Hunk output roundtrips and a cargo release build; these are tool-format claims, not a verified runtime minimum for an Amiga game.",
+      "notes": "Identity: The VS Code client, DAP server, language server and core decoders are versioned components of the same Attackwave m68k tool suite. Classification: This remains original assembler/disassembler/debugger tooling for retro development and software archaeology. Source CPU: The suite analyzes and debugs Motorola 68000-family source and executables; cycle hints are deliberately restricted to 68000 timing. Target CPU: Assembler outputs remain m68000 through m68060 as previously documented; the new host packages do not change those generated architectures. Build: CI builds m68k-asm, m68k-lsp and m68k-dap, runs the extension smoke test against bundled tools, and packages linux-x64, win32-x64 and darwin-arm64 VSIX targets. Limitations: The tracker did not run cargo, Node, UAE or the packaged extension, so compilable reflects the upstream CI recipe and result rather than an independent build. Runtime profiles: Published package architectures are evidenced, but no minimum host CPU, RAM, OS version, UAE version or Amiga target configuration is stated. AI: The reviewed feature commit and bounded project documentation provide no explicit development-AI attribution; the named human co-author is not AI evidence. Relationships: Patched FS-UAE and WinUAE GDB servers are debugger backends, not newly bundled independent projects in this repository. Evidence: https://github.com/Attackwave/m68k/commit/5baa4cb474408e3b7a6f6ecd3d971413e734a5c0 https://github.com/Attackwave/m68k/blob/main/README.md",
       "ai": {
         "usage": null,
         "tools": []
@@ -115414,7 +115424,7 @@
         "automation"
       ],
       "re_started": null,
-      "status": "Starglider 2 remains byte-exact across 412,736 bytes; six connected disk/media helpers and two shared service-state fields now have bounded roles, while physical-media behavior and minimum Amiga requirements remain open.",
+      "status": "Starglider 2 remains byte-exact across 412,736 bytes; loop-wide sparse cells and canonical Dn pointer producers now survive only under proved write envelopes, while an A6 reader remains blocked at a cross-platform call predicate.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115439,7 +115449,10 @@
         "producer-phase launch-state contract recovery",
         "guarded actor-field ownership",
         "disk/media helper role recovery",
-        "shared disk/audio service-state modeling"
+        "shared disk/audio service-state modeling",
+        "loop-wide sparse-memory preservation",
+        "canonical pointer-producer validation",
+        "operand-role projection correction"
       ],
       "tags": [
         "Amiga",
@@ -115447,7 +115460,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Identity: M68k Reversing Toolkit remains the same generated Amiga analysis and reconstruction framework; the reviewed disk/media pass advances the existing Starglider 2 target. Classification: This remains bounded reconstruction/tooling work: names and fields are admitted from native accesses and control flow without promoting unresolved gaps or physical-media semantics. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code; no new architecture is inferred from the analysis implementation. Target CPU: The retained output is native Motorola 68000 assembly, verified upstream against the original binary through the existing C/vasm route. Build: The pass names six existing disk/media helpers, identifies an 80-cycle WORD field and a 5,632-byte alternate-playback countdown, and retains byte-exact C/vasm output with 57 assets and 14 headers. Limitations: The tracker did not regenerate the output. Upstream did not repeat unchanged framework tests and makes no new runtime, media-validity, physical-timing or playback claim. Next check: Continue resolving bounded service-state and ownership gaps without converting exact generation into a complete behavioral claim. Runtime profiles: The reviewed pass adds no minimum Amiga CPU, RAM, chipset or ROM evidence. Next check: Add a runtime profile only after primary documentation or qualified hardware/emulator testing states a concrete minimum. AI: Existing explicit Claude contribution evidence remains valid; the reviewed commit does not add a new attribution category. Relationships: The current restoration remains within the Starglider 2 target and does not resolve the wider predecessor, successor or credited-source graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/d2ad3422b53a30d6dd9cdea0bd80e63362f38878 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/commit/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780 https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
+      "notes": "Identity: M68k Reversing Toolkit remains the generated Amiga analysis and reconstruction framework; this pass advances its existing Starglider 2 target. Classification: The change admits memory and pointer facts only under bounded alias, entry, write-envelope and call contracts, preserving reconstruction limits. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code. Target CPU: The output remains native Motorola 68000 assembly verified upstream through the C/vasm path. Build: Upstream reports 363 focused Python tests, all 832 native tests, unchanged 3,503 app / 2,682 typed / 158 unresolved counts, and byte-exact C/vasm plus clean standalone rebuilds of all 412,736 bytes. Limitations: The tracker did not regenerate the output. The A6 reader remains intentionally blocked because the Amiga branch predicate is not transported through the shared call proof. Next check: Carry the actual caller predicate into context-sensitive call proof with mutation and alternate-entry negatives. Runtime profiles: The reviewed analysis run states no minimum Amiga CPU, RAM, chipset or ROM requirement. Next check: Add a runtime profile only after primary documentation or qualified hardware/emulator testing states a concrete minimum. AI: Existing explicit Claude contribution evidence remains valid and scoped to tracked commits. Relationships: The restoration remains within Starglider 2 and does not resolve the wider credited-source or predecessor graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/269515996b5ee8936ad4f07f635518970fa5f4b2 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
       "ai": {
         "usage": true,
         "tools": [
@@ -115495,7 +115508,7 @@
         "AmigaPorts cross toolchain"
       ],
       "re_started": null,
-      "status": "Active m68k-AmigaOS cross toolchain; tests now distinguish 68000 boards from 68020/68881 ixemul and newlib -fbaserel32 boards; tracker did not run the suite",
+      "status": "m68k-amigaos-gcc now documents stack, register, named-register, AmigaOS-library and SAS/C calling conventions plus the distinct instruction limits of -m68020-40 and -m68020-60; these options are not minimum-runtime claims.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115505,12 +115518,14 @@
       "techniques": [
         "compiler-toolchain",
         "assembler-toolchain",
-        "reassembler"
+        "reassembler",
+        "ABI compatibility documentation",
+        "CPU-option qualification"
       ],
       "tags": [
         "Amiga"
       ],
-      "notes": "Identity: AmigaPorts continuation of the m68k-AmigaOS GCC cross-compiler and associated binutils, libraries, SDK integration and tests. Classification: Retro-development compiler/toolchain infrastructure, not a recovered game, original-machine emulator or binary-derived program reconstruction. Source CPU: There is no historical input executable whose CPU should be recorded as source_cpu for this compiler toolchain. Target CPU: The cross toolchain emits m68k AmigaOS code. Current tests explicitly cover baseline 68000 and 68020 plus 68881 configurations without implying one universal minimum. Build: New DejaGnu boards exercise ixemul with 68020/68881 libraries and newlib with 68020/68881 plus -fbaserel32. The commit notes these are for PR testing and not run by the ordinary make check target. Limitations: The tracker did not build the toolchain or run the new boards; test-harness coverage must not be read as universal output compatibility. Runtime profiles: The reviewed 68000 and 68020/68881 DejaGnu boards are compiler test configurations, not minimum runtime requirements for all software produced by the toolchain. AI: The reviewed testsuite commit explicitly carries a Claude Opus 5.5 co-author trailer. Existing Copilot and Claude attribution remains scoped to evidenced commits rather than the entire toolchain. Relationships: The repository remains the AmigaPorts continuation of the established m68k-AmigaOS GCC lineage; ixemul and newlib are alternative runtime/library test configurations inside the same toolchain. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/ec2840b1a549e73ec328dfc3137dbabc915327c7 https://github.com/AmigaPorts/m68k-amigaos-gcc/blob/ec2840b1a549e73ec328dfc3137dbabc915327c7/doc/testing.md",
+      "notes": "Identity: The new ABI and CPU-option manuals document the same AmigaPorts cross toolchain. Classification: This remains original compiler/toolchain maintenance and documentation, not reverse-engineered application source. Source CPU: There is no one original executable CPU being reconstructed; this record describes a cross toolchain. Target CPU: The output remains m68k. The -m68020-40 and -m68020-60 pages distinguish generated instruction exclusions rather than adding minimum hardware profiles. Build: The ABI manual specifies register preservation, return values, stack/regparm behavior, AmigaOS a6 library calls and documented SAS/C interoperability limits. Limitations: The tracker did not build the toolchain or repeat SAS/C 6.58 compatibility tests. Runtime profiles: Compiler option semantics do not establish a runnable application's minimum CPU, RAM, chipset or OS requirement. AI: The ABI documentation commit explicitly credits Claude Opus 5.5; that attribution is scoped to the reviewed change. Relationships: AmigaPorts GCC, runtimes and SAS/C comparison material are documented dependencies/compatibility targets rather than newly split repository projects. Evidence: https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/e75eb8501a5b03d210daf714abd2e7aafd3ff38f https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/abdcbd7ce1fb3d2e0281b2b236173ebbdee32275 https://github.com/AmigaPorts/m68k-amigaos-gcc https://github.com/AmigaPorts/m68k-amigaos-gcc/commit/ec2840b1a549e73ec328dfc3137dbabc915327c7 https://github.com/AmigaPorts/m68k-amigaos-gcc/blob/ec2840b1a549e73ec328dfc3137dbabc915327c7/doc/testing.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -192416,7 +192431,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Systemless 0.100.0 remains the published baseline; development head now implements QuickDraw AngleFromSlope for PowerPC applications with signed fixed-point edge-case tests through the PEF import path.",
+      "status": "Systemless development head now dispatches classic AppleEvents by their event class and ID, returns unhandled-event errors correctly, and preserves browser idle pacing while key repeat is pending.",
       "build": {
         "compilable": null,
         "runnable": true,
@@ -192432,13 +192447,15 @@
         "Carbon FSRef File Manager implementation",
         "SoundSprocket 3-D localization",
         "classic OpenGL fixed-function translation",
-        "CoreFoundation compatibility"
+        "CoreFoundation compatibility",
+        "classic AppleEvent class/ID dispatch",
+        "browser key-repeat pacing"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Systemless remains a modern runtime for classic Macintosh APIs and m68k/PowerPC applications; the current change extends its PowerPC import dispatcher. Classification: Source-faithful compatibility runtime and API reimplementation, not a Macintosh system-ROM reconstruction or generic emulator snapshot. Source CPU: The runtime continues to execute classic Macintosh m68k and PowerPC application code; the new import is specifically exercised through a synthetic PowerPC PEF application. Target CPU: The v0.100.0 release publishes ARM64 and x86-64 native variants while WebAssembly remains part of the project scope; no new architecture is inferred from the API change. Build: The new PEF import dispatch implements QuickDraw AngleFromSlope and tests zero, positive, negative and extreme signed 16.16 slopes while checking return-register and stack behavior. Limitations: The tracker did not build or run Systemless, and the focused import test does not establish universal application compatibility. Runtime profiles: Release assets identify native architectures, but the inspected release and commit do not state minimum host CPU generation, RAM or OS versions suitable for a verified profile. AI: Existing direct Claude co-author evidence remains valid; the reviewed QuickDraw commit contains no new co-author trailer. Relationships: The QuickDraw implementation is part of the same InterfaceLib compatibility layer and does not represent a newly titled subproject. Evidence: https://github.com/benletchford/systemless/releases/tag/v0.100.0 https://github.com/benletchford/systemless/commit/90ccf23aa169d90d9dec8b4b2a64b37e133dca4e",
+      "notes": "Identity: The AppleEvent and browser pacing changes extend the same Systemless classic Macintosh API runtime. Classification: Systemless remains a source-faithful classic Macintosh API/runtime reimplementation rather than recovered Apple source. Source CPU: Existing m68k and PowerPC guest-code coverage remains; the AppleEvent dispatch supports handlers across the established guest ISA model. Target CPU: Published ARM64, x86-64 and WebAssembly outputs remain; these commits add no host architecture. Build: Tests cover non-high-level rejection, unhandled records, arbitrary class/ID handlers and cross-ISA ownership; the pacing fix retains idle sleeps while allowing scheduled key repeat. Limitations: The tracker did not run the Rust tests, browser build or catalogue applications. Runtime profiles: The reviewed commits provide no minimum host CPU, RAM, browser or operating-system version. AI: Existing explicit Claude co-author evidence remains recorded; no attribution beyond evidenced commits is inferred. Relationships: Realmz remains a catalogue compatibility target pending browser approval, not a separate source project introduced by Systemless. Evidence: https://github.com/benletchford/systemless/commit/b446f497cf9f09af7b1ff3ac8bbfb3eebe032437 https://github.com/benletchford/systemless/commit/7cfcd9bd06c4587b3c65c329048c09053f816181 https://github.com/benletchford/systemless/commit/90ccf23aa169d90d9dec8b4b2a64b37e133dca4e https://github.com/benletchford/systemless/releases/tag/v0.100.0 https://github.com/benletchford/systemless/commit/17d6a2b241d874c89a54faf6d9376fcc61b977c2",
       "ai": {
         "usage": true,
         "tools": [
@@ -219843,20 +219860,23 @@
         "compiler-toolchain"
       ],
       "re_started": null,
-      "status": null,
+      "status": "z88dk's sccz80 and 80cc front ends now share tested 16/32-bit signed conversion, overflow, argument-promotion and pointer-difference rules; target runtime minima remain undocumented.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "cross-compiler constant-folding conformance tests",
+        "target-width integer-semantics validation"
+      ],
       "tags": [
         "Amstrad CPC",
         "SAM Coupé",
         "ZX Spectrum"
       ],
-      "notes": "Long-running C/assembly compiler, assembler, linker and machine libraries targeting over a hundred Z80-family machines, including CPC; one coherent toolkit at repository root.",
+      "notes": "Identity: z88dk remains the multi-target Z80-family development kit; the accepted ADR changes both resident C front ends. Classification: This is original retro-development compiler/toolchain work, not a reconstructed game or binary-derived port. Source CPU: The existing Z80 and 8080-family architecture context remains supported; the ADR explicitly describes a 16-bit-int target and far-pointer behavior. Target CPU: The tracker retains target_cpu as not applicable for this compiler-suite record rather than converting broad code-generation targets into a runnable host-output claim. Build: ADR 0121 documents accepted correctness rules and names the shared constpush/conv test suites across sccz80 and 80cc, including long pushes, casts, pointer differences and mixed arithmetic. Limitations: The tracker did not build the compilers or execute the test suites; sdcc is explicitly outside these two tests. Runtime profiles: The reviewed ADR and code changes provide no verified host CPU/RAM/OS minimum and no single minimum target-hardware profile. AI: Existing AI configuration and separately observed attributed contribution evidence remain; configuration alone is not treated as proof for this ADR. Relationships: sccz80, 80cc and the supported CPU backends are integrated parts of z88dk rather than separate newly titled projects. Evidence: https://github.com/z88dk/z88dk/commit/69c7f640eace907be9ed8f6f6a5cd8c884a29111 https://github.com/z88dk/z88dk/blob/master/.github/copilot-instructions.md https://github.com/z88dk/z88dk/blob/master/AGENTS.md",
       "ai": {
         "usage": true,
         "tools": [
@@ -281217,16 +281237,20 @@
         "hybrid"
       ],
       "re_started": null,
-      "status": "Source reviewed; upstream build claims qualified in notes",
+      "status": "AmigaChrome Game Ports remains a source-pinned m68k port programme with explicit compile/runtime/release gates; its newly substantial Alpha Centauri native/Python port is now tracked as a separate subject.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "source-pinned cross-port qualification",
+        "multi-port release gating",
+        "separate build/runtime/release evidence"
+      ],
       "tags": [],
-      "notes": "Identity: AmigaChrome game ports — m68k port recipes and AGA support. Immutable root listing and linked source/build material personally reviewed. Classification: Repository-level port coordination, pinned upstream recipes and actual AGA/HAM8 support code for m68k AROS/AmigaOS. Do not split every planned port into a claimed delivered game. Root status distinguishes compiled, first-light, testing and release gates. Source CPU: The inspected source is high-level code or a data-format/host-side tool; no explicit original machine-code ISA value is asserted from platform naming alone. Target CPU: Native assembly output uses m68k. Build: Inspected common-layer m68k-amigaos Makefile defaults to 68040/FPU, with an explicit 68020 compatibility option. AGA/RTG lab observations and selected muted gameplay are upstream reports; no whole collection playable/release claim and no build run here. Limitations: Read-only source review; no upstream build, game, image or firmware execution. Upstream success statements remain attributed rather than independently verified. Runtime profiles: No independent minimum CPU/RAM/chipset compatibility test was performed; hardware and format limitations remain qualified in build notes. AI: No actual development-AI contribution or named model established in inspected files. Agent instructions, prose style and missing attribution do not establish use or non-use. Relationships: Upstream engines remain separately pinned rather than vendored. ACGame is expressly a synchronized mirror of amigachrome-guest/gameports/acgame, not an independently originated library. Preserve proprietary game-data boundaries. Evidence: https://github.com/DalsinAI/amigachrome-gameports/blob/e864718654c93d4a05b3dc01488c03d70a1aa56d/README.md https://github.com/DalsinAI/amigachrome-gameports/blob/e864718654c93d4a05b3dc01488c03d70a1aa56d/port-layer/acgame/README.md https://github.com/DalsinAI/amigachrome-gameports/blob/e864718654c93d4a05b3dc01488c03d70a1aa56d/port-layer/acgame/Makefile.amigaos https://github.com/DalsinAI/amigachrome-gameports/blob/e864718654c93d4a05b3dc01488c03d70a1aa56d/port-layer/acgame/src/ham8.c",
+      "notes": "Identity: The repository is the aggregate AmigaChrome port programme; Alpha Centauri now has its own titled engine/frontend record because it is materially distinct from the programme index. Classification: The aggregate remains original porting, compatibility and qualification work; individual upstream-source ports are not relabelled as reverse-engineered without evidence. Source CPU: The aggregate covers many source-derived ports and has no single original binary architecture. Target CPU: The programme explicitly targets m68k AROS and AmigaOS 3.x; no additional output CPU is inferred from host-side Alpha Python tests. Build: The programme keeps SOURCE PINNED, COMPILED, FIRST LIGHT, TESTING, TESTED and RELEASE distinct and continues to record per-port open gates. Limitations: The tracker did not build or run any port; aggregate status must not convert a compiled item into a release. Runtime profiles: The aggregate lists lane-specific 68040/OpenGPU qualification targets but no one verified minimum CPU, RAM, chipset and OS profile applies to the whole programme. AI: The reviewed programme and Alpha documentation provide no explicit development-AI attribution; the organisation name is not treated as contribution evidence. Relationships: The newly distinct Alpha Centauri port shares this repository and source node, while other listed ports remain aggregate lanes until separately qualified. Evidence: https://github.com/DalsinAI/amigachrome-gameports/blob/f49df0d7122968f99a2f97f3f1a8fb97c763332f/README.md https://github.com/DalsinAI/amigachrome-gameports/blob/f49df0d7122968f99a2f97f3f1a8fb97c763332f/ports/alpha-centauri/python/README.md https://github.com/DalsinAI/amigachrome-gameports/commit/e1adfb38b4a7c1d8e2729d414097d77bfacd5031",
       "ai": {
         "usage": null,
         "tools": []
@@ -340109,6 +340133,78 @@
         "original-homebrew"
       ],
       "notes": "Identity: NeoWidEx is a low-level formatting and diagnostic utility for Apple's 10 MB Widget hard drive on Lisa 2 systems. Classification: It is substantial original homebrew and hardware-development software, not a reverse-engineered application or RE-derived port. Source CPU: Source CPU is not applicable because NeoWidEx is original software rather than analysis of a pre-existing binary. Target CPU: The repository explicitly describes roughly 10,000 lines of 68000 macro assembly and a native Lisa boot image, supporting Motorola 68000 target metadata. Build: BUILDING documents EASy68K assembly, srec_cat conversion at address $800 and bootable DC42 generation with the Stepleton bootloader; no step was executed here. Limitations: Read-only documentation review; destructive drive operations, assembly, boot image generation and hardware/emulator execution were not performed. Runtime profiles: The README's ROM, floppy/emulator and Widget access requirements are captured exactly; no CPU or RAM minimum is inferred. AI: No explicit development-AI attribution was found in the reviewed README/build documentation; this does not establish non-use. Relationships: The README distinguishes NeoWidEx from Apple's Widex and credits related BLU/UsbWidEx work without claiming shared source. Evidence: https://github.com/stepleton/neowidex/blob/5e41885791b56299c3944c273e0b08dc93e13116/README.md https://github.com/stepleton/neowidex/blob/5e41885791b56299c3944c273e0b08dc93e13116/BUILDING.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "alpha-centauri-native-python-port": {
+      "id": "alpha-centauri-native-python-port",
+      "title": "Sid Meier's Alpha Centauri — native/Python port",
+      "upstream_name": "Alpha Centauri port: Python version",
+      "display_title": "Sid Meier's Alpha Centauri — native/Python port",
+      "subjects": [
+        "Sid Meier's Alpha Centauri",
+        "Sid Meier's Alien Crossfire"
+      ],
+      "repo": "https://github.com/DalsinAI/amigachrome-gameports",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Thinker / OpenSMACX source ports",
+        "owner-supplied Alpha Centauri data"
+      ],
+      "target_platforms": [
+        "host Python/pygame",
+        "AmigaOS m68k"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "m68040"
+      ],
+      "runtime_profiles": null,
+      "execution_paths": null,
+      "source_language": [
+        "C++ source port"
+      ],
+      "reconstructed_languages": [
+        "C++",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game",
+        "application"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "source-derived port",
+        "fan port"
+      ],
+      "re_started": null,
+      "status": "Source-derived Alpha Centauri/Alien Crossfire port with a C++ engine, Python/pygame frontend, title and new-game flow, native map/panel rendering, audio, save/load and deterministic parity/art-flow tests; original rules and assets remain external.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "source-derived engine adaptation",
+        "C API bridging",
+        "cross-frontend parity testing",
+        "asset-free synthetic fixtures",
+        "save/load determinism testing"
+      ],
+      "tags": [
+        "alpha-centauri",
+        "source-port",
+        "m68k",
+        "python"
+      ],
+      "notes": "Identity: The monorepo now contains a separately titled Alpha Centauri port with a native engine, Python binding/frontend and dedicated test suite, distinct from the aggregate port programme. Classification: This is a source-derived fan port/adaptation using the Thinker and OpenSMACX lineages, not a reverse-engineered binary reconstruction and not original homebrew. Source CPU: The port derives from source-level Thinker/OpenSMACX work rather than translating a pre-existing executable, so no original binary CPU is assigned. Target CPU: The native documentation explicitly reports generated big-endian 68040 controls under qemu-m68k and an isolated AmigaOS command-line probe, establishing an m68040 output path without a minimum-hardware claim. Build: The documented host build produces libasmac.so and the Python frontend; tests require byte-identical native/Python 20-turn outputs and saves, plus headless, API, frontend and fixture-backed title-to-save/reload art-flow checks. Limitations: The tracker did not build or run the project. Fixture tests use computed assets, while real play requires owner-supplied rules and art; voice-overs and movies are not played and playability remains unasserted. Runtime profiles: The docs name pygame 2.6.1 as tested and a 68040 control path, but do not state a complete minimum host CPU, RAM, Amiga chipset, OS or ROM profile for the game port. AI: No explicit development-AI attribution appears in the reviewed port documentation or feature commit; the organisation name is not evidence of AI contribution. Relationships: The Python layer uses the same native C++ engine and play session; the native rules reader derives from Brendan Casey's OpenSMACX, while this subject remains linked to the AmigaChrome aggregate repository record. Evidence: https://github.com/DalsinAI/amigachrome-gameports/blob/f49df0d7122968f99a2f97f3f1a8fb97c763332f/ports/alpha-centauri/python/README.md https://github.com/DalsinAI/amigachrome-gameports/commit/e1adfb38b4a7c1d8e2729d414097d77bfacd5031 https://github.com/DalsinAI/amigachrome-gameports/blob/f49df0d7122968f99a2f97f3f1a8fb97c763332f/ports/alpha-centauri/native/README.md",
       "ai": {
         "usage": null,
         "tools": []
