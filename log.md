@@ -1694,3 +1694,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-31 — Review thirteen queue/search candidates; promote nine projects and close three old discovery tasks
 
 [Research record](docs/research/discovery-2026-10-31-sharp-mz-thomson-daad-lisa.md).
+
+## 2026-10-31 — Review eight material upstream changes and split one newly substantial Alpha Centauri port from its multi-project repository.
+
+[Research record](docs/research/maintenance-2026-10-31-am-upstream-tooling-and-runtime.md).
