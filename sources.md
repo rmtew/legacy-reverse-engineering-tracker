@@ -1562,3 +1562,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-31 — Review thirteen fresh candidates, promote seven projects, and deepen the STOS component/runtime audit
 
 [Research record](docs/research/discovery-2026-10-31-dragon-model100-apple3-stos.md).
+
+## 2026-11-01 — Review eight materially changed reconstruction and retro-development projects
+
+[Research record](docs/research/maintenance-2026-11-01-am-upstream-reconstruction-and-tooling.md).
