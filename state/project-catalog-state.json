@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-31T16:12:04Z",
+  "updated_at": "2026-10-31T16:18:56Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -188143,7 +188143,12 @@
       "title": "STOS BASIC",
       "upstream_name": "STOS BASIC",
       "display_title": "STOS BASIC — Atari ST compiler and interpreter source",
-      "subjects": [],
+      "subjects": [
+        "STOS BASIC",
+        "GBP Extension",
+        "Falcon 030 DMA Sound Extension",
+        "Falcon Extension Suite"
+      ],
       "repo": "https://github.com/th-otto/STOS",
       "project_url": null,
       "github_path": null,
@@ -188160,7 +188165,23 @@
       "target_cpu": [
         "m68000"
       ],
-      "runtime_profiles": null,
+      "runtime_profiles": [
+        {
+          "name": "Falcon 030 DMA Sound Extension v2.2",
+          "platform": "Atari Falcon 030",
+          "cpu_family": "Motorola 68000",
+          "min_cpu": "Motorola 68030",
+          "min_ram_kib": 1024,
+          "chipsets": [
+            "Falcon DMA sound"
+          ],
+          "os": "STOS Basic with STOSFIX3",
+          "notes": "Primary manual states Falcon 030 only, 1/4/14 MB RAM and RGB/VGA/TV monitor.",
+          "evidence": [
+            "https://github.com/th-otto/STOS/blob/d11672715dce04d7ab30c5f4758d3b56ca63e421/extens/falc_snd/doc/falc_snd.txt"
+          ]
+        }
+      ],
       "execution_paths": null,
       "source_language": [
         "STOS BASIC original assembly sources"
@@ -188180,7 +188201,7 @@
         "historical programming system"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Preserved STOS BASIC compiler/interpreter and extension sources; Falcon DMA Sound runtime requirements verified",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -188197,7 +188218,7 @@
         "STOS",
         "BASIC"
       ],
-      "notes": "Mixed archive of historical STOS BASIC interpreter/compiler, extension and project assembly sources, including an orig tree and adapted src/compiler trees. Core STOS and compiler sources are explicitly 68000-oriented and emit/run native Atari ST code. Specialized Falcon and later-CPU extensions remain component-specific and do not change the core 68000 classification. The repository does not yet establish a verified end-to-end modern build or a single minimum runtime profile.",
+      "notes": "Identity: The repository remains the canonical STOS BASIC source collection and also preserves titled interpreter/compiler extensions, including GBP and the documented Falcon extension suite. Classification: This is recovered/preserved historical development-system source plus extension sources; it is not a binary-derived reimplementation or ordinary mirror. Source CPU: The existing Motorola 68000 source CPU remains appropriate for the Atari ST core; the Falcon sound manual separately documents 68030 execution for that extension and does not replace the project-wide original architecture. Target CPU: The preserved compiler/interpreter target remains Motorola 68000-family ST software; the verified Falcon extension runtime is recorded as a variant requirement rather than broadening the canonical output CPU without evidence. Build: The inspected extension materials provide source and historical usage context, including full GBP interpreter/compiler source, but do not establish a complete reproducible modern build for the core STOS compiler/interpreter. Next check: Trace the root/core build procedure and tool versions, then attempt a non-destructive build or locate an upstream reproducibility statement. Runtime profiles: The Falcon DMA Sound manual explicitly requires an Atari Falcon 030, 1/4/14 MB RAM, RGB/VGA/TV display, STOS Basic and STOSFIX3; the lowest stated RAM value is captured without extrapolating to other STOS components. AI: No explicit development-AI attribution was found in the inspected historical documentation/source materials; this does not establish non-use in later maintenance. Relationships: The Falcon suite and GBP Extension are now identified as titled components in the STOS repository, but the provenance boundary between original historical core sources and later adapted/system-interface trees remains incompletely documented. Next check: Map the repository's orig and adapted source trees against named historical releases and extension authors before splitting or linking further component records. Evidence: https://github.com/th-otto/stos/blob/d11672715dce04d7ab30c5f4758d3b56ca63e421/doc/info.txt https://github.com/th-otto/stos/blob/d11672715dce04d7ab30c5f4758d3b56ca63e421/extens/gbp/README.md https://github.com/th-otto/stos/blob/d11672715dce04d7ab30c5f4758d3b56ca63e421/extens/falc_snd/doc/falc_snd.txt",
       "ai": {
         "usage": null,
         "tools": []
@@ -333101,8 +333122,10 @@
       "tags": [],
       "notes": "Identity: Realms of Arkania: Blade of Destiny — German CD source reconstruction. Repository root and implementation inspected. Classification: German CD 3.02 reconstruction refactors Bright-Eyes-derived code into named plain C and retains original-style segmented routines, data and build constraints. Separate optional bug-fix builds must not be conflated with the claimed matching baseline. Source CPU: Original/source architecture: x86. Target CPU: Native target architecture: x86. Build: Borland C++ 3.1, DOSBox and exact original German SCHICKM.EXE required. Byte-identical baseline is upstream-reported, not rerun here; build notes say bug fixes remain untested in-game despite headline counts. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: Substantive derivative of Henne/siebenstreich Bright-Eyes, explicitly credited, not an independent recovery of all source from scratch. Evidence: https://github.com/MeowMuhMuhCow/schicksalsklinge/blob/00fd99d6c8f0f1a2f5d3f445fedf2e4c79b0677d/README.md https://github.com/MeowMuhMuhCow/schicksalsklinge/blob/00fd99d6c8f0f1a2f5d3f445fedf2e4c79b0677d/Bauen/BAUEN.md https://github.com/MeowMuhMuhCow/schicksalsklinge/blob/00fd99d6c8f0f1a2f5d3f445fedf2e4c79b0677d/Quelle/seg024.c",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "meowmuhmuhcow-sternenschweif": {
@@ -343163,6 +343186,562 @@
       "techniques": [],
       "tags": [],
       "notes": "Identity: Star Dodger V2 — CPC-inspired browser recreation. Repository root and implementation inspected. Classification: Remake of the Amstrad Action type-in remembered by the author. Inspected game source implements ship momentum, scrolling star fields, collision and exit progression with switchable visual modes. Source CPU: Original/source architecture: Z80. Target CPU: No host CPU minimum established from inspected source. Build: Standalone browser JavaScript/canvas with score handling; no independent run. Limitations: Source inspection only; no upstream game, installer, emulator, assembler or asset pipeline was run. Runtime profiles: Dependencies and limits are qualified in build notes; no independently verified runtime floor. AI: No actual development-AI contribution established in inspected evidence; missing attribution is not evidence of non-use. Relationships: README’s broader BEEBUG/BCPL lineage is an attributed historical account, not independently verified source provenance. Evidence: https://github.com/p9iaai/Star-Dodger-v2-2024/blob/8031a6988c5252ad02526cc12860279b20db2b28/README.md https://github.com/p9iaai/Star-Dodger-v2-2024/blob/8031a6988c5252ad02526cc12860279b20db2b28/game.js",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dragon-dos-utils-unix": {
+      "id": "dragon-dos-utils-unix",
+      "title": "Dragon DOS Utils — VDK and DragonDOS extraction tools",
+      "upstream_name": "ddosutils",
+      "display_title": "Dragon DOS Utils — VDK and DragonDOS extraction tools",
+      "subjects": [
+        "DragonDOS disk images",
+        "DosDream databases"
+      ],
+      "repo": "https://github.com/pulkomandy/ddosutils",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Dragon 32",
+        "Dragon 64",
+        "DragonDOS"
+      ],
+      "target_platforms": [
+        "Unix-like host"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "ddosutils",
+          "platform": "Unix-like host",
+          "os": "GNU make and GCC",
+          "notes": "README documents make -f makefile.gcc; no host CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/pulkomandy/ddosutils/blob/24029d98649b351edded672f51537dbd02fc9145/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "VDK disk images",
+        "Dragon BASIC",
+        "DosDream database files"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "disk image utility",
+        "data conversion tool"
+      ],
+      "re_started": null,
+      "status": "Unix port of Dragon DOS Utils with documented VDK extraction and conversion routes; not independently built",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "DragonDOS filesystem parsing",
+        "BASIC listing conversion",
+        "DosDream text conversion"
+      ],
+      "tags": [
+        "dragon-32",
+        "dragondos",
+        "vdk"
+      ],
+      "notes": "Identity: The repository is a Unix port of Graham E. Kinns' Dragon DOS Utils for listing and extracting VDK/DragonDOS images and converting BASIC and DosDream data. Classification: This is host-side disk-filesystem and data-format tooling, not a reconstructed Dragon program or native port. Source CPU: Source CPU is not applicable because the reviewed inputs are disk images, BASIC records and database data rather than an original machine-code program. Target CPU: Target CPU is not applicable because the utility extracts and converts data rather than emitting native executable code. Build: The README gives the GCC makefile command and names the command-line utilities; no build or sample-image extraction was run. Limitations: Static documentation review only. Runtime profiles: GNU make/GCC on a Unix-like host is documented; no CPU, RAM or OS-version minimum is stated. AI: No explicit development-AI attribution was found in the reviewed README; this does not establish non-use. Relationships: The README explicitly identifies this as a Unix port of Graham E. Kinns' Dragon DOS Utils and retains the upstream utility lineage. Evidence: https://github.com/pulkomandy/ddosutils/blob/24029d98649b351edded672f51537dbd02fc9145/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dragon32-dev-devcontainer": {
+      "id": "dragon32-dev-devcontainer",
+      "title": "Dragon 32 DevContainer — reproducible 6809 ROM starter",
+      "upstream_name": "dragon32-dev",
+      "display_title": "Dragon 32 DevContainer — reproducible 6809 ROM starter",
+      "subjects": [
+        "Dragon 32 ROM development"
+      ],
+      "repo": "https://github.com/computamike/dragon32-dev",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Dragon 32"
+      ],
+      "target_platforms": [
+        "Dragon 32"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Motorola 6809"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "VS Code DevContainer",
+          "platform": "Modern host",
+          "os": "VS Code Dev Containers and Docker",
+          "notes": "README documents the container and XRoar workflow; no host hardware minimum is stated.",
+          "evidence": [
+            "https://github.com/computamike/dragon32-dev/blob/babf1b56f5e745e9da732a1522b681467e69767d/Readme.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Motorola 6809 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "assembler-toolchain"
+      ],
+      "types": [
+        "original retro-development environment",
+        "ROM starter"
+      ],
+      "re_started": null,
+      "status": "Containerized Dragon 32 assembly starter with ROM build and XRoar run targets",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6809 ROM assembly",
+        "containerized toolchain",
+        "XRoar launch automation"
+      ],
+      "tags": [
+        "dragon-32",
+        "6809",
+        "devcontainer"
+      ],
+      "notes": "Identity: The repository presents a VS Code DevContainer and Hello World ROM starter for Dragon 32 assembly development. Classification: This is original retro-development environment/toolchain work, not reverse engineering or an RE-derived port. Source CPU: Source CPU is not applicable because this is an original development starter rather than analysis of a pre-existing binary. Target CPU: The Makefile explicitly selects asm6809 or a09 and builds a Dragon 32 ROM, establishing Motorola 6809 output. Build: README and Makefile document container startup, make, ROM output and an XRoar run target; no container, assembler or emulator was run. Limitations: Upstream-documented workflow only. Runtime profiles: The documented host route requires VS Code Dev Containers and Docker; no CPU, RAM or version floor is stated. AI: No explicit development-AI attribution was found in the inspected README or Makefile; this does not establish non-use. Relationships: The starter integrates the asm6809/a09 assembler choices with XRoar but is a distinct project rather than a bundled copy of those tools. Evidence: https://github.com/computamike/dragon32-dev/blob/babf1b56f5e745e9da732a1522b681467e69767d/Readme.md https://github.com/computamike/dragon32-dev/blob/babf1b56f5e745e9da732a1522b681467e69767d/Makefile",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dragon-mpagd-suite": {
+      "id": "dragon-mpagd-suite",
+      "title": "Dragon AGD Suite — Spectrum AGD conversion toolchain for Dragon/CoCo",
+      "upstream_name": "Dragon-MPAGD-Suite",
+      "display_title": "Dragon AGD Suite — Spectrum AGD conversion toolchain for Dragon/CoCo",
+      "subjects": [
+        "Arcade Game Designer games"
+      ],
+      "repo": "https://github.com/oss003/Dragon-MPAGD-Suite",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "ZX Spectrum",
+        "Arcade Game Designer"
+      ],
+      "target_platforms": [
+        "Dragon 32",
+        "Dragon 64",
+        "TRS-80 Color Computer"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "Motorola 6809"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Dragon AGD Suite",
+          "platform": "Windows host",
+          "os": "MinGW, ASM6809 and XRoar",
+          "notes": "README lists these tools and DSK/VDK output; no host CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/oss003/Dragon-MPAGD-Suite/blob/3d7c60d82b8f237bfc518127cd71674175e69978/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "AGD game data",
+        "ZX Spectrum snapshots"
+      ],
+      "reconstructed_languages": [
+        "Motorola 6809 assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "compiler-toolchain",
+        "disk-filesystem-tool",
+        "asset-tool"
+      ],
+      "types": [
+        "cross-platform game conversion toolchain",
+        "media builder"
+      ],
+      "re_started": null,
+      "status": "Documented AGD conversion/build suite for Dragon and CoCo targets; not independently run",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "AGD extraction",
+        "6809 code generation",
+        "DSK/VDK image generation"
+      ],
+      "tags": [
+        "dragon-32",
+        "coco",
+        "agd",
+        "6809"
+      ],
+      "notes": "Identity: The repository documents a suite that extracts AGD games from Spectrum snapshots, compiles them for Dragon/CoCo and emits runnable disk images. Classification: This is a cross-platform retro game-authoring/conversion toolchain; it should not be labeled as a reverse-engineered game or blanket RE-derived port. Source CPU: Source CPU is not applicable because the reviewed input is AGD game data extracted from snapshots, not an original machine-code program under analysis. Target CPU: The README explicitly says the suite converts game data into 6809 format and uses ASM6809 for Dragon/CoCo output. Build: The README enumerates MinGW, ASM6809 and XRoar plus compiler and disk-image steps; no conversion, compilation or emulation was run. Limitations: Primary documentation review only. Runtime profiles: The documented Windows-host toolchain is captured without inferring host CPU/RAM or minimum target hardware. AI: No explicit development-AI attribution was found in the reviewed README; this does not establish non-use. Relationships: The suite depends on AGD-format source material, ASM6809 and XRoar and targets both Dragon and CoCo media; those dependencies are not separate components of this record. Evidence: https://github.com/oss003/dragon-mpagd-suite/blob/3d7c60d82b8f237bfc518127cd71674175e69978/README.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "casromutils-dragon-coco": {
+      "id": "casromutils-dragon-coco",
+      "title": "CasROMUtils — Dragon/CoCo cassette and multicart tooling",
+      "upstream_name": "CasROMUtils",
+      "display_title": "CasROMUtils — Dragon/CoCo cassette and multicart tooling",
+      "subjects": [
+        "Dragon/CoCo cassette images",
+        "Dragon/CoCo MegaCart images"
+      ],
+      "repo": "https://github.com/prime6809/CasROMUtils",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Dragon 32",
+        "Dragon 64",
+        "Dragon Alpha",
+        "TRS-80 Color Computer"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "CasFix and RomLink",
+          "platform": "Modern host",
+          "os": "Windows or Linux; FreePascal 2.0.4 or later",
+          "notes": "Source comments document the compiler/host families; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/prime6809/CasROMUtils/blob/99bc7ae86921153583cda4a9f6d75619cbb787de/CasUtils/CasFix.pas",
+            "https://github.com/prime6809/CasROMUtils/blob/99bc7ae86921153583cda4a9f6d75619cbb787de/RomLink/RomLink.pas"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Dragon/CoCo cassette images",
+        "ROM images"
+      ],
+      "reconstructed_languages": [
+        "Pascal"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool",
+        "rom-tool"
+      ],
+      "types": [
+        "cassette image repair tool",
+        "multicart image builder"
+      ],
+      "re_started": null,
+      "status": "FreePascal cassette repair and MegaCart image utilities reviewed from implementation; not independently compiled",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cassette checksum repair",
+        "leader/sync reconstruction",
+        "paged ROM packaging"
+      ],
+      "tags": [
+        "dragon-32",
+        "coco",
+        "cassette",
+        "megacart"
+      ],
+      "notes": "Identity: The inspected CasFix and RomLink sources implement Dragon/CoCo cassette repair/conversion and MegaCart paged-ROM construction. Classification: This is host-side media analysis/repair and ROM packaging tooling, not a reconstructed title or native game port. Source CPU: Source CPU is not applicable because the tools inspect cassette and ROM-image data rather than a particular original executable. Target CPU: Target CPU is not applicable because the outputs are repaired cassette/media containers and packaged ROM pages, not generated native code. Build: Source headers identify FreePascal 2.0.4+ and Windows/Linux builds; no compiler, cassette or ROM image was run. Limitations: Implementation and comments reviewed statically. Runtime profiles: The explicit FreePascal and Windows/Linux host requirements are captured; no CPU/RAM minimum is stated. AI: No explicit development-AI attribution was found in the inspected Pascal sources; this does not establish non-use. Relationships: CasFix and RomLink are complementary utilities in one coherent repository: cassette-image repair/conversion and Dragon/CoCo MegaCart image assembly. Evidence: https://github.com/prime6809/casromutils/blob/99bc7ae86921153583cda4a9f6d75619cbb787de/CasUtils/CasFix.pas https://github.com/prime6809/casromutils/blob/99bc7ae86921153583cda4a9f6d75619cbb787de/RomLink/RomLink.pas",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "apple-iii-custom-rom": {
+      "id": "apple-iii-custom-rom",
+      "title": "Apple III Custom ROM — DAN II boot and monitor extension",
+      "upstream_name": "Apple_III_Custom_ROM",
+      "display_title": "Apple III Custom ROM — DAN II boot and monitor extension",
+      "subjects": [
+        "Apple III system ROM",
+        "DAN II Controller"
+      ],
+      "repo": "https://github.com/ThorstenBr/Apple_III_Custom_ROM",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple III",
+        "Apple II"
+      ],
+      "target_platforms": [
+        "Apple III"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "Custom 4K/8K ROM",
+          "platform": "Apple III",
+          "cpu_family": "6502",
+          "os": "Replacement 4 KiB ROM or banked 8 KiB ROM adapter",
+          "notes": "README documents DAN II autoboot and extended monitor variants; no RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/ThorstenBr/Apple_III_Custom_ROM/blob/5fa8e6aa9891b70cb26e900b636b36b2d8c98163/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6502 assembly"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "development-tool"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "system ROM adaptation",
+        "monitor extension"
+      ],
+      "re_started": null,
+      "status": "Modified Apple III ROM sources for DAN II boot and extended monitor/disassembler variants",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ROM bank switching",
+        "monitor extension",
+        "6502 disassembler adaptation"
+      ],
+      "tags": [
+        "apple-iii",
+        "6502",
+        "rom",
+        "monitor"
+      ],
+      "notes": "Identity: The repository provides Apple III custom 4 KiB and banked 8 KiB ROM variants for DAN II boot and an extended monitor/disassembler. Classification: This is a source adaptation of the original Apple III ROM, with an Apple II disassembler routine incorporated; it is not wholly original homebrew or a binary-derived clean-room reconstruction. Source CPU: The monitor source explicitly selects the 6502 CPU, establishing the source firmware architecture. Target CPU: The custom Apple III ROM remains 6502 firmware and the assembled source explicitly targets 6502. Build: The repository provides buildable ROM source and documents the 4 KiB/8 KiB variants; no assembler, ROM image, adapter or Apple III was run. Limitations: Static source/documentation review only; output identity was not compared. Runtime profiles: The documented Apple III replacement-ROM and 8 KiB banked-adapter requirements are captured without inferring RAM or machine revision requirements. AI: No explicit development-AI attribution was found in the inspected README/source; this does not establish non-use. Relationships: The README identifies the original Apple III ROM as the base, adds DAN II autoboot, and credits an Apple II ROM disassembler routine for the monitor extension. Evidence: https://github.com/thorstenbr/apple_iii_custom_rom/blob/5fa8e6aa9891b70cb26e900b636b36b2d8c98163/README.md https://github.com/thorstenbr/apple_iii_custom_rom/blob/5fa8e6aa9891b70cb26e900b636b36b2d8c98163/source/ROM/monitor.s",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "apple-iii-rom-drive-driver": {
+      "id": "apple-iii-rom-drive-driver",
+      "title": "Apple III ROM-Drive Driver — SOS support for ProDOS ROM-Drive",
+      "upstream_name": "apple-iii-rom-drive-driver",
+      "display_title": "Apple III ROM-Drive Driver — SOS support for ProDOS ROM-Drive",
+      "subjects": [
+        "ProDOS ROM-Drive",
+        "Apple III SOS"
+      ],
+      "repo": "https://github.com/david-schmidt/apple-iii-rom-drive-driver",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [],
+      "target_platforms": [
+        "Apple III"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "A3ROMDRIVE.DRIVER",
+          "platform": "Apple III",
+          "os": "SOS with Terence Boldt ProDOS ROM-Drive card",
+          "notes": "Primary documentation describes read-only driver operation; no CPU, RAM or SOS-version floor is stated.",
+          "evidence": [
+            "https://github.com/david-schmidt/apple-iii-rom-drive-driver/blob/d28d588f1a99b904246b3844282cf54a28781e3a/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "system-software",
+        "development-tool"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [],
+      "types": [
+        "original homebrew",
+        "SOS device driver"
+      ],
+      "re_started": null,
+      "status": "Original read-only Apple III SOS driver for the ProDOS ROM-Drive card",
+      "build": {
+        "compilable": true,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "SOS device driver",
+        "ROM-drive block access"
+      ],
+      "tags": [
+        "apple-iii",
+        "sos",
+        "device-driver",
+        "original-homebrew"
+      ],
+      "notes": "Identity: The repository implements a read-only Apple III SOS driver for Terence Boldt's ProDOS ROM-Drive card. Classification: This is explicitly original native driver/homebrew work, not a reverse-engineered or RE-derived project. Source CPU: Source CPU is not applicable because the project is original software rather than analysis of a pre-existing binary. Target CPU: The inspected README and driver source do not explicitly identify the output CPU; Apple III platform and assembly syntax alone were not used to infer it. Build: The README gives the Python/a3driverutil and ca65 build dependencies; no assembly, packaging, card access or SOS boot was run. Limitations: Upstream-documented build only. Runtime profiles: The explicit Apple III, SOS and ProDOS ROM-Drive card requirements are captured; no CPU, RAM or OS-version minimum is stated. AI: No explicit development-AI attribution was found in the inspected README/source; this does not establish non-use. Relationships: The driver targets Terence Boldt's separate ProDOS ROM-Drive hardware and uses a3driverutil for SOS driver packaging; those dependencies remain distinct. Evidence: https://github.com/david-schmidt/apple-iii-rom-drive-driver/blob/d28d588f1a99b904246b3844282cf54a28781e3a/README.md https://github.com/david-schmidt/apple-iii-rom-drive-driver/blob/d28d588f1a99b904246b3844282cf54a28781e3a/a3romdrive.s",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "soshdboot-apple-iii": {
+      "id": "soshdboot-apple-iii",
+      "title": "SOS HD Boot — Apple III ROM and kernel hard-disk boot adaptation",
+      "upstream_name": "soshdboot",
+      "display_title": "SOS HD Boot — Apple III ROM and kernel hard-disk boot adaptation",
+      "subjects": [
+        "Apple III system ROM",
+        "Apple III SOS"
+      ],
+      "repo": "https://github.com/robjustice/soshdboot",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Apple III"
+      ],
+      "target_platforms": [
+        "Apple III"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "SOS HD Boot",
+          "platform": "Apple III",
+          "cpu_family": "6502",
+          "min_ram_kib": 128,
+          "os": "Modified SOS.KERNEL and ROM; ProDOS-compatible block card",
+          "notes": "README states the boot loader supports 128K, 256K and 512K systems and reports testing on 256K/512K machines.",
+          "evidence": [
+            "https://github.com/robjustice/soshdboot/blob/154107c3dcf2e2084a60a1de1ade033d00fffb51/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6502 assembly"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "firmware-rom",
+        "operating-system"
+      ],
+      "work_kinds": [
+        "source-restoration",
+        "patching"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "system ROM adaptation",
+        "SOS kernel adaptation",
+        "boot loader"
+      ],
+      "re_started": null,
+      "status": "Source-built Apple III ROM/kernel/driver adaptation for booting from ProDOS block cards",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "ROM boot adaptation",
+        "SOS kernel patching",
+        "block-device driver integration"
+      ],
+      "tags": [
+        "apple-iii",
+        "6502",
+        "sos",
+        "boot-rom"
+      ],
+      "notes": "Identity: The repository supplies an updated Apple III ROM, modified SOS kernel, boot loaders and Disk3 driver for direct boot from ProDOS-compatible block cards. Classification: This is an Apple III firmware/system-software source adaptation with original integration work, not a clean-room reconstruction or ordinary binary distribution. Source CPU: The inspected ROM disk I/O source explicitly selects the 6502 CPU, establishing the source firmware architecture. Target CPU: The built ROM/kernel components run on Apple III and the inspected source explicitly targets 6502. Build: README documents ca65/ld65, Python 2.7, ROM/kernel build targets and MAME commands; no build, ROM installation, image mutation or emulator/hardware boot was run. Limitations: Primary documentation/source review only; claimed boot compatibility was not reproduced. Runtime profiles: The README explicitly states 128K/256K/512K support, testing on 256K/512K, and the required modified ROM/SOS plus block card; 128 KiB is recorded as the documented floor. AI: No explicit development-AI attribution was found in the inspected README/source; this does not establish non-use. Relationships: The project integrates modified Apple III ROM/SOS components with ProDOS block cards and documents its Disk3 driver/boot-loader variants as one coherent boot stack. Evidence: https://github.com/robjustice/soshdboot/blob/154107c3dcf2e2084a60a1de1ade033d00fffb51/README.md https://github.com/robjustice/soshdboot/blob/154107c3dcf2e2084a60a1de1ade033d00fffb51/src/rom/diskio.s",
       "ai": {
         "usage": null,
         "tools": []
