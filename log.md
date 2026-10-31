@@ -1710,3 +1710,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-10-31 — Review ten material upstream changes across reconstruction, emulation, runtime tooling and multi-project retro collections.
 
 [Research record](docs/research/maintenance-2026-10-31-pm-upstream-analysis-and-collections.md).
+
+## 2026-10-31 — Review thirteen fresh candidates, promote seven projects, and deepen the STOS component/runtime audit
+
+[Research record](docs/research/discovery-2026-10-31-dragon-model100-apple3-stos.md).
