@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-31T03:30:42Z",
+  "updated_at": "2026-10-31T06:15:03Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -17375,7 +17375,22 @@
       "title": "Amy Studio",
       "upstream_name": "Amy Studio",
       "display_title": "Amy Studio — browser-based ColecoVision development environment",
-      "subjects": [],
+      "subjects": [
+        "Goblin",
+        "Speed Ski",
+        "Paratrooper",
+        "Things in the Dark",
+        "Copy Cat",
+        "A Day at the Races",
+        "Slalom",
+        "Mastermaze",
+        "Boggler",
+        "Closeout",
+        "Fighter Aces",
+        "TI Trapshoot",
+        "TI-99 Match-Em",
+        "Chutes"
+      ],
       "repo": "https://github.com/amypurple/AmyStudio",
       "project_url": null,
       "github_path": null,
@@ -17415,7 +17430,7 @@
         "ColecoVision toolchain"
       ],
       "re_started": null,
-      "status": "active; Goblin, Speed Ski, Paratrooper and Things in the Dark source ports have deterministic upstream compile/runtime gates",
+      "status": "Amy Studio adds ten explicitly labelled faithful COMPUTE! adaptations as ColecoVision examples, preserving source-game rules and quirks while remaining an original browser development environment.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -17434,7 +17449,9 @@
         "ADAM EOS project support",
         "ADAM serial/debug input",
         "screen-mode dataflow analysis",
-        "deterministic source-port runtime validation"
+        "deterministic source-port runtime validation",
+        "source-listing faithful adaptation",
+        "manual-canon example manifests"
       ],
       "tags": [
         "ColecoVision",
@@ -17443,7 +17460,7 @@
         "browser development",
         "Coleco ADAM"
       ],
-      "notes": "Identity: Amy Studio remains an original browser-based ColecoVision/ADAM development environment, not a reverse-engineered game project. Current main adds substantial source ports as examples and validation fixtures. Classification: Current primary commits extend the original browser toolchain from ColecoVision into native Coleco ADAM development/debug support without changing its original-tooling classification. Source CPU: Original development tooling has no analyzed source binary CPU. Target CPU: README and current assembler commit explicitly target Z80 code; ADAM support does not introduce a separately inferred CPU family. Build: Upstream adds Goblin, Speed Ski, Paratrooper and Things in the Dark ports with deterministic compiler and Gearcoleco test-core gates. The Goblin/Speed Ski harness compiles balanced ROMs, uses a fixed seed and scripted inputs, then checks game-specific screen, tile and sprite outcomes. This is upstream validation only; the tracker did not compile or run the examples on an emulator or physical ColecoVision. Runtime profiles: Current README and reviewed ADAM commits state no minimum ColecoVision/ADAM RAM profile or host CPU/RAM floor. AI: Primary README explicitly credits Claude and OpenAI Codex while preserving human ownership and testing responsibility. Relationships: Primary README identifies the bundled self-hosted GearColeco WebAssembly test core and older ColecoVision toolchain heritage. Evidence: https://github.com/amypurple/AmyStudio https://github.com/amypurple/AmyStudio/commit/e757e40ee2101544ccbb0236ea5c246e18a63144 https://github.com/amypurple/AmyStudio/commit/e974dfa79761159a2e7af5b0e2534a2b3d3fee37 https://github.com/amypurple/AmyStudio/commit/a39c66c20342154d51b9be74e73cbdda5bfb053a",
+      "notes": "Identity: Amy Studio remains the original browser-based ColecoVision/ADAM development environment; the ten newly named COMPUTE! adaptations are bundled examples and subjects inside it. Classification: The manifest labels each new work a faithful adaptation. They are source-listing ports for the original toolchain, not reverse-engineered binaries and not independent repository projects. Source CPU: Amy Studio is original development tooling and the adaptations derive from published BASIC listings rather than analyzed original executables; no source binary CPU is assigned. Target CPU: The examples use Amy's existing ColecoVision legacy memory profile and Z80 output; no new target CPU is introduced. Build: The manifest adds eight February/March 1983 and two April 1983 ports with preserved mechanics, provenance and the colecovision_legacy_sdcc profile; the Chutes source documents coordinate, sprite, timing and collision adaptations from the Atari listing. Limitations: The tracker did not compile or run the ten example ROMs on GearColeco or physical hardware. Runtime profiles: The named ColecoVision memory profile is a build profile, but the reviewed commits state no new verified minimum console RAM/peripheral configuration or host CPU/RAM floor. AI: The Chutes source explicitly says Claude ported it for Amy Studio, consistent with the README's Claude/OpenAI Codex disclosure; attribution remains scoped to documented work. Relationships: The ten adaptations are now named subjects within Amy Studio's example corpus. Their original COMPUTE! authors and source machines remain credited, while the self-hosted GearColeco core remains a test dependency. Evidence: https://github.com/amypurple/AmyStudio/commit/d64559d2bf0258defcb1f093344e3fd200f48f22 https://github.com/amypurple/AmyStudio/commit/26ac8be8c0002395adbb1cb622cb250a936f8076 https://github.com/amypurple/AmyStudio",
       "ai": {
         "usage": true,
         "tools": [
@@ -21896,7 +21913,7 @@
         "generic emulator"
       ],
       "re_started": null,
-      "status": "current source marks v1.13 with hard-drive game-library and joystick-port configuration; Linux remains described as untested",
+      "status": "ASE now emulates the Mega ST RP5C15 and IKBD clocks with emulated-time advancement and snapshot state; Linux remains described upstream as untested.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -21905,14 +21922,16 @@
       },
       "techniques": [
         "IKBD input emulation",
-        "hard-drive game-library integration"
+        "hard-drive game-library integration",
+        "RP5C15 real-time-clock emulation",
+        "snapshot-deterministic clock state"
       ],
       "tags": [
         "Windows",
         "macOS",
         "Linux"
       ],
-      "notes": "Primary README describes a C# Atari ST-family emulator using Moira, partly derived from the author's 1990s emulator and Hatari. Substantial machine implementation and .NET project are present. README supplies Moira wrapper build and dotnet publish commands. Generic system emulation, not a game-specific CPU wrapper. Linux support is described as expected but untested by the author; no local build or compatibility validation. README supplies Moira build and dotnet publish instructions, says ready-to-use releases exist, and reports Windows/macOS execution. True flags reflect upstream evidence, not an independent build. Linux remains untested upstream. No independent compilation, execution or benchmarking was performed during this catalogue review. Evidence: https://github.com/thebitculture/ase/blob/main/README.MD https://github.com/thebitculture/ase/blob/main/ASE/ASE.csproj https://github.com/thebitculture/ase/blob/main/ASE/CPU.cs https://github.com/thebitculture/ase/blob/main/ASE/Memory.cs https://github.com/thebitculture/ase/commit/4a60df85090ad3485c5bd6dec73b26ab8664d42a The v1.13 source commit adds hard-drive-adapted games to the library and configurable Atari joystick ports, separating port state and mouse/joystick button-line behavior in the IKBD path. The repository's previously documented Windows/macOS execution and untested-Linux boundary remain; this pass did not observe or execute a new release asset. Evidence: https://github.com/thebitculture/ase/commit/cac0f6093cdc32fdcd747a325860b7e8c69c6aa4 https://github.com/thebitculture/ase/blob/cac0f6093cdc32fdcd747a325860b7e8c69c6aa4/README.MD",
+      "notes": "Identity: RP5C15 and IKBD clock support extend the same generic Atari ST-family emulator. Classification: ASE remains a generic ST/Mega ST/STE emulator using Moira, not a game-specific reconstruction. Source CPU: The emulated guest remains Motorola 68000; clock-device emulation adds no source CPU family. Target CPU: Existing x86-64 and arm64 host outputs remain; the reviewed device work adds no host architecture. Build: Upstream advances both clocks by emulated cycles, initializes them from host local time only at the external session boundary, and appends clock state to backward-compatible snapshots. Limitations: The tracker did not build or run ASE, validate RTC edge cases or test older snapshot files. Runtime profiles: The change documents device timing behavior but no verified host CPU/RAM minimum or newly qualified guest machine configuration. AI: The reviewed full commit message and diff contain no explicit AI-contribution attribution; usage remains unknown rather than false. Relationships: The RP5C15 and IKBD implementations are emulator subsystems; Moira and Munt remain dependencies rather than newly split projects. Evidence: https://github.com/thebitculture/ase/commit/5d12334eb5b3a6aa3ee9725848ac73c911b6a684 https://github.com/thebitculture/ase",
       "ai": {
         "usage": null,
         "tools": []
@@ -73723,7 +73742,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "Firestaff's authenticated current-main startup matrix now passes four bounded real-media tests across all five games; Atari CSB rebirth/explosion rendering and executed-code CD-write tracing advanced, while Nexus playability and native display/input completeness remain open.",
+      "status": "Firestaff now binds authenticated Atari ST Chaos Strikes Back archive members to the same original image and covers Atari ST 1.1 menu startup; broader native playability and Nexus completion remain open.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73781,7 +73800,9 @@
         "VDP source-span verification",
         "startup source-frame tracing",
         "authenticated SNES media classification",
-        "bounded H03 ROMDUNGEON decoding"
+        "bounded H03 ROMDUNGEON decoding",
+        "same-archive authenticated file pairing",
+        "Atari ST menu-route regression"
       ],
       "tags": [
         "game engine",
@@ -73790,7 +73811,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Identity: Firestaff remains one clean-room Dungeon Master-family engine and evidence framework; the five-game matrix and CSB visual work are bounded platform paths within it. Classification: The changes are authenticated-media reconstruction and regression evidence, not proof of a complete native port for every original platform. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain supported; this pass establishes no new original CPU. Target CPU: Existing x86-64 and arm64 modern outputs remain; no new target architecture follows from the reconstructed Atari or CD code paths. Build: Upstream reports 4/4 bounded real-media startup/menu tests on current main and successful Actions across Linux, macOS and Windows. Limitations: The tracker did not repeat the tests. SDL dummy startup gates do not establish native display, physical input or complete gameplay; Nexus remains capture-gated. Next check: Continue bounded Nexus and platform-runtime gates without converting startup coverage into a complete playability claim. Runtime profiles: Existing measured Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain valid; the new startup matrix states no additional minimum CPU, RAM or OS floor. AI: Existing explicit Claude commit attribution remains scoped to evidenced contributions; no broader inference is made. Relationships: The five game/platform startup routes remain variants within Firestaff rather than newly titled nested projects. Evidence: https://github.com/yeager/firestaff/commit/99f0a1db23853c3a65fbb377bc30dbaedd242fa9 https://github.com/yeager/firestaff/commit/79568c536b3a4e766d8a2359f63257cdc74b7a53 https://github.com/yeager/firestaff/commit/0c6a290ff99fd035512d3b1b3f41b2a5a0e986f7 https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/commit/8d0c71d73d994eda534e90b66ccf4922bc3698db https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae",
+      "notes": "Identity: Firestaff remains one clean-room Dungeon Master-family engine and evidence framework; the Atari ST archive and menu routes are variants inside the same project. Classification: The changes are authenticated-media reconstruction and regression evidence, not proof of a complete native Atari ST port. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain; this Atari ST path introduces no new original CPU family. Target CPU: Existing x86-64 and arm64 modern outputs remain; archive admission and Atari menu testing do not establish a new output architecture. Build: Upstream added same-image GRAPHICS.DAT/DUNGEON.DAT digest binding for Atari ST CSB and expanded real-media route coverage, including Atari ST 1.1 menu startup. Limitations: The tracker did not repeat the tests. Launcher admission and menu startup do not establish complete native display, input or gameplay. Next check: Continue bounded native runtime and Nexus gates without converting startup coverage into a complete-playability claim. Runtime profiles: Existing measured Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain; the reviewed Atari changes state no additional minimum CPU, RAM or OS floor. AI: Existing explicit Claude commit attribution remains scoped to evidenced contributions; no broader inference is made from these commits. Relationships: The additional Atari editions and archive routes remain Firestaff variants, not newly titled nested projects. Evidence: https://github.com/yeager/firestaff/commit/f1065c673fca0c8586f58fe5883c7abb9011aaac https://github.com/yeager/firestaff/commit/aa3732f4a30aac7a0b320c6c9b16adaa795849fc https://github.com/yeager/firestaff/blob/bcdd94bd06d4fe442e2429870111419e0ca57bae/README.md https://github.com/yeager/firestaff/releases/tag/v3.0.416 https://github.com/yeager/firestaff/commit/bcdd94bd06d4fe442e2429870111419e0ca57bae",
       "ai": {
         "usage": true,
         "tools": [
@@ -106675,7 +106696,7 @@
         "adjacent tooling"
       ],
       "re_started": null,
-      "status": "v6.4.2 published; current devtools commit memory, graphics and assembler writes as one lease-bound machine change",
+      "status": "konCePCja's KCPC debugger now publishes every frame through a documented shared-memory ring with sequence-numbered events and an independent fb_dump reader tested across Linux, macOS and Windows CI.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -106692,13 +106713,15 @@
         "controller leases and event subscriptions",
         "IDE and disk-image writeback regression",
         "lease-bound atomic debugger mutation",
-        "frame-boundary IPC writes"
+        "frame-boundary IPC writes",
+        "shared-memory frame-ring protocol",
+        "independent frame-reader conformance testing"
       ],
       "tags": [
         "Amstrad CPC",
         "reverse-engineering tooling"
       ],
-      "notes": "CPC/Plus and GX4000 emulator with sub-cycle hardware models, flux-image decoding, an integrated debugger and TCP/headless automation. Beyond v6.4.2, the new protocol-v0 binary frontend on port 6545 implements HELLO/PING/MACHINE_INFO, register and memory reads/writes, PAUSE/RUN/RESET/STEP control, run-state queries and subscribed pushed events. Its design includes a 4096-entry lock-free event ring and controller lease; reviewed commits add server skeleton, reads, writes/control and run/events in successive tested slices. These are upstream implementation receipts, not an independent run by the tracker. No minimum host CPU/RAM was stated. Evidence: https://github.com/ikari-pl/konCePCja/commit/179da861efce3fc6ed29613b8f7df518ce4e527c https://github.com/ikari-pl/konCePCja/commit/4a7aa1ac593cdf1c53989db6da6d60275d9257c5 https://github.com/ikari-pl/konCePCja/commit/f8ffdac45bc451bb72caf41cc76594a39b134c21 Current main preserves Symbiface IDE writes on IPC quit and signals, writes modified zipped DSK images beside their archives, and replaces fixed-delay IPC startup tests with port readiness. The IDE test writes a sector through the emulated ATA path and proves it reaches the image only at exit. These are upstream regressions; the tracker did not execute them. Evidence: https://github.com/ikari-pl/konCePCja/commit/7f21133285a51d6356935f91afd32d1dadca4808 https://github.com/ikari-pl/konCePCja/commit/8cbf49dd https://github.com/ikari-pl/konCePCja/commit/0d60e541 Memory-editor changes, Graphics Finder paint and assembler writes now commit as one machine change under a pause lease or at the IPC frame boundary; assembler bytes are encoded before the single commit. This prevents clients from observing half-written programs and does not add per-frame work. Evidence: https://github.com/ikari-pl/konCePCja/commit/3b69023444567a19ebb0f5b6ea4d3c5de3b2d8cf",
+      "notes": "Identity: The frame ring and fb_dump tool extend konCePCja's existing KCPC emulator/debugger interface. Classification: This remains a CPC/Plus emulator and debugger; the standalone frame reader is a directly related tool within the same repository. Source CPU: The emulated guest architecture remains Z80; frame transport adds no source CPU. Target CPU: The emulator/debugger does not emit a reconstructed subject binary with a fixed output CPU. Build: FB_INFO names the ring, EVT_FRAME carries its sequence, fb_dump reads only the published protocol, and integrated tests require the text IPC, Python reader and C reader to agree on a paused firmware frame and CRC32 across Linux, macOS and MSVC jobs. Limitations: The tracker did not build the emulator or run the cross-platform frame-ring tests. Runtime profiles: Cross-platform CI coverage is evidenced, but no minimum host CPU, RAM or OS version is stated. AI: Existing explicit Claude Opus co-author evidence remains scoped to evidenced commits; no broader attribution is inferred. Relationships: fb_dump is a protocol-conformance utility delivered with konCePCja, not an independently promoted project; vendored components remain dependencies. Evidence: https://github.com/ikari-pl/konCePCja/commit/0ccb93bf3a2acee3bc84c0863ab3fc7eea45cff7 https://github.com/ikari-pl/konCePCja",
       "ai": {
         "usage": true,
         "tools": [
@@ -115424,7 +115447,7 @@
         "automation"
       ],
       "re_started": null,
-      "status": "Starglider 2 remains byte-exact across 412,736 bytes; loop-wide sparse cells and canonical Dn pointer producers now survive only under proved write envelopes, while an A6 reader remains blocked at a cross-platform call predicate.",
+      "status": "Starglider 2 remains byte-exact across 412,736 bytes while connected homing, HUD, collision-retirement and world-record recycling continuations gain original-CPU fixtures; global alias safety and complete gameplay remain unproved.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -115452,7 +115475,10 @@
         "shared disk/audio service-state modeling",
         "loop-wide sparse-memory preservation",
         "canonical pointer-producer validation",
-        "operand-role projection correction"
+        "operand-role projection correction",
+        "original-CPU collision-response fixtures",
+        "record-pool retirement reconstruction",
+        "homing and HUD continuation recovery"
       ],
       "tags": [
         "Amiga",
@@ -115460,7 +115486,7 @@
         "68k",
         "tooling"
       ],
-      "notes": "Identity: M68k Reversing Toolkit remains the generated Amiga analysis and reconstruction framework; this pass advances its existing Starglider 2 target. Classification: The change admits memory and pointer facts only under bounded alias, entry, write-envelope and call contracts, preserving reconstruction limits. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code. Target CPU: The output remains native Motorola 68000 assembly verified upstream through the C/vasm path. Build: Upstream reports 363 focused Python tests, all 832 native tests, unchanged 3,503 app / 2,682 typed / 158 unresolved counts, and byte-exact C/vasm plus clean standalone rebuilds of all 412,736 bytes. Limitations: The tracker did not regenerate the output. The A6 reader remains intentionally blocked because the Amiga branch predicate is not transported through the shared call proof. Next check: Carry the actual caller predicate into context-sensitive call proof with mutation and alternate-entry negatives. Runtime profiles: The reviewed analysis run states no minimum Amiga CPU, RAM, chipset or ROM requirement. Next check: Add a runtime profile only after primary documentation or qualified hardware/emulator testing states a concrete minimum. AI: Existing explicit Claude contribution evidence remains valid and scoped to tracked commits. Relationships: The restoration remains within Starglider 2 and does not resolve the wider credited-source or predecessor graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/269515996b5ee8936ad4f07f635518970fa5f4b2 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/e27b8f71fa9ea49f77d6a5ceb937368f167eda5c https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
+      "notes": "Identity: M68k Reversing Toolkit remains the generated Amiga analysis and reconstruction framework; this pass advances its existing Starglider 2 target. Classification: The new collision, retirement, homing and HUD continuations are bounded semantic restoration with explicit non-certification of global lifetime, DMA, scanout and gameplay behavior. Source CPU: The tracked Starglider 2 input remains Motorola 68000 code, with the reviewed batch explicitly covered by original-CPU cases. Target CPU: The output remains native Motorola 68000 assembly verified upstream through exact C/vasm and standalone rebuild paths. Build: Upstream reports 175 original-CPU collision/recycling cases, exact C/vasm output and clean standalone output across the unchanged 412,736-byte target. Limitations: The tracker did not regenerate the output. The fixtures are post-filter continuations and do not certify contact geometry, global alias safety, unique release or later reuse validity. Next check: Follow the connected contact-eligibility and special-player response consumers while preserving the stated lifetime and scanout boundaries. Runtime profiles: The reviewed analysis run states no minimum Amiga CPU, RAM, chipset or ROM requirement. Next check: Add a runtime profile only after primary documentation or qualified hardware/emulator testing states a concrete minimum. AI: Existing explicit Claude contribution evidence remains valid and scoped to tracked commits. Relationships: The restoration remains within Starglider 2 and does not resolve the wider credited-source or predecessor graph. Next check: Revisit project relationships after the bounded restoration stabilizes. Evidence: https://github.com/rmtew/amiga-reversing/commit/5ba1042639e3f736d9cca7531f2360a80bfbac18 https://github.com/rmtew/amiga-reversing/blob/9c8cdbfd2a4fca323e3fcc37031a32f7d4c72780/README.md https://github.com/rmtew/amiga-reversing/commit/0806d08b49d8d7f1aa6826c40385317bbb81154c",
       "ai": {
         "usage": true,
         "tools": [
@@ -127519,7 +127545,7 @@
         "native multiplatform roguelike reimplementation"
       ],
       "re_started": null,
-      "status": "Released Apple II and Commodore ports plus buildable/testable Commander X16 target; current main adds AI playtesting infrastructure with seven isolated platform stages and a broad set of gameplay-parity fixes, without tracker-side execution.",
+      "status": "Moria8 adds disk save/load playtests, retry paths and deterministic failed-run capture across its 6502/65C02 ports; released/platform status is unchanged and tracker-side execution was not performed.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -127532,14 +127558,16 @@
         "x16emu runtime scenarios",
         "VICE binary-monitor AI playtesting",
         "isolated multi-platform emulator regression",
-        "deterministic finding replay"
+        "deterministic finding replay",
+        "disk save/load scenario replay",
+        "drive-status retry validation"
       ],
       "tags": [
         "source-reviewed",
         "apple-ii-discovery",
         "no-independent-build"
       ],
-      "notes": "Identity: Moria8 is a single multi-platform assembly reimplementation of Moria. Current main contains released C64, C128, Plus/4 and Apple II outputs plus a new buildable/testable Commander X16 target; the README's status table still calls X16 planned, so it is not represented as a published release. Classification: This remains a native, platform-specific assembly reimplementation derived from the credited VMS Moria and Umoria lineages, not a reverse-engineered binary port. Source CPU: The documented source lineages are VMS Pascal and C Umoria; no original executable ISA is established by the reviewed material, so source_cpu remains empty. Target CPU: Existing Apple II and Commodore assembly supports the 6502 output. The Commander X16 makefile explicitly labels its new target 65C02/VERA, supporting the additional 65C02 output without inferring it from the platform name. Build: The merged playtesting work adds VICE binary-monitor sessions, goals, deterministic replay and a dashboard, then isolates fixed emulator ports with private network namespaces so seven platform stages (C64, C128, Plus/4, Apple II, Commander X16, Atari 8-bit and BBC Master) can run in parallel after one shared build. The same merge carries combat, item, monster and spell-effect fixes. These are upstream infrastructure and regression results; the tracker did not build or run any platform. Runtime profiles: The existing Apple II 128 KiB/80-column/ProDOS profile remains sourced. Emulator-stage configuration and command timeouts are development-test requirements, not minimum physical hardware evidence, so no new runtime profile is added. AI: The repository now documents an operational AI playtester using structured goals, sessions and deterministic replay. Existing Claude evidence remains the project-level development attribution; the infrastructure does not imply that every gameplay change was authored by a model. Relationships: The shared Commodore and Apple II ports remain one Moria8 project, distinct from its explicitly credited VMS Moria/Umoria ancestors. README/root license specify GPLv3, with disk data/LICENSE and source-offer material; artwork has separate creator credits. Future platform rows and unrelated Moria titles are not additional discoveries. The normalized root, title/alias and lineage screen found no same-code project in the 1,833-project baseline or expanded 2,249-root prior-review union. Evidence: https://github.com/dcgibbons/moria8/blob/60286809eafbd9e804f750d92c07ec2261c0827e/README.md https://github.com/dcgibbons/moria8/commit/60286809eafbd9e804f750d92c07ec2261c0827e https://github.com/dcgibbons/moria8/commit/a16fd0f87a4a473782990d8255edbd2f99ce54fe https://github.com/dcgibbons/moria8/blob/60286809eafbd9e804f750d92c07ec2261c0827e/platforms/cx16/Makefile https://github.com/dcgibbons/moria8/commit/dea5d1ae681c36ab858dd3ef7ddc22ef42f8ab80 https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/docs/release_notes/release_notes-v1.5.0.md https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/README.md https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/platforms/apple2/main.s https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/platforms/apple2/boot.s https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/core/game_loop.s https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/docs/APPLE2_MEMORY_POLICY.md https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/platforms/apple2/Makefile https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/LICENSE https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/data/LICENSE https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/data/SOURCE-OFFER https://github.com/dcgibbons/moria8/blob/feed714990ae616dd075b66ff0238b60ee2da0ed/artwork/CREDITS.md https://github.com/dcgibbons/moria8/commit/fdfdcfba7e91f9c4b34a8a82ed3774da577aac48 https://github.com/dcgibbons/moria8/commit/34aac8b6f1b4ecdabe9a88f39500f68a790c43a3 https://github.com/dcgibbons/moria8/commit/4cf93a96986bcd23fc103650434fbbd9e21774e7 https://github.com/dcgibbons/moria8/commits/feed714990ae616dd075b66ff0238b60ee2da0ed",
+      "notes": "Identity: The C64, C128, Plus/4, Apple II, Commander X16 and other platform paths remain one Moria8 reimplementation. Classification: Moria8 remains a native platform-specific assembly reimplementation from credited VMS Moria and Umoria source lineages, not a reverse-engineered binary port. Source CPU: The documented source lineages are VMS Pascal and C Umoria; the reviewed storage commits do not establish an original executable ISA, so source_cpu remains empty. Target CPU: Existing 6502 and 65C02 outputs remain evidenced; disk retry and REU-init changes add no new output CPU. Build: Upstream adds save/load scenario playtests, retains failed-run inputs and VICE seeds, retries failed asset loads, and retries Plus/4 command-channel reads up to three times after JiffyDOS read timeouts. Limitations: The tracker did not build the ports, run VICE or reproduce the disk faults. Runtime profiles: The existing Apple II 128 KiB/80-column/ProDOS profile remains sourced. Emulator harness settings and JiffyDOS retry behavior are test/runtime behavior, not new minimum hardware evidence. AI: The repository's operational AI playtester remains documented; the reviewed storage commits do not imply that every change was model-authored. Relationships: The platform storage implementations remain one Moria8 project distinct from its credited VMS Moria/Umoria ancestors. Evidence: https://github.com/dcgibbons/moria8/commit/297ae351fa8af5a6ea33bfcf6787b3bb3857104f https://github.com/dcgibbons/moria8/commit/d654ee133b53716b7291b10d25ce5d19f6f3b3ab https://github.com/dcgibbons/moria8 https://github.com/dcgibbons/moria8/commit/a7421bb2b6b5fcfec8a8c4ba912df7127ee1914e",
       "ai": {
         "usage": true,
         "tools": [
@@ -151988,7 +152016,10 @@
         "Maze 3D",
         "Snake",
         "Pinball Construction Set",
-        "MCS"
+        "MCS",
+        "Wilderness",
+        "WARGALAGA II",
+        "Robot Space Station"
       ],
       "repo": "https://github.com/habib256/pom2games",
       "project_url": null,
@@ -152103,7 +152134,7 @@
         "native source port"
       ],
       "re_started": null,
-      "status": "Native Apple II collection; POM2 facade tests now exercise Apple //c and AppleMouse II firmware paths plus register, go and call control across game probes.",
+      "status": "POM2 Games' native Apple II collection now records WARGALAGA II's 1.9 KiB memory recovery and Robot Space Station's tested DHGR-page code overlays; both remain named subjects within the collection.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -152120,14 +152151,16 @@
         "DHGR interface reconstruction",
         "joystick UI navigation",
         "ProDOS pre-game map program",
-        "POM2 real-firmware integration testing"
+        "POM2 real-firmware integration testing",
+        "auxiliary-memory code overlays",
+        "frame-timed music regression"
       ],
       "tags": [
         "source-reviewed",
         "apple-ii-discovery",
         "no-independent-build"
       ],
-      "notes": "Identity: The repository-level collection now includes the separately titled Wilderness reconstruction; it is retained within the established collection record rather than counted as a duplicate repository project. Classification: Neowilderness remains a reconstruction-informed subject inside the established mixed POM2 collection; its original-homebrew siblings are not relabelled as reverse-engineered. Source CPU: The README and Snake header identify POM1 Apple-1/GEN2 versions as predecessors, and Chess documents reused POM1 rules code. Those predecessor files were not independently inspected, so no source CPU is inferred from the target assembly or Apple-1 label. Target CPU: Arkabreakout’s game.s explicitly specifies NMOS 6502 and contains native gameplay assembly. ChromaBreak’s Makefile passes --cpu 65c02; boot.s starts with a 6502 CPU probe and then selects .setcpu \"65C02\", rejecting an NMOS IIe. These establish separate 6502 and 65C02 outputs, not a single machine minimum. Build: The POM2 facade delivery adds register/go/call controls and wires make test probes across Arkabreakout, Pinball and Wargalaga II. Arkabreakout's probe exercises Apple //c and card variants against AppleMouse II firmware, including detection, coordinates, launch/laser/menu input, suppression, DOS exit and display-mode invariants after each CPU instruction. These are upstream tests; the tracker did not build or run them. Runtime profiles: The new real-firmware and //c probes strengthen test coverage but do not change the existing author-stated Apple II memory/storage profiles or establish a lower minimum. AI: The facade merge is explicitly co-authored by Claude Opus 5.5, consistent with the existing project-level Claude attribution; this remains development evidence, separate from any in-game AI. Relationships: The Wilderness subtree documents reconstruction from external woz-a-day WOZ/A2R images kept out of git; this is a subject inside the tracked POM2 collection, not an original-homebrew relabel. Evidence: https://github.com/habib256/pom2games/blob/main/README.md https://github.com/habib256/pom2games/commit/996971397f77a62c49aef92890dac1d69b5cc338 https://github.com/habib256/pom2games/commit/107307a5fdc74f02af41676785524443929d7e6f https://github.com/habib256/pom2games/commit/f07e562562ab46127de6b99f2b3bc2cd8edca605 https://github.com/habib256/pom2games/blob/main/neowilderness/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/src/game.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/arkabreakout/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chess/README.md https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/snake/src/snake.c https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/src/boot.s https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/chromabreak/Makefile https://github.com/habib256/pom2games/blob/29909a924977e84636b4000d7341beafb6e3d288/LICENSE https://github.com/habib256/pom2games/commit/d1b369198dbeb50be199be735d1831ca4d417f71 https://github.com/habib256/pom2games/blob/main/wilderness/docs/ANALYSE.md",
+      "notes": "Identity: WARGALAGA II and Robot Space Station are separately titled native Apple II works inside the established POM2 Games repository-level collection record. Classification: These are native Apple II homebrew/adaptation works in a mixed collection; the commits do not relabel them as binary-derived reconstructions. Source CPU: The reviewed changes concern native target memory maps and do not establish a distinct original binary CPU for either title; source_cpu remains empty rather than inferred from Apple II output. Target CPU: Existing 6502 and 65C02 collection outputs remain; the reviewed ca65/cc65 memory reorganizations add no new target CPU. Build: WARGALAGA II moves PT3 music and sprite packs in auxiliary memory, recovers about 1.9 KiB main RAM and adds a steady-music IRQ test. Robot Space Station swaps PLAY/FRONT overlays through hidden DHGR page 2, recovers about 1.7 KiB and tests five screen transitions against RSS.OVL. Limitations: The tracker did not build the disk images, run the tests or verify the measured free-space figures. Runtime profiles: The memory maps strengthen implementation evidence but do not establish a lower Apple II minimum than the collection's existing author-stated profiles. AI: Both reviewed feature commits explicitly credit Claude Opus 5.5; this is development attribution, separate from any in-game AI. Relationships: WARGALAGA II and Robot Space Station are now named collection subjects, not duplicate repository records; existing Wilderness reconstruction provenance remains distinct from these native works. Evidence: https://github.com/habib256/pom2games/commit/2d4bea4314e1bf7bcf3a1c70dfcfb50436a2752a https://github.com/habib256/pom2games/commit/301f1b56a8c0135ac023670b903735f38247c134",
       "ai": {
         "usage": true,
         "tools": [
@@ -161303,7 +161336,7 @@
         "reverse-engineering tooling"
       ],
       "re_started": null,
-      "status": "active",
+      "status": "Regenerator 2000 now indexes shared lexical-scope boundaries and performs monotonic block-range rendering while documenting the state and rendering invariants; upstream buildability remains established by the repository, not re-tested here.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -161316,7 +161349,9 @@
         "cycle-accurate unpacking sandbox",
         "assembly round-trip verification",
         "MCP server",
-        "cross-reference analysis"
+        "cross-reference analysis",
+        "lexical-scope indexing",
+        "range-indexed disassembly rendering"
       ],
       "tags": [
         "tooling",
@@ -161325,7 +161360,7 @@
         "MCP",
         "reverse engineering"
       ],
-      "notes": "Modern interactive 6502 disassembler for Commodore 8-bit systems. It combines manual code/data/graphics analysis, VICE debugging, automatic packed-program emulation/unpacking, assembly/HTML export, headless round-trip assemble/diff verification and an MCP server with analysis skills for automated reverse engineering.",
+      "notes": "Identity: Scope indexing and BlocksView changes extend the same Regenerator 2000 Commodore reverse-engineering workbench. Classification: This remains interactive 6502 disassembly/debugging and automated analysis tooling, not a reconstructed game. Source CPU: The workbench continues to analyze Commodore 6502-family binaries; UI indexing adds no source CPU family. Target CPU: The workbench analyzes and exports source but does not define one native reconstructed output CPU. Build: Upstream documents deterministic sparse annotation serialization, O(log S) scope boundaries, monotonic block scans and off-screen scope tracking, following implementation and regression work on the same paths. Limitations: The tracker did not run cargo tests, VICE or the TUI. Runtime profiles: The reviewed UI/data-structure work does not establish a legacy target's minimum runnable CPU, RAM or ROM profile. AI: Explicit upstream Claude Opus co-author attribution remains independently verified and scoped to the evidenced commit. Relationships: The MCP server, VICE integration and TUI remain components of one workbench rather than separate promoted projects. Evidence: https://github.com/ricardoquesada/regenerator2000/commit/577c6eeb0e272907d9af851a489aab6831e356be https://github.com/ricardoquesada/regenerator2000 https://github.com/ricardoquesada/regenerator2000/commit/1929fdb2943ce33901a5d239132af42410bca018 https://github.com/ricardoquesada/regenerator2000/commit/c2fcbcfe8d1a88c3baefde8e566bccf226ec870d",
       "ai": {
         "usage": true,
         "tools": [
@@ -183973,19 +184008,26 @@
         "Retro development tool"
       ],
       "re_started": null,
-      "status": "Primary source reviewed; independent build/run not performed",
+      "status": "Spice86 now distinguishes redirected returns by stack level and carries SSA/data-flow through one IR pipeline, improving generated-method ownership without claiming perfect structure recovery.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "real-mode execution tracing",
+        "control-flow graph reconstruction",
+        "C# override generation",
+        "stack-level redirected-return classification",
+        "SSA data-flow analysis",
+        "intermediate-representation lowering"
+      ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: Reusable PC emulator and reverse-engineering environment that records real-mode DOS execution, builds control-flow graphs and emits C# override projects. This is the maintained C# continuation of the original Java Spice86. Classification: CfgCSharpGenerator.cs orchestrates analysis, planning, lowering, supplier generation and source emission. Reusable across programs, not a game-specific CPU wrapper. Apache-2.0 core licence; NOTICE and third-party components require separate consideration. Source CPU: Recovered/analyzed input architecture; compiler host is not encoded here. Target CPU: No fixed output CPU; disassembly/analysis or emulated execution does not establish a native subject binary. Tool host CPUs are recorded separately. Build: README requires .NET 10. Avalonia desktop project and package references inspected. GeneratedProject scaffolding and C# CFG generator are present. No build performed; all build/run/playability/byte-exact flags remain unknown. No candidate software was compiled or executed; build/run/play/byte-identity flags remain unknown. Runtime profiles: Requires input EXE/COM/BAT/BIOS; output depends on code paths explored. Native tool host CPU not fixed by portable C#. AI: Pinned latest full commit repeatedly includes Co-authored-by: Copilot trailers; this establishes AI contribution, independently of prompts/configuration. Relationships: Continuation/port of kevinferrare/spice86; treat Java and C# lineages together when cataloguing. Evidence: https://github.com/OpenRakis/Spice86/blob/28a877fc64888f070e2dad95ddb739f3e1fe84a2/README.md https://github.com/OpenRakis/Spice86/blob/28a877fc64888f070e2dad95ddb739f3e1fe84a2/LICENSE https://github.com/OpenRakis/Spice86/blob/28a877fc64888f070e2dad95ddb739f3e1fe84a2/src/Spice86.Core/Emulator/ReverseEngineer/CfgCodeGeneration/CfgCSharpGenerator.cs https://github.com/OpenRakis/Spice86/blob/28a877fc64888f070e2dad95ddb739f3e1fe84a2/src/Spice86/Spice86.csproj https://github.com/OpenRakis/Spice86/commit/28a877fc64888f070e2dad95ddb739f3e1fe84a2",
+      "notes": "Identity: The redirected-return and SSA work extends the maintained C# Spice86 emulator/reverse-engineering environment. Classification: Spice86 remains reusable real-mode PC analysis and code-generation tooling rather than a game-specific wrapper. Source CPU: The analyzed input architecture remains 16-bit x86 real mode. Target CPU: No fixed native subject CPU is emitted; generated C# and emulated execution remain portable analysis outputs rather than a target-ISA claim. Build: Upstream adds RedirectedCallContinuation only when a return consumes the matching call frame, carries external-code may-write effects through SSA, and documents the case where same-stack redirection can still pull another routine into the caller partition. Limitations: The tracker did not build Spice86 or run the analyzer fixtures. The commit explicitly says behavior can remain correct while recovered method structure is imperfect. Runtime profiles: The reviewed analyzer changes state no minimum host CPU, RAM or operating-system version. AI: Existing full commits with Copilot co-author trailers establish scoped AI contribution; no repository-wide authorship inference is made. Relationships: This remains the maintained C# continuation of kevinferrare/spice86; the new partition edges do not create a separate project. Evidence: https://github.com/OpenRakis/Spice86/commit/f59486b7b8efc062bda0aa55f1d60e45a76845e6 https://github.com/OpenRakis/Spice86/commit/0a81e014b0e7a484c01be074872ef3ea7a5d9b90 https://github.com/OpenRakis/Spice86",
       "ai": {
         "usage": true,
         "tools": [
@@ -220130,7 +220172,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Zapple-II / BP/M now includes a kernel-backed NETCCP remote-login server with Telnet option negotiation and terminal-independent command output; network execution remains upstream-reported.",
+      "status": "Zapple-II / BP/M now supports a configurable SoftCard slot, remappable O:/P: drives and a kernel-owned multiuser Telnet service; execution remains upstream-reported.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -220144,13 +220186,15 @@
         "bank-safe W5100 socket API integration",
         "CP/M Telnet and WGET client integration",
         "CP/M-compatible remote-login service",
-        "Telnet option negotiation"
+        "Telnet option negotiation",
+        "ProDOS boot configuration staging",
+        "multiuser Telnet service"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: NETCCP remains part of the same Apple IIe/SoftCard Zapple-II and BP/M environment rather than a separate catalogue project. Classification: This is original CP/M-compatible system and networking development for legacy Apple II/SoftCard hardware, not reverse-engineered game code. Source CPU: Original/inspected source architecture is 6502, Z80. This is not an inferred minimum runnable machine. Target CPU: Inspected implementation/build establishes 6502, Z80 output architecture; a complete minimum runtime configuration was not independently verified. Build: The kernel-backed NETCCP server now negotiates Telnet ECHO/SGA, refuses client LINEMODE and receives cleanup plus terminal-independent output fixes. Limitations: The tracker did not run the server or repeat a remote-login session, so interoperability remains an upstream claim. Runtime profiles: The reviewed server commits provide no new minimum Apple II, SoftCard, memory or W5100 firmware profile. AI: Unknown: bounded primary documentation, sampled implementation/build/licence files and up to three latest full commit messages contain no explicit AI-contribution attribution. Absence is not evidence of non-use. Relationships: Screened against existing tracker projects and research decisions; no duplicate established. Evidence: https://github.com/bobbimanners/Zapple-II/commit/614b04a39b7dba3185831c762a4a28ec0273ce16 https://github.com/bobbimanners/Zapple-II/commit/c4ca56aba263703cb7085ab0a14acb5a164d7dcd https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/README.md https://github.com/bobbimanners/Zapple-II/blob/770b60f998a9f28ebd7e5ea6a99dc7d2b6e7ac03/softcard65.asm",
+      "notes": "Identity: Configurable drives, SoftCard placement and NETCCP remain parts of the same Apple IIe/SoftCard Zapple-II and BP/M environment. Classification: This is original CP/M-compatible system and networking development for legacy Apple II/SoftCard hardware, not reverse-engineered game code. Source CPU: The inspected boot driver and BP/M implementation continue to establish 6502 and Z80 source architectures; this is not a minimum-machine inference. Target CPU: The staged 6502 driver and Z80 kernel remain the evidenced output architectures; configuration flexibility adds no new target CPU. Build: Upstream stages ZAPPLE2.CNF below the Z80 load, copies O:/P: mounts and DNS into the kernel, separates SoftCard slot configuration from Uthernet, and registers a persistent NETCCP listener. Limitations: The tracker did not build or run the system or repeat a remote-login session. Runtime profiles: The reviewed commits provide no new minimum Apple II model, SoftCard, RAM, W5100 firmware or network profile. AI: The reviewed full commit messages and implementation diff contain no explicit development-AI attribution; absence does not establish non-use. Relationships: The NETCCP client, resident service and drive configuration are components of Zapple-II/BP/M rather than independently titled repository projects. Evidence: https://github.com/bobbimanners/Zapple-II/commit/9bbcb2c550f6441f55d4dc3374aa1dcbfc07d50c https://github.com/bobbimanners/Zapple-II/commit/8ff106bb30072b3d805699eebfc1caf89706b558",
       "ai": {
         "usage": null,
         "tools": []
