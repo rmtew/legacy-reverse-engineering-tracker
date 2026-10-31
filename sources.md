@@ -1554,3 +1554,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-10-30 — Add 27 qualified projects from a 36-repository review; retain scope and fidelity caveats.
 
 [Research record](docs/research/2026-10-30-windows-application-recovery-and-amiga-remakes-discovery.md).
+
+## 2026-10-31 — Review ten material upstream changes across reconstruction, emulation, runtime tooling and multi-project retro collections.
+
+[Research record](docs/research/maintenance-2026-10-31-pm-upstream-analysis-and-collections.md).
