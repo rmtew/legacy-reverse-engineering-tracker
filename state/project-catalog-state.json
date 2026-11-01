@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-01T15:57:01Z",
+  "updated_at": "2026-11-01T16:16:50Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -343789,6 +343789,692 @@
       "notes": "Identity: The repository supplies an updated Apple III ROM, modified SOS kernel, boot loaders and Disk3 driver for direct boot from ProDOS-compatible block cards. Classification: This is an Apple III firmware/system-software source adaptation with original integration work, not a clean-room reconstruction or ordinary binary distribution. Source CPU: The inspected ROM disk I/O source explicitly selects the 6502 CPU, establishing the source firmware architecture. Target CPU: The built ROM/kernel components run on Apple III and the inspected source explicitly targets 6502. Build: README documents ca65/ld65, Python 2.7, ROM/kernel build targets and MAME commands; no build, ROM installation, image mutation or emulator/hardware boot was run. Limitations: Primary documentation/source review only; claimed boot compatibility was not reproduced. Runtime profiles: The README explicitly states 128K/256K/512K support, testing on 256K/512K, and the required modified ROM/SOS plus block card; 128 KiB is recorded as the documented floor. AI: No explicit development-AI attribution was found in the inspected README/source; this does not establish non-use. Relationships: The project integrates modified Apple III ROM/SOS components with ProDOS block cards and documents its Disk3 driver/boot-loader variants as one coherent boot stack. Evidence: https://github.com/robjustice/soshdboot/blob/154107c3dcf2e2084a60a1de1ade033d00fffb51/README.md https://github.com/robjustice/soshdboot/blob/154107c3dcf2e2084a60a1de1ade033d00fffb51/src/rom/diskio.s",
       "ai": {
         "usage": null,
+        "tools": []
+      }
+    },
+    "jsbeeb-bbc-micro-emulator": {
+      "id": "jsbeeb-bbc-micro-emulator",
+      "title": "jsbeeb — JavaScript BBC Micro-family emulator",
+      "upstream_name": "jsbeeb",
+      "display_title": "jsbeeb — JavaScript BBC Micro-family emulator",
+      "subjects": [
+        "BBC Micro",
+        "BBC Master 128",
+        "Acorn Atom"
+      ],
+      "repo": "https://github.com/mattgodbolt/jsbeeb",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "BBC Master 128",
+        "Acorn Atom"
+      ],
+      "target_platforms": [
+        "Web browser",
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [
+        "6502",
+        "65C02",
+        "65C12"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Browser build",
+          "platform": "Web browser",
+          "os": "Chrome 111+, Edge 111+, Firefox 115+, Safari 16.4+ or iOS Safari 16.4+",
+          "notes": "The package browserslist states these browser floors; no host CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/package.json"
+          ]
+        },
+        {
+          "name": "Source and desktop build",
+          "platform": "Windows, Linux or macOS",
+          "os": "Node.js 24.15.0 or later",
+          "notes": "The package manifest states the Node floor and documents optional Electron packaging; no host CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/package.json"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine behavior",
+        "65C02 machine behavior",
+        "65C12 machine behavior"
+      ],
+      "reconstructed_languages": [
+        "JavaScript"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger",
+        "binary-analysis"
+      ],
+      "types": [
+        "browser emulator",
+        "desktop emulator",
+        "integrated debugger"
+      ],
+      "re_started": null,
+      "status": "Active browser and Electron emulator with debugger, rewind, media inspection and automated CPU tests; not independently built or run in this review.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "cycle-aware 6502-family emulation",
+        "integrated debugging",
+        "save-state rewind",
+        "disc surface inspection",
+        "CPU regression testing"
+      ],
+      "tags": [
+        "BBC Micro",
+        "BBC Master",
+        "Acorn Atom",
+        "6502",
+        "65C02",
+        "65C12",
+        "emulator",
+        "debugger"
+      ],
+      "notes": "Identity: jsbeeb is the canonical JavaScript BBC Micro-family emulator maintained by Matt Godbolt. Classification: It qualifies as a core emulator, debugger and media-analysis environment directly useful to BBC development and archaeology. Source CPU: The model implementation explicitly selects MOS 6502, CMOS 65C02 and CMOS 65C12 opcode families. Target CPU: Browser and Electron builds do not establish one fixed native output CPU; no host architecture is inferred. Build: The README and package manifest document npm development, test, web build and Electron packaging paths. Limitations: The tracker did not install dependencies, compile, package or run the emulator. Runtime profiles: The package manifest gives exact supported browser floors and Node.js 24.15.0+ for source/desktop builds; no CPU or RAM minimum is stated. AI: The reviewed head commit explicitly attributes generation to Claude Code and co-authorship to Claude Opus 5.5. Relationships: The separately tracked jsbeeb-mcp project exposes this emulator through MCP; that automation layer does not replace the emulator record. Evidence: https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/README.md https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/src/models.js https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/package.json https://github.com/mattgodbolt/jsbeeb/commit/178031ec9e7420a0965981f7f7877df35886fe0c https://github.com/kieranhj/jsbeeb-mcp",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Claude Code"
+        ]
+      }
+    },
+    "beebjit-libretro-bbc-micro-core": {
+      "id": "beebjit-libretro-bbc-micro-core",
+      "title": "beebjit-libretro — BBC Micro JIT emulator core for RetroArch",
+      "upstream_name": "beebjit-libretro",
+      "display_title": "beebjit-libretro — BBC Micro JIT emulator core for RetroArch",
+      "subjects": [
+        "BBC Model B",
+        "BBC Master 128",
+        "beebjit"
+      ],
+      "repo": "https://github.com/kieranhj/beebjit-libretro",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "BBC Master 128"
+      ],
+      "target_platforms": [
+        "Linux",
+        "Libretro",
+        "muOS"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "x86-64",
+        "ARM64"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "RG40XXV muOS tested target",
+          "platform": "muOS / RetroArch",
+          "cpu_family": "ARM64",
+          "min_cpu": "Allwinner H700 quad Cortex-A53 is the documented first tested target, not a claimed minimum",
+          "notes": "The README reports full-speed BBC emulation on this device and says the JIT requires a 64-bit host. No RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/kieranhj/beebjit-libretro/blob/763450c5611d54b71b6bd68077bc7385e62af2bf/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "6502 machine behavior"
+      ],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [],
+      "work_kinds": [],
+      "tool_kinds": [
+        "emulator",
+        "debugger"
+      ],
+      "types": [
+        "libretro core",
+        "JIT emulator integration"
+      ],
+      "re_started": null,
+      "status": "Linux-only libretro wrapper around beebjit with ARM64/x64 JIT support and documented RG40XXV measurements; not independently built or benchmarked.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "JIT CPU emulation",
+        "libretro integration",
+        "vertical-sync lockstep",
+        "headless benchmarking",
+        "cross-building with Zig"
+      ],
+      "tags": [
+        "BBC Micro",
+        "BBC Master",
+        "6502",
+        "ARM64",
+        "x86-64",
+        "libretro",
+        "emulator",
+        "Claude Code"
+      ],
+      "notes": "Identity: This repository is the distinct libretro glue layer around Chris Evans' beebjit emulator. Classification: It qualifies as a BBC emulator integration and debugging/benchmark environment rather than a new independent CPU core. Source CPU: The README explicitly describes beebjit's JIT as 6502-only and the interpreter option as the 6502 core. Target CPU: The README explicitly limits the JIT to ARM64 and x64 64-bit Linux hosts and documents an aarch64 cross-build. Build: Native Linux make and Zig-based aarch64 cross-build commands are documented along with headless test and benchmark scripts. Limitations: The tracker did not compile the core, connect to a handheld, run RetroArch or reproduce performance figures. Runtime profiles: An RG40XXV with Allwinner H700 quad Cortex-A53 running muOS is an explicitly measured target; this is retained as a tested profile, not generalized into a minimum. AI: The README explicitly says Claude Code wrote the core from Kieran Connell's direction; the reviewed head commit also credits Claude Opus 5.5. Relationships: The core wraps beebjit as a submodule and says its repository adds only libretro glue and two OS substitutions. Evidence: https://github.com/kieranhj/beebjit-libretro/blob/763450c5611d54b71b6bd68077bc7385e62af2bf/README.md https://github.com/kieranhj/beebjit-libretro/commit/763450c5611d54b71b6bd68077bc7385e62af2bf",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Claude Code"
+        ]
+      }
+    },
+    "beeblink-bbc-file-server": {
+      "id": "beeblink-bbc-file-server",
+      "title": "BeebLink — BBC Micro and Electron host file server",
+      "upstream_name": "BeebLink",
+      "display_title": "BeebLink — BBC Micro and Electron host file server",
+      "subjects": [
+        "BBC Micro",
+        "BBC Master 128",
+        "Acorn Electron"
+      ],
+      "repo": "https://github.com/tom-seddon/beeblink",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "BBC Micro",
+        "BBC Master 128",
+        "Acorn Electron"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "Acorn Electron",
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Host server",
+          "platform": "Windows, Linux or macOS",
+          "os": "Node.js 18.20 or later",
+          "notes": "Windows additionally needs Visual Studio to build; macOS needs Xcode; Ubuntu needs libusb-dev and libudev-dev. No CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/tom-seddon/beeblink/blob/58776b038d1fe7494a2c15564b0a5e1b7860a928/docs/build-server.md"
+          ]
+        },
+        {
+          "name": "BBC Micro link",
+          "platform": "BBC Micro / BBC Master 128",
+          "os": "BeebLink ROM plus Tube USB serial adapter or UPURS cable",
+          "notes": "README recommends EEPROM or battery-backed write-protectable sideways RAM; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/tom-seddon/beeblink/blob/58776b038d1fe7494a2c15564b0a5e1b7860a928/README.md"
+          ]
+        },
+        {
+          "name": "Acorn Electron link",
+          "platform": "Acorn Electron",
+          "chipsets": [
+            "Plus 1",
+            "Advanced Plus 5",
+            "Tube USB serial adapter PLD V3+"
+          ],
+          "notes": "README describes this as a DIY configuration; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/tom-seddon/beeblink/blob/58776b038d1fe7494a2c15564b0a5e1b7860a928/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "BBC filing-system behavior"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "C++",
+        "assembly"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [],
+      "tool_kinds": [
+        "development-environment",
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "host file server",
+        "BBC filing system ROM",
+        "retro-development bridge"
+      ],
+      "re_started": null,
+      "status": "Active host-server and BBC/Electron ROM system with documented hardware links and reproducible server/ROM build instructions; not independently built.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "host-backed filing system",
+        "Tube serial transport",
+        "UPURS transport",
+        "BBC ROM development",
+        "multi-machine file sharing"
+      ],
+      "tags": [
+        "BBC Micro",
+        "BBC Master",
+        "Acorn Electron",
+        "file server",
+        "development tool"
+      ],
+      "notes": "Identity: BeebLink is a host file-storage system with a BBC/Electron ROM and transport-specific server components. Classification: It qualifies as directly relevant retro-development and filing-system tooling, not a game reconstruction. Source CPU: There is no original binary subject whose CPU is being reconstructed; the project is a newly authored host/server and ROM tool. Target CPU: The reviewed README and ROM build document name BBC/Electron targets and 64tass but do not explicitly state the ROM output CPU; the value is not inferred from platform. Build: Primary documentation gives separate ROM and Node server build routes for Windows, macOS and Linux. Limitations: The tracker did not build the ROM/server or connect physical hardware. Runtime profiles: Node.js 18.20+ and the distinct BBC, Electron and host prerequisites are explicit; no CPU or RAM minimum is stated. AI: No explicit development-AI attribution was found in the reviewed README or build documents; this does not establish non-use. Relationships: TubeHost integration is documented, while BeebLink remains its own server/ROM project. Evidence: https://github.com/tom-seddon/beeblink/blob/58776b038d1fe7494a2c15564b0a5e1b7860a928/README.md https://github.com/tom-seddon/beeblink/blob/58776b038d1fe7494a2c15564b0a5e1b7860a928/docs/build-rom.md https://github.com/tom-seddon/beeblink/blob/58776b038d1fe7494a2c15564b0a5e1b7860a928/docs/build-server.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "wish-gold-box-save-editor-automapper": {
+      "id": "wish-gold-box-save-editor-automapper",
+      "title": "Wish — C64 and Amiga Gold Box save editor and automapper",
+      "upstream_name": "Wish",
+      "display_title": "Wish — C64 and Amiga Gold Box save editor and automapper",
+      "subjects": [
+        "Pool of Radiance",
+        "Curse of the Azure Bonds",
+        "Secrets of the Silver Blades",
+        "Pools of Darkness"
+      ],
+      "repo": "https://github.com/malcyon/wish",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Commodore 64",
+        "Amiga",
+        "DOS"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Linux application",
+          "platform": "Linux",
+          "os": "Python 3.12 or later",
+          "notes": "Gold Box game disks are required; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/malcyon/wish/blob/20aff7c9dd484347de64e1e7994380faf25e8af0/README.md"
+          ]
+        },
+        {
+          "name": "Live automapper",
+          "platform": "Windows or Linux host",
+          "os": "VICE for C64; WinUAE on Windows or patched FS-UAE on Linux for Amiga",
+          "notes": "The README documents the monitor/debugger connections and user-supplied game media; no CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/malcyon/wish/blob/20aff7c9dd484347de64e1e7994380faf25e8af0/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "Gold Box save formats",
+        "live emulator memory",
+        "game resource data"
+      ],
+      "reconstructed_languages": [
+        "Python"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "binary-analysis",
+        "debugger"
+      ],
+      "types": [
+        "save editor",
+        "live automapper",
+        "cross-platform data converter"
+      ],
+      "re_started": null,
+      "status": "Active save editor and emulator-linked automapper backed by extensive C64, Amiga and DOS format/runtime research; not independently run.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "save-format reconstruction",
+        "live emulator memory inspection",
+        "cross-platform save conversion",
+        "resource-format analysis",
+        "emulator debugger integration"
+      ],
+      "tags": [
+        "Commodore 64",
+        "Amiga",
+        "DOS",
+        "Gold Box",
+        "save editor",
+        "automapper",
+        "Claude Code"
+      ],
+      "notes": "Identity: Wish is the canonical save editor and live automapper for four Gold Box titles across C64, Amiga and DOS. Classification: It qualifies as substantial binary/data analysis and emulator-linked archaeology tooling, not as a game port or reconstruction. Source CPU: The reviewed subjects are save records, resource data and live emulator memory across several ports rather than one original machine-code binary. Target CPU: Wish edits/converts data and inspects emulator state; it does not emit a native retro executable with a target CPU. Build: The README documents pip installation on Linux and a Windows executable, plus emulator-specific live setup. Limitations: The tracker did not install Wish, open copyrighted media or attach to an emulator. Runtime profiles: Python 3.12+ on Linux and explicit VICE/WinUAE/patched-FS-UAE automapper routes are documented; no host CPU or RAM minimum is stated. AI: The README explicitly says Claude Code generated the source while humans created art and user-facing text. Relationships: Wish uses VICE's binary monitor, WinUAE and Graham Bates' patched FS-UAE/uae-dap route; these remain dependencies rather than embedded subprojects. Evidence: https://github.com/malcyon/wish/blob/20aff7c9dd484347de64e1e7994380faf25e8af0/README.md https://github.com/malcyon/wish/blob/20aff7c9dd484347de64e1e7994380faf25e8af0/docs/README.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude Code"
+        ]
+      }
+    },
+    "stnicc-beeb-bbc-demo-recreation": {
+      "id": "stnicc-beeb-bbc-demo-recreation",
+      "title": "beeb-niccc — BBC Micro STNICCC-2000 recreation",
+      "upstream_name": "beeb-niccc",
+      "display_title": "beeb-niccc — BBC Micro STNICCC-2000 recreation",
+      "subjects": [
+        "STNICCC-2000"
+      ],
+      "repo": "https://github.com/kieranhj/stnicc-beeb",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "BBC Micro",
+        "BBC Master 128"
+      ],
+      "source_cpu": [],
+      "target_cpu": [
+        "6502"
+      ],
+      "runtime_profiles": [
+        {
+          "name": "BBC disc build",
+          "platform": "BBC Micro / BBC Master 128",
+          "os": "DFS-compatible disc environment",
+          "notes": "The Makefile builds DSD images and names B/Acorn 1770 and Master 128 emulator configurations; no minimum CPU, RAM or model is claimed.",
+          "evidence": [
+            "https://github.com/kieranhj/stnicc-beeb/blob/9a9cce3a80e71648fe7396552c4531a8b64a4a08/Makefile"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "STNICCC scene stream"
+      ],
+      "reconstructed_languages": [
+        "6502 assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "demo"
+      ],
+      "work_kinds": [
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "fan conversion",
+        "demo recreation"
+      ],
+      "re_started": null,
+      "status": "Released BBC Micro recreation of the STNICCC-2000 demo with BeebAsm source, stream encoders and BBC/NuLA/CPC-palette variants; not independently assembled or run.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "6502 assembly",
+        "polygon stream re-encoding",
+        "double buffering",
+        "disc streaming",
+        "NuLA display adaptation"
+      ],
+      "tags": [
+        "BBC Micro",
+        "BBC Master",
+        "Atari ST",
+        "6502",
+        "demo",
+        "fan conversion"
+      ],
+      "notes": "Identity: The repository is the BBC Micro recreation of STNICCC-2000 released as beeb-niccc. Classification: This is a substantial native fan recreation/conversion and demo production, not a disassembly or binary-derived source reconstruction. Source CPU: The BBC work consumes an STNICCC scene stream rather than reconstructing the original demo executable, so an original-binary source CPU is not assigned. Target CPU: The build labels the source as BeebAsm/.6502 assembly and assembles the BBC disc output from that code. Build: The Makefile documents BeebAsm, Exomizer and Python stages that build SSD/DSD release media and test routes through b2/jsbeeb. Limitations: The tracker did not assemble the demo, generate media or run an emulator. Runtime profiles: BBC and Master emulator configurations are named, but the reviewed primary files do not state a minimum model, RAM amount or chipset requirement. AI: The reviewed v1.2 commit explicitly credits Claude Opus 5.5 and a Claude Code session. Relationships: The repository adapts the STNICCC-2000 scene for BBC hardware and includes its own encoders/build; it is not a fork or mirror of the original Atari ST binary. Evidence: https://github.com/kieranhj/stnicc-beeb/blob/9a9cce3a80e71648fe7396552c4531a8b64a4a08/README.md https://github.com/kieranhj/stnicc-beeb/blob/9a9cce3a80e71648fe7396552c4531a8b64a4a08/stnicc-beeb.asm https://github.com/kieranhj/stnicc-beeb/blob/9a9cce3a80e71648fe7396552c4531a8b64a4a08/Makefile https://github.com/kieranhj/stnicc-beeb/commit/9a9cce3a80e71648fe7396552c4531a8b64a4a08",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "Claude Code"
+        ]
+      }
+    },
+    "legacy89diskkit-japanese-disk-toolkit": {
+      "id": "legacy89diskkit-japanese-disk-toolkit",
+      "title": "Legacy89DiskKit — Japanese retro disk-image toolkit",
+      "upstream_name": "Legacy89DiskKit",
+      "display_title": "Legacy89DiskKit — Japanese retro disk-image toolkit",
+      "subjects": [
+        "D88 disk images",
+        "D77 disk images",
+        "Sharp X1 Hu-BASIC",
+        "Sharp X1 X-DOS",
+        "PC-8801 N88-BASIC",
+        "MSX-DOS"
+      ],
+      "repo": "https://github.com/medamap/Legacy89DiskKit",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "Sharp X1",
+        "PC-8801",
+        "MSX"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Legacy89DiskKit CLI",
+          "platform": "Windows, Linux or macOS",
+          "os": "Managed build scripts; CMake optionally enables the native companion",
+          "notes": "README documents build/install routes but states no host CPU, RAM or OS-version minimum.",
+          "evidence": [
+            "https://github.com/medamap/Legacy89DiskKit/blob/40bd90edc4109ba8985f135918f9b31d500f8720/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "D88 disk images",
+        "D77 disk images",
+        "2D raw disk images",
+        "DSK raw disk images",
+        "legacy filesystems"
+      ],
+      "reconstructed_languages": [
+        "C#",
+        "C++"
+      ],
+      "record_class": "tooling",
+      "target_kinds": [
+        "development-tool"
+      ],
+      "work_kinds": [
+        "data-format-analysis"
+      ],
+      "tool_kinds": [
+        "disk-filesystem-tool"
+      ],
+      "types": [
+        "disk image toolkit",
+        "filesystem utility",
+        "native bridge"
+      ],
+      "re_started": null,
+      "status": "Active CLI and library for inspecting, creating, formatting, copying and boot-metadata analysis of Japanese legacy disk formats; not independently built or tested.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [
+        "disk-container parsing",
+        "legacy filesystem reconstruction",
+        "boot metadata inspection",
+        "sector import/export",
+        "managed/native parity testing"
+      ],
+      "tags": [
+        "Sharp X1",
+        "PC-8801",
+        "MSX",
+        "D88",
+        "D77",
+        "disk image",
+        "filesystem tool"
+      ],
+      "notes": "Identity: Legacy89DiskKit is the canonical CLI/library for Japanese 8-bit and 16-bit disk container and filesystem workflows. Classification: It qualifies as disk/filesystem analysis and development tooling, not as an emulator or reconstructed native application. Source CPU: The reviewed inputs are disk containers, filesystems and boot metadata rather than one original machine-code binary. Target CPU: The toolkit manipulates disk data and does not emit a native retro executable with a target CPU. Build: Shell and PowerShell build scripts run managed builds/tests and conditionally build/test the C++ library through CMake. Limitations: The tracker did not build either implementation or open a disk image. Runtime profiles: Windows, Linux and macOS install/build routes are documented; no host CPU, RAM or OS-version minimum is stated. AI: No explicit development-AI attribution was found in the reviewed README or platform support document; agent-oriented planning filenames alone are not treated as contribution evidence. Relationships: The C# CLI/library and documented C++ native bridge are one product family in the same repository, not separate titled projects. Evidence: https://github.com/medamap/Legacy89DiskKit/blob/40bd90edc4109ba8985f135918f9b31d500f8720/README.md https://github.com/medamap/Legacy89DiskKit/blob/40bd90edc4109ba8985f135918f9b31d500f8720/Documents/guides/Platform_Support_Status.md",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "nectaris-javascript-remake": {
+      "id": "nectaris-javascript-remake",
+      "title": "Nectaris — browser-based mechanics reconstruction and remake",
+      "upstream_name": "Nectaris",
+      "display_title": "Nectaris — browser-based mechanics reconstruction and remake",
+      "subjects": [
+        "Nectaris",
+        "Military Madness"
+      ],
+      "repo": "https://github.com/ernop/nectaris-remake",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "source_platforms": [
+        "PC Engine",
+        "TurboGrafx-16"
+      ],
+      "target_platforms": [
+        "Web browser"
+      ],
+      "source_cpu": [],
+      "target_cpu": [],
+      "runtime_profiles": [
+        {
+          "name": "Static browser build",
+          "platform": "Web browser",
+          "os": "Static files served over HTTP/HTTPS or opened locally",
+          "notes": "README states there is no build step or dependency; no browser version, CPU or RAM minimum is stated.",
+          "evidence": [
+            "https://github.com/ernop/nectaris-remake/blob/3a749261455c53f63909b0928b0cd3bc429d9a24/README.md"
+          ]
+        }
+      ],
+      "execution_paths": null,
+      "source_language": [
+        "manuals",
+        "community mechanics research",
+        "Windows executable observations"
+      ],
+      "reconstructed_languages": [
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reimplementation",
+        "subsystem-reconstruction"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "from-scratch remake",
+        "gameplay mechanics reconstruction",
+        "browser game"
+      ],
+      "re_started": null,
+      "status": "From-scratch browser remake with documented PCE-targeted mechanics research, Windows-executable observations and explicit remaining fidelity gaps; not a source port or decompilation.",
+      "build": {
+        "compilable": true,
+        "runnable": true,
+        "playable": true,
+        "byte_exact": null
+      },
+      "techniques": [
+        "manual-based rule reconstruction",
+        "original-executable observation",
+        "combat formula reconstruction",
+        "deterministic regression fixtures",
+        "map format conversion"
+      ],
+      "tags": [
+        "PC Engine",
+        "TurboGrafx-16",
+        "Nectaris",
+        "Military Madness",
+        "remake",
+        "gameplay reconstruction"
+      ],
+      "notes": "Identity: This is the canonical from-scratch JavaScript remake targeting 1989 Japanese PC Engine Nectaris mechanics. Classification: It qualifies as a substantial researched remake and gameplay reconstruction; the project explicitly says it is from scratch and is not labelled a binary-derived decompilation or port. Source CPU: The reviewed primary documents name the PC Engine target but do not state an original CPU architecture; no CPU is inferred from platform. Target CPU: The portable browser implementation does not establish one native output CPU. Build: The project is documented as dependency-free static files with no build step and a Node test suite. Limitations: The tracker did not host, run or test the remake and did not execute original game binaries. Runtime profiles: A static-browser route is documented, but no minimum browser version, host CPU or RAM is stated. AI: The README explicitly labels fifteen maps and three campaigns as AI-made but does not name the generation tool; this is recorded narrowly as content-development AI evidence. Relationships: The remake uses manuals, community research, Windows-port observations and imported campaign data as references while remaining an independent implementation. Evidence: https://github.com/ernop/nectaris-remake/blob/3a749261455c53f63909b0928b0cd3bc429d9a24/README.md https://github.com/ernop/nectaris-remake/blob/3a749261455c53f63909b0928b0cd3bc429d9a24/MECHANICS.md",
+      "ai": {
+        "usage": true,
         "tools": []
       }
     }
