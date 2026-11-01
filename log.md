@@ -1722,3 +1722,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-01 — Review eight material upstream changes across reconstruction, emulation, ports and preservation tooling
 
 [Research record](docs/research/maintenance-2026-11-01-pm-fidelity-runtime-and-tooling.md).
+
+## 2026-11-02 — Review eight canonical candidates, promote seven projects, and advance the Acorn/BBC relationship graph
+
+[Research record](docs/research/discovery-2026-11-02-acorn-goldbox-disk-tools.md).
