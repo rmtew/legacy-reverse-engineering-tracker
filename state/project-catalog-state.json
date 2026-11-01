@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-01T16:26:24Z",
+  "updated_at": "2026-11-01T18:19:30Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -8897,7 +8897,7 @@
         "source-derived game port"
       ],
       "re_started": null,
-      "status": "Amiga-source-derived SDL2 PC/web port; its editor now assembles complete original-map room graphics streams and preserves packed point-lighting animation controls, while new-geometry authoring and playable newly drawn rooms remain unproven.",
+      "status": "Amiga-source-derived SDL2 PC/web port whose editor now supports safer shared-corner editing, discoverable texture painting, native textured FPS editing and floor-material banks while preserving editor camera state across playtests; newly authored full levels remain unproven.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -8913,13 +8913,17 @@
         "portal-topology compilation",
         "original-contract collision reconstruction",
         "complete room-graphics stream assembly",
-        "packed point-lighting reconstruction"
+        "packed point-lighting reconstruction",
+        "shared-corner geometry editing",
+        "native textured FPS editing",
+        "floor-material bank editing",
+        "editor/playtest camera handoff"
       ],
       "tags": [
         "Amiga",
         "Alien Breed 3D"
       ],
-      "notes": "Identity: Alien Breed 3D remains the same Amiga-source-derived PC/web port and integrated editor; the new compiler stages are not separate projects. Classification: This remains source-derived port and editor work grounded in released Amiga source contracts, not a decompilation or emulator-hosted original binary. Source CPU: The preserved original Amiga source remains Motorola 68000 assembly; TypeScript compiler code does not change that source architecture. Target CPU: No fixed output CPU is established for the portable desktop/web builds or editor, so no host architecture is inferred. Build: Upstream now assembles complete room graphics streams with explicit record identities and reconstructs packed point-lighting words without corrupting animation-control bytes; the suite reports 522 unit checks plus builds passing. Limitations: The tracker did not run the suite. Source animation attachment mapping, portal openings, geometry authoring and playable new-room validation remain open. Runtime profiles: The compiler changes state no minimum host CPU, RAM, GPU or OS version for desktop or web builds. Next check: Check primary build documentation and qualified releases for concrete minimum desktop/web requirements before adding a runtime profile. AI: The reviewed commits contain no explicit development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: Generated room streams and lighting remain editor outputs inside Alien Breed HD, not separately titled projects. Evidence: https://github.com/retro-foundry/Alien-Breed-HD/commit/1b3c7f240a675535ee95e16907de8517a658e904 https://github.com/retro-foundry/Alien-Breed-HD/commit/8e869445a4c1628b0d79cedefc372ccdcb275b34",
+      "notes": "Identity: The FPS editor, texture painting and playtest handoff remain integrated components of Alien Breed HD. Classification: This remains an Amiga-source-derived C/SDL2 port with an authoring tool, not a decompilation or a newly reverse-engineered original. Source CPU: The original Amiga source basis remains Motorola 68000 assembly; editor implementation changes do not alter the source CPU. Target CPU: Portable desktop/web builds and editor code do not establish one fixed output CPU, so no host ISA is inferred. Build: Upstream implements guarded shared-corner edits, texture-painting discovery, textured FPS editing, floor-material banks and deterministic return from playtests. The tracker did not build or execute these paths. Limitations: Complete newly authored geometry and playable end-to-end new levels remain unverified. Runtime profiles: The reviewed commits state no minimum host CPU, RAM, GPU, browser or OS version. Next check: Check primary build documentation and qualified releases for concrete minimum desktop/web requirements before adding a runtime profile. AI: The reviewed commits contain no explicit development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: The FPS editor and playtest mode remain parts of Alien Breed HD, not separately titled projects. Evidence: https://github.com/retro-foundry/Alien-Breed-HD/commit/6b8741d8 https://github.com/retro-foundry/Alien-Breed-HD/commit/471609f9 https://github.com/retro-foundry/Alien-Breed-HD/commit/248ac5cedbb1889bdea2549d34be87ed69856a55",
       "ai": {
         "usage": null,
         "tools": []
@@ -54528,7 +54532,7 @@
         "SDL port"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Independent DOS analysis and SDL port now refines town-shop NPC timing, cavern message-box/draw ordering and background/status rendering against original binary oracles; the tracker did not independently run the comparison scenarios.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -54539,13 +54543,16 @@
         "SAR extraction",
         "RLE decompression",
         "DOSBox comparisons",
-        "Ghidra-assisted decompilation"
+        "Ghidra-assisted decompilation",
+        "binary-oracle timing comparison",
+        "pixel-clean scenario regression",
+        "draw-order reconstruction"
       ],
       "tags": [
         "DOS",
         "Zeliard"
       ],
-      "notes": "Independent repository with SAR/resource tools, original-binary disassembly scripts, documented town/fight systems, SDL port and author-described playthrough. CI tests without game files; parity/playthrough checks need original files. Separate from nolanvenhola's bit-perfect MASM reconstruction.",
+      "notes": "Identity: The oracle-driven timing and rendering fixes remain in awkto/zeliard-decomp, the same independent DOS analysis and SDL port. Classification: The work continues Ghidra-assisted analysis and behaviorally compared reimplementation rather than recovered original source. Source CPU: The original DOS binary remains x86 as previously evidenced; timing and rendering comparisons do not add another source ISA. Target CPU: The SDL port remains portable and the reviewed commits do not establish one fixed output CPU or minimum host ISA. Build: Upstream corrects shop-return marker timing and rendering order against the town binary oracle and expands pixel-clean cavern/background scenarios. The tracker did not build or replay those comparisons. Runtime profiles: The reviewed commits provide no minimum host CPU, RAM, OS or SDL requirement. AI: The shop-timing commit explicitly records opencode with the DeepSeek V4.1 Flash agent; attribution is limited to that commit. Relationships: Oracle tools and comparison scenarios remain internal validation assets for the same Zeliard project. Evidence: https://github.com/awkto/zeliard-decomp/commit/0208f399db01c84b3820018c550a4ce8298ad672 https://github.com/awkto/zeliard-decomp/commit/af6c0796 https://github.com/awkto/zeliard-decomp/commit/0fc5c165",
       "ai": {
         "usage": null,
         "tools": []
@@ -60817,7 +60824,7 @@
         "multi-platform-game-port"
       ],
       "re_started": null,
-      "status": "Active alpha native reconstruction; CD-i port in progress; upstream-playable ports remain close rather than exact",
+      "status": "Active native C reconstruction and console-port project; upstream added a proof-of-concept NABU network version and removed CD-i from the supported-platform list, so CD-i is no longer presented as an active supported port.",
       "build": {
         "compilable": null,
         "runnable": true,
@@ -60828,7 +60835,8 @@
         "source-reconstruction",
         "reimplementation",
         "reverse-engineering-derived-port",
-        "data-format-analysis"
+        "data-format-analysis",
+        "NABU TCP delivery prototype"
       ],
       "tags": [
         "Tandy Color Computer 3",
@@ -60849,7 +60857,7 @@
         "multi-platform-game-port",
         "CD-i"
       ],
-      "notes": "Native C/C++ game logic derived from Downland_RE, with a separate game_8bit implementation and platform layers. player.c implements physics, hazards, pickups, doors and game flow rather than interpreting original 6809 instructions. The research repository is a predecessor, not a second C port. Reconstruction of Downland graphics, physics, hazards, climbing, pickups, room timers, and repeated-game difficulty. Shared normal and 8-bit C game implementations with native platform layers. Windows graphics filters and numerous console/handheld targets documented upstream. game/player.c contains native player-death, sprite, pickup, door, and game-loop logic rather than a 6809 interpreter. Repository has distinct game_8bit implementation and platform-specific source/build trees. SG-1000 Makefile links SDCC, SGlib, PSGlib, and crt0_sg. Based on the author's Downland_RE research; this C runtime is meaningful separate implementation. Original Downland v1.1 ROM supplies resources and is required; console asset pipelines extract and convert those resources. Inspected SG-1000 README and Makefile: requires devkitSMS, SDCC, DLExporter, convertToC.bat, and adjusted local SDK path; output uses .sms extension for banked SG-1000 ROMs. Windows Visual Studio projects and other target makefiles are present. No target built or tested in this review. README explicitly labels this Alpha, documents controls/game completion behavior and says it is close rather than fully accurate; alpha prereleases and the SG-1000 author emulator-test report support upstream-reported runnable/playable=true. The source/recipes do not prove a current reproducible build on all targets, so compilable remains null. ROM assets and local SDK/exporter prerequisites are required. Downland_RE claims about recreating an original ROM are not transferred into this different native C port; byte_exact stays null. Original Downland v1.1 ROM is mandatory, either loaded by the runtime or extracted for console assets. SG-1000 uses banked ROM and was tested only in an emulator upstream; a physical cartridge needs banking and .sms is used to enable banking in emulators. Playdate requires its real console or SDK simulator; no CPU/RAM minimum beyond these target identities is documented. Build flags and heap/stack allocations are not converted into minimum hardware profiles. README explicitly calls this Alpha and says close rather than 100% accurate to original. SG-1000 author has tested only in an emulator; a physical cartridge needs banking. This caveat must accompany SG-1000 support. Latest GitHub releases are 2025 alpha prereleases; source is newer, with September 2026 rendering changes. Playdate and experimental slow ESP32 CYD are also claimed, but those names are new to baseline and flagged separately. MIT for reconstruction code. Original ROM/resource rights are separate, and users must supply the ROM. No explicit AI-assistance declaration found in the README, selected source/build files, and reviewed recent commits. This is a bounded observation, not proof of human-only authorship. Downland_RE is credited as basis. No baseline Downland title/root found; do not count future discovery of RE documentation as a second native C port. Playdate is a distinct supported machine established by its dedicated README, Playdate SDK 2.7.5 device/simulator workflow, CMake armgcc branch and pd_api.h C platform layer. It is added as a new canonical platform label. The Playdate README/CMake use Downland.pdx, while its separate Makefile still says HelloWorld.pdx; current build consistency is unverified. ESP32 Cheap Yellow Display is retained in notes as the exact ESP32-2432S028 board: Arduino/Visual Micro, TFT_eSPI and XPT2046_Touchscreen, v1.1 ROM on SD, experimental below-half-speed full-screen blitting, rudimentary touch controls and empty sound functions. No ESP32 platform alias or ISA is invented. The earlier folder-only CD-i signal was not promoted; current active source changes now establish it as an in-progress target. SG-1000 requires devkitSMS, SDCC, SGlib/PSGlib, DLExporter, convertToC.bat and adjusted local SDK paths. No independent compilation, installation, tests, execution, playtest or original-program binary comparison was performed. Positive build/runtime flags are limited to the explicit upstream claims described above; unknown facts stay null. Evidence: https://github.com/pw32x/downland_c https://github.com/pw32x/downland_c/blob/main/README.md https://github.com/pw32x/Downland_C/blob/main/platforms/sg1000/readme.MD https://github.com/pw32x/Downland_C/blob/main/platforms/sg1000/build/Makefile https://github.com/pw32x/Downland_C/blob/main/game/player.c https://github.com/pw32x/Downland_C/blob/main/LICENSE https://github.com/pw32x/Downland_C/releases/tag/v0_81_alpha https://github.com/pw32x/Downland_RE https://github.com/pw32x/Downland_C/commit/6b4dfd6b9cb93ac3c5394a7d8c975c2d915165b6 https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/README.md https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/Makefile https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/CMakeLists.txt https://github.com/pw32x/Downland_C/blob/main/platforms/playdate/src/main.c https://github.com/pw32x/Downland_C/blob/main/platforms/esp32_cyd/readme.md https://github.com/pw32x/Downland_C/blob/main/platforms/esp32_cyd/esp32_cyd.ino https://github.com/pw32x/Downland_C/blob/main/platforms/saturn/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/32X/build/Makefile_32X https://github.com/pw32x/Downland_C/blob/main/platforms/genesis/build/makefile.gen https://github.com/pw32x/Downland_C/blob/main/platforms/nes/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/gba/build/makefile https://github.com/pw32x/Downland_C/blob/main/platforms/3do/build/Makefile https://github.com/pw32x/Downland_C/blob/main/platforms/win32_classic/Downland_C.vcxproj https://github.com/pw32x/Downland_C/blob/main/platforms/dreamcast/build/Makefile https://github.com/pw32x/Downland_RE/blob/main/exported_asm/downland.asm Active source now establishes an in-progress CD-i platform layer: the system initializes before ROM validation and input was simplified around one pointer device, with an on-screen diagnostic fallback because logging is unreliable. CD-i is therefore recorded as a target under development, not as a published supported/playable port; no CPU, minimum hardware or successful build is inferred from the platform name. Evidence: https://github.com/pw32x/Downland_C/commit/6330a95c9ebd0fc4d5965909b3fff21f1fd6a4ef https://github.com/pw32x/Downland_C/commit/6a233ba5f4ea721b764fca46bd983c9eff461f78 https://github.com/pw32x/Downland_C/commit/2542482e6e3dcac5dbb62a5474400658fd813ebd",
+      "notes": "Identity: nabu_tcp is a new platform path inside Downland-C rather than a separately titled game project. Classification: Downland-C remains a reconstruction/reimplementation with derived ports; the NABU network prototype does not change that basis. Source CPU: The original CoCo/Dragon game remains Motorola 6809 as previously evidenced; NABU delivery does not change the source CPU. Target CPU: The new NABU path is explicitly added while CD-i is removed from the supported-platform list. Existing target CPU evidence is preserved, and no CPU is inferred solely from the NABU platform name. Build: Upstream describes nabu_tcp as a proof-of-concept networked Downland version and explicitly removes CD-i from supported platforms. The tracker did not build or run either path. Runtime profiles: The reviewed commits state no minimum NABU hardware, RAM, firmware, network adapter or host-server requirement. AI: The reviewed commits contain no explicit development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: nabu_tcp is a platform implementation within Downland-C; no new titled sibling project was found. Evidence: https://github.com/pw32x/downland_c/commit/eda762f21845c66d4a25b4bd91558d5232a8dc5c https://github.com/pw32x/downland_c/commit/aaa95c0",
       "ai": {
         "usage": null,
         "tools": []
@@ -73754,7 +73762,7 @@
         "data-format analysis"
       ],
       "re_started": null,
-      "status": "Firestaff now verifies an accepted original-asset Macintosh viewport/HUD frame before the DM2 launcher returns, while distinguishing a French-named archive from evidence of a localized French runtime; broader native playability and Nexus completion remain open.",
+      "status": "Firestaff now adds a native Apple IIGS melee-action path and parses Macintosh sound and SONG resources while refining authenticated-media candidate reporting; broader native playability and Dungeon Master Nexus completion remain open.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -73814,7 +73822,10 @@
         "authenticated SNES media classification",
         "bounded H03 ROMDUNGEON decoding",
         "same-archive authenticated file pairing",
-        "Atari ST menu-route regression"
+        "Atari ST menu-route regression",
+        "native Apple IIGS melee-action reconstruction",
+        "Macintosh sound-resource parsing",
+        "Macintosh SONG-resource decoding"
       ],
       "tags": [
         "game engine",
@@ -73823,7 +73834,7 @@
         "software archaeology",
         "preservation"
       ],
-      "notes": "Identity: Firestaff remains one clean-room Dungeon Master-family engine and evidence framework; the Macintosh archive route is a variant inside the same project. Classification: The change strengthens authenticated-media regression evidence and explicitly avoids treating a French-named SIT as proof of a French runtime. Source CPU: Existing x86, m68k, HuC6280, SH-2 and 65C816 source-family decisions remain; this Macintosh test introduces no new original CPU family. Target CPU: Existing x86-64 and arm64 modern outputs remain; a stronger frame oracle does not establish a new output architecture. Build: Upstream now requires a logged accepted original-asset Macintosh viewport/HUD frame before launcher return, in addition to loaded runtime state. Limitations: The tracker did not repeat the test. A bounded accepted frame does not establish complete native display, input, audio or gameplay. Next check: Continue bounded native runtime and Nexus gates without converting frame coverage into a complete-playability claim. Runtime profiles: Existing measured Mac mini M4 and QEMU-hosted Linux x86-64 profiles remain; the reviewed test states no additional minimum CPU, RAM or OS floor. AI: Existing explicit Claude contribution evidence remains scoped to evidenced commits; this commit adds no broader attribution claim. Relationships: The English-runtime identity found inside the French-named archive remains a media-route finding, not a separate localized project. Evidence: https://github.com/yeager/firestaff/commit/76e6b10de32db8e37de81cb104b3a1999aca1e1d",
+      "notes": "Identity: Apple IIGS combat and Macintosh resource work remain platform paths inside Firestaff's multi-version Dungeon Master/Chaos Strikes Back reconstruction. Classification: The commits continue bounded clean-room reconstruction from original media, resources and observed behavior rather than claiming recovered source. Source CPU: The reviewed Apple IIGS path remains 65C816-related and the Macintosh resource work adds no new source architecture beyond the record's established families. Target CPU: The native host outputs remain x86 and arm64 as previously evidenced; parser and gameplay changes do not establish another target CPU. Build: Upstream implements native Apple IIGS melee dispatch plus Macintosh sound and music resource handling, but these bounded routes do not establish complete playability. Limitations: The tracker did not compile, execute or compare the new paths against hardware or emulator captures. Next check: Continue bounded native runtime and Nexus gates without converting route-level coverage into a complete-playability claim. Runtime profiles: Existing verified profiles remain unchanged; these commits state no new minimum host CPU, RAM, chipset, OS or ROM requirement. AI: Existing bounded AI attribution remains applicable to the project; the reviewed functional evidence is limited to the cited commits and no broader authorship claim is made. Relationships: Apple IIGS and Macintosh implementations remain platform variants within Firestaff rather than separate titled projects. Evidence: https://github.com/yeager/firestaff/commit/1865e8ac4730c23c4ec21d04173e2f79e898e14b https://github.com/yeager/firestaff/commit/daef724f https://github.com/yeager/firestaff/commit/2749c262",
       "ai": {
         "usage": true,
         "tools": [
@@ -214049,7 +214060,7 @@
         "Retro software source project"
       ],
       "re_started": null,
-      "status": "Kilrathi Saga reconstruction now models Win32 shell byte views separately from the game modules’ integer flags and names more globals from DOS source while retaining an upstream-reported exact 518,656-byte executable match.",
+      "status": "Kilrathi Saga reconstruction and SDL2 port now runs the Super Wing Commander demo from MacBinary copies, decodes resource/data forks and AIFF sample variants, and restores demo option, volume and starfield behavior; exact-match work for the Windows executable remains separately bounded.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -214067,13 +214078,16 @@
         "instruction-operand cross-checking",
         "compiler-input cleanup under exactness constraints",
         "source-declaration alias reconstruction",
-        "DOS-source symbol recovery"
+        "DOS-source symbol recovery",
+        "MacBinary fork decoding",
+        "AIFF sample-rate and bit-depth decoding",
+        "Super Wing Commander demo resource playback"
       ],
       "tags": [
         "source-reviewed",
         "no-independent-build"
       ],
-      "notes": "Identity: This remains the Wing Commander Kilrathi Saga reconstruction and SDL2 port; shell/header restructuring stays within the same project. Classification: The changes are source-faithful reconstruction work that models original declarations and names recovered globals while preserving executable identity. Source CPU: The original reconstructed executable remains 32-bit x86; header aliasing and symbol naming add no new source CPU. Target CPU: Native and SDL builds are reported, but the reviewed commits do not establish one fixed output CPU or minimum host ISA. Build: Upstream reports native and SDL builds, address audits, full verification, and all 518,656 executable bytes matching after separating shell byte aliases from game-module integer declarations. Limitations: The tracker did not compile or byte-compare the executable. Remaining ordered cleanup and declaration/qualifier blockers are not closed by these commits. Next check: Continue source-faithful cleanup while retaining mandatory whole-executable hashing and operand checks for every accepted change. Runtime profiles: The reviewed commits provide no minimum CPU, RAM, Windows version or SDL host requirement, so no runtime profile is added. AI: Both reviewed commits explicitly credit Claude Opus 5.5; attribution is limited to these changes. Relationships: The Win32 shell, game modules and SDL renderer remain build components of the same reconstruction rather than distinct tracker projects. Evidence: https://github.com/neuromancer/wc1-re/commit/0d41905313a38b3344c4d204c297563d1cc0f0d9 https://github.com/neuromancer/wc1-re/commit/d5f115d5f4aec7f553c2e8987a371e44ecfb8823",
+      "notes": "Identity: Super Wing Commander demo support is a documented runtime path within the same Wing Commander reconstruction/SDL2 repository. Classification: The new MacBinary and AIFF paths extend source-faithful reconstruction and asset compatibility; they do not claim recovered Macintosh source. Source CPU: The primary reconstructed Kilrathi Saga executable remains 32-bit x86; direct MacBinary demo support does not establish a new reconstructed source CPU. Target CPU: Native and SDL builds remain portable and these commits do not establish one fixed output CPU or minimum host ISA. Build: Upstream adds MacBinary I/II/III fork handling, AIFF sample-rate and 8-bit decoding, demo options/volume controls and parallax starfields. Limitations: The tracker did not build or execute the demo. These features do not independently reverify the exact Windows executable match or complete game playability. Next check: Continue source-faithful cleanup and demo validation while retaining whole-executable hashing for exact-match claims. Runtime profiles: The reviewed commits state no minimum CPU, RAM, Windows version, macOS version or SDL host requirement. AI: The MacBinary/AIFF commit explicitly credits Claude Opus 5.5; attribution is limited to the evidenced change. Relationships: Super Wing Commander demo support remains a related data/runtime path inside wc1-re, not a separately titled tracker project. Evidence: https://github.com/neuromancer/wc1-re/commit/91b3df307db73bc56a1f59051765a7276d618da5 https://github.com/neuromancer/wc1-re/commit/4b137e5 https://github.com/neuromancer/wc1-re/commit/6bb57f",
       "ai": {
         "usage": true,
         "tools": [
@@ -272399,7 +272413,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "PAL 2.00 PS2 reconstruction now shares typed LevelState/camera, render, pause, particle, puzzle and memory-card structures across overlays; these structural refactors do not by themselves establish additional matching or playability.",
+      "status": "PAL 2.00 PS2 reconstruction now replaces thousands of stale shared extern declarations with per-file headers through a checked migration tool; this structural cleanup does not by itself establish additional matching or playability.",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -272410,10 +272424,13 @@
         "shared-structure recovery across overlays",
         "typed sound-slot and draw-queue recovery",
         "cross-overlay shared-structure recovery",
-        "typed memory-card state recovery"
+        "typed memory-card state recovery",
+        "per-file prototype recovery",
+        "automated shared-header migration",
+        "unused-extern elimination"
       ],
       "tags": [],
-      "notes": "Identity: Ratchet and Clank — PS2 matching reconstruction. Repository root and implementation inspected at pinned revisions. Classification: PAL2.00 reconstruction links recovered functions at original addresses and fills gaps from local disassembly. Readability refinement and future PC reimplementation remain separate work. Source CPU: Architecture context: mips. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: mips. Build: Eleven reviewed refactors replace duplicate and raw-offset overlay structures with shared hero, LevelState, camera, render, pause, particle, Trespasser-puzzle and memory-card types while preserving the original-address reconstruction model. Limitations: The tracker did not compile with the period toolchains or independently compare the result; type consolidation is not a whole-project matching or playability claim. Next check: Follow matching reports and toolchain reproducibility evidence independently of structural typing progress. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: Recent primary commit trailers explicitly credit both Codex and Claude on this repository; project-level attribution remains limited to those evidenced commits and is not inferred from configuration files. Relationships: Two original code segments use different compiler sub-builds; one toolchain label is insufficient for reproducibility. Evidence: https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/README.md https://github.com/OpenRAC/rac1-decomp/blob/813090403fe822acd929616da0fee2081131f92e/Makefile.sn https://github.com/OpenRAC/rac1-decomp https://github.com/OpenRAC/rac1-decomp/commit/209d3381ebaa8c06d5df98eeabad4adad45bdfb7 https://github.com/OpenRAC/rac1-decomp/commit/e02169335967d5e090eee47fd50ce3824c63e11a https://github.com/OpenRAC/rac1-decomp/commit/0f0bfcfe98553a7a0ea9a26db94ff00deecf8be5 https://github.com/OpenRAC/rac1-decomp/commit/3af68fae6f9b https://github.com/OpenRAC/rac1-decomp/commit/04f012c1f4ca",
+      "notes": "Identity: Header migration and declaration cleanup remain within the Ratchet and Clank PAL 2.00 reconstruction. Classification: The work is source-structure recovery and decompilation hygiene under the existing matching-reconstruction scope. Source CPU: The original PS2 Emotion Engine target remains MIPS; declaration migration introduces no new source CPU. Target CPU: The reconstructed PS2 output remains MIPS as previously evidenced; host-side migration tooling is not an output architecture. Build: Upstream reports moving 372 prototypes into per-file headers and removing 5,729 unused extern declarations with purpose-built tooling. The tracker did not compile or measure matching. Limitations: Structural header progress does not independently prove new matching functions or runtime playability. Runtime profiles: The reviewed commits state no minimum emulator, console, RAM, BIOS or host requirement. AI: The main header-migration commit explicitly credits Claude Opus 5.5; attribution is limited to that change. Relationships: Migration scripts are repository tooling for the same reconstruction, not separate projects. Evidence: https://github.com/OpenRAC/rac1-decomp/commit/e4f80cfd86ce14fd810f67817569f4cf03e9345e https://github.com/OpenRAC/rac1-decomp/commit/2830ed6799 https://github.com/OpenRAC/rac1-decomp/commit/c8db3c85",
       "ai": {
         "usage": true,
         "tools": [
@@ -272594,16 +272611,24 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "GameCube reconstruction now uses Ghidra/REA-backed drafting, variant search, m2c drafts, finishable-unit ranking and stricter gap workflows while matching additional PS2DMA packet helpers; no independent build or execution was performed.",
       "build": {
         "compilable": null,
         "runnable": null,
         "playable": null,
         "byte_exact": null
       },
-      "techniques": [],
+      "techniques": [
+        "Ghidra reference generation",
+        "REA-assisted drafting",
+        "m2c draft generation",
+        "function-variant search",
+        "finishable-unit ranking",
+        "strict matching-gap workflow",
+        "per-function binary matching"
+      ],
       "tags": [],
-      "notes": "Identity: LEGO Star Wars — GameCube reconstruction. Repository root and implementation inspected at pinned revisions. Classification: WIP uses donor symbols and animation C matching. README percentages count named symbols, not compiled-C completion; most code remains generated assembly. Source CPU: Architecture context: powerpc. Source and target roles are recorded separately. Target CPU: Explicit output/execution architecture: powerpc. Build: Owned NTSC-U DOL, Python/Ninja/ProDG and dtk; no build or tool downloads. Limitations: Source review only: no upstream software assembled, executed or independently byte-compared. Runtime profiles: No verified minimum CPU/RAM/OS profile established beyond the qualified dependency and format notes; no runtime test was performed. AI: README explicitly describes the AI-assisted active matching/naming workflow; no model inferred. Relationships: Donor Mac demos and related games support naming, not automatic semantic identity. Evidence: https://github.com/ellierocks/lsw1-decomp/blob/5e0446da03d00846ac8d1bfbdd38d48f8f5306b5/README.md https://github.com/ellierocks/lsw1-decomp/blob/5e0446da03d00846ac8d1bfbdd38d48f8f5306b5/configure.py https://github.com/ellierocks/lsw1-decomp/blob/5e0446da03d00846ac8d1bfbdd38d48f8f5306b5/src/nu3dx/nuanim.c https://github.com/ellierocks/lsw1-decomp",
+      "notes": "Identity: The analysis and drafting workflow remains repository tooling for the same LEGO Star Wars GameCube reconstruction. Classification: The work is matching decompilation/reconstruction supported by Ghidra, REA and m2c-derived drafts. Source CPU: The original GameCube executable remains PowerPC; PS2DMA function names describe engine subsystems rather than a newly evidenced source CPU. Target CPU: The reconstruction target remains GameCube PowerPC as previously evidenced; host-side analysis tooling is not a target architecture. Build: Upstream integrates Ghidra/REA drafting, variant search, m2c drafts and finishable-unit ranking and reports matching six PS2DMA scratch/packet helpers. Limitations: The tracker did not configure the toolchain, compile the reconstruction or independently verify function matches. Runtime profiles: The reviewed commits provide no minimum console revision, RAM, emulator, SDK or host requirement. AI: The workflow commit explicitly records Claude Sonnet 5.5; attribution is limited to the evidenced tooling change. Relationships: Ghidra references, REA outputs and drafting scripts are internal tooling for lsw1-decomp rather than separate projects. Evidence: https://github.com/ellierocks/lsw1-decomp/commit/366bc6ad49fb2ec50f49d9801cef692a30875584 https://github.com/ellierocks/lsw1-decomp/commit/8709892e40 https://github.com/ellierocks/lsw1-decomp/commit/9ca5731b",
       "ai": {
         "usage": true,
         "tools": [
@@ -343866,7 +343891,7 @@
         "integrated debugger"
       ],
       "re_started": null,
-      "status": "Active browser and Electron emulator with debugger, rewind, media inspection and automated CPU tests; not independently built or run in this review.",
+      "status": "Active browser and Electron emulator whose debugger now supports reverse-continue to a previous breakpoint or watchpoint, reverse step-out and last-writer lookup; upstream released these changes in 2.18.0, but the tracker did not independently run them.",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -343878,7 +343903,10 @@
         "integrated debugging",
         "save-state rewind",
         "disc surface inspection",
-        "CPU regression testing"
+        "CPU regression testing",
+        "reverse breakpoint/watchpoint search",
+        "reverse step-out",
+        "memory last-writer tracing"
       ],
       "tags": [
         "BBC Micro",
@@ -343890,7 +343918,7 @@
         "emulator",
         "debugger"
       ],
-      "notes": "Identity: jsbeeb is the canonical JavaScript BBC Micro-family emulator maintained by Matt Godbolt. Classification: It qualifies as a core emulator, debugger and media-analysis environment directly useful to BBC development and archaeology. Source CPU: The model implementation explicitly selects MOS 6502, CMOS 65C02 and CMOS 65C12 opcode families. Target CPU: Browser and Electron builds do not establish one fixed native output CPU; no host architecture is inferred. Build: The README and package manifest document npm development, test, web build and Electron packaging paths. Limitations: The tracker did not install dependencies, compile, package or run the emulator. Runtime profiles: The package manifest gives exact supported browser floors and Node.js 24.15.0+ for source/desktop builds; no CPU or RAM minimum is stated. AI: The reviewed head commit explicitly attributes generation to Claude Code and co-authorship to Claude Opus 5.5. Relationships: The separately tracked jsbeeb-mcp project exposes this emulator through MCP; that automation layer does not replace the emulator record. Evidence: https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/README.md https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/src/models.js https://github.com/mattgodbolt/jsbeeb/blob/178031ec9e7420a0965981f7f7877df35886fe0c/package.json https://github.com/mattgodbolt/jsbeeb/commit/178031ec9e7420a0965981f7f7877df35886fe0c https://github.com/kieranhj/jsbeeb-mcp",
+      "notes": "Identity: The reverse-debugger additions and 2.18.0 release remain features of the canonical jsbeeb BBC Micro-family emulator. Classification: Reverse execution, memory-write provenance and media inspection reinforce jsbeeb's classification as a core emulator/debugging environment. Source CPU: The new debugger traverses recorded state for the already documented MOS 6502/65C02/65C12 models; it introduces no new emulated CPU family. Target CPU: Browser and Electron delivery still establishes no fixed native output CPU, so no host ISA is inferred from the TypeScript implementation. Build: Upstream adds tested reverse-continue, reverse step-out and memory last-writer paths and records known reverse-search gaps. The tracker did not install dependencies, run tests or execute the release. Runtime profiles: The existing documented browser and Node.js floors remain; these commits state no new CPU, RAM or OS minimum. AI: The reverse-continue commit explicitly attributes generation to Claude Code and co-authorship to Claude Opus 5.5; attribution is limited to the evidenced change. Relationships: The debugger remains integrated in jsbeeb; no separately titled reverse-debugging project appeared. Evidence: https://github.com/mattgodbolt/jsbeeb/commit/a7c6f247 https://github.com/mattgodbolt/jsbeeb/commit/db85858 https://github.com/mattgodbolt/jsbeeb/commit/3469a87",
       "ai": {
         "usage": true,
         "tools": [
