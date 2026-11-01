@@ -1718,3 +1718,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-01 — Review eight materially changed reconstruction and retro-development projects
 
 [Research record](docs/research/maintenance-2026-11-01-am-upstream-reconstruction-and-tooling.md).
+
+## 2026-11-01 — Review eight material upstream changes across reconstruction, emulation, ports and preservation tooling
+
+[Research record](docs/research/maintenance-2026-11-01-pm-fidelity-runtime-and-tooling.md).
