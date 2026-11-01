@@ -1574,3 +1574,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-02 — Review eight canonical candidates, promote seven projects, and advance the Acorn/BBC relationship graph
 
 [Research record](docs/research/discovery-2026-11-02-acorn-goldbox-disk-tools.md).
+
+## 2026-11-02 — Review eight material upstream changes across emulation, reconstruction, source-derived ports and retro platform work
+
+[Research record](docs/research/maintenance-2026-11-02-am-upstream-fidelity-and-tooling.md).
