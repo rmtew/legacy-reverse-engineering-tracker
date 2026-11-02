@@ -1734,3 +1734,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-02 — Review 32 pinned roots: add 21 projects and record 11 evidence-qualified deferrals.
 
 [Research record](docs/research/2026-11-02-native-game-application-and-eight-bit-remake-discovery.md).
+
+## 2026-11-02 — Review 33 pinned roots: add 24 projects and record nine evidence-qualified deferrals or duplicate decisions.
+
+[Research record](docs/research/2026-11-02-windows-native-ports-and-spectrum-source-recovery-discovery.md).
