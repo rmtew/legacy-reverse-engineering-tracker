@@ -1730,3 +1730,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-02 — Review eight material upstream changes across emulation, reconstruction, source-derived ports and retro platform work
 
 [Research record](docs/research/maintenance-2026-11-02-am-upstream-fidelity-and-tooling.md).
+
+## 2026-11-02 — Review 32 pinned roots: add 21 projects and record 11 evidence-qualified deferrals.
+
+[Research record](docs/research/2026-11-02-native-game-application-and-eight-bit-remake-discovery.md).
