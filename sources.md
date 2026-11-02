@@ -1590,3 +1590,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-02 — Review 28 pinned repositories: add 18 projects and record ten deferrals or duplicates.
 
 [Research record](docs/research/2026-11-02-native-pc-amiga-and-spectrum-reconstruction-discovery.md).
+
+## 2026-11-02 — Review 40 pinned repositories: add 20 projects and record twenty deferrals or duplicates.
+
+[Research record](docs/research/2026-11-02-mercenary-sherlock-and-pc-reconstruction-discovery.md).
