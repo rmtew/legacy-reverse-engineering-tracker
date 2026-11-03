@@ -1746,3 +1746,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-02 — Review 40 pinned repositories: add 20 projects and record twenty deferrals or duplicates.
 
 [Research record](docs/research/2026-11-02-mercenary-sherlock-and-pc-reconstruction-discovery.md).
+
+## 2026-11-03 — Review 26 pinned repositories: add 23 projects and record three deferrals.
+
+[Research record](docs/research/2026-11-03-mmo-server-and-retro-reconstruction-discovery.md).
