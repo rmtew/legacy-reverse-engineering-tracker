@@ -1598,3 +1598,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-03 — Review 26 pinned repositories: add 23 projects and record three deferrals.
 
 [Research record](docs/research/2026-11-03-mmo-server-and-retro-reconstruction-discovery.md).
+
+## 2026-11-03 — Review 43 candidate repositories: add 8 projects and record four deferrals.
+
+[Research record](docs/research/2026-11-03-classic-reconstruction-discovery-108.md).
