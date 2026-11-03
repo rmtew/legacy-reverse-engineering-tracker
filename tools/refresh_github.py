@@ -503,7 +503,7 @@ def fill_missing_latest_commits(repos, state, request=None, *, required=False):
             gh = project.setdefault("github", {})
             gh["latest_commit"] = {
                 "sha": item["sha"], "date": day,
-                "message": (commit.get("message") or "").splitlines()[0],
+                "message": ((commit.get("message") or "").splitlines() or [""])[0],
                 "url": item.get("html_url"),
             }
             gh.pop("latest_commit_lookup", None)

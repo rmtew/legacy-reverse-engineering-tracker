@@ -140,7 +140,7 @@ def enrich_explicit_ai(projects, activity):
         project = by_id.get(event.get("project_id"))
         if not project:
             continue
-        subject = (event.get("title") or (event.get("message") or "").splitlines()[0]).strip()
+        subject = (event.get("title") or ((event.get("message") or "").splitlines() or [""])[0]).strip()
         if not subject:
             continue
         for tool, pattern in EXPLICIT_AI_PATTERNS:

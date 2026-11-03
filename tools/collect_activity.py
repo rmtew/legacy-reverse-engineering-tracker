@@ -441,7 +441,7 @@ def update_project_latest(project, item):
         gh["latest_commit"] = {
             "sha": item.get("sha"),
             "date": day,
-            "message": (commit.get("message") or "").splitlines()[0],
+            "message": ((commit.get("message") or "").splitlines() or [""])[0],
             "url": item.get("html_url"),
         }
         gh["activity_state"] = activity_state(day)
@@ -457,7 +457,7 @@ def repair_project_latest(project, event):
     gh["latest_commit"] = {
         "sha": event.get("sha"),
         "date": day,
-        "message": event.get("title") or (event.get("message") or "").splitlines()[0],
+        "message": event.get("title") or ((event.get("message") or "").splitlines() or [""])[0],
         "url": event.get("url"),
     }
     gh["activity_state"] = activity_state(day)

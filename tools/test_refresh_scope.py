@@ -346,6 +346,27 @@ class PublicationPipelineTest(unittest.TestCase):
         self.assertEqual(addition["activity_context"]["latest_release"]["tag"], "v1")
         scope.check_complete(json.loads(self.manifest.read_text()), state)
 
+    def test_empty_commit_message_does_not_block_publication(self):
+        self.seed()
+        def metadata(path, **kwargs):
+            if "/commits?" in path:
+                return [commit(message="")], {}, 200
+            return self.metadata(path, **kwargs)
+        def history(path, **kwargs):
+            if "/commits?" in path:
+                return [commit(day="2026-09-10", message="")]
+            return self.history(path, **kwargs)
+        with patch.object(refresh, "get_json", side_effect=metadata):
+            refresh.main()
+        with patch.object(collector, "api", side_effect=history):
+            collector.main()
+        state = json.loads(self.state.read_text())
+        scope.check_complete(json.loads(self.manifest.read_text()), state)
+        new = next(p for p in load_projects(self.projects) if p["id"] == "new")
+        self.assertEqual(new["github"]["latest_commit"]["message"], "")
+        self.assertEqual(collector.repair_project_latest(new, {"date": "2026-09-10", "message": ""}), None)
+        self.assertEqual(new["github"]["latest_commit"]["message"], "")
+
     def test_metadata_failure_stays_pending_and_retries_on_schedule(self):
         self.seed()
         def failure(path, **kwargs):
