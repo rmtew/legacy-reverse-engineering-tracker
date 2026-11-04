@@ -1778,3 +1778,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-04 — Screen Amiga source preservation repositories and add 11 distinct projects.
 
 [Research record](docs/research/2026-11-04-retro-reconstruction-discovery-114.md).
+
+## 2026-11-04 — Screen Amiga and Atari ST game research: add 6 projects and defer 4 for source or architecture review.
+
+[Research record](docs/research/2026-11-04-retro-reconstruction-discovery-115.md).
