@@ -1618,3 +1618,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-04 — Screen 732 candidate URLs: add 7 projects and defer three leads.
 
 [Research record](docs/research/2026-11-04-retro-reconstruction-discovery-112.md).
+
+## 2026-11-04 — Screen Amiga and Atari ST sources: add 16 projects.
+
+[Research record](docs/research/2026-11-04-retro-reconstruction-discovery-113.md).
