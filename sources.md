@@ -1622,3 +1622,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-04 — Screen Amiga and Atari ST sources: add 16 projects.
 
 [Research record](docs/research/2026-11-04-retro-reconstruction-discovery-113.md).
+
+## 2026-11-04 — Screen Amiga source preservation repositories and add 11 distinct projects.
+
+[Research record](docs/research/2026-11-04-retro-reconstruction-discovery-114.md).
