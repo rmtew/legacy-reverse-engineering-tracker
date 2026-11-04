@@ -812,6 +812,10 @@ def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None
             records, rs, events, complete = function(repo, records, rs, events, now, client)
         except HTTPError as exc:
             if work == "releases" and exc.code == 403:
+                rs["release_access_verification"] = {
+                    "http_status": 403, "observed_at": stamp(now),
+                    "fingerprint": publication_fingerprint(records),
+                }
                 # Only a non-quota 403 (Client handles quota signals separately)
                 # can represent an unavailable release capability. Verify the
                 # root now; never turn an inaccessible/private project into a waiver.

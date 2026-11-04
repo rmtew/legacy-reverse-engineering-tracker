@@ -702,6 +702,26 @@ class GitLabTests(unittest.TestCase):
         self.assertEqual(sum(urlsplit(url).path.endswith('group%2Fsubgroup%2Fproject') for url, _ in self.net.calls), 1)
 
 
+    def test_fresh_release_403_replaces_expired_pending_verification_timestamp(self):
+        from refresh_scope import publication_fingerprint, publication_resolved
+        self.setup_gitlab()
+        self.apply(self.collect())
+        poll = self.read(pipeline.POLL)
+        state = poll['repositories'][KEY]
+        fingerprint = publication_fingerprint(load_projects(self.root / 'data/projects.json'))
+        state['publication'] = {'fingerprint': fingerprint, 'metadata_complete': True,
+                                'history_complete': True, 'releases_complete': False, 'reset_project_ids': []}
+        state['release_access_verification'] = {'http_status': 403, 'observed_at': pipeline.stamp(NOW - timedelta(hours=2)),
+                                                'fingerprint': fingerprint}
+        self.put(pipeline.POLL, poll)
+        self.net.errors['/releases'] = 403
+        later = NOW + timedelta(hours=1)
+        self.apply(self.collect(now=later))
+        state = self.read(pipeline.POLL)['repositories'][KEY]
+        self.assertEqual(state['release_availability']['observed_at'], pipeline.stamp(later))
+        self.assertTrue(publication_resolved(KEY, state, fingerprint))
+
+
 
 if __name__ == '__main__':
     unittest.main()
