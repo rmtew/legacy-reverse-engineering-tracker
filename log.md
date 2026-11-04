@@ -1758,3 +1758,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-03 — Screen 2471 candidate repository URLs: add 17 projects and record three deferrals.
 
 [Research record](docs/research/2026-11-03-retro-reconstruction-discovery-109.md).
+
+## 2026-11-04 — Screen focused retro repository searches: add 11 projects.
+
+[Research record](docs/research/2026-11-04-retro-reconstruction-discovery-110.md).
