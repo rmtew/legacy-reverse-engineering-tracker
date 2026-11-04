@@ -34,6 +34,10 @@ class VerifyRoot(Exception):
     pass
 
 
+class RootUnavailable(Exception):
+    pass
+
+
 class RateStop(Exception):
     def __init__(self, retry_at, reason='GitLab rate limit'):
         super().__init__(reason)
@@ -112,8 +116,11 @@ class Client:
             if exc.code == 304 and etag:
                 self.observe_quota(exc.headers)
                 return None, dict(exc.headers), 304
-            if exc.code == 429 or (exc.code == 403 and any(
-                    exc.headers.get(k) == '0' for k in ('RateLimit-Remaining', 'ratelimit-remaining'))):
+            error_headers = {k.lower(): str(v) for k, v in exc.headers.items()}
+            if exc.code == 429 or (exc.code == 403 and (
+                    error_headers.get('ratelimit-remaining') == '0'
+                    or error_headers.get('x-ratelimit-remaining') == '0'
+                    or 'retry-after' in error_headers)):
                 raise RateStop(retry_time(exc.headers, self.now + timedelta(seconds=max(0, self.budget.clock() - self.budget.start)))) from exc
             raise
         finally:
@@ -145,7 +152,8 @@ def commit_metadata(item, repo):
     if not when or not parse_time(when).tzinfo:
         raise ValueError('Invalid GitLab commit date')
     title = (item.get('title') or (item.get('message') or '').split('\n')[0]).strip()
-    return {'sha': sha, 'date': when[:10], 'title': title,
+    return {'sha': sha, 'date': parse_time(when).astimezone(timezone.utc).date().isoformat(),
+            'committed_at': when, 'title': title,
             'url': f'https://{repo}/-/commit/{sha}', 'message': title}
 
 
@@ -183,7 +191,7 @@ def probe_unit(repo, records, rs, events, now, client):
 def activity_unit(repo, records, rs, events, now, client):
     identity = hashlib.sha256(encode([
         [(p['id'], *selectors(p), (p.get('gitlab') or {}).get('tracking_branch')) for p in records],
-        (rs.get('publication') or {}).get('fingerprint'), RETENTION_DAYS,
+        (rs.get('publication') or {}).get('fingerprint'), RETENTION_DAYS, 'committed-at-v1',
     ])).hexdigest()
     cursor = rs.get('refresh_activity')
     if not cursor or cursor.get('identity') != identity:
@@ -198,7 +206,7 @@ def activity_unit(repo, records, rs, events, now, client):
     backfill = bool(publication and not publication.get('history_complete')) or sorted(p['id'] for p in records) != rs.get('last_deep_scan_project_ids')
     def choose_latest(project, latest):
         chosen = cursor.setdefault('latest', {}).get(project['id'])
-        if latest and (not chosen or latest['date'] >= chosen['date']):
+        if latest and (not chosen or parse_time(latest.get('committed_at', latest['date'])) >= parse_time(chosen.get('committed_at', chosen['date']))):
             cursor['latest'][project['id']] = latest
             project['gitlab']['latest_commit'] = latest
             project['last_activity'] = latest['date']
@@ -221,7 +229,8 @@ def activity_unit(repo, records, rs, events, now, client):
                 choose_latest(project, latest)
         changed = backfill or latest['sha'] != previous.get('tip_sha')
         for path in sorted({selectors(p)[1] or '' for p in matching}):
-            if not changed and path and path in previous.get('path_latest', {}):
+            if (not changed and path and path in previous.get('path_latest', {})
+                    and (previous['path_latest'][path] is None or previous['path_latest'][path].get('committed_at'))):
                 retained = previous['path_latest'][path]
                 cursor.setdefault('path_latest', {}).setdefault(branch, {})[path] = retained
                 for project in matching:
@@ -370,8 +379,13 @@ def release_unit(repo, records, rs, events, now, client):
     # Releases are explicitly sorted by released_at (unlike commit topology).
     complete = not following or bool(chunk and all(parse_time(r['released_at']) < cutoff for r in chunk))
     if complete:
+        rs.pop('release_availability', None)
+        rs.pop('release_access_verification', None)
+        if rs.get('publication'):
+            rs['publication'].pop('release_outcome', None)
         for project in records:
             if not selectors(project)[1]:
+                (project.get('gitlab') or {}).pop('release_availability', None)
                 if cursor.get('latest'):
                     project.setdefault('gitlab', {'repository': repo})['latest_release'] = cursor['latest']
                 else:

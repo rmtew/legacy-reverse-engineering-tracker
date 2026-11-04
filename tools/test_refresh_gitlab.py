@@ -562,6 +562,146 @@ class GitLabTests(unittest.TestCase):
         self.assertNotIn('source_availability', load_projects(self.root / 'data/projects.json')[0]['gitlab'])
 
 
+    def test_mixed_offset_saved_bundle_replays_chronologically_without_identity_changes(self):
+        self.setup_gitlab()
+        self.net.gl_pages = {1: [glcommit(1, '2026-10-18T02:53:29.000+00:00'),
+                                  glcommit(2, '2026-10-17T22:56:14.000-04:00'),
+                                  glcommit(3, '2026-10-18T02:56:14.001Z')]}
+        batch = self.collect()
+        for row in batch['results']:
+            row['events_after'].sort(key=lambda e: e['date'], reverse=True)  # Pre-fix retained artifact.
+        original = {e['sha']: e['date'] for e in batch['results'][0]['events_after'] if e['type'] == 'commit'}
+        self.assertEqual(self.apply(batch)['accepted'], 1)
+        events = self.read('data/activity.json')['events']
+        self.assertTrue(all(gitlab.parse_time(a['date']) >= gitlab.parse_time(b['date']) for a, b in zip(events, events[1:])))
+        self.assertEqual({e['sha']: e['date'] for e in events if e['type'] == 'commit'}, original)
+        self.assertTrue(self.apply(batch)['duplicate'])
+
+    def test_latest_commit_uses_full_instants_and_utc_day_across_offset_midnight(self):
+        self.setup_gitlab()
+        older = glcommit(1, '2026-10-18T00:30:00+14:00')
+        newer = glcommit(2, '2026-10-17T23:30:00-02:00')
+        self.net.branches = {1: [{'name': 'main', 'commit': older}, {'name': 'newer', 'commit': newer}]}
+        self.net.by_ref = {older['id']: [older], newer['id']: [newer]}
+        self.apply(self.collect())
+        project = load_projects(self.root / 'data/projects.json')[0]
+        self.assertEqual(project['gitlab']['latest_commit']['sha'], newer['id'])
+        self.assertEqual(project['gitlab']['latest_commit']['date'], '2026-10-18')
+        self.assertEqual(project['gitlab']['latest_commit']['committed_at'], newer['committed_date'])
+        self.assertEqual(gitlab.commit_metadata(older, KEY)['date'], '2026-10-17')
+
+    def test_legacy_cursor_without_commit_instant_is_restarted_safely(self):
+        self.activity_state()
+        self.apply(self.collect(requests=1))
+        poll = self.read(pipeline.POLL)
+        cursor = poll['repositories'][KEY]['refresh_activity']
+        cursor['identity'] = 'pre-committed-at-collector'
+        for latest in cursor['latest'].values():
+            latest.pop('committed_at', None)
+        self.put(pipeline.POLL, poll)
+        self.net.calls.clear()
+        self.apply(self.collect())
+        self.assertTrue(any('/repository/branches?' in url for url, _ in self.net.calls))
+        self.assertIn('committed_at', load_projects(self.root / 'data/projects.json')[0]['gitlab']['latest_commit'])
+
+    def test_release_403_verified_root_preserves_cache_and_resolves_as_unknown_with_daily_retry(self):
+        from refresh_scope import check_publishable
+        cached = {'tag': 'cached', 'published_at': '2026-10-17T00:00:00Z', 'url': 'https://' + KEY + '/-/releases/cached'}
+        self.setup_gitlab([glproject(gitlab={'repository': KEY, 'latest_release': cached})])
+        self.put('state/project-catalog-state.json', {'version': 1, 'projects': {}, 'removed': {}})
+        self.net.errors['/releases'] = 403
+        batch = self.collect()
+        self.apply(batch)
+        row = load_projects(self.root / 'data/projects.json')[0]
+        state = self.read(pipeline.POLL)['repositories'][KEY]
+        self.assertEqual(row['gitlab']['release_availability']['http_status'], 403)
+        self.assertNotIn('source_availability', row['gitlab'])
+        # New-publication reset intentionally clears old generated metadata, so
+        # verify cache preservation separately in the next routine attempt.
+        self.assertFalse(state['publication']['releases_complete'])
+        self.assertEqual(state['publication']['release_outcome'], 'capability-unavailable')
+        self.assertNotIn('last_release_check_at', state)
+        check_publishable(self.read(pipeline.POLL), [row])
+        row['gitlab']['latest_release'] = cached
+        write_projects(self.root / 'data/projects.json', [row])
+        self.net.calls.clear()
+        self.apply(self.collect(now=NOW + timedelta(hours=1)))
+        self.assertFalse(any('/releases?' in url for url, _ in self.net.calls))
+        self.assertEqual(load_projects(self.root / 'data/projects.json')[0]['gitlab']['latest_release'], cached)
+        self.net.calls.clear()
+        self.apply(self.collect(now=NOW + timedelta(days=1)))
+        self.assertEqual(load_projects(self.root / 'data/projects.json')[0]['gitlab']['latest_release'], cached)
+        self.net.errors.clear()
+        self.apply(self.collect(now=NOW + timedelta(days=2)))
+        row = load_projects(self.root / 'data/projects.json')[0]
+        state = self.read(pipeline.POLL)['repositories'][KEY]
+        self.assertNotIn('release_availability', row['gitlab'])
+        self.assertNotIn('release_availability', state)
+        self.assertTrue(state['publication']['releases_complete'])
+
+    def test_release_403_cannot_waive_unfinished_commit_history(self):
+        from refresh_scope import check_publishable
+        self.setup_gitlab()
+        self.put('state/project-catalog-state.json', {'version': 1, 'projects': {}, 'removed': {}})
+        self.net.errors['/releases'] = 403
+        self.apply(self.collect(requests=3))
+        state = self.read(pipeline.POLL)['repositories'][KEY]
+        self.assertIn('release_availability', state)
+        self.assertFalse(state['publication']['history_complete'])
+        with self.assertRaises(SystemExit):
+            check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'))
+        self.apply(self.collect())
+        check_publishable(self.read(pipeline.POLL), load_projects(self.root / 'data/projects.json'))
+
+    def test_release_quota_403_never_becomes_capability_waiver(self):
+        for headers in ({'X-RateLimit-Remaining': '0'}, {'Retry-After': '3600'}, {'RateLimit-Remaining': '0'}):
+            with self.subTest(headers=headers):
+                (self.root / pipeline.PROGRESS).unlink(missing_ok=True)
+                self.setup_gitlab()
+                self.net.errors['/releases'] = 403
+                self.net.response_headers = headers
+                batch = self.collect()
+                self.apply(batch)
+                self.assertIn('gitlab', batch['progress_after']['provider_blocked_until'])
+                row = load_projects(self.root / 'data/projects.json')[0]
+                self.assertNotIn('release_availability', row['gitlab'])
+                self.assertNotIn('release_availability', self.read(pipeline.POLL)['repositories'][KEY])
+
+    def test_release_403_requires_a_current_accessible_root(self):
+        self.setup_gitlab()
+        self.apply(self.collect())
+        self.net.errors = {'/releases': 403, '': 403}
+        self.apply(self.collect(now=NOW + timedelta(hours=1)))
+        row = load_projects(self.root / 'data/projects.json')[0]
+        self.assertNotIn('release_availability', row['gitlab'])
+        self.assertNotIn('release_availability', self.read(pipeline.POLL)['repositories'][KEY])
+
+
+    def test_one_request_slices_finish_release_403_root_verification_without_livelock(self):
+        from refresh_scope import publication_fingerprint, publication_resolved
+        self.setup_gitlab()
+        self.apply(self.collect())
+        poll = self.read(pipeline.POLL)
+        state = poll['repositories'][KEY]
+        state['last_root_check_at'] = pipeline.stamp(NOW - timedelta(hours=2))
+        state['last_release_check_at'] = pipeline.stamp(NOW - timedelta(hours=1))
+        records = load_projects(self.root / 'data/projects.json')
+        fingerprint = publication_fingerprint(records)
+        state['publication'] = {'fingerprint': fingerprint, 'metadata_complete': True,
+                                'history_complete': True, 'releases_complete': False, 'reset_project_ids': []}
+        self.put(pipeline.POLL, poll)
+        self.net.errors['/releases'] = 403
+        self.net.calls.clear()
+        for minute in range(5):
+            self.apply(self.collect(requests=1, now=NOW + timedelta(minutes=minute), request_id=f"403-slice-{minute}"))
+        state = self.read(pipeline.POLL)['repositories'][KEY]
+        self.assertTrue(publication_resolved(KEY, state, fingerprint))
+        self.assertNotIn('release_access_verification', state)
+        self.assertFalse(state['publication']['releases_complete'])
+        self.assertEqual(sum('/releases?' in url for url, _ in self.net.calls), 1)
+        self.assertEqual(sum(urlsplit(url).path.endswith('group%2Fsubgroup%2Fproject') for url, _ in self.net.calls), 1)
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -128,6 +128,46 @@ class ActivityHistoryTest(unittest.TestCase):
         self.assertEqual(context["commits"], 0)
         self.assertEqual(context["active_days"], 0)
 
+    def test_gitlab_release_permission_status_is_frozen_without_inventing_a_release(self):
+        now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+        availability = {"status": "unavailable", "http_status": 403, "retryable": True,
+                        "checked_at": "2026-09-30T13:00:00Z"}
+        for release in (None, {"tag": "v1", "published_at": "2026-09-29"}):
+            with self.subTest(release=release):
+                addition = {"type": "project_added", "date": "2026-09-30T12:00:00Z", "project_id": "p"}
+                project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {
+                    "repository": "gitlab.com/a/b", "latest_release": release,
+                    "release_availability": availability.copy()}}
+                freeze_addition_context([addition], [project],
+                                        {"gitlab.com/a/b": {"last_deep_scan": "2026-09-30T13:00:00Z"}}, now)
+                context = addition["activity_context"]
+                self.assertEqual(context["latest_release"], release)
+                self.assertEqual(context["release_availability"], availability)
+                project["gitlab"]["release_availability"]["checked_at"] = "2026-10-01T00:00:00Z"
+                self.assertEqual(context["release_availability"], availability)
+
+    def test_later_successful_release_lookup_resolves_unknown_context_only(self):
+        now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+        addition = {"type": "project_added", "date": "2026-09-30T12:00:00Z", "project_id": "p",
+                    "activity_context": {"latest_release": None, "commits": 3, "active_days": 2,
+                                         "release_availability": {"status": "unavailable", "http_status": 403}}}
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {
+            "latest_release": {"tag": "v1", "published_at": "2026-09-29"}}}
+        freeze_addition_context([addition], [project], {}, now)
+        self.assertEqual(addition["activity_context"]["latest_release"]["tag"], "v1")
+        self.assertNotIn("release_availability", addition["activity_context"])
+        self.assertEqual(addition["activity_context"]["commits"], 3)
+        self.assertEqual(addition["activity_context"]["active_days"], 2)
+
+    def test_later_release_permission_failure_does_not_rewrite_frozen_context(self):
+        addition = {"type": "project_added", "date": "2026-09-30T12:00:00Z", "project_id": "p",
+                    "activity_context": {"latest_release": None, "commits": 3, "active_days": 2}}
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {
+            "release_availability": {"status": "unavailable", "http_status": 403, "retryable": True}}}
+        freeze_addition_context([addition], [project], {}, datetime(2026, 10, 1, tzinfo=timezone.utc))
+        self.assertNotIn("release_availability", addition["activity_context"])
+        self.assertIsNone(addition["activity_context"]["latest_release"])
+
 class LeanRetentionTest(unittest.TestCase):
     def test_boundary_fallback_context_and_dedupe_survive_idempotent_writes(self):
         import json

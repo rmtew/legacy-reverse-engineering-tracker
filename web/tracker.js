@@ -376,6 +376,17 @@ const repositoryAvailability = record => {
   return "Repository unavailable to the tracker at the last check (HTTP 404); cached metadata retained; retryable."
     +observed+" Checks retry automatically. This does not establish whether the repository is private, moved or deleted.";
 };
+const unavailableReleaseStatus = status => status?.status === "unavailable" && status.http_status === 403 && status.retryable === true;
+const releaseUnavailable = record => unavailableReleaseStatus(repositoryMetadata(record).release_availability);
+const releaseAvailability = record => {
+  if(!releaseUnavailable(record))return "";
+  const metadata=repositoryMetadata(record),checkedAt=metadata.release_availability.checked_at;
+  const observed=typeof checkedAt==="string"&&Number.isFinite(Date.parse(checkedAt))
+    ? " First observed unavailable: "+checkedAt+"." : "";
+  return "Release information unavailable to the tracker (HTTP 403)."
+    +(metadata.latest_release?" Cached release information is retained and may be outdated.":" The latest release could not be checked.")
+    +observed+" Checks retry automatically.";
+};
 const sourceAvailabilityMarker = record => repositoryUnavailable(record)
   ? '<button type="button" class="source-unavailable-marker" aria-haspopup="dialog" data-source-details="'+esc(record.id)+'" aria-label="'+esc('Source unavailable at last check for '+projectTitle(record)+'. View details')+'" title="'+esc(repositoryAvailability(record))+'"><span aria-hidden="true">⚠</span><span>Source unavailable</span></button>' : "";
 function bookmarkedUnavailableProjects(){
@@ -966,12 +977,12 @@ function showDetails(record) {
       + esc((metadata.latest_commit.date || "?") + " — " + (metadata.latest_commit.message || ""))
       + "</a>"
     : "?";
-  const latestRelease = metadata.latest_release?.url
-    ? '<a href="' + esc(metadata.latest_release.url) + '" target="_blank" rel="noopener">'
-      + esc((metadata.latest_release.tag || metadata.latest_release.name || "release")
-        + (metadata.latest_release.published_at ? " — " + metadata.latest_release.published_at : ""))
-      + "</a>"
-    : "?";
+  const release=metadata.latest_release;
+  const releaseLabel=release?esc((release.tag || release.name || "release")
+    +(release.published_at?" — "+release.published_at:"")):"";
+  const latestRelease = release
+    ? (release.url?'<a href="'+esc(release.url)+'" target="_blank" rel="noopener">'+releaseLabel+'</a>':releaseLabel)
+    : releaseUnavailable(record)?"Release information unavailable":"?";
 
   const shownTitle=projectTitle(record);
   const upstream=upstreamName(record);
@@ -1006,6 +1017,7 @@ function showDetails(record) {
     + line("Repository languages", tags(metadata.languages))
     + line("Latest commit", latestCommit)
     + line("Latest release", latestRelease)
+    + (releaseAvailability(record) ? line("Release availability", esc(releaseAvailability(record))) : "")
     + line("Status", esc(record.status ?? "?"))
     + line("Compilable", tri(build.compilable))
     + line("Runnable", tri(build.runnable))
@@ -1404,6 +1416,12 @@ function additionContextHtml(event, project) {
     lines.push(entry("Last commit",unavailable?"None found on tracked branch/path":"Historical lookup pending"));
   }
   if(release?.published_at) lines.push(entry("Latest release",(release.tag||release.name||"Release")+" · "+activityDate(release.published_at),release.url));
+  // Frozen addition context owns its release status; today's status must not
+  // rewrite what was known at addition, or imply that a failed lookup found none.
+  const releaseStatus=context?context.release_availability:metadata.release_availability;
+  if(unavailableReleaseStatus(releaseStatus))lines.push(entry("Release information",
+    (context?"Unavailable to the tracker at addition (HTTP 403)":"Unavailable to the tracker (HTTP 403)")
+    +(release?"; cached release retained":"")));
   if(context){
     const count=context.commits??context.commits_90d??0;
     const days=context.active_days??context.active_days_90d??0;

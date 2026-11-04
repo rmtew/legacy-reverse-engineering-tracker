@@ -540,3 +540,17 @@ test('source-status observation date is labelled first observed, never an invent
     assert.doesNotMatch(b.run('repositoryAvailability({github:{source_availability:status}})'),/First observed/);
   }
 });
+
+test('frozen addition release failures remain explicit and do not borrow newer status or releases',()=>{
+  const b=browser();b.context.releaseStatus={status:'unavailable',http_status:403,retryable:true,checked_at:'2026-10-27T14:25:00Z'};
+  b.run(`projects[0].repo='https://gitlab.com/g/p';projects[0].gitlab={latest_release:{tag:'v2',published_at:'2026-10-28'},release_availability:releaseStatus};`);
+  const unknown=b.run('additionContextHtml({type:"project_added",activity_context:{release_availability:releaseStatus,window_days:30,commits:1,active_days:1}},projects[0])');
+  assert.match(unknown,/Release information/);assert.match(unknown,/Unavailable to the tracker at addition \(HTTP 403\)/);
+  assert.doesNotMatch(unknown,/v2|[Nn]o releases|Repository unavailable|Source unavailable/);
+  const cached=b.run('additionContextHtml({type:"project_added",activity_context:{release_availability:releaseStatus,latest_release:{tag:"v1",published_at:"2026-10-20",url:"https://gitlab.com/g/p/-/releases/v1"}}},projects[0])');
+  assert.match(cached,/releases\/v1/);assert.match(cached,/cached release retained/);assert.doesNotMatch(cached,/v2/);
+  const healthy=b.run('additionContextHtml({type:"project_added",activity_context:{latest_release:{tag:"v1",published_at:"2026-10-20"}}},projects[0])');
+  assert.doesNotMatch(healthy,/Release information|Unavailable to the tracker/);
+  const current=b.run('additionContextHtml({type:"project_added"},projects[0])');
+  assert.match(current,/v2/);assert.match(current,/Unavailable to the tracker \(HTTP 403\)/);assert.doesNotMatch(current,/at addition \(HTTP 403\)/);
+});

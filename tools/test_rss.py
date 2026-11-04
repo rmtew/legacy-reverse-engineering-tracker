@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from generate_rss import generate, release_events, daily_description, release_description, change_description
+from generate_rss import generate, release_events, daily_description, release_description, change_description, aggregate_commit_days
 
 
 class RssTest(unittest.TestCase):
@@ -41,6 +41,46 @@ class RssTest(unittest.TestCase):
         project = {"id": "p", "repo": "https://gitlab.com/a/b", "github": {
             "latest_release": {"tag": "stale", "published_at": "2026-09-26"}}}
         self.assertEqual(release_events([project]), [])
+
+    def test_release_permission_failure_is_unknown_and_does_not_hide_cached_release(self):
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {
+            "release_availability": {"status": "unavailable", "http_status": 403, "retryable": True,
+                                     "checked_at": "2026-09-27T00:00:00Z"}}}
+        self.assertEqual(release_events([project]), [])
+        for render in (daily_description, release_description, change_description):
+            with self.subTest(render=render.__name__):
+                description = render({}, project)
+                self.assertIn("Release lookup unavailable (HTTP 403)", description)
+                self.assertIn("release information unknown", description)
+                self.assertNotIn("Repository unavailable", description)
+                self.assertNotIn("No releases", description)
+        project["gitlab"]["latest_release"] = {"tag": "v1", "published_at": "2026-09-26",
+                                               "url": "https://gitlab.com/a/b/-/releases/v1"}
+        event = release_events([project])[0]
+        self.assertEqual(event["tag"], "v1")
+        self.assertIn("cached release information retained", release_description(event, project))
+
+    def test_frozen_unknown_release_status_survives_current_lookup_recovery(self):
+        event = {"type": "project_added", "activity_context": {
+            "latest_release": None, "release_availability": {"status": "unavailable", "http_status": 403}}}
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {"latest_release": None}}
+        description = change_description(event, project)
+        self.assertIn("Release information at addition:</strong> Unknown", description)
+        self.assertIn("HTTP 403", description)
+        event["activity_context"]["latest_release"] = {"tag": "v1", "published_at": "2026-09-26"}
+        description = change_description(event, project)
+        self.assertIn("Latest known release:</strong> v1", description)
+        self.assertIn("cached release information retained", description)
+
+    def test_frozen_release_context_does_not_borrow_a_later_permission_failure(self):
+        event = {"type": "project_added", "activity_context": {
+            "latest_release": {"tag": "v1", "published_at": "2026-09-26"}, "commits": 1, "active_days": 1}}
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {
+            "release_availability": {"status": "unavailable", "http_status": 403, "retryable": True}}}
+        description = change_description(event, project)
+        self.assertIn("Latest release:</strong> v1", description)
+        self.assertNotIn("Release lookup unavailable", description)
+        self.assertNotIn("Release information at addition", description)
 
     def test_no_release_is_invented_when_gitlab_release_lookup_has_no_result(self):
         for release in (None, {}, {"tag": "v1"}):
@@ -123,6 +163,55 @@ class RssTest(unittest.TestCase):
             (root / "projects.json").write_text(json.dumps(projects))
             generate(root / "activity.json", root / "projects.json", root / "feed.xml", 500)
             self.assertEqual(ET.parse(root / "feed.xml").findall(".//item"), [])
+
+    def test_mixed_offset_commits_use_settled_utc_days_and_instant_order(self):
+        activity = {"generated_at": "2026-09-28T00:30:00+14:00", "events": [
+            {"type": "commit", "project_id": "p", "sha": "offset", "date": "2026-09-27T00:10:00+02:00"},
+            {"type": "commit", "project_id": "p", "sha": "latest", "date": "2026-09-26T23:00:00Z"},
+            {"type": "commit", "project_id": "p", "sha": "unsettled", "date": "2026-09-26T23:30:00-02:00"}]}
+        summaries = aggregate_commit_days(activity)
+        self.assertEqual(len(summaries), 1)
+        self.assertEqual(summaries[0]["day"], "2026-09-26")
+        self.assertEqual(summaries[0]["date"], "2026-09-26T23:00:00Z")
+        self.assertEqual([event["sha"] for event in summaries[0]["commits"]], ["latest", "offset"])
+
+    def test_mixed_offset_tracking_boundaries_compare_instants(self):
+        activity = {"generated_at": "2026-09-28T00:00:00Z", "events": [
+            {"type": "project_added", "project_id": "p", "date": "2026-09-27T02:00:00+05:00"},
+            {"type": "project_restored", "project_id": "p", "date": "2026-09-26T23:00:00Z"},
+            {"type": "commit", "project_id": "p", "sha": "old", "date": "2026-09-26T20:59:59Z"},
+            {"type": "commit", "project_id": "p", "sha": "offset-old", "date": "2026-09-27T04:00:00+08:00"},
+            {"type": "commit", "project_id": "p", "sha": "tracked", "date": "2026-09-26T22:00:00Z"}]}
+        summaries = aggregate_commit_days(activity)
+        self.assertEqual(len(summaries), 1)
+        self.assertEqual([event["sha"] for event in summaries[0]["commits"]], ["tracked"])
+
+    def test_feed_mixed_offset_sorting_happens_before_item_limit(self):
+        activity = {"generated_at": "2026-09-29T00:00:00Z", "events": [
+            {"type": "release", "project_id": "p", "tag": "older", "date": "2026-09-28T01:00:00+13:00"},
+            {"type": "release", "project_id": "p", "tag": "latest", "date": "2026-09-27T23:00:00Z"}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "activity.json").write_text(json.dumps(activity))
+            (root / "projects.json").write_text(json.dumps([{"id": "p", "repo": "https://gitlab.com/a/b"}]))
+            generate(root / "activity.json", root / "projects.json", root / "feed.xml", 1)
+            items = ET.parse(root / "feed.xml").findall(".//item")
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0].findtext("guid"), "legacy-re:p:release:latest")
+        self.assertEqual(items[0].findtext("pubDate"), "Sun, 27 Sep 2026 23:00:00 +0000")
+
+    def test_catalogue_rollout_cutoff_uses_instant_not_local_calendar_date(self):
+        activity = {"generated_at": "2026-09-28T00:00:00Z", "events": [
+            {"type": "project_added", "project_id": "before", "date": "2026-09-26T02:00:00+05:00"},
+            {"type": "project_added", "project_id": "after", "date": "2026-09-25T18:00:00-04:00"}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "activity.json").write_text(json.dumps(activity))
+            (root / "projects.json").write_text(json.dumps([{"id": "before"}, {"id": "after"}]))
+            generate(root / "activity.json", root / "projects.json", root / "feed.xml", 500)
+            items = ET.parse(root / "feed.xml").findall(".//item")
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0].findtext("guid"), "legacy-re:after:project_added:2026-09-25T18:00:00-04:00")
 
 
 if __name__ == "__main__":

@@ -115,3 +115,42 @@ test('GitLab provider details and started sort use current metadata rather than 
   assert.equal(x.run('projectMeta(gitlab).keys.started'),'2021-04-05');
   assert.match(x.get('rows').innerHTML,/2021\*/);assert.doesNotMatch(x.get('rows').innerHTML,/1990/);
 });
+
+test('GitLab forbidden releases show release-only uncertainty, not a missing or unavailable source',()=>{
+  const x=setup();x.get('details').showModal=()=>{};
+  x.context.gitlab={id:'gl',title:'GitLab project',repo:'https://gitlab.com/g/p',gitlab:{repository:'gitlab.com/g/p',release_availability:{status:'unavailable',http_status:403,retryable:true,checked_at:'2026-11-04T21:00:00Z'}}};
+  x.run('projects=[gitlab];bookmarks.add("gl");render();showDetails(gitlab);updateSourceAvailabilityWarning()');
+  const details=x.get('detailbody').innerHTML;
+  assert.match(details,/<dt>Latest release<\/dt><dd>Release information unavailable<\/dd>/);
+  assert.match(details,/<dt>Release availability<\/dt><dd>Release information unavailable to the tracker \(HTTP 403\)/);
+  assert.match(details,/First observed unavailable: 2026-11-04T21:00:00Z/);
+  assert.doesNotMatch(details,/Repository unavailable|Source unavailable|[Nn]o releases/);
+  assert.doesNotMatch(x.get('rows').innerHTML,/source-unavailable-marker/);
+  assert.equal(x.get('sourceAvailabilityWarning').hidden,true);
+  assert.equal(x.run('combinedActivityEvents().length'),0);
+});
+
+test('forbidden release status is separate from retained cached release details and events',()=>{
+  const x=setup();x.get('details').showModal=()=>{};
+  x.context.gitlab={id:'gl',title:'GitLab project',repo:'https://gitlab.com/g/p',gitlab:{repository:'gitlab.com/g/p',release_availability:{status:'unavailable',http_status:403,retryable:true},latest_release:{tag:'v1 <cached>',published_at:'2026-10-28',url:'https://gitlab.com/g/p/-/releases/v1'}}};
+  x.run('projects=[gitlab];activityData={generated_at:"2026-10-29T00:00:00Z",events:[]};showDetails(gitlab)');
+  const details=x.get('detailbody').innerHTML;
+  assert.match(details,/<dt>Latest release<\/dt><dd><a href="https:\/\/gitlab.com\/g\/p\/-\/releases\/v1"[^>]*>v1 &lt;cached&gt; — 2026-10-28<\/a><\/dd>/);
+  assert.match(details,/<dt>Release availability<\/dt>/);assert.match(details,/Cached release information is retained and may be outdated/);
+  assert.equal(x.run('combinedActivityEvents().length'),1);assert.equal(x.run('combinedActivityEvents()[0].tag'),'v1 <cached>');
+  x.run('delete gitlab.gitlab.latest_release.url;showDetails(gitlab)');
+  assert.match(x.get('detailbody').innerHTML,/<dt>Latest release<\/dt><dd>v1 &lt;cached&gt; — 2026-10-28<\/dd>/);
+  x.run('delete gitlab.gitlab.release_availability;showDetails(gitlab)');
+  assert.doesNotMatch(x.get('detailbody').innerHTML,/Release availability|Release information unavailable/);
+  assert.match(x.get('detailbody').innerHTML,/v1 &lt;cached&gt;/);
+});
+
+test('release-only status requires the explicit 403 marker on the current provider',()=>{
+  const x=setup();
+  for(const status of [{status:'unavailable',http_status:404,retryable:true},{status:'error',http_status:403,retryable:true},{status:'unavailable',http_status:403}]){
+    x.context.status=status;assert.equal(x.run('releaseAvailability({gitlab:{release_availability:status}})'),"");
+  }
+  x.context.status={status:'unavailable',http_status:403,retryable:true,checked_at:'invalid'};
+  assert.doesNotMatch(x.run('releaseAvailability({gitlab:{release_availability:status}})'),/First observed/);
+  assert.equal(x.run('releaseAvailability({repo:"https://github.com/g/p",gitlab:{release_availability:status}})'),"");
+});

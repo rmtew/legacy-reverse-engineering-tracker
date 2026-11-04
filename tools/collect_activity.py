@@ -22,7 +22,7 @@ from urllib.error import HTTPError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
-from activity_history import compact_history, freeze_addition_context, write_activity
+from activity_history import compact_history, event_sort_key, freeze_addition_context, write_activity
 from refresh_github import probe_interval_minutes
 from refresh_scope import load_scope, pending_publication, select_repositories
 
@@ -707,7 +707,7 @@ def main():
 
     freeze_addition_context(output, [p for p in projects if p["id"] in scoped_ids], state["repositories"], NOW)
     output.extend(untouched)
-    output.sort(key=lambda event: (event.get("date") or "", event.get("project_id") or ""), reverse=True)
+    output.sort(key=event_sort_key, reverse=True)
 
     payload = {
         "generated_at": NOW_ISO,

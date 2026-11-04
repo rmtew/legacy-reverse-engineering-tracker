@@ -443,6 +443,7 @@ def unavailable(progress, poll, working, repo, now, outcomes):
         "observed_at": stamp(now), "retry_at": progress["retry"]["probe"][repo]["retry_at"], "retryable": True,
     }
     rs.pop("availability_recheck_requested", None)
+    rs.pop("release_access_verification", None)
     rs["last_error"] = "Repository lookup returned HTTP 404; retained facts; retryable"
     work = rs.get("publication") or {}
     if (pending_publication(rs) and work.get("reset_project_ids") == []
@@ -459,6 +460,30 @@ def unavailable(progress, poll, working, repo, now, outcomes):
             }
     log(repo=repo, work="probe", status="source-unavailable", retry_at=rs["repository_availability"]["retry_at"],
         publication_outcome=work.get("outcome", "pending"))
+
+
+def release_unavailable(progress, poll, working, repo, now, outcomes):
+    """A root-accessible project's disabled/forbidden releases remain unknown."""
+    rs = poll["repositories"][repo]
+    observed = (rs.pop("release_access_verification", {}) or {}).get("observed_at") or stamp(now)
+    defer(progress, poll, repo, "releases", now, outcomes, seconds=24 * 60 * 60)
+    rs["release_availability"] = {
+        "repository": repo, "status": "unavailable", "http_status": 403, "retryable": True,
+        "root_checked_at": rs["last_root_check_at"], "observed_at": observed,
+        "retry_at": progress["retry"]["releases"][repo]["retry_at"],
+        "fingerprint": publication_fingerprint(working[repo]),
+    }
+    if rs.get("publication"):
+        rs["publication"]["releases_complete"] = False
+        rs["publication"]["release_outcome"] = "capability-unavailable"
+    for project in working[repo]:
+        if not selectors(project)[1]:
+            meta = project.setdefault("gitlab", {"repository": repo})
+            meta["release_availability"] = {
+                "status": "unavailable", "http_status": 403, "retryable": True,
+                "checked_at": (meta.get("release_availability") or {}).get("checked_at") or observed,
+            }
+    log(repo=repo, work="releases", status="capability-unavailable", retry_at=rs["release_availability"]["retry_at"])
 
 
 class Interrupted(BaseException):
@@ -770,6 +795,15 @@ def activity_unit(repo, records, rs, events, now):
 def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None, before_request=None):
     records, rs, events = copy.deepcopy(records), copy.deepcopy(rs), copy.deepcopy(events)
     if provider(repo) == "gitlab":
+        pending_release = rs.get("release_access_verification") or {}
+        observed = activity.parse_time(pending_release.get("observed_at"))
+        verified = activity.parse_time(rs.get("last_root_check_at"))
+        if (work == "releases" and pending_release.get("http_status") == 403
+                and pending_release.get("fingerprint") == publication_fingerprint(records)
+                and observed and verified and observed <= verified <= now
+                and now - observed <= timedelta(hours=1) and not rs.get("repository_availability")):
+            rs["_release_lookup_status"] = 403
+            return records, rs, events, False, rate or {}
         verifying = rs.get("availability_recheck_requested")
         client = gitlab.Client(repo, budget, now, opener, before_request)
         try:
@@ -777,11 +811,39 @@ def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None
                         "releases": gitlab.release_unit}[work]
             records, rs, events, complete = function(repo, records, rs, events, now, client)
         except HTTPError as exc:
-            if work != "probe" and exc.code == 404:
-                raise gitlab.VerifyRoot("GitLab endpoint returned 404; root verification required") from exc
-            if work != "probe" or client.root_status != 404:
-                raise
-            complete = False
+            if work == "releases" and exc.code == 403:
+                # Only a non-quota 403 (Client handles quota signals separately)
+                # can represent an unavailable release capability. Verify the
+                # root now; never turn an inaccessible/private project into a waiver.
+                try:
+                    if rs.get("last_root_check_at") != stamp(now):
+                        records, rs, events, _ = gitlab.probe_unit(repo, records, rs, events, now, client)
+                except (BudgetStop, RecordStop, gitlab.RateStop, ProviderStop) as limited:
+                    # Preserve the observed403 if a one-request slice cannot
+                    # also verify the root. A later successful root observation
+                    # can resolve this bounded proof without re-fetching403 forever.
+                    rs["release_access_verification"] = {
+                        "http_status": 403, "observed_at": stamp(now),
+                        "fingerprint": publication_fingerprint(records),
+                    }
+                    rs["availability_recheck_requested"] = True
+                    interrupted = Interrupted(limited)
+                    interrupted.partial = (records, rs, events)
+                    raise interrupted from limited
+                except HTTPError as root_error:
+                    if root_error.code == 404:
+                        raise gitlab.RootUnavailable("Release 403 verification confirmed root HTTP 404") from root_error
+                    raise
+                clear_unavailability(records, rs)
+                rs["last_root_check_at"] = stamp(now)
+                rs["_release_lookup_status"] = 403
+                complete = False
+            else:
+                if work != "probe" and exc.code == 404:
+                    raise gitlab.VerifyRoot("GitLab endpoint returned 404; root verification required") from exc
+                if work != "probe" or client.root_status != 404:
+                    raise
+                complete = False
         except (gitlab.RateStop, ProviderStop) as exc:
             raise Interrupted(exc) from exc
         if work == "probe":
@@ -926,6 +988,7 @@ def collect(
                         lambda url: provider_request(progress, provider(repo), url, now, budget),
                     )
                     lookup_status = rs.pop("_repository_lookup_status", None)
+                    release_status = rs.pop("_release_lookup_status", None)
                     if until := rs.pop("_provider_blocked_until", None):
                         blocked = progress.setdefault("provider_blocked_until", {})
                         blocked[provider(repo)] = max(blocked.get(provider(repo), ""), until)
@@ -938,6 +1001,12 @@ def collect(
                         units[work] += 1
                         outcomes.setdefault(repo, {})[work] = "partial"
                         progress["retry"][work][repo] = {"failures": 0, "attempt_at": stamp(now)}
+                        if partial[1].get("availability_recheck_requested") and ready(progress, repo, "probe", now):
+                            if repo in cycle["deferred"]["probe"]:
+                                cycle["deferred"]["probe"].remove(repo)
+                            for field in ("targets", "pending"):
+                                if repo not in cycle[field]["probe"]:
+                                    cycle[field]["probe"].append(repo)
                         if partial[1].get("scan_requested") and repo not in cycle["deferred"]["activity"]:
                             for field in ("targets", "pending"):
                                 if repo not in cycle[field]["activity"]:
@@ -962,6 +1031,9 @@ def collect(
                         continue
                     defer(progress, poll, repo, work, now, outcomes)
                     log(repo=repo, work=work, status="retry", reason=str(cause))
+                    continue
+                except gitlab.RootUnavailable:
+                    unavailable(progress, poll, working, repo, now, outcomes)
                     continue
                 except gitlab.VerifyRoot as exc:
                     rs = poll["repositories"].setdefault(repo, {})
@@ -991,6 +1063,10 @@ def collect(
                 finally:
                     budget.end_record()
                 touched.add(repo)
+                if release_status == 403:
+                    working[repo], poll["repositories"][repo], events[repo] = rows, rs, evs
+                    release_unavailable(progress, poll, working, repo, now, outcomes)
+                    continue
                 if not done and work == "probe":
                     if lookup_status == 404:
                         unavailable(progress, poll, working, repo, now, outcomes)

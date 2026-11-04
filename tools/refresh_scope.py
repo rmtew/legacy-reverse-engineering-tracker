@@ -15,7 +15,7 @@ import json
 import os
 import re
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from record_project_activity import snapshot
@@ -52,12 +52,35 @@ def retained_metadata(repo, projects, rs):
     )
 
 
+def releases_resolved(rs, fingerprint=None, repo=None):
+    work = rs.get("publication") or {}
+    if work.get("releases_complete", True):
+        return True
+    proof = rs.get("release_availability") or {}
+    fingerprint = fingerprint or work.get("fingerprint")
+    if not (work.get("release_outcome") == "capability-unavailable"
+            and proof.get("status") == "unavailable" and proof.get("http_status") == 403
+            and proof.get("retryable") is True and fingerprint
+            and proof.get("fingerprint") == fingerprint == work.get("fingerprint")
+            and provider(proof.get("repository")) == "gitlab"
+            and (repo is None or proof.get("repository") == repo)
+            and not rs.get("repository_availability")):
+        return False
+    try:
+        root, observed, retry = (datetime.fromisoformat(proof[key].replace("Z", "+00:00"))
+                                 for key in ("root_checked_at", "observed_at", "retry_at"))
+        return bool(root.tzinfo and observed.tzinfo and retry.tzinfo and observed < retry and root < retry and abs(root - observed) <= timedelta(hours=1)
+                    and rs.get("last_root_check_at", "") >= proof["root_checked_at"])
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return False
+
+
 def publication_resolved(repo, rs, fingerprint):
     """Resolved attempt is distinct from successful metadata/history completion."""
     work = rs.get("publication") or {}
     if not isinstance(work, dict):
         return False
-    if work.get("metadata_complete") and work.get("history_complete") and work.get("releases_complete", True):
+    if work.get("metadata_complete") and work.get("history_complete") and releases_resolved(rs, fingerprint, repo):
         return True
     proof = rs.get("repository_availability") or {}
     if not isinstance(proof, dict):
@@ -177,7 +200,7 @@ def prepare_publication(repositories, state, scope, projects=None):
 def pending_publication(rs):
     work = rs.get("publication") or {}
     return bool(work) and not (work.get("metadata_complete") and work.get("history_complete")
-                               and work.get("releases_complete", True))
+                               and releases_resolved(rs))
 
 
 def check_complete(scope, state):

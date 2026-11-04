@@ -31,13 +31,14 @@ ET.register_namespace("atom", ATOM_NS)
 
 
 def parse_time(value):
+    """Return an aware UTC instant, including for day-only release metadata."""
     if not value:
         return None
     try:
         dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
     except ValueError:
         return None
-    return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc) if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
 def rfc822(value):
@@ -128,20 +129,26 @@ def aggregate_commit_days(activity):
     for event in activity.get("events", []):
         if event.get("type") in ("project_added", "project_restored"):
             project_id = event.get("project_id")
-            if project_id not in tracked_since or event["date"] < tracked_since[project_id]:
-                tracked_since[project_id] = event["date"]
-    current_day = str(activity.get("generated_at") or "")[:10]
+            when = parse_time(event.get("date"))
+            if when and (project_id not in tracked_since or when < tracked_since[project_id]):
+                tracked_since[project_id] = when
+    generated_at = parse_time(activity.get("generated_at"))
+    if not generated_at:
+        return []
+    current_day = generated_at.date()
     grouped = defaultdict(list)
     for event in activity.get("events", []):
         if event.get("type") != "commit" or not event.get("sha") or not event.get("date"):
             continue
-        if event["date"][:10] >= current_day or event["date"] < tracked_since.get(event.get("project_id"), ""):
+        when = parse_time(event["date"])
+        tracked_at = tracked_since.get(event.get("project_id"))
+        if not when or when.date() >= current_day or (tracked_at and when < tracked_at):
             continue
-        grouped[(event.get("project_id"), str(event["date"])[:10])].append(event)
+        grouped[(event.get("project_id"), when.date().isoformat())].append(event)
 
     summaries = []
     for (project_id, day), commits in grouped.items():
-        commits.sort(key=lambda event: event.get("date") or "", reverse=True)
+        commits.sort(key=lambda event: parse_time(event["date"]), reverse=True)
         latest = commits[0]
         authors = sorted({str(event.get("author")) for event in commits if event.get("author")})
         branches = sorted({
@@ -164,6 +171,16 @@ def aggregate_commit_days(activity):
     return summaries
 
 
+def release_availability_notice(source):
+    availability = source.get("release_availability") or {}
+    if availability.get("status") != "unavailable":
+        return ""
+    status = " (HTTP " + str(availability["http_status"]) + ")" if availability.get("http_status") else ""
+    retained = bool((source.get("latest_release") or {}).get("published_at"))
+    detail = "cached release information retained" if retained else "release information unknown"
+    return "<p>Release lookup unavailable" + html.escape(status) + "; " + detail + "; retryable.</p>"
+
+
 def daily_description(event, project):
     project_url = project.get("project_url") or project.get("repo") or SITE_URL
     title = project_title(project, event.get("project_id") or "?")
@@ -178,6 +195,7 @@ def daily_description(event, project):
         bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
     if (metadata(project).get("source_availability") or {}).get("status") == "unavailable":
         bits.append("<p>Repository unavailable (HTTP 404); prior metadata retained; retryable.</p>")
+    bits.append(release_availability_notice(metadata(project)))
 
     if event.get("authors"):
         bits.append("<p><strong>Authors:</strong> " + html.escape(", ".join(event["authors"])) + "</p>")
@@ -207,7 +225,7 @@ def daily_description(event, project):
     return "".join(bits)
 
 
-def release_description(event, project):
+def release_description(event, project, *, show_release_availability=True):
     project_url = project.get("project_url") or project.get("repo") or SITE_URL
     title = project_title(project, event.get("project_id") or "?")
     bits = [
@@ -220,6 +238,8 @@ def release_description(event, project):
         bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
     if (metadata(project).get("source_availability") or {}).get("status") == "unavailable":
         bits.append("<p>Repository unavailable (HTTP 404); prior metadata retained; retryable.</p>")
+    if show_release_availability:
+        bits.append(release_availability_notice(metadata(project)))
     message = event.get("message") or event.get("name")
     if message and message != event.get("tag"):
         bits.append("<p>" + html.escape(str(message)) + "</p>")
@@ -227,8 +247,8 @@ def release_description(event, project):
 
 
 def change_description(event, project):
-    bits = [release_description({"message": ""}, project)]
     context = event.get("activity_context") or {}
+    bits = [release_description({"message": ""}, project, show_release_availability=not bool(context))]
     commit = context.get("last_commit") or {}
     last_activity = commit.get("date") or context.get("last_activity")
     if last_activity:
@@ -238,9 +258,17 @@ def change_description(event, project):
         status = "None found on tracked branch/path" if context.get("last_commit_lookup") == "unavailable" else "Historical lookup pending"
         bits.append("<p><strong>Last commit:</strong> " + status + "</p>")
     release = context.get("latest_release") or {}
+    release_unavailable = (context.get("release_availability") or {}).get("status") == "unavailable"
     if release.get("published_at"):
         tag = release.get("tag") or release.get("name") or "Release"
-        bits.append("<p><strong>Latest release:</strong> " + html.escape(tag + " · " + release["published_at"]) + "</p>")
+        label = "Latest known release" if release_unavailable else "Latest release"
+        bits.append("<p><strong>" + label + ":</strong> " + html.escape(tag + " · " + release["published_at"]) + "</p>")
+    if release_unavailable:
+        detail = "Lookup unavailable; cached release information retained." if release.get("published_at") else "Unknown; release lookup unavailable."
+        http_status = (context.get("release_availability") or {}).get("http_status")
+        if http_status:
+            detail = detail.rstrip(".") + " (HTTP " + str(http_status) + ")."
+        bits.append("<p><strong>Release information at addition:</strong> " + html.escape(detail) + "</p>")
     if "commits" in context or "commits_90d" in context:
         bits.append("<p><strong>At addition (" + str(context.get("window_days", 90)) + "-day window):</strong> " + str(context.get("commits", context.get("commits_90d", 0))) +
                     " commits across " + str(context.get("active_days", context.get("active_days_90d", 0))) + " active days</p>")
@@ -260,12 +288,13 @@ def generate(activity_path, projects_path, output_path, limit):
 
     events = aggregate_commit_days(activity)
     events.extend(release_events(projects, activity.get("events", [])))
+    catalog_feed_start = parse_time(CATALOG_FEED_START)
     events.extend(event for event in activity.get("events", [])
                   if str(event.get("type", "")).startswith("project_")
-                  and str(event.get("date") or "") > CATALOG_FEED_START)
+                  and (when := parse_time(event.get("date"))) and when > catalog_feed_start)
     cutoff = parse_time(activity["generated_at"]) - timedelta(days=RETENTION_DAYS)
-    events = [e for e in events if parse_time(e["date"]) >= cutoff]
-    events.sort(key=lambda event: event.get("date") or "", reverse=True)
+    events = [e for e in events if (when := parse_time(e.get("date"))) and when >= cutoff]
+    events.sort(key=lambda event: parse_time(event["date"]), reverse=True)
     events = events[:limit]
 
     rss = ET.Element("rss", {"version": "2.0"})

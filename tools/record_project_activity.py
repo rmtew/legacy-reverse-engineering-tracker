@@ -15,7 +15,7 @@ import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from activity_history import freeze_addition_context, write_activity
+from activity_history import event_sort_key, freeze_addition_context, write_activity
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data" / "projects.json"
@@ -322,16 +322,7 @@ def main(root=None):
             retained.append(event)
 
     retained.extend(events)
-    retained.sort(
-        key=lambda event: (
-            event.get("date") or "",
-            event.get("repository") or "",
-            event.get("sha") or "",
-            event.get("type") or "",
-            event.get("project_id") or "",
-        ),
-        reverse=True,
-    )
+    retained.sort(key=event_sort_key, reverse=True)
 
     # The initial repository scan runs before this step in the refresh job.
     poll_state = root / "state" / "github-poll-state.json"

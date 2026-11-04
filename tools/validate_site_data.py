@@ -281,6 +281,19 @@ def validate(projects_path, activity_path, rss_path=None):
                     parse_time(availability["checked_at"])
                 except (ValueError, TypeError, AttributeError):
                     fail(f"project {index} has invalid {provider} availability checked_at", errors)
+        release_availability = (project.get("gitlab") or {}).get("release_availability")
+        if release_availability is not None and (not isinstance(release_availability, dict)
+                or not {"status", "http_status", "retryable"}.issubset(release_availability)
+                or set(release_availability) - {"status", "http_status", "retryable", "checked_at"}
+                or release_availability.get("status") != "unavailable"
+                or type(release_availability.get("http_status")) is not int or release_availability["http_status"] != 403
+                or release_availability.get("retryable") is not True):
+            fail(f"project {index} has invalid release_availability", errors)
+        elif isinstance(release_availability, dict) and "checked_at" in release_availability:
+            try:
+                parse_time(release_availability["checked_at"])
+            except (ValueError, TypeError, AttributeError):
+                fail(f"project {index} has invalid release_availability checked_at", errors)
         for field in ("upstream_name", "display_title"):
             value = project.get(field)
             if not isinstance(value, str) or not value.strip():

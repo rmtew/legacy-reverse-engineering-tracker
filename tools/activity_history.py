@@ -79,7 +79,8 @@ def retained_events(events, now, projects=None):
 def write_activity(path, payload, projects=None):
     """Every canonical writer enforces the same retention and lean event shape."""
     payload['window_days'] = RETENTION_DAYS
-    payload['events'] = retained_events(payload['events'], parse_time(payload['generated_at']), projects)
+    payload['events'] = sorted(retained_events(payload['events'], parse_time(payload['generated_at']), projects),
+                               key=event_sort_key, reverse=True)
     lines = ['    ' + json.dumps(e, ensure_ascii=False, separators=(',', ':')) for e in payload['events']]
     header = '{\n  "generated_at": ' + json.dumps(payload['generated_at']) + ',\n  "window_days": ' + str(RETENTION_DAYS) + ',\n  "events": [\n'
     path.write_text(header + ',\n'.join(lines) + '\n  ]\n}\n', encoding='utf-8')
@@ -87,6 +88,17 @@ def write_activity(path, payload, projects=None):
 
 def parse_time(value):
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def event_sort_key(event):
+    """Sort actual instants, not ISO spellings; keep timestamp/identity bytes.
+
+    GitLab preserves commit timezone offsets and millisecond precision, while
+    GitHub commonly returns whole-second UTC Z timestamps. Lexical order is not
+    chronological across those valid representations.
+    """
+    return (parse_time(event["date"]), event.get("repository") or "",
+            event.get("sha") or "", event.get("type") or "", event.get("project_id") or "")
 
 
 def local_day(value):
@@ -118,7 +130,7 @@ def compact_history(events, now):
             "latest_url": event.get("latest_url") or event.get("url"),
         })
         summary["shas"].update(event.get("shas") or [event.get("sha")])
-        if event["date"] > summary["date"]:
+        if parse_time(event["date"]) > parse_time(summary["date"]):
             summary["date"] = event["date"]
             summary["latest_title"] = event.get("latest_title") or event.get("title")
             summary["latest_url"] = event.get("latest_url") or event.get("url")
@@ -126,11 +138,7 @@ def compact_history(events, now):
         summary["shas"] = sorted(sha for sha in summary["shas"] if sha)
         summary["count"] = len(summary["shas"])
         detailed.append(summary)
-    return sorted(detailed, key=lambda event: (
-        event.get("date") or "", event.get("repository") or "",
-        event.get("sha") or "", event.get("type") or "",
-        event.get("project_id") or "",
-    ), reverse=True)
+    return sorted(detailed, key=event_sort_key, reverse=True)
 
 
 def freeze_addition_context(events, projects, repositories, now):
@@ -162,6 +170,8 @@ def freeze_addition_context(events, projects, repositories, now):
                 context.pop("last_commit_lookup", None)
             if not context.get("latest_release") and source.get("latest_release"):
                 context["latest_release"] = deepcopy(source["latest_release"])
+                if not source.get("release_availability"):
+                    context.pop("release_availability", None)
             if not context.get("last_commit") and source.get("latest_commit_lookup") == "unavailable":
                 context["last_commit_lookup"] = "unavailable"
             continue
@@ -189,3 +199,5 @@ def freeze_addition_context(events, projects, repositories, now):
             "commits": counts.get(project["id"], 0),
             "active_days": len(days.get(project["id"], ())),
         }
+        if source.get("release_availability"):
+            event["activity_context"]["release_availability"] = deepcopy(source["release_availability"])

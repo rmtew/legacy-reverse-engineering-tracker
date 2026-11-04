@@ -21,6 +21,11 @@ class ProviderValidationTests(unittest.TestCase):
     def test_gitlab_release_and_source_status(self):
         self.project['gitlab']={'source_availability': {'status':'unavailable','http_status':404,'retryable':True,'checked_at':'2026-11-04T20:00:00Z'}}
         self.check([self.event])
+    def test_release_capability_status_is_distinct_from_source(self):
+        self.project['gitlab']={'release_availability': {'status':'unavailable','http_status':403,'retryable':True,'checked_at':'2026-11-04T20:00:00Z'}}
+        self.check()
+        self.project['gitlab']['release_availability']['http_status']=429
+        with self.assertRaises(SystemExit): self.check()
     def test_duplicate_release_fails(self):
         with self.assertRaises(SystemExit): self.check([self.event,copy.deepcopy(self.event)])
     def test_bad_status_timestamp_fails(self):
