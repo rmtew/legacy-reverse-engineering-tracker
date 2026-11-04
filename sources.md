@@ -1614,3 +1614,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-04 — Screen focused retro repository searches: add 24 projects.
 
 [Research record](docs/research/2026-11-04-retro-reconstruction-discovery-111.md).
+
+## 2026-11-04 — Screen 732 candidate URLs: add 7 projects and defer three leads.
+
+[Research record](docs/research/2026-11-04-retro-reconstruction-discovery-112.md).
