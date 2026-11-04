@@ -32,6 +32,59 @@ def commit(sha="abc", day="2026-08-01", message="Historical work"):
 
 
 class CatalogueScopeTest(unittest.TestCase):
+    def legacy_unavailable(self):
+        row = project('retained', notes='Prior researched facts', github={'repository': 'owner/repo',
+                      'default_branch': 'main'})
+        old = scope.material(row)
+        old.pop('gitlab_branch')
+        old.pop('gitlab_path')
+        fingerprint = scope.hashlib.sha256(json.dumps([old], sort_keys=True).encode()).hexdigest()
+        rs = {'last_probe_at': '2026-09-30T12:00:00Z', 'publication': {
+            'fingerprint': fingerprint, 'metadata_complete': False, 'history_complete': False,
+            'reset_project_ids': [], 'outcome': 'source-unavailable'}, 'repository_availability': {
+                'repository': 'owner/repo', 'status': 'unavailable', 'http_status': 404,
+                'retryable': True, 'observed_at': NOW_ISO, 'retry_at': '2026-10-02T12:00:00Z'}}
+        return row, rs
+
+    def test_legacy_null_selector_fingerprint_preserves_verified_unavailable_outcome(self):
+        row, rs = self.legacy_unavailable()
+        state = {'repositories': {'owner/repo': rs}}
+        original = copy.deepcopy(state)
+        scope.check_publishable(state, [row])
+        self.assertEqual(state, original, 'Read-only publication gate must not rewrite proof')
+        scope.prepare_publication({'owner/repo': [row]}, state, {'mode': 'adaptive'})
+        migrated = state['repositories']['owner/repo']
+        self.assertEqual(migrated['publication']['fingerprint'], scope.publication_fingerprint([row]))
+        self.assertEqual(migrated['repository_availability'], rs['repository_availability'])
+        self.assertFalse(migrated['publication']['metadata_complete'])
+        self.assertFalse(migrated['publication']['history_complete'])
+        self.assertEqual(migrated['last_probe_at'], rs['last_probe_at'])
+
+    def test_legacy_fingerprint_compatibility_rejects_real_changes_or_invalid_proof(self):
+        changes = [
+            lambda rows, rs: rows[0].update(notes='Changed authored facts'),
+            lambda rows, rs: rows.append(project('new')),
+            lambda rows, rs: rows[0].update(github_branch='new'),
+            lambda rows, rs: rows[0].update(github_path='src'),
+            lambda rows, rs: rows[0].update(gitlab_branch='new'),
+            lambda rows, rs: rows[0].update(gitlab_path='src'),
+            lambda rows, rs: rows[0].update(repo='https://gitlab.com/owner/repo'),
+            lambda rows, rs: rs['repository_availability'].update(repository='other/repo'),
+            lambda rows, rs: rs['repository_availability'].update(http_status=403),
+            lambda rows, rs: rs['repository_availability'].update(retryable=False),
+            lambda rows, rs: rs['repository_availability'].update(observed_at='2026-09-29T12:00:00Z'),
+            lambda rows, rs: rs['publication'].update(reset_project_ids=['retained']),
+        ]
+        for index, change in enumerate(changes):
+            with self.subTest(index=index):
+                row, rs = self.legacy_unavailable()
+                rows = [row]
+                change(rows, rs)
+                self.assertEqual(scope.reconcile_legacy_publication('owner/repo', rs, rows), rs)
+                if index != 6:  # A move is enforced by normal catalogue-delta work.
+                    with self.assertRaises(SystemExit):
+                        scope.check_publishable({'repositories': {'owner/repo': rs}}, rows)
+
     def test_only_new_or_materially_changed_repositories_are_selected(self):
         before = [project("same"), project("edit", "a/b"), project("removed", "a/gone")]
         after = copy.deepcopy(before[:2]) + [project("new", "a/new")]

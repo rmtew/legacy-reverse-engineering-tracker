@@ -105,6 +105,63 @@ class GitLabTests(unittest.TestCase):
         self.assertEqual(provider(KEY), 'gitlab')
         self.assertEqual(metadata({'gitlab': {'repository': KEY}}), {'repository': KEY})
 
+    def test_release_only_root_gets_slot_amid_more_than_500_probes(self):
+        records = [project(f'p{i:04}') for i in range(502)] + [glproject()]
+        self.setup_gitlab(records, {KEY: {'last_probe_at': pipeline.stamp(NOW),
+            'last_deep_scan': pipeline.stamp(NOW), 'default_branch': 'main'}})
+        self.net.errors['/releases'] = 403
+        result = self.collect(requests=2000)
+        self.assertEqual(result['summary']['repositories'], 500)
+        self.assertGreater(result['summary']['completed']['probe'], 0)
+        self.assertTrue(any('/releases?' in url for url, _ in self.net.calls))
+        row = next(row for row in result['results'] if row['repo'] == KEY)
+        self.assertEqual(row['state_after']['release_availability']['http_status'], 403)
+        self.assertEqual(len(result['progress_after']['cycle']['pending']['probe']), 3)
+
+    def test_release_only_root_retains_request_and_time_capacity(self):
+        records = [project(f'p{i:04}') for i in range(10)] + [glproject()]
+        state = {KEY: {'last_probe_at': pipeline.stamp(NOW),
+            'last_deep_scan': pipeline.stamp(NOW), 'default_branch': 'main'}}
+        for seconds, requests, delay in ((600, 6, 0), (20, 100, 1)):
+            with self.subTest(seconds=seconds, requests=requests):
+                self.setup_gitlab(records, copy.deepcopy(state))
+                self.net.delay = delay
+                self.net.errors['/releases'] = 403
+                result = self.collect(seconds=seconds, requests=requests)
+                self.assertGreater(result['summary']['completed']['probe'], 0)
+                self.assertTrue(any('/releases?' in url for url, _ in self.net.calls))
+                row = next(row for row in result['results'] if row['repo'] == KEY)
+                self.assertEqual(row['state_after']['release_availability']['http_status'], 403)
+
+    def test_provider_cooldown_does_not_reserve_release_slots(self):
+        records = [project(f'p{i:04}') for i in range(502)] + [glproject()]
+        self.setup_gitlab(records, {KEY: {'last_probe_at': pipeline.stamp(NOW),
+            'last_deep_scan': pipeline.stamp(NOW), 'default_branch': 'main'}})
+        progress = pipeline.progress_read(self.root)
+        progress['provider_blocked_until'] = {'gitlab': pipeline.stamp(NOW + timedelta(hours=1))}
+        self.put(pipeline.PROGRESS, progress)
+        result = self.collect()
+        self.assertEqual(result['summary']['completed']['probe'], 500)
+        self.assertEqual(result['summary']['repositories'], 500)
+        self.assertFalse(any('gitlab.com' in url for url, _ in self.net.calls))
+
+    def test_disjoint_probe_release_and_activity_lanes_all_get_slots(self):
+        records = [project(f'p{i:04}') for i in range(10)]
+        activity_records = [project('history1'), project('history2')]
+        release_records = [{**glproject('gl' + str(i)), 'repo': f'https://gitlab.com/group/release{i}'} for i in range(3)]
+        state = {repository(row): {'last_probe_at': pipeline.stamp(NOW),
+                 'next_probe_due_at': pipeline.stamp(NOW + timedelta(days=1)),
+                 'scan_requested': True} for row in activity_records}
+        state.update({repository(row): {'last_probe_at': pipeline.stamp(NOW),
+                      'last_deep_scan': pipeline.stamp(NOW)} for row in release_records})
+        self.setup_gitlab(records + activity_records + release_records, state)
+        def complete(repo, work, rows, rs, events, budget, now, *args):
+            return rows, rs, events, True, {}
+        with patch.object(pipeline, 'perform', side_effect=complete):
+            result = self.collect(limit=6)
+        self.assertEqual(result['summary']['repositories'], 6)
+        self.assertEqual(result['summary']['completed'], {'probe': 3, 'releases': 2, 'activity': 1})
+
     def test_collects_commits_and_releases_atomically_without_token(self):
         self.setup_gitlab()
         result = self.collect(full=True)

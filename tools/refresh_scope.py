@@ -99,6 +99,30 @@ def publication_resolved(repo, rs, fingerprint):
         return False
 
 
+def reconcile_legacy_publication(repo, rs, projects):
+    """Migrate only the added null GitLab selectors on an otherwise exact proof.
+
+    A schema-only hash change must not invalidate a verified retained-source
+    outcome. Real authored, membership and tracking changes still fail closed.
+    This never creates a root observation or alters unavailable-source facts.
+    """
+    work = rs.get("publication") or {}
+    if (not projects or provider(repo) != "github" or work.get("outcome") != "source-unavailable"
+            or any(repository(p) != repo or p.get("gitlab_branch") is not None
+                   or p.get("gitlab_path") is not None for p in projects)
+            or not publication_resolved(repo, {**rs, "publication": {**work, "metadata_complete": False,
+                                                                    "history_complete": False}}, work.get("fingerprint"))):
+        return rs
+    old = sorted((material(p) for p in projects), key=lambda p: p["id"])
+    for row in old:
+        row.pop("gitlab_branch", None)
+        row.pop("gitlab_path", None)
+    legacy = hashlib.sha256(json.dumps(old, sort_keys=True).encode()).hexdigest()
+    if work.get("fingerprint") != legacy:
+        return rs
+    return {**rs, "publication": {**work, "fingerprint": publication_fingerprint(projects)}}
+
+
 def catalogue_delta(before, after):
     old = {p["id"]: p for p in before}
     new = {p["id"]: p for p in after}
@@ -147,6 +171,9 @@ def select_repositories(repositories, scope):
 
 
 def prepare_publication(repositories, state, scope, projects=None):
+    for repo, records in repositories.items():
+        if repo in state.get("repositories", {}):
+            state["repositories"][repo] = reconcile_legacy_publication(repo, state["repositories"][repo], records)
     if scope["mode"] != "publication":
         # An hourly/default-manual run can begin before the publication run.
         # It stays broad, but must not bless new catalogue work as complete.
@@ -230,7 +257,8 @@ def check_publishable(state, projects, catalogue=None):
             tracked.setdefault(repo, []).append(project)
     pending = sorted(repo for repo, rs in state.get("repositories", {}).items()
                      if repo in tracked and rs.get("publication")
-                     and not publication_resolved(repo, rs, publication_fingerprint(tracked[repo])))
+                     and not publication_resolved(repo, reconcile_legacy_publication(repo, rs, tracked[repo]),
+                                                  publication_fingerprint(tracked[repo])))
     if pending:
         raise SystemExit("Publication enrichment must finish before deploying: " + ", ".join(pending))
 

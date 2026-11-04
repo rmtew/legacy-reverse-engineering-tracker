@@ -952,15 +952,40 @@ def collect(
     units = {work: 0 for work in WORKS}
     completed = {work: 0 for work in WORKS}
     cycle = progress.get("cycle")
-    for work in ("probe", "releases", "activity"):
+    lanes = ("probe", "releases", "activity")
+    for lane_index, work in enumerate(lanes):
+        # Protect later lanes in all three shared resources. Request/time
+        # reservations alone do not help a release-only repository when probes
+        # have already consumed every distinct-repository slot.
+        later = {
+            lane: [repo for repo in candidates(progress, poll, lane, now, limit)
+                   if history_ready(repo, poll["repositories"].get(repo, {}))
+                   and not poll["repositories"].get(repo, {}).get("availability_recheck_requested")]
+            for lane in lanes[lane_index + 1:]
+        }
+        protected = {}
+        slot_reserve = max(0, (limit - len(touched)) // 2)
+        # Alternate release/activity selections rather than filling the reserve
+        # from one large lane. Shared roots can still be probed in these slots.
+        for index in range(max((len(rows) for rows in later.values()), default=0)):
+            for lane, rows in later.items():
+                if index < len(rows) and rows[index] not in touched and len(protected) < slot_reserve:
+                    protected.setdefault(rows[index], lane)
+            if len(protected) >= slot_reserve:
+                break
         remaining = budget.limit - budget.requests
         deadline = budget.deadline
-        if work in ("probe", "releases") and cycle and any(
-            ready(progress, r, "activity", now) and history_ready(r, poll["repositories"].get(r, {}))
-            for r in cycle["pending"]["activity"]
-        ):
-            remaining //= 2
+        if later.get("activity"):
+            remaining = (remaining + (work == "releases")) // 2
             deadline = budget.clock() + max(0, deadline - budget.clock()) / 2
+        elif later.get("releases"):
+            # Most release units need one request; a denied feature can need a
+            # second to verify the root. Retain throughput when only one release
+            # is due instead of withholding half of a thousand-request batch.
+            # A probe can also discover new activity before the release lane,
+            # which will then reserve half of this remainder for that history.
+            remaining -= min(remaining // 2, 4 * len(later["releases"]))
+            deadline -= min(max(0, deadline - budget.clock()) / 2, 30 * len(later["releases"]))
         budget.begin_lane(work, remaining, deadline, remaining)
         # Activity repeats fair rounds so a small publication can finish multiple
         # pages in one slice while large repositories retain durable page cursors.
@@ -970,6 +995,10 @@ def collect(
                 if not ready(progress, repo, work, now):
                     continue
                 if repo not in touched and len(touched) >= limit:
+                    continue
+                reserved = {r for r, lane in protected.items() if r not in touched
+                            and ready(progress, r, lane, now)}
+                if repo not in touched and repo not in reserved and limit - len(touched) <= len(reserved):
                     continue
                 if (
                     work == "activity" and not history_ready(repo, poll["repositories"].get(repo, {}))
