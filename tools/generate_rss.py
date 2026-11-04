@@ -17,6 +17,7 @@ from datetime import datetime, timezone, timedelta
 from email.utils import format_datetime
 from pathlib import Path
 from activity_history import RETENTION_DAYS
+from repository_provider import metadata, provider
 import xml.etree.ElementTree as ET
 
 SITE_URL = "https://rmtew.github.io/legacy-reverse-engineering-tracker/"
@@ -79,20 +80,40 @@ def format_day(day):
             return day
 
 
-def release_events(projects):
-    events = []
+def release_events(projects, activity_events=()):
+    """Keep stored releases and supplement older latest-only metadata.
+
+    The project/tag key matches the longstanding RSS GUID, so the same release
+    does not appear twice when it is present in both sources. Stored events win:
+    they retain the original timestamp and link even after metadata advances.
+    """
+    project_ids = {project.get("id") for project in projects}
+    events, seen = [], set()
+    for event in activity_events:
+        if (event.get("type") != "release" or event.get("project_id") not in project_ids
+                or not event.get("date") or not event.get("tag")):
+            continue
+        key = (event.get("project_id"), event["tag"])
+        if key not in seen:
+            events.append(event)
+            seen.add(key)
     for project in projects:
-        release = (project.get("github") or {}).get("latest_release") or {}
+        source = metadata(project)
+        release = source.get("latest_release") or {}
         published = release.get("published_at")
         if not published:
             continue
         tag = release.get("tag") or release.get("name") or "release"
+        key = (project.get("id"), tag)
+        if key in seen:
+            continue
+        seen.add(key)
         events.append({
             "type": "release",
             # The catalogue stores the release day, without a time of day.
             "date": published,
             "project_id": project.get("id"),
-            "repository": (project.get("github") or {}).get("repository"),
+            "repository": source.get("repository"),
             "tag": tag,
             "title": "Release " + tag,
             "message": release.get("name") if release.get("name") != tag else "",
@@ -155,7 +176,7 @@ def daily_description(event, project):
     platforms = project_platforms(project)
     if platforms:
         bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
-    if ((project.get("github") or {}).get("source_availability") or {}).get("status") == "unavailable":
+    if (metadata(project).get("source_availability") or {}).get("status") == "unavailable":
         bits.append("<p>Repository unavailable (HTTP 404); prior metadata retained; retryable.</p>")
 
     if event.get("authors"):
@@ -197,10 +218,11 @@ def release_description(event, project):
     platforms = project_platforms(project)
     if platforms:
         bits.append("<p><strong>Platforms:</strong> " + html.escape(platforms) + "</p>")
-    if ((project.get("github") or {}).get("source_availability") or {}).get("status") == "unavailable":
+    if (metadata(project).get("source_availability") or {}).get("status") == "unavailable":
         bits.append("<p>Repository unavailable (HTTP 404); prior metadata retained; retryable.</p>")
-    if event.get("message"):
-        bits.append("<p>" + html.escape(str(event["message"])) + "</p>")
+    message = event.get("message") or event.get("name")
+    if message and message != event.get("tag"):
+        bits.append("<p>" + html.escape(str(message)) + "</p>")
     return "".join(bits)
 
 
@@ -223,8 +245,7 @@ def change_description(event, project):
         bits.append("<p><strong>At addition (" + str(context.get("window_days", 90)) + "-day window):</strong> " + str(context.get("commits", context.get("commits_90d", 0))) +
                     " commits across " + str(context.get("active_days", context.get("active_days_90d", 0))) + " active days</p>")
     elif event.get("type") in ("project_added", "project_restored"):
-        repo = project.get("repo") or ""
-        status = "Initial activity scan pending." if "github.com/" in repo else "Repository activity unavailable."
+        status = "Initial activity scan pending." if provider(project) else "Repository activity unavailable."
         bits.append("<p>" + status + "</p>")
     changes = event.get("changes") or []
     if changes:
@@ -238,7 +259,7 @@ def generate(activity_path, projects_path, output_path, limit):
     by_id = {project["id"]: project for project in projects if project.get("id")}
 
     events = aggregate_commit_days(activity)
-    events.extend(release_events(projects))
+    events.extend(release_events(projects, activity.get("events", [])))
     events.extend(event for event in activity.get("events", [])
                   if str(event.get("type", "")).startswith("project_")
                   and str(event.get("date") or "") > CATALOG_FEED_START)

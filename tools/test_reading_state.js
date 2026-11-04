@@ -51,7 +51,7 @@ function browser(storage={},extras={}){
   const elements=new Map(),handlers=new Map();
   const node=id=>({id,value:'',dataset:{},checked:false,hidden:false,innerHTML:'',insertAdjacentHTML:function(_,html){this.innerHTML+=html;},textContent:'',classList:{contains:()=>id==='activityView',toggle:()=>{}},setAttribute:()=>{},addEventListener:(event,fn)=>handlers.set(id+':'+event,fn),querySelectorAll:()=>[],querySelector:()=>node('child'),focus:()=>{},close:()=>{}});
   const get=id=>{if(!elements.has(id))elements.set(id,node(id));return elements.get(id);};
-  const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node('q'),querySelectorAll:()=>[]},window:{matchMedia:()=>({matches:false,addEventListener:()=>{}}),addEventListener:()=>{},scrollTo:()=>{}},localStorage:{getItem:key=>storage[key]||null,setItem:(key,value)=>{storage[key]=value;}},fetch:()=>new Promise(()=>{}),console,Date,Set,Map,Promise,setTimeout:()=>{},clearTimeout:()=>{},TrackerReading:r,...extras});
+  const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node('q'),querySelectorAll:()=>[]},window:{matchMedia:()=>({matches:false,addEventListener:()=>{}}),addEventListener:(event,fn)=>handlers.set('window:'+event,fn),scrollTo:()=>{}},localStorage:{getItem:key=>storage[key]||null,setItem:(key,value)=>{storage[key]=value;}},fetch:()=>new Promise(()=>{}),console,Date,Set,Map,Promise,setTimeout:()=>{},clearTimeout:()=>{},TrackerReading:r,...extras});
   vm.runInContext(fs.readFileSync(require.resolve('../web/tracker.js'),'utf8'),context);
   const run=code=>vm.runInContext(code,context);
   run(`projects=[{id:'p',title:'Project'}];projectsReady=true;activityReady=true;activityUiReady=true;readingInitialized=true;bindActivityProjectFacets=()=>{};loadProjectCatalogue=async()=>projects;activityData={generated_at:'${date}',events:[]};readingState=reading.reconcile(reading.empty(),[],activityData.generated_at).state;saveReading();`);
@@ -411,4 +411,132 @@ test('rail Home/End focuses only the final notch without page scrolling or trans
   const css=fs.readFileSync(require.resolve('../web/tracker.css'),'utf8');
   assert.match(css,/\.activity-timeline\{[^}]*overflow-anchor:none/);
   assert.match(css,/\.timeline-marks\{[^}]*overscroll-behavior:contain/);
+});
+
+const unavailableSource={status:'unavailable',http_status:404,retryable:true};
+test('only explicit retryable root 404 metadata produces an unavailable marker',()=>{
+  const b=browser();b.context.status=unavailableSource;
+  assert.equal(b.run('repositoryUnavailable({github:{source_availability:status}})'),true);
+  assert.equal(b.run('repositoryUnavailable({repo:"https://gitlab.com/g/p",gitlab:{source_availability:status}})'),true);
+  for(const httpStatus of [401,403,429,500,503]){
+    b.context.status={...unavailableSource,http_status:httpStatus};
+    assert.equal(b.run('repositoryUnavailable({github:{source_availability:status}})'),false);
+  }
+  for(const status of [{status:'available',http_status:404,retryable:true},{status:'unavailable',http_status:404},{status:'error',http_status:404,retryable:true}]){
+    b.context.status=status;assert.equal(b.run('repositoryUnavailable({github:{source_availability:status}})'),false);
+  }
+  b.context.status=unavailableSource;
+  assert.equal(b.run('repositoryUnavailable({repo:"https://gitlab.com/g/p",gitlab:{},github:{source_availability:status}})'),false);
+  assert.equal(b.run('repositoryUnavailable({repo:"https://github.com/g/p",github:{latest_release:null},gitlab:{source_availability:status}})'),false);
+});
+
+test('one bookmarked warning covers the whole catalogue independent of events, filters and read status',()=>{
+  const b=browser();b.context.status=unavailableSource;
+  b.run(`projects=[{id:'p',title:'Affected without events',github:{source_availability:status}},
+    {id:'q',title:'Affected GitLab',gitlab:{source_availability:status}},
+    {id:'r',title:'Not bookmarked',github:{source_availability:status}},
+    {id:'healthy',title:'Healthy'}];
+    bookmarks=new Set(['p','q','healthy','removed']);
+    activityData.events=[{type:'commit',project_id:'q',date:'${date}',sha:'one'},{type:'project_removed',project_id:'removed',date:'${date}',project:{id:'removed',github:{source_availability:status}}}];
+    ingestReadingSnapshot();
+    $('activityQ').value='nothing matches';activityFilterState.days='2';activityFilterState.type.add('release');
+    renderActivity();`);
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+  assert.equal(b.get('sourceAvailabilitySummary').textContent,'Updates may be incomplete for 2 bookmarked projects.');
+  assert.equal((b.get('sourceAvailabilityProjects').innerHTML.match(/data-source-details=/g)||[]).length,2);
+  assert.match(b.get('sourceAvailabilityProjects').innerHTML,/Affected without events/);
+  assert.doesNotMatch(b.get('sourceAvailabilityProjects').innerHTML,/Not bookmarked|removed/);
+  assert.equal(b.get('activityCount').textContent,0);assert.equal(b.get('unreadCount').textContent,2);
+  b.handlers.get('markRead:click')();
+  assert.equal(b.get('unreadCount').textContent,0);assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+  for(const scope of ['unread','all','bookmarks']){
+    b.run(`inboxView='${scope}';renderActivity()`);
+    assert.equal(b.get('sourceAvailabilityWarning').hidden,false);assert.equal(b.get('activityCount').textContent,0);
+  }
+  b.run('activityData.events=[];ingestReadingSnapshot();renderActivity()');
+  assert.equal(b.get('unreadCount').textContent,0);assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+  assert.equal(b.run('combinedActivityEvents().length'),0);
+});
+
+test('bookmark warning updates in place, escapes titles and keeps unchanged notice DOM',()=>{
+  const b=browser();b.context.status=unavailableSource;
+  b.run(`projects[0].title="Project <unsafe> & O'Neil";projects[0].github={source_availability:status};
+    render=renderActivity=()=>{throw Error('feed rebuilt');};
+    globalThis.click={target:{closest:()=>({dataset:{bookmark:'p'},isConnected:true})},preventDefault(){},stopPropagation(){}};
+    bookmarkClick(click);`);
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+  assert.match(b.get('sourceAvailabilityProjects').innerHTML,/Project &lt;unsafe&gt; &amp; O&#39;Neil/);
+  const list=b.get('sourceAvailabilityProjects');let rewrites=0;const content=list.innerHTML;
+  Object.defineProperty(list,'innerHTML',{get:()=>content,set:()=>{rewrites++;}});
+  b.run('updateSourceAvailabilityWarning();updateSourceAvailabilityWarning(true)');assert.equal(rewrites,0);
+  b.run('bookmarkClick(click)');assert.equal(b.get('sourceAvailabilityWarning').hidden,true);
+});
+
+test('bookmark imports and other-tab changes immediately update source warnings',async()=>{
+  const b=browser();b.context.status=unavailableSource;
+  b.run('projects[0].github={source_availability:status};updateSourceAvailabilityWarning()');
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,true);
+  await b.handlers.get('importBookmarks:change')({target:{files:[{size:30,text:async()=>'{"version":1,"project_ids":["p"]}'}]}});
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+  b.handlers.get('window:storage')({key:r.BOOKMARKS,newValue:'{"version":1,"project_ids":[]}'});
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,true);
+  b.handlers.get('window:storage')({key:r.BOOKMARKS,newValue:'{"version":1,"project_ids":["p"]}'});
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+});
+
+test('successful snapshot recovery clears source notice without inventing activity or unread items',async()=>{
+  const b=browser();b.context.status=unavailableSource;
+  b.run('projects[0].github={source_availability:status};bookmarks.add("p");renderActivity()');
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,false);
+  b.run(`loadProjectCatalogue=async()=>[{id:'p',title:'Recovered',github:{}}];loadActivitySnapshot=async()=>({generated_at:'${date}',events:[]});`);
+  await b.run('fetchUpdates()');
+  assert.equal(b.get('sourceAvailabilityWarning').hidden,true);assert.equal(b.get('unreadCount').textContent,0);
+  assert.equal(b.run('combinedActivityEvents().length'),0);assert.equal(b.run('bookmarks.has("p")'),true);
+});
+
+test('notice height changes above the viewport preserve feed position without measuring activity groups',()=>{
+  const b=browser();b.context.status=unavailableSource;
+  b.run(`projects[0].github={source_availability:status};updateSourceAvailabilityWarning();
+    window.scrollY=700;window.scrollTo=(x,y)=>{window.scrollY=y;};
+    $('sourceAvailabilitySlot').getBoundingClientRect=()=>({top:-500,height:$('sourceAvailabilityWarning').hidden?0:40});
+    document.querySelectorAll=()=>{throw Error('measured activity groups');};
+    bookmarks.add('p');updateSourceAvailabilityWarning(true);`);
+  assert.equal(b.run('window.scrollY'),740);
+  b.run('bookmarks.delete("p");updateSourceAvailabilityWarning(true)');assert.equal(b.run('window.scrollY'),700);
+  b.run(`window.scrollY=0;$('sourceAvailabilitySlot').getBoundingClientRect=()=>({top:200,height:$('sourceAvailabilityWarning').hidden?0:40});bookmarks.add('p');updateSourceAvailabilityWarning(true)`);
+  assert.equal(b.run('window.scrollY'),0);
+});
+
+test('GitLab release fallback deduplicates durable release events by project and tag',()=>{
+  const b=browser();
+  b.run(`projects=[{id:'p',repo:'https://gitlab.com/g/sub/p',gitlab:{repository:'gitlab.com/g/sub/p',latest_release:{tag:'v2',name:'Version 2',published_at:'2026-10-28',url:'https://gitlab.com/g/sub/p/-/releases/v2'}}}];`);
+  const synthetic=b.run('combinedActivityEvents()');
+  assert.equal(synthetic.length,1);assert.equal(synthetic[0].repository,'gitlab.com/g/sub/p');assert.equal(synthetic[0].tag,'v2');
+  b.run(`activityData.events=[{type:'release',project_id:'p',tag:'v2',sha:'associated-commit',title:'Canonical release',date:'2026-10-28T15:00:00Z',url:'https://gitlab.com/g/sub/p/-/releases/v2'}];`);
+  assert.equal(b.run('combinedActivityEvents().length'),1);assert.equal(b.run('combinedActivityEvents()[0].title'),'Canonical release');
+  b.run(`activityData.events.push({type:'release',project_id:'p',tag:'v1',title:'Earlier release',date:'2026-10-20T15:00:00Z'});`);
+  assert.equal(b.run('combinedActivityEvents().length'),2);
+  b.run(`activityData.events=[];projects[0].gitlab.latest_release.published_at='2026-11-15';`);assert.equal(b.run('combinedActivityEvents().length'),0);
+  b.run(`projects[0].gitlab.latest_release.published_at='invalid';`);assert.equal(b.run('combinedActivityEvents().length'),0);
+});
+
+test('GitLab addition display uses provider metadata and preserves frozen release context',()=>{
+  const b=browser();
+  b.run(`projects[0].repo='https://gitlab.com/g/p';projects[0].gitlab={repository:'gitlab.com/g/p',latest_commit:{date:'2026-10-28',url:'https://gitlab.com/g/p/-/commit/a'},latest_release:{tag:'v2',published_at:'2026-10-27',url:'https://gitlab.com/g/p/-/releases/v2'}};`);
+  const html=b.run('additionContextHtml({type:"project_added"},projects[0])');
+  assert.match(html,/Last commit/);assert.match(html,/releases\/v2/);assert.match(html,/Initial scan pending/);
+  const frozen=b.run('additionContextHtml({type:"project_added",activity_context:{latest_release:{tag:"v1",published_at:"2026-10-20"},window_days:30,commits:1,active_days:1}},projects[0])');
+  assert.match(frozen,/v1/);assert.doesNotMatch(frozen,/v2/);
+});
+
+
+test('source-status observation date is labelled first observed, never an invented last-check timestamp',()=>{
+  const b=browser();b.context.status={...unavailableSource,checked_at:'2026-10-27T14:25:00Z'};
+  const message=b.run('repositoryAvailability({github:{source_availability:status}})');
+  assert.match(message,/First observed unavailable: 2026-10-27T14:25:00Z/);
+  assert.doesNotMatch(message,/Last checked:|Last check:|Next check:/);
+  for(const checked_at of [undefined,null,'invalid']){
+    b.context.status={...unavailableSource,checked_at};
+    assert.doesNotMatch(b.run('repositoryAvailability({github:{source_availability:status}})'),/First observed/);
+  }
 });

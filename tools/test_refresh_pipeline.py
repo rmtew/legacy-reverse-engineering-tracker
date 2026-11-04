@@ -216,11 +216,11 @@ class RefreshPipelineTests(unittest.TestCase):
         before = self.bytes()
         batch = self.collect(limit=1, full=True)
         self.assertEqual(before, self.bytes())
-        self.assertEqual(batch["summary"]["completed"], {"probe": 1, "activity": 1})
+        self.assertEqual(batch["summary"]["completed"], {"probe": 1, "activity": 1, "releases": 0})
         first = self.apply(batch)
         self.assert_publication_handoff(first)
         self.assertTrue(first["continue"])
-        self.assertEqual(first["remaining"], {"probe": 2, "activity": 2})
+        self.assertEqual(first["remaining"], {"probe": 2, "activity": 2, "releases": 0})
         records = load_projects(self.root / "data/projects.json")
         self.assertIn("checked_at", next(p for p in records if p["id"] == "a")["github"])
         for index in range(2):
@@ -231,7 +231,7 @@ class RefreshPipelineTests(unittest.TestCase):
             first = self.apply(batch)
         self.assertFalse(first["continue"])
         self.assert_publication_handoff(first)
-        self.assertEqual(first["completed"], {"probe": 3, "activity": 3})
+        self.assertEqual(first["completed"], {"probe": 3, "activity": 3, "releases": 0})
         self.assertFalse(first["active"])
         # An identical full request cannot restart the completed sweep.
         done = self.collect(full=True)
@@ -241,7 +241,7 @@ class RefreshPipelineTests(unittest.TestCase):
     def test_zero_requests_does_not_mark_repositories_failed_or_spin(self):
         batch = self.collect(requests=0, full=True)
         self.assertEqual(batch["results"], [])
-        self.assertEqual(batch["progress_after"]["retry"], {"probe": {}, "activity": {}})
+        self.assertEqual(batch["progress_after"]["retry"], {"probe": {}, "activity": {}, "releases": {}})
         self.apply(batch)
         again = self.collect(requests=0, full=True, now=NOW + timedelta(minutes=1))
         self.assertFalse(self.apply(again)["published"])
@@ -250,8 +250,8 @@ class RefreshPipelineTests(unittest.TestCase):
     def test_wall_exhaustion_rolls_back_incomplete_unit(self):
         self.net.delay = 2
         batch = self.collect(seconds=1, full=True)
-        self.assertEqual(batch["summary"]["completed"], {"probe": 0, "activity": 0})
-        self.assertEqual(batch["progress_after"]["retry"], {"probe": {}, "activity": {}})
+        self.assertEqual(batch["summary"]["completed"], {"probe": 0, "activity": 0, "releases": 0})
+        self.assertEqual(batch["progress_after"]["retry"], {"probe": {}, "activity": {}, "releases": {}})
         self.assertTrue(all(t <= 1 for _, t in self.net.calls))
         self.assertFalse(any(r["outcomes"] for r in batch["results"]))
 
@@ -359,7 +359,7 @@ class RefreshPipelineTests(unittest.TestCase):
         self.activity_only()
         self.net.failure = "/commits"
         batch = self.collect(requests=20)
-        self.assertIn("blocked_until", batch["progress_after"])
+        self.assertIn("github", batch["progress_after"]["provider_blocked_until"])
         result = self.apply(batch)
         self.assertFalse(result["continue"])
         self.assert_publication_handoff(result)
@@ -433,7 +433,7 @@ class RefreshPipelineTests(unittest.TestCase):
             batch = self.collect(full=True)
         result = self.apply(batch)
         self.assertFalse(result["active"])
-        self.assertEqual(result["deferred"], {"probe": 1, "activity": 1})
+        self.assertEqual(result["deferred"], {"probe": 1, "activity": 1, "releases": 0})
         with self.assertRaises(SystemExit):
             check_publishable(
                 self.read(pipeline.POLL),
@@ -519,7 +519,7 @@ class RefreshPipelineTests(unittest.TestCase):
         request = self.research(added=["new"], updated=["b"])
         batch = self.collect(request_id=request)
         self.assertEqual({r["repo"] for r in batch["results"]}, {"owner/b", "owner/new"})
-        self.assertEqual(batch["summary"]["completed"], {"probe": 2, "activity": 2})
+        self.assertEqual(batch["summary"]["completed"], {"probe": 2, "activity": 2, "releases": 0})
         self.assertEqual(batch["progress_after"]["cycle"]["mode"], "research")
         self.assertTrue(all("/owner/a" not in url and "/owner/c" not in url for url, _ in self.net.calls))
         self.assertFalse(self.apply(batch)["continue"])
@@ -613,7 +613,7 @@ class RefreshPipelineTests(unittest.TestCase):
         refreshed = self.collect(request_id=request, continuation=applied["token"], limit=1,
                                  now=NOW + timedelta(minutes=2))
         self.assertEqual({row["repo"] for row in refreshed["results"]}, {"owner/a"})
-        self.assertEqual(refreshed["summary"]["completed"], {"probe": 1, "activity": 1})
+        self.assertEqual(refreshed["summary"]["completed"], {"probe": 1, "activity": 1, "releases": 0})
         self.assertEqual(refreshed["progress_after"]["cycle"]["pending"], original["pending"])
         self.assertTrue(self.apply(refreshed)["continue"])
 
@@ -655,7 +655,7 @@ class RefreshPipelineTests(unittest.TestCase):
         self.net.calls = []
         removed = self.collect(request_id=request, continuation=applied["token"])
         self.assertEqual(removed["summary"]["repositories"], 0)
-        self.assertEqual(removed["progress_after"]["cycle"]["pending"], {"probe": [], "activity": []})
+        self.assertEqual(removed["progress_after"]["cycle"]["pending"], {"probe": [], "activity": [], "releases": []})
         self.assertEqual(self.net.calls, [])
 
     def test_empty_non_github_or_removed_research_scope_never_falls_back_to_due(self):
@@ -663,7 +663,7 @@ class RefreshPipelineTests(unittest.TestCase):
         request = self.research(added=["gone"], updated=["web"])
         batch = self.collect(request_id=request)
         self.assertEqual(batch["summary"]["repositories"], 0)
-        self.assertEqual(batch["progress_after"]["cycle"]["targets"], {"probe": [], "activity": []})
+        self.assertEqual(batch["progress_after"]["cycle"]["targets"], {"probe": [], "activity": [], "releases": []})
         self.assertEqual(self.net.calls, [])
         self.assertFalse(self.apply(batch)["continue"])
 
@@ -722,13 +722,13 @@ class RefreshPipelineTests(unittest.TestCase):
         old.pop("message")  # Canonical history omits a message identical to the title.
         self.put("data/activity.json", {"generated_at": pipeline.stamp(NOW), "window_days": 180, "events": [old]})
         batch = self.collect()
-        self.assertEqual(batch['summary']['completed'], {'probe': 0, 'activity': 0})
+        self.assertEqual(batch['summary']['completed'], {'probe': 0, 'activity': 0, 'releases': 0})
         self.assertEqual(len(self.net.calls), 1)  # No dependent history or missing-file probes.
         self.apply(batch)
         actual = load_projects(self.root / 'data/projects.json')[0]
         gh = copy.deepcopy(actual['github']); availability = gh.pop('source_availability')
         self.assertEqual(gh, prior['github'])
-        self.assertEqual(availability, {'status': 'unavailable', 'http_status': 404, 'retryable': True})
+        self.assertEqual(availability, {'status': 'unavailable', 'http_status': 404, 'retryable': True, 'checked_at': pipeline.stamp(NOW)})
         self.assertEqual(actual['last_checked'], prior['last_checked'])
         self.assertEqual(actual['last_activity'], prior['last_activity'])
         self.assertEqual([e for e in self.read('data/activity.json')['events'] if e.get('sha')], [old])

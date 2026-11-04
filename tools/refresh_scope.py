@@ -19,16 +19,12 @@ from datetime import datetime
 from pathlib import Path
 
 from record_project_activity import snapshot
+from repository_provider import repository, provider, metadata, selectors
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "data/projects.json"
 STATE = ROOT / "state/github-poll-state.json"
 CATALOGUE = ROOT / "state/project-catalog-state.json"
-
-
-def repository(project):
-    match = re.fullmatch(r"https?://github\.com/([^/]+)/([^/#?]+?)(?:\.git)?/?", project.get("repo") or "")
-    return f"{match[1]}/{match[2]}" if match else None
 
 
 def material(project):
@@ -39,7 +35,7 @@ def material(project):
 
 
 def tracking(project):
-    return (repository(project), project.get("github_branch"), project.get("github_path"))
+    return (repository(project), *selectors(project))
 
 
 def publication_fingerprint(projects):
@@ -50,8 +46,8 @@ def publication_fingerprint(projects):
 def retained_metadata(repo, projects, rs):
     """An unavailable source cannot waive new identities or unknown metadata."""
     return bool(projects and rs.get("last_probe_at")) and all(
-        (p.get("github") or {}).get("repository", "").casefold() == repo.casefold()
-        and any((p.get("github") or {}).get(k) for k in ("default_branch", "latest_commit", "created_at", "languages"))
+        metadata(p).get("repository", "").casefold() == repo.casefold()
+        and any(metadata(p).get(k) for k in ("default_branch", "latest_commit", "created_at", "languages"))
         for p in projects
     )
 
@@ -61,7 +57,7 @@ def publication_resolved(repo, rs, fingerprint):
     work = rs.get("publication") or {}
     if not isinstance(work, dict):
         return False
-    if work.get("metadata_complete") and work.get("history_complete"):
+    if work.get("metadata_complete") and work.get("history_complete") and work.get("releases_complete", True):
         return True
     proof = rs.get("repository_availability") or {}
     if not isinstance(proof, dict):
@@ -86,7 +82,7 @@ def catalogue_delta(before, after):
     changed = sorted(pid for pid, p in new.items() if pid not in old or material(old[pid]) != material(p))
     removed = sorted(set(old) - set(new))
     reset = sorted(pid for pid in changed if pid not in old or tracking(old[pid]) != tracking(new[pid]))
-    left_github = sorted(pid for pid in changed if pid in old and repository(old[pid]) and not repository(new[pid]))
+    left_github = sorted(pid for pid in changed if pid in old and provider(old[pid]) == "github" and provider(new[pid]) != "github")
     repositories = sorted({repository(new[pid]) for pid in changed if repository(new[pid])})
     membership = sorted({repository(p) for pid in changed + removed
                          for p in (old.get(pid, {}), new.get(pid, {})) if repository(p)})
@@ -136,8 +132,11 @@ def prepare_publication(repositories, state, scope, projects=None):
         return
     # A move away from GitHub has no selected GitHub repository to visit below.
     for project in projects or []:
-        if project["id"] in scope.get("left_github_project_ids", []) and repository(project) is None:
+        if project["id"] in scope.get("left_github_project_ids", []) and provider(project) != "github":
             project.pop("github", None)
+            project.pop("last_activity", None)
+        if project["id"] in scope.get("changed_project_ids", []) and provider(project) != "gitlab" and "gitlab" in project:
+            project.pop("gitlab", None)
             project.pop("last_activity", None)
     states = state.setdefault("repositories", {})
     for repo in scope["membership_repositories"]:
@@ -154,10 +153,14 @@ def prepare_publication(repositories, state, scope, projects=None):
         rs = states.setdefault(repo, {})
         fingerprint = scope["fingerprints"][repo]
         if (rs.get("publication") or {}).get("fingerprint") == fingerprint:
+            if provider(repo) == "gitlab":
+                rs["publication"].setdefault("releases_complete", False)
             continue
         reset_ids = sorted(p["id"] for p in repositories[repo] if p["id"] in scope["reset_project_ids"])
         rs["publication"] = {"fingerprint": fingerprint, "metadata_complete": False,
                              "history_complete": False, "reset_project_ids": reset_ids}
+        if provider(repo) == "gitlab":
+            rs["publication"]["releases_complete"] = False
         # Do not let an old repository scan freeze context for a new project or
         # changed branch/path before its full history has actually completed.
         if reset_ids:
@@ -167,13 +170,14 @@ def prepare_publication(repositories, state, scope, projects=None):
         rs["scan_reason"] = "publication"
         for project in repositories[repo]:
             if project["id"] in reset_ids:
-                project.pop("github", None)
+                project.pop(provider(project) or "github", None)
                 project.pop("last_activity", None)
 
 
 def pending_publication(rs):
     work = rs.get("publication") or {}
-    return bool(work) and not (work.get("metadata_complete") and work.get("history_complete"))
+    return bool(work) and not (work.get("metadata_complete") and work.get("history_complete")
+                               and work.get("releases_complete", True))
 
 
 def check_complete(scope, state):

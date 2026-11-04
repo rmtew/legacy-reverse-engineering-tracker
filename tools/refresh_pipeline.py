@@ -15,11 +15,13 @@ import re
 from pathlib import Path
 import shutil
 import tempfile
-from urllib.parse import quote, urlencode
+from urllib.parse import quote, urlencode, urlsplit
 from urllib.error import HTTPError
 
 import collect_activity as activity
 import refresh_github as probe
+import refresh_gitlab as gitlab
+from repository_provider import provider, metadata, matches_branch, selectors
 from activity_history import RETENTION_DAYS, compact_history, freeze_addition_context, write_activity
 from catalogue_storage import bounded, encode, load_projects, write_projects, storage_paths
 from collection_budget import Budget, BudgetStop, RecordStop
@@ -32,8 +34,11 @@ from validate_site_data import validate
 
 PROGRESS = "state/refresh-progress.json"
 POLL = "state/github-poll-state.json"
-OWNED = ("github", "last_activity", "last_checked", "ai")
+OWNED = ("github", "gitlab", "last_activity", "last_checked", "ai")
 RESEARCH_REQUEST_HISTORY = 128
+WORKS = ("probe", "activity", "releases")
+HOURLY_LIMITS = {"github": int(os.environ.get("GITHUB_REFRESH_HOURLY_REQUESTS", "3000")),
+                 "gitlab": int(os.environ.get("GITLAB_REFRESH_HOURLY_REQUESTS", "120"))}
 
 
 def log(**value):
@@ -52,6 +57,75 @@ def read(path, default):
     return json.loads(path.read_bytes()) if path.exists() else copy.deepcopy(default)
 
 
+class ProviderStop(Exception):
+    def __init__(self, retry_at):
+        super().__init__("provider hourly request budget")
+        self.retry_at = retry_at
+
+
+def provider_request(progress, kind, url, now, budget):
+    """Count actual attempts across published continuations, never cached units.
+
+    Retain each minute bucket until an hour after its END. This conservative
+    sliding window prevents a fixed-hour boundary burst without per-request logs.
+    """
+    observed = now + timedelta(seconds=max(0, budget.clock() - budget.start))
+    minute = int(observed.timestamp()) // 60
+    usage = progress.setdefault("provider_usage", {}).setdefault(kind, {})
+    buckets = usage.setdefault("minutes", {})
+    for key in list(buckets):
+        if int(key) < minute - 60:
+            buckets.pop(key)
+    limit = HOURLY_LIMITS[kind]
+    if limit < 1:
+        raise ValueError("Provider hourly request budget must be positive")
+    if sum(sum(row.values()) for row in buckets.values()) >= limit:
+        earliest = min(map(int, buckets))
+        raise ProviderStop(datetime.fromtimestamp((earliest + 61) * 60, timezone.utc))
+    path = urlsplit(url).path
+    if kind == "github":
+        path = re.sub(r"^/repos/[^/]+/[^/]+", "/repos/:repo", path)
+        endpoint = path.split("/repos/:repo/", 1)[-1].split("/", 1)[0] if path != "/repos/:repo" else "repository"
+    else:
+        suffix = path.split("/projects/", 1)[-1].split("/", 1)
+        endpoint = suffix[1].split("/", 2) if len(suffix) > 1 else []
+        endpoint = "/".join(endpoint[:2]) or "project"
+    row = buckets.setdefault(str(minute), {})
+    row[endpoint] = row.get(endpoint, 0) + 1
+    usage["limit"] = limit
+    usage["checked_at"] = stamp(observed)
+    if sum(sum(row.values()) for row in buckets.values()) >= limit:
+        until = stamp(datetime.fromtimestamp((min(map(int, buckets)) + 61) * 60, timezone.utc))
+        blocked = progress.setdefault("provider_blocked_until", {})
+        blocked[kind] = max(blocked.get(kind, ""), until)
+    bounded(encode(progress["provider_usage"]), "provider request usage")
+
+
+def migrate_progress(value):
+    value = copy.deepcopy(value)
+    value.setdefault("retry", {}).setdefault("releases", {})
+    if value.get("cycle"):
+        for field in ("targets", "pending", "deferred"):
+            value["cycle"].setdefault(field, {}).setdefault("releases", [])
+    return value
+
+
+def source_matches(records, expected):
+    if source(records) == expected:
+        return True
+    # Replay pre-GitLab bundles only when new selector/owned fields are absent.
+    # Their source hash omitted two newly introduced material null fields.
+    if any(provider(p) != "github" or p.get("gitlab") or p.get("gitlab_branch") or p.get("gitlab_path") for p in records):
+        return False
+    legacy = []
+    for project in records:
+        row = snapshot(project)
+        row.pop("gitlab_branch", None)
+        row.pop("gitlab_path", None)
+        legacy.append(row)
+    return digest(sorted(legacy, key=lambda p: p["id"])) == expected
+
+
 def progress_read(root):
     value = read(
         Path(root) / PROGRESS,
@@ -59,7 +133,8 @@ def progress_read(root):
     )
     if value.get("version") != 1 or type(value.get("revision")) is not int or value["revision"] < 0:
         raise ValueError("Invalid refresh progress")
-    for work in ("probe", "activity"):
+    value.setdefault("retry", {}).setdefault("releases", {})
+    for work in WORKS:
         if not isinstance(value.get("retry", {}).get(work), dict):
             raise ValueError("Invalid refresh retry queue")
     requests = value.get("research_requests", [])
@@ -72,7 +147,9 @@ def progress_read(root):
         if not isinstance(cycle.get("id"), str):
             raise ValueError("Invalid refresh cycle")
         cycle.setdefault("deferred", {"probe": [], "activity": []})
-        for work in ("probe", "activity"):
+        for field in ("targets", "pending", "deferred"):
+            cycle.setdefault(field, {}).setdefault("releases", [])
+        for work in WORKS:
             for field in ("targets", "pending", "deferred"):
                 rows = cycle.get(field, {}).get(work)
                 if (
@@ -114,6 +191,9 @@ def owned(record):
 
 
 def due(repo, record_group, rs, now):
+    if provider(repo) == "gitlab":
+        last = activity.parse_time(rs.get("last_probe_at"))
+        return last is None or now - last >= timedelta(hours=24)
     latest = max((p.get("last_activity") or "" for p in record_group), default="")
     archived = any((p.get("github") or {}).get("archived") for p in record_group)
     old, old_today = probe.RUN_AT, probe.TODAY
@@ -125,14 +205,31 @@ def due(repo, record_group, rs, now):
         probe.RUN_AT, probe.TODAY = old, old_today
 
 
+def history_ready(repo, rs):
+    return not ((provider(repo) == "gitlab" and not rs.get("last_probe_at")) or
+                (pending_publication(rs) and not rs["publication"].get("metadata_complete")))
+
+
+def activity_due(repo, rs, now):
+    if rs.get("scan_requested") or rs.get("refresh_activity"):
+        return True
+    last = activity.parse_time(rs.get("last_deep_scan"))
+    return provider(repo) == "gitlab" and (last is None or now - last >= timedelta(hours=1))
+
+
 def plan(progress, records, poll, now, request_id, full=False, research_repositories=None):
     progress = copy.deepcopy(progress)
+    progress.setdefault("retry", {}).setdefault("releases", {})
+    if progress.get("cycle"):
+        for field in ("targets", "pending", "deferred"):
+            progress["cycle"].setdefault(field, {}).setdefault("releases", [])
     # Long unavailable-source retries must not pin the active cycle and prevent
     # later healthy repositories from entering a new sweep.
     if cycle := progress.get("cycle"):
-        for work in ("probe", "activity"):
+        for work in WORKS:
             for repo in list(cycle["pending"][work]):
                 if not ready(progress, repo, work, now):
+                    preserve_blocked_work(progress, repo, work, now)
                     cycle["pending"][work].remove(repo)
                     cycle["deferred"][work].append(repo)
     research = research_repositories is not None
@@ -147,6 +244,15 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
     by_repo = groups(records)
     repos = set(by_repo)
     selected = repos & set(research_repositories) if research else repos
+    if full or (research and not seen_research):
+        for repo in selected:
+            for work in WORKS:
+                if work == "releases" and provider(repo) != "gitlab":
+                    continue
+                if research and work == "activity" and not poll["repositories"].get(repo, {}).get("scan_requested"):
+                    continue
+                if not ready(progress, repo, work, now):
+                    preserve_blocked_work(progress, repo, work, now)
     if not active(progress) and not seen_research and not (full and progress.get("last_full_request") == request_id):
         probes = sorted(
             repo
@@ -154,6 +260,7 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
             if repo in selected and ready(progress, repo, "probe", now) and (
                 research or full
                 or repo in progress["retry"]["probe"]
+                or poll["repositories"].get(repo, {}).get("availability_recheck_requested")
                 or due(repo, rows, poll["repositories"].get(repo, {}), now)
             )
         )
@@ -162,25 +269,32 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
             for repo in selected
             if ready(progress, repo, "activity", now) and (full
             or repo in progress["retry"]["activity"]
-            or poll["repositories"].get(repo, {}).get("scan_requested"))
+            or activity_due(repo, poll["repositories"].get(repo, {}), now))
         )
+        releases = sorted(repo for repo in selected if provider(repo) == "gitlab"
+                          and ready(progress, repo, "releases", now)
+                          and (full or research or repo in progress["retry"]["releases"]
+                               or not poll["repositories"].get(repo, {}).get("last_release_check_at")
+                               or now - activity.parse_time(poll["repositories"][repo]["last_release_check_at"]) >= timedelta(hours=1)))
         progress["cycle"] = {
             "id": digest([request_id, progress["revision"], stamp(now)])[:24],
             "mode": "research" if research else "full" if full else "adaptive",
             "started_at": stamp(now),
-            "targets": {"probe": probes[:], "activity": scans[:]},
-            "pending": {"probe": probes[:], "activity": scans[:]},
-            "deferred": {"probe": [], "activity": []},
+            "targets": {"probe": probes[:], "activity": scans[:], "releases": releases[:]},
+            "pending": {"probe": probes[:], "activity": scans[:], "releases": releases[:]},
+            "deferred": {"probe": [], "activity": [], "releases": []},
         }
     if research and not seen_research:
         # Coalesce into the one durable cycle. Do not replace an active broad
         # sweep, replay its completed work, or discard activity page cursors.
         cycle = progress["cycle"]
-        for work in ("probe", "activity"):
+        for work in WORKS:
             requested = selected if work == "probe" else {
                 repo for repo in selected if repo in progress["retry"][work]
                 or poll["repositories"].get(repo, {}).get("scan_requested")
             }
+            if work == "releases":
+                requested = {r for r in selected if provider(r) == "gitlab"}
             extra = sorted(r for r in requested - set(cycle["targets"][work]) if ready(progress, r, work, now))
             cycle["targets"][work].extend(extra)
             cycle["pending"][work].extend(extra)
@@ -194,34 +308,73 @@ def plan(progress, records, poll, now, request_id, full=False, research_reposito
         # completed units or page cursors. Newly included repositories stay due.
         cycle = progress["cycle"]
         cycle["mode"] = "full"
-        for work in ("probe", "activity"):
-            extra = sorted(r for r in repos - set(cycle["targets"][work]) if ready(progress, r, work, now))
+        for work in WORKS:
+            extra = sorted(r for r in repos - set(cycle["targets"][work]) if ready(progress, r, work, now)
+                           and (work != "releases" or provider(r) == "gitlab"))
             cycle["targets"][work].extend(extra)
             cycle["pending"][work].extend(extra)
     if full:
         progress["last_full_request"] = request_id
     cycle = progress.get("cycle")
     if cycle:
-        for work in ("probe", "activity"):
+        for work in WORKS:
             cycle["pending"][work] = [r for r in cycle["pending"][work] if r in repos]
             cycle["targets"][work] = [r for r in cycle["targets"][work] if r in repos]
             cycle["deferred"][work] = [r for r in cycle["deferred"][work] if r in repos]
+        # GitLab's hourly lanes must not wait for a large GitHub sweep to end.
+        # Re-enqueue only the due provider's units; retain every other queue and
+        # immutable cursor. Receipt-scoped research cycles stay receipt-scoped.
+        gitlab_scope = selected if research else (repos if cycle["mode"] != "research" else
+                       set(cycle["targets"]["probe"]) | set(cycle["targets"]["releases"]))
+        for repo in sorted(r for r in gitlab_scope if provider(r) == "gitlab"):
+            rs = poll["repositories"].get(repo, {})
+            release_at = activity.parse_time(rs.get("last_release_check_at"))
+            required = {
+                "probe": due(repo, by_repo[repo], rs, now) or rs.get("availability_recheck_requested"),
+                "activity": activity_due(repo, rs, now),
+                "releases": release_at is None or now - release_at >= timedelta(hours=1),
+            }
+            for work in WORKS:
+                if not (required[work] or repo in progress["retry"][work]) or not ready(progress, repo, work, now):
+                    continue
+                if repo in cycle["deferred"][work]:
+                    cycle["deferred"][work].remove(repo)
+                for field in ("targets", "pending"):
+                    if repo not in cycle[field][work]:
+                        cycle[field][work].append(repo)
         # New or changed catalogue work must survive a coalesced push run.
         for repo in sorted(repos):
             rs = poll["repositories"].get(repo, {})
             publication = rs.get("publication") or {}
             if pending_publication(rs):
-                for work, complete in (("probe", "metadata_complete"), ("activity", "history_complete")):
+                for work, complete in (("probe", "metadata_complete"), ("activity", "history_complete"), ("releases", "releases_complete")):
+                    if work == "releases" and provider(repo) != "gitlab":
+                        continue
                     if not publication.get(complete) and ready(progress, repo, work, now) and repo not in cycle["deferred"][work]:
                         for field in ("targets", "pending"):
                             if repo not in cycle[field][work]:
                                 cycle[field][work].append(repo)
-    for work in ("probe", "activity"):
+    for work in WORKS:
         progress["retry"][work] = {r: v for r, v in progress["retry"][work].items() if r in repos}
     return progress
 
 
+def preserve_blocked_work(progress, repo, work, now):
+    """A provider cooldown must not erase full/research work on cycle rollover."""
+    retry = progress["retry"][work].setdefault(repo, {"failures": 0, "attempt_at": stamp(now)})
+    blocked = (progress.get("provider_blocked_until") or {}).get(provider(repo), "")
+    if provider(repo) == "github":
+        blocked = max(blocked, progress.get("blocked_until") or "")
+    if blocked:
+        retry["retry_at"] = max(retry.get("retry_at", ""), blocked)
+
+
 def ready(progress, repo, work, now):
+    blocked = (progress.get("provider_blocked_until") or {}).get(provider(repo))
+    if provider(repo) == "github":
+        blocked = max(blocked or "", progress.get("blocked_until") or "")
+    if blocked and activity.parse_time(blocked) > now:
+        return False
     retry = progress["retry"][work].get(repo, {}).get("retry_at")
     return not retry or datetime.fromisoformat(retry.replace("Z", "+00:00")) <= now
 
@@ -236,10 +389,10 @@ def candidates(progress, poll, work, now, cap):
         rs = poll["repositories"].get(repo, {})
         last = (
             progress["retry"][work].get(repo, {}).get("attempt_at")
-            or rs.get("last_probe_at" if work == "probe" else "last_deep_scan")
+            or rs.get({"probe": "last_probe_at", "activity": "last_deep_scan", "releases": "last_release_check_at"}[work])
             or ""
         )
-        return last, repo.casefold()
+        return provider(repo) != "gitlab", last, repo.casefold()
 
     priority = sorted((r for r in rows if pending_publication(poll["repositories"].get(r, {}))), key=key)
     ordinary = sorted(set(rows) - set(priority), key=key)
@@ -260,6 +413,8 @@ def defer(progress, poll, repo, work, now, outcomes, *, seconds=None, block_acti
     if work == "probe" and ((pending_publication(rs) and not rs["publication"].get("metadata_complete"))
                             or block_activity):
         lanes.append("activity")
+        if provider(repo) == "gitlab":
+            lanes.append("releases")
     for lane in lanes:
         progress["retry"][lane][repo] = copy.deepcopy(entry)
         cycle = progress["cycle"]
@@ -271,21 +426,23 @@ def defer(progress, poll, repo, work, now, outcomes, *, seconds=None, block_acti
 
 def clear_unavailability(records, rs):
     rs.pop("repository_availability", None)
+    rs.pop("availability_recheck_requested", None)
     work = rs.get("publication") or {}
     if work.get("outcome") == "source-unavailable":
         work.pop("outcome")
     for project in records:
-        (project.get("github") or {}).pop("source_availability", None)
+        metadata(project).pop("source_availability", None)
 
 
 def unavailable(progress, poll, working, repo, now, outcomes):
     """Record a verified root 404, never successful metadata/history/freshness."""
-    rs, records = poll["repositories"][repo], working[repo]
+    rs, records = poll["repositories"].setdefault(repo, {}), working[repo]
     defer(progress, poll, repo, "probe", now, outcomes, seconds=24 * 60 * 60, block_activity=True)
     rs["repository_availability"] = {
         "repository": repo, "status": "unavailable", "http_status": 404,
         "observed_at": stamp(now), "retry_at": progress["retry"]["probe"][repo]["retry_at"], "retryable": True,
     }
+    rs.pop("availability_recheck_requested", None)
     rs["last_error"] = "Repository lookup returned HTTP 404; retained facts; retryable"
     work = rs.get("publication") or {}
     if (pending_publication(rs) and work.get("reset_project_ids") == []
@@ -293,9 +450,12 @@ def unavailable(progress, poll, working, repo, now, outcomes):
             and retained_metadata(repo, records, rs)):
         work["outcome"] = "source-unavailable"
     for project in records:
-        if project.get("github"):
-            project["github"]["source_availability"] = {
+        kind = provider(repo)
+        project.setdefault(kind, {"repository": repo})
+        if project.get(kind):
+            project[kind]["source_availability"] = {
                 "status": "unavailable", "http_status": 404, "retryable": True,
+                "checked_at": (metadata(project).get("source_availability") or {}).get("checked_at") or stamp(now),
             }
     log(repo=repo, work="probe", status="source-unavailable", retry_at=rs["repository_availability"]["retry_at"],
         publication_outcome=work.get("outcome", "pending"))
@@ -337,7 +497,7 @@ class Response:
 
 
 @contextmanager
-def transport(module, budget, now, opener=None):
+def transport(module, budget, now, opener=None, before_request=None):
     root_lookups = {}
     names = (
         "urlopen",
@@ -365,8 +525,11 @@ def transport(module, budget, now, opener=None):
 
     def open_request(request, timeout=30):
         try:
+            budget.check(1)
+            if before_request:
+                before_request(request.full_url)
             timeout = min(timeout, budget.before_request(api=True))
-        except (BudgetStop, RecordStop) as exc:
+        except (BudgetStop, RecordStop, ProviderStop) as exc:
             raise Interrupted(exc) from exc
         started = budget.clock()
         try:
@@ -604,8 +767,33 @@ def activity_unit(repo, records, rs, events, now):
     return records, rs, events, complete
 
 
-def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None):
+def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None, before_request=None):
     records, rs, events = copy.deepcopy(records), copy.deepcopy(rs), copy.deepcopy(events)
+    if provider(repo) == "gitlab":
+        verifying = rs.get("availability_recheck_requested")
+        client = gitlab.Client(repo, budget, now, opener, before_request)
+        try:
+            function = {"probe": gitlab.probe_unit, "activity": gitlab.activity_unit,
+                        "releases": gitlab.release_unit}[work]
+            records, rs, events, complete = function(repo, records, rs, events, now, client)
+        except HTTPError as exc:
+            if work != "probe" and exc.code == 404:
+                raise gitlab.VerifyRoot("GitLab endpoint returned 404; root verification required") from exc
+            if work != "probe" or client.root_status != 404:
+                raise
+            complete = False
+        except (gitlab.RateStop, ProviderStop) as exc:
+            raise Interrupted(exc) from exc
+        if work == "probe":
+            if client.root_status in (200, 304):
+                clear_unavailability(records, rs)
+                rs["last_root_check_at"] = stamp(now)
+                if verifying:
+                    rs["last_availability_verification_at"] = stamp(now)
+            rs["_repository_lookup_status"] = client.root_status
+        if client.retry_at:
+            rs["_provider_blocked_until"] = stamp(client.retry_at)
+        return records, rs, events, complete, rate or {}
     module = probe if work == "probe" else activity
     poll = {"version": 1, "repositories": {repo: rs}, "rate": {"probe": rate or {}}}
     if (
@@ -614,21 +802,35 @@ def perform(repo, work, records, rs, events, budget, now, opener=None, rate=None
         and datetime.fromisoformat(rate["reset_at"].replace("Z", "+00:00")) <= now
     ):
         poll["rate"]["probe"] = {}
-    with transport(module, budget, now, opener) as lookups, redirect_stdout(StringIO()):
-        if work == "probe":
-            records, poll = probe.main(records=records, state=poll, scope={"mode": "adaptive"}, persist=False)
-            rs = poll["repositories"][repo]
-            complete = bool(rs.get("last_probe_at") == stamp(now) and not rs.get("last_error"))
-            if pending_publication(rs) and not rs["publication"].get("metadata_complete"):
-                complete = False
-            status_code = lookups.get(f"/repos/{repo}")
-            if status_code in (200, 304):
-                clear_unavailability(records, rs)
-            rs["_repository_lookup_status"] = status_code  # Popped before any persistence below.
-        else:
-            activity.load_rate_from_state(poll)
-            records, rs, events, complete = activity_unit(repo, records, rs, events, now)
-        rate = module.rate_snapshot()
+    lookups = {}
+    previous_push = rs.get("last_seen_pushed_at")
+    try:
+        with transport(module, budget, now, opener, before_request) as lookups, redirect_stdout(StringIO()):
+            if work == "probe":
+                records, poll = probe.main(records=records, state=poll, scope={"mode": "adaptive"}, persist=False)
+                rs = poll["repositories"][repo]
+                complete = bool(rs.get("last_probe_at") == stamp(now) and not rs.get("last_error"))
+                if pending_publication(rs) and not rs["publication"].get("metadata_complete"):
+                    complete = False
+                status_code = lookups.get(f"/repos/{repo}")
+                if status_code in (200, 304):
+                    clear_unavailability(records, rs)
+                    rs["last_root_check_at"] = stamp(now)
+                rs["_repository_lookup_status"] = status_code  # Popped before any persistence below.
+            else:
+                activity.load_rate_from_state(poll)
+                records, rs, events, complete = activity_unit(repo, records, rs, events, now)
+            rate = module.rate_snapshot()
+    except Interrupted as exc:
+        if work == "probe" and lookups.get(f"/repos/{repo}") in (200, 304) and rs.get("last_probe_at") == stamp(now):
+            clear_unavailability(records, rs)
+            rs["default_branch"] = next((metadata(p).get("default_branch") for p in records
+                                         if metadata(p).get("default_branch")), rs.get("default_branch"))
+            if pending_publication(rs) or previous_push != rs.get("last_seen_pushed_at") or not rs.get("last_deep_scan"):
+                rs["scan_requested"] = True
+                rs["scan_reason"] = "publication" if pending_publication(rs) else "changed"
+            exc.partial = (records, rs, events)
+        raise
     return records, rs, events, complete, rate
 
 
@@ -670,20 +872,27 @@ def collect(
     publication = catalogue_delta(list(catalogue.get("projects", {}).values()), records)
     working = groups(records)
     prepare_publication(working, poll, publication, records)
+    for repo, rows in working.items():
+        rs = poll["repositories"].setdefault(repo, {})
+        unavailable_state = (rs.get("repository_availability") or {}).get("status") == "unavailable"
+        if any(((metadata(p).get("source_availability") or {}).get("status") == "unavailable") != unavailable_state
+               for p in rows):
+            rs["availability_recheck_requested"] = True
     progress = plan(before_progress, records, poll, now, request_id, full, research_repositories)
     activity_payload = read(root / "data/activity.json", {"events": [], "window_days": RETENTION_DAYS})
     original_events = event_groups(activity_payload, records)
     events = copy.deepcopy(original_events)
     touched, outcomes, rate = set(), {}, (poll.get("rate") or {}).get("probe", {})
-    units = {"probe": 0, "activity": 0}
-    completed = {"probe": 0, "activity": 0}
+    units = {work: 0 for work in WORKS}
+    completed = {work: 0 for work in WORKS}
     cycle = progress.get("cycle")
-    for work in ("probe", "activity"):
-        if progress.get("blocked_until"):
-            break
+    for work in ("probe", "releases", "activity"):
         remaining = budget.limit - budget.requests
         deadline = budget.deadline
-        if work == "probe" and cycle and cycle["pending"]["activity"]:
+        if work in ("probe", "releases") and cycle and any(
+            ready(progress, r, "activity", now) and history_ready(r, poll["repositories"].get(r, {}))
+            for r in cycle["pending"]["activity"]
+        ):
             remaining //= 2
             deadline = budget.clock() + max(0, deadline - budget.clock()) / 2
         budget.begin_lane(work, remaining, deadline, remaining)
@@ -692,12 +901,12 @@ def collect(
         while True:
             advanced = False
             for repo in candidates(progress, poll, work, now, limit):
+                if not ready(progress, repo, work, now):
+                    continue
                 if repo not in touched and len(touched) >= limit:
                     continue
                 if (
-                    work == "activity"
-                    and pending_publication(poll["repositories"].get(repo, {}))
-                    and not poll["repositories"][repo]["publication"].get("metadata_complete")
+                    work == "activity" and not history_ready(repo, poll["repositories"].get(repo, {}))
                 ):
                     continue
                 try:
@@ -714,27 +923,66 @@ def collect(
                         now,
                         opener,
                         rate,
+                        lambda url: provider_request(progress, provider(repo), url, now, budget),
                     )
                     lookup_status = rs.pop("_repository_lookup_status", None)
+                    if until := rs.pop("_provider_blocked_until", None):
+                        blocked = progress.setdefault("provider_blocked_until", {})
+                        blocked[provider(repo)] = max(blocked.get(provider(repo), ""), until)
                 except BudgetStop:
                     break
                 except Interrupted as exc:
                     cause = exc.cause
+                    if partial := getattr(exc, "partial", None):
+                        working[repo], poll["repositories"][repo], events[repo] = partial
+                        units[work] += 1
+                        outcomes.setdefault(repo, {})[work] = "partial"
+                        progress["retry"][work][repo] = {"failures": 0, "attempt_at": stamp(now)}
+                        if partial[1].get("scan_requested") and repo not in cycle["deferred"]["activity"]:
+                            for field in ("targets", "pending"):
+                                if repo not in cycle[field]["activity"]:
+                                    cycle[field]["activity"].append(repo)
                     rate = getattr(exc, "rate", rate)
                     if isinstance(cause, BudgetStop):
                         break
+                    if isinstance(cause, (ProviderStop, gitlab.RateStop)):
+                        progress.setdefault("provider_blocked_until", {})[provider(repo)] = max(
+                            progress.get("provider_blocked_until", {}).get(provider(repo), ""), stamp(cause.retry_at))
+                        log(repo=repo, work=work, status="provider-cooldown", reason=str(cause), retry_at=stamp(cause.retry_at))
+                        continue
                     if isinstance(
                         cause,
                         (probe.PrimaryReserve, activity.PrimaryReserve, probe.RateStop, activity.RateStop),
                     ):
                         reset = activity.parse_time(rate.get("reset_at")) if rate else None
-                        progress["blocked_until"] = stamp(
+                        progress.setdefault("provider_blocked_until", {})["github"] = stamp(
                             max(now + timedelta(minutes=2), reset or now + timedelta(minutes=15))
                         )
                         log(repo=repo, work=work, status="quota-stop", reason=str(cause))
-                        break
+                        continue
                     defer(progress, poll, repo, work, now, outcomes)
                     log(repo=repo, work=work, status="retry", reason=str(cause))
+                    continue
+                except gitlab.VerifyRoot as exc:
+                    rs = poll["repositories"].setdefault(repo, {})
+                    verified = activity.parse_time(rs.get("last_availability_verification_at"))
+                    fresh_root = rs.get("last_root_check_at") == stamp(now)
+                    needs_verification = not fresh_root and (verified is None or now - verified >= timedelta(hours=6))
+                    defer(progress, poll, repo, work, now, outcomes)
+                    if not needs_verification:
+                        log(repo=repo, work=work, status="endpoint-unavailable", reason=str(exc))
+                        continue
+                    rs["availability_recheck_requested"] = True
+                    # A branch/release 404 does not prove the root is unavailable.
+                    # The next bounded continuation verifies it and can discover
+                    # a renamed default branch without waiting for daily metadata.
+                    if ready(progress, repo, "probe", now):
+                        for field in ("targets", "pending"):
+                            if repo not in cycle[field]["probe"]:
+                                cycle[field]["probe"].append(repo)
+                        if repo in cycle["deferred"]["probe"]:
+                            cycle["deferred"]["probe"].remove(repo)
+                    log(repo=repo, work=work, status="verify-root", reason=str(exc))
                     continue
                 except Exception as exc:
                     defer(progress, poll, repo, work, now, outcomes)
@@ -748,7 +996,9 @@ def collect(
                         unavailable(progress, poll, working, repo, now, outcomes)
                     else:
                         if lookup_status in (200, 304):
-                            clear_unavailability(working[repo], poll["repositories"][repo])
+                            clear_unavailability(working[repo], rs)
+                            rs["last_root_check_at"] = stamp(now)
+                            poll["repositories"][repo] = rs
                         defer(progress, poll, repo, work, now, outcomes)
                     continue
                 before = digest([working[repo], poll["repositories"].get(repo, {}), events.get(repo, [])])
@@ -784,12 +1034,10 @@ def collect(
                     units=units,
                 )
             else:
-                if work == "activity" and advanced:
+                if work in ("activity", "releases") and advanced:
                     continue
             break
         budget.end_lane()
-        if progress.get("blocked_until"):
-            break
     result_rows = []
     for repo in sorted(working):
         before_rs = before_poll["repositories"].get(repo, {})
@@ -831,14 +1079,16 @@ def add_publication_work(progress, records, poll, now):
     if not cycle:
         return
     current = groups(records)
-    for work in ("probe", "activity"):
+    for work in WORKS:
         for field in ("targets", "pending", "deferred"):
             cycle[field][work] = [r for r in cycle[field][work] if r in current]
     for repo in sorted(current):
         rs = poll["repositories"].get(repo, {})
         if not pending_publication(rs):
             continue
-        for work, field in (("probe", "metadata_complete"), ("activity", "history_complete")):
+        for work, field in (("probe", "metadata_complete"), ("activity", "history_complete"), ("releases", "releases_complete")):
+            if work == "releases" and provider(repo) != "gitlab":
+                continue
             if not rs["publication"].get(field) and ready(progress, repo, work, now) and repo not in cycle["deferred"][work]:
                 for queue in ("targets", "pending"):
                     if repo not in cycle[queue][work]:
@@ -854,6 +1104,22 @@ def event_groups(payload, records):
     return out
 
 
+def provider_status(progress, now):
+    minute = int(now.timestamp()) // 60
+    out = {}
+    for kind, usage in progress.get("provider_usage", {}).items():
+        endpoints = {}
+        for key, row in usage.get("minutes", {}).items():
+            if int(key) < minute - 60:
+                continue
+            for endpoint, count in row.items():
+                endpoints[endpoint] = endpoints.get(endpoint, 0) + count
+        out[kind] = {"requests_past_hour": sum(endpoints.values()), "hourly_limit": HOURLY_LIMITS[kind],
+                     "endpoints": endpoints,
+                     "blocked_until": progress.get("provider_blocked_until", {}).get(kind)}
+    return out
+
+
 def status(progress, now=None, poll=None):
     now = now or datetime.now(timezone.utc)
     cycle = progress.get("cycle")
@@ -862,35 +1128,32 @@ def status(progress, now=None, poll=None):
         "token": token(progress),
         "cycle": cycle.get("id") if cycle else None,
         "mode": cycle.get("mode") if cycle else None,
+        "providers": provider_status(progress, now),
         "completed": {},
         "remaining": {},
         "deferred": {},
         "retry_pending": {
             work: sum(bool(v.get("retry_at")) for v in progress["retry"][work].values())
-            for work in ("probe", "activity")
+            for work in WORKS
         },
     }
     if cycle:
-        for work in ("probe", "activity"):
+        for work in WORKS:
             result["remaining"][work] = len(cycle["pending"][work])
             result["deferred"][work] = len(cycle["deferred"][work])
             result["completed"][work] = (
                 len(cycle["targets"][work]) - len(cycle["pending"][work]) - len(cycle["deferred"][work])
             )
-    blocked = progress.get("blocked_until")
-    blocked = bool(blocked and datetime.fromisoformat(blocked.replace("Z", "+00:00")) > now)
     result["eligible"] = bool(
         active(progress)
-        and not blocked
         and any(
             ready(progress, repo, work, now)
             and not (
                 work == "activity"
                 and poll is not None
-                and pending_publication(poll.get("repositories", {}).get(repo, {}))
-                and not poll["repositories"][repo]["publication"].get("metadata_complete")
+                and not history_ready(repo, poll.get("repositories", {}).get(repo, {}))
             )
-            for work in ("probe", "activity")
+            for work in WORKS
             for repo in cycle["pending"][work]
         )
     )
@@ -917,7 +1180,7 @@ def apply_bundle(root, bundle, now=None):
         # The push may have succeeded before its response was lost. Repair the
         # handoff using the published token; duplicate handoffs are harmless.
         return {"published": False, "duplicate": True, "continue": current["eligible"], **current}
-    if before_progress != bundle["progress_before"]:
+    if before_progress != migrate_progress(bundle["progress_before"]):
         return {"published": False, "stale": True, "continue": False, **status(before_progress, now)}
     with tempfile.TemporaryDirectory(prefix="refresh-apply-") as directory:
         stage = Path(directory)
@@ -939,21 +1202,27 @@ def apply_bundle(root, bundle, now=None):
         publication = catalogue_delta(list(catalogue.get("projects", {}).values()), records)
         prepare_publication(by_repo, poll, publication, records)
         progress = copy.deepcopy(bundle["progress_after"])
+        progress.setdefault("retry", {}).setdefault("releases", {})
+        if progress.get("cycle"):
+            for field in ("targets", "pending", "deferred"):
+                progress["cycle"].setdefault(field, {}).setdefault("releases", [])
         accepted, conflicts = [], []
         for row in bundle["results"]:
             repo = row["repo"]
             originals = guard_records.get(repo, [])
             safe = (
-                source(originals) == row["source"]
-                and {p["id"]: owned(p) for p in originals} == row["before"]
+                source_matches(originals, row["source"])
+                and all(set(fields) in (set(OWNED), set(OWNED) - {"gitlab"}) for fields in row["before"].values())
+                and all(set(row["before"].get(pid, {})) == set(fields) for pid, fields in row["after"].items())
+                and {p["id"]: {k: v for k, v in owned(p).items() if k in row["before"].get(p["id"], {})} for p in originals} == row["before"]
                 and guard_poll["repositories"].get(repo, {}) == row["state_before"]
                 and events.get(repo, []) == row["events_before"]
                 and set(row["after"]) == {p["id"] for p in originals}
-                and all(set(fields) == set(OWNED) for fields in row["after"].values())
+                and all(set(fields) in (set(OWNED), set(OWNED) - {"gitlab"}) for fields in row["after"].values())
             )
             if not safe:
                 conflicts.append(repo)
-                for work in ("probe", "activity"):
+                for work in WORKS:
                     if (
                         row["outcomes"].get(work) in {"complete", "retry"}
                         and repo in progress["cycle"]["targets"][work]
@@ -979,7 +1248,7 @@ def apply_bundle(root, bundle, now=None):
         add_publication_work(progress, records, poll, now)
         live = set(by_repo)
         poll["repositories"] = {r: v for r, v in poll["repositories"].items() if r in live}
-        for work in ("probe", "activity"):
+        for work in WORKS:
             progress["retry"][work] = {r: v for r, v in progress["retry"][work].items() if r in live}
         old_rate = (poll.get("rate") or {}).get("probe") or {}
         if bundle.get("rate") and (bundle["rate"].get("checked_at") or "") >= (
@@ -993,15 +1262,16 @@ def apply_bundle(root, bundle, now=None):
             for rows in events.values()
             for e in rows
             if (
-                e.get("type") not in {"commit", "daily_commits"}
+                e.get("type") not in {"commit", "daily_commits", "release"}
                 or (
                     e.get("project_id") in current_projects
                     and e.get("repository") == repository(current_projects[e["project_id"]])
+                    and (e.get("type") != "release" or not selectors(current_projects[e["project_id"]])[1])
                     and (
                         e.get("type") != "commit"
                         or not e.get("branches")
                         or any(
-                            activity.project_matches_branch(current_projects[e["project_id"]], b)
+                            matches_branch(current_projects[e["project_id"]], b)
                             for b in e["branches"]
                         )
                     )

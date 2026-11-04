@@ -201,7 +201,7 @@ The feed also persists meaningful catalogue-change events:
 
 Project-change events join current project metadata by ID. Removed projects carry a compact `project` fallback for display and filtering. Metadata-change events also carry structured `change_details` entries containing the field plus its before/after values; the Activity UI turns these into field-aware descriptions such as `AI usage detected · Claude`, `Target platform added · Windows`, or `Byte-exact build confirmed` rather than exposing JSON diffs. Older events that predate `change_details` are humanised from their retained legacy transition text when possible. The project snapshot lets removal events remain displayable and filterable after the canonical project record has been deleted. Removed snapshots are retained as tombstones in catalogue state so a later reappearance can be emitted as `project_restored`. Addition/restoration events gain frozen `activity_context` (last known commit, last activity, latest release, 30-day commit and active-day counts) once a completed deep scan has covered the project. Previously missing historical commit dates may subsequently be filled without changing the original counts (legacy 90-day windows remain explicitly labelled); until a scan completes the page reports a pending scan.
 
-The Activity UI groups events by the viewer's local calendar day and then project, and displays each event in the viewer's local time. It augments stored activity with each current project's latest known GitHub release and can filter by activity type (commit/daily summary, release, project changes). Filters use either the current project record or the event's persisted project snapshot, so removed projects remain usable in the feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
+The Activity UI groups events by the viewer's local calendar day and then project, and displays each event in the viewer's local time. It augments stored activity with each current project's latest known GitHub or GitLab release, deduplicated against stored release events and can filter by activity type (commit/daily summary, release, project changes). Filters use either the current project record or the event's persisted project snapshot, so removed projects remain usable in the feed. The site header and Activity result bar expose `data/activity.json.generated_at` as the data-refresh time.
 
 
 ## Evidence enrichment
@@ -293,9 +293,9 @@ a private repository from a removed one. This is not successful enrichment:
 no `metadata_complete` or `history_complete` flag is set by a 404; cached facts, successful
 check dates and existing history are retained without invented zero activity.
 
-The public `github.source_availability` contains only `status: unavailable`,
-`http_status: 404` and `retryable: true`. Project details and RSS disclose that
-cached metadata is retained. Attempt/retry clocks stay private, avoiding a new
+The public `github.source_availability` or `gitlab.source_availability` contains `status: unavailable`,
+`http_status: 404`, `retryable: true`, and optionally a `checked_at` first-observation timestamp. Project details and RSS disclose that
+cached metadata is retained. The most recent attempt/retry clocks stay private, avoiding a new
 public change for every identical failed retry. Retry remains durable, with a
 24-hour backoff and no dependent history requests while metadata is unavailable.
 Deferred unavailable roots cannot pin healthy work behind that backoff.
@@ -310,3 +310,9 @@ compare-and-set guards, so stale observations cannot bless concurrent research.
 ### Discovery decision storage
 
 Discovery decisions use the same validated hash-prefix partitions as projects and audits: `data/discovery-decisions.index.json` preserves metadata and record order, and `data/discovery-decisions/<prefix>.json` contains records keyed by decision ID. Readers retain legacy monolith support, but the next canonical write migrates it atomically. Mixed layouts, invalid routes and digest mismatches are rejected. The existing per-request size limit is unchanged; no historical decisions are discarded.
+
+### GitLab activity
+
+GitLab.com repository metadata lives in `project.gitlab`; tracked branch and subpath use `gitlab_branch` and `gitlab_path`. Provider-qualified repository identities include all subgroup components. Commit events retain the existing project/repository/SHA identity, and stored release events are keyed by project/repository/tag. Commits and releases appear in the same Activity and RSS feeds; latest-release snapshots are deduplicated against stored release events.
+
+The scheduled Actions runner collects both providers, with independent quotas and cooldowns. GitLab 429s do not mark a project unavailable or block GitHub; failures preserve the last good results and durable cursors. Releases are checked independently of commits. The public unavailable status is a qualified observation from a root-level repository 404, never a claim that a repository was deleted. Bookmarked warning state is derived locally and is not an unread activity event.

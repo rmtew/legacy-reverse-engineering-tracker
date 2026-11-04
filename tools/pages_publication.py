@@ -30,6 +30,7 @@ GENERATORS = (
     "tools/generate_rss.py",
     "tools/generate_recent_activity.py",
     "tools/activity_history.py",
+    "tools/repository_provider.py",
     "tools/catalogue_storage.py",
     "tools/execution_architecture.py",
 )
@@ -62,7 +63,10 @@ def fingerprint(root, sha):
     """
     projects = load_git_projects(sha, cwd=root)
     for project in projects:
-        (project.get("github") or {}).pop("checked_at", None)
+        for provider in ("github", "gitlab"):
+            metadata = project.get(provider) or {}
+            metadata.pop("checked_at", None)
+            (metadata.get("source_availability") or {}).pop("checked_at", None)
     activity = document(root, sha, "data/activity.json")
     activity.pop("generated_at", None)
     value = {

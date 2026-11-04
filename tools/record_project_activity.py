@@ -2,7 +2,7 @@
 """Record meaningful catalogue changes as persisted activity events.
 
 The state file is a compact material snapshot of the canonical catalogue. It is
-used only to identify changes between maintenance runs; volatile GitHub refresh
+used only to identify changes between maintenance runs; volatile repository refresh
 metadata is intentionally excluded so routine probes do not become activity.
 """
 from __future__ import annotations
@@ -36,6 +36,8 @@ MATERIAL_FIELDS = (
     "project_url",
     "github_path",
     "github_branch",
+    "gitlab_path",
+    "gitlab_branch",
     "source_platforms",
     "target_platforms",
     "source_cpu",
@@ -56,7 +58,7 @@ MATERIAL_FIELDS = (
     "tags",
     "notes",
 )
-MOVE_FIELDS = {"repo", "project_url", "github_path", "github_branch"}
+MOVE_FIELDS = {"repo", "project_url", "github_path", "github_branch", "gitlab_path", "gitlab_branch"}
 
 # Co-author trailers/config files are handled by the GitHub collectors. These
 # patterns cover unusually explicit human commit subjects such as

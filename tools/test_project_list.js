@@ -88,3 +88,30 @@ test('all sort headers have native keyboard buttons and preserve column semantic
   const title=x.headers.find(header=>header.dataset.key==='title');
   title.listeners.click[0]();assert.equal(title.attributes['aria-sort'],'ascending');assert.equal(source.attributes['aria-sort'],'none');
 });
+
+test('source-unavailable row marker is an accessible detail button and retains cached facts',()=>{
+  const x=setup();
+  x.context.unavailable={id:'lost',title:'Cached <project>',repo:'https://github.com/example/lost',last_activity:'2026-09-01',build:{playable:true},github:{source_availability:{status:'unavailable',http_status:404,retryable:true},latest_commit:{url:'https://github.com/example/lost/commit/a',date:'2026-09-01',message:'Cached commit'}}};
+  x.run('projects=[unavailable];render()');
+  const html=x.get('rows').innerHTML;
+  assert.match(html,/class="source-unavailable-marker"[^>]*data-source-details="lost"[^>]*aria-label="Source unavailable at last check for Cached &lt;project&gt;\. View details"/);
+  assert.match(html,/Source unavailable<\/span><\/button>/);
+  assert.match(html,/2026-09-01/);assert.match(html,/class="flag yes"/);
+  x.run('showDetails=record=>{globalThis.opened=record;}');
+  const button={dataset:{sourceDetails:'lost'}};let prevented=false;
+  x.context.click={target:{closest:selector=>selector==='[data-source-details]'?button:null},preventDefault:()=>{prevented=true;},stopPropagation(){}};
+  x.run('sourceDetailsClick(click)');assert.equal(x.context.opened,x.context.unavailable);assert.equal(prevented,true);
+});
+
+test('GitLab provider details and started sort use current metadata rather than stale GitHub fields',()=>{
+  const x=setup();x.get('details').showModal=()=>{};
+  x.context.gitlab={id:'gl',title:'GitLab project',repo:'https://gitlab.com/group/subgroup/project',gitlab:{repository:'gitlab.com/group/subgroup/project',created_at:'2021-04-05',default_branch:'main',tracking_branch:'stable',tracking_path:'src',languages:['C'],activity_state:'active',latest_commit:{url:'https://gitlab.com/group/subgroup/project/-/commit/abc',date:'2026-10-28',message:'GitLab cached commit'},latest_release:{url:'https://gitlab.com/group/subgroup/project/-/releases/v2',tag:'v2',published_at:'2026-10-27'},source_availability:{status:'unavailable',http_status:404,retryable:true}},github:{created_at:'1990-01-01',latest_release:{tag:'old'}}};
+  x.run('projects=[gitlab];render();showDetails(gitlab)');
+  const details=x.get('detailbody').innerHTML;
+  assert.match(details,/GitLab cached commit/);assert.match(details,/releases\/v2/);
+  assert.match(details,/<dt>Repository activity<\/dt><dd>active<\/dd>/);
+  assert.match(details,/<dt>Repository languages<\/dt>/);assert.doesNotMatch(details,/GitHub activity|GitHub languages/);
+  assert.match(details,/last check \(HTTP 404\).*cached metadata retained/);
+  assert.equal(x.run('projectMeta(gitlab).keys.started'),'2021-04-05');
+  assert.match(x.get('rows').innerHTML,/2021\*/);assert.doesNotMatch(x.get('rows').innerHTML,/1990/);
+});

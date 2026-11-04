@@ -4,6 +4,8 @@
 Repository probes have a separate cadence from deep activity scans. Recently
 active projects are probed frequently; quiet projects are checked less often.
 A changed pushed_at timestamp always requests an immediate deep activity scan.
+Slow language/configuration metadata is reused across unchanged pushes and
+refreshed on its own clock; release checks never depend on a push being seen.
 """
 from __future__ import annotations
 
@@ -222,10 +224,10 @@ def interval_days(last_activity, archived=False):
 
 def probe_interval_minutes(last_activity, archived=False):
     if archived:
-        return 720
+        return 1440
     day = parse_day(last_activity)
     if not day:
-        return 720
+        return 1440
     age = max(0, (TODAY - day).days)
     if age <= 14:
         return 15
@@ -233,7 +235,59 @@ def probe_interval_minutes(last_activity, archived=False):
         return 60
     if age <= 180:
         return 240
-    return 720
+    return 1440
+
+def metadata_interval_days(last_activity, archived=False):
+    day = parse_day(last_activity)
+    return 1 if not archived and day and (TODAY - day).days <= 60 else 7
+
+def metadata_due(repo, rs, projects, last_activity, archived=False, *, new=False, branch=None):
+    """Languages/configuration have a slow clock, separate from commit detection.
+
+    Stagger existing, already populated metadata over the first interval when
+    migrating. A scheduled deadline is not a claim that metadata was checked.
+    Missing data and new publications are still fetched immediately.
+    """
+    if new or any("languages" not in (p.get("github") or {}) for p in projects):
+        return True
+    interval = timedelta(days=metadata_interval_days(last_activity, archived))
+    checked = parse_time(rs.get("last_metadata_check_at"))
+    if checked:
+        same_push = ("last_metadata_pushed_at" in rs
+                     and rs["last_metadata_pushed_at"] == rs.get("last_seen_pushed_at"))
+        same_branch = rs.get("last_metadata_branch") == (branch or rs.get("default_branch") or "main")
+        retry_empty = any(not (p.get("github") or {}).get("languages") for p in projects) and languages_due(rs)
+        if same_push and same_branch and not retry_empty:
+            return False
+        return RUN_AT >= checked + interval
+    due = parse_time(rs.get("next_metadata_due_at"))
+    if not due:
+        hours = int(interval.total_seconds() // 3600)
+        due = RUN_AT + timedelta(hours=1 + bucket(repo, hours))
+        rs["next_metadata_due_at"] = due.isoformat(timespec="seconds").replace("+00:00", "Z")
+    return RUN_AT >= due
+
+def languages_due(rs):
+    checked = parse_day(rs.get("empty_languages_checked_at"))
+    return (not checked or TODAY - checked >= timedelta(days=30)
+            or rs.get("empty_languages_pushed_at") != rs.get("last_seen_pushed_at"))
+
+def release_interval_hours(projects, rs, last_activity, archived=False):
+    day = parse_day(last_activity)
+    age = (TODAY - day).days if day else None
+    has_release = any((p.get("github") or {}).get("latest_release") for p in projects
+                      if not p.get("github_path"))
+    base = 6 if not archived and age is not None and age <= 14 else 24
+    # Preserve the existing independent cadence for known release producers.
+    if has_release:
+        return base
+    empty_checks = rs.get("release_empty_checks", 0)
+    return min(24, base * 2 ** min(2, max(0, empty_checks - 1)))
+
+def release_due(projects, rs, last_activity, archived=False):
+    checked = parse_time(rs.get("last_release_check_at"))
+    hours = release_interval_hours(projects, rs, last_activity, archived)
+    return not checked or RUN_AT - checked >= timedelta(hours=hours)
 
 def probe_due(repo, rs, interval):
     """Spread the first migration pass across slots, then honour actual elapsed time."""
@@ -397,13 +451,32 @@ def update_latest_release(repo_projects, release):
         else:
             gh.pop("latest_release", None)
 
-def check_latest_release(repo, repo_projects):
-    release, _, _ = get_json(f"/repos/{repo}/releases/latest", allow_404=True)
-    update_latest_release(repo_projects, release)
+def check_latest_release(repo, repo_projects, rs=None):
+    rs = rs if rs is not None else {}
+    cached = all((p.get("github") or {}).get("latest_release") for p in repo_projects
+                 if not p.get("github_path"))
+    release, headers, status = get_json(f"/repos/{repo}/releases/latest", allow_404=True,
+                                      etag=rs.get("release_etag") if cached else None)
+    if status != 304:
+        update_latest_release(repo_projects, release)
+    # Count only confirmed absent releases, never transient errors or 304s.
+    if status == 404:
+        rs["release_empty_checks"] = min(3, rs.get("release_empty_checks", 0) + 1)
+        rs.pop("release_etag", None)
+    elif status == 200:
+        rs.pop("release_empty_checks", None)
+        if headers.get("ETag"):
+            rs["release_etag"] = headers["ETag"]
+        else:
+            rs.pop("release_etag", None)
+    rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
 
-def enrich_changed_repo(repo, info, repo_projects, *, required=False):
+def enrich_changed_repo(repo, info, repo_projects, *, required=False, refresh_languages=True):
+    """Refresh slow metadata only; release checks have an independent cadence."""
     branch = info.get("default_branch") or "main"
-    languages, _, _ = get_json(f"/repos/{repo}/languages")
+    languages = None
+    if refresh_languages:
+        languages, _, _ = get_json(f"/repos/{repo}/languages")
     root_entries, _, root_status = get_json(f"/repos/{repo}/contents?ref={quote(branch)}", allow_404=True)
     if required and root_status == 404:
         # GitHub has no root contents for an empty repository, but a 404 for
@@ -423,15 +496,13 @@ def enrich_changed_repo(repo, info, repo_projects, *, required=False):
     update_ai_config([p for p in repo_projects if (p.get("github_branch") or branch) == branch],
                      root_entries, github_entries)
 
-    if any(not p.get("github_path") for p in repo_projects):
-        check_latest_release(repo, repo_projects)
-
-    ordered_languages = [
-        name for name, _ in sorted((languages or {}).items(), key=lambda item: item[1], reverse=True)
-    ]
-    for record in repo_projects:
-        gh = record.setdefault("github", {})
-        gh["languages"] = ordered_languages
+    if refresh_languages:
+        ordered_languages = [
+            name for name, _ in sorted((languages or {}).items(), key=lambda item: item[1], reverse=True)
+        ]
+        for record in repo_projects:
+            gh = record.setdefault("github", {})
+            gh["languages"] = ordered_languages
     return not bool(languages)
 
 
@@ -610,8 +681,8 @@ def main(*, records=None, state=None, scope=None, persist=True):
 
         info_changed = status == 200
         pushed_changed = False
-        default_branch = next((p.get("github", {}).get("default_branch") for p in repo_projects if p.get("github")), "main")
-        enriched = False
+        default_branch = next((p.get("github", {}).get("default_branch") for p in repo_projects if p.get("github")), None) or "main"
+        previous_branch = rs.get("default_branch") or default_branch
 
         if info_changed and info:
             current_pushed = info.get("pushed_at")
@@ -630,57 +701,64 @@ def main(*, records=None, state=None, scope=None, persist=True):
                 rs["last_change_detected"] = TODAY.isoformat()
                 rs["last_change_detected_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
                 changed_count += 1
-            empty_checked = parse_day(rs.get("empty_languages_checked_at"))
-            retry_empty = not empty_checked or TODAY - empty_checked >= timedelta(days=30)
-            missing_heavy = any(not p.get("github", {}).get("languages") for p in repo_projects) and (
-                new_repo or bool(added_projects) or retry_empty
-            )
-            if metadata_required or pushed_changed or missing_heavy:
-                if required:
-                    rs["publication"]["metadata_complete"] = False
-                try:
-                    empty_languages = enrich_changed_repo(repo, info, repo_projects, required=required)
-                    if required:
-                        fill_missing_latest_commits({repo: repo_projects}, state, required=True)
-                        rs["publication"]["metadata_complete"] = True
-                    enriched = True
+
+        slow_due = metadata_required or previous_branch != default_branch or metadata_due(
+            repo, rs, repo_projects, latest_day, archived, new=new_repo, branch=default_branch
+        )
+        if slow_due:
+            refresh_languages = (metadata_required or languages_due(rs)
+                                 or any("languages" not in (p.get("github") or {}) for p in repo_projects))
+            try:
+                empty_languages = enrich_changed_repo(
+                    repo, info or {"default_branch": default_branch}, repo_projects,
+                    required=metadata_required, refresh_languages=refresh_languages,
+                )
+                rs["last_metadata_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
+                rs["last_metadata_pushed_at"] = rs.get("last_seen_pushed_at")
+                rs["last_metadata_branch"] = default_branch
+                rs["next_metadata_due_at"] = (
+                    RUN_AT + timedelta(days=metadata_interval_days(latest_day, archived))
+                ).isoformat(timespec="seconds").replace("+00:00", "Z")
+                if refresh_languages:
                     if empty_languages:
                         rs["empty_languages_checked_at"] = TODAY.isoformat()
+                        rs["empty_languages_pushed_at"] = rs.get("last_seen_pushed_at")
                     else:
                         rs.pop("empty_languages_checked_at", None)
+                        rs.pop("empty_languages_pushed_at", None)
+                if metadata_required:
                     if any(not p.get("github_path") for p in repo_projects):
-                        rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
-                except PublicationBudget as exc:
-                    deferred_publications += 1
-                    rs["last_error"] = str(exc)
-                    print(f"PUBLICATION DEFERRED while enriching {repo}: {exc}", file=sys.stderr)
-                except PrimaryReserve as exc:
-                    if required:
-                        rs["last_error"] = str(exc)[:400]
-                        stopped = str(exc)
-                    print(f"RATE RESERVE: skipping optional metadata for {repo}: {exc}", file=sys.stderr)
-                except RateStop as exc:
+                        check_latest_release(repo, repo_projects, rs)
+                    fill_missing_latest_commits({repo: repo_projects}, state, required=True)
+                    rs["publication"]["metadata_complete"] = True
+            except PublicationBudget as exc:
+                deferred_publications += 1
+                rs["last_error"] = str(exc)
+                print(f"PUBLICATION DEFERRED while enriching {repo}: {exc}", file=sys.stderr)
+            except PrimaryReserve as exc:
+                if metadata_required:
+                    rs["last_error"] = str(exc)[:400]
                     stopped = str(exc)
-                    print(f"RATE STOP while enriching {repo}: {exc}", file=sys.stderr)
-                except Exception as exc:
-                    if required:
-                        rs["last_error"] = str(exc)[:400]
-                    print(f"WARNING: metadata {repo}: {exc}", file=sys.stderr)
+                print(f"RATE RESERVE: skipping optional metadata for {repo}: {exc}", file=sys.stderr)
+            except RateStop as exc:
+                stopped = str(exc)
+                print(f"RATE STOP while enriching {repo}: {exc}", file=sys.stderr)
+            except Exception as exc:
+                if metadata_required:
+                    rs["last_error"] = str(exc)[:400]
+                print(f"WARNING: metadata {repo}: {exc}", file=sys.stderr)
 
-        if not required and not enriched and any(not p.get("github_path") for p in repo_projects):
-            checked = parse_time(rs.get("last_release_check_at"))
-            release_hours = 6 if probe_minutes == 15 else 24
-            if new_repo or added_projects or not checked or RUN_AT - checked >= timedelta(hours=release_hours):
-                try:
-                    check_latest_release(repo, repo_projects)
-                    rs["last_release_check_at"] = RUN_AT.isoformat(timespec="seconds").replace("+00:00", "Z")
-                except PrimaryReserve as exc:
-                    print(f"RATE RESERVE: skipping release for {repo}: {exc}", file=sys.stderr)
-                except RateStop as exc:
-                    stopped = str(exc)
-                    print(f"RATE STOP while checking release for {repo}: {exc}", file=sys.stderr)
-                except Exception as exc:
-                    print(f"WARNING: release {repo}: {exc}", file=sys.stderr)
+        if (not metadata_required and any(not p.get("github_path") for p in repo_projects)
+                and (new_repo or added_projects or release_due(repo_projects, rs, latest_day, archived))):
+            try:
+                check_latest_release(repo, repo_projects, rs)
+            except PrimaryReserve as exc:
+                print(f"RATE RESERVE: skipping release for {repo}: {exc}", file=sys.stderr)
+            except RateStop as exc:
+                stopped = str(exc)
+                print(f"RATE STOP while checking release for {repo}: {exc}", file=sys.stderr)
+            except Exception as exc:
+                print(f"WARNING: release {repo}: {exc}", file=sys.stderr)
 
         interval = interval_days(latest.isoformat() if latest else None, archived)
         rs["probe_interval_minutes"] = probe_interval_minutes(latest_day, archived)

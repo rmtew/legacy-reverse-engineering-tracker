@@ -192,6 +192,7 @@ function bookmarkClick(event){
     else (activityVisible()?document.querySelector('[data-inbox="bookmarks"]'):$('bookmarkedProjects'))?.focus({preventScroll:true});
   }
   if(inboxView==='bookmarks')updateCurrentActivityDay();
+  updateSourceAvailabilityWarning(true);
 }
 $('rows').addEventListener('click',bookmarkClick);
 $('activityFeed').addEventListener('click',bookmarkClick);
@@ -207,7 +208,7 @@ $('importBookmarks').addEventListener('change',async event=>{
     if(!storageBroken){const raw=localStorage.getItem(reading.BOOKMARKS);if(raw)bookmarks=new Set(reading.parseBookmarks(raw));}
     incoming.forEach(id=>bookmarks.add(id));saveBookmarks();
     const position=capturePosition();
-    if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);updateReadingControls('Imported bookmarks; existing bookmarks preserved.');
+    if(projectUiReady)render();if(activityUiReady)renderActivity();updateSourceAvailabilityWarning();restorePosition(position);updateReadingControls('Imported bookmarks; existing bookmarks preserved.');
   }catch(error){updateReadingControls('Import failed: '+error.message);}
   finally{event.target.value='';}
 });
@@ -218,7 +219,7 @@ window.addEventListener?.('storage',event=>{
     if(event.key===reading.KEY){readingState=reading.parse(event.newValue);if(!readingState.checked&&readingInitialized)readingState=reading.reconcile(readingState,combinedActivityEvents(),activityData.generated_at).state;$('migrationNotice').hidden=!readingState.migrationNotice;}
     else if(event.key===reading.BOOKMARKS)bookmarks=new Set(event.newValue?reading.parseBookmarks(event.newValue):[]);
     else return;
-    if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);
+    if(projectUiReady)render();if(activityUiReady)renderActivity();updateSourceAvailabilityWarning();restorePosition(position);
     updateReadingControls('Local state updated from another tab.');
   }catch{storageFailure('Another tab saved unreadable local state.');}
 });
@@ -357,8 +358,58 @@ const executionLabel = value => executionLabels[value] || String(value ?? "");
 const executionPaths = record => arr(record?.execution_paths).filter(path=>path?.method);
 const executionSearchValues = record => executionPaths(record).flatMap(path=>[executionLabel(path.method),path.method,path.method.replaceAll("-"," "),path.name,path.status,path.notes]);
 const executionMethods = record => [...new Set(executionPaths(record).map(path=>path.method))];
-const repositoryAvailability = record => record.github?.source_availability?.status === "unavailable"
-  ? "Repository unavailable (HTTP 404); cached metadata retained; retryable" : "";
+// Prefer the current repository's provider, not metadata left from a former host.
+const repositoryProvider = record => /^https?:\/\/(?:www\.)?gitlab\.com\//i.test(record?.repo||"") ? "gitlab"
+  : /^https?:\/\/(?:www\.)?github\.com\//i.test(record?.repo||"") ? "github"
+  : (record?.gitlab?.repository || (record?.gitlab && !record?.github)) ? "gitlab" : "github";
+const repositoryMetadata = record => record?.[repositoryProvider(record)] || {};
+const repositoryUnavailable = record => {
+  const status=repositoryMetadata(record).source_availability;
+  return status?.status === "unavailable" && status.http_status === 404 && status.retryable === true;
+};
+const repositoryAvailability = record => {
+  if(!repositoryUnavailable(record))return "";
+  const checkedAt=repositoryMetadata(record).source_availability.checked_at;
+  // This public timestamp is the first failed observation, not each retry.
+  const observed=typeof checkedAt==="string"&&Number.isFinite(Date.parse(checkedAt))
+    ? " First observed unavailable: "+checkedAt+"." : "";
+  return "Repository unavailable to the tracker at the last check (HTTP 404); cached metadata retained; retryable."
+    +observed+" Checks retry automatically. This does not establish whether the repository is private, moved or deleted.";
+};
+const sourceAvailabilityMarker = record => repositoryUnavailable(record)
+  ? '<button type="button" class="source-unavailable-marker" aria-haspopup="dialog" data-source-details="'+esc(record.id)+'" aria-label="'+esc('Source unavailable at last check for '+projectTitle(record)+'. View details')+'" title="'+esc(repositoryAvailability(record))+'"><span aria-hidden="true">⚠</span><span>Source unavailable</span></button>' : "";
+function bookmarkedUnavailableProjects(){
+  return projects.filter(project=>bookmarks.has(project.id)&&repositoryUnavailable(project));
+}
+let sourceAvailabilityWarningKey=null;
+function updateSourceAvailabilityWarning(preservePosition=false){
+  const affected=bookmarkedUnavailableProjects();
+  const key=JSON.stringify(affected.map(project=>[project.id,projectTitle(project)]));
+  if(key===sourceAvailabilityWarningKey)return;
+  sourceAvailabilityWarningKey=key;
+  const warning=$('sourceAvailabilityWarning');
+  const summary=affected.length?'Updates may be incomplete for '+affected.length+' bookmarked project'+(affected.length===1?'':'s')+'.':'';
+  const list=affected.map(project=>'<li><button type="button" class="source-project-details" aria-haspopup="dialog" data-source-details="'+esc(project.id)+'">'+esc(projectTitle(project))+'</button></li>').join('');
+  // Measure only this ordinary flow container, never skipped activity groups. Keep
+  // a scrolled feed stationary if a bookmark changes the notice above the viewport.
+  const slot=$('sourceAvailabilitySlot');
+  const before=preservePosition&&activityVisible()?slot.getBoundingClientRect?.():null;
+  const y=window.scrollY||0;
+  $('sourceAvailabilitySummary').textContent=summary;
+  if($('sourceAvailabilityProjects').innerHTML!==list)$('sourceAvailabilityProjects').innerHTML=list;
+  warning.hidden=!affected.length;
+  if(before?.top<0){
+    const after=slot.getBoundingClientRect();
+    if(after.height!==before.height)window.scrollTo?.(0,Math.max(0,y+after.height-before.height));
+  }
+}
+function sourceDetailsClick(event){
+  const button=event.target.closest('[data-source-details]');if(!button)return;
+  const project=projectById().get(button.dataset.sourceDetails);if(!project)return;
+  event.preventDefault();event.stopPropagation();showDetails(project);
+}
+$('rows').addEventListener('click',sourceDetailsClick);
+$('sourceAvailabilityWarning').addEventListener('click',sourceDetailsClick);
 const executionBadges = record => executionPaths(record).map(path=>{
   const label=executionLabel(path.method)+(path.status==="partial"?": partial":"");
   const hint=[path.name,path.status,path.notes].filter(Boolean).join(" · ");
@@ -670,7 +721,7 @@ function projectSortKeys(record) {
     target: text(record.target_platforms),
     language: text(record.reconstructed_languages),
     classification: classificationSortValue(record),
-    started: record.re_started ?? record.github?.created_at,
+    started: record.re_started ?? repositoryMetadata(record).created_at,
     updated: record.last_activity,
     compilable: tri(build.compilable),
     playable: tri(build.playable),
@@ -751,10 +802,11 @@ let projectRenderRevision=0;
 function projectRowHtml(record){
     const build = record.build || {};
     const ai = record.ai || {};
-    const started = record.re_started ?? (record.github?.created_at ? record.github.created_at.slice(0, 4) + "*" : "?");
+    const created=repositoryMetadata(record).created_at;
+    const started = record.re_started ?? (created ? created.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + '<td><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + '</div>' + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + '</div>' + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + "<td>" + tags(record.source_platforms) + "</td>"
       + "<td>" + tags(record.target_platforms) + "</td>"
       + "<td>" + tags(record.reconstructed_languages) + "</td>"
@@ -908,15 +960,16 @@ function showDetails(record) {
   const project = record.project_url
     ? '<a href="' + esc(record.project_url) + '" target="_blank" rel="noopener">' + esc(record.project_url) + "</a>"
     : null;
-  const latestCommit = record.github?.latest_commit?.url
-    ? '<a href="' + esc(record.github.latest_commit.url) + '" target="_blank" rel="noopener">'
-      + esc((record.github.latest_commit.date || "?") + " — " + (record.github.latest_commit.message || ""))
+  const metadata=repositoryMetadata(record);
+  const latestCommit = metadata.latest_commit?.url
+    ? '<a href="' + esc(metadata.latest_commit.url) + '" target="_blank" rel="noopener">'
+      + esc((metadata.latest_commit.date || "?") + " — " + (metadata.latest_commit.message || ""))
       + "</a>"
     : "?";
-  const latestRelease = record.github?.latest_release?.url
-    ? '<a href="' + esc(record.github.latest_release.url) + '" target="_blank" rel="noopener">'
-      + esc((record.github.latest_release.tag || record.github.latest_release.name || "release")
-        + (record.github.latest_release.published_at ? " — " + record.github.latest_release.published_at : ""))
+  const latestRelease = metadata.latest_release?.url
+    ? '<a href="' + esc(metadata.latest_release.url) + '" target="_blank" rel="noopener">'
+      + esc((metadata.latest_release.tag || metadata.latest_release.name || "release")
+        + (metadata.latest_release.published_at ? " — " + metadata.latest_release.published_at : ""))
       + "</a>"
     : "?";
 
@@ -945,12 +998,12 @@ function showDetails(record) {
     + line("Started", esc(record.re_started ?? "?"))
     + line("Last activity", esc(record.last_activity ?? "?"))
     + line("Last checked", esc(record.last_checked ?? "?"))
-    + line("Repository created", esc(record.github?.created_at ?? "?"))
-    + line("GitHub activity", esc(record.github?.activity_state ?? "?"))
-    + line("Default branch", esc(record.github?.default_branch ?? "?"))
-    + line("Tracked branch", esc(record.github?.tracking_branch ?? "?"))
-    + line("Tracked path", esc(record.github?.tracking_path ?? "?"))
-    + line("GitHub languages", tags(record.github?.languages))
+    + line("Repository created", esc(metadata.created_at ?? "?"))
+    + line("Repository activity", esc(metadata.activity_state ?? "?"))
+    + line("Default branch", esc(metadata.default_branch ?? "?"))
+    + line("Tracked branch", esc(metadata.tracking_branch ?? "?"))
+    + line("Tracked path", esc(metadata.tracking_path ?? "?"))
+    + line("Repository languages", tags(metadata.languages))
     + line("Latest commit", latestCommit)
     + line("Latest release", latestRelease)
     + line("Status", esc(record.status ?? "?"))
@@ -1066,10 +1119,12 @@ const projectForEvent = (event, map) => map.get(event.project_id) || event.proje
 
 function combinedActivityEvents() {
   const events=[...activityData.events];
-  const seen=new Set(events.map(event=>event.type+":"+event.project_id+":"+(event.sha||event.tag||event.url||event.date)));
+  const seen=new Set(events.map(event=>event.type+":"+event.project_id+":"+(event.type==="release"?event.tag||event.url||event.date:event.sha||event.tag||event.url||event.date)));
+  const snapshotTime=new Date(activityData.generated_at||Date.now()).getTime();
   for(const project of projects){
-    const release=project.github?.latest_release;
-    if(!release?.published_at || new Date(release.published_at).getTime()<new Date(activityData.generated_at||Date.now()).getTime()-30*86400000) continue;
+    const metadata=repositoryMetadata(project),release=metadata.latest_release;
+    const releaseTime=Date.parse(release?.published_at);
+    if(!Number.isFinite(releaseTime)||releaseTime<snapshotTime-30*86400000||releaseTime>snapshotTime)continue;
     const tag=release.tag||release.name||"release";
     const key="release:"+project.id+":"+tag;
     if(seen.has(key)) continue;
@@ -1079,7 +1134,7 @@ function combinedActivityEvents() {
       // The catalogue records a calendar date, not a release timestamp.
       date:release.published_at,
       project_id:project.id,
-      repository:project.github?.repository||"",
+      repository:metadata.repository||"",
       tag,
       title:"Release "+tag,
       message:release.name&&release.name!==tag?release.name:"",
@@ -1175,6 +1230,8 @@ const activityFieldLabels={
   project_url:"Project page",
   github_path:"Tracked path",
   github_branch:"Tracked branch",
+  gitlab_path:"Tracked path",
+  gitlab_branch:"Tracked branch",
   source_platforms:"Source platform",
   target_platforms:"Target platform",
   source_cpu:"Source CPU",
@@ -1333,16 +1390,17 @@ function activityDate(value) {
 function additionContextHtml(event, project) {
   if(!["project_added","project_restored"].includes(event.type)) return "";
   const context=event.activity_context;
-  const commit=context?.last_commit || project?.github?.latest_commit;
+  const metadata=repositoryMetadata(project);
+  const commit=context?.last_commit || metadata.latest_commit;
   const lastActivity=context?.last_activity || project?.last_activity;
-  const release=context?.latest_release || (!context && project?.github?.latest_release);
+  const release=context?.latest_release || (!context && metadata.latest_release);
   const lines=[];
   const entry=(label,value,url)=>'<div class="activity-change-line"><span class="activity-change-label">'+label+'</span>'+
     '<span class="detail-separator">·</span>'+(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(value)+'</a>':esc(value))+'</div>';
   if(commit?.date) lines.push(entry("Last commit",activityDate(commit.date),commit.url));
   else if(lastActivity) lines.push(entry("Last upstream activity",activityDate(lastActivity)));
   else if(context){
-    const unavailable=context.last_commit_lookup==="unavailable" || project?.github?.latest_commit_lookup==="unavailable";
+    const unavailable=context.last_commit_lookup==="unavailable" || metadata.latest_commit_lookup==="unavailable";
     lines.push(entry("Last commit",unavailable?"None found on tracked branch/path":"Historical lookup pending"));
   }
   if(release?.published_at) lines.push(entry("Latest release",(release.tag||release.name||"Release")+" · "+activityDate(release.published_at),release.url));
@@ -1352,8 +1410,8 @@ function additionContextHtml(event, project) {
     const window=context.window_days||("commits_90d" in context?90:30);
     lines.push(entry("At addition ("+window+"-day window)",count+" commit"+(count===1?"":"s")+" across "+days+" active day"+(days===1?"":"s")));
   }else{
-    const githubRepo=project?.github?.repository || /^https?:\/\/(?:www\.)?github\.com\//i.test(project?.repo||"");
-    lines.push(entry("Activity", githubRepo?"Initial scan pending":"Repository activity unavailable"));
+    const trackedRepo=metadata.repository || /^https?:\/\/(?:www\.)?(?:github|gitlab)\.com\//i.test(project?.repo||"");
+    lines.push(entry("Activity", trackedRepo?"Initial scan pending":"Repository activity unavailable"));
   }
   return lines.join("");
 }
@@ -1548,6 +1606,7 @@ function updateActivityCounts(){
 }
 
 function renderActivity(append=false) {
+  if(!append)updateSourceAvailabilityWarning();
   activityDirty=false;
   const map=projectById();
   const cutoff=inboxView==="unread"?-Infinity:Date.now()-Number(activityFilterState.days||30)*86400000;
@@ -1682,6 +1741,7 @@ function renderReadyActivity(){
 }
 
 function initializeReadyViews(){
+  if(projectsReady)updateSourceAvailabilityWarning();
   if(projectsReady&&activityReady&&!readingInitialized){
     let position=readingState.position;
     if(position&&!restoreFilters(position.filters))position=null;

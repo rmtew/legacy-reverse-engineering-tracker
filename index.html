@@ -171,6 +171,16 @@
 
   <section id="activityView" class="view-panel active">
     <div class="inbox-views" role="group" aria-label="Activity scope"><button type="button" data-inbox="unread" aria-pressed="true">Unread <span id="unreadCount">0</span></button><button type="button" data-inbox="all" aria-pressed="false">All activity</button><button type="button" data-inbox="bookmarks" aria-pressed="false">Bookmarked activity</button></div>
+    <div id="sourceAvailabilitySlot" class="source-availability-slot">
+      <div id="sourceAvailabilityWarning" class="source-availability-warning" role="status" aria-live="polite" hidden>
+        <details>
+          <summary><span aria-hidden="true">⚠</span> <span id="sourceAvailabilitySummary"></span></summary>
+          <p>These repositories were unavailable to the tracker at its last check (HTTP 404). Cached information is retained and checks retry automatically. A 404 does not establish whether a repository is private, moved or deleted.</p>
+          <ul id="sourceAvailabilityProjects"></ul>
+          <p class="hint">This notice covers all your bookmarked projects, regardless of activity filters or read status. Fetch updates loads published results; it does not start an immediate repository check.</p>
+        </details>
+      </div>
+    </div>
     <section class="filter-panel activity-filter-panel" aria-label="Activity filters">
       <div class="filter-top">
         <label class="filter-search"><span>Search</span>

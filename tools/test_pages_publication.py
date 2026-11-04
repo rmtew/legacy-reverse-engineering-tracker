@@ -54,6 +54,7 @@ class PublicationTests(unittest.TestCase):
             "work_kinds": [],
             "tool_kinds": [],
             "github": {"checked_at": "2026-10-19"},
+            "gitlab": {"checked_at": "2026-10-19", "source_availability": {"status": "unavailable", "http_status": 404, "retryable": True, "checked_at": "2026-10-19T00:00:00Z"}},
         }
         write_all(
             self.root / "data",
@@ -114,6 +115,8 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(pages.inspect(self.root, self.api, self.a)["reason"], "already-deployed")
         rows = load_projects(self.root / "data/projects.json")
         rows[0]["github"]["checked_at"] = "2026-10-20"
+        rows[0]["gitlab"]["checked_at"] = "2026-10-20"
+        rows[0]["gitlab"]["source_availability"]["checked_at"] = "2026-10-20T00:00:00Z"
         write_projects(self.root / "data/projects.json", rows)
         self.put(
             "data/activity.json", {"generated_at": "2026-10-20T00:00:00Z", "window_days": 180, "events": []}

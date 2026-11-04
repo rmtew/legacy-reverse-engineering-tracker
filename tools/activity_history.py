@@ -4,6 +4,7 @@ import json
 from copy import deepcopy
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+from repository_provider import metadata
 
 
 RETENTION_DAYS = 30
@@ -43,10 +44,11 @@ def retained_events(events, now, projects=None):
             continue
         event = deepcopy(original)
         kind = event.get('type')
-        if kind in ('commit', 'daily_commits'):
+        if kind in ('commit', 'daily_commits', 'release'):
             if current is not None and event.get('project_id') not in current:
                 continue
-            event.pop('message', None)
+            if kind != 'release':
+                event.pop('message', None)
         if str(kind).startswith('project_'):
             pid = event.get('project_id')
             if current is not None and pid in current:
@@ -148,22 +150,22 @@ def freeze_addition_context(events, projects, repositories, now):
         project = by_id.get(event["project_id"])
         if not project:
             continue
-        github = project.get("github") or {}
+        source = metadata(project)
         if "activity_context" in event:
             context = event["activity_context"]
             # A 180-day scan may have completed before the older repository's
             # true latest commit was looked up. Fill only previously unknown
             # fields; keep the original 90-day counts and known dates frozen.
-            if not context.get("last_commit") and github.get("latest_commit"):
-                context["last_commit"] = deepcopy(github["latest_commit"])
+            if not context.get("last_commit") and source.get("latest_commit"):
+                context["last_commit"] = deepcopy(source["latest_commit"])
                 context["last_activity"] = project.get("last_activity")
                 context.pop("last_commit_lookup", None)
-            if not context.get("latest_release") and github.get("latest_release"):
-                context["latest_release"] = deepcopy(github["latest_release"])
-            if not context.get("last_commit") and github.get("latest_commit_lookup") == "unavailable":
+            if not context.get("latest_release") and source.get("latest_release"):
+                context["latest_release"] = deepcopy(source["latest_release"])
+            if not context.get("last_commit") and source.get("latest_commit_lookup") == "unavailable":
                 context["last_commit_lookup"] = "unavailable"
             continue
-        repository = (project.get("github") or {}).get("repository") if project else None
+        repository = source.get("repository")
         state = repositories.get(repository) or {}
         scanned_at = state.get("last_deep_scan") if repository else None
         if not project or not scanned_at:
@@ -179,10 +181,10 @@ def freeze_addition_context(events, projects, repositories, now):
                 continue
         event["activity_context"] = {
             "as_of": now.isoformat(timespec="seconds").replace("+00:00", "Z"),
-            "last_commit": deepcopy(github.get("latest_commit")),
+            "last_commit": deepcopy(source.get("latest_commit")),
             "last_activity": project.get("last_activity"),
-            "latest_release": deepcopy(github.get("latest_release")),
-            "last_commit_lookup": github.get("latest_commit_lookup"),
+            "latest_release": deepcopy(source.get("latest_release")),
+            "last_commit_lookup": source.get("latest_commit_lookup"),
             "window_days": RETENTION_DAYS,
             "commits": counts.get(project["id"], 0),
             "active_days": len(days.get(project["id"], ())),

@@ -79,6 +79,55 @@ class ActivityHistoryTest(unittest.TestCase):
         project["github"]["latest_commit"]["sha"] = "new"
         self.assertEqual(addition["activity_context"]["last_commit"]["sha"], "old")
 
+    def test_gitlab_context_waits_for_matching_scan_and_freezes_known_facts(self):
+        now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+        addition = {"type": "project_added", "date": "2026-09-30T12:00:00Z", "project_id": "p"}
+        commit = {"type": "commit", "date": "2026-09-29T12:00:00Z", "project_id": "p", "sha": "abc"}
+        repository = "gitlab.com/group/subgroup/project"
+        project = {"id": "p", "repo": "https://" + repository, "last_activity": "2026-09-29", "gitlab": {
+            "repository": repository, "latest_commit": {"date": "2026-09-29", "sha": "abc"},
+            "latest_release": {"tag": "v1", "published_at": "2026-09-28", "url": "https://" + repository + "/-/releases/v1"}}}
+        freeze_addition_context([addition, commit], [project],
+                                {"group/subgroup/project": {"last_deep_scan": "2026-09-30T13:00:00Z"}}, now)
+        self.assertNotIn("activity_context", addition)
+        freeze_addition_context([addition, commit], [project],
+                                {repository: {"last_deep_scan": "2026-09-30T13:00:00Z"}}, now)
+        frozen = addition["activity_context"]
+        self.assertEqual(frozen["commits"], 1)
+        self.assertEqual(frozen["active_days"], 1)
+        self.assertEqual(frozen["last_commit"]["sha"], "abc")
+        self.assertEqual(frozen["latest_release"]["tag"], "v1")
+        project["gitlab"]["latest_commit"]["sha"] = "new"
+        project["gitlab"]["latest_release"]["tag"] = "v2"
+        freeze_addition_context([addition, commit], [project], {}, now)
+        self.assertEqual(frozen["last_commit"]["sha"], "abc")
+        self.assertEqual(frozen["latest_release"]["tag"], "v1")
+
+    def test_gitlab_unknown_release_remains_unknown_after_completed_scan(self):
+        addition = {"type": "project_added", "date": "2026-09-30T12:00:00Z", "project_id": "p"}
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "gitlab": {
+            "repository": "gitlab.com/a/b", "latest_commit_lookup": "unavailable"}}
+        freeze_addition_context([addition], [project],
+                                {"gitlab.com/a/b": {"last_deep_scan": "2026-09-30T13:00:00Z"}},
+                                datetime(2026, 10, 1, tzinfo=timezone.utc))
+        self.assertIsNone(addition["activity_context"]["latest_release"])
+        self.assertEqual(addition["activity_context"]["last_commit_lookup"], "unavailable")
+
+    def test_gitlab_later_lookup_fills_unknown_facts_without_changing_counts(self):
+        addition = {"type": "project_restored", "date": "2026-09-30T12:00:00Z", "project_id": "p",
+                    "activity_context": {"last_commit": None, "last_commit_lookup": "unavailable",
+                                         "latest_release": None, "window_days": 30, "commits": 0, "active_days": 0}}
+        project = {"id": "p", "repo": "https://gitlab.com/a/b", "last_activity": "2021-01-01", "gitlab": {
+            "repository": "gitlab.com/a/b", "latest_commit": {"date": "2021-01-01", "sha": "old"},
+            "latest_release": {"tag": "v1", "published_at": "2020-12-01"}}}
+        freeze_addition_context([addition], [project], {}, datetime(2026, 10, 1, tzinfo=timezone.utc))
+        context = addition["activity_context"]
+        self.assertEqual(context["last_commit"]["sha"], "old")
+        self.assertEqual(context["latest_release"]["tag"], "v1")
+        self.assertNotIn("last_commit_lookup", context)
+        self.assertEqual(context["commits"], 0)
+        self.assertEqual(context["active_days"], 0)
+
 class LeanRetentionTest(unittest.TestCase):
     def test_boundary_fallback_context_and_dedupe_survive_idempotent_writes(self):
         import json
@@ -131,6 +180,16 @@ class LeanRetentionTest(unittest.TestCase):
         for events in ([newest, oldest], [oldest, newest]):
             output = retained_events(events, datetime(2026, 10, 19, tzinfo=timezone.utc), [])
             self.assertTrue(all(event["project"]["source_cpu"] == ["Z80"] for event in output))
+
+    def test_release_events_survive_compaction_and_obey_membership_and_retention(self):
+        from activity_history import retained_events
+        now = datetime(2026, 10, 19, tzinfo=timezone.utc)
+        release = {"type": "release", "project_id": "p", "repository": "gitlab.com/a/b", "tag": "v1",
+                   "date": "2026-09-19T00:00:00Z", "title": "Release v1", "message": "First release",
+                   "url": "https://gitlab.com/a/b/-/releases/v1"}
+        expired = {**release, "tag": "v0", "date": "2026-09-18T23:59:59Z"}
+        removed = {**release, "project_id": "gone"}
+        self.assertEqual(retained_events(compact_history([release, expired, removed], now), now, [{"id": "p"}]), [release])
 
 
 if __name__ == "__main__":

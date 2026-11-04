@@ -267,13 +267,20 @@ def validate(projects_path, activity_path, rss_path=None):
     source_count, audit_count, research_event_count, decision_count = validate_research_state(projects_path, project_ids, errors)
 
     for index, project in enumerate(projects):
-        availability = (project.get("github") or {}).get("source_availability")
-        if availability is not None and (not isinstance(availability, dict)
-                or set(availability) != {"status", "http_status", "retryable"}
-                or availability.get("status") != "unavailable"
-                or type(availability.get("http_status")) is not int or availability["http_status"] != 404
-                or availability.get("retryable") is not True):
-            fail(f"project {index} has invalid source_availability", errors)
+        for provider in ("github", "gitlab"):
+            availability = (project.get(provider) or {}).get("source_availability")
+            if availability is not None and (not isinstance(availability, dict)
+                    or not {"status", "http_status", "retryable"}.issubset(availability)
+                    or set(availability) - {"status", "http_status", "retryable", "checked_at"}
+                    or availability.get("status") != "unavailable"
+                    or type(availability.get("http_status")) is not int or availability["http_status"] != 404
+                    or availability.get("retryable") is not True):
+                fail(f"project {index} has invalid source_availability for {provider}", errors)
+            elif isinstance(availability, dict) and "checked_at" in availability:
+                try:
+                    parse_time(availability["checked_at"])
+                except (ValueError, TypeError, AttributeError):
+                    fail(f"project {index} has invalid {provider} availability checked_at", errors)
         for field in ("upstream_name", "display_title"):
             value = project.get(field)
             if not isinstance(value, str) or not value.strip():
@@ -391,6 +398,7 @@ def validate(projects_path, activity_path, rss_path=None):
         "project_updated",
     }
     seen_commits = set()
+    seen_releases = set()
     previous = None
     for index, event in enumerate(activity.get("events", [])):
         project_id = event.get("project_id")
@@ -416,6 +424,15 @@ def validate(projects_path, activity_path, rss_path=None):
                 if key in seen_commits:
                     fail(f"duplicate activity event key {key!r}", errors)
                 seen_commits.add(key)
+        elif event_type == "release":
+            if project_id not in project_ids:
+                fail(f"release event {index} references unknown project {project_id!r}", errors)
+            if not event.get("tag") or not event.get("repository") or not event.get("url"):
+                fail(f"release event {index} is missing tag, repository or URL", errors)
+            key = (project_id, event.get("repository"), event.get("tag"))
+            if key in seen_releases:
+                fail(f"duplicate release event key {key!r}", errors)
+            seen_releases.add(key)
         elif event_type in project_event_types:
             if not project_id:
                 fail(f"project activity event {index} is missing project_id", errors)

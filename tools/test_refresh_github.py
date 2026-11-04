@@ -61,13 +61,13 @@ class ProbeCadenceTest(unittest.TestCase):
             self.assertEqual(refresh_github.probe_interval_minutes("2026-09-25"), 15)
             self.assertEqual(refresh_github.probe_interval_minutes("2026-09-11"), 60)
             self.assertEqual(refresh_github.probe_interval_minutes("2026-07-26"), 240)
-            self.assertEqual(refresh_github.probe_interval_minutes("2025-01-01"), 720)
-            self.assertEqual(refresh_github.probe_interval_minutes("2026-09-26", archived=True), 720)
+            self.assertEqual(refresh_github.probe_interval_minutes("2025-01-01"), 1440)
+            self.assertEqual(refresh_github.probe_interval_minutes("2026-09-26", archived=True), 1440)
 
     def test_migration_stagger_never_exceeds_probe_interval(self):
         last = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
         rs = {"last_probe_at": "2026-09-26T00:00:00Z"}
-        for minutes in (15, 60, 240, 720):
+        for minutes in (15, 60, 240, 1440):
             with patch.object(refresh_github, "RUN_AT", last + timedelta(minutes=minutes)):
                 self.assertTrue(refresh_github.probe_due("owner/repo", rs, minutes))
             with patch.object(refresh_github, "RUN_AT", last):
@@ -101,7 +101,7 @@ class ProbeCadenceTest(unittest.TestCase):
             result = json.loads(state_path.read_text())["repositories"]["owner/repo"]
             self.assertTrue(result["scan_requested"])
             self.assertEqual(result["scan_reason"], "new-project")
-            self.assertEqual(result["probe_interval_minutes"], 720)
+            self.assertEqual(result["probe_interval_minutes"], 1440)
             self.assertEqual(request.call_count, 1)
 
     def test_unchanged_repo_can_refresh_release_without_repeating_empty_languages(self):
