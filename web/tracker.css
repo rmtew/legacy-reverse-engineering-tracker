@@ -232,7 +232,9 @@ button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid c
 
 /* A compact overview follows the feed's day/project order, including unloaded pages. */
 .activity-layout{display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;align-items:start}
-.activity-stream{min-width:0}
+.activity-stream{min-width:0;grid-column:2}
+/* Hidden rails leave loading, error and empty states the full feed width. */
+.activity-timeline[hidden]+.activity-stream{grid-column:1 / -1}
 .activity-timeline{overflow-anchor:none;position:sticky;top:12px;height:min(72vh,620px);display:flex;flex-direction:column;align-items:stretch;color:var(--muted)}
 .activity-timeline[hidden]{display:none}
 .timeline-boundary{font-size:10px;text-align:center;font-variant-numeric:tabular-nums;padding:4px 0}

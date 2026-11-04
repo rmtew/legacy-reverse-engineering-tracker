@@ -57,6 +57,26 @@ function browser(storage={},extras={}){
   run(`projects=[{id:'p',title:'Project'}];projectsReady=true;activityReady=true;activityUiReady=true;readingInitialized=true;bindActivityProjectFacets=()=>{};loadProjectCatalogue=async()=>projects;activityData={generated_at:'${date}',events:[]};readingState=reading.reconcile(reading.empty(),[],activityData.generated_at).state;saveReading();`);
   return {run,get,handlers,storage,context};
 }
+test('activity loading and empty states span both columns; populated streams retain the timeline column',()=>{
+  const css=fs.readFileSync(require.resolve('../web/tracker.css'),'utf8');
+  const html=fs.readFileSync(require.resolve('../index.html'),'utf8');
+  assert.match(html,/<nav\b[^>]*id="activityRail"[^>]*\bhidden[^>]*><\/nav>\s*<div class="activity-stream">/);
+  assert.match(css,/\.activity-stream\{[^}]*grid-column:2(?:;|\})/);
+  assert.match(css,/\.activity-timeline\[hidden\]\s*\+\s*\.activity-stream\{[^}]*grid-column:1\s*\/\s*-1(?:;|\})/);
+  const b=browser();
+  b.run('renderActivity()');
+  assert.equal(b.get('activityRail').hidden,true);
+  assert.match(b.get('activityFeed').innerHTML,/No unread activity matches/);
+  b.run(`activityData.events=[${JSON.stringify(commit('a'))}];ingestReadingSnapshot();renderActivity()`);
+  assert.equal(b.get('activityRail').hidden,false);
+  b.run("$('activityQ').value='no matching activity';renderActivity()");
+  assert.equal(b.get('activityRail').hidden,true);
+  b.run("$('activityQ').value='';renderActivity()");
+  assert.equal(b.get('activityRail').hidden,false);
+  b.run("inboxView='bookmarks';renderActivity()");
+  assert.equal(b.get('activityRail').hidden,true);
+  assert.match(b.get('activityFeed').innerHTML,/No activity matches/);
+});
 test('fetch succeeds, does not duplicate unread, fails without changing saved check, and repeated in-flight controls are safe',async()=>{
   const b=browser();
   b.run(`loadActivitySnapshot=async()=>({generated_at:'${date}',events:[${JSON.stringify(commit('late','2026-10-06T00:00:00Z'))}]});`);
