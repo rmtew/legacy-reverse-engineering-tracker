@@ -103,6 +103,12 @@ function restorePosition(position,revision=activityRenderRevision,targetIndex){
       return;
     }
   }
+  if(position.view==='projects'&&position.anchor&&!ensureProjectAnchorRendered(position.anchor)){
+    const projectRevision=projectRenderRevision;
+    positionRestoreRevision=revision;
+    setTimeout(()=>{if(projectRevision===projectRenderRevision)restorePosition(position,revision);},0);
+    return;
+  }
   const node=[...document.querySelectorAll(position.view==='projects'?'#rows [data-id]':'[data-reading-anchor]')].find(node=>(node.dataset.readingAnchor||node.dataset.id)===position.anchor);
   positionRestoreRevision=null;
   window.scrollTo?.(0,node?(window.scrollY||0)+node.getBoundingClientRect().top-position.offset:position.y||0);
@@ -133,6 +139,18 @@ document.querySelectorAll('[data-inbox]').forEach(button=>button.addEventListene
   setInboxView(button.dataset.inbox);requestActivityRender();
 }));
 $('bookmarkedProjects').addEventListener('change',()=>{if(projectUiReady)render();});
+function syncBookmarkNodes(){
+  const map=projectById();
+  for(const event of activityRenderedEvents)if(event.project&&!map.has(event.project_id))map.set(event.project_id,event.project);
+  document.querySelectorAll('[data-bookmark]').forEach(button=>{
+    const id=button.dataset.bookmark,selected=bookmarks.has(id);
+    button.textContent=selected?'★':'☆';
+    button.setAttribute('aria-pressed',String(selected));
+    button.setAttribute('aria-label',(selected?'Remove bookmark for ':'Bookmark ')+projectTitle(map.get(id)||{id}));
+    button.title=selected?'Remove bookmark':'Bookmark project';
+    button.closest('.activity-project,.project-row')?.classList.toggle('bookmarked',selected);
+  });
+}
 function bookmarkClick(event){
   const button=event.target.closest('[data-bookmark]');if(!button)return;
   event.preventDefault();event.stopPropagation();
@@ -140,10 +158,37 @@ function bookmarkClick(event){
   const id=button.dataset.bookmark;
   if(bookmarks.has(id))bookmarks.delete(id);else bookmarks.add(id);
   saveBookmarks();
-  const position=capturePosition();
-  if(projectUiReady)render();if(activityUiReady)renderActivity();restorePosition(position);
-  const replacement=[...document.querySelectorAll('[data-bookmark]')].find(node=>node.dataset.bookmark===id&&node.closest('.view-panel.active'));
-  replacement?.focus({preventScroll:true});
+  if(inboxView==='bookmarks'&&bookmarks.has(id))activityDirty=true;
+  // Keep existing nodes (and the focused star) rather than rebuilding either view.
+  const survivors=[...document.querySelectorAll('.view-panel.active [data-bookmark]')].filter(node=>bookmarks.has(node.dataset.bookmark));
+  const anchor=survivors.find(node=>node.getBoundingClientRect().top>=0)||survivors.at(-1);
+  const top=anchor?.getBoundingClientRect().top;
+  syncBookmarkNodes();
+  if(projectUiReady&&$('bookmarkedProjects').checked)refreshProjectBookmarkMembership();
+  if(activityUiReady&&inboxView==='bookmarks'){
+    activityRenderRevision++;
+    const previous=activityRenderedEvents;
+    activityRenderedCount=previous.slice(0,activityRenderedCount).filter(event=>bookmarks.has(event.project_id)).length;
+    activityVisibleCount=activityRenderedCount;
+    activityRenderedEvents=previous.filter(event=>bookmarks.has(event.project_id));
+    document.querySelectorAll('#activityFeed .activity-project').forEach(node=>{if(!bookmarks.has(node.dataset.projectId))node.remove();});
+    document.querySelectorAll('#activityFeed .activity-day').forEach(node=>{if(!node.querySelector('.activity-project'))node.remove();});
+    activityDayNodes=[...document.querySelectorAll('#activityFeed .activity-day')];
+    updateActivityCounts();
+    if(!activityRenderedEvents.length)$('activityFeed').innerHTML='<div class="activity-empty">No activity matches the current filters.</div>';
+  }
+  if(activityUiReady&&inboxView==='bookmarks'){
+    const indices=new Map(activityRenderedEvents.map((event,index)=>[reading.ids(event)[0],index]));
+    const retained=activityTimelineEntries.filter(entry=>bookmarks.has(entry.id)&&indices.get(entry.anchor)<activityRenderedCount);
+    activityTimelineEntries=retained.map((entry,index)=>({...entry,index:indices.get(entry.anchor),dayStart:index===0||retained[index-1].day!==entry.day}));
+    activityTimelineEntries.push(...activityRailEntries(activityRenderedEvents.slice(activityRenderedCount),projectById()).map(entry=>({...entry,index:entry.index+activityRenderedCount})));
+    renderActivityRail();
+  }else document.querySelectorAll('#activityRail [data-project-id]').forEach(node=>node.classList.toggle('timeline-bookmarked',bookmarks.has(node.dataset.projectId)));
+  if(!button.isConnected){
+    if(anchor?.isConnected){window.scrollBy(0,anchor.getBoundingClientRect().top-top);anchor.focus({preventScroll:true});}
+    else (activityVisible()?document.querySelector('[data-inbox="bookmarks"]'):$('bookmarkedProjects'))?.focus({preventScroll:true});
+  }
+  if(inboxView==='bookmarks')updateCurrentActivityDay();
 }
 $('rows').addEventListener('click',bookmarkClick);
 $('activityFeed').addEventListener('click',bookmarkClick);
@@ -593,7 +638,27 @@ function updateClearButtons(){
   $("activityClear").hidden=!activityFiltersActive();
 }
 
-function sortValue(record, key) {
+// Derived metadata belongs to a catalogue snapshot, never to a search keystroke.
+let projectCacheSource=null, projectCacheVocabulary=null, projectMetadata=new WeakMap();
+let projectRowById=new Map(), projectSortOrders=new Map();
+const projectCollator=new Intl.Collator(undefined,{numeric:true,sensitivity:"base"});
+function projectSearchText(record) {
+  return [
+    projectTitle(record), record.title, record.upstream_name, ...arr(record.subjects),
+    record.notes, record.repo, record.project_url, record.status,
+    ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
+    ...projectTypeValues(record).map(projectTypeLabel),
+    ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
+    ...executionSearchValues(record),
+    ...platformValues(record),...arr(record.source_platforms),...arr(record.target_platforms),...cpuFamilyValues(record),
+    ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
+    ...runtimeProfiles(record).flatMap(profile=>[
+      profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.os,profile.notes
+    ])
+  ].join(" ").toLowerCase();
+
+}
+function projectSortKeys(record) {
   const build = record.build || {};
   const ai = record.ai || {};
   return {
@@ -608,40 +673,40 @@ function sortValue(record, key) {
     playable: tri(build.playable),
     exact: tri(build.byte_exact),
     ai: tri(ai.usage)
-  }[key];
+  };
 }
 
-function compare(a, b) {
-  const av = sortValue(a, sort.key);
-  const bv = sortValue(b, sort.key);
-  const aMissing = av === null || av === undefined || av === "" || av === "Unknown";
-  const bMissing = bv === null || bv === undefined || bv === "" || bv === "Unknown";
-  if (aMissing !== bMissing) return aMissing ? 1 : -1;
-  return String(av ?? "").localeCompare(
-    String(bv ?? ""),
-    undefined,
-    { numeric: true, sensitivity: "base" }
-  ) * sort.dir;
+function projectMeta(record){
+  let value=projectMetadata.get(record);
+  if(!value){
+    value={search:projectSearchText(record),keys:projectSortKeys(record)};
+    projectMetadata.set(record,value);
+  }
+  return value;
 }
-
-function matches(record) {
-  const query = $("q").value.trim().toLowerCase();
-  const build = record.build || {};
-  const ai = record.ai || {};
-  const haystack = query ? [
-    projectTitle(record), record.title, record.upstream_name, ...arr(record.subjects),
-    record.notes, record.repo, record.project_url, record.status,
-    ...arr(record.tags), ...arr(record.techniques), ...arr(record.types),
-    ...projectTypeValues(record).map(projectTypeLabel),
-    ...arr(record.target_kinds), ...arr(record.work_kinds), ...arr(record.tool_kinds),
-    ...executionSearchValues(record),
-    ...platformValues(record),...arr(record.source_platforms),...arr(record.target_platforms),...cpuFamilyValues(record),
-    ...arr(record.source_cpu),...arr(record.target_cpu),...arr(record.reconstructed_languages),
-    ...runtimeProfiles(record).flatMap(profile=>[
-      profile.platform,profile.cpu_family,profile.min_cpu,...arr(profile.chipsets),profile.os,profile.notes
-    ])
-  ].join(" ").toLowerCase() : "";
-
+function ensureProjectCache(){
+  if(projectCacheSource===projects&&projectCacheVocabulary===platformVocabulary)return;
+  projectCacheSource=projects;projectCacheVocabulary=platformVocabulary;
+  projectMetadata=new WeakMap();projectSortOrders=new Map();
+  projectRowById=new Map(projects.map(record=>[record.id,record]));
+  projects.forEach(projectMeta);
+}
+function sortValue(record,key){return projectMeta(record).keys[key];}
+function compare(a,b){
+  const av=sortValue(a,sort.key),bv=sortValue(b,sort.key);
+  const missing=value=>value===null||value===undefined||value===""||value==="Unknown";
+  if(missing(av)!==missing(bv))return missing(av)?1:-1;
+  return projectCollator.compare(String(av??""),String(bv??""))*sort.dir;
+}
+function sortedProjects(){
+  ensureProjectCache();
+  const key=sort.key+":"+sort.dir;
+  if(!projectSortOrders.has(key))projectSortOrders.set(key,projects.slice().sort(compare));
+  return projectSortOrders.get(key);
+}
+function matches(record,query=$("q").value.trim().toLowerCase()) {
+  const build=record.build||{},ai=record.ai||{};
+  const haystack=query?projectMeta(record).search:"";
   const profiles=runtimeProfiles(record);
   const runtimeRequested=projectFilterState.runsOnCpu||projectFilterState.runsOnRam||projectFilterState.runsOnChipset;
   const runtimePlatform=projectFilterState.directionMode==="route"?projectFilterState.targetPlatform
@@ -677,23 +742,10 @@ function projectCell(record) {
   return '<a class="project-link" href="' + esc(url) + '" target="_blank" rel="noopener"' + tooltip + ">" + title + "</a>";
 }
 
-function render() {
-  const rows = projects.filter(record=>(!$("bookmarkedProjects").checked||bookmarks.has(record.id))&&matches(record)).sort(compare);
-  $("count").textContent = rows.length;
-  $("total").textContent = projects.length;
-  $("sortnote").textContent = "Sorted by " + sort.key + (sort.dir < 0 ? " ↓" : " ↑");
-
-  document.querySelectorAll("th[data-key]").forEach(th => {
-    th.removeAttribute("data-sort");
-    if (th.dataset.key === sort.key) th.dataset.sort = sort.dir > 0 ? "asc" : "desc";
-  });
-
-  if (!rows.length) {
-    $("rows").innerHTML = '<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
-    return;
-  }
-
-  $("rows").innerHTML = rows.map(record => {
+const PROJECT_BATCH_SIZE=100;
+let projectRenderedRows=[],projectRenderedCount=0,projectVisibleLimit=PROJECT_BATCH_SIZE;
+let projectRenderRevision=0;
+function projectRowHtml(record){
     const build = record.build || {};
     const ai = record.ai || {};
     const started = record.re_started ?? (record.github?.created_at ? record.github.created_at.slice(0, 4) + "*" : "?");
@@ -711,15 +763,93 @@ function render() {
       + "<td>" + flag(build.byte_exact) + "</td>"
       + "<td>" + flag(ai.usage) + "</td>"
       + "</tr>";
-  }).join("");
 
-  document.querySelectorAll("#rows tr.project-row").forEach(row => {
-    row.addEventListener("click", event => {
-      if (event.target.closest("a,button")) return;
-      showDetails(projects.find(record => record.id === row.dataset.id));
-    });
-  });
 }
+function updateProjectPageControls(){
+  const remaining=projectRenderedRows.length-projectRenderedCount;
+  $("projectPageStatus").textContent="Showing "+projectRenderedCount+" of "+projectRenderedRows.length+" matching projects.";
+  $("projectShowMore").hidden=remaining<=0;
+  $("projectShowMore").textContent="Show "+Math.min(PROJECT_BATCH_SIZE,remaining)+" more";
+  $("projectShowAll").hidden=remaining<=0;
+  $("projectFindHint").hidden=remaining<=0;
+}
+function appendProjectRows(limit=projectVisibleLimit){
+  const end=Math.min(limit,projectRenderedRows.length);
+  if(end>projectRenderedCount){
+    $("rows").insertAdjacentHTML("beforeend",projectRenderedRows.slice(projectRenderedCount,end).map(projectRowHtml).join(""));
+    projectRenderedCount=end;
+  }
+  updateProjectPageControls();
+}
+function render(preserveLimit=false) {
+  projectRenderRevision++;
+  $("projectShowAll").disabled=false;
+  if(!preserveLimit)projectVisibleLimit=PROJECT_BATCH_SIZE;
+  const query=$("q").value.trim().toLowerCase(),onlyBookmarks=$("bookmarkedProjects").checked;
+  projectRenderedRows=sortedProjects().filter(record=>(!onlyBookmarks||bookmarks.has(record.id))&&matches(record,query));
+  projectRenderedCount=0;
+  $("count").textContent=projectRenderedRows.length;
+  $("total").textContent=projects.length;
+  $("sortnote").textContent="Sorted by "+sort.key+(sort.dir<0?" ↓":" ↑");
+  document.querySelectorAll("th[data-key]").forEach(th=>{
+    th.removeAttribute("data-sort");
+    th.setAttribute("aria-sort",th.dataset.key===sort.key?(sort.dir>0?"ascending":"descending"):"none");
+    if(th.dataset.key===sort.key)th.dataset.sort=sort.dir>0?"asc":"desc";
+  });
+  $("rows").innerHTML=projectRenderedRows.length?"":'<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
+  appendProjectRows();
+}
+function refreshProjectBookmarkMembership(){
+  const query=$("q").value.trim().toLowerCase();
+  const next=sortedProjects().filter(record=>bookmarks.has(record.id)&&matches(record,query));
+  const previous=new Set(projectRenderedRows);
+  if(next.some(record=>!previous.has(record))){render(true);return;}
+  projectRenderRevision++;
+  $("projectShowAll").disabled=false;
+  const retained=new Set(next.map(record=>record.id));
+  $("rows").querySelectorAll("tr.project-row").forEach(row=>{
+    if(!retained.has(row.dataset.id)){row.remove();projectRenderedCount--;}
+  });
+  projectRenderedRows=next;
+  $("count").textContent=next.length;
+  if(!next.length)$("rows").innerHTML='<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
+  appendProjectRows();
+}
+function ensureProjectAnchorRendered(id){
+  const index=projectRenderedRows.findIndex(record=>record.id===id);
+  if(index>=projectRenderedCount){projectVisibleLimit=Math.min(index+1,projectRenderedCount+PROJECT_BATCH_SIZE);appendProjectRows();}
+  return index<projectRenderedCount;
+}
+$("projectShowMore").addEventListener("click",()=>{
+  projectVisibleLimit+=PROJECT_BATCH_SIZE;appendProjectRows();
+});
+$("projectShowAll").addEventListener("click",()=>{
+  if($("projectShowAll").disabled)return;
+  $("projectShowAll").disabled=true;
+  const revision=projectRenderRevision;
+  // Explicit full-list access for browser Find/assistive technology, without a long task.
+  function next(){
+    if(revision!==projectRenderRevision)return;
+    projectVisibleLimit+=PROJECT_BATCH_SIZE;appendProjectRows();
+    if(projectRenderedCount<projectRenderedRows.length)setTimeout(next,0);
+  }
+  next();
+});
+// Append near the end while keeping the explicit button as a keyboard/no-observer fallback.
+if(typeof IntersectionObserver!=="undefined"){
+  const projectObserver=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)&&projectRenderedCount<projectRenderedRows.length){
+      projectVisibleLimit+=PROJECT_BATCH_SIZE;appendProjectRows();
+    }
+  },{rootMargin:"400px"});
+  projectObserver.observe($("projectShowMore"));
+}
+$("rows").addEventListener("click",event=>{
+  if(event.target.closest("a,button"))return;
+  const row=event.target.closest("tr.project-row");
+  const record=row&&projectRowById.get(row.dataset.id);
+  if(record)showDetails(record);
+});
 
 function evidenceHtml(entries) {
   const items = arr(entries);
@@ -1267,6 +1397,152 @@ function localDayLabel(day) {
   );
 }
 
+// Match the actual paged day/project grouping, not interleaved commit timestamps.
+function activityRailEntries(events,map){
+  const entries=[],labels=new Map();
+  for(let start=0;start<events.length;start+=ACTIVITY_PAGE_SIZE){
+    const days=new Map();
+    events.slice(start,start+ACTIVITY_PAGE_SIZE).forEach((event,offset)=>{
+      const day=localDayKey(event.date);
+      if(!days.has(day))days.set(day,new Map());
+      const groups=days.get(day);
+      if(!groups.has(event.project_id))groups.set(event.project_id,{day,id:event.project_id,index:start+offset,anchor:reading.ids(event)[0],project:map.get(event.project_id)||event.project});
+    });
+    for(const [day,groups] of days){
+      if(!labels.has(day))labels.set(day,localDayLabel(day));
+      for(const [position,group] of [...groups.values()].entries())entries.push({...group,dayStart:position===0,label:projectTitle(group.project||{id:group.id})+' · '+labels.get(day)});
+    }
+  }
+  return entries;
+}
+let activityTimelineEntries=[],timelineDayIndices=new Map(),timelineFocusIndex=0,timelineWindowStart=-1,timelineWindowEnd=-1;
+let currentActivityDay='',timelinePointerInside=false;
+const TIMELINE_ROW_HEIGHT=24;
+function timelineWindowRange(length,scrollTop,height){
+  const start=Math.max(0,Math.min(Math.max(0,length-1),Math.floor(scrollTop/TIMELINE_ROW_HEIGHT)-6));
+  return [start,Math.min(length,start+Math.min(64,Math.ceil((height||480)/TIMELINE_ROW_HEIGHT)+12))];
+}
+function renderTimelineWindow(force=false){
+  const track=$('activityRail').querySelector('.timeline-marks'),body=track?.querySelector('.timeline-window');
+  if(!body)return;
+  const [start,end]=timelineWindowRange(activityTimelineEntries.length,track.scrollTop,track.clientHeight);
+  if(!force&&start===timelineWindowStart&&end===timelineWindowEnd)return;
+  timelineWindowStart=start;timelineWindowEnd=end;
+  const focused=document.activeElement?.dataset?.railIndex;
+  const tabIndex=Math.max(start,Math.min(end-1,timelineFocusIndex));
+  body.innerHTML=activityTimelineEntries.slice(start,end).map((entry,offset)=>{
+    const index=start+offset,current=entry.day===currentActivityDay;
+    return '<button type="button" class="timeline-mark'+(entry.dayStart?' timeline-day':'')+(bookmarks.has(entry.id)?' timeline-bookmarked':'')+(current?' timeline-current':'')+'" style="top:'+index*TIMELINE_ROW_HEIGHT+'px" tabindex="'+(index===tabIndex?'0':'-1')+'" data-rail-index="'+index+'" data-timeline-index="'+entry.index+'" data-project-id="'+esc(entry.id)+'" data-day="'+esc(entry.day)+'"'+(current&&Math.max(start,timelineDayIndices.get(entry.day))===index?' aria-current="location"':'')+' title="'+esc(entry.label)+'" aria-label="'+esc('Jump to '+entry.label)+'"><span class="timeline-notch" aria-hidden="true"></span>'+(entry.dayStart?'<span class="timeline-day-label" aria-hidden="true">'+esc(entry.day.slice(5))+'</span>':'')+'</button>';
+  }).join('');
+  if(focused!==undefined)body.querySelector('[data-rail-index="'+Math.max(start,Math.min(end-1,Number(focused)))+'"]')?.focus({preventScroll:true});
+}
+function renderActivityRail(){
+  const rail=$('activityRail'),events=activityRenderedEvents;
+  rail.hidden=!events.length;
+  if(!events.length){rail.innerHTML='';return;}
+  timelineDayIndices=new Map();
+  activityTimelineEntries.forEach((entry,index)=>{if(!timelineDayIndices.has(entry.day))timelineDayIndices.set(entry.day,index);});
+  timelineFocusIndex=Math.min(timelineFocusIndex,activityTimelineEntries.length-1);
+  const scroll=rail.querySelector('.timeline-marks')?.scrollTop||0;
+  const options=[...timelineDayIndices].map(([day,index])=>'<option value="'+index+'">'+esc(day)+'</option>').join('');
+  rail.innerHTML='<time id="timelineCurrentDay" class="timeline-current-date"></time><span class="timeline-boundary">'+esc(localDayKey(events[0].date))+'<br>to '+esc(localDayKey(events.at(-1).date))+'</span><select class="timeline-day-jump" aria-label="Jump to activity day">'+options+'</select><div class="timeline-marks" aria-label="Project entries; use arrow keys, Home and End"><div class="timeline-window" style="height:'+activityTimelineEntries.length*TIMELINE_ROW_HEIGHT+'px"></div></div>';
+  const track=rail.querySelector('.timeline-marks');
+  track.scrollTop=scroll;
+  track.addEventListener('scroll',()=>renderTimelineWindow(),{passive:true});
+  highlightActivityDay(timelineDayIndices.has(currentActivityDay)?currentActivityDay:localDayKey(events[0].date));
+  renderTimelineWindow(true);
+}
+function revealTimelineIndex(index){
+  const track=$('activityRail').querySelector('.timeline-marks');
+  if(!track)return;
+  const top=index*TIMELINE_ROW_HEIGHT,bottom=top+TIMELINE_ROW_HEIGHT;
+  if(top<track.scrollTop)track.scrollTop=top;
+  else if(bottom>track.scrollTop+track.clientHeight)track.scrollTop=bottom-track.clientHeight;
+  renderTimelineWindow();
+}
+function revealCurrentTimelineDay(){
+  const rail=$('activityRail'),index=timelineDayIndices.get(currentActivityDay);
+  if(index===undefined||timelinePointerInside||rail.contains(document.activeElement))return;
+  revealTimelineIndex(index);
+}
+$('activityRail').addEventListener('pointerenter',()=>{timelinePointerInside=true;});
+$('activityRail').addEventListener('pointerleave',()=>{timelinePointerInside=false;});
+function highlightActivityDay(day=currentActivityDay,reveal=false){
+  currentActivityDay=day;
+  const label=$('timelineCurrentDay');
+  if(label){label.textContent=day;label.setAttribute('datetime',day);label.title='Currently reading '+(day?localDayLabel(day):'');}
+  const select=$('activityRail').querySelector('.timeline-day-jump');
+  if(select&&timelineDayIndices.has(day))select.value=String(timelineDayIndices.get(day));
+  let announced=false;
+  document.querySelectorAll('#activityRail [data-day]').forEach(node=>{
+    const current=node.dataset.day===day;
+    node.classList.toggle('timeline-current',current);
+    if(current&&!announced){node.setAttribute('aria-current','location');announced=true;}else node.removeAttribute('aria-current');
+  });
+  if(reveal)revealCurrentTimelineDay();
+}
+function focusTimelineIndex(index){
+  timelineFocusIndex=Math.max(0,Math.min(activityTimelineEntries.length-1,index));
+  revealTimelineIndex(timelineFocusIndex);
+  renderTimelineWindow(true);
+  $('activityRail').querySelector('[data-rail-index="'+timelineFocusIndex+'"]')?.focus({preventScroll:true});
+}
+$('activityRail').addEventListener('keydown',event=>{
+  const button=event.target.closest('[data-rail-index]');
+  if(!button)return;
+  const index=Number(button.dataset.railIndex),last=activityTimelineEntries.length-1;
+  const targets={ArrowDown:index+1,ArrowUp:index-1,Home:0,End:last,PageDown:index+10,PageUp:index-10};
+  if(event.key in targets){event.preventDefault();focusTimelineIndex(targets[event.key]);}
+});
+$('activityRail').addEventListener('change',event=>{
+  if(!event.target.matches('.timeline-day-jump'))return;
+  const index=Number(event.target.value),entry=activityTimelineEntries[index];
+  if(entry){timelineFocusIndex=index;revealTimelineIndex(index);navigateActivity(entry.index);}
+});
+// Read the actual viewport, rather than only the observer entries that changed.
+// This also works in browsers without IntersectionObserver and in either scroll direction.
+let activityDayNodes=[],activityDayFramePending=false;
+function updateCurrentActivityDay(){
+  if(!activityVisible()||!activityDayNodes.length)return;
+  let low=0,high=activityDayNodes.length-1;
+  while(low<high){
+    const middle=Math.floor((low+high)/2);
+    if(activityDayNodes[middle].getBoundingClientRect().bottom<=32)low=middle+1;else high=middle;
+  }
+  const day=activityDayNodes[low].dataset.day;
+  if(day&&day!==currentActivityDay)highlightActivityDay(day,true);
+  else revealCurrentTimelineDay();
+}
+function scheduleActivityDayUpdate(){
+  if(activityDayFramePending)return;
+  activityDayFramePending=true;
+  const run=()=>{activityDayFramePending=false;updateCurrentActivityDay();};
+  if(window.requestAnimationFrame)window.requestAnimationFrame(run);else setTimeout(run,16);
+}
+window.addEventListener?.('scroll',scheduleActivityDayUpdate,{passive:true});
+window.addEventListener?.('resize',scheduleActivityDayUpdate,{passive:true});
+let activityNavigationRequest=0;
+function navigateActivity(index,revision=activityRenderRevision,request=++activityNavigationRequest){
+  if(request!==activityNavigationRequest||revision!==activityRenderRevision||!activityRenderedEvents[index])return;
+  if(index>=activityRenderedCount){renderActivity(true);setTimeout(()=>navigateActivity(index,revision,request),0);return;}
+  const anchor=reading.ids(activityRenderedEvents[index])[0];
+  const node=[...document.querySelectorAll('#activityFeed [data-reading-anchor]')].find(node=>node.dataset.readingAnchor===anchor)?.closest('.activity-project');
+  if(node){node.scrollIntoView({block:'start'});node.focus({preventScroll:true});highlightActivityDay(localDayKey(activityRenderedEvents[index].date));}
+}
+$('activityRail').addEventListener('click',event=>{
+  const button=event.target.closest('[data-timeline-index]');
+  if(button)navigateActivity(Number(button.dataset.timelineIndex));
+});
+function updateActivityCounts(){
+  const events=activityRenderedEvents,shown=activityRenderedCount;
+  $('activityCount').textContent=events.length;
+  $('activityProjectCount').textContent=new Set(events.map(event=>event.project_id)).size;
+  $('activityMore').hidden=shown===events.length||typeof IntersectionObserver!=='undefined';
+  $('activitySentinel').hidden=shown===events.length;
+  $('activitySentinel').textContent=`${shown} of ${events.length} displayed. More loads as you scroll.`;
+  $('activityMore').textContent=`Show more (${shown} of ${events.length})`;
+}
+
 function renderActivity(append=false) {
   activityDirty=false;
   const map=projectById();
@@ -1274,9 +1550,8 @@ function renderActivity(append=false) {
   const query=$("activityQ").value.trim().toLowerCase();
   if(!append)activityRenderRevision++;
   const events=append?activityRenderedEvents:combinedActivityEvents().filter(event=>(inboxView!=="unread"||unreadEvent(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
-  $("activityCount").textContent=events.length;
-  $("activityProjectCount").textContent=new Set(events.map(e=>e.project_id)).size;
   activityRenderedEvents=events;
+  if(!append)activityTimelineEntries=activityRailEntries(events,map);
   const start=append?activityRenderedCount:0;
   const shown=Math.min(start+ACTIVITY_PAGE_SIZE,events.length);
   activityRenderedCount=shown;activityVisibleCount=shown;
@@ -1284,12 +1559,12 @@ function renderActivity(append=false) {
     displayedSnapshotIds=combinedActivityEvents().flatMap(reading.ids);
     updateReadingControls();
   }
-  $("activityMore").hidden=shown===events.length||typeof IntersectionObserver!=="undefined";
-  $("activitySentinel").hidden=shown===events.length;
-  $("activitySentinel").textContent=`${shown} of ${events.length} displayed. More loads as you scroll.`;
-  $("activityMore").textContent=`Show more (${shown} of ${events.length})`;
+  updateActivityCounts();
+
 
   if(!events.length){
+    activityDayNodes=[];
+    renderActivityRail();
     $("activityFeed").innerHTML='<div class="activity-empty">'+(inboxView==='unread'?'No unread activity matches. Fetch updates to check for more, or browse All activity.':'No activity matches the current filters.')+'</div>';
     return;
   }
@@ -1312,8 +1587,8 @@ function renderActivity(append=false) {
     }).map(([projectId,commits])=>{
       const project=map.get(projectId) || commits.find(event=>event.project)?.project;
       const commitHtml=commits.sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date)).map(event=>{
-        const time=event.type==="release"&&/^\d{4}-\d{2}-\d{2}$/.test(event.date)
-          ? '<span title="Release time not recorded">—</span>'
+        const time=/^\d{4}-\d{2}-\d{2}$/.test(event.date)
+          ? '<span title="Time not recorded">—</span>'
           : new Date(event.date).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",hour12:false});
         const summary=event.type==="daily_commits";
         const title=summary?(event.count+" commit"+(event.count===1?"":"s")):(event.url?'<a href="'+esc(event.url)+'" target="_blank" rel="noopener">'+esc(event.title)+'</a>':esc(event.title));
@@ -1342,11 +1617,14 @@ function renderActivity(append=false) {
         const classes=event.type==="release"?"commit release-event":(isProjectActivity(event)?"commit project-event":"commit");
         return '<div class="'+classes+'" data-reading-anchor="'+esc(reading.ids(event)[0])+'"><div class="commit-time">'+time+'</div><div class="commit-main"><div class="commit-title">'+title+'</div><div class="commit-detail">'+details+'</div></div></div>';
       }).join("");
-      return '<div class="activity-project '+(bookmarks.has(projectId)?'bookmarked':'')+'"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
+      return '<div class="activity-project '+(bookmarks.has(projectId)?'bookmarked':'')+'" data-project-id="'+esc(projectId)+'" tabindex="-1"><div class="activity-project-head">'+activityProjectHeader(project)+'</div><div class="commit-list">'+commitHtml+'</div></div>';
     }).join("");
-    return '<section class="activity-day"><h2>'+esc(dateLabel)+'</h2>'+projectsHtml+'</section>';
+    return '<section class="activity-day" data-day="'+esc(day)+'"><h2>'+esc(dateLabel)+'</h2>'+projectsHtml+'</section>';
   }).join("");
   if(append)$("activityFeed").insertAdjacentHTML("beforeend",html);else $("activityFeed").innerHTML=html;
+  if(!append)renderActivityRail();
+  activityDayNodes=[...document.querySelectorAll('#activityFeed .activity-day')];
+  updateCurrentActivityDay();
 }
 
 function requestActivityRender(){

@@ -16,6 +16,14 @@ The activity inbox is local to your browser. All available activity starts unrea
 including the first visit. Visiting, reloading and fetching never mark it read.
 The inbox loads its full available range automatically in small rendering batches
 as you scroll, rather than building thousands of rows at once.
+The activity timeline shows the filtered date range and project entries in feed
+order. Select a notch to jump to its project; bookmarked projects have coloured
+notches. The displayed day follows the activity being read in the browser's local
+time. Bookmarks are updated in place without rebuilding the activity list.
+
+The Projects view searches and counts the full catalogue while rendering rows in
+small batches as you scroll. Browser Find sees only rendered rows; choose **Show
+all results** when Find needs to cover every matching project.
 **Fetch updates** adds newly discovered activity without clearing unread entries,
 including commits whose original dates are old. **Mark all read** acknowledges the
 loaded snapshot, including items hidden by filters. The available feed retains

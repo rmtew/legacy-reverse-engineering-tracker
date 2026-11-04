@@ -229,3 +229,33 @@ button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid c
 .project-name-line .bookmark-star{padding:0 4px;line-height:1.2;min-width:24px;min-height:24px}
 .activity-project-head .project-name-line{margin-bottom:5px}
 .activity-project-head .project-name-line strong{margin-bottom:0}
+
+/* A compact overview follows the feed's day/project order, including unloaded pages. */
+.activity-layout{display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;align-items:start}
+.activity-stream{min-width:0}
+.activity-timeline{position:sticky;top:12px;height:min(72vh,620px);display:flex;flex-direction:column;align-items:stretch;color:var(--muted)}
+.activity-timeline[hidden]{display:none}
+.timeline-boundary{font-size:10px;text-align:center;font-variant-numeric:tabular-nums;padding:4px 0}
+.timeline-marks{display:block;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;flex-direction:column;border-left:1px solid var(--border);margin-left:12px}
+.timeline-mark{display:flex;align-items:center;flex:0 0 24px;min-height:24px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer;position:absolute;height:24px;width:100%;left:0}
+.timeline-mark .timeline-notch{display:block;height:2px;width:12px;background:currentColor}
+.timeline-mark.timeline-day .timeline-notch{width:22px;height:3px}
+.timeline-mark.timeline-bookmarked{color:#a97813}
+.timeline-mark:hover,.timeline-mark:focus-visible{background:var(--panel);color:var(--link);z-index:1}
+.activity-project.bookmarked{box-shadow:none}
+.activity-project .commit-list{border-left:3px solid transparent;padding-left:9px}
+.activity-project.bookmarked .commit-list{border-left-color:#b890397d}
+.activity-project{scroll-margin-top:18px}
+@media(max-width:900px){.activity-layout{grid-template-columns:74px minmax(0,1fr);gap:8px}.timeline-boundary{font-size:9px}.timeline-marks{margin-left:6px}.activity-project .commit-list{padding-left:7px}}
+
+.project-pagination{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:12px 0;font-size:13px;color:var(--muted)}
+.project-pagination button{font:inherit;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--panel);color:inherit;cursor:pointer}
+.project-pagination .hint{flex-basis:100%;margin:0}
+
+.timeline-mark.timeline-current{background:color-mix(in srgb,var(--link) 12%,transparent)}
+
+.timeline-day-label{font-size:10px;white-space:nowrap;margin-left:4px;color:var(--muted)}
+.timeline-current-date{font-size:11px;font-weight:650;text-align:center;color:var(--link);padding:5px 0;border-bottom:1px solid var(--border)}
+
+.timeline-window{position:relative;min-height:1px}
+.timeline-day-jump{width:100%;min-width:0;font:inherit;font-size:10px;color:inherit;background:var(--panel);border:1px solid var(--border);border-radius:3px;margin:4px 0}

@@ -49,7 +49,7 @@ test('bookmark imports validate, deduplicate, and preserve IDs as plain text',()
 const fs=require('node:fs'),vm=require('node:vm');
 function browser(storage={},extras={}){
   const elements=new Map(),handlers=new Map();
-  const node=id=>({value:'',dataset:{},checked:false,hidden:false,innerHTML:'',insertAdjacentHTML:function(_,html){this.innerHTML+=html;},textContent:'',classList:{contains:()=>id==='activityView',toggle:()=>{}},setAttribute:()=>{},addEventListener:(event,fn)=>handlers.set(id+':'+event,fn),querySelectorAll:()=>[],querySelector:()=>node('child'),close:()=>{}});
+  const node=id=>({id,value:'',dataset:{},checked:false,hidden:false,innerHTML:'',insertAdjacentHTML:function(_,html){this.innerHTML+=html;},textContent:'',classList:{contains:()=>id==='activityView',toggle:()=>{}},setAttribute:()=>{},addEventListener:(event,fn)=>handlers.set(id+':'+event,fn),querySelectorAll:()=>[],querySelector:()=>node('child'),focus:()=>{},close:()=>{}});
   const get=id=>{if(!elements.has(id))elements.set(id,node(id));return elements.get(id);};
   const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node('q'),querySelectorAll:()=>[]},window:{matchMedia:()=>({matches:false,addEventListener:()=>{}}),addEventListener:()=>{},scrollTo:()=>{}},localStorage:{getItem:key=>storage[key]||null,setItem:(key,value)=>{storage[key]=value;}},fetch:()=>new Promise(()=>{}),console,Date,Set,Map,Promise,setTimeout:()=>{},clearTimeout:()=>{},TrackerReading:r,...extras});
   vm.runInContext(fs.readFileSync(require.resolve('../web/tracker.js'),'utf8'),context);
@@ -174,7 +174,7 @@ test('large first inbox creates only one render batch, and mark all read acknowl
 });
 test('intersection observer automatically appends batches without repeated controls or duplicate entries',()=>{
   let notify;
-  const b=browser({}, {IntersectionObserver:class{constructor(callback){notify=callback;}observe(){}}});
+  const b=browser({}, {IntersectionObserver:class{constructor(callback){this.callback=callback;}observe(node){if(node.id==='activitySentinel')notify=this.callback;}disconnect(){}}});
   b.context.many=Array.from({length:460},(_,i)=>commit(String(i)));
   b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');
   assert.equal(b.get('activityMore').hidden,true);assert.equal(b.run('activityRenderedCount'),150);
@@ -187,7 +187,7 @@ test('deep reading-position restore yields between bounded batches, and newer na
   b.context.many=Array.from({length:460},(_,i)=>commit(String(i)));
   b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');
   b.context.targetAnchor=r.ids(b.context.many[400])[0];b.context.scroll=(x,y)=>{scroll=y;};
-  b.run("window.scrollTo=scroll;document.querySelectorAll=()=>activityRenderedEvents.slice(0,activityRenderedCount).map(event=>({dataset:{readingAnchor:reading.ids(event)[0]},getBoundingClientRect:()=>({top:75})}));restorePosition({view:'activityView',anchor:targetAnchor,offset:25,y:0})");
+  b.run("window.scrollTo=scroll;document.querySelectorAll=selector=>selector==='[data-reading-anchor]'?activityRenderedEvents.slice(0,activityRenderedCount).map(event=>({dataset:{readingAnchor:reading.ids(event)[0]},getBoundingClientRect:()=>({top:75})})):[];restorePosition({view:'activityView',anchor:targetAnchor,offset:25,y:0})");
   assert.equal(b.run('activityRenderedCount'),150);assert.equal(queue.length,1);
   queue.shift()();assert.equal(b.run('activityRenderedCount'),300);
   queue.shift()();assert.equal(b.run('activityRenderedCount'),450);assert.equal(scroll,50);
@@ -212,4 +212,158 @@ test('bookmark controls follow the name in a shared compact row, retaining acces
   b.run("bookmarks.add('p');projects[0].repo=null;render()");
   assert.match(b.get('rows').innerHTML,/<div class="project-name-line"><strong>A long &lt;project&gt; name<\/strong><button[^>]*aria-pressed="true"/);
   assert.match(b.run('activityProjectHeader(projects[0])'),/aria-label="Remove bookmark for A long &lt;project&gt; name"/);
+});
+
+function mockTimeline(b){
+  b.run(`
+    globalThis.railBody={innerHTML:'',querySelector:()=>({focus(){}})};
+    globalThis.track={scrollTop:0,clientHeight:480,querySelector:()=>railBody,addEventListener(){}};
+    globalThis.daySelect={value:''};
+    $('activityRail').querySelector=selector=>selector==='.timeline-marks'?track:selector==='.timeline-day-jump'?daySelect:{focus(){}};
+    $('activityRail').contains=()=>false;
+  `);
+}
+test('timeline uses paged day/project order and local dates, with individual accessible targets',()=>{
+  const b=browser();
+  b.context.timelineEvents=[
+    {project_id:'a',date:'2026-10-06T23:00:00'},
+    {project_id:'b',date:'2026-10-06T22:00:00'},
+    {project_id:'a',date:'2026-10-06T21:00:00'},
+    {project_id:'c',date:'2026-10-05'}
+  ];
+  const entries=b.run('activityRailEntries(timelineEvents,new Map())');
+  assert.deepEqual(Array.from(entries,e=>[e.id,e.index,e.dayStart]),[['a',0,true],['b',1,false],['c',3,true]]);
+  assert.equal(entries[2].day,'2026-10-05');
+  mockTimeline(b);
+  b.run("activityRenderedEvents=timelineEvents;activityRenderedCount=0;activityTimelineEntries=activityRailEntries(timelineEvents,new Map());bookmarks=new Set(['b']);renderActivityRail()");
+  const html=b.context.railBody.innerHTML;
+  assert.equal((html.match(/data-timeline-index=/g)||[]).length,3);
+  assert.match(html,/timeline-bookmarked[^>]+data-timeline-index="1"/);
+  assert.match(html,/aria-label="Jump to c/);
+});
+test('bookmark updates all occurrences in place without rendering or scrolling',()=>{
+  const b=browser();
+  b.run(`
+    const makeStar=()=>({dataset:{bookmark:'p'},isConnected:true,setAttribute(name,value){this[name]=value;},closest:()=>({classList:{toggle:(name,on)=>{}}}),getBoundingClientRect:()=>({top:100})});
+    const stars=[makeStar(),makeStar()];
+    document.querySelectorAll=selector=>selector==='[data-bookmark]'?stars:[];
+    render=()=>{throw Error('project rebuilt');};renderActivity=()=>{throw Error('activity rebuilt');};
+    renderActivityRail=()=>{};window.scrollBy=()=>{throw Error('scrolled');};
+    bookmarkClick({target:{closest:()=>stars[0]},preventDefault(){},stopPropagation(){}});
+    globalThis.result=stars.map(star=>[star.textContent,star['aria-pressed'],star['aria-label']]);
+  `);
+  assert.deepEqual(Array.from(b.context.result,row=>Array.from(row)),[['★','true','Remove bookmark for Project'],['★','true','Remove bookmark for Project']]);
+});
+test('timeline jumps load bounded batches, then focus the target; stale navigation is cancelled',()=>{
+  const queue=[];const b=browser({}, {setTimeout:callback=>queue.push(callback)});
+  b.context.many=Array.from({length:460},(_,i)=>commit(String(i)));
+  b.run(`activityData.events=many;ingestReadingSnapshot();renderActivity();
+    globalThis.jumped=false;
+    const target={scrollIntoView(){globalThis.jumped=true;},focus(){}};
+    document.querySelectorAll=selector=>selector==='#activityFeed [data-reading-anchor]'?activityRenderedEvents.slice(0,activityRenderedCount).map(event=>({dataset:{readingAnchor:reading.ids(event)[0]},closest:()=>target})):[];
+    navigateActivity(400);`);
+  assert.equal(b.run('activityRenderedCount'),300);
+  while(queue.length)queue.shift()();
+  assert.equal(b.run('activityRenderedCount'),450);assert.equal(b.context.jumped,true);
+  b.run('jumped=false;renderActivity();navigateActivity(400);activityRenderRevision++');
+  while(queue.length)queue.shift()();
+  assert.equal(b.context.jumped,false);
+});
+
+test('bookmark-only removal drops every project occurrence and empty days while retaining other nodes',()=>{
+  const b=browser();
+  b.context.events=[commit('a'),commit('b'),{...commit('c'),project_id:'q'}];
+  b.run(`
+    inboxView='bookmarks';bookmarks=new Set(['p','q']);saveBookmarks();
+    activityRenderedEvents=events;activityRenderedCount=3;
+    activityTimelineEntries=activityRailEntries(events,new Map());
+    globalThis.groups=['p','p','q'].map(id=>({dataset:{projectId:id},removed:false,remove(){this.removed=true;},classList:{toggle(){}}}));
+    globalThis.stars=groups.map(group=>({dataset:{bookmark:group.dataset.projectId},get isConnected(){return !group.removed;},setAttribute(){},closest:()=>group,getBoundingClientRect:()=>({top:100}),focus(){globalThis.focused=this.dataset.bookmark;}}));
+    globalThis.dayRemoved=false;
+    const day={querySelector:()=>groups[0].removed?null:groups[0],remove(){globalThis.dayRemoved=true;}};
+    document.querySelectorAll=selector=>selector==='[data-bookmark]'?stars:selector==='.view-panel.active [data-bookmark]'?stars:selector==='#activityFeed .activity-project'?groups:selector==='#activityFeed .activity-day'&&!dayRemoved?[day]:[];
+    render=renderActivity=()=>{throw Error('rebuilt feed');};renderActivityRail=()=>{};window.scrollBy=()=>{};
+    bookmarkClick({target:{closest:()=>stars[0]},preventDefault(){},stopPropagation(){}});
+  `);
+  assert.deepEqual(Array.from(b.context.groups,group=>group.removed),[true,true,false]);
+  assert.equal(b.context.dayRemoved,true);assert.equal(b.context.focused,'q');
+  assert.equal(b.run('activityRenderedCount'),1);assert.equal(b.get('activityCount').textContent,1);
+  assert.equal(b.run('activityTimelineEntries.length'),1);
+});
+
+test('current timeline day follows scrolling in both directions without IntersectionObserver',()=>{
+  const b=browser();
+  b.run(`
+    globalThis.bottoms=[100,300,600];
+    activityDayNodes=['2026-10-06','2026-10-05','2026-10-04'].map((day,index)=>({dataset:{day},getBoundingClientRect:()=>({bottom:bottoms[index]})}));
+    updateCurrentActivityDay();
+  `);
+  assert.equal(b.get('timelineCurrentDay').textContent,'2026-10-06');
+  b.run('bottoms=[-100,-20,300];updateCurrentActivityDay()');
+  assert.equal(b.get('timelineCurrentDay').textContent,'2026-10-04');
+  b.run('bottoms=[-20,200,500];updateCurrentActivityDay()');
+  assert.equal(b.get('timelineCurrentDay').textContent,'2026-10-05');
+  b.run('bottoms=[100,300,600];updateCurrentActivityDay()');
+  assert.equal(b.get('timelineCurrentDay').textContent,'2026-10-06');
+});
+test('current day highlights all matching notches but announces only one current location',()=>{
+  const b=browser();
+  b.run(`
+    globalThis.marks=['2026-10-06','2026-10-06','2026-10-05'].map(day=>({dataset:{day},classList:{toggle(){}},setAttribute(name,value){this[name]=value;},removeAttribute(name){delete this[name];}}));
+    document.querySelectorAll=selector=>selector==='#activityRail [data-day]'?marks:[];
+    highlightActivityDay('2026-10-06');
+  `);
+  assert.equal(b.context.marks.filter(mark=>mark['aria-current']==='location').length,1);
+  b.run("highlightActivityDay('2026-10-05')");
+  assert.equal(b.context.marks.filter(mark=>mark['aria-current']==='location').length,1);
+  assert.equal(b.context.marks[2]['aria-current'],'location');
+});
+
+test('following the current day scrolls only the rail and leaves rail browsing undisturbed',()=>{
+  const b=browser();mockTimeline(b);
+  b.run(`
+    activityTimelineEntries=Array.from({length:100},(_,index)=>({index,id:'p',day:'2026-10-06',label:'Project'}));
+    currentActivityDay='2026-10-06';timelineDayIndices=new Map([[currentActivityDay,30]]);
+    window.scrollTo=window.scrollBy=()=>{throw Error('page scrolled');};
+    revealCurrentTimelineDay();
+  `);
+  assert.equal(b.context.track.scrollTop,264);
+  b.run('timelineDayIndices.set(currentActivityDay,1);revealCurrentTimelineDay()');
+  assert.equal(b.context.track.scrollTop,24);
+  b.run('timelinePointerInside=true;timelineDayIndices.set(currentActivityDay,60);revealCurrentTimelineDay()');
+  assert.equal(b.context.track.scrollTop,24);
+  b.run("timelinePointerInside=false;$('activityRail').contains=()=>true;revealCurrentTimelineDay()");
+  assert.equal(b.context.track.scrollTop,24);
+});
+test('twenty thousand individual timeline entries use a bounded DOM window and keyboard reaches both ends',()=>{
+  const b=browser();mockTimeline(b);
+  b.run(`
+    activityTimelineEntries=Array.from({length:20000},(_,index)=>({index,id:'p'+index,day:index<10000?'2026-10-06':'2026-10-05',dayStart:index===0||index===10000,label:'Project '+index}));
+    activityRenderedEvents=[{date:'2026-10-06'},{date:'2026-10-05'}];
+    renderActivityRail();
+  `);
+  const count=()=> (b.context.railBody.innerHTML.match(/data-rail-index=/g)||[]).length;
+  assert.ok(count()>0&&count()<=64);
+  assert.equal((b.get('activityRail').innerHTML.match(/<option /g)||[]).length,2);
+  assert.match(b.get('activityRail').innerHTML,/height:480000px/);
+  b.handlers.get('activityRail:keydown')({key:'End',preventDefault(){},target:{closest:()=>({dataset:{railIndex:'0'}})}});
+  assert.equal(b.run('timelineFocusIndex'),19999);assert.ok(count()<=64);
+  assert.match(b.context.railBody.innerHTML,/data-rail-index="19999"/);
+  b.handlers.get('activityRail:keydown')({key:'Home',preventDefault(){},target:{closest:()=>({dataset:{railIndex:'19999'}})}});
+  assert.equal(b.run('timelineFocusIndex'),0);assert.equal(b.context.track.scrollTop,0);
+  assert.match(b.context.railBody.innerHTML,/data-rail-index="0"/);
+  b.run('navigateActivity=index=>{globalThis.dayJumpTarget=index;}');
+  b.handlers.get('activityRail:change')({target:{matches:()=>true,value:'10000'}});
+  assert.equal(b.context.dayJumpTarget,10000);assert.ok(count()<=64);
+});
+test('a newer timeline jump cancels an older jump that is still loading batches',()=>{
+  const queue=[],b=browser({}, {setTimeout:callback=>queue.push(callback)});
+  b.context.many=Array.from({length:600},(_,i)=>commit(String(i)));
+  b.run(`activityData.events=many;ingestReadingSnapshot();renderActivity();
+    globalThis.jumps=[];
+    document.querySelectorAll=selector=>selector==='#activityFeed [data-reading-anchor]'?activityRenderedEvents.slice(0,activityRenderedCount).map((event,index)=>({dataset:{readingAnchor:reading.ids(event)[0]},closest:()=>({scrollIntoView(){jumps.push(index);},focus(){}})})):[];
+    navigateActivity(550);navigateActivity(10);`);
+  while(queue.length)queue.shift()();
+  assert.deepEqual(Array.from(b.context.jumps),[10]);
+  assert.equal(b.run('activityRenderedCount'),300);
 });

@@ -160,6 +160,12 @@
       </tbody>
     </table>
   </div>
+  <div class="project-pagination" aria-label="Project results">
+    <span id="projectPageStatus" role="status" aria-live="polite"></span>
+    <button id="projectShowMore" type="button" aria-controls="rows" hidden>Show more</button>
+    <button id="projectShowAll" type="button" aria-controls="rows" hidden>Show all results</button>
+    <span id="projectFindHint" class="hint" hidden>Search above covers every project. For browser Find across all results, choose Show all results and wait until all are shown.</span>
+  </div>
   <p class="hint">Click a heading to sort. Click a row for details. <strong>?</strong> means not yet verified, not “No”. <strong>*</strong> start year is repository creation when the true RE start is unknown.</p>
   </section>
 
@@ -193,11 +199,16 @@
     <div class="result-bar">
         <span><strong id="activityCount">0</strong> activity entries across <strong id="activityProjectCount">0</strong> projects</span>
     </div>
+    <div class="activity-layout">
+    <nav id="activityRail" class="activity-timeline" aria-label="Activity timeline, newest to oldest. Each mark jumps to a project entry." hidden></nav>
+    <div class="activity-stream">
     <div id="activityFeed" class="activity-feed">
       <div class="loading">Loading activity…</div>
     </div>
     <p id="activitySentinel" class="hint" role="status" aria-live="polite" hidden></p>
     <button id="activityMore" class="activity-more" type="button" hidden>Show more</button>
+    </div>
+    </div>
     <p class="hint">Activity is grouped by day and project. Recent commits appear individually; older days show commit summaries. Project additions show a frozen upstream snapshot with its original metric window. Activity older than 30 days expires; project research and evidence are retained. Routine probe timestamps are not logged as project changes.</p>
   </section>
 </main>
