@@ -363,6 +363,7 @@ const repositoryProvider = record => /^https?:\/\/(?:www\.)?gitlab\.com\//i.test
   : /^https?:\/\/(?:www\.)?github\.com\//i.test(record?.repo||"") ? "github"
   : (record?.gitlab?.repository || (record?.gitlab && !record?.github)) ? "gitlab" : "github";
 const repositoryMetadata = record => record?.[repositoryProvider(record)] || {};
+// A missing release is not an unavailable repository.
 const repositoryUnavailable = record => {
   const status=repositoryMetadata(record).source_availability;
   return status?.status === "unavailable" && status.http_status === 404 && status.retryable === true;
