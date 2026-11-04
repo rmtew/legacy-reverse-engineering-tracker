@@ -160,7 +160,10 @@ function bookmarkClick(event){
   saveBookmarks();
   if(inboxView==='bookmarks'&&bookmarks.has(id))activityDirty=true;
   // Keep existing nodes (and the focused star) rather than rebuilding either view.
-  const survivors=[...document.querySelectorAll('.view-panel.active [data-bookmark]')].filter(node=>bookmarks.has(node.dataset.bookmark));
+  // Geometry reads in skipped content-visibility groups can themselves move scroll anchoring.
+  // Measure a replacement only when this click actually removes the focused visible entry.
+  const removingVisible=!bookmarks.has(id)&&(activityVisible()?inboxView==='bookmarks':$('bookmarkedProjects').checked);
+  const survivors=removingVisible?[...document.querySelectorAll('.view-panel.active [data-bookmark]')].filter(node=>bookmarks.has(node.dataset.bookmark)):[];
   const anchor=survivors.find(node=>node.getBoundingClientRect().top>=0)||survivors.at(-1);
   const top=anchor?.getBoundingClientRect().top;
   syncBookmarkNodes();
@@ -1422,7 +1425,7 @@ function timelineWindowRange(length,scrollTop,height){
   const start=Math.max(0,Math.min(Math.max(0,length-1),Math.floor(scrollTop/TIMELINE_ROW_HEIGHT)-6));
   return [start,Math.min(length,start+Math.min(64,Math.ceil((height||480)/TIMELINE_ROW_HEIGHT)+12))];
 }
-function renderTimelineWindow(force=false){
+function renderTimelineWindow(force=false,restoreFocus=true){
   const track=$('activityRail').querySelector('.timeline-marks'),body=track?.querySelector('.timeline-window');
   if(!body)return;
   const [start,end]=timelineWindowRange(activityTimelineEntries.length,track.scrollTop,track.clientHeight);
@@ -1434,7 +1437,7 @@ function renderTimelineWindow(force=false){
     const index=start+offset,current=entry.day===currentActivityDay;
     return '<button type="button" class="timeline-mark'+(entry.dayStart?' timeline-day':'')+(bookmarks.has(entry.id)?' timeline-bookmarked':'')+(current?' timeline-current':'')+'" style="top:'+index*TIMELINE_ROW_HEIGHT+'px" tabindex="'+(index===tabIndex?'0':'-1')+'" data-rail-index="'+index+'" data-timeline-index="'+entry.index+'" data-project-id="'+esc(entry.id)+'" data-day="'+esc(entry.day)+'"'+(current&&Math.max(start,timelineDayIndices.get(entry.day))===index?' aria-current="location"':'')+' title="'+esc(entry.label)+'" aria-label="'+esc('Jump to '+entry.label)+'"><span class="timeline-notch" aria-hidden="true"></span>'+(entry.dayStart?'<span class="timeline-day-label" aria-hidden="true">'+esc(entry.day.slice(5))+'</span>':'')+'</button>';
   }).join('');
-  if(focused!==undefined)body.querySelector('[data-rail-index="'+Math.max(start,Math.min(end-1,Number(focused)))+'"]')?.focus({preventScroll:true});
+  if(restoreFocus&&focused!==undefined)body.querySelector('[data-rail-index="'+Math.max(start,Math.min(end-1,Number(focused)))+'"]')?.focus({preventScroll:true});
 }
 function renderActivityRail(){
   const rail=$('activityRail'),events=activityRenderedEvents;
@@ -1452,13 +1455,13 @@ function renderActivityRail(){
   highlightActivityDay(timelineDayIndices.has(currentActivityDay)?currentActivityDay:localDayKey(events[0].date));
   renderTimelineWindow(true);
 }
-function revealTimelineIndex(index){
+function revealTimelineIndex(index,restoreFocus=true){
   const track=$('activityRail').querySelector('.timeline-marks');
   if(!track)return;
   const top=index*TIMELINE_ROW_HEIGHT,bottom=top+TIMELINE_ROW_HEIGHT;
   if(top<track.scrollTop)track.scrollTop=top;
   else if(bottom>track.scrollTop+track.clientHeight)track.scrollTop=bottom-track.clientHeight;
-  renderTimelineWindow();
+  renderTimelineWindow(false,restoreFocus);
 }
 function revealCurrentTimelineDay(){
   const rail=$('activityRail'),index=timelineDayIndices.get(currentActivityDay);
@@ -1483,8 +1486,9 @@ function highlightActivityDay(day=currentActivityDay,reveal=false){
 }
 function focusTimelineIndex(index){
   timelineFocusIndex=Math.max(0,Math.min(activityTimelineEntries.length-1,index));
-  revealTimelineIndex(timelineFocusIndex);
-  renderTimelineWindow(true);
+  // Focus only the final destination: transient overscan buttons must not become anchors.
+  revealTimelineIndex(timelineFocusIndex,false);
+  renderTimelineWindow(true,false);
   $('activityRail').querySelector('[data-rail-index="'+timelineFocusIndex+'"]')?.focus({preventScroll:true});
 }
 $('activityRail').addEventListener('keydown',event=>{

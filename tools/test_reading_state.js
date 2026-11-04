@@ -244,15 +244,17 @@ test('timeline uses paged day/project order and local dates, with individual acc
 test('bookmark updates all occurrences in place without rendering or scrolling',()=>{
   const b=browser();
   b.run(`
-    const makeStar=()=>({dataset:{bookmark:'p'},isConnected:true,setAttribute(name,value){this[name]=value;},closest:()=>({classList:{toggle:(name,on)=>{}}}),getBoundingClientRect:()=>({top:100})});
+    const makeStar=()=>({dataset:{bookmark:'p'},isConnected:true,setAttribute(name,value){this[name]=value;},closest:()=>({classList:{toggle:(name,on)=>{}}}),getBoundingClientRect:()=>{throw Error('forced layout');}});
     const stars=[makeStar(),makeStar()];
-    document.querySelectorAll=selector=>selector==='[data-bookmark]'?stars:[];
+    document.querySelectorAll=selector=>selector==='[data-bookmark]'||selector==='.view-panel.active [data-bookmark]'?stars:[];
     render=()=>{throw Error('project rebuilt');};renderActivity=()=>{throw Error('activity rebuilt');};
     renderActivityRail=()=>{};window.scrollBy=()=>{throw Error('scrolled');};
     bookmarkClick({target:{closest:()=>stars[0]},preventDefault(){},stopPropagation(){}});
     globalThis.result=stars.map(star=>[star.textContent,star['aria-pressed'],star['aria-label']]);
   `);
   assert.deepEqual(Array.from(b.context.result,row=>Array.from(row)),[['★','true','Remove bookmark for Project'],['★','true','Remove bookmark for Project']]);
+  b.run("bookmarkClick({target:{closest:()=>stars[0]},preventDefault(){},stopPropagation(){}})");
+  assert.equal(b.run("bookmarks.has('p')"),false);
 });
 test('timeline jumps load bounded batches, then focus the target; stale navigation is cancelled',()=>{
   const queue=[];const b=browser({}, {setTimeout:callback=>queue.push(callback)});
@@ -366,4 +368,27 @@ test('a newer timeline jump cancels an older jump that is still loading batches'
   while(queue.length)queue.shift()();
   assert.deepEqual(Array.from(b.context.jumps),[10]);
   assert.equal(b.run('activityRenderedCount'),300);
+});
+
+test('rail Home/End focuses only the final notch without page scrolling or transient focus',()=>{
+  const b=browser();mockTimeline(b);
+  b.run(`
+    activityTimelineEntries=Array.from({length:20000},(_,index)=>({index,id:'p',day:'2026-10-06',label:'Project'}));
+    globalThis.focuses=[];
+    document.activeElement={dataset:{railIndex:'0'}};
+    railBody.querySelector=selector=>({focus(options){focuses.push({selector,options,transient:true});}});
+    $('activityRail').querySelector=selector=>selector==='.timeline-marks'?track:{focus(options){focuses.push({selector,options,transient:false});}};
+    window.scrollTo=window.scrollBy=()=>{throw Error('page scroll requested');};
+    focusTimelineIndex(19999);
+  `);
+  assert.equal(b.context.focuses.length,1);
+  assert.equal(b.context.focuses[0].transient,false);
+  assert.equal(b.context.focuses[0].options.preventScroll,true);
+  assert.equal(b.context.focuses[0].selector,'[data-rail-index="19999"]');
+  b.run("document.activeElement={dataset:{railIndex:'19999'}};focuses=[];focusTimelineIndex(0)");
+  assert.equal(b.context.focuses.length,1);
+  assert.equal(b.context.focuses[0].selector,'[data-rail-index="0"]');
+  const css=fs.readFileSync(require.resolve('../web/tracker.css'),'utf8');
+  assert.match(css,/\.activity-timeline\{[^}]*overflow-anchor:none/);
+  assert.match(css,/\.timeline-marks\{[^}]*overscroll-behavior:contain/);
 });

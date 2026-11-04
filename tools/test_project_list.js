@@ -8,19 +8,20 @@ const root=path.resolve(__dirname,'..');
 function setup(extra={}){
   const elements=new Map(),timers=[];
   function node(){return {value:'',checked:false,dataset:{},listeners:{},children:[],html:'',
-    classList:{contains:()=>false,toggle:()=>{}},setAttribute(){},removeAttribute(){},close(){},
+    classList:{contains:()=>false,toggle:()=>{}},attributes:{},setAttribute(key,value){this.attributes[key]=value;},removeAttribute(key){delete this.attributes[key];},close(){},
     addEventListener(name,callback){(this.listeners[name]??=[]).push(callback);},
     set innerHTML(value){this.html=value;this.children=[];},get innerHTML(){return this.html;},
     insertAdjacentHTML(_,value){this.html+=value;for(const match of value.matchAll(/<tr class="project-row [^"]*" data-id="([^"]*)"/g)){const row={dataset:{id:match[1]},remove:()=>{this.children.splice(this.children.indexOf(row),1);}};this.children.push(row);}},
     querySelectorAll(){return this.children;}};}
+  const headers=[...fs.readFileSync(path.join(root,'index.html'),'utf8').matchAll(/<th[^>]+data-key="([^"]+)"[^>]*>/g)].map(match=>{const header=node();header.dataset.key=match[1];return header;});
   const get=id=>{if(!elements.has(id))elements.set(id,node());return elements.get(id);};
-  const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node(),querySelectorAll:()=>[]},window:{matchMedia:()=>({matches:false,addEventListener(){}})},fetch:()=>new Promise(()=>{}),localStorage:{getItem(){return null;},setItem(){}},console,setTimeout:fn=>timers.push(fn),clearTimeout(){},...extra});
+  const context=vm.createContext({document:{documentElement:{dataset:{}},getElementById:get,querySelector:()=>node(),querySelectorAll:selector=>selector==='th[data-key]'?headers:[]},window:{matchMedia:()=>({matches:false,addEventListener(){}})},fetch:()=>new Promise(()=>{}),localStorage:{getItem(){return null;},setItem(){}},console,setTimeout:fn=>timers.push(fn),clearTimeout(){},...extra});
   vm.runInContext(fs.readFileSync(path.join(root,'web/reading-state.js'),'utf8'),context);
   vm.runInContext(fs.readFileSync(path.join(root,'web/tracker.js'),'utf8'),context);
   const run=code=>vm.runInContext(code,context);
   const records=Array.from({length:251},(_,i)=>({id:'p'+i,title:'Project '+i,source_platforms:['Amiga'],notes:i===250?'needle outside first batch':''}));
   context.records=records;run('projects=records;render()');
-  return {get,run,context,timers,records};
+  return {get,run,context,timers,records,headers};
 }
 test('full-catalogue search and counts with bounded initial DOM and append-only more',()=>{
   const x=setup();assert.equal(x.get('rows').children.length,100);assert.equal(x.get('count').textContent,251);
@@ -69,4 +70,21 @@ test('platform vocabulary changes invalidate normalized search metadata',()=>{
   const x=setup();x.records[0].source_platforms=['alias'];x.run('projects=projects.slice();render()');
   x.get('q').value='canonical platform';x.run('render()');assert.equal(x.get('count').textContent,0);
   x.run('platformVocabulary={aliases:{alias:"Canonical platform"},non_platform_values:[]};render()');assert.equal(x.get('count').textContent,1);
+});
+
+test('all sort headers have native keyboard buttons and preserve column semantics',()=>{
+  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  const headers=[...html.matchAll(/<th([^>]*data-key="[^"]+"[^>]*)>(.*?)<\/th>/g)];
+  assert.equal(headers.length,11);
+  for(const [,attributes,content] of headers){
+    assert.match(attributes,/scope="col"/);
+    assert.match(content,/^<button type="button" class="sort-heading" aria-label="Sort by [^"]+">[^<]+<\/button>$/);
+  }
+  // Native Enter/Space activation bubbles a click through the same header handler.
+  const x=setup();x.run('projectUiReady=true');
+  const source=x.headers.find(header=>header.dataset.key==='source');
+  source.listeners.click[0]();assert.equal(x.run('sort.key'), 'source');assert.equal(x.run('sort.dir'),1);assert.equal(source.attributes['aria-sort'],'ascending');
+  source.listeners.click[0]();assert.equal(x.run('sort.dir'),-1);assert.equal(source.attributes['aria-sort'],'descending');
+  const title=x.headers.find(header=>header.dataset.key==='title');
+  title.listeners.click[0]();assert.equal(title.attributes['aria-sort'],'ascending');assert.equal(source.attributes['aria-sort'],'none');
 });

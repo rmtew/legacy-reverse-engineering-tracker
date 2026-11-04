@@ -233,10 +233,10 @@ button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid c
 /* A compact overview follows the feed's day/project order, including unloaded pages. */
 .activity-layout{display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;align-items:start}
 .activity-stream{min-width:0}
-.activity-timeline{position:sticky;top:12px;height:min(72vh,620px);display:flex;flex-direction:column;align-items:stretch;color:var(--muted)}
+.activity-timeline{overflow-anchor:none;position:sticky;top:12px;height:min(72vh,620px);display:flex;flex-direction:column;align-items:stretch;color:var(--muted)}
 .activity-timeline[hidden]{display:none}
 .timeline-boundary{font-size:10px;text-align:center;font-variant-numeric:tabular-nums;padding:4px 0}
-.timeline-marks{display:block;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;flex-direction:column;border-left:1px solid var(--border);margin-left:12px}
+.timeline-marks{overflow-anchor:none;overscroll-behavior:contain;display:block;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;flex-direction:column;border-left:1px solid var(--border);margin-left:12px}
 .timeline-mark{display:flex;align-items:center;flex:0 0 24px;min-height:24px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer;position:absolute;height:24px;width:100%;left:0}
 .timeline-mark .timeline-notch{display:block;height:2px;width:12px;background:currentColor}
 .timeline-mark.timeline-day .timeline-notch{width:22px;height:3px}
@@ -259,3 +259,7 @@ button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid c
 
 .timeline-window{position:relative;min-height:1px}
 .timeline-day-jump{width:100%;min-width:0;font:inherit;font-size:10px;color:inherit;background:var(--panel);border:1px solid var(--border);border-radius:3px;margin:4px 0}
+
+/* Native buttons preserve header semantics and support Tab, Enter and Space. */
+th .sort-heading{font:inherit;font-weight:inherit;color:inherit;background:transparent;border:0;padding:0;cursor:pointer;text-align:inherit}
+th .sort-heading:focus-visible{outline:2px solid var(--link);outline-offset:4px;border-radius:2px}
