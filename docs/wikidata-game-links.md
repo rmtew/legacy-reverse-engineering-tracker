@@ -20,10 +20,10 @@ new lookups while the cache is fresh. Incremental updates retain the original
 full-refresh date, so repeated discoveries cannot postpone periodic rebuilding.
 `--force` performs a complete scoped refresh. Matching performs no network work.
 
-The source scope is subject/hybrid records explicitly tagged `game`. Every
+The source scope is subject/hybrid records explicitly tagged `game`, `game-engine` or `game-subsystem`. Every
 queried subject is recorded in the cache. A subject added after collection is
 reported as `not-indexed` until a refresh covers it; matching an old alias alone
-cannot promote a newly added subject. Applications, pure tooling and engine-only
+cannot promote a newly added subject. Applications and pure tooling
 records are excluded even if their names collide with games.
 
 ## Bounded acquisition

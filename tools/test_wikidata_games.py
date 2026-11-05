@@ -109,12 +109,13 @@ class MatchingTests(unittest.TestCase):
         links, _ = self.resolve([project(re_started="1992")])
         self.assertIn("p", links["projects"])
 
-    def test_application_tooling_and_engine_only_records_excluded(self):
-        for changes in [{"target_kinds": ["application"]}, {"record_class": "tooling"}, {"record_class": None}, {"target_kinds": ["game-engine"]}]:
+    def test_application_tooling_excluded_but_named_game_engines_included(self):
+        for changes in [{"target_kinds": ["application"]}, {"record_class": "tooling"}, {"record_class": None}]:
             links, _ = self.resolve([project(**changes)])
             self.assertFalse(links["projects"])
-        links, _ = self.resolve([project(record_class="hybrid")])
-        self.assertIn("p", links["projects"])
+        for changes in [{"record_class": "hybrid"}, {"target_kinds": ["game-engine"]}, {"target_kinds": ["game-subsystem"]}]:
+            links, _ = self.resolve([project(**changes)])
+            self.assertIn("p", links["projects"])
 
     def test_new_subject_after_collection_waits_for_refresh(self):
         links, review = self.resolve([project(subjects=["Alias"])], index([game(aliases=["Alias"])]))

@@ -98,7 +98,7 @@ def subjects_fingerprint(subjects):
 
 def eligible_projects(projects):
     return [project for project in projects if project.get("record_class") in {"subject", "hybrid"}
-            and "game" in project.get("target_kinds", [])]
+            and bool({"game", "game-engine", "game-subsystem"} & set(project.get("target_kinds", [])))]
 
 
 def item_query(names):
