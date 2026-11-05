@@ -1634,3 +1634,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-05 — Review targeted game research, add four projects, reconcile two merged project lineages, and defer four leads.
 
 [Research record](docs/research/2026-11-05-retro-reconstruction-discovery-116.md).
+
+## 2026-11-05 — Screen targeted game reconstructions and supporting tools: add six and defer three for architecture or source review.
+
+[Research record](docs/research/2026-11-05-retro-reconstruction-discovery-117.md).
