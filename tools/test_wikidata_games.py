@@ -145,6 +145,36 @@ class MatchingTests(unittest.TestCase):
         self.assertIsNone(links["projects"]["p"][0]["moby"])
         self.assertIn("Multiple", review["subjects"][0]["warning"])
 
+    def test_reviewed_external_id_selection_preserves_other_conflicts(self):
+        value = override(reason="Original game, not the later compilation")
+        value["projects"]["p"]["Example"]["identifiers"] = {"moby": "456"}
+        links, review = self.resolve(idx=index([game(moby=["123", "456"], lemon_amiga=["123", "999"])]), overrides=value)
+        self.assertEqual(links["projects"]["p"][0]["moby"], "456")
+        self.assertIsNone(links["projects"]["p"][0]["lemon_amiga"])
+        self.assertEqual(review["subjects"][0]["warning"], "Multiple external IDs omitted: lemon_amiga")
+        # The same QID on another project never inherits a project-specific choice.
+        links, _ = self.resolve([project(), project(pid="other")], index([game(moby=["123", "456"])]), value)
+        self.assertIsNone(links["projects"]["other"][0]["moby"])
+
+    def test_absent_selected_id_is_not_invented_or_replaced(self):
+        value = override()
+        value["projects"]["p"]["Example"]["identifiers"] = {"moby": "999"}
+        for idx in [index(), index([])]:
+            links, review = self.resolve(idx=idx, overrides=value)
+            self.assertIsNone(links["projects"]["p"][0]["moby"])
+            self.assertIn("absent", review["subjects"][0]["warning"])
+
+    def test_invalid_external_id_selections_fail_closed(self):
+        for selection in [{"unknown": "123"}, {"moby": "https://example.com"}, {"moby": 123}, [], None]:
+            value = override()
+            value["projects"]["p"]["Example"]["identifiers"] = selection
+            with self.assertRaises(ValueError):
+                self.resolve(overrides=value)
+        value = override(qid=None)
+        value["projects"]["p"]["Example"]["identifiers"] = {"moby": "123"}
+        with self.assertRaises(ValueError):
+            self.resolve(overrides=value)
+
     def test_invalid_identifiers_and_overrides_rejected(self):
         for value in ["Q0", "javascript:bad", "Q1/x"]:
             with self.assertRaises(ValueError):

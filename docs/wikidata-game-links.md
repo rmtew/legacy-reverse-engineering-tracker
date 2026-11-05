@@ -67,6 +67,7 @@ platform/date evidence and reasons. At most 20 candidates are displayed per
 subject, accompanied by the complete count; matching always considers all of
 them. Items with several IDs for one external database retain all of them in the
 index, but the public link is omitted rather than choosing one arbitrarily.
+A reviewed project override can resolve a database identifier as described below.
 
 `config/wikidata-overrides.json` is hand-maintained and never rewritten. Its
 `projects` object maps a project ID to exact subject strings. Each value has
@@ -75,6 +76,16 @@ suppresses automatic linking. Override QIDs are fetched independently of title
 search, and changes invalidate a fresh cache. A QID absent from the cache can
 still retain the explicit manual Wikidata reference, with no invented external
 IDs and a review warning. Stale overrides remain intact and are reported.
+
+An override can also include `identifiers`, for example `{"moby": "613"}`.
+Its reason must document the reviewed original/edition and the destination evidence.
+This resolves cases where one Wikidata item contains the original plus a later
+compilation, remaster or platform-specific adaptation. Selections are scoped to
+the exact project and subject, never applied to every project sharing a QID.
+The selected ID must still occur on that item in the current index; otherwise
+that link stays absent and the review queue warns. Other unresolved database
+IDs remain omitted. A `null` QID cannot carry identifier selections. No lower-ID,
+first-ID or fuzzy-name heuristic is used.
 
 ## Files and contract
 

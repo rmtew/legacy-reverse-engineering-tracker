@@ -332,12 +332,19 @@ def validate_overrides(value):
         if not isinstance(pid, str) or not pid or not isinstance(subjects, dict):
             raise ValueError("Invalid override project")
         for subject, override in subjects.items():
-            if not isinstance(subject, str) or not subject or not isinstance(override, dict) or set(override) != {"qid", "reason"}:
+            if not isinstance(subject, str) or not subject or not isinstance(override, dict) or not {"qid", "reason"} <= set(override) or set(override) - {"qid", "reason", "identifiers"}:
                 raise ValueError("Overrides need exact subject names, qid and reason")
             if override["qid"] is not None and (not isinstance(override["qid"], str) or not QID.fullmatch(override["qid"])):
                 raise ValueError("Invalid override QID")
             if not isinstance(override["reason"], str) or not override["reason"].strip():
                 raise ValueError("Manual overrides need a reason")
+            identifiers = override.get("identifiers", {})
+            if not isinstance(identifiers, dict) or set(identifiers) - PROPERTIES.keys():
+                raise ValueError("Invalid external identifier selections")
+            if identifiers and override["qid"] is None:
+                raise ValueError("External identifier selections require a QID")
+            if any(not isinstance(v, str) or not IDENTIFIER.fullmatch(v) for v in identifiers.values()):
+                raise ValueError("External identifier selections must be numeric strings")
     return value["projects"]
 
 
@@ -418,9 +425,21 @@ def project_game_links(projects, index, overrides=None, *, generated_at=None):
                 if status == "manual":
                     link["reason"] = override["reason"]
                 accepted.setdefault(pid, []).append(link)
-                conflicts = [key for key in PROPERTIES if len(game.get(key, [])) > 1]
+                # A reviewed selection can distinguish the original game from
+                # bundles/remasters catalogued on the same Wikidata item. Never
+                # inject an ID that the current item does not actually contain.
+                selections = override.get("identifiers", {}) if override else {}
+                stale = []
+                for key, identifier in selections.items():
+                    link[key] = identifier if identifier in game.get(key, []) else None
+                    if link[key] is None:
+                        stale.append(key)
+                if stale:
+                    record["warning"] = "Selected external IDs absent from current item: " + ", ".join(stale)
+                conflicts = [key for key in PROPERTIES if len(game.get(key, [])) > 1 and key not in selections]
                 if conflicts:
-                    record["warning"] = "Multiple external IDs omitted: " + ", ".join(conflicts)
+                    warning = "Multiple external IDs omitted: " + ", ".join(conflicts)
+                    record["warning"] = record.get("warning", "") + ("; " if "warning" in record else "") + warning
                 if "warning" in record:
                     review.append(record)
             else:
