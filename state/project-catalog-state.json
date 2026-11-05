@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-05T00:34:42Z",
+  "updated_at": "2026-11-05T02:54:59Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -29652,12 +29652,12 @@
     "battle-squadron-amiga-recomp-crownpark": {
       "id": "battle-squadron-amiga-recomp-crownpark",
       "title": "Battle Squadron",
-      "upstream_name": "Battle Squadron",
-      "display_title": "Battle Squadron — Amiga overlay disassembly and recompilation",
+      "upstream_name": "BattleSquadron2026",
+      "display_title": "Battle Squadron — Amiga disassembly and native reconstruction",
       "subjects": [
         "Battle Squadron: The Destruction of the Barrax Empire"
       ],
-      "repo": "https://github.com/CrownParkComputing/BattleSquadron-Amiga",
+      "repo": "https://github.com/CrownParkComputing/BattleSquadron2026",
       "project_url": null,
       "github_path": null,
       "github_branch": null,
@@ -29668,9 +29668,10 @@
       ],
       "target_platforms": [
         "Amiga",
-        "Linux",
         "Windows",
-        "macOS"
+        "Linux",
+        "macOS",
+        "Android"
       ],
       "source_cpu": [
         "m68000"
@@ -29681,21 +29682,21 @@
       "runtime_profiles": null,
       "execution_paths": [
         {
-          "name": "Playable reference runner",
-          "method": "baked-emulation",
-          "status": "playable",
-          "notes": "Runs original 68000 loader and game code in Musashi with a Battle Squadron-focused OCS compatibility host.",
+          "name": "Native game",
+          "method": "native-translation",
+          "status": "partial",
+          "notes": "Root describes native C game logic and native renderer; claimed lockstep tests not independently reproduced.",
           "evidence": [
-            "https://github.com/CrownParkComputing/BattleSquadron-Amiga/blob/master/README.md"
+            "https://github.com/CrownParkComputing/BattleSquadron2026/blob/3f5a29f32c9269d675ff879e6d07cc5ba4903998/README.md"
           ]
         },
         {
-          "name": "No-Musashi recompilation preview",
-          "method": "native-translation",
-          "status": "partial",
-          "notes": "Runs translated code through live combat without a guest CPU interpreter; full audio sequencing and unreached paths remain unfinished.",
+          "name": "Amiga reference runner",
+          "method": "baked-emulation",
+          "status": "playable",
+          "notes": "Separate reference runner executes original code in Musashi with OCS host; author-reported.",
           "evidence": [
-            "https://github.com/CrownParkComputing/BattleSquadron-Amiga/blob/master/README.md"
+            "https://github.com/CrownParkComputing/BattleSquadron2026/blob/3f5a29f32c9269d675ff879e6d07cc5ba4903998/amiga/README.md"
           ]
         }
       ],
@@ -29713,7 +29714,8 @@
       "work_kinds": [
         "disassembly",
         "source-reconstruction",
-        "data-format-analysis"
+        "data-format-analysis",
+        "reimplementation"
       ],
       "tool_kinds": [],
       "types": [
@@ -29721,7 +29723,7 @@
         "native recompilation research"
       ],
       "re_started": null,
-      "status": null,
+      "status": "Upstream reports native reconstruction and verification; not independently tested",
       "build": {
         "compilable": true,
         "runnable": true,
@@ -29738,7 +29740,7 @@
         "Amiga",
         "Battle Squadron: The Destruction of the Barrax Empire"
       ],
-      "notes": "Analyzes a user-supplied Amiga WHDLoad install, its BOND-compressed overlays and three partially decoded 68000 modules that reassemble byte-for-byte. A playable Musashi/OCS host still executes original game code; a separate native no-Musashi translation has progressed into live combat but is not a finished whole-game recompilation. Distinct from the tracked Battle Squadron music replayer.",
+      "notes": "Identity: Battle Squadron — Amiga disassembly and native reconstruction. Pinned repository material inspected. Classification: Combined repository explicitly incorporates the prior BattleSquadron-Amiga work. Root describes a native C game, while the included Amiga research retains a separate Musashi/OCS reference runner; upstream reports lockstep tests but these were not independently reproduced. Source CPU: Source architectures follow the platforms explicitly examined; no exact variant inferred. Target CPU: No target CPU minimum established. Build: Repository documents source or research and build procedures where applicable; no independent build, execution, or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: No AI contribution established from inspected evidence; absence does not prove non-use. Relationships: README identifies the prior BattleSquadron-Amiga repository as incorporated into this root; update the existing record instead of creating a duplicate. Evidence: https://github.com/CrownParkComputing/BattleSquadron2026/blob/3f5a29f32c9269d675ff879e6d07cc5ba4903998/README.md https://github.com/CrownParkComputing/BattleSquadron2026/blob/3f5a29f32c9269d675ff879e6d07cc5ba4903998/amiga/README.md",
       "ai": {
         "usage": null,
         "tools": []
@@ -367753,33 +367755,39 @@
     },
     "shaid-sorcery": {
       "id": "shaid-sorcery",
-      "title": "Wizardry 6 — Amiga data and executable analysis",
-      "upstream_name": "sorcery",
-      "display_title": "Wizardry 6 — Amiga data and executable analysis",
+      "title": "Black Crypt, Wizardry 6 and dungeon-game research",
+      "upstream_name": "crawl",
+      "display_title": "Black Crypt, Wizardry 6 and dungeon-game research",
       "subjects": [
-        "Wizardry 6"
+        "Black Crypt",
+        "Wizardry 6",
+        "Might & Magic III"
       ],
-      "repo": "https://github.com/Shaid/sorcery",
+      "repo": "https://github.com/Shaid/crawl",
       "project_url": null,
       "github_path": null,
       "github_branch": null,
       "gitlab_path": null,
       "gitlab_branch": null,
       "source_platforms": [
-        "Amiga"
+        "Amiga",
+        "DOS",
+        "SNES"
       ],
       "target_platforms": [
         "Web"
       ],
       "source_cpu": [
-        "68000"
+        "68000",
+        "x86"
       ],
       "target_cpu": [],
       "runtime_profiles": [],
       "execution_paths": null,
       "source_language": [],
       "reconstructed_languages": [
-        "TypeScript"
+        "TypeScript",
+        "Python"
       ],
       "record_class": "subject",
       "target_kinds": [
@@ -367795,7 +367803,7 @@
         "subject"
       ],
       "re_started": null,
-      "status": "Source inspected; no independent build or execution",
+      "status": "Research collection; implementation varies by title and was not independently tested",
       "build": {
         "compilable": null,
         "runnable": null,
@@ -367804,7 +367812,7 @@
       },
       "techniques": [],
       "tags": [],
-      "notes": "Identity: Wizardry 6 — Amiga data and executable analysis. Repository and pinned source reviewed. Classification: Wizardry 6 executable and asset formats analysed from Amiga data; a browser implementation and asset pipeline are in progress. Research distinguishes verified format facts from hypotheses. Source CPU: Original Amiga game uses 68000 architecture; exact minimum not inferred. Target CPU: No target CPU minimum independently established. Build: Project provides source and describes build steps or a browser frontend. No independent compilation, execution, gameplay or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: No actual AI contribution established from inspected evidence; absence does not establish non-use. Relationships: Distinct project repository; same-title projects remain separate and no equivalence or completeness is inferred. Evidence: https://github.com/Shaid/sorcery/blob/1036800ee6394252672e36dea7ddceab91555e5f/README.md https://github.com/Shaid/sorcery/blob/1036800ee6394252672e36dea7ddceab91555e5f/docs/wizardry6/amiga/data-structure.md",
+      "notes": "Identity: Black Crypt, Wizardry 6 and dungeon-game research. Pinned repository material inspected. Classification: Crawl root documents Black Crypt and explicitly says Wizardry 6 was merged from sorcery; separate pinned documentation analyses the Amiga Might & Magic III formats. Actual browser implementation and completeness vary by title; no independent tests. Source CPU: Source architectures follow the platforms explicitly examined; no exact variant inferred. Target CPU: No target CPU minimum established. Build: Repository documents source or research and build procedures where applicable; no independent build, execution, or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: No AI contribution established from inspected evidence; absence does not prove non-use. Relationships: Root README identifies Wizardry 6 work formerly in sorcery as merged into this shared repository; consolidate the existing record rather than duplicate the same lineage. Evidence: https://github.com/Shaid/crawl/blob/c5b2ec7b9aa4a10ded5d7ce83b406e3835a37d60/README.md https://github.com/Shaid/crawl/blob/c5b2ec7b9aa4a10ded5d7ce83b406e3835a37d60/docs/blackcrypt/amiga/data-structure.md https://github.com/Shaid/crawl/blob/c5b2ec7b9aa4a10ded5d7ce83b406e3835a37d60/docs/mm3/amiga/data-structure.md",
       "ai": {
         "usage": null,
         "tools": []
@@ -367927,6 +367935,255 @@
       "ai": {
         "usage": true,
         "tools": []
+      }
+    },
+    "stupidcoder-retroreverse": {
+      "id": "stupidcoder-retroreverse",
+      "title": "RetroReverse — multi-game binary research",
+      "upstream_name": "RetroReverse",
+      "display_title": "RetroReverse — multi-game binary research",
+      "subjects": [
+        "Stunt Car Racer",
+        "Marble Madness",
+        "Turrican"
+      ],
+      "repo": "https://github.com/StupidCoder/RetroReverse",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "gitlab_path": null,
+      "gitlab_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "C64",
+        "DOS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "68000",
+        "6502",
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "Go"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "data-format-analysis",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Research and source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: RetroReverse — multi-game binary research. Pinned repository material inspected. Classification: A shared toolkit and per-game investigations. The Amiga Stunt Car Racer work documents track formats and a Go physics reconstruction, Marble Madness documents disk and executable layout, and Turrican research is earlier-stage. Author describes reported tests and AI authorship; claims have not been independently verified. Source CPU: Source architectures follow the platforms explicitly examined; no exact variant inferred. Target CPU: No target CPU minimum established. Build: Repository documents source or research and build procedures where applicable; no independent build, execution, or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: The author credits Claude for code or research. Relationships: Distinct research repository; related same-title work is not automatically treated as identical. Evidence: https://github.com/StupidCoder/RetroReverse/blob/4260a49c3099ff3a5beac10d776a57cb5fc9e529/README.md https://github.com/StupidCoder/RetroReverse/blob/4260a49c3099ff3a5beac10d776a57cb5fc9e529/games/stunt-car-racer-amiga/stunt-car-racer-amiga.md https://github.com/StupidCoder/RetroReverse/blob/4260a49c3099ff3a5beac10d776a57cb5fc9e529/games/turrican-amiga/turrican-amiga.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "wroniasty-aftertouch": {
+      "id": "wroniasty-aftertouch",
+      "title": "Aftertouch — SWOS match engine research",
+      "upstream_name": "aftertouch",
+      "display_title": "Aftertouch — SWOS match engine research",
+      "subjects": [
+        "Sensible World of Soccer"
+      ],
+      "repo": "https://github.com/wroniasty/aftertouch",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "gitlab_path": null,
+      "gitlab_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "DOS"
+      ],
+      "target_platforms": [],
+      "source_cpu": [
+        "68000",
+        "x86"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C++"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Research and source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Aftertouch — SWOS match engine research. Pinned repository material inspected. Classification: An independent match engine informed by DOS disassembly and an Amiga SWOS 96/97 match-module cross-check. Detailed notes distinguish corrections and unresolved behavioural disagreements; implementation contains a match tick. Completeness is not established. Source CPU: Source architectures follow the platforms explicitly examined; no exact variant inferred. Target CPU: No target CPU minimum established. Build: Repository documents source or research and build procedures where applicable; no independent build, execution, or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: No AI contribution established from inspected evidence; absence does not prove non-use. Relationships: Distinct research repository; related same-title work is not automatically treated as identical. Evidence: https://github.com/wroniasty/aftertouch/blob/164c0c3b96d28672fa68307bd0f3914d595d86f0/doc/README.md https://github.com/wroniasty/aftertouch/blob/164c0c3b96d28672fa68307bd0f3914d595d86f0/doc/AMIGA_CHANGES.md https://github.com/wroniasty/aftertouch/blob/164c0c3b96d28672fa68307bd0f3914d595d86f0/src/core/src/match_engine.cpp",
+      "ai": {
+        "usage": null,
+        "tools": []
+      }
+    },
+    "dbhq-uk-rockford-engine": {
+      "id": "dbhq-uk-rockford-engine",
+      "title": "Rockford — DOS engine reconstruction and Amiga analysis",
+      "upstream_name": "rockford-engine",
+      "display_title": "Rockford — DOS engine reconstruction and Amiga analysis",
+      "subjects": [
+        "Rockford: The Arcade Game"
+      ],
+      "repo": "https://github.com/dbhq-uk/rockford-engine",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "gitlab_path": null,
+      "gitlab_branch": null,
+      "source_platforms": [
+        "DOS",
+        "Amiga"
+      ],
+      "target_platforms": [
+        "Web"
+      ],
+      "source_cpu": [
+        "x86",
+        "68000"
+      ],
+      "target_cpu": [],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C#",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "disassembly",
+        "data-format-analysis",
+        "reimplementation"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Research and source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Rockford — DOS engine reconstruction and Amiga analysis. Pinned repository material inspected. Classification: DOS engine reimplementation derived from executable disassembly, with Amiga hunk inspection tooling. The author reports partial no-input comparison with the DOS original and explicitly says real play with input has not been compared. The Amiga evidence supports binary analysis, not an Amiga engine port. Source CPU: Source architectures follow the platforms explicitly examined; no exact variant inferred. Target CPU: No target CPU minimum established. Build: Repository documents source or research and build procedures where applicable; no independent build, execution, or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: No AI contribution established from inspected evidence; absence does not prove non-use. Relationships: Distinct research repository; related same-title work is not automatically treated as identical. Evidence: https://github.com/dbhq-uk/rockford-engine/blob/a51701c13023e75abe1fd7778703035e9bd7877f/README.md https://github.com/dbhq-uk/rockford-engine/blob/a51701c13023e75abe1fd7778703035e9bd7877f/tools/amigahunk.py",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "georgeflower-zelda1-atarist": {
+      "id": "georgeflower-zelda1-atarist",
+      "title": "The Legend of Zelda — Atari ST port",
+      "upstream_name": "zelda1-atarist",
+      "display_title": "The Legend of Zelda — Atari ST port",
+      "subjects": [
+        "The Legend of Zelda"
+      ],
+      "repo": "https://github.com/georgeflower/zelda1-atarist",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "gitlab_path": null,
+      "gitlab_branch": null,
+      "source_platforms": [
+        "NES"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "6502"
+      ],
+      "target_cpu": [
+        "68000"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "68000 assembly"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Research and source inspected; no independent build or execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: The Legend of Zelda — Atari ST port. Pinned repository material inspected. Classification: Atari ST 68000 port informed by the NES disassembly and user-supplied ROM data. The author reports a 512 KB ST target and a work-in-progress game; Claude is explicitly credited with most code and tools. No independent build or play test. Source CPU: Source architectures follow the platforms explicitly examined; no exact variant inferred. Target CPU: Author states Atari ST 68000 target and 512 KB memory. Build: Repository documents source or research and build procedures where applicable; no independent build, execution, or byte comparison. Runtime profiles: No independently verified complete runtime profile. AI: The author credits Claude for code or research. Relationships: Distinct research repository; related same-title work is not automatically treated as identical. Evidence: https://github.com/georgeflower/zelda1-atarist/blob/53121014c497ff29ed8ce80859b3a3018fdf10fc/README.md https://github.com/georgeflower/zelda1-atarist/blob/53121014c497ff29ed8ce80859b3a3018fdf10fc/atari_st/src/main.s",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "GitHub Copilot"
+        ]
       }
     }
   },
