@@ -169,3 +169,11 @@ test('catalogue links are compact, accessible, subject-specific and safe in both
   x.run(`gameLinkIndex.p0=[{subject:'Game <one>',moby:'1\\" onmouseover=\\"bad'}]`);
   assert.equal(x.run('gameLinksHtml(projects[0])'),'');
 });
+
+test('multi-game references remain compact and expand with named destinations',()=>{
+  const x=setup();x.run(`projects[0].subjects=['First','Second','Third'];gameLinkIndex.p0=[{subject:'First',moby:'12'},{subject:'Second',lemon64:'34'},{subject:'Third',moby:'56'}];render()`);
+  const html=x.get('rows').innerHTML;
+  assert.match(html,/<summary[^>]*>\+2 games<\/summary>/);
+  assert.match(html,/<span>Second<\/span>.*lemon64\.com\/\?game_id=34/);
+  assert.match(html,/<span>Third<\/span>.*mobygames\.com\/game\/56\//);
+});

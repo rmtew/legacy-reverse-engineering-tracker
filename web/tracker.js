@@ -20,9 +20,10 @@ let gameLinkIndex={};
 function gameLinksHtml(record){
   const matches=gameLinkIndex[record?.id];
   if(!Array.isArray(matches))return "";
-  const links=[];
+  const groups=[];
   for(const game of matches){
     if(!game || typeof game.subject!=="string" || !arr(record.subjects).includes(game.subject))continue;
+    const links=[];
     for(const [field,site,base,label] of [
       ["lemon_amiga","Lemon Amiga","https://www.lemonamiga.com/games/details.php?id=","L→"],
       ["lemon64","Lemon 64","https://www.lemon64.com/?game_id=","L→"],
@@ -34,8 +35,12 @@ function gameLinksHtml(record){
       const description=game.subject+" on "+site+" (opens in a new tab)";
       links.push('<a class="game-reference" href="'+base+id+suffix+'" target="_blank" rel="noopener noreferrer" title="'+esc(description)+'" aria-label="'+esc(description)+'">'+label+'</a>');
     }
+    if(links.length)groups.push({subject:game.subject,links});
   }
-  return links.length?'<span class="game-references">'+links.join("")+'</span>':"";
+  if(!groups.length)return "";
+  const more=groups.slice(1);
+  const extra=more.length?'<details class="game-reference-more"><summary title="Show links for more games">+'+more.length+' '+(more.length===1?'game':'games')+'</summary><div class="game-reference-extra">'+more.map(group=>'<div><span>'+esc(group.subject)+'</span> '+group.links.join(' ')+'</div>').join('')+'</div></details>':"";
+  return '<div class="game-references">'+groups[0].links.join("")+extra+'</div>';
 }
 
 const reading=TrackerReading;
@@ -935,7 +940,7 @@ if(typeof IntersectionObserver!=="undefined"){
   projectObserver.observe($("projectShowMore"));
 }
 $("rows").addEventListener("click",event=>{
-  if(event.target.closest("a,button"))return;
+  if(event.target.closest("a,button,details,summary"))return;
   const row=event.target.closest("tr.project-row");
   const record=row&&projectRowById.get(row.dataset.id);
   if(record)showDetails(record);
