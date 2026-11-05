@@ -1143,9 +1143,11 @@ function showDetails(record) {
       + (autoEvidence.ai_config?.length ? line("Agent configuration observations", evidenceHtml(autoEvidence.ai_config)) : "")), true)
     + '<footer class="details-feedback">'+external(correctionUrl(record), "Suggest correction on GitHub ↗")+'</footer>';
 
+  if (!$("details").open) $("details").showModal();
+  // Hidden dialog descendants have no scroll box. Reset after showModal restores it.
   $("detailbody").scrollTop = 0;
   $("details").scrollTop = 0;
-  if (!$("details").open) $("details").showModal();
+  $("detail-title").scrollTop = 0;
 }
 
 function initCompatibilityFilters(){

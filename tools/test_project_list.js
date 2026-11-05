@@ -283,7 +283,7 @@ test('mobile loading and empty rows span two columns and resize back to eleven',
 });
 
 test('details group all existing fields, reset scroll and safely reuse an open modal',()=>{
-  const x=setup();let opened=0;x.get('details').showModal=()=>{opened++;x.get('details').open=true;};
+  const x=setup();let opened=0;x.get('details').showModal=()=>{opened++;x.get('details').open=true;x.get('detailbody').scrollTop=450;};
   x.context.item={id:'rich',display_title:'Display <title>',title:'Upstream',subjects:['Game'],repo:'https://github.com/team/project',project_url:'https://example.com',status:'In progress',notes:'Line one\nLine two <safe>',re_started:'2020',last_activity:'2026-11-01',last_checked:'2026-11-02',source_platforms:['Amiga'],target_platforms:['Windows'],source_cpu:['m68k'],target_cpu:['x86'],source_language:['Assembly'],reconstructed_languages:['C'],build:{compilable:true,runnable:false,playable:null,byte_exact:true},ai:{usage:true,tools:['Agent'],evidence:['README']},techniques:['Static analysis'],tags:['test'],evidence:{automated:{compilable:[{value:true,url:'https://example.com/build',excerpt:'Build <verified>'}],ai_config:[{value:'Observed',source:'AGENTS.md'}],source_cpu:[{value:'m68k'}]},routine:{target_cpu:[{value:'x86'}]}}};
   x.get('detailbody').scrollTop=600;x.run('showDetails(item)');
   assert.equal(x.get('detail-title').textContent,'Display <title>');assert.equal(x.get('detailbody').scrollTop,0);assert.equal(opened,1);
