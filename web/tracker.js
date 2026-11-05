@@ -1000,6 +1000,12 @@ function ciEvidenceHtml(entries) {
   }).join("") + '</ul>';
 }
 
+function correctionUrl(record){
+  const base="https://github.com/rmtew/legacy-reverse-engineering-tracker/issues/new";
+  const fields={template:"correction.yml",title:"Correction: "+projectTitle(record),"record-id":record.id || "","project-name":projectTitle(record),"project-url":record.project_url || record.repo || ""};
+  return base+"?"+Object.entries(fields).map(([key,value])=>encodeURIComponent(key)+"="+encodeURIComponent(value)).join("&");
+}
+
 function showDetails(record) {
   const build = record.build || {};
   const ai = record.ai || {};
@@ -1026,7 +1032,7 @@ function showDetails(record) {
 
   const shownTitle=projectTitle(record);
   const upstream=upstreamName(record);
-  $("detailbody").innerHTML = '<h2 id="detail-title">' + esc(shownTitle) + '</h2><dl class="details-grid">'
+  $("detailbody").innerHTML = '<h2 id="detail-title">' + esc(shownTitle) + '</h2><p class="details-feedback"><a href="'+esc(correctionUrl(record))+'" target="_blank" rel="noopener noreferrer">Suggest correction on GitHub ↗</a></p><dl class="details-grid">'
     + (upstream && upstream !== shownTitle ? line("Upstream name", esc(upstream)) : "")
     + line("Subjects", tags(record.subjects))
     + (project ? line("Project page", project) : "")

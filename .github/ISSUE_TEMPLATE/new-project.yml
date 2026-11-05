@@ -1,0 +1,33 @@
+name: Suggest a project
+description: Suggest a retro-development project that is missing from the tracker.
+title: "[Project suggestion]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Please [search the tracker](https://rmtew.github.io/legacy-reverse-engineering-tracker/) and [existing reports](https://github.com/rmtew/legacy-reverse-engineering-tracker/issues) first.
+        You need a GitHub account to submit this form. Submitting creates a public issue for review.
+        It does not automatically add the project to the tracker. Please do not include private information. No coding knowledge is needed.
+  - type: input
+    id: project-url
+    attributes:
+      label: Project URL
+      description: A public project website or source repository link.
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: what-is-it
+    attributes:
+      label: What is this project?
+      description: Give its name and a short description. Mention the older computer, console, software, or development work it relates to, if known.
+    validations:
+      required: true
+  - type: textarea
+    id: supporting-evidence
+    attributes:
+      label: Supporting evidence
+      description: Share public links or a short explanation showing what the project does. A project README, announcement, screenshots, or release page can help. The project URL above is enough if you explain where to look.
+    validations:
+      required: true

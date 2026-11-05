@@ -1,0 +1,41 @@
+name: Report a site problem
+description: Report something that does not work on the tracker website.
+title: "[Site problem]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for problems with the tracker website. For incorrect project information, choose **Correct a project** instead.
+        You need a GitHub account to submit this form. Submitting creates a public issue for review.
+        It does not automatically change the site. Please do not include private information. No coding knowledge is needed.
+  - type: textarea
+    id: steps
+    attributes:
+      label: What did you do?
+      description: Tell us how to see the problem. Include the page, view, or filters you used, if relevant.
+      placeholder: |
+        1. Open the tracker
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened?
+      description: Include any error message. You can attach a screenshot, but check that it contains no private information first.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device (optional)
+      description: Give the browser name and device, if known. A version number is helpful but not necessary.
+      placeholder: "For example: Safari on iPhone, or Firefox on Windows"

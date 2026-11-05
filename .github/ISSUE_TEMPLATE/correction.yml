@@ -1,0 +1,50 @@
+name: Correct a project
+description: Tell us about incorrect or outdated information in a tracker entry.
+title: "[Correction]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the tracker. You need a GitHub account to submit this form.
+        Submitting creates a public issue for review. It does not automatically change the tracker.
+        Please [check existing reports](https://github.com/rmtew/legacy-reverse-engineering-tracker/issues) and do not include private information. No coding knowledge is needed.
+  - type: input
+    id: record-id
+    attributes:
+      label: Tracker record ID (if known)
+      description: Filled in when you use a project's correction link. Leave it as it is, or leave it blank if you do not know it.
+  - type: input
+    id: project-name
+    attributes:
+      label: Project name
+      description: The name shown in the tracker.
+    validations:
+      required: true
+  - type: input
+    id: project-url
+    attributes:
+      label: Project URL
+      description: The project's website or repository link as currently listed, if known. If this link is wrong, put the replacement below.
+  - type: input
+    id: field-affected
+    attributes:
+      label: Which information is wrong?
+      description: Describe it in your own words. You do not need to know the internal field name.
+      placeholder: "For example: platform, project name, build status, or a broken link"
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-fix
+    attributes:
+      label: What should it say instead?
+      description: Explain the correction you would like us to make.
+    validations:
+      required: true
+  - type: textarea
+    id: source-or-explanation
+    attributes:
+      label: Source or explanation
+      description: Share a public link supporting the change, or explain how you know. It is fine to say if you are unsure.
+    validations:
+      required: true

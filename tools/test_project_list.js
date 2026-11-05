@@ -206,3 +206,19 @@ test('dialog heading labels the modal and clicking its interior does not dismiss
   click({target:x.get('details'),clientX:2,clientY:2});assert.equal(closed,1);
   assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/<dialog id="details" aria-labelledby="detail-title">/);
 });
+
+test('correction link preserves identity safely and opens the issue form on GitHub',()=>{
+  const x=setup();x.get('details').showModal=()=>{};
+  x.context.item={id:'p & 1',title:'Example <game> & more',repo:'https://example.com/project?a=1&b=2'};
+  x.run('showDetails(item)');const html=x.get('detailbody').innerHTML;
+  assert.match(html,/Suggest correction on GitHub ↗/);
+  assert.match(html,/issues\/new\?template=correction.yml&amp;title=Correction%3A%20Example%20%3Cgame%3E%20%26%20more&amp;record-id=p%20%26%201&amp;project-name=Example%20%3Cgame%3E%20%26%20more&amp;project-url=https%3A%2F%2Fexample.com%2Fproject%3Fa%3D1%26b%3D2/);
+  assert.match(html,/target="_blank" rel="noopener noreferrer"/);
+  assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/issues\/new\/choose[^>]*>Suggest \/ report<\/a>/);
+});
+
+test('correction link prefills the fields declared by the issue form',()=>{
+  const form=fs.readFileSync(path.join(root,'.github/ISSUE_TEMPLATE/correction.yml'),'utf8');
+  for(const id of ['record-id','project-name','project-url'])assert.ok(form.includes('id: '+id));
+  for(const file of ['new-project.yml','site-bug.yml','config.yml'])assert.ok(fs.existsSync(path.join(root,'.github/ISSUE_TEMPLATE',file)));
+});

@@ -16,6 +16,10 @@ Where a game subject can be matched confidently to Wikidata, Projects and Activi
 
 The matching, review queue, manual overrides and refresh procedure are described in [Wikidata game links](docs/wikidata-game-links.md). Coverage grows as the Wikidata index is refreshed.
 
+## Suggesting changes
+
+Use **Suggest / report** in the header to suggest a project, correct an entry or report a site problem. An existing project's details also have a **Suggest correction on GitHub** link that fills in the project identity. Forms create public GitHub issues after the visitor signs in and submits; they do not directly change catalogue data. Reports are reviewed against source evidence before any publication. Search existing issues to avoid duplicates.
+
 ## Reading updates and bookmarks
 
 The activity inbox is local to your browser. All available activity starts unread,
