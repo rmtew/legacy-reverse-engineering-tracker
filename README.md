@@ -14,7 +14,7 @@ The tracker has two views:
 
 Where a game subject can be matched confidently to Wikidata, Projects and Activity show compact **L→** links to Lemon Amiga and/or Lemon 64 and **M→** links to MobyGames. The labels and accessible link descriptions identify the game and destination, and open in a new tab. Missing or ambiguous matches are not guessed. The optional link data does not block the tracker if it is unavailable.
 
-The initial index is a small live-tested seed; the remaining subjects await a complete Wikidata refresh. The matching, review queue, manual overrides and refresh procedure are described in [Wikidata game links](docs/wikidata-game-links.md).
+The matching, review queue, manual overrides and refresh procedure are described in [Wikidata game links](docs/wikidata-game-links.md). Coverage grows as the Wikidata index is refreshed.
 
 ## Reading updates and bookmarks
 

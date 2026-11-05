@@ -1,0 +1,58 @@
+name: Refresh Wikidata game links
+
+on:
+  schedule:
+    # Re-match new projects daily; the remote index is refreshed at most monthly.
+    - cron: "11 4 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/wikidata_games.py"
+      - "config/wikidata-overrides.json"
+      - ".github/workflows/wikidata-games.yml"
+
+permissions:
+  contents: write
+  actions: write
+  deployments: read
+
+concurrency:
+  group: wikidata-game-links
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Refresh the cached Wikidata index if due
+        run: python -u tools/wikidata_games.py refresh --root . --max-age-days 30 --max-runtime 1800
+      - name: Save collected index and reconcile against current main
+        run: |
+          set -euo pipefail
+          cp state/wikidata-index.json "$RUNNER_TEMP/wikidata-index.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p state
+            cp "$RUNNER_TEMP/wikidata-index.json" state/wikidata-index.json
+            python -u tools/wikidata_games.py match --root .
+            git add -- state/wikidata-index.json state/wikidata-review.json data/game-links.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Refresh Wikidata game links"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 2))
+          done
+          exit 1
+      - name: Request Pages publication
+        run: python tools/pages_publication.py request

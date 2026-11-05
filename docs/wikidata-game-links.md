@@ -98,8 +98,8 @@ actual collection/full-refresh times and source properties.
 
 ## Actions and failure handling
 
-No scheduled refresh workflow is enabled yet. Refresh and match can be run manually
-when Wikidata access is available. Run matching after new research as well when practical. On the
+The daily workflow invokes refresh with the 30-day age threshold and then matches
+latest main. Run matching after new research as well when practical. On the
 first deployment, an Actions run can bootstrap the index if the editing
 environment cannot reach Wikidata; ordinary PR tests are completely offline and
 must not depend on the service.
@@ -115,4 +115,3 @@ index/review/link files, not unrelated catalogue or automation state.
 Wikidata structured data is CC0. The cache identifies its source endpoint and
 properties; every accepted link preserves the item URL as provenance.
 
-The initial index is a limited live-tested seed covering Dungeon Master, Elite and Lemmings. Other subjects remain explicitly not indexed until a complete refresh succeeds.
