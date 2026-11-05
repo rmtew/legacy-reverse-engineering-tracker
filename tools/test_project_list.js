@@ -154,3 +154,18 @@ test('release-only status requires the explicit 403 marker on the current provid
   assert.doesNotMatch(x.run('releaseAvailability({gitlab:{release_availability:status}})'),/First observed/);
   assert.equal(x.run('releaseAvailability({repo:"https://github.com/g/p",gitlab:{release_availability:status}})'),"");
 });
+
+test('catalogue links are compact, accessible, subject-specific and safe in both views',()=>{
+  const x=setup();
+  x.run(`gameLinkIndex={p0:[{subject:'Game <one>',lemon_amiga:'780',lemon64:'1783',moby:'9715'},{subject:'Other',moby:'999'}]}; projects[0].subjects=['Game <one>']; render()`);
+  const row=x.get('rows').innerHTML;
+  assert.match(row,/lemonamiga\.com\/games\/details\.php\?id=780/);
+  assert.match(row,/lemon64\.com\/\?game_id=1783/);
+  assert.match(row,/mobygames\.com\/game\/9715\//);
+  assert.match(row,/Game &lt;one&gt; on Lemon Amiga \(opens in a new tab\)/);
+  assert.match(row,/target="_blank" rel="noopener noreferrer"/);
+  assert.doesNotMatch(row,/mobygames\.com\/game\/999/);
+  assert.match(x.run('activityProjectHeader(projects[0])'),/lemonamiga\.com\/games\/details/);
+  x.run(`gameLinkIndex.p0=[{subject:'Game <one>',moby:'1\\" onmouseover=\\"bad'}]`);
+  assert.equal(x.run('gameLinksHtml(projects[0])'),'');
+});

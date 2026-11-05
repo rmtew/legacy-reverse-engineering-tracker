@@ -10,6 +10,12 @@ The tracker has two views:
 - **Projects** — filterable catalogue using additive facet chips for **Project type / Platform / CPU / Software type / Work / Development tool**, plus compact single-choice controls for AI/build/playability state. The internal subject/tooling/hybrid enum is presented as the clearer **Retro software / Development tools** distinction; hybrid records simply belong to both.
 - **Activity** — the default view: day-by-day recent commits, releases and catalogue changes, with the same topical additive facets including CPU family. Branch, author, project and output-language dropdowns are intentionally omitted.
 
+## Game catalogue links
+
+Where a game subject can be matched confidently to Wikidata, Projects and Activity show compact **L→** links to Lemon Amiga and/or Lemon 64 and **M→** links to MobyGames. The labels and accessible link descriptions identify the game and destination, and open in a new tab. Missing or ambiguous matches are not guessed. The optional link data does not block the tracker if it is unavailable.
+
+The initial index is a small live-tested seed; the remaining subjects await a complete Wikidata refresh. The matching, review queue, manual overrides and refresh procedure are described in [Wikidata game links](docs/wikidata-game-links.md).
+
 ## Reading updates and bookmarks
 
 The activity inbox is local to your browser. All available activity starts unread,

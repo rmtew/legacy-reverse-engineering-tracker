@@ -15,6 +15,29 @@ const tri = value => value === true ? "Yes" : value === false ? "No" : "Unknown"
 const projectTitle = record => record?.display_title || record?.title || record?.upstream_name || record?.id || "?";
 const upstreamName = record => record?.upstream_name || record?.title || projectTitle(record);
 
+// Published matches are keyed by project and original subject, not repository title.
+let gameLinkIndex={};
+function gameLinksHtml(record){
+  const matches=gameLinkIndex[record?.id];
+  if(!Array.isArray(matches))return "";
+  const links=[];
+  for(const game of matches){
+    if(!game || typeof game.subject!=="string" || !arr(record.subjects).includes(game.subject))continue;
+    for(const [field,site,base,label] of [
+      ["lemon_amiga","Lemon Amiga","https://www.lemonamiga.com/games/details.php?id=","L→"],
+      ["lemon64","Lemon 64","https://www.lemon64.com/?game_id=","L→"],
+      ["moby","MobyGames","https://www.mobygames.com/game/","M→"]
+    ]){
+      const id=String(game[field]??"");
+      if(!/^[1-9][0-9]*$/.test(id))continue;
+      const suffix=field==="moby"?"/":"";
+      const description=game.subject+" on "+site+" (opens in a new tab)";
+      links.push('<a class="game-reference" href="'+base+id+suffix+'" target="_blank" rel="noopener noreferrer" title="'+esc(description)+'" aria-label="'+esc(description)+'">'+label+'</a>');
+    }
+  }
+  return links.length?'<span class="game-references">'+links.join("")+'</span>':"";
+}
+
 const reading=TrackerReading;
 let readingState=reading.empty(), bookmarks=new Set(), inboxView='unread', displayedSnapshotIds=[];
 let fetchingUpdates=false, readingInitialized=false, initialRequestsPending=2;
@@ -818,7 +841,7 @@ function projectRowHtml(record){
     const started = record.re_started ?? (created ? created.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + '<td><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + '</div>' + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td><div class="project-name-line">' + projectCell(record) + gameLinksHtml(record) + bookmarkButton(record) + '</div>' + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + "<td>" + tags(record.source_platforms) + "</td>"
       + "<td>" + tags(record.target_platforms) + "</td>"
       + "<td>" + tags(record.reconstructed_languages) + "</td>"
@@ -1230,7 +1253,7 @@ function activityPlatformTags(project) {
 function activityProjectHeader(project) {
   const url=project.project_url||project.repo;
   const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(projectTitle(project))+'</a>':esc(projectTitle(project));
-  return '<div class="project-name-line"><strong>'+title+'</strong>'+bookmarkButton(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+  return '<div class="project-name-line"><strong>'+title+'</strong>'+gameLinksHtml(project)+bookmarkButton(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
     +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 
@@ -1785,6 +1808,22 @@ function initializeReadyViews(){
   if(activityVisible()) renderReadyActivity();
 }
 
+// Optional enrichment must never prevent the tracker from loading.
+async function loadGameLinks(){
+  try{
+    const response=await fetch("data/game-links.json",{cache:"no-cache"});
+    if(!response.ok)throw Error("game links unavailable");
+    const data=await response.json();
+    if(!data || data.format!=="tracker-game-links/v1" || !data.projects || typeof data.projects!=="object" || Array.isArray(data.projects))throw Error("invalid game links");
+    gameLinkIndex=data.projects;
+    const position=readingInitialized?capturePosition():null;
+    if(projectUiReady)render(true);
+    if(activityUiReady && activityVisible())renderActivity();
+    if(position)restorePosition(position);
+  }catch{} // Preserve the previous snapshot if the optional file is unavailable.
+}
+loadGameLinks();
+
 const platformVocabularyRequest=fetch("web/platform-vocabulary.json",{cache:"no-cache"})
   .then(response=>{if(!response.ok)throw new Error("platform vocabulary unavailable");return response.json();})
   .catch(()=>({aliases:{},non_platform_values:[]}));
@@ -1854,6 +1893,7 @@ async function fetchUpdates(){
   fetchingUpdates=true;updateReadingControls('Checking published activity and project metadata…');
   try{
     const [newProjects,newActivity]=await Promise.all([loadProjectCatalogue(),loadActivitySnapshot()]);
+    void loadGameLinks();
     if(activityReady&&Date.parse(newActivity.generated_at)<Date.parse(activityData.generated_at))throw Error('Received an older snapshot; please retry.');
     const position=readingInitialized?capturePosition():null;
     projects=newProjects;activityData=newActivity;projectsReady=true;activityReady=true;activityDirty=true;
