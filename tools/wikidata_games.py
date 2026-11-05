@@ -125,6 +125,17 @@ def detail_query(qids):
     return PREFIXES + "SELECT ?item ?kind ?value ?platform WHERE { VALUES ?item { " + " ".join("wd:" + q for q in qids) + " } " + " UNION ".join(branches) + " }"
 
 
+class RefreshBudgetExceeded(TimeoutError):
+    """A total refresh budget is not a retryable per-request timeout."""
+
+
+def query_timed_out(error):
+    if isinstance(error, RefreshBudgetExceeded):
+        return False
+    return isinstance(error, TimeoutError) or (
+        isinstance(error, URLError) and isinstance(error.reason, TimeoutError))
+
+
 class SparqlClient:
     def __init__(self, timeout=60, delay=1.0, deadline=None):
         self.timeout, self.delay, self.deadline = timeout, delay, deadline
@@ -134,7 +145,7 @@ class SparqlClient:
         for attempt in range(3):
             remaining = self.deadline - time.monotonic() if self.deadline else self.timeout
             if remaining <= 0:
-                raise TimeoutError("Wikidata refresh time budget exhausted")
+                raise RefreshBudgetExceeded("Wikidata refresh time budget exhausted")
             request = Request(ENDPOINT + "?" + urlencode({"query": query, "format": "json"}),
                               headers={"Accept": "application/sparql-results+json", "User-Agent": USER_AGENT})
             try:
@@ -150,13 +161,14 @@ class SparqlClient:
                     raise ValueError("Wikidata response is not SPARQL JSON")
                 time.sleep(self.delay)
                 return bindings
-            except HTTPError as error:
-                if error.code not in {429, 500, 502, 503, 504} or attempt == 2:
+            except (HTTPError, TimeoutError, URLError) as error:
+                retryable_http = isinstance(error, HTTPError) and error.code in {429, 500, 502, 503, 504}
+                if not (retryable_http or query_timed_out(error)) or attempt == 2:
                     raise
-                retry_after = error.headers.get("Retry-After", "")
+                retry_after = error.headers.get("Retry-After", "") if isinstance(error, HTTPError) else ""
                 delay = min(60, int(retry_after)) if retry_after.isdigit() else 5 * (attempt + 1)
                 if self.deadline and time.monotonic() + delay >= self.deadline:
-                    raise TimeoutError("Wikidata retry would exceed time budget") from error
+                    raise RefreshBudgetExceeded("Wikidata retry would exceed time budget") from error
                 time.sleep(delay)
         raise RuntimeError("Unreachable retry state")
 
@@ -178,14 +190,15 @@ def collect_index(query, subjects, *, explicit_qids=(), page_size=40, max_pages=
     def bounded_query(build_query, values):
         nonlocal request_count
         if deadline and time.monotonic() >= deadline:
-            raise TimeoutError("Wikidata refresh time budget exhausted")
+            raise RefreshBudgetExceeded("Wikidata refresh time budget exhausted")
         if request_count >= max_pages * 4:
             raise ValueError("Wikidata request limit reached; refusing partial index")
         request_count += 1
         try:
             return query(build_query(values))
-        except HTTPError as error:
-            if error.code not in {500, 502, 503, 504} or len(values) <= 1:
+        except (HTTPError, TimeoutError, URLError) as error:
+            splittable_http = isinstance(error, HTTPError) and error.code in {500, 502, 503, 504}
+            if not (splittable_http or query_timed_out(error)) or len(values) <= 1:
                 raise
             # A WDQS timeout on a batch can be retried at smaller scope, never
             # silently treated as an empty result or a finished refresh.

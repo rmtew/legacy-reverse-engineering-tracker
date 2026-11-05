@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 
 import wikidata_games as wd
 
@@ -183,6 +183,56 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(len(value["games"]), 1)
         self.assertGreater(len(calls), 2)
 
+    def test_socket_timeouts_split_subject_batches(self):
+        for error in [TimeoutError("read timed out"), URLError(TimeoutError("timed out"))]:
+            with self.subTest(error=type(error).__name__):
+                calls = []
+                def query(text):
+                    calls.append(text)
+                    if "SELECT DISTINCT" in text and '"Second"' in text and '"Example"' in text:
+                        raise error
+                    return self.fake_query(text)
+                value = wd.collect_index(query, ["Example", "Second"])
+                self.assertEqual(len(value["games"]), 1)
+                self.assertEqual(len(calls), 4)
+
+    def test_socket_timeout_splits_detail_batches(self):
+        calls = []
+        def query(text):
+            calls.append(text)
+            if "wd:Q1" in text and "wd:Q2" in text:
+                raise TimeoutError("read timed out")
+            qid = "Q1" if "wd:Q1" in text else "Q2"
+            return [binding(qid, "label", "Example"), binding(qid, "moby", "123")]
+        value = wd.collect_index(query, [], explicit_qids=["Q1", "Q2"])
+        self.assertEqual([game["qid"] for game in value["games"]], ["Q1", "Q2"])
+        self.assertEqual(len(calls), 3)
+
+    def test_singleton_timeout_and_budget_error_are_not_split(self):
+        for error, subjects in [(TimeoutError("read timed out"), ["Example"]),
+                                (wd.RefreshBudgetExceeded("budget"), ["Example", "Second"]),
+                                (URLError("DNS unavailable"), ["Example", "Second"]),
+                                (HTTPError(wd.ENDPOINT, 429, "limited", {}, BytesIO()), ["Example", "Second"])]:
+            with self.subTest(error=type(error).__name__):
+                calls = []
+                def query(text):
+                    calls.append(text)
+                    raise error
+                with self.assertRaises(type(error)):
+                    wd.collect_index(query, subjects)
+                self.assertEqual(len(calls), 1)
+
+    def test_timeout_splitting_still_obeys_request_limit(self):
+        calls = []
+        def query(text):
+            calls.append(text)
+            if sum('"' + name + '"@en' in text for name in ["First", "Second", "Third", "Fourth"]) > 1:
+                raise TimeoutError("read timed out")
+            return []
+        with self.assertRaisesRegex(ValueError, "request limit"):
+            wd.collect_index(query, ["First", "Second", "Third", "Fourth"], max_pages=1)
+        self.assertEqual(len(calls), 4)
+
     def test_cap_and_detail_failures_fail_closed(self):
         with self.assertRaises(ValueError):
             wd.collect_index(lambda _: [binding("Q1")] * 1001, ["Example"])
@@ -253,6 +303,20 @@ class FilesystemTests(unittest.TestCase):
         before = [p.read_bytes() for p in paths]
         with self.assertRaises(OSError):
             wd.refresh(self.root, force=True, query=lambda _: (_ for _ in ()).throw(OSError("offline")))
+        self.assertEqual(before, [p.read_bytes() for p in paths])
+
+    def test_incomplete_timeout_split_preserves_cache_links_and_review(self):
+        wd.match(self.root)
+        paths = [self.root / "state/wikidata-index.json", self.root / "data/game-links.json",
+                 self.root / "state/wikidata-review.json"]
+        before = [p.read_bytes() for p in paths]
+        wd.atomic_json(self.root / "data/projects.json", [project(subjects=["Example", "Second"])])
+        def query(text):
+            if '"Second"@en' in text:
+                raise TimeoutError("read timed out")
+            return CollectionTests.fake_query(self, text)
+        with self.assertRaises(TimeoutError):
+            wd.refresh(self.root, force=True, query=query)
         self.assertEqual(before, [p.read_bytes() for p in paths])
 
     def test_cache_reuse_and_subject_change_invalidation(self):
@@ -328,6 +392,66 @@ class FilesystemTests(unittest.TestCase):
         wd.atomic_json(self.root / "state/wikidata-index.json", refreshed)
         wd.match(self.root)
         self.assertEqual(before, [p.read_bytes() for p in paths])
+
+
+class SparqlClientTests(unittest.TestCase):
+    def response(self):
+        return BytesIO(b'{"results":{"bindings":[]}}')
+
+    def test_open_timeouts_retry_then_succeed(self):
+        for error in [TimeoutError("timed out"), URLError(TimeoutError("timed out"))]:
+            with self.subTest(error=type(error).__name__):
+                client = wd.SparqlClient(delay=0)
+                with patch.object(wd, "urlopen", side_effect=[error, self.response()]) as opener, \
+                     patch.object(wd.time, "sleep") as sleep:
+                    self.assertEqual(client("query"), [])
+                self.assertEqual(opener.call_count, 2)
+                self.assertEqual(client.requests, 2)
+                self.assertEqual(sleep.call_args_list[0].args, (5,))
+
+    def test_response_read_timeout_retries(self):
+        class TimedOutResponse(BytesIO):
+            def read(self, *args):
+                raise TimeoutError("The read operation timed out")
+        failed = TimedOutResponse()
+        with patch.object(wd, "urlopen", side_effect=[failed, self.response()]) as opener, \
+             patch.object(wd.time, "sleep"):
+            self.assertEqual(wd.SparqlClient(delay=0)("query"), [])
+        self.assertTrue(failed.closed)
+        self.assertEqual(opener.call_count, 2)
+
+    def test_timeout_retries_are_bounded(self):
+        with patch.object(wd, "urlopen", side_effect=TimeoutError("timed out")) as opener, \
+             patch.object(wd.time, "sleep") as sleep:
+            with self.assertRaises(TimeoutError):
+                wd.SparqlClient()("query")
+        self.assertEqual(opener.call_count, 3)
+        self.assertEqual([call.args for call in sleep.call_args_list], [(5,), (10,)])
+
+    def test_http_retry_after_is_preserved(self):
+        error = HTTPError(wd.ENDPOINT, 429, "limited", {"Retry-After": "12"}, BytesIO())
+        with patch.object(wd, "urlopen", side_effect=[error, self.response()]), \
+             patch.object(wd.time, "sleep") as sleep:
+            self.assertEqual(wd.SparqlClient(delay=0)("query"), [])
+        self.assertEqual(sleep.call_args_list[0].args, (12,))
+
+    def test_non_timeout_urlerror_not_retried(self):
+        with patch.object(wd, "urlopen", side_effect=URLError("DNS unavailable")) as opener, \
+             patch.object(wd.time, "sleep") as sleep:
+            with self.assertRaises(URLError):
+                wd.SparqlClient()("query")
+        self.assertEqual(opener.call_count, 1)
+        sleep.assert_not_called()
+
+    def test_timeout_retry_respects_deadline_without_split(self):
+        client = wd.SparqlClient(deadline=14)
+        with patch.object(wd.time, "monotonic", return_value=10), \
+             patch.object(wd, "urlopen", side_effect=TimeoutError("timed out")) as opener, \
+             patch.object(wd.time, "sleep") as sleep:
+            with self.assertRaisesRegex(wd.RefreshBudgetExceeded, "retry would exceed"):
+                wd.collect_index(client, ["Example", "Second"], deadline=14)
+        self.assertEqual(opener.call_count, 1)
+        sleep.assert_not_called()
 
 
 if __name__ == "__main__":
