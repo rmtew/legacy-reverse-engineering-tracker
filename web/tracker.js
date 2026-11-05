@@ -17,30 +17,47 @@ const upstreamName = record => record?.upstream_name || record?.title || project
 
 // Published matches are keyed by project and original subject, not repository title.
 let gameLinkIndex={};
-function gameLinksHtml(record){
+function gameLinkGroups(record){
   const matches=gameLinkIndex[record?.id];
-  if(!Array.isArray(matches))return "";
+  if(!Array.isArray(matches))return [];
   const groups=[];
   for(const game of matches){
     if(!game || typeof game.subject!=="string" || !arr(record.subjects).includes(game.subject))continue;
     const links=[];
-    for(const [field,site,base,label] of [
-      ["lemon_amiga","Lemon Amiga","https://www.lemonamiga.com/games/details.php?id=","L→"],
-      ["lemon64","Lemon 64","https://www.lemon64.com/?game_id=","L→"],
-      ["moby","MobyGames","https://www.mobygames.com/game/","M→"]
+    for(const [field,label,base] of [
+      ["lemon_amiga","Lemon Amiga","https://www.lemonamiga.com/games/details.php?id="],
+      ["lemon64","Lemon64","https://www.lemon64.com/?game_id="],
+      ["moby","MobyGames","https://www.mobygames.com/game/"]
     ]){
       const id=String(game[field]??"");
       if(!/^[1-9][0-9]*$/.test(id))continue;
-      const suffix=field==="moby"?"/":"";
-      const description=game.subject+" on "+site+" (opens in a new tab)";
-      links.push('<a class="game-reference" href="'+base+id+suffix+'" target="_blank" rel="noopener noreferrer" title="'+esc(description)+'" aria-label="'+esc(description)+'">'+label+'</a>');
+      links.push({label,url:base+id+(field==="moby"?"/":"")});
     }
     if(links.length)groups.push({subject:game.subject,links});
   }
-  if(!groups.length)return "";
-  const more=groups.slice(1);
-  const extra=more.length?'<details class="game-reference-more"><summary title="Show links for more games">+'+more.length+' '+(more.length===1?'game':'games')+'</summary><div class="game-reference-extra">'+more.map(group=>'<div><span>'+esc(group.subject)+'</span> '+group.links.join(' ')+'</div>').join('')+'</div></details>':"";
-  return '<div class="game-references">'+groups[0].links.join("")+extra+'</div>';
+  return groups;
+}
+function projectLinksHtml(record, scope="project"){
+  const safeUrl=value=>typeof value==="string" && /^https?:\/\/[^\s/]+(?:[/?#]|$)/i.test(value) ? value : "";
+  const repo=safeUrl(record.repo), website=safeUrl(record.project_url);
+  const sameUrl=(left,right)=>left.replace(/\/$/,"")===right.replace(/\/$/,"");
+  const sourceLabel=/^https?:\/\/(?:www\.)?github\.com(?:[/:]|$)/i.test(repo)?"GitHub"
+    :/^https?:\/\/(?:www\.)?gitlab\.com(?:[/:]|$)/i.test(repo)?"GitLab":"Source repository";
+  const link=(url,label,subject)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(label+' for '+subject+' (opens in a new tab)')+'"><span>'+esc(label)+'</span><span aria-hidden="true">↗</span></a>';
+  const primary=(website && (!repo || !sameUrl(website,repo))?link(website,"Website",projectTitle(record)):"")
+    +(repo?link(repo,sourceLabel,projectTitle(record)):"");
+  const groups=gameLinkGroups(record);
+  const catalogues=groups.map(group=>'<div class="project-link-group"><span class="project-link-subject">'+esc(group.subject)+'</span>'+group.links.map(item=>link(item.url,item.label,group.subject)).join("")+'</div>').join("");
+  if(!primary && !catalogues)return "";
+  return '<details class="project-links" name="'+scope+'-links"><summary aria-label="'+esc('Links for '+projectTitle(record))+'">Links <span aria-hidden="true">▾</span></summary><div class="project-links-menu"><p>Opens in a new tab</p>'+primary+catalogues+'</div></details>';
+}
+function projectLinksKeydown(event){
+  if(event.key!=="Escape")return;
+  const disclosure=event.target.closest('.project-links[open]');
+  if(!disclosure)return;
+  event.preventDefault();event.stopPropagation();
+  disclosure.open=false;
+  disclosure.querySelector('summary').focus();
 }
 
 const reading=TrackerReading;
@@ -831,9 +848,7 @@ function projectCell(record) {
   const shown=projectTitle(record), upstream=upstreamName(record);
   const tooltip=upstream && upstream!==shown?' title="'+esc('Upstream: '+upstream)+'"':'';
   const name='<button type="button" class="project-title" data-open-project="'+esc(record.id)+'" aria-haspopup="dialog" aria-label="'+esc('Details for '+shown)+'"'+tooltip+'>'+esc(shown)+'</button>';
-  const url=record.project_url||record.repo;
-  const external=url?'<a class="project-external" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc('Open project website for '+shown+' (opens in a new tab)')+'" title="Open project website (new tab)">↗</a>':'';
-  return name+external;
+  return name;
 }
 
 const PROJECT_BATCH_SIZE=100;
@@ -871,7 +886,7 @@ function projectRowHtml(record){
     const started = record.re_started ?? (created ? created.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + gameLinksHtml(record) + bookmarkButton(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + projectLinksHtml(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + '<td class="project-secondary">' + tags(record.source_platforms) + "</td>"
       + '<td class="project-secondary">' + tags(record.target_platforms) + "</td>"
       + '<td class="project-secondary">' + tags(record.reconstructed_languages) + "</td>"
@@ -980,6 +995,7 @@ function projectDetailsClick(event){
 }
 $("rows").addEventListener("click",projectDetailsClick);
 $("activityFeed").addEventListener("click",projectDetailsClick);
+for(const id of ["rows","activityFeed","detailbody"]) $(id).addEventListener("keydown",projectLinksKeydown);
 $("rows").addEventListener("click",event=>{
   if(event.target.closest("a,button,details,summary"))return;
   const row=event.target.closest("tr.project-row");
@@ -1040,85 +1056,96 @@ function showDetails(record) {
   const build = record.build || {};
   const ai = record.ai || {};
   const autoEvidence = record.evidence?.automated || {};
-  const line = (label, value) => "<dt>" + label + "</dt><dd>" + value + "</dd>";
-  const repo = record.repo
-    ? '<a href="' + esc(record.repo) + '" target="_blank" rel="noopener">' + esc(record.repo) + "</a>"
-    : "?";
-  const project = record.project_url
-    ? '<a href="' + esc(record.project_url) + '" target="_blank" rel="noopener">' + esc(record.project_url) + "</a>"
-    : null;
-  const metadata=repositoryMetadata(record);
+  const missing = '<span class="details-empty">Not recorded</span>';
+  const line = (label, value) => "<dt>" + esc(label) + "</dt><dd>" + (value === "?" || value === "" ? missing : value) + "</dd>";
+  const section = (title, content, expandable = false) => expandable
+    ? '<details class="details-section details-disclosure"><summary><h3>'+esc(title)+'</h3></summary><div class="details-section-content">'+content+'</div></details>'
+    : '<section class="details-section"><h3>'+esc(title)+'</h3>'+content+'</section>';
+  const grid = content => '<dl class="details-grid">'+content+'</dl>';
+  const external = (url, label, className = "") => '<a'+(className?' class="'+className+'"':'')+' href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+'</a>';
+  const repo = record.repo ? external(record.repo, record.repo) : "?";
+  const project = record.project_url ? external(record.project_url, record.project_url) : null;
+  const metadata = repositoryMetadata(record);
   const latestCommit = metadata.latest_commit?.url
-    ? '<a href="' + esc(metadata.latest_commit.url) + '" target="_blank" rel="noopener">'
-      + esc((metadata.latest_commit.date || "?") + " — " + (metadata.latest_commit.message || ""))
-      + "</a>"
+    ? external(metadata.latest_commit.url, (metadata.latest_commit.date || "?") + " — " + (metadata.latest_commit.message || ""))
     : "?";
-  const release=metadata.latest_release;
-  const releaseLabel=release?esc((release.tag || release.name || "release")
-    +(release.published_at?" — "+release.published_at:"")):"";
+  const release = metadata.latest_release;
+  const releaseLabel = release ? (release.tag || release.name || "release")+(release.published_at?" — "+release.published_at:"") : "";
   const latestRelease = release
-    ? (release.url?'<a href="'+esc(release.url)+'" target="_blank" rel="noopener">'+releaseLabel+'</a>':releaseLabel)
-    : releaseUnavailable(record)?"Release information unavailable":"?";
+    ? (release.url ? external(release.url, releaseLabel) : esc(releaseLabel))
+    : releaseUnavailable(record) ? "Release information unavailable" : "?";
+  const shownTitle = projectTitle(record);
+  const upstream = upstreamName(record);
+  const availability = repositoryAvailability(record);
+  const actions = projectLinksHtml(record, "detail");
+  const buildSummary = '<dl class="details-build">'+[
+    ["Compilable", build.compilable], ["Runnable", build.runnable],
+    ["Playable", build.playable], ["Byte exact", build.byte_exact]
+  ].map(([label, value])=>'<div><dt>'+label+'</dt><dd class="'+(value===true?'yes':value===false?'no':'unknown')+'">'+tri(value)+'</dd></div>').join("")+'</dl>';
+  const platformEvidence = ["source_cpu","target_cpu","source_platforms","target_platforms"].map(field=>{
+    const entries = autoEvidence[field]?.length ? autoEvidence[field] : record.evidence?.routine?.[field];
+    return entries?.length ? line(field.replaceAll("_"," ")+" evidence",evidenceHtml(entries)) : "";
+  }).join("");
 
-  const shownTitle=projectTitle(record);
-  const upstream=upstreamName(record);
-  $("detailbody").innerHTML = '<h2 id="detail-title">' + esc(shownTitle) + '</h2><p class="details-feedback"><a href="'+esc(correctionUrl(record))+'" target="_blank" rel="noopener noreferrer">Suggest correction on GitHub ↗</a></p><dl class="details-grid">'
-    + (upstream && upstream !== shownTitle ? line("Upstream name", esc(upstream)) : "")
-    + line("Subjects", tags(record.subjects))
-    + (project ? line("Project page", project) : "")
-    + line("Repository", repo)
-    + (repositoryAvailability(record) ? line("Repository availability", esc(repositoryAvailability(record))) : "")
-    + line("Source platform", tags(record.source_platforms))
-    + line("Target platform", tags(record.target_platforms))
-    + line("CPU family", tags(cpuFamilyValues(record)))
-    + line("Source CPU", tags(record.source_cpu))
-    + (arr(record.target_cpu).length ? line("Target CPU", tags(record.target_cpu)) : "")
-    + (runtimeProfiles(record).length ? line("Runs on", runtimeProfilesHtml(record)) : "")
-    + line("Original/source language", tags(record.source_language))
-    + line("Reconstructed language", tags(record.reconstructed_languages))
-    + line("Project type", tags(projectTypeValues(record).map(projectTypeLabel)))
-    + line("Software type", classificationValueTags(record.target_kinds))
-    + line("Work", classificationValueTags(record.work_kinds))
-    + (executionPaths(record).length ? line("Execution paths", executionPathsHtml(record)) : "")
-    + line("Development tool", classificationValueTags(record.tool_kinds))
-    + line("Legacy type descriptors", tags(record.types))
-    + line("Started", esc(record.re_started ?? "?"))
-    + line("Last activity", esc(record.last_activity ?? "?"))
-    + line("Last checked", esc(record.last_checked ?? "?"))
-    + line("Repository created", esc(metadata.created_at ?? "?"))
-    + line("Repository activity", esc(metadata.activity_state ?? "?"))
-    + line("Default branch", esc(metadata.default_branch ?? "?"))
-    + line("Tracked branch", esc(metadata.tracking_branch ?? "?"))
-    + line("Tracked path", esc(metadata.tracking_path ?? "?"))
-    + line("Repository languages", tags(metadata.languages))
-    + line("Latest commit", latestCommit)
-    + line("Latest release", latestRelease)
-    + (releaseAvailability(record) ? line("Release availability", esc(releaseAvailability(record))) : "")
-    + line("Status", esc(record.status ?? "?"))
-    + line("Compilable", tri(build.compilable))
-    + line("Runnable", tri(build.runnable))
-    + line("Playable", tri(build.playable))
-    + line("Byte exact", tri(build.byte_exact))
-    + line("Compile evidence", evidenceHtml(autoEvidence.compilable))
-    + line("Playable evidence", evidenceHtml(autoEvidence.playable))
-    + line("Byte-exact evidence", evidenceHtml(autoEvidence.byte_exact))
-    + line("Start-date evidence", evidenceHtml(autoEvidence.re_started))
-    + line("CI signals", ciEvidenceHtml(autoEvidence.ci))
-    + line("AI usage", tri(ai.usage))
-    + line("AI tools", tags(ai.tools))
-    + line("AI evidence", tags(ai.evidence))
-    + (autoEvidence.ai_config?.length ? line("Agent configuration observations", evidenceHtml(autoEvidence.ai_config)) : "")
-    + ["source_cpu","target_cpu","source_platforms","target_platforms"].map(field=>{
-      const entries=autoEvidence[field]?.length?autoEvidence[field]:record.evidence?.routine?.[field];
-      return entries?.length?line(field.replaceAll("_"," ")+" evidence",evidenceHtml(entries)):"";
-    }).join("")
-    + line("Techniques", tags(record.techniques))
-    + line("Tags", tags(record.tags))
-    + line("Notes", esc(record.notes || ""))
-    + "</dl>";
+  $("detail-title").textContent = shownTitle;
+  $("detailbody").innerHTML = (actions ? '<div class="details-actions">'+actions+'</div>' : "")
+    + (availability ? '<aside class="details-notice"><strong>Source unavailable at last check</strong><p>'+esc(availability)+'</p></aside>' : "")
+    + section("Overview", grid(
+      (upstream && upstream !== shownTitle ? line("Upstream name", esc(upstream)) : "")
+      + line("Subjects", tags(record.subjects))
+      + line("Status", esc(record.status ?? "?"))
+      + line("Started", esc(record.re_started ?? "?"))
+      + line("Last activity", esc(record.last_activity ?? "?"))
+      + line("Notes", '<span class="details-notes">'+(record.notes ? esc(record.notes) : missing)+'</span>')))
+    + section("Build & playability", buildSummary)
+    + section("Platforms & languages", grid(
+      line("Source platform", tags(record.source_platforms))
+      + line("Target platform", tags(record.target_platforms))
+      + line("CPU family", tags(cpuFamilyValues(record)))
+      + line("Source CPU", tags(record.source_cpu))
+      + (arr(record.target_cpu).length ? line("Target CPU", tags(record.target_cpu)) : "")
+      + (runtimeProfiles(record).length ? line("Runs on", runtimeProfilesHtml(record)) : "")
+      + line("Original/source language", tags(record.source_language))
+      + line("Reconstructed language", tags(record.reconstructed_languages))))
+    + section("Project classification", grid(
+      line("Project type", tags(projectTypeValues(record).map(projectTypeLabel)))
+      + line("Software type", classificationValueTags(record.target_kinds))
+      + line("Work", classificationValueTags(record.work_kinds))
+      + (executionPaths(record).length ? line("Execution paths", executionPathsHtml(record)) : "")
+      + line("Development tool", classificationValueTags(record.tool_kinds))
+      + line("Legacy type descriptors", tags(record.types))
+      + line("Techniques", tags(record.techniques))
+      + line("Tags", tags(record.tags))), true)
+    + section("Repository & activity", grid(
+      (project ? line("Project page", project) : "")
+      + line("Repository", repo)
+      + line("Last checked", esc(record.last_checked ?? "?"))
+      + line("Repository created", esc(metadata.created_at ?? "?"))
+      + line("Repository activity", esc(metadata.activity_state ?? "?"))
+      + line("Default branch", esc(metadata.default_branch ?? "?"))
+      + line("Tracked branch", esc(metadata.tracking_branch ?? "?"))
+      + line("Tracked path", esc(metadata.tracking_path ?? "?"))
+      + line("Repository languages", tags(metadata.languages))
+      + line("Latest commit", latestCommit)
+      + line("Latest release", latestRelease)
+      + (releaseAvailability(record) ? line("Release availability", esc(releaseAvailability(record))) : "")), true)
+    + section("Evidence & sources", grid(
+      line("Compile evidence", evidenceHtml(autoEvidence.compilable))
+      + line("Playable evidence", evidenceHtml(autoEvidence.playable))
+      + line("Byte-exact evidence", evidenceHtml(autoEvidence.byte_exact))
+      + line("Start-date evidence", evidenceHtml(autoEvidence.re_started))
+      + line("CI signals", ciEvidenceHtml(autoEvidence.ci))
+      + platformEvidence), true)
+    + section("AI usage", grid(
+      line("AI usage", tri(ai.usage))
+      + line("AI tools", tags(ai.tools))
+      + line("AI evidence", tags(ai.evidence))
+      + (autoEvidence.ai_config?.length ? line("Agent configuration observations", evidenceHtml(autoEvidence.ai_config)) : "")), true)
+    + '<footer class="details-feedback">'+external(correctionUrl(record), "Suggest correction on GitHub ↗")+'</footer>';
 
-  $("details").scrollTop=0;
-  $("details").showModal();
+  $("detailbody").scrollTop = 0;
+  $("details").scrollTop = 0;
+  if (!$("details").open) $("details").showModal();
 }
 
 function initCompatibilityFilters(){
@@ -1314,7 +1341,7 @@ function activityPlatformTags(project) {
 }
 
 function activityProjectHeader(project) {
-  return '<div class="project-name-line">'+projectCell(project)+gameLinksHtml(project)+bookmarkButton(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+  return '<div class="project-name-line">'+projectCell(project)+bookmarkButton(project)+projectLinksHtml(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
     +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 

@@ -162,20 +162,20 @@ test('catalogue links are compact, accessible, subject-specific and safe in both
   assert.match(row,/lemonamiga\.com\/games\/details\.php\?id=780/);
   assert.match(row,/lemon64\.com\/\?game_id=1783/);
   assert.match(row,/mobygames\.com\/game\/9715\//);
-  assert.match(row,/Game &lt;one&gt; on Lemon Amiga \(opens in a new tab\)/);
+  assert.match(row,/Lemon Amiga for Game &lt;one&gt; \(opens in a new tab\)/);
   assert.match(row,/target="_blank" rel="noopener noreferrer"/);
   assert.doesNotMatch(row,/mobygames\.com\/game\/999/);
   assert.match(x.run('activityProjectHeader(projects[0])'),/lemonamiga\.com\/games\/details/);
   x.run(`gameLinkIndex.p0=[{subject:'Game <one>',moby:'1\\" onmouseover=\\"bad'}]`);
-  assert.equal(x.run('gameLinksHtml(projects[0])'),'');
+  assert.equal(x.run('projectLinksHtml(projects[0])'),'');
 });
 
 test('multi-game references remain compact and expand with named destinations',()=>{
   const x=setup();x.run(`projects[0].subjects=['First','Second','Third'];gameLinkIndex.p0=[{subject:'First',moby:'12'},{subject:'Second',lemon64:'34'},{subject:'Third',moby:'56'}];render()`);
   const html=x.get('rows').innerHTML;
-  assert.match(html,/<summary[^>]*>\+2 games<\/summary>/);
-  assert.match(html,/<span>Second<\/span>.*lemon64\.com\/\?game_id=34/);
-  assert.match(html,/<span>Third<\/span>.*mobygames\.com\/game\/56\//);
+  assert.match(html,/<summary[^>]*>Links /);
+  assert.match(html,/<span class="project-link-subject">Second<\/span>.*lemon64\.com\/\?game_id=34/);
+  assert.match(html,/<span class="project-link-subject">Third<\/span>.*mobygames\.com\/game\/56\//);
 });
 
 test('name controls open current records in both views, with separate safe upstream links',()=>{
@@ -183,8 +183,8 @@ test('name controls open current records in both views, with separate safe upstr
   x.context.button={dataset:{openProject:'p0'},closest:()=>null};
   x.context.event={target:{closest:selector=>selector==='[data-open-project]'?x.context.button:null}};
   x.run('projectDetailsClick(event)');assert.equal(x.run('opened.id'),'p0');
-  const html=x.run('projectCell({id:"x",title:"A <B>",repo:"https://example.com/r",project_url:"https://example.com/home"})');
-  assert.match(html,/aria-haspopup="dialog"/);assert.match(html,/>A &lt;B&gt;<\/button>/);
+  const html=x.run('projectLinksHtml({id:"x",title:"A <B>",repo:"https://example.com/r",project_url:"https://example.com/home"})');
+  assert.match(x.run('projectCell({id:"x",title:"A <B>"})'),/>A &lt;B&gt;<\/button>/);
   assert.match(html,/href="https:\/\/example.com\/home"/);assert.match(html,/opens in a new tab/);
   assert.doesNotMatch(x.run('projectCell({id:"x",title:"No link"})'),/project-external/);
 });
@@ -201,7 +201,7 @@ test('activity name resolves the displayed historical snapshot for its day',()=>
 test('dialog heading labels the modal and clicking its interior does not dismiss it',()=>{
   const x=setup();let closed=0;
   x.get('details').showModal=()=>{};x.get('details').close=()=>closed++;x.get('details').getBoundingClientRect=()=>({left:10,right:200,top:10,bottom:200});
-  x.run('showDetails(projects[0])');assert.match(x.get('detailbody').innerHTML,/<h2 id="detail-title">/);
+  x.run('showDetails(projects[0])');assert.equal(x.get('detail-title').textContent,'Project 0');
   const click=x.get('details').listeners.click[0];click({target:x.get('details'),clientX:30,clientY:30});assert.equal(closed,0);
   click({target:x.get('details'),clientX:2,clientY:2});assert.equal(closed,1);
   assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/<dialog id="details" aria-labelledby="detail-title">/);
@@ -280,4 +280,45 @@ test('mobile loading and empty rows span two columns and resize back to eleven',
   media.matches=false;media.change();assert.equal(statusCell.colSpan,11);
   x.run('render()');assert.match(x.get('rows').innerHTML,/colspan="11"/);
   media.matches=true;media.change();assert.equal(statusCell.colSpan,2);
+});
+
+test('details group all existing fields, reset scroll and safely reuse an open modal',()=>{
+  const x=setup();let opened=0;x.get('details').showModal=()=>{opened++;x.get('details').open=true;};
+  x.context.item={id:'rich',display_title:'Display <title>',title:'Upstream',subjects:['Game'],repo:'https://github.com/team/project',project_url:'https://example.com',status:'In progress',notes:'Line one\nLine two <safe>',re_started:'2020',last_activity:'2026-11-01',last_checked:'2026-11-02',source_platforms:['Amiga'],target_platforms:['Windows'],source_cpu:['m68k'],target_cpu:['x86'],source_language:['Assembly'],reconstructed_languages:['C'],build:{compilable:true,runnable:false,playable:null,byte_exact:true},ai:{usage:true,tools:['Agent'],evidence:['README']},techniques:['Static analysis'],tags:['test'],evidence:{automated:{compilable:[{value:true,url:'https://example.com/build',excerpt:'Build <verified>'}],ai_config:[{value:'Observed',source:'AGENTS.md'}],source_cpu:[{value:'m68k'}]},routine:{target_cpu:[{value:'x86'}]}}};
+  x.get('detailbody').scrollTop=600;x.run('showDetails(item)');
+  assert.equal(x.get('detail-title').textContent,'Display <title>');assert.equal(x.get('detailbody').scrollTop,0);assert.equal(opened,1);
+  const html=x.get('detailbody').innerHTML;
+  for(const title of ['Overview','Build &amp; playability','Platforms &amp; languages','Project classification','Repository &amp; activity','Evidence &amp; sources','AI usage'])assert.ok(html.includes('<h3>'+title+'</h3>'));
+  for(const label of ['Upstream name','Subjects','Status','Started','Last activity','Notes','Compilable','Runnable','Playable','Byte exact','Source platform','Target platform','CPU family','Source CPU','Target CPU','Original/source language','Reconstructed language','Project type','Software type','Work','Development tool','Legacy type descriptors','Techniques','Tags','Project page','Repository','Last checked','Repository created','Repository activity','Default branch','Tracked branch','Tracked path','Repository languages','Latest commit','Latest release','Compile evidence','Playable evidence','Byte-exact evidence','Start-date evidence','CI signals','source cpu evidence','target cpu evidence','AI usage','AI tools','AI evidence','Agent configuration observations'])assert.ok(html.includes('<dt>'+label+'</dt>'),label);
+  assert.match(html,/Line one\nLine two &lt;safe&gt;/);assert.match(html,/Build &lt;verified&gt;/);
+  assert.match(html,/<dd class="yes">Yes<\/dd>/);assert.match(html,/<dd class="no">No<\/dd>/);assert.match(html,/<dd class="unknown">Unknown<\/dd>/);
+  assert.equal((html.match(/class="details-section details-disclosure"/g)||[]).length,4);
+  x.get('detailbody').scrollTop=500;x.run('showDetails({id:"next",title:"Next"})');assert.equal(opened,1);assert.equal(x.get('detailbody').scrollTop,0);assert.equal(x.get('detail-title').textContent,'Next');assert.doesNotMatch(x.get('detailbody').innerHTML,/Line one|AGENTS.md/);
+});
+
+test('Links dropdown names destinations, deduplicates website and repository, and rejects unsafe URLs',()=>{
+  const x=setup();
+  const html=x.run('projectLinksHtml({id:"x",title:"Project <one>",project_url:"https://example.com/home",repo:"https://github.com/team/repo"})');
+  assert.match(html,/Links for Project &lt;one&gt;/);assert.match(html,/>Website<\/span>/);assert.match(html,/>GitHub<\/span>/);assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g)||[]).length,2);
+  const same=x.run('projectLinksHtml({id:"x",project_url:"https://gitlab.com/team/repo/",repo:"https://gitlab.com/team/repo"})');
+  assert.match(same,/>GitLab<\/span>/);assert.equal((same.match(/<a /g)||[]).length,1);assert.doesNotMatch(same,/>Website</);
+  for(const url of ['javascript:alert(1)','data:text/html,bad','https://'])assert.equal(x.run(`projectLinksHtml({repo:${JSON.stringify(url)}})`),'');
+  assert.equal(x.run('projectLinksHtml({})'),'');
+});
+
+test('Escape closes only the current Links disclosure and returns focus to its summary',()=>{
+  const x=setup();let focused=false,prevented=false,stopped=false;
+  const disclosure={open:true,querySelector:selector=>{assert.equal(selector,'summary');return {focus(){focused=true;}};}};
+  x.context.escape={key:'Escape',target:{closest:()=>disclosure},preventDefault(){prevented=true;},stopPropagation(){stopped=true;}};
+  x.run('projectLinksKeydown(escape)');assert.equal(disclosure.open,false);assert.ok(focused&&prevented&&stopped);
+  for(const id of ['rows','activityFeed','detailbody'])assert.ok(x.get(id).listeners.keydown.includes(x.run('projectLinksKeydown')));
+});
+
+test('popup has a persistent touch-sized close button and responsive independent scroll area',()=>{
+  const html=fs.readFileSync(path.join(root,'index.html'),'utf8'),css=fs.readFileSync(path.join(root,'web/tracker.css'),'utf8');
+  assert.match(html,/<header class="details-header">[\s\S]*<h2 id="detail-title" tabindex="0"><\/h2>[\s\S]*aria-label="Close details" autofocus[\s\S]*<\/header>\s*<div id="detailbody" class="details-body">/);
+  assert.match(css,/#details \.close\{[^}]*width:44px;height:44px/);
+  assert.match(css,/\.details-body\{min-height:0;overflow-y:auto;overscroll-behavior:contain/);
+  assert.match(css,/@media\(max-width:600px\)/);assert.match(css,/height:calc\(100dvh - 16px\)/);
+  assert.match(css,/\.details-grid\{grid-template-columns:minmax\(0,1fr\)/);
 });

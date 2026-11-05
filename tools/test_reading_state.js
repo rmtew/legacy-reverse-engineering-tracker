@@ -228,13 +228,13 @@ test('project names open details, external links and bookmark remain independent
   b.run("projects=[{id:'p',title:'A long <project> name',repo:'https://example.com/project'}];render()");
   const row=b.get('rows').innerHTML;
   assert.match(row,/<button type="button" class="project-title" data-open-project="p" aria-haspopup="dialog"[^>]*>A long &lt;project&gt; name<\/button>/);
-  assert.match(row,/<a class="project-external" href="https:\/\/example.com\/project" target="_blank" rel="noopener noreferrer"[^>]*>↗<\/a>/);
+  assert.match(row,/<a href="https:\/\/example.com\/project" target="_blank" rel="noopener noreferrer"[^>]*><span>Source repository<\/span>/);
   assert.match(row,/data-bookmark="p"[^>]*aria-pressed="false"[^>]*aria-label="Bookmark A long &lt;project&gt; name"/);
   const header=b.run("activityProjectHeader(projects[0])");
   assert.match(header,/class="project-title" data-open-project="p"/);
-  assert.match(header,/class="project-external"/);
+  assert.match(header,/class="project-links"/);
   b.run("bookmarks.add('p');projects[0].repo=null;render()");
-  assert.doesNotMatch(b.get('rows').innerHTML,/class="project-external"/);
+  assert.doesNotMatch(b.get('rows').innerHTML,/class="project-links"/);
   assert.match(b.get('rows').innerHTML,/data-bookmark="p"[^>]*aria-pressed="true"/);
   assert.match(b.run('activityProjectHeader(projects[0])'),/aria-label="Remove bookmark for A long &lt;project&gt; name"/);
 });
