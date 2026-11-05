@@ -223,14 +223,19 @@ test('one-time migration persists v2 and leaves bookmark export untouched',()=>{
   b.run('renderActivity()');b.handlers.get('markRead:click')();b.run('ingestReadingSnapshot();renderActivity()');
   assert.equal(b.get('unreadCount').textContent,0);assert.equal(b.get('migrationNotice').hidden,true);
 });
-test('bookmark controls follow the name in a shared compact row, retaining accessible toggle semantics',()=>{
+test('project names open details, external links and bookmark remain independent',()=>{
   const b=browser();
   b.run("projects=[{id:'p',title:'A long <project> name',repo:'https://example.com/project'}];render()");
-  assert.match(b.get('rows').innerHTML,/<div class="project-name-line"><a class="project-link"[^>]*>A long &lt;project&gt; name<\/a><button[^>]*data-bookmark="p"[^>]*aria-pressed="false"[^>]*aria-label="Bookmark A long &lt;project&gt; name"/);
+  const row=b.get('rows').innerHTML;
+  assert.match(row,/<button type="button" class="project-title" data-open-project="p" aria-haspopup="dialog"[^>]*>A long &lt;project&gt; name<\/button>/);
+  assert.match(row,/<a class="project-external" href="https:\/\/example.com\/project" target="_blank" rel="noopener noreferrer"[^>]*>↗<\/a>/);
+  assert.match(row,/data-bookmark="p"[^>]*aria-pressed="false"[^>]*aria-label="Bookmark A long &lt;project&gt; name"/);
   const header=b.run("activityProjectHeader(projects[0])");
-  assert.match(header,/<div class="project-name-line"><strong><a[^>]*>A long &lt;project&gt; name<\/a><\/strong><button/);
+  assert.match(header,/class="project-title" data-open-project="p"/);
+  assert.match(header,/class="project-external"/);
   b.run("bookmarks.add('p');projects[0].repo=null;render()");
-  assert.match(b.get('rows').innerHTML,/<div class="project-name-line"><strong>A long &lt;project&gt; name<\/strong><button[^>]*aria-pressed="true"/);
+  assert.doesNotMatch(b.get('rows').innerHTML,/class="project-external"/);
+  assert.match(b.get('rows').innerHTML,/data-bookmark="p"[^>]*aria-pressed="true"/);
   assert.match(b.run('activityProjectHeader(projects[0])'),/aria-label="Remove bookmark for A long &lt;project&gt; name"/);
 });
 

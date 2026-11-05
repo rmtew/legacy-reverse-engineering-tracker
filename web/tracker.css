@@ -56,7 +56,10 @@ th[data-sort="desc"]::after{content:" ↓"}
 th,td{padding:8px 10px;border-bottom:1px solid #d8dee4;vertical-align:top}
 tbody tr.project-row{cursor:pointer}tbody tr.project-row:hover{background:var(--panel)}
 tbody tr:last-child td{border-bottom:0}
-.project-link{font-weight:650}
+.project-title{font:inherit;font-weight:650;color:var(--link);background:none;border:0;padding:0;text-align:left;cursor:pointer;text-decoration:none}
+.project-title:hover{text-decoration:underline}
+.project-title:focus-visible,.project-external:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.project-external{display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;line-height:1;font-size:14px}
 .loading,.empty{text-align:center;color:var(--muted);padding:32px}
 
 .tags{display:flex;gap:4px;flex-wrap:wrap}
@@ -226,9 +229,10 @@ button:focus-visible,.bookmark-tools summary:focus-visible { outline:2px solid c
 /* Keep names and their bookmark control on one row; long names wrap beside it. */
 .project-name-line{display:flex;align-items:flex-start;gap:4px;min-width:0}
 .project-name-line>:first-child{flex:1;min-width:0;overflow-wrap:anywhere}
+.project-name-line{flex-wrap:wrap}
 .project-name-line .bookmark-star{padding:0 4px;line-height:1.2;min-width:24px;min-height:24px}
 .activity-project-head .project-name-line{margin-bottom:5px}
-.activity-project-head .project-name-line strong{margin-bottom:0}
+.activity-project-head .project-title{font-size:14px}
 
 /* A compact overview follows the feed's day/project order, including unloaded pages. */
 .activity-layout{display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;align-items:start}

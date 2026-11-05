@@ -177,3 +177,32 @@ test('multi-game references remain compact and expand with named destinations',(
   assert.match(html,/<span>Second<\/span>.*lemon64\.com\/\?game_id=34/);
   assert.match(html,/<span>Third<\/span>.*mobygames\.com\/game\/56\//);
 });
+
+test('name controls open current records in both views, with separate safe upstream links',()=>{
+  const x=setup();x.run('showDetails=record=>{globalThis.opened=record;}');
+  x.context.button={dataset:{openProject:'p0'},closest:()=>null};
+  x.context.event={target:{closest:selector=>selector==='[data-open-project]'?x.context.button:null}};
+  x.run('projectDetailsClick(event)');assert.equal(x.run('opened.id'),'p0');
+  const html=x.run('projectCell({id:"x",title:"A <B>",repo:"https://example.com/r",project_url:"https://example.com/home"})');
+  assert.match(html,/aria-haspopup="dialog"/);assert.match(html,/>A &lt;B&gt;<\/button>/);
+  assert.match(html,/href="https:\/\/example.com\/home"/);assert.match(html,/opens in a new tab/);
+  assert.doesNotMatch(x.run('projectCell({id:"x",title:"No link"})'),/project-external/);
+});
+
+test('activity name resolves the displayed historical snapshot for its day',()=>{
+  const x=setup();x.run('projects=[];showDetails=record=>{globalThis.opened=record;}');
+  x.run(`activityRenderedEvents=[{project_id:'gone',date:'2026-10-01T12:00:00Z',project:{id:'gone',title:'First snapshot'}},{project_id:'gone',date:'2026-10-02T12:00:00Z',project:{title:'Second snapshot'}}]`);
+  x.context.button={dataset:{openProject:'gone'},closest:selector=>selector==='.activity-day'?{dataset:{day:x.run("localDayKey('2026-10-02T12:00:00Z')")}}:null};
+  x.context.event={target:{closest:selector=>selector==='[data-open-project]'?x.context.button:null}};
+  x.run('projectDetailsClick(event)');assert.equal(x.run('opened.title'),'Second snapshot');
+  x.run(`projects=[{id:'gone',title:'Current'}];projectDetailsClick(event)`);assert.equal(x.run('opened.title'),'Current');
+});
+
+test('dialog heading labels the modal and clicking its interior does not dismiss it',()=>{
+  const x=setup();let closed=0;
+  x.get('details').showModal=()=>{};x.get('details').close=()=>closed++;x.get('details').getBoundingClientRect=()=>({left:10,right:200,top:10,bottom:200});
+  x.run('showDetails(projects[0])');assert.match(x.get('detailbody').innerHTML,/<h2 id="detail-title">/);
+  const click=x.get('details').listeners.click[0];click({target:x.get('details'),clientX:30,clientY:30});assert.equal(closed,0);
+  click({target:x.get('details'),clientX:2,clientY:2});assert.equal(closed,1);
+  assert.match(fs.readFileSync(path.join(root,'index.html'),'utf8'),/<dialog id="details" aria-labelledby="detail-title">/);
+});

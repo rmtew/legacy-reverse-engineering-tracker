@@ -828,12 +828,12 @@ function matches(record,query=$("q").value.trim().toLowerCase()) {
 }
 
 function projectCell(record) {
-  const title = esc(projectTitle(record));
-  const upstream = upstreamName(record);
-  const tooltip = upstream && upstream !== projectTitle(record) ? ' title="Upstream: '+esc(upstream)+'"' : "";
-  const url = record.project_url || record.repo;
-  if (!url) return "<strong" + tooltip + ">" + title + "</strong>";
-  return '<a class="project-link" href="' + esc(url) + '" target="_blank" rel="noopener"' + tooltip + ">" + title + "</a>";
+  const shown=projectTitle(record), upstream=upstreamName(record);
+  const tooltip=upstream && upstream!==shown?' title="'+esc('Upstream: '+upstream)+'"':'';
+  const name='<button type="button" class="project-title" data-open-project="'+esc(record.id)+'" aria-haspopup="dialog" aria-label="'+esc('Details for '+shown)+'"'+tooltip+'>'+esc(shown)+'</button>';
+  const url=record.project_url||record.repo;
+  const external=url?'<a class="project-external" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc('Open project website for '+shown+' (opens in a new tab)')+'" title="Open project website (new tab)">↗</a>':'';
+  return name+external;
 }
 
 const PROJECT_BATCH_SIZE=100;
@@ -939,6 +939,17 @@ if(typeof IntersectionObserver!=="undefined"){
   },{rootMargin:"400px"});
   projectObserver.observe($("projectShowMore"));
 }
+function projectDetailsClick(event){
+  const button=event.target.closest('[data-open-project]');
+  if(!button)return;
+  const id=button.dataset.openProject;
+  const day=button.closest('.activity-day')?.dataset.day;
+  const snapshot=day && activityRenderedEvents.find(item=>item.project_id===id && localDayKey(item.date)===day && item.project)?.project;
+  const record=projectById().get(id) || (snapshot ? {...snapshot,id} : null);
+  if(record)showDetails(record);
+}
+$("rows").addEventListener("click",projectDetailsClick);
+$("activityFeed").addEventListener("click",projectDetailsClick);
 $("rows").addEventListener("click",event=>{
   if(event.target.closest("a,button,details,summary"))return;
   const row=event.target.closest("tr.project-row");
@@ -1015,7 +1026,7 @@ function showDetails(record) {
 
   const shownTitle=projectTitle(record);
   const upstream=upstreamName(record);
-  $("detailbody").innerHTML = "<h2>" + esc(shownTitle) + '</h2><dl class="details-grid">'
+  $("detailbody").innerHTML = '<h2 id="detail-title">' + esc(shownTitle) + '</h2><dl class="details-grid">'
     + (upstream && upstream !== shownTitle ? line("Upstream name", esc(upstream)) : "")
     + line("Subjects", tags(record.subjects))
     + (project ? line("Project page", project) : "")
@@ -1070,6 +1081,7 @@ function showDetails(record) {
     + line("Notes", esc(record.notes || ""))
     + "</dl>";
 
+  $("details").scrollTop=0;
   $("details").showModal();
 }
 
@@ -1142,7 +1154,9 @@ document.querySelectorAll("th[data-key]").forEach(th => th.addEventListener("cli
 
 document.querySelector("#details .close").addEventListener("click", () => $("details").close());
 $("details").addEventListener("click", event => {
-  if (event.target === $("details")) $("details").close();
+  if(event.target!==$("details"))return;
+  const box=$("details").getBoundingClientRect();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)$("details").close();
 });
 
 
@@ -1256,9 +1270,7 @@ function activityPlatformTags(project) {
 }
 
 function activityProjectHeader(project) {
-  const url=project.project_url||project.repo;
-  const title=url?'<a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(projectTitle(project))+'</a>':esc(projectTitle(project));
-  return '<div class="project-name-line"><strong>'+title+'</strong>'+gameLinksHtml(project)+bookmarkButton(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+  return '<div class="project-name-line">'+projectCell(project)+gameLinksHtml(project)+bookmarkButton(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
     +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 
@@ -1695,7 +1707,8 @@ function renderActivity(append=false) {
       const bd=Math.max(...b[1].map(e=>activityEventTime(e.date)));
       return bd-ad;
     }).map(([projectId,commits])=>{
-      const project=map.get(projectId) || commits.find(event=>event.project)?.project;
+      const snapshot=commits.find(event=>event.project)?.project;
+      const project=map.get(projectId) || (snapshot ? {...snapshot,id:projectId} : {id:projectId});
       const commitHtml=commits.sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date)).map(event=>{
         const time=/^\d{4}-\d{2}-\d{2}$/.test(event.date)
           ? '<span title="Time not recorded">—</span>'
