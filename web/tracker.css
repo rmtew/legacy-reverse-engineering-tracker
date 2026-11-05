@@ -294,3 +294,51 @@ th .sort-heading:focus-visible{outline:2px solid var(--link);outline-offset:4px;
 .game-reference-extra{min-width:200px;max-width:350px;padding:7px;background:var(--panel);color:inherit;border:1px solid var(--border);border-radius:4px}
 .game-reference-extra>div{display:flex;align-items:center;gap:3px;margin:3px 0}
 .game-reference-extra>div>span{flex:1}
+
+/* Keep the full desktop table; phones get a readable two-column catalogue. */
+.mobile-project-sort,.mobile-project-platforms,.project-date-short{display:none}
+.project-date-accessible{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media(max-width:760px){
+  body{min-width:0}
+  .site-header,main{padding:14px 12px}
+  .site-header{flex-direction:column;align-items:flex-start;gap:12px}
+  .header-links{flex-wrap:wrap;gap:8px 12px;white-space:normal}
+  .filter-search{min-width:0}
+  .filter-top{flex-wrap:wrap}
+  .filter-panel{padding:10px}
+  .facet-group{grid-template-columns:minmax(0,1fr);gap:4px}
+  .same-family{flex-wrap:wrap}
+  .result-bar{flex-wrap:wrap;gap:4px 12px}
+  .mobile-project-sort{display:flex;align-items:center;gap:8px;margin:10px 0;font-size:13px;color:var(--muted)}
+  .mobile-project-sort label{font-weight:650;white-space:nowrap}
+  .mobile-project-sort select,.mobile-project-sort button{min-height:36px;font:inherit;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:Canvas;color:inherit}
+  .mobile-project-sort select{flex:1;min-width:0;max-width:240px}
+  .mobile-project-sort button{min-width:36px;cursor:pointer;font-weight:700}
+  #projects table{table-layout:fixed}
+  #projects th:not([data-key="title"]):not([data-key="updated"]),#projects .project-secondary{display:none}
+  #projects th[data-key="updated"]{width:6.5rem}
+  #projects th,#projects td{padding:10px 8px}
+  #projects th[data-key="updated"],#projects .project-updated{text-align:right}
+  #projects .project-updated{white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums}
+  #projects .project-name-line{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px}
+  #projects .project-title{grid-column:1;grid-row:1;line-height:1.4}
+  #projects .project-external{grid-column:2;grid-row:1;flex-shrink:0}
+  #projects .bookmark-star{grid-column:3;grid-row:1}
+  #projects .game-references{grid-column:1 / -1;min-width:0;max-width:100%}
+  #projects .game-reference-more{max-width:100%}
+  #projects .game-reference-extra{min-width:0;max-width:100%;overflow-wrap:anywhere}
+  #projects .game-reference-extra>div{flex-wrap:wrap}
+  #projects .execution-badges{display:none}
+  .mobile-project-platforms{display:flex;flex-direction:column;gap:4px;margin-top:6px;font-size:10px;color:var(--muted)}
+  .project-platform-group{display:flex;flex-wrap:wrap;gap:3px 5px;align-items:baseline;min-width:0}
+  .project-platform-label{font-weight:650}
+  .project-platform-group .tags{min-width:0;max-width:100%;gap:3px}
+  .project-platform-group .tag{white-space:normal;overflow-wrap:anywhere;max-width:100%}
+  .project-date-full{display:none}
+  .project-date-short{display:inline}
+  dialog{width:calc(100% - 24px);padding:16px}
+  .details-grid{grid-template-columns:minmax(0,1fr);gap:4px}
+  .details-grid dd{margin-bottom:10px;min-width:0}
+  .details-grid .tag{white-space:normal;overflow-wrap:anywhere;max-width:100%}
+  .source-availability-warning ul{columns:1}
+}

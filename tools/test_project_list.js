@@ -222,3 +222,62 @@ test('correction link prefills the fields declared by the issue form',()=>{
   for(const id of ['record-id','project-name','project-url'])assert.ok(form.includes('id: '+id));
   for(const file of ['new-project.yml','site-bug.yml','config.yml'])assert.ok(fs.existsSync(path.join(root,'.github/ISSUE_TEMPLATE',file)));
 });
+
+test('mobile sort offers every table column and stays synchronized with headings and restored state',()=>{
+  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  const options=[...html.match(/<select id="projectSort"[\s\S]*?<\/select>/)[0].matchAll(/value="([^"]+)"/g)].map(match=>match[1]);
+  const x=setup();x.run('projectUiReady=true');
+  assert.deepEqual(options.slice().sort(),x.headers.map(h=>h.dataset.key).sort());
+  assert.match(html,/<label for="projectSort">Sort by<\/label>/);
+  x.get('projectSort').value='language';x.get('projectSort').listeners.change[0]();
+  assert.equal(x.run('sort.key'),'language');assert.equal(x.run('sort.dir'),1);
+  const language=x.headers.find(h=>h.dataset.key==='language');
+  assert.equal(language.attributes['aria-sort'],'ascending');
+  x.get('projectSortDirection').listeners.click[0]();
+  assert.equal(x.run('sort.dir'),-1);assert.equal(language.attributes['aria-sort'],'descending');
+  assert.equal(x.get('projectSortDirection').attributes['aria-label'],'Sort ascending');
+  const updated=x.headers.find(h=>h.dataset.key==='updated');updated.listeners.click[0]();
+  assert.equal(x.get('projectSort').value,'updated');assert.equal(x.get('projectSortDirection').textContent,'↑');
+  updated.listeners.click[0]();assert.equal(x.get('projectSortDirection').textContent,'↓');
+  x.run('sort={key:"source",dir:-1};render()');
+  assert.equal(x.get('projectSort').value,'source');assert.equal(x.get('projectSortDirection').textContent,'↓');
+  x.get('q').value='nothing matches';x.run('render()');
+  x.get('projectSortDirection').listeners.click[0]();
+  assert.equal(x.get('count').textContent,0);assert.match(x.get('rows').innerHTML,/No projects/);
+});
+
+test('compact rows retain all desktop cells and label only available source and target tags',()=>{
+  const x=setup();
+  const html=x.run('projectRowHtml({id:"m",title:"Example",source_platforms:["Amiga", "A <B>"],target_platforms:["Windows"],last_activity:"2026-11-05"})');
+  assert.equal((html.match(/<td[ >]/g)||[]).length,11);
+  assert.equal((html.match(/class="project-secondary"/g)||[]).length,9);
+  assert.match(html,/class="project-name"/);assert.match(html,/class="project-updated"/);
+  assert.match(html,/project-platform-label">Source<\/span>/);assert.match(html,/project-platform-label">Target<\/span>/);
+  assert.match(html,/A &lt;B&gt;/);
+  assert.equal(x.run('mobileProjectPlatforms({})'),'');
+  const onlyTarget=x.run('mobileProjectPlatforms({target_platforms:["C64"]})');
+  assert.match(onlyTarget,/Target/);assert.doesNotMatch(onlyTarget,/Source|\?/);
+});
+
+test('short dates retain complete accessible UTC dates and never invent missing precision',()=>{
+  const x=setup();
+  const html=x.run('projectUpdatedHtml("2026-11-05")');
+  assert.match(html,/<time datetime="2026-11-05" title="5 November 2026">/);
+  assert.match(html,/project-date-accessible">5 November 2026<\/span>/);
+  assert.match(html,/project-date-short" aria-hidden="true">5 Nov 26<\/span>/);
+  assert.match(html,/project-date-full" aria-hidden="true">2026-11-05<\/span>/);
+  assert.equal(x.run('projectUpdatedHtml(null)'),'?');
+  for(const value of ['2026','2026-11','2026-02-30','Unknown'])assert.equal(x.run(`projectUpdatedHtml(${JSON.stringify(value)})`),value);
+  assert.equal(x.run('projectUpdatedHtml("<unknown>")'),'&lt;unknown&gt;');
+});
+
+test('mobile loading and empty rows span two columns and resize back to eleven',()=>{
+  const media={matches:true,addEventListener(event,callback){this.change=callback;}};
+  const x=setup({window:{matchMedia:query=>query==='(max-width:760px)'?media:{matches:false,addEventListener(){}}}});
+  x.get('q').value='no matching result';x.run('render()');
+  assert.match(x.get('rows').innerHTML,/colspan="2"/);
+  const statusCell={colSpan:2};x.get('rows').querySelectorAll=()=>[statusCell];
+  media.matches=false;media.change();assert.equal(statusCell.colSpan,11);
+  x.run('render()');assert.match(x.get('rows').innerHTML,/colspan="11"/);
+  media.matches=true;media.change();assert.equal(statusCell.colSpan,2);
+});

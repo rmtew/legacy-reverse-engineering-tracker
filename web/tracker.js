@@ -837,8 +837,33 @@ function projectCell(record) {
 }
 
 const PROJECT_BATCH_SIZE=100;
+// Keep status rows spanning the visible columns, including during resize/loading.
+const compactProjectTable=window.matchMedia("(max-width:760px)");
+const projectTableColumnSpan=()=>compactProjectTable.matches?2:11;
+function updateProjectStatusColumns(){
+  $("rows").querySelectorAll("td[colspan]").forEach(cell=>cell.colSpan=projectTableColumnSpan());
+}
+compactProjectTable.addEventListener?.("change",updateProjectStatusColumns);
+updateProjectStatusColumns();
 let projectRenderedRows=[],projectRenderedCount=0,projectVisibleLimit=PROJECT_BATCH_SIZE;
 let projectRenderRevision=0;
+const projectShortDateFormat=new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"short",year:"2-digit",timeZone:"UTC"});
+const projectFullDateFormat=new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"});
+function mobileProjectPlatforms(record){
+  const groups=[["Source",record.source_platforms],["Target",record.target_platforms]]
+    .filter(([,values])=>arr(values).length)
+    .map(([label,values])=>'<div class="project-platform-group"><span class="project-platform-label">'+label+'</span>'+tags(values)+'</div>');
+  return groups.length?'<div class="mobile-project-platforms">'+groups.join("")+'</div>':"";
+}
+function projectUpdatedHtml(value){
+  const raw=String(value??"?");
+  // Preserve partial/unknown dates as authored, without inventing a day or timezone.
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(raw))return esc(raw);
+  const date=new Date(raw+"T00:00:00Z");
+  if(!Number.isFinite(date.getTime())||date.toISOString().slice(0,10)!==raw)return esc(raw);
+  const short=projectShortDateFormat.format(date),full=projectFullDateFormat.format(date);
+  return '<time datetime="'+raw+'" title="'+esc(full)+'"><span class="project-date-accessible">'+esc(full)+'</span><span class="project-date-full" aria-hidden="true">'+raw+'</span><span class="project-date-short" aria-hidden="true">'+esc(short)+'</span></time>';
+}
 function projectRowHtml(record){
     const build = record.build || {};
     const ai = record.ai || {};
@@ -846,17 +871,17 @@ function projectRowHtml(record){
     const started = record.re_started ?? (created ? created.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + '<td><div class="project-name-line">' + projectCell(record) + gameLinksHtml(record) + bookmarkButton(record) + '</div>' + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
-      + "<td>" + tags(record.source_platforms) + "</td>"
-      + "<td>" + tags(record.target_platforms) + "</td>"
-      + "<td>" + tags(record.reconstructed_languages) + "</td>"
-      + "<td>" + classificationTags(record) + "</td>"
-      + "<td>" + esc(started) + "</td>"
-      + "<td>" + esc(record.last_activity ?? "?") + "</td>"
-      + "<td>" + flag(build.compilable) + "</td>"
-      + "<td>" + flag(build.playable) + "</td>"
-      + "<td>" + flag(build.byte_exact) + "</td>"
-      + "<td>" + flag(ai.usage) + "</td>"
+      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + gameLinksHtml(record) + bookmarkButton(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td class="project-secondary">' + tags(record.source_platforms) + "</td>"
+      + '<td class="project-secondary">' + tags(record.target_platforms) + "</td>"
+      + '<td class="project-secondary">' + tags(record.reconstructed_languages) + "</td>"
+      + '<td class="project-secondary">' + classificationTags(record) + "</td>"
+      + '<td class="project-secondary">' + esc(started) + "</td>"
+      + '<td class="project-updated">' + projectUpdatedHtml(record.last_activity) + "</td>"
+      + '<td class="project-secondary">' + flag(build.compilable) + "</td>"
+      + '<td class="project-secondary">' + flag(build.playable) + "</td>"
+      + '<td class="project-secondary">' + flag(build.byte_exact) + "</td>"
+      + '<td class="project-secondary">' + flag(ai.usage) + "</td>"
       + "</tr>";
 
 }
@@ -886,12 +911,17 @@ function render(preserveLimit=false) {
   $("count").textContent=projectRenderedRows.length;
   $("total").textContent=projects.length;
   $("sortnote").textContent="Sorted by "+sort.key+(sort.dir<0?" ↓":" ↑");
+  $("projectSort").value=sort.key;
+  $("projectSortDirection").textContent=sort.dir>0?"↑":"↓";
+  const nextDirection=sort.dir>0?"Sort descending":"Sort ascending";
+  $("projectSortDirection").setAttribute("aria-label",nextDirection);
+  $("projectSortDirection").title=nextDirection;
   document.querySelectorAll("th[data-key]").forEach(th=>{
     th.removeAttribute("data-sort");
     th.setAttribute("aria-sort",th.dataset.key===sort.key?(sort.dir>0?"ascending":"descending"):"none");
     if(th.dataset.key===sort.key)th.dataset.sort=sort.dir>0?"asc":"desc";
   });
-  $("rows").innerHTML=projectRenderedRows.length?"":'<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
+  $("rows").innerHTML=projectRenderedRows.length?"":'<tr><td colspan="'+projectTableColumnSpan()+'" class="empty">No projects match the current filters.</td></tr>';
   appendProjectRows();
 }
 function refreshProjectBookmarkMembership(){
@@ -907,7 +937,7 @@ function refreshProjectBookmarkMembership(){
   });
   projectRenderedRows=next;
   $("count").textContent=next.length;
-  if(!next.length)$("rows").innerHTML='<tr><td colspan="11" class="empty">No projects match the current filters.</td></tr>';
+  if(!next.length)$("rows").innerHTML='<tr><td colspan="'+projectTableColumnSpan()+'" class="empty">No projects match the current filters.</td></tr>';
   appendProjectRows();
 }
 function ensureProjectAnchorRendered(id){
@@ -1157,6 +1187,14 @@ document.querySelectorAll("th[data-key]").forEach(th => th.addEventListener("cli
     : { key: th.dataset.key, dir: 1 };
   if(projectUiReady) render();
 }));
+$("projectSort").addEventListener("change",()=>{
+  sort={key:$("projectSort").value,dir:sort.dir};
+  if(projectUiReady)render();
+});
+$("projectSortDirection").addEventListener("click",()=>{
+  sort={key:sort.key,dir:-sort.dir};
+  if(projectUiReady)render();
+});
 
 document.querySelector("#details .close").addEventListener("click", () => $("details").close());
 $("details").addEventListener("click", event => {
@@ -1893,7 +1931,7 @@ async function loadProjectCatalogue(fetcher=fetch){
 loadProjectCatalogue()
   .then(async data=>{platformVocabulary=await platformVocabularyRequest;projects=data;projectsReady=true;initializeReadyViews();})
   .catch(error=>{
-    $("rows").innerHTML='<tr><td colspan="11" class="empty">Could not load projects: '+esc(error.message)+'</td></tr>';
+    $("rows").innerHTML='<tr><td colspan="'+projectTableColumnSpan()+'" class="empty">Could not load projects: '+esc(error.message)+'</td></tr>';
     $("activityFeed").innerHTML='<div class="activity-empty">Could not load projects: '+esc(error.message)+'</div>';
     updateReadingControls('Could not load projects. Use Fetch updates to retry.');
   }).finally(()=>{initialRequestsPending--;updateReadingControls();});
