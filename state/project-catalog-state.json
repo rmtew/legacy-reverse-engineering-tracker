@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-08T15:42:47Z",
+  "updated_at": "2026-11-08T15:48:16Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -33652,8 +33652,10 @@
       ],
       "notes": "Identity: Root README, manifest and repository metadata identify a source-only Black Tiger arcade-to-Mega Drive port. The manifest says the exact revision is unknown despite hash-locked files; do not silently claim an independently verified arcade revision. Classification: v1.9.2 remains a native SGDK/Mega Drive behavioral port. The release text explicitly says the cartridge does not execute the arcade CPU, so the update is not relabelled as embedded emulation or original-source recovery. Source CPU: Z80 established by player audit and MAME primary driver, which identifies main and audio Z80 CPUs. Driver also describes an 8751 protection MCU; the reviewed port scope reconstructs Z80 gameplay/audio behavior, not that MCU's program. Target CPU: README explicitly states native 68000 game logic; Makefile invokes m68k-elf-gcc -m68000. No inferred host CPU. Build: Upstream's v1.9.5 status reports 194 test recipes and strict packaging passing for a hash-identified ROM after dialogue, snake, rock and bonus-door fixes. Limitations: The tracker did not build the ROM or run the tests. Upstream explicitly says physical hardware remains untested and does not claim a complete natural playthrough. Runtime profiles: The release cites emulator checks and an earlier user report involving a Mega Drive Model 2 VA0 and EverGenesis V3, but explicitly says those physical configurations were unavailable for retest. No minimum hardware profile is recorded. AI: The reviewed release commit contains no development-AI attribution; absence in this bounded evidence is not proof of non-use. Relationships: Distinct from Side Arms MD; shares author/SGDK/native-port approach. MAME is an offline reference/oracle, not runtime. No canonical or subject duplicate in catalogue. Evidence: https://github.com/rester159/blacktiger_MD/blob/main/README.md https://github.com/rester159/blacktiger_MD/blob/main/STATUS.md https://github.com/rester159/blacktiger_MD/blob/main/Makefile https://github.com/rester159/blacktiger_MD/blob/main/docs/source-only.md https://github.com/rester159/blacktiger_MD/blob/main/reference/player_audit.md https://github.com/rester159/blacktiger_MD/blob/main/reference/audio_audit.md https://github.com/rester159/blacktiger_MD/blob/main/src/main.c https://github.com/rester159/blacktiger_MD/blob/main/src/game.c https://github.com/rester159/blacktiger_MD/blob/main/assets/rom_manifest.json https://github.com/mamedev/mame/blob/master/src/mame/capcom/blktiger.cpp https://github.com/rester159/blacktiger_MD/commit/2809c483235e6808d5f82eb72aa30471815aeacf https://github.com/rester159/blacktiger_MD/commit/11d356548eb0b5683b498e8a16a2efd674b4e202",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "blagger64-javascript-reconstruction": {
