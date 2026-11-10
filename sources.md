@@ -1650,3 +1650,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-05 — Review eight game research and reconstruction projects.
 
 [Research record](docs/research/2026-11-05-games-discovery-120.md).
+
+## 2026-11-10 — Review eleven game reversing and reconstruction projects.
+
+[Research record](docs/research/2026-11-10-games-discovery-121.md).
