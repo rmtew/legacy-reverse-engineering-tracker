@@ -1662,3 +1662,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-10 — Correct AI attribution to match the project README.
 
 [Research record](docs/research/2026-11-10-shadow-skimmer-ai-correction.md).
+
+## 2026-11-10 — Review 29 game reconstructions, ports and game-specific editors.
+
+[Research record](docs/research/2026-11-10-games-discovery-123.md).

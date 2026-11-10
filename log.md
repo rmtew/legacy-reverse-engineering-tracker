@@ -1814,3 +1814,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-10 — Correct AI attribution to match the project README.
 
 [Research record](docs/research/2026-11-10-shadow-skimmer-ai-correction.md).
+
+## 2026-11-10 — Review 29 game reconstructions, ports and game-specific editors.
+
+[Research record](docs/research/2026-11-10-games-discovery-123.md).
