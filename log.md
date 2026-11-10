@@ -1810,3 +1810,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-10 — Review 32 game reversing and reconstruction projects across NES, DOS and ZX Spectrum.
 
 [Research record](docs/research/2026-11-10-games-discovery-122.md).
+
+## 2026-11-10 — Correct AI attribution to match the project README.
+
+[Research record](docs/research/2026-11-10-shadow-skimmer-ai-correction.md).
