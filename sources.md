@@ -1654,3 +1654,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-10 — Review eleven game reversing and reconstruction projects.
 
 [Research record](docs/research/2026-11-10-games-discovery-121.md).
+
+## 2026-11-10 — Review 32 game reversing and reconstruction projects across NES, DOS and ZX Spectrum.
+
+[Research record](docs/research/2026-11-10-games-discovery-122.md).
