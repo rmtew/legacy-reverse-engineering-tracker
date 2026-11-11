@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-11T15:28:10Z",
+  "updated_at": "2026-11-11T15:39:52Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -252876,8 +252876,10 @@
       ],
       "notes": "Identity: PCSX-Redux remains the same PlayStation emulator and reverse-engineering environment. Classification: The change improves hardware-register emulation fidelity and debugging behavior rather than reconstructing a game. Source CPU: The analyzed/emulated PlayStation architecture remains MIPS; a GPU register-state fix does not add another source CPU. Target CPU: The portable host build has no fixed output CPU established by this commit, so none is inferred. Build: Upstream models GPUSTAT bit 26 as clear from the first through penultimate word of incomplete GP0 commands and readout, with a test checking each word. Limitations: The tracker did not build PCSX-Redux, run the new test or compare behavior on physical PlayStation hardware. Runtime profiles: The GPU fix states no minimum host CPU, RAM, GPU or OS requirement. AI: The reviewed commit contains no explicit development-AI attribution; absence does not establish non-use. Relationships: The gpustat26 MIPS test remains a conformance fixture inside PCSX-Redux, not a separate project. Evidence: https://github.com/pcsx-redux/pcsx-redux/commit/b723f051beb95e5bf94db2db1352c30a93e172d0",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "kingsfield-re-tools": {
