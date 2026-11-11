@@ -1,7 +1,7 @@
 /* Local-only reading state. No timestamps are used as a proxy for discovery. */
 (function(root){
   'use strict';
-  const KEY='retro-development-tracker.inbox.v1', BOOKMARKS='retro-development-tracker.bookmarks.v1';
+  const KEY='retro-development-tracker.inbox.v1', BOOKMARKS='retro-development-tracker.bookmarks.v1', HIDDEN='retro-development-tracker.hidden-projects.v1';
   const validId=id=>typeof id==='string'&&id.length>0&&id.length<=2048&&!/[\u0000-\u001f]/.test(id);
   const canonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);
   function fingerprint(value){
@@ -57,7 +57,17 @@
     if(!data||data.version!==1||!Array.isArray(data.project_ids)||data.project_ids.length>20000||data.project_ids.some(id=>!validId(id)))throw Error('Choose a valid version 1 bookmark export.');
     return [...new Set(data.project_ids)];
   }
-  const api={KEY,BOOKMARKS,empty,parse,ids,reconcile,acknowledge,parseBookmarks};
+  function hiddenRuns(groups,hidden){
+    const runs=[];
+    for(const group of groups){
+      const collapsed=hidden.has(group.id),last=runs.at(-1);
+      if(collapsed&&last?.hidden)last.groups.push(group);
+      else runs.push({hidden:collapsed,groups:[group]});
+    }
+    return runs;
+  }
+  const api={KEY,BOOKMARKS,HIDDEN,empty,parse,ids,reconcile,acknowledge,parseBookmarks,hiddenRuns};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   else root.TrackerReading=api;
 })(globalThis);
+

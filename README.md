@@ -162,3 +162,10 @@ The expanded root document/configuration scan has 24 candidate paths. Offline ca
 Execution architecture uses the canonical `baked-emulation` method, displayed and filtered as **BAKED EMULATION**. It covers a program coupled to retained guest machine state/hardware whether interpreted or compiled; ordinary recovered-code native/API ports remain `native-translation`. Mixed projects keep separate evidenced paths. See [the schema and historical-input boundary](schema.md#canonical-baked-emulation-migration). This does not change catalogue inclusion policy.
 
 Already tracked repositories that return a verified root-API 404 retain their cached facts and display a retryable unavailable status. That honest unavailable outcome can finish a catalogue publication attempt without pretending history or metadata completed. New or changed tracking remains gated; unavailable probes back off for 24 hours, and confirmed recovery resumes the real checks. See [unavailable-repository semantics](schema.md#unavailable-existing-repositories).
+
+
+### Hide project activity
+
+The eye-with-slash icon beside each bookmark star toggles activity hiding for a project. The preference is saved locally in this browser under `retro-development-tracker.hidden-projects.v1`; it does not remove the project from Projects or delete its bookmark. Consecutive hidden project groups within each day become an expandable marker with project and entry counts. Hover for a per-project count, or click, tap or use the keyboard to expand the run temporarily and access the same unhide icons. The **Hidden projects** list provides another way to unhide projects, including those outside the current activity filters. Hiding takes precedence in bookmarked activity.
+
+Hidden entries are excluded from the unread badge and Mark all read, preserving their existing reading state for later. Hide/unhide and disclosure toggles preserve the selected control or replacement marker's viewport position, including when a run reaches the end of the list. Daily summaries count as one activity entry, matching the feed's existing entry counts.

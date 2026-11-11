@@ -61,7 +61,7 @@ function projectLinksKeydown(event){
 }
 
 const reading=TrackerReading;
-let readingState=reading.empty(), bookmarks=new Set(), inboxView='unread', displayedSnapshotIds=[];
+let readingState=reading.empty(), bookmarks=new Set(), hiddenProjects=new Set(), inboxView='unread', displayedSnapshotIds=[];
 let fetchingUpdates=false, readingInitialized=false, initialRequestsPending=2;
 let storageBroken=false;
 function storageFailure(message){
@@ -73,6 +73,8 @@ try{readingState=reading.parse(localStorage.getItem(reading.KEY));}
 catch{storageFailure('Reading storage is unavailable or damaged.');}
 try{const raw=localStorage.getItem(reading.BOOKMARKS);if(raw)bookmarks=new Set(reading.parseBookmarks(raw));}
 catch{storageFailure('Bookmark storage is unavailable or damaged.');}
+try{const raw=localStorage.getItem(reading.HIDDEN);if(raw)hiddenProjects=new Set(reading.parseBookmarks(raw));}
+catch{storageFailure('Hidden-project storage is unavailable or damaged.');}
 function saveReading(){
   if(storageBroken)return;
   try{localStorage.setItem(reading.KEY,JSON.stringify(readingState));}
@@ -92,7 +94,140 @@ function bookmarkButton(project){
   const selected=bookmarks.has(project.id);
   return '<button type="button" class="bookmark-star" data-bookmark="'+esc(project.id)+'" aria-pressed="'+selected+'" aria-label="'+esc((selected?'Remove bookmark for ':'Bookmark ')+projectTitle(project))+'" title="'+(selected?'Remove bookmark':'Bookmark project')+'">'+(selected?'★':'☆')+'</button>';
 }
-function unreadEvent(event){return reading.ids(event).some(id=>readingState.seen[id]===true);}
+function hasUnreadIdentity(event){return reading.ids(event).some(id=>readingState.seen[id]===true);}
+const expandedHiddenRuns=new Set();
+function hideButton(project){
+  const selected=hiddenProjects.has(project.id),label=(selected?'Show activity for ':'Hide activity for ')+projectTitle(project);
+  return '<button type="button" class="hide-project" data-hide-project="'+esc(project.id)+'" aria-pressed="'+selected+'" aria-label="'+esc(label)+'" title="'+esc(label)+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></button>';
+}
+function hiddenProjectMap(){
+  const map=projectById();
+  for(const event of activityData.events)if(event.project&&!map.has(event.project_id))map.set(event.project_id,{...event.project,id:event.project_id});
+  return map;
+}
+function renderHiddenProjects(){
+  const map=hiddenProjectMap();
+  $('hiddenProjectCount').textContent=hiddenProjects.size;
+  $('hiddenProjectList').innerHTML=hiddenProjects.size?'<ul>'+[...hiddenProjects].sort((a,b)=>projectTitle(map.get(a)||{id:a}).localeCompare(projectTitle(map.get(b)||{id:b}))).map(id=>'<li><span>'+esc(projectTitle(map.get(id)||{id}))+'</span>'+hideButton(map.get(id)||{id})+'</li>').join('')+'</ul>':'<p>No projects hidden.</p>';
+}
+function syncHideButtons(){
+  const map=hiddenProjectMap();
+  document.querySelectorAll('[data-hide-project]').forEach(button=>{
+    const id=button.dataset.hideProject,selected=hiddenProjects.has(id),label=(selected?'Show activity for ':'Hide activity for ')+projectTitle(map.get(id)||{id});
+    button.setAttribute('aria-pressed',String(selected));button.setAttribute('aria-label',label);button.title=label;
+  });
+}
+function visibleActivityAnchor(node){
+  const run=node?.closest?.('.hidden-activity-run');
+  return run?.open===false?run.querySelector('summary'):node;
+}
+// Regroup existing nodes instead of rebuilding the feed: loaded pages, focusable controls,
+// and event identities survive hiding. Runs never cross day or visible-project boundaries.
+function syncHiddenActivity(){
+  const feed=$('activityFeed'),map=hiddenProjectMap();
+  const oldRuns=[...feed.querySelectorAll('.hidden-activity-run')];
+  if(!hiddenProjects.size&&!oldRuns.length)return;
+  const focused=document.activeElement,focusedRun=focused?.closest?.('.hidden-activity-run')?.dataset.hiddenRun;
+  for(const run of oldRuns){
+    for(const node of [...run.querySelector('.hidden-activity-entries').children])run.before(node);
+    run.remove();
+  }
+  let previous;
+  for(const day of [...feed.querySelectorAll('.activity-day')]){
+    if(previous?.dataset.day===day.dataset.day){
+      for(const node of [...day.querySelectorAll('.activity-project')])previous.append(node);
+      day.remove();
+    }else previous=day;
+  }
+  for(const day of feed.querySelectorAll('.activity-day')){
+    const groups=[...day.querySelectorAll('.activity-project')].map(node=>({id:node.dataset.projectId,node}));
+    for(const run of reading.hiddenRuns(groups,hiddenProjects)){
+      if(!run.hidden)continue;
+      const counts=new Map();
+      for(const group of run.groups)counts.set(group.id,(counts.get(group.id)||0)+group.node.querySelectorAll('.commit').length);
+      const count=[...counts.values()].reduce((a,b)=>a+b,0),anchor=run.groups[0].node.querySelector('[data-reading-anchor]').dataset.readingAnchor;
+      const labels=[...counts].map(([id,n])=>({project:map.get(id)||{id},count:n}));
+      const summary=counts.size+' project'+(counts.size===1?'':'s')+' hidden · '+count+' entr'+(count===1?'y':'ies');
+      const details=document.createElement('details');details.className='hidden-activity-run';details.dataset.hiddenRun=anchor;details.open=expandedHiddenRuns.has(anchor);
+      details.innerHTML='<summary data-reading-anchor="hidden:'+esc(anchor)+'" title="'+esc(labels.map(({project,count})=>projectTitle(project)+': '+count+' entr'+(count===1?'y':'ies')).join('\n'))+'">'+esc(summary)+'<span class="hidden-run-hint"></span></summary><div class="hidden-run-projects"><p>Temporarily expanded. Use the eye icon to show a project’s activity permanently.</p><ul>'+labels.map(({project,count})=>'<li><span>'+esc(projectTitle(project))+' <span class="muted">· '+count+' entr'+(count===1?'y':'ies')+'</span></span>'+hideButton(project)+'</li>').join('')+'</ul></div><div class="hidden-activity-entries"></div>';
+      run.groups[0].node.before(details);
+      for(const group of run.groups)details.querySelector('.hidden-activity-entries').append(group.node);
+    }
+  }
+  activityDayNodes=[...feed.querySelectorAll('.activity-day')];
+  if(focusedRun){
+    const target=focused.isConnected?visibleActivityAnchor(focused):[...feed.querySelectorAll('.hidden-activity-run')].find(node=>node.dataset.hiddenRun===focusedRun)?.querySelector('summary');
+    target?.focus({preventScroll:true});
+  }
+}
+let hidePositionRevision=0,hideOriginalOverflowAnchor=null;
+function keepActivityPosition(node,change,resolve){
+  const top=node?.getBoundingClientRect().top,y=window.scrollY||0,revision=++hidePositionRevision;
+  const root=document.documentElement;
+  if(root.style){
+    if(hideOriginalOverflowAnchor===null)hideOriginalOverflowAnchor=root.style.overflowAnchor||'';
+    root.style.overflowAnchor='none';
+  }
+  change();
+  const target=resolve?.()||node;
+  let lastY;
+  const restore=()=>{
+    if(revision!==hidePositionRevision)return;
+    if(target?.isConnected&&top!==undefined){
+      const space=$('activityScrollSpace');
+      if(space?.style)space.style.height='0px';
+      const desired=Math.max(0,(window.scrollY||0)+target.getBoundingClientRect().top-top);
+      // A short tail preserves the anchor even when collapsing the final group shortens
+      // the document below the viewport. It is recalculated on the next toggle.
+      if(space?.style)space.style.height=Math.max(0,desired+window.innerHeight-root.scrollHeight)+'px';
+      window.scrollTo?.(0,desired);
+    }else window.scrollTo?.(0,y);
+    lastY=window.scrollY||0;
+  };
+  restore();
+  target?.focus?.({preventScroll:true});
+  if(window.requestAnimationFrame)window.requestAnimationFrame(()=>window.requestAnimationFrame(()=>{
+    if(revision===hidePositionRevision&&(window.scrollY||0)===lastY)restore();
+    if(revision===hidePositionRevision&&root.style){root.style.overflowAnchor=hideOriginalOverflowAnchor||'';hideOriginalOverflowAnchor=null;}
+    scheduleActivityDayUpdate();
+  }));
+  else if(root.style){root.style.overflowAnchor=hideOriginalOverflowAnchor||'';hideOriginalOverflowAnchor=null;}
+}
+function hideProjectClick(event){
+  const button=event.target.closest('[data-hide-project]');if(!button)return;
+  event.preventDefault();event.stopPropagation();
+  const group=button.closest('.activity-project'),run=button.closest('.hidden-activity-run');
+  const id=button.dataset.hideProject;
+  const matchingGroup=group||[...run?.querySelectorAll('.activity-project')||[]].find(node=>node.dataset.projectId===id);
+  const anchor=matchingGroup?.querySelector('[data-reading-anchor]')?.dataset.readingAnchor;
+  const source=button;
+  keepActivityPosition(source,()=>{
+    if(!storageBroken)try{const raw=localStorage.getItem(reading.HIDDEN);hiddenProjects=new Set(raw?reading.parseBookmarks(raw):[]);}catch{storageFailure('Could not read hidden projects.');}
+    if(hiddenProjects.has(id))hiddenProjects.delete(id);else hiddenProjects.add(id);
+    if(!storageBroken)try{localStorage.setItem(reading.HIDDEN,JSON.stringify({version:1,project_ids:[...hiddenProjects].sort()}));}catch{storageFailure('Could not save hidden projects.');}
+    expandedHiddenRuns.clear();syncHideButtons();renderHiddenProjects();syncHiddenActivity();updateActivityCounts();
+    displayedSnapshotIds=combinedActivityEvents().filter(event=>!hiddenProjects.has(event.project_id)).flatMap(reading.ids);
+    updateReadingControls();
+  },()=>{
+    if(anchor){
+      const node=[...$('activityFeed').querySelectorAll('[data-reading-anchor]')].find(node=>node.dataset.readingAnchor===anchor);
+      const visible=visibleActivityAnchor(node);
+      return visible?.closest('.activity-project')?.querySelector('[data-hide-project]')||visible;
+    }
+    return button.isConnected?button:[...$('hiddenProjectList').querySelectorAll('[data-hide-project]')].find(node=>node.dataset.hideProject===id)||$('hiddenProjectsSummary');
+  });
+}
+for(const id of ['rows','activityFeed','hiddenProjectList'])$(id).addEventListener('click',hideProjectClick);
+$('activityFeed').addEventListener('click',event=>{
+  const summary=event.target.closest('.hidden-activity-run > summary');if(!summary)return;
+  event.preventDefault();
+  const run=summary.parentElement;
+  keepActivityPosition(summary,()=>{
+    run.open=!run.open;
+    if(run.open)expandedHiddenRuns.add(run.dataset.hiddenRun);else expandedHiddenRuns.delete(run.dataset.hiddenRun);
+  });
+});
+function unreadEvent(event){return !hiddenProjects.has(event.project_id)&&hasUnreadIdentity(event);}
 function updateReadingControls(message){
   const count=combinedActivityEvents().filter(unreadEvent).length;
   $('unreadCount').textContent=count;
@@ -133,7 +268,7 @@ function restorePosition(position,revision=activityRenderRevision,targetIndex){
   if(!position||revision!==activityRenderRevision)return;
   if(position.view==='activityView'&&position.anchor){
     if(targetIndex===undefined){
-      targetIndex=activityRenderedEvents.findIndex(event=>reading.ids(event)[0]===position.anchor);
+      targetIndex=activityRenderedEvents.findIndex(event=>reading.ids(event)[0]===position.anchor.replace(/^hidden:/,''));
       // Old saved positions used day/project groups instead of individual event anchors.
       if(targetIndex<0&&position.anchor.startsWith('['))try{
         const [day,projectId]=JSON.parse(position.anchor);
@@ -154,7 +289,9 @@ function restorePosition(position,revision=activityRenderRevision,targetIndex){
     setTimeout(()=>{if(projectRevision===projectRenderRevision)restorePosition(position,revision);},0);
     return;
   }
-  const node=[...document.querySelectorAll(position.view==='projects'?'#rows [data-id]':'[data-reading-anchor]')].find(node=>(node.dataset.readingAnchor||node.dataset.id)===position.anchor);
+  const anchors=[...document.querySelectorAll(position.view==='projects'?'#rows [data-id]':'[data-reading-anchor]')];
+  const found=anchors.find(node=>(node.dataset.readingAnchor||node.dataset.id)===position.anchor)||anchors.find(node=>node.dataset.readingAnchor===position.anchor?.replace(/^hidden:/,''));
+  const node=visibleActivityAnchor(found);
   positionRestoreRevision=null;
   window.scrollTo?.(0,node?(window.scrollY||0)+node.getBoundingClientRect().top-position.offset:position.y||0);
 }
@@ -178,7 +315,7 @@ $('markRead').addEventListener('click',()=>{
   const captured=[...displayedSnapshotIds];
   readingState=reading.acknowledge(latestReading(),captured);saveReading();$("migrationNotice").hidden=true;
   const position=capturePosition();renderActivity();restorePosition(position);
-  updateReadingControls('All activity in this loaded snapshot marked read. Subsequently fetched activity remains unread.');
+  updateReadingControls('All non-hidden activity in this loaded snapshot marked read. Hidden and subsequently fetched activity remains unread.');
 });
 document.querySelectorAll('[data-inbox]').forEach(button=>button.addEventListener('click',()=>{
   setInboxView(button.dataset.inbox);requestActivityRender();
@@ -208,9 +345,9 @@ function bookmarkClick(event){
   // Geometry reads in skipped content-visibility groups can themselves move scroll anchoring.
   // Measure a replacement only when this click actually removes the focused visible entry.
   const removingVisible=!bookmarks.has(id)&&(activityVisible()?inboxView==='bookmarks':$('bookmarkedProjects').checked);
-  const survivors=removingVisible?[...document.querySelectorAll('.view-panel.active [data-bookmark]')].filter(node=>bookmarks.has(node.dataset.bookmark)):[];
-  const anchor=survivors.find(node=>node.getBoundingClientRect().top>=0)||survivors.at(-1);
-  const top=anchor?.getBoundingClientRect().top;
+  const survivors=removingVisible?[...new Set([...document.querySelectorAll('.view-panel.active [data-bookmark]')].filter(node=>bookmarks.has(node.dataset.bookmark)).map(visibleActivityAnchor))]:[];
+  let anchor=survivors.find(node=>node.getBoundingClientRect().top>=0)||survivors.at(-1);
+  const anchorId=anchor?.dataset?.readingAnchor,top=anchor?.getBoundingClientRect().top;
   syncBookmarkNodes();
   if(projectUiReady&&$('bookmarkedProjects').checked)refreshProjectBookmarkMembership();
   if(activityUiReady&&inboxView==='bookmarks'){
@@ -232,6 +369,8 @@ function bookmarkClick(event){
     activityTimelineEntries.push(...activityRailEntries(activityRenderedEvents.slice(activityRenderedCount),projectById()).map(entry=>({...entry,index:entry.index+activityRenderedCount})));
     renderActivityRail();
   }else document.querySelectorAll('#activityRail [data-project-id]').forEach(node=>node.classList.toggle('timeline-bookmarked',bookmarks.has(node.dataset.projectId)));
+  syncHiddenActivity();
+  if(anchorId&&!anchor?.isConnected)anchor=[...$('activityFeed').querySelectorAll('[data-reading-anchor]')].find(node=>node.dataset.readingAnchor===anchorId);
   if(!button.isConnected){
     if(anchor?.isConnected){window.scrollBy(0,anchor.getBoundingClientRect().top-top);anchor.focus({preventScroll:true});}
     else (activityVisible()?document.querySelector('[data-inbox="bookmarks"]'):$('bookmarkedProjects'))?.focus({preventScroll:true});
@@ -263,6 +402,7 @@ window.addEventListener?.('storage',event=>{
   try{
     if(event.key===reading.KEY){readingState=reading.parse(event.newValue);if(!readingState.checked&&readingInitialized)readingState=reading.reconcile(readingState,combinedActivityEvents(),activityData.generated_at).state;$('migrationNotice').hidden=!readingState.migrationNotice;}
     else if(event.key===reading.BOOKMARKS)bookmarks=new Set(event.newValue?reading.parseBookmarks(event.newValue):[]);
+    else if(event.key===reading.HIDDEN){hiddenProjects=new Set(event.newValue?reading.parseBookmarks(event.newValue):[]);expandedHiddenRuns.clear();}
     else return;
     if(projectUiReady)render();if(activityUiReady)renderActivity();updateSourceAvailabilityWarning();restorePosition(position);
     updateReadingControls('Local state updated from another tab.');
@@ -886,7 +1026,7 @@ function projectRowHtml(record){
     const started = record.re_started ?? (created ? created.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + projectLinksHtml(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + hideButton(record) + projectLinksHtml(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + '<td class="project-secondary">' + tags(record.source_platforms) + "</td>"
       + '<td class="project-secondary">' + tags(record.target_platforms) + "</td>"
       + '<td class="project-secondary">' + tags(record.reconstructed_languages) + "</td>"
@@ -1343,7 +1483,7 @@ function activityPlatformTags(project) {
 }
 
 function activityProjectHeader(project) {
-  return '<div class="project-name-line">'+projectCell(project)+bookmarkButton(project)+projectLinksHtml(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
+  return '<div class="project-name-line">'+projectCell(project)+bookmarkButton(project)+hideButton(project)+projectLinksHtml(project)+'</div>'+activityPlatformTags(project)+classificationTags(project,{compact:true})
     +(executionPaths(project).length?'<div class="execution-badges">'+executionBadges(project)+'</div>':"");
 }
 
@@ -1720,8 +1860,9 @@ function navigateActivity(index,revision=activityRenderRevision,request=++activi
   if(request!==activityNavigationRequest||revision!==activityRenderRevision||!activityRenderedEvents[index])return;
   if(index>=activityRenderedCount){renderActivity(true);setTimeout(()=>navigateActivity(index,revision,request),0);return;}
   const anchor=reading.ids(activityRenderedEvents[index])[0];
-  const node=[...document.querySelectorAll('#activityFeed [data-reading-anchor]')].find(node=>node.dataset.readingAnchor===anchor)?.closest('.activity-project');
-  if(node){node.scrollIntoView({block:'start'});node.focus({preventScroll:true});highlightActivityDay(localDayKey(activityRenderedEvents[index].date));}
+  const found=[...document.querySelectorAll('#activityFeed [data-reading-anchor]')].find(node=>node.dataset.readingAnchor===anchor);
+  const node=visibleActivityAnchor(found)?.closest('.activity-project,.hidden-activity-run');
+  if(node){node.scrollIntoView({block:'start'});(node.matches?.('.hidden-activity-run')?node.querySelector('summary'):node).focus({preventScroll:true});highlightActivityDay(localDayKey(activityRenderedEvents[index].date));}
 }
 $('activityRail').addEventListener('click',event=>{
   const button=event.target.closest('[data-timeline-index]');
@@ -1731,27 +1872,28 @@ function updateActivityCounts(){
   const events=activityRenderedEvents,shown=activityRenderedCount;
   $('activityCount').textContent=events.length;
   $('activityProjectCount').textContent=new Set(events.map(event=>event.project_id)).size;
-  $('activityMore').hidden=shown===events.length||typeof IntersectionObserver!=='undefined';
+  // Collapsed runs can leave the observer continuously intersecting: retain a manual path.
+  $('activityMore').hidden=shown===events.length||(typeof IntersectionObserver!=='undefined'&&!hiddenProjects.size);
   $('activitySentinel').hidden=shown===events.length;
   $('activitySentinel').textContent=`${shown} of ${events.length} displayed. More loads as you scroll.`;
   $('activityMore').textContent=`Show more (${shown} of ${events.length})`;
 }
 
 function renderActivity(append=false) {
-  if(!append)updateSourceAvailabilityWarning();
+  if(!append){updateSourceAvailabilityWarning();renderHiddenProjects();}
   activityDirty=false;
   const map=projectById();
   const cutoff=inboxView==="unread"?-Infinity:Date.now()-Number(activityFilterState.days||30)*86400000;
   const query=$("activityQ").value.trim().toLowerCase();
   if(!append)activityRenderRevision++;
-  const events=append?activityRenderedEvents:combinedActivityEvents().filter(event=>(inboxView!=="unread"||unreadEvent(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
+  const events=append?activityRenderedEvents:combinedActivityEvents().filter(event=>(inboxView!=="unread"||hasUnreadIdentity(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
   activityRenderedEvents=events;
   if(!append)activityTimelineEntries=activityRailEntries(events,map);
   const start=append?activityRenderedCount:0;
   const shown=Math.min(start+ACTIVITY_PAGE_SIZE,events.length);
   activityRenderedCount=shown;activityVisibleCount=shown;
   if(!append){
-    displayedSnapshotIds=combinedActivityEvents().flatMap(reading.ids);
+    displayedSnapshotIds=combinedActivityEvents().filter(event=>!hiddenProjects.has(event.project_id)).flatMap(reading.ids);
     updateReadingControls();
   }
   updateActivityCounts();
@@ -1818,6 +1960,7 @@ function renderActivity(append=false) {
     return '<section class="activity-day" data-day="'+esc(day)+'"><h2>'+esc(dateLabel)+'</h2>'+projectsHtml+'</section>';
   }).join("");
   if(append)$("activityFeed").insertAdjacentHTML("beforeend",html);else $("activityFeed").innerHTML=html;
+  syncHiddenActivity();
   if(!append)renderActivityRail();
   activityDayNodes=[...document.querySelectorAll('#activityFeed .activity-day')];
   updateCurrentActivityDay();
@@ -1884,7 +2027,7 @@ function initializeReadyViews(){
       document.querySelectorAll('.view-tab').forEach(button=>button.classList.toggle('active',button.dataset.view===position.view));
       document.querySelectorAll('.view-panel').forEach(panel=>panel.classList.toggle('active',panel.id===position.view));
     }
-    ingestReadingSnapshot();readingInitialized=true;
+    ingestReadingSnapshot();renderHiddenProjects();readingInitialized=true;
     if(position)setTimeout(()=>restorePosition(position),0);
   }
   if(projectsReady&&activityReady&&!activityUiReady){
@@ -1998,3 +2141,4 @@ async function fetchUpdates(){
   }catch(error){updateReadingControls('Fetch failed: '+error.message+'. Your unread items and last successful check are unchanged.');}
   finally{fetchingUpdates=false;updateReadingControls();}
 }
+

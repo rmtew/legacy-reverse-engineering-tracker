@@ -44,8 +44,8 @@
   </nav>
 
   <section class="reading-toolbar" aria-label="Reading inbox">
-    <div class="reading-actions"><button id="fetchUpdates" type="button" disabled>Fetch updates</button><button id="markRead" type="button" disabled title="Marks all updates in this loaded snapshot, including filtered-out items">Mark all read</button>
-    <details class="bookmark-tools"><summary>Bookmarks</summary><button id="exportBookmarks" type="button">Export bookmarks</button><label class="import-label">Import bookmarks<input id="importBookmarks" type="file" accept="application/json,.json"></label><p>Saved only in this browser. Import adds to your existing bookmarks.</p></details></div>
+    <div class="reading-actions"><button id="fetchUpdates" type="button" disabled>Fetch updates</button><button id="markRead" type="button" disabled title="Marks all updates in this loaded snapshot, including filtered-out items but excluding hidden projects">Mark all read</button>
+    <details class="bookmark-tools"><summary>Bookmarks</summary><button id="exportBookmarks" type="button">Export bookmarks</button><label class="import-label">Import bookmarks<input id="importBookmarks" type="file" accept="application/json,.json"></label><p>Saved only in this browser. Import adds to your existing bookmarks.</p></details><details class="hidden-project-tools"><summary id="hiddenProjectsSummary">Hidden projects <span id="hiddenProjectCount">0</span></summary><p>Hidden only from Activity, including bookmarked activity. Saved in this browser. The eye icon toggles hiding.</p><div id="hiddenProjectList"></div></details></div>
     <p id="readingStatus" role="status" aria-live="polite">Loading your reading inbox…</p>
     <p id="migrationNotice" role="status" hidden></p>
     <p id="storageWarning" role="alert" hidden></p><p id="historyNotice" hidden></p>
@@ -234,6 +234,7 @@
     <div id="activityFeed" class="activity-feed">
       <div class="loading">Loading activity…</div>
     </div>
+    <div id="activityScrollSpace" aria-hidden="true"></div>
     <p id="activitySentinel" class="hint" role="status" aria-live="polite" hidden></p>
     <button id="activityMore" class="activity-more" type="button" hidden>Show more</button>
     </div>
@@ -257,3 +258,4 @@
 <script src="web/tracker.js?v=build"></script>
 </body>
 </html>
+

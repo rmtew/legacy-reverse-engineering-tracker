@@ -398,3 +398,29 @@ th .sort-heading:focus-visible{outline:2px solid var(--link);outline-offset:4px;
   .project-date-short{display:inline}
   .source-availability-warning ul{columns:1}
 }
+
+
+/* Local activity hiding: direct controls and accessible, in-place disclosure runs. */
+.hide-project{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;background:transparent;border:0;border-radius:4px;color:var(--muted);padding:3px;min-width:28px;min-height:28px}
+.hide-project[aria-pressed="true"]{color:var(--link);background:var(--border)}
+.hide-project:hover{background:var(--border)}
+.hide-project svg{pointer-events:none}
+.hidden-project-tools{position:relative}
+.hidden-project-tools>summary{cursor:pointer;padding:.5rem .75rem;border:1px solid var(--border);border-radius:.35rem}
+.hidden-project-tools[open]{flex-basis:100%}
+.hidden-project-tools p,.hidden-run-projects p{color:var(--muted);font-size:12px;margin:8px 0}
+.hidden-project-tools ul,.hidden-run-projects ul{list-style:none;margin:8px 0;padding:0}
+.hidden-project-tools li,.hidden-run-projects li{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:48rem;padding:3px 0}
+.hidden-activity-run{border-block:1px dashed var(--border);margin:0 0 16px;scroll-margin-top:18px}
+.hidden-activity-run>summary{cursor:pointer;color:var(--muted);font-size:13px;padding:12px 8px;min-height:44px;box-sizing:border-box}
+.hidden-run-hint::after{content:' · expand';font-size:12px}
+.hidden-activity-run[open]>summary .hidden-run-hint::after{content:' · collapse'}
+.hidden-run-projects{padding:0 8px 12px}
+.hidden-activity-entries{padding-top:8px}
+.hidden-project-tools summary:focus-visible,.hidden-activity-run>summary:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media(max-width:600px){
+  .hide-project{min-width:44px;min-height:44px}
+  #projects .project-name-line{grid-template-columns:minmax(0,1fr) auto auto}
+  #projects .hide-project{grid-column:3;grid-row:1}
+  #projects .bookmark-star{min-width:44px;min-height:44px}
+}

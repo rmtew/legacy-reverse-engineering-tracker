@@ -559,3 +559,112 @@ test('frozen addition release failures remain explicit and do not borrow newer s
   const current=b.run('additionContextHtml({type:"project_added"},projects[0])');
   assert.match(current,/v2/);assert.match(current,/Unavailable to the tracker \(HTTP 403\)/);assert.doesNotMatch(current,/at addition \(HTTP 403\)/);
 });
+
+
+test('hidden project state loads independently from bookmarks and malformed hidden state warns',()=>{
+  const b=browser({[r.HIDDEN]:JSON.stringify({version:1,project_ids:['p','p','gone']}),[r.BOOKMARKS]:JSON.stringify({version:1,project_ids:['p']})});
+  assert.equal(b.run('hiddenProjects.size'),2);assert.equal(b.run("bookmarks.has('p')"),true);
+  assert.equal(b.run("hiddenProjects.has('gone')"),true);
+  const invalid=browser({[r.HIDDEN]:'{"version":1,"project_ids":[7]}'});
+  assert.equal(invalid.get('storageWarning').hidden,false);
+});
+test('hide and unhide persist IDs without changing bookmarks or unread identities',()=>{
+  const b=browser();
+  b.run(`activityData.events=[${JSON.stringify(commit('hidden'))}];ingestReadingSnapshot();bookmarks.add('p');saveBookmarks();renderActivity()`);
+  const beforeReading=b.storage[r.KEY],beforeBookmarks=b.storage[r.BOOKMARKS];
+  b.context.button={dataset:{hideProject:'p'},closest:()=>null,getBoundingClientRect:()=>({top:200}),isConnected:true};
+  b.context.click={target:{closest:()=>b.context.button},preventDefault(){},stopPropagation(){}};
+  b.run('hideProjectClick(click)');
+  assert.deepEqual(r.parseBookmarks(b.storage[r.HIDDEN]),['p']);assert.equal(b.get('unreadCount').textContent,0);
+  assert.equal(b.storage[r.KEY],beforeReading);assert.equal(b.storage[r.BOOKMARKS],beforeBookmarks);
+  b.run('hideProjectClick(click)');assert.deepEqual(r.parseBookmarks(b.storage[r.HIDDEN]),[]);
+  assert.equal(b.get('unreadCount').textContent,1);assert.equal(b.storage[r.KEY],beforeReading);
+});
+test('mark all read skips hidden entries, which become unread again when restored',()=>{
+  const b=browser();
+  b.context.events=[commit('hidden'),{...commit('visible'),project_id:'q'}];
+  b.run("activityData.events=events;hiddenProjects.add('p');ingestReadingSnapshot();renderActivity()");
+  assert.equal(b.get('unreadCount').textContent,1);
+  b.handlers.get('markRead:click')();
+  assert.equal(b.get('unreadCount').textContent,0);
+  assert.equal(b.run("readingState.seen[reading.ids(events[0])[0]]"),true);
+  assert.equal(b.run("readingState.seen[reading.ids(events[1])[0]]"),false);
+  b.run("hiddenProjects.delete('p');updateReadingControls()");assert.equal(b.get('unreadCount').textContent,1);
+});
+test('hidden run partitioning merges adjacent hidden projects only and preserves order and duplicates',()=>{
+  const groups=['a','b','a','visible','a','b','visible','c'].map(id=>({id}));
+  const runs=r.hiddenRuns(groups,new Set(['a','b','c']));
+  assert.deepEqual(runs.map(run=>({hidden:run.hidden,ids:run.groups.map(g=>g.id)})),[
+    {hidden:true,ids:['a','b','a']},{hidden:false,ids:['visible']},{hidden:true,ids:['a','b']},{hidden:false,ids:['visible']},{hidden:true,ids:['c']}
+  ]);
+  assert.deepEqual(runs.flatMap(run=>run.groups),groups);
+  assert.deepEqual(r.hiddenRuns([],new Set(['a'])),[]);
+  const day1=r.hiddenRuns([{id:'a'}],new Set(['a'])),day2=r.hiddenRuns([{id:'a'}],new Set(['a']));
+  assert.equal(day1.length,1);assert.equal(day2.length,1);assert.notEqual(day1[0],day2[0]);
+});
+test('hidden icons have escaped project-specific labels, pressed state, and appear beside bookmarks in both views',()=>{
+  const b=browser();
+  b.context.project={id:'x"<&',title:'A <B>'};
+  const icon=b.run('hideButton(project)');
+  assert.match(icon,/type="button"/);assert.match(icon,/aria-pressed="false"/);
+  assert.match(icon,/aria-label="Hide activity for A &lt;B&gt;"/);assert.match(icon,/data-hide-project="x&quot;&lt;&amp;"/);
+  assert.match(icon,/<svg[^>]*aria-hidden="true"/);assert.match(icon,/m3 3 18 18/);
+  b.run('hiddenProjects.add(project.id)');assert.match(b.run('hideButton(project)'),/aria-label="Show activity for A &lt;B&gt;"/);
+  assert.match(b.run('projectRowHtml(project)'),/data-bookmark=[\s\S]*data-hide-project=/);
+  assert.match(b.run('activityProjectHeader(project)'),/data-bookmark=[\s\S]*data-hide-project=/);
+});
+test('near-bottom collapse adds enough scroll tail and restores clicked anchor offset',()=>{
+  const b=browser();let scrolled;
+  b.context.document.documentElement.style={overflowAnchor:'auto'};
+  b.context.document.documentElement.scrollHeight=1000;
+  b.context.window.innerHeight=800;b.context.window.scrollY=500;
+  b.get('activityScrollSpace').style={height:'0px'};
+  b.context.source={getBoundingClientRect:()=>({top:100})};
+  b.context.target={isConnected:true,getBoundingClientRect:()=>({top:50}),focus(){}};
+  b.context.window.scrollTo=(_,y)=>{scrolled=y;};
+  b.run('keepActivityPosition(source,()=>{},()=>target)');
+  assert.equal(scrolled,450);assert.equal(b.get('activityScrollSpace').style.height,'250px');
+  assert.equal(b.context.document.documentElement.style.overflowAnchor,'auto');
+});
+test('hidden toggles merge a concurrent tab selection and storage events update exclusions',()=>{
+  const b=browser();
+  b.storage[r.HIDDEN]=JSON.stringify({version:1,project_ids:['other']});
+  b.context.button={dataset:{hideProject:'p'},closest:()=>null,getBoundingClientRect:()=>({top:200}),isConnected:true};
+  b.context.click={target:{closest:()=>b.context.button},preventDefault(){},stopPropagation(){}};
+  b.run('hideProjectClick(click)');assert.deepEqual(r.parseBookmarks(b.storage[r.HIDDEN]),['other','p']);
+  b.handlers.get('window:storage')({key:r.HIDDEN,newValue:JSON.stringify({version:1,project_ids:['q']})});
+  assert.equal(b.run("hiddenProjects.has('q')"),true);assert.equal(b.run("hiddenProjects.has('p')"),false);
+  b.handlers.get('window:storage')({key:r.HIDDEN,newValue:null});assert.equal(b.run('hiddenProjects.size'),0);
+});
+test('hidden storage write failure retains session selection and reports lack of persistence',()=>{
+  const b=browser();
+  b.context.button={dataset:{hideProject:'p'},closest:()=>null,getBoundingClientRect:()=>({top:200}),isConnected:true};
+  b.context.click={target:{closest:()=>b.context.button},preventDefault(){},stopPropagation(){}};
+  b.run("localStorage.setItem=()=>{throw Error('quota')};hideProjectClick(click)");
+  assert.equal(b.run("hiddenProjects.has('p')"),true);assert.match(b.get('storageWarning').textContent,/tab only/);
+});
+test('hidden feeds retain manual pagination even when IntersectionObserver is supported',()=>{
+  const b=browser();b.context.IntersectionObserver=function(){};
+  b.context.many=Array.from({length:180},(_,i)=>commit(String(i)));
+  b.run('activityData.events=many;ingestReadingSnapshot();renderActivity()');assert.equal(b.get('activityMore').hidden,true);
+  b.run("hiddenProjects.add('p');updateActivityCounts()");assert.equal(b.get('activityMore').hidden,false);
+  b.run('renderActivity(true)');assert.equal(b.get('activityMore').hidden,true);
+});
+test('restoration distinguishes hidden marker and expanded first commit and falls back after unhide',()=>{
+  const b=browser();let scroll;
+  b.context.window.scrollY=500;b.context.window.scrollTo=(_,y)=>{scroll=y;};
+  b.context.marker={dataset:{readingAnchor:'hidden:anchor'},getBoundingClientRect:()=>({top:-200}),closest:()=>null};
+  b.context.entry={dataset:{readingAnchor:'anchor'},getBoundingClientRect:()=>({top:100}),closest:()=>null};
+  b.run("document.querySelectorAll=()=>[marker,entry];restorePosition({view:'activityView',anchor:'anchor',offset:25,y:0})");assert.equal(scroll,575);
+  b.run("restorePosition({view:'activityView',anchor:'hidden:anchor',offset:25,y:0})");assert.equal(scroll,275);
+  b.run("document.querySelectorAll=()=>[entry];restorePosition({view:'activityView',anchor:'hidden:anchor',offset:25,y:0})");assert.equal(scroll,575);
+});
+test('timeline navigation focuses the collapsed summary rather than its non-focusable details container',()=>{
+  const b=browser();let focused=false,scrolled=false;
+  const run={open:false,matches:()=>true,scrollIntoView(){scrolled=true;},querySelector:()=>summary};
+  const summary={closest:()=>run,focus(){focused=true;}};
+  const event=commit('nav');
+  b.context.entry={dataset:{readingAnchor:r.ids(event)[0]},closest:()=>run};b.context.navEvent=event;
+  b.run('activityRenderedEvents=[navEvent];activityRenderedCount=1;document.querySelectorAll=()=>[entry];highlightActivityDay=()=>{};navigateActivity(0)');
+  assert.equal(scrolled,true);assert.equal(focused,true);
+});
