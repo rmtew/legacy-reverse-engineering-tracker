@@ -587,9 +587,51 @@ test('mark all read skips hidden entries, which become unread again when restore
   assert.equal(b.get('unreadCount').textContent,1);
   b.handlers.get('markRead:click')();
   assert.equal(b.get('unreadCount').textContent,0);
+  assert.equal(b.get('activityCount').textContent,0);
+  assert.equal(b.get('activityProjectCount').textContent,0);
+  assert.equal(b.get('activityRail').hidden,true);
+  assert.match(b.get('activityFeed').innerHTML,/No unread activity matches/);
   assert.equal(b.run("readingState.seen[reading.ids(events[0])[0]]"),true);
   assert.equal(b.run("readingState.seen[reading.ids(events[1])[0]]"),false);
   b.run("hiddenProjects.delete('p');updateReadingControls()");assert.equal(b.get('unreadCount').textContent,1);
+});
+test('hidden-only unread stays empty after fetching the same snapshot and reload',async()=>{
+  const b=browser({[r.HIDDEN]:JSON.stringify({version:1,project_ids:['p']})});
+  b.context.events=[commit('hidden'),{...commit('visible'),project_id:'q'}];
+  b.run(`activityData.events=events;loadActivitySnapshot=async()=>({generated_at:'${date}',events});ingestReadingSnapshot();renderActivity()`);
+  b.handlers.get('markRead:click')();
+  await b.run('fetchUpdates()');
+  assert.match(b.get('readingStatus').textContent,/0 new items found/);
+  assert.equal(b.get('unreadCount').textContent,0);
+  assert.equal(b.get('activityCount').textContent,0);
+  assert.equal(b.run('activityRenderedEvents.length'),0);
+  assert.match(b.get('activityFeed').innerHTML,/No unread activity matches/);
+  b.run('readingState=reading.parse(localStorage.getItem(reading.KEY));ingestReadingSnapshot();renderActivity()');
+  assert.equal(b.run('activityRenderedEvents.length'),0);
+  assert.equal(b.run('hasUnreadIdentity(events[0])'),true);
+});
+test('unhiding from the manager restores an empty unread feed without a fetch',()=>{
+  const b=browser({[r.HIDDEN]:JSON.stringify({version:1,project_ids:['p']})});
+  b.run(`activityData.events=[${JSON.stringify(commit('hidden'))}];ingestReadingSnapshot();renderActivity()`);
+  assert.equal(b.run('activityRenderedEvents.length'),0);
+  b.context.button={dataset:{hideProject:'p'},closest:()=>null,getBoundingClientRect:()=>({top:200}),isConnected:true};
+  b.context.click={target:{closest:()=>b.context.button},preventDefault(){},stopPropagation(){}};
+  b.run('hideProjectClick(click)');
+  assert.equal(b.get('unreadCount').textContent,1);
+  assert.equal(b.get('activityCount').textContent,1);
+  assert.match(b.get('activityFeed').innerHTML,/data-reading-anchor=/);
+});
+test('hidden markers remain eligible beside visible unread matches and in All or Bookmarked activity',()=>{
+  const b=browser();
+  b.context.events=[{...commit('hidden'),title:'Hidden title'},{...commit('visible'),project_id:'q',title:'Visible title'}];
+  b.run("projects.push({id:'q',title:'Other project'});activityData.events=events;hiddenProjects.add('p');bookmarks.add('p');ingestReadingSnapshot();renderActivity()");
+  assert.equal(b.run('activityRenderedEvents.length'),2);
+  b.run("$('activityQ').value='hidden';renderActivity()");
+  assert.equal(b.run('activityRenderedEvents.length'),0);
+  b.run("$('activityQ').value='';setInboxView('all');renderActivity()");
+  assert.equal(b.run('activityRenderedEvents.length'),2);
+  b.run("setInboxView('bookmarks');renderActivity()");
+  assert.equal(b.run('activityRenderedEvents.length'),1);
 });
 test('hidden run partitioning merges adjacent hidden projects only and preserves order and duplicates',()=>{
   const groups=['a','b','a','visible','a','b','visible','c'].map(id=>({id}));

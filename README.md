@@ -54,6 +54,13 @@ import merges rather than replacing existing stars. Bookmarks and reading positi
 bookmarks before clearing browser data. If storage fails, a warning explains that
 changes last only for the current tab.
 
+The eye icon hides a project's activity in expandable skip markers. Hidden
+projects do not contribute to the unread count and are skipped by **Mark all
+read**, retaining their unread state if shown again later. An unread view with
+only hidden matches shows the empty state after marking read, fetching or
+reloading. Directly hiding an entry keeps its marker in place to preserve the
+reading position. **Hidden projects** can restore a project without fetching.
+
 ## Repository structure
 
 - `data/projects.index.json` + `data/projects/*.json` — canonical structured project data

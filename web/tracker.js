@@ -205,7 +205,11 @@ function hideProjectClick(event){
     if(!storageBroken)try{const raw=localStorage.getItem(reading.HIDDEN);hiddenProjects=new Set(raw?reading.parseBookmarks(raw):[]);}catch{storageFailure('Could not read hidden projects.');}
     if(hiddenProjects.has(id))hiddenProjects.delete(id);else hiddenProjects.add(id);
     if(!storageBroken)try{localStorage.setItem(reading.HIDDEN,JSON.stringify({version:1,project_ids:[...hiddenProjects].sort()}));}catch{storageFailure('Could not save hidden projects.');}
-    expandedHiddenRuns.clear();syncHideButtons();renderHiddenProjects();syncHiddenActivity();updateActivityCounts();
+    expandedHiddenRuns.clear();syncHideButtons();renderHiddenProjects();
+    // An empty unread view has no nodes to uncollapse. Restore its entries when
+    // a project is shown from the manager or Projects view, without a fetch.
+    if(inboxView==='unread'&&!activityRenderedEvents.length)renderActivity();
+    else{syncHiddenActivity();updateActivityCounts();}
     displayedSnapshotIds=combinedActivityEvents().filter(event=>!hiddenProjects.has(event.project_id)).flatMap(reading.ids);
     updateReadingControls();
   },()=>{
@@ -1886,7 +1890,11 @@ function renderActivity(append=false) {
   const cutoff=inboxView==="unread"?-Infinity:Date.now()-Number(activityFilterState.days||30)*86400000;
   const query=$("activityQ").value.trim().toLowerCase();
   if(!append)activityRenderRevision++;
-  const events=append?activityRenderedEvents:combinedActivityEvents().filter(event=>(inboxView!=="unread"||hasUnreadIdentity(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
+  let events=append?activityRenderedEvents:combinedActivityEvents().filter(event=>(inboxView!=="unread"||hasUnreadIdentity(event))&&(inboxView!=="bookmarks"||bookmarks.has(event.project_id))&&activityMatches(event,map,cutoff,query)).sort((a,b)=>activityEventTime(b.date)-activityEventTime(a.date));
+  // Hidden entries retain unread identities, but must not populate an otherwise
+  // empty inbox. Keep skip markers when visible unread matches remain. A direct
+  // hide still regroups existing nodes in place so the clicked marker stays put.
+  if(!append&&inboxView==='unread'&&!events.some(unreadEvent))events=[];
   activityRenderedEvents=events;
   if(!append)activityTimelineEntries=activityRailEntries(events,map);
   const start=append?activityRenderedCount:0;
