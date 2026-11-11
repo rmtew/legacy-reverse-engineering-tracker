@@ -1666,3 +1666,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-10 — Review 29 game reconstructions, ports and game-specific editors.
 
 [Research record](docs/research/2026-11-10-games-discovery-123.md).
+
+## 2026-11-11 — Review 25 game reconstructions and game-specific research tools.
+
+[Research record](docs/research/2026-11-11-games-discovery-124.md).
