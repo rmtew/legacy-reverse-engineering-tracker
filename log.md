@@ -1834,3 +1834,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-12 — Align target CPU audit with the documented native 68K Macintosh target.
 
 [Research record](docs/research/2026-11-12-neuromancer-target-cpu-correction.md).
+
+## 2026-11-12 — Review two Atari ST game port projects.
+
+[Research record](docs/research/2026-11-12-games-discovery-127.md).
