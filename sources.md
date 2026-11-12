@@ -1678,3 +1678,7 @@ Promoted exactly 17 approved original-source game archives, native homebrew and 
 ## 2026-11-12 — Review five projects for Bloodwych, Nebulus, Neuromancer and Head over Heels.
 
 [Research record](docs/research/2026-11-12-named-games-discovery-126.md).
+
+## 2026-11-12 — Align target CPU audit with the documented native 68K Macintosh target.
+
+[Research record](docs/research/2026-11-12-neuromancer-target-cpu-correction.md).
