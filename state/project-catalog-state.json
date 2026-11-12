@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-12T21:29:31Z",
+  "updated_at": "2026-11-12T23:53:24Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -376728,6 +376728,146 @@
       "ai": {
         "usage": null,
         "tools": []
+      }
+    },
+    "kings-quest-v-amiga-to-atari-st-shim": {
+      "id": "kings-quest-v-amiga-to-atari-st-shim",
+      "title": "King's Quest V — Atari ST shim port",
+      "upstream_name": "King's Quest V",
+      "display_title": "King's Quest V — Atari ST shim port",
+      "subjects": [
+        "King's Quest V"
+      ],
+      "repo": "https://github.com/jarnalyrkar/KQ5ST",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "gitlab_path": null,
+      "gitlab_branch": null,
+      "source_platforms": [
+        "Amiga",
+        "DOS"
+      ],
+      "target_platforms": [
+        "Atari ST"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "m68k"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": null,
+      "source_language": [],
+      "reconstructed_languages": [
+        "C",
+        "m68k assembly",
+        "Python"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "binary-analysis",
+        "data-format-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Upstream source reviewed; no independent execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Pinned README identifies King's Quest V and this project. Classification: Converts and patches the original Amiga SCI interpreter into an Atari ST program with an AmigaOS/hardware shim and PC EGA art. Compatibility rehosting, not restored interpreter source. Source CPU: Documented source platform or executable uses m68k. Target CPU: Documented output uses m68k. Build: The author reports Hatari playtesting through early areas; original Amiga and DOS game data are required. No independent build, execution, gameplay or byte comparison was performed. Runtime profiles: No independently verified minimum hardware profile. AI: Claude collaboration is disclosed in the upstream README or commit. Relationships: Distinct from the tracked King's Quest VI AGI demake repair; this uses the King's Quest V Amiga interpreter and PC artwork. Previous deferral resolved as compatibility rehosting, not restored interpreter source. Evidence: https://github.com/jarnalyrkar/kq5st/blob/06c2f9c103dba76a156c03d947ff882f7adf7986/README.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
+      }
+    },
+    "dogs-of-war-atari-st-static-recomp-voodatari": {
+      "id": "dogs-of-war-atari-st-static-recomp-voodatari",
+      "title": "Dogs of War — Atari ST static recompilation",
+      "upstream_name": "Dogs of War",
+      "display_title": "Dogs of War — Atari ST static recompilation",
+      "subjects": [
+        "Dogs of War"
+      ],
+      "repo": "https://github.com/voodatari/Dogs-of-War-Atari-ST-Recomp",
+      "project_url": null,
+      "github_path": null,
+      "github_branch": null,
+      "gitlab_path": null,
+      "gitlab_branch": null,
+      "source_platforms": [
+        "Atari ST"
+      ],
+      "target_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "source_cpu": [
+        "m68k"
+      ],
+      "target_cpu": [
+        "x86-64"
+      ],
+      "runtime_profiles": [],
+      "execution_paths": [
+        {
+          "name": "Documented port",
+          "method": "baked-emulation",
+          "status": "partial",
+          "notes": "Translates the Atari ST program to C and links it to a retained small STE machine runtime. This is baked emulation despite not interpreting 68000 instructions.",
+          "evidence": [
+            "https://github.com/voodatari/Dogs-of-War-Atari-ST-Recomp/blob/6116729d389d254c5f17042598ef79d3176f736e/README.md"
+          ]
+        }
+      ],
+      "source_language": [],
+      "reconstructed_languages": [
+        "C"
+      ],
+      "record_class": "subject",
+      "target_kinds": [
+        "game"
+      ],
+      "work_kinds": [
+        "reverse-engineering-derived-port",
+        "binary-analysis"
+      ],
+      "tool_kinds": [],
+      "types": [
+        "subject"
+      ],
+      "re_started": null,
+      "status": "Upstream source reviewed; no independent execution",
+      "build": {
+        "compilable": null,
+        "runnable": null,
+        "playable": null,
+        "byte_exact": null
+      },
+      "techniques": [],
+      "tags": [],
+      "notes": "Identity: Pinned README identifies Dogs of War and this project. Classification: Translates the Atari ST program to C and links it to a retained small STE machine runtime. This is baked emulation despite not interpreting 68000 instructions. Source CPU: Documented source platform or executable uses m68k. Target CPU: Documented output uses x86-64. Build: Author describes Windows and Linux builds requiring original game data. No independent build, execution, gameplay or byte comparison was performed. Runtime profiles: No independently verified minimum hardware profile. AI: Claude collaboration is disclosed in the upstream README or commit. Relationships: Distinct repository; not assumed equivalent to other tracked work. Evidence: https://github.com/voodatari/dogs-of-war-atari-st-recomp/blob/6116729d389d254c5f17042598ef79d3176f736e/README.md",
+      "ai": {
+        "usage": true,
+        "tools": [
+          "Claude",
+          "GitHub Copilot"
+        ]
       }
     }
   },
