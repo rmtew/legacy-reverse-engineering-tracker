@@ -1826,3 +1826,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-12 — Review 26 game-specific reverse engineering and resource projects.
 
 [Research record](docs/research/2026-11-12-games-discovery-125.md).
+
+## 2026-11-12 — Review five projects for Bloodwych, Nebulus, Neuromancer and Head over Heels.
+
+[Research record](docs/research/2026-11-12-named-games-discovery-126.md).
