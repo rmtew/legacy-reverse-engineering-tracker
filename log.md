@@ -1838,3 +1838,7 @@ Updated Carmageddon — incremental DOS executable reconstruction, Firestaff —
 ## 2026-11-12 — Review two Atari ST game port projects.
 
 [Research record](docs/research/2026-11-12-games-discovery-127.md).
+
+## 2026-11-13 — Review 25 game reconstruction, disassembly and port projects across Amiga, DOS, Commodore 64 and ZX Spectrum.
+
+[Research record](docs/research/2026-11-13-games-discovery-128.md).
