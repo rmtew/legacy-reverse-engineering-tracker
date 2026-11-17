@@ -45,13 +45,17 @@
 
   <section class="reading-toolbar" aria-label="Reading inbox">
     <div class="reading-actions"><button id="fetchUpdates" type="button" disabled>Fetch updates</button><button id="markRead" type="button" disabled title="Marks all updates in this loaded snapshot, including filtered-out items but excluding hidden projects">Mark all read</button>
-    <details class="bookmark-tools"><summary>Bookmarks</summary><button id="exportBookmarks" type="button">Export bookmarks</button><label class="import-label">Import bookmarks<input id="importBookmarks" type="file" accept="application/json,.json"></label><p>Saved only in this browser. Import adds to your existing bookmarks.</p></details><details class="hidden-project-tools"><summary id="hiddenProjectsSummary">Hidden projects <span id="hiddenProjectCount">0</span></summary><p>Hidden only from Activity, including bookmarked activity. Saved in this browser. The eye icon toggles hiding.</p><div id="hiddenProjectList"></div></details></div>
+    <button type="button" data-project-scope="bookmarks">Bookmarks</button><button type="button" data-project-scope="hidden">Hidden projects <span id="hiddenProjectCount">0</span></button><details class="bookmark-tools"><summary>Import or export bookmarks</summary><button id="exportBookmarks" type="button">Export bookmarks</button><label class="import-label">Import bookmarks<input id="importBookmarks" type="file" accept="application/json,.json"></label><p>Saved only in this browser. Import adds to your existing bookmarks.</p></details></div>
     <p id="readingStatus" role="status" aria-live="polite">Loading your reading inbox…</p>
     <p id="migrationNotice" role="status" hidden></p>
     <p id="storageWarning" role="alert" hidden></p><p id="historyNotice" hidden></p>
   </section>
   <section id="projects" class="view-panel">
-  <label class="bookmark-filter"><input id="bookmarkedProjects" type="checkbox"> Bookmarked projects</label>
+  <div class="project-scope-filters" role="group" aria-label="Saved project filters">
+    <label class="bookmark-filter"><input id="bookmarkedProjects" type="checkbox"> Bookmarked projects</label>
+    <label class="bookmark-filter"><input id="hiddenProjectsFilter" type="checkbox"> Hidden projects</label>
+  </div>
+  <div id="projectUndo" class="project-undo" hidden><span id="projectUndoText" role="status"></span> <button id="projectUndoButton" type="button">Undo</button></div>
   <section class="filter-panel" aria-label="Project filters">
     <div class="filter-top">
       <label class="filter-search"><span>Search</span>

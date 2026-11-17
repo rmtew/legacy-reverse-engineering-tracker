@@ -710,3 +710,38 @@ test('timeline navigation focuses the collapsed summary rather than its non-focu
   b.run('activityRenderedEvents=[navEvent];activityRenderedCount=1;document.querySelectorAll=()=>[entry];highlightActivityDay=()=>{};navigateActivity(0)');
   assert.equal(scrolled,true);assert.equal(focused,true);
 });
+
+test('activity pages skip arbitrarily long hidden gaps, retain those entries and reach the true tail',()=>{
+  const b=browser();
+  b.run(`
+    const hiddenFixture=(id,n)=>Array.from({length:n},()=>({project_id:id}));
+    const fixture=[...hiddenFixture('hidden',450),...hiddenFixture('shown',155),
+                   ...hiddenFixture('hidden',450),...hiddenFixture('shown',10),...hiddenFixture('hidden',450)];
+    const hiddenFixtureIds=new Set(['hidden']);
+  `);
+  assert.equal(b.run('activityPageEnd(fixture,0,150,hiddenFixtureIds)'),600);
+  assert.equal(b.run('activityPageEnd(fixture,600,150,hiddenFixtureIds)'),1515);
+  assert.equal(b.run("activityPageEnd(hiddenFixture('hidden',900),0,150,hiddenFixtureIds)"),900);
+  assert.equal(b.run('activityPageEnd(fixture,1515,150,hiddenFixtureIds)'),1515);
+});
+
+test('saved project scopes compose with search and do not alter each other’s membership',()=>{
+  const b=browser();
+  b.run(`
+    bookmarks=new Set(['both','book']);hiddenProjects=new Set(['both','hide']);
+    sortedProjects=()=>[{id:'both',title:'alpha'},{id:'book',title:'alpha two'},
+      {id:'hide',title:'beta'},{id:'other',title:'alpha three'}];
+    matches=(record,query)=>record.title.includes(query);
+    $('q').value='alpha';
+    setProjectScope('bookmarks');
+  `);
+  const ids=()=>Array.from(b.run('filteredProjectRows().map(row=>row.id)'));
+  assert.deepEqual(ids(),['both','book']);
+  b.run("setProjectScope('hidden')");
+  assert.deepEqual(ids(),['both']);
+  b.run("hiddenProjects.delete('both')");
+  assert.deepEqual(ids(),[]);
+  assert.equal(b.run("bookmarks.has('both')"),true);
+  b.run("hiddenProjects.add('both');setProjectScope('all')");
+  assert.deepEqual(ids(),['both','book','other']);
+});

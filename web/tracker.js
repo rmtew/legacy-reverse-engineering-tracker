@@ -96,8 +96,9 @@ function bookmarkButton(project){
 }
 function hasUnreadIdentity(event){return reading.ids(event).some(id=>readingState.seen[id]===true);}
 const expandedHiddenRuns=new Set();
-function hideButton(project){
+function hideButton(project,management=false){
   const selected=hiddenProjects.has(project.id),label=(selected?'Show activity for ':'Hide activity for ')+projectTitle(project);
+  if(selected&&management)return '<button type="button" class="hide-project" data-hide-project="'+esc(project.id)+'" aria-pressed="true" aria-label="'+esc(label)+'" title="'+esc(label)+'">Unhide</button>';
   return '<button type="button" class="hide-project" data-hide-project="'+esc(project.id)+'" aria-pressed="'+selected+'" aria-label="'+esc(label)+'" title="'+esc(label)+'"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></button>';
 }
 function hiddenProjectMap(){
@@ -106,9 +107,7 @@ function hiddenProjectMap(){
   return map;
 }
 function renderHiddenProjects(){
-  const map=hiddenProjectMap();
   $('hiddenProjectCount').textContent=hiddenProjects.size;
-  $('hiddenProjectList').innerHTML=hiddenProjects.size?'<ul>'+[...hiddenProjects].sort((a,b)=>projectTitle(map.get(a)||{id:a}).localeCompare(projectTitle(map.get(b)||{id:b}))).map(id=>'<li><span>'+esc(projectTitle(map.get(id)||{id}))+'</span>'+hideButton(map.get(id)||{id})+'</li>').join('')+'</ul>':'<p>No projects hidden.</p>';
 }
 function syncHideButtons(){
   const map=hiddenProjectMap();
@@ -193,6 +192,21 @@ function keepActivityPosition(node,change,resolve){
   }));
   else if(root.style){root.style.overflowAnchor=hideOriginalOverflowAnchor||'';hideOriginalOverflowAnchor=null;}
 }
+function readHiddenProjects(){
+  if(!storageBroken)try{const raw=localStorage.getItem(reading.HIDDEN);hiddenProjects=new Set(raw?reading.parseBookmarks(raw):[]);}catch{storageFailure('Could not read hidden projects.');}
+}
+function saveHiddenProjects(){
+  if(!storageBroken)try{localStorage.setItem(reading.HIDDEN,JSON.stringify({version:1,project_ids:[...hiddenProjects].sort()}));}catch{storageFailure('Could not save hidden projects.');}
+}
+function refreshHiddenActivity(){
+  expandedHiddenRuns.clear();syncHideButtons();renderHiddenProjects();
+  if(activityVisible()){
+    if(inboxView==='unread'&&!activityRenderedEvents.length)renderActivity();
+    else{syncHiddenActivity();updateActivityCounts();}
+  }else activityDirty=true;
+  displayedSnapshotIds=combinedActivityEvents().filter(event=>!hiddenProjects.has(event.project_id)).flatMap(reading.ids);
+  updateReadingControls();
+}
 function hideProjectClick(event){
   const button=event.target.closest('[data-hide-project]');if(!button)return;
   event.preventDefault();event.stopPropagation();
@@ -200,28 +214,31 @@ function hideProjectClick(event){
   const id=button.dataset.hideProject;
   const matchingGroup=group||[...run?.querySelectorAll('.activity-project')||[]].find(node=>node.dataset.projectId===id);
   const anchor=matchingGroup?.querySelector('[data-reading-anchor]')?.dataset.readingAnchor;
-  const source=button;
-  keepActivityPosition(source,()=>{
-    if(!storageBroken)try{const raw=localStorage.getItem(reading.HIDDEN);hiddenProjects=new Set(raw?reading.parseBookmarks(raw):[]);}catch{storageFailure('Could not read hidden projects.');}
-    if(hiddenProjects.has(id))hiddenProjects.delete(id);else hiddenProjects.add(id);
-    if(!storageBroken)try{localStorage.setItem(reading.HIDDEN,JSON.stringify({version:1,project_ids:[...hiddenProjects].sort()}));}catch{storageFailure('Could not save hidden projects.');}
-    expandedHiddenRuns.clear();syncHideButtons();renderHiddenProjects();
-    // An empty unread view has no nodes to uncollapse. Restore its entries when
-    // a project is shown from the manager or Projects view, without a fetch.
-    if(inboxView==='unread'&&!activityRenderedEvents.length)renderActivity();
-    else{syncHiddenActivity();updateActivityCounts();}
-    displayedSnapshotIds=combinedActivityEvents().filter(event=>!hiddenProjects.has(event.project_id)).flatMap(reading.ids);
-    updateReadingControls();
-  },()=>{
+  const fromProjects=Boolean(button.closest('#rows'));
+  const change=()=>{
+    readHiddenProjects();
+    const wasHidden=hiddenProjects.delete(id);
+    if(!wasHidden)hiddenProjects.add(id);
+    saveHiddenProjects();refreshHiddenActivity();
+    if(fromProjects&&$('hiddenProjectsFilter').checked&&wasHidden){
+      refreshProjectScopeMembership();
+      offerProjectUndo('hidden',id);
+    }
+  };
+  if(fromProjects){
+    keepProjectsPosition(button,change,'[data-hide-project]',$('hiddenProjectsFilter'));
+    return;
+  }
+  keepActivityPosition(button,change,()=>{
     if(anchor){
       const node=[...$('activityFeed').querySelectorAll('[data-reading-anchor]')].find(node=>node.dataset.readingAnchor===anchor);
       const visible=visibleActivityAnchor(node);
       return visible?.closest('.activity-project')?.querySelector('[data-hide-project]')||visible;
     }
-    return button.isConnected?button:[...$('hiddenProjectList').querySelectorAll('[data-hide-project]')].find(node=>node.dataset.hideProject===id)||$('hiddenProjectsSummary');
+    return button;
   });
 }
-for(const id of ['rows','activityFeed','hiddenProjectList'])$(id).addEventListener('click',hideProjectClick);
+for(const id of ['rows','activityFeed'])$(id).addEventListener('click',hideProjectClick);
 $('activityFeed').addEventListener('click',event=>{
   const summary=event.target.closest('.hidden-activity-run > summary');if(!summary)return;
   event.preventDefault();
@@ -242,12 +259,12 @@ function updateReadingControls(message){
 }
 function captureFilters(){
   const serialize=state=>Object.fromEntries(Object.entries(state).map(([key,value])=>[key,value instanceof Set?[...value]:value]));
-  return {project:serialize(projectFilterState),activity:serialize(activityFilterState),q:$('q').value,activityQ:$('activityQ').value,bookmarkedProjects:$('bookmarkedProjects').checked,sort:{...sort}};
+  return {project:serialize(projectFilterState),activity:serialize(activityFilterState),q:$('q').value,activityQ:$('activityQ').value,bookmarkedProjects:$('bookmarkedProjects').checked,hiddenProjectsFilter:$('hiddenProjectsFilter').checked,sort:{...sort}};
 }
 function restoreFilters(saved){
   if(!saved)return true;
   const short=value=>typeof value==='string'&&value.length<=2000;
-  if(!short(saved.q)||!short(saved.activityQ)||typeof saved.bookmarkedProjects!=='boolean')return false;
+  if(!short(saved.q)||!short(saved.activityQ)||typeof saved.bookmarkedProjects!=='boolean'||(saved.hiddenProjectsFilter!==undefined&&typeof saved.hiddenProjectsFilter!=='boolean'))return false;
   const enums={directionMode:['quick','route'],side:['either','source','target'],days:['2','7','30'],ai:['','Yes','No','Unknown'],compilable:['','Yes','No','Unknown'],playable:['','Yes','No','Unknown'],exact:['','Yes','No','Unknown']};
   for(const [name,target] of [['project',projectFilterState],['activity',activityFilterState]]){
     const source=saved[name];if(!source||typeof source!=='object')return false;
@@ -259,7 +276,7 @@ function restoreFilters(saved){
   }
   if(!saved.sort||!['title','source','target','language','classification','started','updated','compilable','playable','exact','ai'].includes(saved.sort.key)||![1,-1].includes(saved.sort.dir))return false;
   for(const [name,target] of [['project',projectFilterState],['activity',activityFilterState]])for(const key of Object.keys(target))target[key]=target[key] instanceof Set?new Set(saved[name][key]):saved[name][key];
-  $('q').value=saved.q;$('activityQ').value=saved.activityQ;$('bookmarkedProjects').checked=saved.bookmarkedProjects;sort={...saved.sort};
+  $('q').value=saved.q;$('activityQ').value=saved.activityQ;$('bookmarkedProjects').checked=saved.bookmarkedProjects;$('hiddenProjectsFilter').checked=Boolean(saved.hiddenProjectsFilter)&&!saved.bookmarkedProjects;sort={...saved.sort};
   $('directionSide').value=projectFilterState.side;$('sameCpuFamily').checked=projectFilterState.sameFamily;$('activityDirectionSide').value=activityFilterState.side;
   return true;
 }
@@ -324,7 +341,53 @@ $('markRead').addEventListener('click',()=>{
 document.querySelectorAll('[data-inbox]').forEach(button=>button.addEventListener('click',()=>{
   setInboxView(button.dataset.inbox);requestActivityRender();
 }));
-$('bookmarkedProjects').addEventListener('change',()=>{if(projectUiReady)render();});
+function setProjectScope(scope){
+  $('bookmarkedProjects').checked=scope==='bookmarks';
+  $('hiddenProjectsFilter').checked=scope==='hidden';
+  updateClearButtons();
+  if(projectUiReady)render();
+}
+for(const [id,scope] of [['bookmarkedProjects','bookmarks'],['hiddenProjectsFilter','hidden']]){
+  $(id).addEventListener('change',()=>setProjectScope($(id).checked?scope:'all'));
+}
+let projectUndo=null;
+function offerProjectUndo(scope,id){
+  projectUndo={scope,id};
+  $('projectUndoText').textContent=(scope==='hidden'?'Unhid ':'Removed bookmark for ')+projectTitle(projectById().get(id)||{id})+'.';
+  $('projectUndo').hidden=false;
+}
+$('projectUndoButton').addEventListener('click',()=>{
+  if(!projectUndo)return;
+  const {scope,id}=projectUndo,position=capturePosition();
+  projectUndo=null;
+  if(scope==='hidden'){
+    readHiddenProjects();hiddenProjects.add(id);saveHiddenProjects();refreshHiddenActivity();
+  }else{
+    if(!storageBroken)try{const raw=localStorage.getItem(reading.BOOKMARKS);bookmarks=new Set(raw?reading.parseBookmarks(raw):[]);}catch{storageFailure('Could not read bookmarks.');}
+    bookmarks.add(id);saveBookmarks();activityDirty=true;
+  }
+  if(projectUiReady)render(true);
+  if(position.anchor&&!projectRenderedRows.some(row=>row.id===position.anchor))position.anchor=null;
+  restorePosition(position);
+  $('projectUndo').hidden=true;
+  (scope==='hidden'?$('hiddenProjectsFilter'):$('bookmarkedProjects')).focus({preventScroll:true});
+  updateSourceAvailabilityWarning(true);
+});
+// Keep a surviving row at the same viewport position when its neighbour disappears.
+function keepProjectsPosition(button,change,selector,fallback){
+  const row=button.closest('tr');
+  const anchor=row?.nextElementSibling||row?.previousElementSibling;
+  const top=anchor?.getBoundingClientRect().top,y=window.scrollY||0;
+  change();
+  if(button.isConnected)return;
+  if(anchor?.isConnected){
+    window.scrollTo?.(0,(window.scrollY||0)+anchor.getBoundingClientRect().top-top);
+    anchor.querySelector(selector)?.focus({preventScroll:true});
+  }else{
+    window.scrollTo?.(0,y);
+    fallback.focus({preventScroll:true});
+  }
+}
 function syncBookmarkNodes(){
   const map=projectById();
   for(const event of activityRenderedEvents)if(event.project&&!map.has(event.project_id))map.set(event.project_id,event.project);
@@ -344,6 +407,18 @@ function bookmarkClick(event){
   const id=button.dataset.bookmark;
   if(bookmarks.has(id))bookmarks.delete(id);else bookmarks.add(id);
   saveBookmarks();
+  if(event.currentTarget===$('rows')){
+    keepProjectsPosition(button,()=>{
+      syncBookmarkNodes();
+      if(projectUiReady&&$('bookmarkedProjects').checked){
+        refreshProjectScopeMembership();
+        if(!bookmarks.has(id))offerProjectUndo('bookmarks',id);
+      }
+      activityDirty=true;
+      updateSourceAvailabilityWarning(true);
+    },'[data-bookmark]',$('bookmarkedProjects'));
+    return;
+  }
   if(inboxView==='bookmarks'&&bookmarks.has(id))activityDirty=true;
   // Keep existing nodes (and the focused star) rather than rebuilding either view.
   // Geometry reads in skipped content-visibility groups can themselves move scroll anchoring.
@@ -353,7 +428,7 @@ function bookmarkClick(event){
   let anchor=survivors.find(node=>node.getBoundingClientRect().top>=0)||survivors.at(-1);
   const anchorId=anchor?.dataset?.readingAnchor,top=anchor?.getBoundingClientRect().top;
   syncBookmarkNodes();
-  if(projectUiReady&&$('bookmarkedProjects').checked)refreshProjectBookmarkMembership();
+  if(projectUiReady&&$('bookmarkedProjects').checked)refreshProjectScopeMembership();
   if(activityUiReady&&inboxView==='bookmarks'){
     activityRenderRevision++;
     const previous=activityRenderedEvents;
@@ -880,7 +955,7 @@ function projectFiltersActive(){
   const directional=projectFilterState.directionMode==="route"
     ? ["sourcePlatform","sourceCpu","targetPlatform","targetCpu"].some(key=>projectFilterState[key].size)||projectFilterState.sameFamily
     : projectFilterState.platform.size||projectFilterState.cpu.size;
-  return $("q").value.trim() || directional || ["projectType","targetKind","workKind","toolKind","language","execution"].some(key=>projectFilterState[key].size)
+  return $('bookmarkedProjects').checked || $('hiddenProjectsFilter').checked || $("q").value.trim() || directional || ["projectType","targetKind","workKind","toolKind","language","execution"].some(key=>projectFilterState[key].size)
     || ["runsOnCpu","runsOnRam","runsOnChipset","ai","compilable","playable","exact"].some(key=>projectFilterState[key]);
 }
 function activityFiltersActive(){
@@ -1030,7 +1105,7 @@ function projectRowHtml(record){
     const started = record.re_started ?? (created ? created.slice(0, 4) + "*" : "?");
 
     return '<tr class="project-row '+(bookmarks.has(record.id)?'bookmarked':'')+'" data-id="' + esc(record.id) + '">'
-      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + hideButton(record) + projectLinksHtml(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
+      + '<td class="project-name"><div class="project-name-line">' + projectCell(record) + bookmarkButton(record) + hideButton(record,$("hiddenProjectsFilter").checked) + projectLinksHtml(record) + '</div>' + mobileProjectPlatforms(record) + sourceAvailabilityMarker(record) + (executionPaths(record).length?'<div class="execution-badges">'+executionBadges(record)+'</div>':"") + "</td>"
       + '<td class="project-secondary">' + tags(record.source_platforms) + "</td>"
       + '<td class="project-secondary">' + tags(record.target_platforms) + "</td>"
       + '<td class="project-secondary">' + tags(record.reconstructed_languages) + "</td>"
@@ -1064,8 +1139,7 @@ function render(preserveLimit=false) {
   projectRenderRevision++;
   $("projectShowAll").disabled=false;
   if(!preserveLimit)projectVisibleLimit=PROJECT_BATCH_SIZE;
-  const query=$("q").value.trim().toLowerCase(),onlyBookmarks=$("bookmarkedProjects").checked;
-  projectRenderedRows=sortedProjects().filter(record=>(!onlyBookmarks||bookmarks.has(record.id))&&matches(record,query));
+  projectRenderedRows=filteredProjectRows();
   projectRenderedCount=0;
   $("count").textContent=projectRenderedRows.length;
   $("total").textContent=projects.length;
@@ -1083,9 +1157,13 @@ function render(preserveLimit=false) {
   $("rows").innerHTML=projectRenderedRows.length?"":'<tr><td colspan="'+projectTableColumnSpan()+'" class="empty">No projects match the current filters.</td></tr>';
   appendProjectRows();
 }
-function refreshProjectBookmarkMembership(){
-  const query=$("q").value.trim().toLowerCase();
-  const next=sortedProjects().filter(record=>bookmarks.has(record.id)&&matches(record,query));
+function filteredProjectRows(){
+  const scope=$('bookmarkedProjects').checked?bookmarks:$('hiddenProjectsFilter').checked?hiddenProjects:null;
+  const query=$('q').value.trim().toLowerCase();
+  return sortedProjects().filter(record=>(!scope||scope.has(record.id))&&matches(record,query));
+}
+function refreshProjectScopeMembership(){
+  const next=filteredProjectRows();
   const previous=new Set(projectRenderedRows);
   if(next.some(record=>!previous.has(record))){render(true);return;}
   projectRenderRevision++;
@@ -1333,6 +1411,7 @@ function init() {
 $("q").addEventListener("input",()=>{updateClearButtons();if(projectUiReady) render();});
 $("clear").addEventListener("click", () => {
   $("q").value = "";
+  $("bookmarkedProjects").checked=false;$("hiddenProjectsFilter").checked=false;
   for(const key of ["projectType","targetKind","workKind","toolKind","language","execution"]) clearFacetSet(projectFilterState[key]);
   resetDirectionPickers();
   projectFilterState.side="either";
@@ -1872,6 +1951,18 @@ $('activityRail').addEventListener('click',event=>{
   const button=event.target.closest('[data-timeline-index]');
   if(button)navigateActivity(Number(button.dataset.timelineIndex));
 });
+// Keep raw indices for the timeline, but only visible entries spend a page slot.
+function activityPageEnd(events,start,limit,hidden){
+  let visible=0,end=start;
+  while(end<events.length){
+    if(!hidden.has(events[end].project_id)){
+      if(visible===limit)break;
+      visible++;
+    }
+    end++;
+  }
+  return end;
+}
 function updateActivityCounts(){
   const events=activityRenderedEvents,shown=activityRenderedCount;
   $('activityCount').textContent=events.length;
@@ -1879,8 +1970,10 @@ function updateActivityCounts(){
   // Collapsed runs can leave the observer continuously intersecting: retain a manual path.
   $('activityMore').hidden=shown===events.length||(typeof IntersectionObserver!=='undefined'&&!hiddenProjects.size);
   $('activitySentinel').hidden=shown===events.length;
-  $('activitySentinel').textContent=`${shown} of ${events.length} displayed. More loads as you scroll.`;
-  $('activityMore').textContent=`Show more (${shown} of ${events.length})`;
+  let visible=0,shownVisible=0;
+  events.forEach((event,index)=>{if(!hiddenProjects.has(event.project_id)){visible++;if(index<shown)shownVisible++;}});
+  $('activitySentinel').textContent=`${shownVisible} of ${visible} visible updates displayed. More loads as you scroll.`;
+  $('activityMore').textContent=`Show more (${shownVisible} of ${visible} visible updates)`;
 }
 
 function renderActivity(append=false) {
@@ -1898,7 +1991,7 @@ function renderActivity(append=false) {
   activityRenderedEvents=events;
   if(!append)activityTimelineEntries=activityRailEntries(events,map);
   const start=append?activityRenderedCount:0;
-  const shown=Math.min(start+ACTIVITY_PAGE_SIZE,events.length);
+  const shown=activityPageEnd(events,start,ACTIVITY_PAGE_SIZE,hiddenProjects);
   activityRenderedCount=shown;activityVisibleCount=shown;
   if(!append){
     displayedSnapshotIds=combinedActivityEvents().filter(event=>!hiddenProjects.has(event.project_id)).flatMap(reading.ids);
@@ -1980,12 +2073,19 @@ function requestActivityRender(){
   if(activityVisible()) renderReadyActivity();
 }
 
-document.querySelectorAll(".view-tab").forEach(button=>button.addEventListener("click",()=>{
-  if(button.classList.contains("active")) return;
-  document.querySelectorAll(".view-tab").forEach(x=>x.classList.toggle("active",x===button));
-  document.querySelectorAll(".view-panel").forEach(panel=>panel.classList.toggle("active",panel.id===button.dataset.view));
+function showTrackerView(view){
+  document.querySelectorAll(".view-tab").forEach(button=>button.classList.toggle("active",button.dataset.view===view));
+  document.querySelectorAll(".view-panel").forEach(panel=>panel.classList.toggle("active",panel.id===view));
   initializeReadyViews();
   updateReadingControls();
+}
+document.querySelectorAll('.view-tab').forEach(button=>button.addEventListener('click',()=>{
+  if(!button.classList.contains('active'))showTrackerView(button.dataset.view);
+}));
+document.querySelectorAll('[data-project-scope]').forEach(button=>button.addEventListener('click',()=>{
+  setProjectScope(button.dataset.projectScope);
+  showTrackerView('projects');
+  $('q').focus({preventScroll:true});
 }));
 
 $("activityMore").addEventListener("click",()=>{
