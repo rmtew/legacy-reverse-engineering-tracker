@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-17T04:56:03Z",
+  "updated_at": "2026-11-17T05:06:16Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -28804,8 +28804,10 @@
       ],
       "notes": "Measurement-first reverse-engineering documentation of the Amiga CD32 release of Banshee. The repository redistributes no game assets; reproducible tools derive structural, executable, compression, graphics/audio and archaeological findings from user-supplied media.",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "barbarian-fl-cpc-remakes": {
@@ -76239,8 +76241,10 @@
       ],
       "notes": "Amiga 68k port of FitzQuake using NovaCoder’s AmiQuake SDL port as the base, made to exercise NovaMesa OpenGL. src/amiga_main.c implements native Amiga Workbench/Shell startup, directory/tooltype handling and stack checks; the tree includes Quake/FitzQuake renderer and SDL source. README warns single-thread PiStorm performance is insufficient for this style of Mesa workload and says multi-core operation is practically needed. Preserve FitzQuake → AmiQuake SDL → this Amiga port lineage; do not categorize as an independent Quake reconstruction. GPL-3.0 root license is present; original Quake game data is not licensed by the engine-source license. No Makefile/build script was found in the inspected tree; the guessed src/Makefile path returned 404, so do not claim a documented/reproducible build. Source enforces at least 300000 bytes of stack; platform performance/test statements are upstream claims only. Preserve FitzQuake → NovaCoder’s AmiQuake SDL base → this Amiga 68k/NovaMesa port. This is a source-derived port, not an independent Quake reconstruction. GPL-3.0 root license is present; original Quake game data remains outside engine-source licensing. README describes a source port based on FitzQuake and the author’s AmiQuake SDL work. No original Quake binary is analysed here and no source ISA is established from that source-code lineage; an original DOS/x86 CPU is not inferred. The README explicitly identifies an Amiga 68k port. That supplies a 68k output-family statement without a documented minimum processor. PiStorm/multi-core performance commentary does not identify a different emitted ISA. README says this port tested NovaMesa functionality successfully, but supplies no build instructions. No build script was found in the inspected tree and src/Makefile returned 404. src/amiga_main.c provides native startup/stack handling, not reproducibility evidence. All build flags stay null; no gameplay completion is inferred from the OpenGL test statement. Startup checks at least 300000 bytes of stack, which is not total RAM. README says single-thread PiStorm is too slow and Mesa is practical with a multi-core CPU; this is performance guidance, not a quantified minimum CPU/RAM profile. No profile is invented. No explicit generative-AI attribution was established in the bounded selected files (LICENSE, README.md, src/amiga_main.c) for FitzQuake Amiga 68k. This is not proof of non-use; ai.usage stays null and tools stays empty. Review scope: cached primary README when present, metadata/tree and selected implementation/build/license excerpts; only explicitly identified commit-message caches were checked. No candidate was compiled, installed, executed, emulated or playtested by this review, and no original-binary comparison was performed. Build flags distinguish explicit upstream claims from independent verification. Original development years and GitHub creation dates are not automatically reverse-engineering start dates. Evidence: https://github.com/NovaCoderX/FitzQuake/blob/main/README.md https://github.com/NovaCoderX/FitzQuake/blob/main/src/amiga_main.c https://github.com/NovaCoderX/FitzQuake/blob/main/LICENSE",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "fizz-vic20-native": {
@@ -321502,7 +321506,8 @@
       "ai": {
         "usage": true,
         "tools": [
-          "Claude"
+          "Claude",
+          "GitHub Copilot"
         ]
       }
     },
