@@ -729,8 +729,9 @@ test('saved project scopes compose with search and do not alter each other’s m
   const b=browser();
   b.run(`
     bookmarks=new Set(['both','book']);hiddenProjects=new Set(['both','hide']);
-    sortedProjects=()=>[{id:'both',title:'alpha'},{id:'book',title:'alpha two'},
+    projects=[{id:'both',title:'alpha'},{id:'book',title:'alpha two'},
       {id:'hide',title:'beta'},{id:'other',title:'alpha three'}];
+    sortedProjects=()=>projects;
     matches=(record,query)=>record.title.includes(query);
     $('q').value='alpha';
     setProjectScope('bookmarks');
@@ -744,4 +745,48 @@ test('saved project scopes compose with search and do not alter each other’s m
   assert.equal(b.run("bookmarks.has('both')"),true);
   b.run("hiddenProjects.add('both');setProjectScope('all')");
   assert.deepEqual(ids(),['both','book','other']);
+});
+
+test('missing saved IDs are searchable, removable and undoable even without any activity record',()=>{
+  const key='missing-from-everywhere',saved=JSON.stringify({version:1,project_ids:[key,'historical']});
+  const b=browser({[r.BOOKMARKS]:saved,[r.HIDDEN]:saved});
+  b.run(`
+    activityData.events=[{project_id:'historical',project:{title:'Previous title'}}];
+    restorePosition=()=>{};
+    $('q').value='missing-from';
+    setProjectScope('bookmarks');
+  `);
+  const ids=()=>Array.from(b.run('filteredProjectRows().map(row=>row.id)'));
+  assert.deepEqual(ids(),[key]);
+  assert.match(b.run('projectRowHtml(filteredProjectRows()[0])'),/No longer in catalogue/);
+  b.run(`
+    const missingBookmark={dataset:{bookmark:'${key}'}};
+    keepProjectsPosition=(_,update)=>update();
+    refreshProjectScopeMembership=()=>{};
+    projectUiReady=true;
+    bookmarkClick({target:{closest:()=>missingBookmark},currentTarget:$('rows'),preventDefault(){},stopPropagation(){}});
+    projectUiReady=false;
+  `);
+  assert.deepEqual(ids(),[]);
+  assert.equal(b.run(`hiddenProjects.has('${key}')`),true);
+  b.handlers.get('projectUndoButton:click')();
+  assert.deepEqual(ids(),[key]);
+  b.run("setProjectScope('hidden')");
+  assert.deepEqual(ids(),[key]);
+  assert.match(b.run('projectRowHtml(filteredProjectRows()[0])'),/>Unhide</);
+  b.run(`
+    const missingButton={dataset:{hideProject:'${key}'},closest(selector){
+      return selector==='#rows'?{}:null;
+    }};
+    keepProjectsPosition=(_,update)=>update();
+    hideProjectClick({target:{closest:()=>missingButton},preventDefault(){},stopPropagation(){}});
+  `);
+  assert.deepEqual(ids(),[]);
+  assert.equal(b.run(`bookmarks.has('${key}')`),true);
+  b.handlers.get('projectUndoButton:click')();
+  assert.deepEqual(ids(),[key]);
+  b.run("$('q').value='previous title'");
+  assert.deepEqual(ids(),['historical']);
+  b.run("setProjectScope('all')");
+  assert.deepEqual(ids(),[]);
 });

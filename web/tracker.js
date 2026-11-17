@@ -353,7 +353,7 @@ for(const [id,scope] of [['bookmarkedProjects','bookmarks'],['hiddenProjectsFilt
 let projectUndo=null;
 function offerProjectUndo(scope,id){
   projectUndo={scope,id};
-  $('projectUndoText').textContent=(scope==='hidden'?'Unhid ':'Removed bookmark for ')+projectTitle(projectById().get(id)||{id})+'.';
+  $('projectUndoText').textContent=(scope==='hidden'?'Unhid ':'Removed bookmark for ')+projectTitle(hiddenProjectMap().get(id)||{id})+'.';
   $('projectUndo').hidden=false;
 }
 $('projectUndoButton').addEventListener('click',()=>{
@@ -1099,6 +1099,11 @@ function projectUpdatedHtml(value){
   return '<time datetime="'+raw+'" title="'+esc(full)+'"><span class="project-date-accessible">'+esc(full)+'</span><span class="project-date-full" aria-hidden="true">'+raw+'</span><span class="project-date-short" aria-hidden="true">'+esc(short)+'</span></time>';
 }
 function projectRowHtml(record){
+    if(record.savedOnly){
+      return '<tr class="project-row saved-only'+(bookmarks.has(record.id)?' bookmarked':'')+'" data-id="'+esc(record.id)+'">'
+        +'<td colspan="'+projectTableColumnSpan()+'"><div class="project-name-line"><span>'+esc(projectTitle(record))+' <small class="muted">· No longer in catalogue</small></span>'
+        +bookmarkButton(record)+hideButton(record,$('hiddenProjectsFilter').checked)+'</div></td></tr>';
+    }
     const build = record.build || {};
     const ai = record.ai || {};
     const created=repositoryMetadata(record).created_at;
@@ -1160,12 +1165,23 @@ function render(preserveLimit=false) {
 function filteredProjectRows(){
   const scope=$('bookmarkedProjects').checked?bookmarks:$('hiddenProjectsFilter').checked?hiddenProjects:null;
   const query=$('q').value.trim().toLowerCase();
-  return sortedProjects().filter(record=>(!scope||scope.has(record.id))&&matches(record,query));
+  const ordered=sortedProjects();
+  const rows=ordered.filter(record=>(!scope||scope.has(record.id))&&matches(record,query));
+  if(!scope?.size)return rows;
+  // Saved IDs can outlive their catalogue entries. Keep them manageable without
+  // treating historical or missing metadata as a current project record.
+  const catalogue=projectById();
+  const missing=[...scope].filter(id=>!catalogue.has(id));
+  if(!missing.length)return rows;
+  const known=hiddenProjectMap();
+  return rows.concat(missing.map(id=>({id,title:projectTitle(known.get(id)||{id}),savedOnly:true}))
+    .filter(record=>!query||[record.id,record.title].some(value=>value.toLowerCase().includes(query)))
+    .sort((a,b)=>projectCollator.compare(a.title,b.title)||projectCollator.compare(a.id,b.id)));
 }
 function refreshProjectScopeMembership(){
   const next=filteredProjectRows();
-  const previous=new Set(projectRenderedRows);
-  if(next.some(record=>!previous.has(record))){render(true);return;}
+  const previous=new Set(projectRenderedRows.map(record=>record.id));
+  if(next.some(record=>!previous.has(record.id))){render(true);return;}
   projectRenderRevision++;
   $("projectShowAll").disabled=false;
   const retained=new Set(next.map(record=>record.id));
