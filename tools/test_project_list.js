@@ -49,7 +49,7 @@ test('show all is chunked, and new search cancels obsolete batches',()=>{
 });
 test('bookmark-filter removal preserves surviving row identity and accurate count',()=>{
   const x=setup();x.get('bookmarkedProjects').checked=true;x.run('bookmarks=new Set(projects.map(p=>p.id));render()');
-  const survivor=x.get('rows').children[1];x.run('bookmarks.delete("p0");refreshProjectBookmarkMembership()');
+  const survivor=x.get('rows').children[1];x.run('bookmarks.delete("p0");refreshProjectScopeMembership()');
   assert.equal(x.get('rows').children[0],survivor);assert.equal(x.get('rows').children.length,100);assert.equal(x.get('count').textContent,250);
 });
 test('deep position restoration exposes requested row and delegated click finds project',()=>{
