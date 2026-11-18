@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-18T14:27:56Z",
+  "updated_at": "2026-11-18T14:36:32Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -24732,8 +24732,10 @@
       ],
       "notes": "Identity: README identifies system-specific C libraries for Atari 16/32-bit computers, generated from XML interface descriptions. The repository owns the specifications, Python generators, custom C implementations and library/test build scripts. Classification: Reusable native development tooling rather than binary-derived restoration: the generator emits TOS/AES/VDI declarations and wrappers, and makefile builds libtos.a, libaes.a and libvdi.a. tos_gen.py emits register/stack argument handling and native system traps. Source CPU: The reviewed material generates new library implementations from XML API definitions; no original historical executable or ROM is the analysis input. Target CPU: makefile selects m68k-atari-elf-gcc; tos_gen.py emits d0/a7 register operations, move.w/move.l and trap instructions. build.sh builds the toolchain's reported multilib variants, so only the evidenced m68k family is recorded, without claiming a specific minimum model. Build: README documents ./build.sh and python3 gen.py gen m68k-atari-elf, and reports extensive testing of common functions while warning that rarely used functions may be buggy. The scripts generate, compile and install three libraries, but no local build or tests were run. Limitations: Build, runnable and byte-exact facts stay unknown; source-generation and test instructions are not a reproduced pass. Runtime profiles: These are libraries and a host-side generator, not a standalone Atari application. Target architecture and multilib flags do not establish a runtime minimum or required RAM for downstream programs. AI: Root/tree inventory, selected documentation, generators and build scripts plus latest ten commit messages contain no explicit generative-AI attribution. Usage remains unknown. Limitations: Automatic testing and mechanical XML code generation are not evidence of generative AI. Relationships: README explicitly states that the already tracked m68k-atari-dev builds and installs these libraries. This repository is a distinct reusable dependency with its own XML specification and generator source, not a mirror or second record of that compiler/debugger distribution. Evidence: https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/README.md https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/tos_gen.py https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/build.sh https://github.com/hildenborg/atari-libs/blob/ceb9c530afb17d42fde71182e2797906b4db8674/makefile https://github.com/hildenborg/atari-libs/commits/ceb9c530afb17d42fde71182e2797906b4db8674 https://github.com/hildenborg/m68k-atari-dev",
       "ai": {
-        "usage": null,
-        "tools": []
+        "usage": true,
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "atari-st-fsharp-7sharp9": {
