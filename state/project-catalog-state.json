@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-11-21T19:56:15Z",
+  "updated_at": "2026-11-22T00:29:11Z",
   "projects": {
     "arcbbs-source-archive": {
       "id": "arcbbs-source-archive",
@@ -57792,7 +57792,9 @@
       "notes": "Buildable native Carmageddon reimplementation that replaces original DOS executable assembly with C function by function. Historical Watcom symbols exist but do not match released-code positions. Current CI builds and tests Windows x86/x64, Linux x64/arm64 and macOS x86_64/arm64 variants; no minimum host hardware is documented. The latest reviewed commits report exact reccmp matches for GetGraphicsOptions, ChangingView and drpixelmapcopy, demonstrating incremental function parity rather than whole-program completeness or playable parity. Evidence: https://github.com/dethrace-labs/dethrace/commit/ff723168a9b458252ce40bb6e0ceb008cb4dcc35 https://github.com/dethrace-labs/dethrace/commit/80898db36d16d584d50789a9f8d05cdf2ed8458f https://github.com/dethrace-labs/dethrace/commit/d5b90d885b298c9ca338c9060468f899ca095fab Four merged reconstruction PRs add SwingCamera, ObjectGrooveBastard, PathGrooveBastard and FunkThoseTronics. PathGrooveBastard reports a 100% match; the other PRs distinguish equivalent/effective behavior from lower similarity percentages, so they are not described as byte-exact. Each PR explicitly labels the work AI generated and records time/token totals, establishing AI use without identifying a model or tool. Evidence: https://github.com/dethrace-labs/dethrace/pull/1191 https://github.com/dethrace-labs/dethrace/pull/1192 https://github.com/dethrace-labs/dethrace/pull/1193 https://github.com/dethrace-labs/dethrace/pull/1194 Current main adds a 100% reccmp match for DrawLine2D and a separately qualified behavior-equivalent FollowCheatyPath result. The latter is deliberately not promoted to an exact or whole-executable claim. Evidence: https://github.com/dethrace-labs/dethrace/commit/d16bdad486c66fd77e7ac69231526ea22c3df753 https://github.com/dethrace-labs/dethrace/commit/50c1e867f2d4d44224d3f527f70ffd7f1c93614e Current main adds a reported 100% match for CreatePedestrian and a separately qualified equivalent CreateSparks result whose commit asks for careful review. These are function-level receipts, not whole-executable or gameplay parity. Evidence: https://github.com/dethrace-labs/dethrace/commit/36dbecc31290419b29cab1f4b167f8e299d64558 https://github.com/dethrace-labs/dethrace/commit/6a7493dc3c0d36ae70170e56402c417cc719e634",
       "ai": {
         "usage": true,
-        "tools": []
+        "tools": [
+          "Claude"
+        ]
       }
     },
     "deuteros-resurrected-godot": {
